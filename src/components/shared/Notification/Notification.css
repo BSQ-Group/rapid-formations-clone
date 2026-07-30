@@ -1,0 +1,115 @@
+
+.notification {
+  @apply flex
+    flex-col
+    md:flex-row
+    w-full
+    rounded-sm
+    py-2.5
+    px-4
+    md:justify-between
+    justify-center
+    items-center
+    overflow-hidden;
+
+  &__content {
+    @apply flex flex-col items-start gap-2 w-full;
+  }
+
+  &__icon {
+    @apply flex
+      items-center
+      justify-center
+      w-6
+      h-6
+      rounded-full
+      text-[var(--feedback-text)];
+
+    &--success {
+      @apply bg-[var(--feedback-success-surface)];
+    }
+
+    &--error {
+      @apply bg-[var(--feedback-error-surface)];
+    }
+
+    &--neutral {
+      @apply bg-[var(--feedback-neutral-surface)];
+    }
+
+    /* TODO missing from theme badge bg used instead */
+    &--warning {
+      @apply bg-[var(--badge-strong-background-warning)];
+    }
+
+    &--info {
+      @apply bg-[var(--feedback-neutral-surface)];
+    }
+  }
+
+  &__message-container {
+    @apply flex-1 
+      overflow-y-auto 
+      min-h-0 
+      max-h-[200px];
+  }
+
+  &__message {
+    @apply text-sm
+      font-normal
+      text-[var(--feedback-text)];
+  }
+
+  &__button {
+    @apply w-fit
+      px-3.5
+      py-2
+      ml-4
+      md:ml-4
+      mt-3
+      md:mt-0
+      rounded-md
+      text-xs
+      font-bold
+      transition-colors
+      text-[var(--feedback-text)]
+      bg-transparent
+      border
+      border-[var(--feedback-text)]
+      hover:opacity-90;
+  }
+
+  &--success {
+    @apply bg-[var(--feedback-success-background)]
+      border
+      border-[var(--feedback-success-background)];
+  }
+
+  &--error {
+    @apply bg-[var(--feedback-error-background)]
+      border
+      border-[var(--feedback-error-background)];
+  }
+
+  &--neutral {
+    @apply bg-[var(--feedback-neutral-background)]
+      border
+      border-[var(--feedback-neutral-background)];
+  }
+
+  &--warning {
+    @apply bg-[var(--badge-strong-background-warning)]
+      border
+      border-[var(--badge-strong-background-warning)];
+  }
+
+  &--info {
+    @apply bg-[var(--feedback-neutral-background)]
+      border
+      border-[var(--feedback-neutral-background)];
+  }
+
+  &__children {
+    @apply w-full;
+  }
+}

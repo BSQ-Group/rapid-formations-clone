@@ -6,7 +6,7 @@ import React from 'react'
 import type { Page, Post } from '@/payload-types'
 
 type CMSLinkType = {
-  appearance?: 'inline' | ButtonProps['variant']
+  appearance?: 'inline' | 'default' | 'outline' | ButtonProps['variant']
   children?: React.ReactNode
   className?: string
   label?: string | null
@@ -20,10 +20,19 @@ type CMSLinkType = {
   url?: string | null
 }
 
+/** Map legacy Payload CMS appearance values to new button variants */
+function resolveAppearance(
+  appearance: CMSLinkType['appearance'],
+): 'inline' | ButtonProps['variant'] {
+  if (appearance === 'default') return 'primary'
+  if (appearance === 'outline') return 'secondary'
+  return appearance as 'inline' | ButtonProps['variant']
+}
+
 export const CMSLink: React.FC<CMSLinkType> = (props) => {
   const {
     type,
-    appearance = 'inline',
+    appearance: rawAppearance = 'inline',
     children,
     className,
     label,
@@ -32,6 +41,8 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     size: sizeFromProps,
     url,
   } = props
+
+  const appearance = resolveAppearance(rawAppearance)
 
   const href =
     type === 'reference' && typeof reference?.value === 'object' && reference.value.slug
@@ -42,7 +53,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
 
   if (!href) return null
 
-  const size = appearance === 'link' ? 'clear' : sizeFromProps
+  const size = sizeFromProps
   const newTabProps = newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {}
 
   /* Ensure we don't break any styles set by richText */

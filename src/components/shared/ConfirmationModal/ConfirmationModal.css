@@ -1,0 +1,53 @@
+
+.confirmation-modal {
+  @apply flex
+    flex-col
+    items-center
+    justify-center
+    text-center
+    h-screen
+    w-screen
+    sm:h-auto
+    sm:w-auto;
+
+  .modal__header {
+    @apply order-2
+      mb-2
+      mt-0;
+  }
+
+  .modal__title {
+    @apply text-[var(--text-strong)]
+      text-lg
+      font-semibold
+      text-center
+      mb-2;
+  }
+
+  .modal__description {
+    @apply mb-6
+      text-[var(--text-muted)]
+      text-center
+      text-sm;
+  }
+
+  &__icon {
+    @apply flex
+      justify-center
+      items-center
+      w-16
+      h-16
+      rounded-full
+      mb-6
+      mt-2
+      bg-[var(--feedback-success-surface)]
+      order-1;
+  }
+
+  &__button {
+    @apply w-full
+      sm:w-auto
+      order-3
+      min-w-[70px];
+  }
+}

@@ -1,0 +1,179 @@
+
+.telephone-number {
+  @apply relative
+    w-full;
+
+  &--width-auto {
+    @apply w-auto;
+  }
+
+  &--small {
+    @apply text-sm;
+
+    .telephone-number__error {
+      @apply ml-[calc(77px+0.25rem+0.25rem)]; /* Adjust error message margin for small size */
+    }
+  }
+
+  &__wrapper {
+    @apply relative
+      flex
+      items-center
+      gap-2
+      w-full;
+  }
+
+  &__country-select {
+    @apply flex
+      items-center
+      justify-between
+      bg-input-bg
+      rounded-[6px]
+      px-3
+      h-10
+      cursor-pointer
+      w-[77px]
+      text-white
+      relative;
+
+    &--disabled {
+      @apply bg-input-bg-disabled 
+        cursor-not-allowed 
+        opacity-50;
+    }
+
+    &--small {
+      @apply h-8
+        text-xs
+        px-2
+        w-[77px];
+    }
+  }
+
+  &__country-code {
+    @apply ml-1;
+  }
+
+  &__chevron {
+    @apply text-white
+      mr-1;
+  }
+
+  &__dropdown {
+    @apply absolute
+      top-full
+      left-0
+      z-10
+      mt-1
+      w-48
+      bg-input-bg
+      rounded-md
+      shadow-lg
+      max-h-56
+      overflow-y-auto;
+  }
+
+  &__dropdown-item {
+    @apply flex
+      justify-between
+      items-center
+      px-3
+      py-2
+      text-sm
+      text-white
+      hover:bg-select-trigger-hover
+      cursor-pointer;
+
+    &--active {
+      @apply bg-[var(--telephone-number-button-bg)]
+        hover:bg-[var(--telephone-number-button-bg-hover)];
+    }
+  }
+
+  &__country-name {
+    @apply mr-2;
+  }
+
+  &__country-dial-code {
+    @apply text-select-muted;
+  }
+
+  &__input {
+    @apply flex-1;
+  }
+
+  &__error {
+    @apply mt-2
+      flex
+      items-center
+      gap-2
+      px-1
+      text-xs
+      text-[var(--text-error)]
+      ml-[calc(77px+0.5rem+0.5rem)];
+
+    & svg {
+      @apply flex-shrink-0
+        w-4
+        h-4;
+    }
+  }
+
+  &__description {
+    @apply mt-2
+      px-1
+      text-xs
+      text-table-text-muted;
+  }
+
+  &__error-icon {
+    @apply inline-block
+      w-4
+      h-4
+      text-[var(--text-error)];
+
+    &::before {
+      content: '!';
+      @apply flex
+        items-center
+        justify-center
+        w-4
+        h-4
+        rounded-full
+        border
+        border-[var(--border-error)]
+        text-xs
+        font-bold;
+    }
+  }
+
+  /* Adjustments for Input component */
+  .input {
+    @apply flex-1;
+
+    /* Fix focus outline for small inputs */
+    &--small {
+      .input__wrapper {
+        @apply h-8; /* Match height of small country select */
+
+        &:focus-within::before {
+          @apply rounded-[5px] -inset-[1.5px]; /* Tighter radius and inset for small inputs */
+        }
+      }
+    }
+  }
+
+  /* Custom focus handling for input wrapper */
+  .input__wrapper:focus-within::before {
+    @apply -inset-[2px]; /* Tighter fit for the focus outline */
+  }
+
+  /* Hide Input component's error display since we handle it at the TelephoneNumber level */
+  .input__error {
+    @apply hidden;
+  }
+
+  .input__description {
+    @apply hidden;
+  }
+}

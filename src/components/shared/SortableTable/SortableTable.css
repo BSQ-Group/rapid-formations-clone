@@ -1,0 +1,51 @@
+
+.sortable-table {
+  &__head {
+    @apply md:table-cell
+      md:px-4
+      md:text-left
+      md:align-middle
+      max-md:hidden
+      font-semibold
+      text-xs
+      md:py-3
+      md:h-12
+      text-[var(--text-strong)];
+
+    &--sortable {
+      @apply cursor-pointer;
+    }
+
+    &-content {
+      @apply flex
+        items-center
+        gap-2;
+    }
+
+    &-sort-icons {
+      @apply flex
+        flex-col
+        gap-[3px]
+        ml-1
+        px-2
+        py-1.5
+        rounded
+        transition-colors
+        duration-200;
+
+      &:hover {
+        @apply bg-[var(--surface-hover)];
+      }
+    }
+  }
+
+  &__sort-icon {
+    &--active {
+      @apply fill-[var(--text-strong)];
+    }
+
+    &--inactive {
+      @apply fill-[var(--text-placeholder)];
+    }
+  }
+}

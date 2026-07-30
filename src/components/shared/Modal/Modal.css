@@ -1,0 +1,126 @@
+
+.modal {
+  @apply bg-[var(--surface-primary)]
+    !shadow-lg
+    sm:rounded-xl
+    gap-0
+    p-6
+    h-[100dvh]
+    w-[100dvw]
+    sm:w-auto
+    sm:h-auto;
+}
+
+.modal__header {
+  @apply flex
+    flex-col
+    items-stretch
+    mb-6
+    mt-2;
+}
+
+.modal__title {
+  @apply text-[var(--text-strong)]
+    text-lg
+    font-semibold
+    leading-6;
+}
+
+.modal__description {
+  @apply text-[var(--text-subtle)]
+    text-sm
+    leading-5
+    !mt-2
+    whitespace-pre-line;
+}
+
+.modal__close-button {
+  @apply absolute
+    right-4
+    top-4
+    flex
+    items-center
+    justify-center
+    w-6
+    h-6
+    rounded-md
+    p-0
+    border-0
+    outline-none
+    cursor-pointer
+    bg-[var(--button-tertiary-light-idle)]
+    hover:bg-[var(--button-tertiary-light-hover)];
+}
+
+.modal__close-icon {
+  @apply text-[var(--icon-default)]
+    w-4
+    h-4;
+}
+
+.modal__footer {
+  @apply flex 
+    justify-end 
+    items-center 
+    mt-6
+    gap-2
+    flex-col
+    w-full;
+
+  button {
+    @apply w-full;
+  }
+
+  /* Confirm button */
+  button[type='submit'] {
+    @apply order-1;
+  }
+
+  /* Cancel button */
+  button {
+    @apply order-2;
+  }
+
+  @screen sm {
+    @apply flex-row justify-end gap-2;
+
+    button {
+      @apply w-auto;
+    }
+
+    /* Confirm button */
+    button[type='submit'] {
+      @apply order-2;
+    }
+
+    /* Cancel button */
+    button {
+      @apply order-1;
+    }
+  }
+}
+
+/* Style for the dialog close button */
+div[role='dialog'] > button[type='button'] {
+  @apply rounded-[6px]
+    h-10
+    w-10
+    flex
+    items-center
+    justify-center
+    absolute
+    right-4
+    top-4
+    opacity-100
+    transition-colors
+    duration-200
+    ease-in-out
+    bg-[var(--button-tertiary-light-idle)]
+    hover:bg-[var(--button-tertiary-light-hover)];
+
+  & > svg {
+    @apply text-[var(--icon-default)]
+      h-5
+      w-5;
+  }
+}

@@ -1,0 +1,56 @@
+/* Cards are a fixed size at every breakpoint (side 180px, featured 280px), so the
+   in/out scales are constant; only the step distance grows with the wider gaps at
+   the `wide` (1800px) breakpoint. */
+:root {
+  --carousel-slide-x: 204px; /* side step: 180 card + within-gap */
+  --carousel-featured-x: 74px;
+  --carousel-in-scale: 0.643; /* 180 / 280 */
+  --carousel-out-scale: 1.556; /* 280 / 180 */
+}
+
+@media (min-width: 1800px) {
+  /* within-gap 32 → 40, between-gap 48 → 56 */
+  :root {
+    --carousel-slide-x: 212px;
+    --carousel-featured-x: 82px;
+  }
+}
+
+/* Keyframes — defined once, driven by CSS vars */
+@keyframes carouselSlideRight {
+  from { transform: translateX(var(--carousel-slide-x)); }
+  to   { transform: translateX(0); }
+}
+
+@keyframes carouselSlideLeft {
+  from { transform: translateX(calc(-1 * var(--carousel-slide-x))); }
+  to   { transform: translateX(0); }
+}
+
+@keyframes carouselFeaturedInRight {
+  from { transform: translateX(var(--carousel-featured-x)) rotate(0deg) scale(var(--carousel-in-scale)); }
+  to   { transform: translateX(0) rotate(6deg) scale(1); }
+}
+
+@keyframes carouselFeaturedInLeft {
+  from { transform: translateX(calc(-1 * var(--carousel-featured-x))) rotate(0deg) scale(var(--carousel-in-scale)); }
+  to   { transform: translateX(0) rotate(6deg) scale(1); }
+}
+
+@keyframes carouselFeaturedOutLeft {
+  from { transform: translateX(var(--carousel-featured-x)) rotate(6deg) scale(var(--carousel-out-scale)); }
+  to   { transform: translateX(0) rotate(0deg) scale(1); }
+}
+
+@keyframes carouselFeaturedOutRight {
+  from { transform: translateX(calc(-1 * var(--carousel-featured-x))) rotate(6deg) scale(var(--carousel-out-scale)); }
+  to   { transform: translateX(0) rotate(0deg) scale(1); }
+}
+
+/* Utility classes */
+.carousel-slide-right        { animation: carouselSlideRight       0.4s ease-in-out; }
+.carousel-slide-left         { animation: carouselSlideLeft        0.4s ease-in-out; }
+.carousel-featured-in-right  { animation: carouselFeaturedInRight  0.4s ease-in-out; }
+.carousel-featured-in-left   { animation: carouselFeaturedInLeft   0.4s ease-in-out; }
+.carousel-featured-out-left  { animation: carouselFeaturedOutLeft  0.4s ease-in-out; }
+.carousel-featured-out-right { animation: carouselFeaturedOutRight 0.4s ease-in-out; }

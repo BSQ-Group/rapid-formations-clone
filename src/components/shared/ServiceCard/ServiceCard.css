@@ -1,0 +1,131 @@
+
+.service-card {
+  @apply rounded-sm
+    bg-[var(--surface-primary)]
+    shadow-sm 
+    overflow-hidden 
+    w-full 
+    max-w-[364px];
+
+  &__content {
+    @apply flex 
+      flex-col 
+      gap-4 
+      p-6
+      pb-4
+      w-full
+      bg-[var(--surface-primary)];
+  }
+
+  &__header {
+    @apply flex 
+      justify-between 
+      items-center;
+  }
+
+  &__logo {
+    @apply rounded-sm 
+      overflow-hidden
+      w-12
+      h-12
+      object-cover;
+  }
+
+  &__action {
+    @apply flex 
+      items-center 
+      cursor-pointer
+      gap-2 
+      border 
+      border-[var(--border-muted)]
+      rounded 
+      px-3 
+      py-2
+      bg-[var(--surface-secondary)];
+  }
+
+  &__action-button {
+    @apply flex
+      items-center
+      gap-2
+      text-[var(--text-strong)]
+      text-xs
+      font-medium
+      p-0 
+      h-auto 
+      min-w-0 
+      bg-transparent
+      hover:bg-transparent;
+  }
+
+  &__action-icon {
+    @apply text-[var(--icon-default)]
+      stroke-[1.5px]
+      ml-1;
+  }
+
+  &__info {
+    @apply flex 
+      flex-col 
+      gap-1.5;
+  }
+
+  &__title {
+    @apply font-extrabold
+      leading-tight
+      text-[var(--text-strong)];
+  }
+
+  &__description {
+    @apply text-[var(--text-muted)];
+  }
+
+  &__footer {
+    @apply w-full
+      border-t 
+      border-[var(--border-muted)];
+  }
+
+  &__features {
+    @apply flex 
+      flex-col 
+      gap-3 
+      py-4;
+  }
+
+  &__feature {
+    @apply flex 
+      items-center 
+      gap-2 
+      w-full;
+  }
+
+  &__feature-icon {
+    @apply text-[var(--text-muted)]
+      stroke-[2px] 
+      flex-shrink-0;
+  }
+
+  &__feature-text {
+    @apply text-[var(--text-muted)];
+  }
+
+  &__apply-footer {
+    @apply flex 
+      items-center 
+      p-4 
+      px-6 
+      border-t 
+      bg-[var(--surface-secondary)]
+      border-[var(--border-subtle)];
+  }
+
+  &__apply-button {
+    @apply px-6
+      font-bold
+      text-[var(--text-inverse)]
+      bg-[var(--button-primary-idle)]
+      hover:bg-[var(--button-primary-hover)]
+      hover:text-[var(--text-strong)];
+  }
+}

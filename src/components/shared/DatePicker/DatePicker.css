@@ -1,0 +1,81 @@
+
+.date-picker {
+  @apply w-full;
+
+  &__label {
+    @apply text-sm
+      leading-5
+      mb-2
+      text-left
+      text-[var(--text-strong)];
+  }
+
+  &__trigger {
+    @apply w-full
+      px-4
+      mt-2
+      py-2
+      text-sm
+      leading-5
+      border
+      border-[var(--border-subtle)]
+      h-12
+      justify-between
+      font-normal
+      rounded-[6px]
+      text-[var(--text-strong)]
+      bg-[var(--control-input-background-dark)]
+      hover:bg-[var(--surface-hover)]
+      focus:outline-none
+      focus:ring-2
+      focus:ring-[var(--border-focus)]
+      focus-visible:outline-none
+      focus-visible:ring-2
+      focus-visible:ring-[var(--border-focus)]
+      focus-visible:ring-offset-0;
+  }
+
+  &__error {
+    @apply mt-2
+      flex
+      items-center
+      gap-2
+      px-1
+      text-xs
+      text-[var(--feedback-error-surface)];
+  }
+
+  &__error-icon {
+    @apply h-4 w-4;
+  }
+
+  &--error {
+    .date-picker__trigger {
+      @apply ring-2
+        ring-[var(--border-error)];
+    }
+  }
+
+  &--disabled {
+    .date-picker__label {
+      @apply opacity-50;
+    }
+
+    .date-picker__trigger {
+      @apply opacity-50
+        pointer-events-none;
+    }
+  }
+
+  &--light {
+    .date-picker__trigger {
+      @apply bg-[var(--control-input-background-light)]
+        hover:bg-[var(--surface-hover)];
+    }
+
+    &.date-picker--disabled .date-picker__trigger {
+      @apply bg-[var(--control-input-background-light)]
+        opacity-50;
+    }
+  }
+}

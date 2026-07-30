@@ -1,0 +1,55 @@
+
+.segmented-control {
+  @apply flex
+    flex-col
+    w-full
+    h-10
+    rounded-xs
+    p-1
+    bg-pagination;
+
+  &__list {
+    @apply flex
+      rounded-xs
+      items-start
+      p-0
+      justify-start
+      bg-transparent
+      gap-1
+      w-full
+      h-full;
+  }
+
+  &__item {
+    @apply inline-flex
+      items-center
+      justify-center
+      whitespace-nowrap
+      rounded-xs
+      px-4
+      py-1
+      text-sm
+      font-bold
+      font-sans
+      text-white/70
+      transition-all
+      h-8
+      hover:bg-select-item-hover
+      hover:text-white
+      focus-visible:outline-none
+      focus-visible:ring-2
+      focus-visible:ring-pagination
+      focus-visible:ring-offset-2;
+
+    &[data-state='active'] {
+      @apply text-white 
+        bg-body
+        shadow
+        rounded;
+    }
+
+    &--disabled {
+      @apply opacity-30 pointer-events-none;
+    }
+  }
+}

@@ -1,0 +1,96 @@
+
+.custom-toast {
+  @apply flex
+    items-center
+    justify-between
+    w-full
+    p-4
+    rounded-sm
+    shadow-lg
+    text-[var(--text-strong)]
+    font-medium
+    transition-all
+    ease-in-out
+    animate-in
+    slide-in-from-top-full
+    duration-300;
+
+  &__content {
+    @apply flex
+      items-center
+      gap-3
+      flex-1;
+  }
+
+  &__description {
+    @apply text-sm
+      leading-relaxed
+      text-[var(--feedback-text)];
+  }
+
+  &__icon-container {
+    @apply flex
+      items-center
+      justify-center
+      w-6
+      h-6
+      rounded-full
+      flex-shrink-0;
+
+    &--success {
+      @apply bg-[var(--feedback-success-surface)];
+    }
+
+    &--error {
+      @apply bg-[var(--feedback-error-surface)];
+    }
+
+    &--info {
+      @apply bg-[var(--feedback-neutral-surface)];
+    }
+
+    &--warning {
+      @apply bg-[var(--feedback-warning-surface)];
+    }
+  }
+
+  &__icon {
+    @apply w-5
+      h-5
+      flex-shrink-0
+      text-[var(--feedback-text)];
+  }
+
+  &__close-icon {
+    @apply w-4
+      h-4;
+  }
+
+  &--success {
+    @apply bg-[var(--feedback-success-background)];
+  }
+
+  &--error {
+    @apply bg-[var(--feedback-error-background)];
+  }
+
+  &--info {
+    @apply bg-[var(--feedback-neutral-background)];
+  }
+
+  &--warning {
+    @apply bg-[var(--feedback-warning-background)];
+  }
+
+  &--exiting {
+    @apply animate-out
+      slide-out-to-right-full
+      duration-300;
+  }
+}
+
+.custom-toast.custom-toast--exiting {
+  @apply animate-out
+    slide-out-to-right-full
+    duration-300;
+}

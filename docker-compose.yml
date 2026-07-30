@@ -1,13 +1,29 @@
 version: '3'
 
 services:
-  postgres:
-    image: postgres
+  payload:
+    image: node:22-alpine
     ports:
-      - '54320:5432'
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_DB: your-database-name # THIS MUST MATCH YOUR DB NAME IN .env
-      POSTGRES_HOST_AUTH_METHOD: trust
+      - '3000:3000'
+    volumes:
+      - .:/home/node/app
+      - node_modules:/home/node/app/node_modules
+    working_dir: /home/node/app
+    command: sh -c "bun install && bun dev"
+    depends_on:
+      - mongo
     env_file:
       - .env
+
+  mongo:
+    image: mongo:8.2
+    ports:
+      - '27017:27017'
+    volumes:
+      - data:/data/db
+    env_file:
+      - .env
+
+volumes:
+  data:
+  node_modules:

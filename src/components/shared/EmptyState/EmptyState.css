@@ -1,0 +1,48 @@
+
+.empty-state {
+  @apply flex
+    flex-col
+    items-center
+    justify-center
+    w-full
+    p-12
+    bg-[var(--surface-primary)]
+    rounded-sm
+    text-center
+    shadow-sm;
+
+  &__icon-wrapper {
+    @apply flex
+      items-center
+      justify-center
+      w-16
+      h-16
+      mb-6
+      rounded-sm
+      text-[var(--icon-default)]
+      bg-[var(--surface-secondary)];
+
+    svg {
+      @apply w-8
+        h-8
+        stroke-current;
+    }
+  }
+
+  &__content {
+    @apply flex
+      flex-col
+      items-center;
+  }
+
+  &__title {
+    @apply font-semibold
+      text-[var(--text-strong)]
+      mb-2;
+  }
+
+  &__description {
+    @apply text-[var(--text-muted)]
+      max-w-md;
+  }
+}

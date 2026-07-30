@@ -1,0 +1,191 @@
+
+.table {
+  @apply w-full;
+
+  &__wrapper {
+    @apply w-full 
+      overflow-auto 
+      rounded-sm
+      shadow-sm;
+  }
+
+  &--default {
+    @apply rounded-sm
+      bg-[var(--surface-primary)];
+  }
+
+  &--card {
+    @apply rounded-sm
+      shadow-sm
+      bg-[var(--surface-primary)]
+      border
+      border-[var(--border-subtle)];
+  }
+
+  /* NOTE: Display properties must use @media queries instead of Tailwind responsive prefixes
+     because @apply md:table creates a circular dependency when used within table elements.
+     All other responsive properties use Tailwind prefixes (md:, max-md:) for consistency. */
+
+  /* Desktop styling (default) */
+  @media (min-width: 768px) {
+    & {
+      display: table;
+      width: 100%;
+      overflow: hidden;
+    }
+  }
+
+  /* Mobile styling */
+  @media (max-width: 767px) {
+    & {
+      display: block;
+    }
+  }
+
+  &__header {
+    @apply md:table-header-group
+      max-md:hidden;
+
+    &--default {
+      @apply [&_tr]:border-b
+        [&_tr]:border-[var(--border-subtle)]
+        bg-[var(--surface-subtle)];
+    }
+
+    &--card {
+      @apply [&_tr]:border-b
+        [&_tr]:border-[var(--border-subtle)]
+        bg-[var(--surface-subtle)];
+    }
+  }
+
+  &__body {
+    @apply md:table-row-group
+      max-md:block;
+  }
+
+  &__row {
+    @apply md:table-row
+      md:border-b 
+      md:transition-colors
+      max-md:block
+      max-md:mb-4 
+      max-md:border 
+      max-md:rounded-sm
+      max-md:border-[var(--border-subtle)]
+      max-md:bg-[var(--surface-primary)];
+
+    /* Remove bottom border from the last row to prevent overlapping with border-radius */
+    &:last-child {
+      @apply md:border-b-0;
+    }
+
+    &--default {
+      @apply md:h-12
+        border-b
+        border-[var(--border-subtle)]
+        bg-[var(--surface-primary)]
+        hover:bg-[var(--surface-hover)];
+    }
+
+    &--card {
+      @apply md:h-10
+        border-b
+        border-[var(--border-subtle)]
+        bg-[var(--surface-primary)]
+        hover:bg-[var(--surface-hover)];
+    }
+
+    &--header-default {
+      @apply md:h-12
+        bg-[var(--surface-subtle)]
+        hover:bg-[var(--surface-subtle)];
+    }
+
+    &--header-card {
+      @apply md:h-10
+        bg-[var(--surface-subtle)]
+        hover:bg-[var(--surface-subtle)];
+    }
+  }
+
+  &__head {
+    @apply md:table-cell
+      md:px-4 
+      md:text-left 
+      md:align-middle
+      max-md:hidden;
+
+    &--default {
+      @apply font-semibold 
+        text-xs 
+        md:py-3 
+        md:h-12
+        text-[var(--text-strong)];
+    }
+
+    &--card {
+      @apply font-semibold 
+        text-xs 
+        md:py-2 
+        md:h-10
+        text-[var(--text-strong)];
+    }
+  }
+
+  &__cell {
+    @apply md:table-cell
+      md:align-middle
+      max-md:block
+      max-md:border-b
+      max-md:border-[var(--border-subtle)]
+      max-md:last:border-b-0
+      max-md:grid 
+      max-md:grid-cols-2 
+      max-md:items-center;
+
+    &::before {
+      @apply hidden
+        max-md:block
+        max-md:font-semibold
+        max-md:text-xs
+        text-[var(--text-muted)];
+      content: attr(data-label);
+    }
+
+    &--default {
+      @apply text-xs
+        px-4
+        py-3
+        text-[var(--text-muted)];
+    }
+
+    &--card {
+      @apply text-xs
+        px-4
+        py-2
+        text-[var(--text-muted)];
+    }
+  }
+
+  &__caption {
+    @apply text-sm 
+      mb-2
+      text-[var(--text-muted)];
+  }
+}
+
+/* Style for the rounded corners on the table */
+.table.table--default,
+.table.table--card {
+  @apply rounded-sm overflow-hidden;
+}
+
+/* Style for the last row to add bottom rounded corners */
+.table__body tr:last-child td:first-child {
+  @apply rounded-bl-sm;
+}
+
+.table__body tr:last-child td:last-child {
+  @apply rounded-br-sm;
+}

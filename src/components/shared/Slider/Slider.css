@@ -1,0 +1,161 @@
+
+.slider {
+  @apply relative
+    w-full
+    max-w-[440px];
+
+  &__wrapper {
+    @apply bg-[var(--surface-primary)]
+      rounded-[8px]
+      p-6
+      shadow-sm;
+
+    &--disabled {
+      @apply opacity-60
+        cursor-not-allowed;
+    }
+  }
+
+  &__container {
+    @apply relative 
+      flex 
+      w-full 
+      touch-none 
+      select-none 
+      items-center;
+
+    &[data-disabled] {
+      @apply opacity-60 
+        cursor-not-allowed;
+    }
+  }
+
+  &__content {
+    @apply flex 
+      items-center 
+      gap-4;
+  }
+
+  &__track-container {
+    @apply flex-1 
+      relative;
+  }
+
+  &__label-group {
+    @apply flex 
+      items-center 
+      justify-between 
+      mb-2;
+  }
+
+  &__label {
+    @apply text-md
+      font-semibold
+      leading-none
+      truncate
+      max-w-[90%]
+      text-[var(--text-strong)];
+
+    &--disabled {
+      @apply opacity-60;
+    }
+  }
+
+  &__input-wrapper {
+    @apply flex 
+      items-center;
+  }
+
+  &__input {
+    @apply h-[46px]
+      w-[73px]
+      text-center
+      font-semibold;
+
+    /* Hide number input spinners (arrows) */
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      @apply appearance-none 
+        m-0;
+    }
+
+    /* Firefox */
+    &[type='number'] {
+      @apply appearance-none;
+      -moz-appearance: textfield;
+    }
+
+    &:disabled {
+      @apply opacity-60
+        cursor-not-allowed
+        border-[var(--border-subtle)];
+    }
+  }
+
+  &__track {
+    @apply relative
+      h-1.5
+      w-full
+      grow
+      overflow-hidden
+      rounded-[10px]
+      bg-[var(--border-subtle)];
+
+    &--disabled {
+      @apply opacity-60;
+    }
+  }
+
+  &__range {
+    @apply absolute
+      h-full
+      rounded-sm;
+    background: var(--slider-gradient);
+
+    &--disabled {
+      @apply opacity-60;
+    }
+  }
+
+  &__thumb {
+    @apply hidden; /* Hide the thumb */
+  }
+
+  &__percentage {
+    @apply absolute
+      text-[var(--text-strong)]
+      font-bold
+      text-[10px]
+      leading-[2em]
+      left-[var(--percentage-left,0%)]
+      translate-x-[-50%]
+      translate-y-[10%]
+      top-[75%];
+
+    &--with-label {
+      @apply translate-y-[35%];
+    }
+
+    &--disabled {
+      @apply opacity-60;
+    }
+  }
+
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    &__track {
+      @apply h-2;
+    }
+
+    &__label {
+      @apply text-md
+        font-semibold;
+    }
+
+    &__input {
+      @apply h-7 
+        w-14 
+        text-xs;
+    }
+  }
+}

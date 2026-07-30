@@ -1,0 +1,47 @@
+
+[data-slot='switch'] {
+  @apply w-[30px]
+    h-[20px]
+    inline-flex
+    items-center
+    rounded-full
+    relative
+    border-none
+    p-0
+    focus-visible:ring-2
+    disabled:cursor-not-allowed
+    disabled:opacity-100
+    bg-[var(--icon-background-muted)]
+    focus-visible:ring-[var(--border-focus)];
+}
+
+[data-slot='switch'][data-state='unchecked'] {
+  @apply bg-[var(--surface-accent-muted)];
+}
+
+[data-slot='switch'][data-state='checked'] {
+  @apply bg-[var(--feedback-success-surface)];
+}
+
+[data-slot='switch'][data-state='disabled'] {
+  @apply bg-[var(--icon-background-muted)];
+}
+
+[data-slot='switch-thumb'] {
+  @apply absolute
+    left-[1.67px]
+    top-[1.67px]
+    w-[16.67px]
+    h-[16.67px]
+    rounded-full
+    shadow-md
+    bg-[var(--icon-inverse)];
+}
+
+[data-slot='switch-thumb'][data-state='checked'] {
+  @apply translate-x-[10.33px];
+}
+
+[data-slot='switch-thumb'][data-state='disabled'] {
+  @apply bg-[var(--icon-background-muted)];
+}

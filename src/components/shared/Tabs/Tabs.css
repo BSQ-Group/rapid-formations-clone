@@ -1,0 +1,57 @@
+
+.tabs {
+  @apply w-full
+    flex
+    flex-col
+    items-start
+    bg-transparent;
+
+  &__list {
+    @apply flex
+      flex-row
+      justify-start
+      w-full
+      gap-2
+      bg-transparent
+      border-b
+      px-6
+      rounded-none
+      border-b-[var(--border-subtle)];
+  }
+
+  &__item {
+    @apply flex
+      items-center
+      justify-center
+      font-sans
+      text-sm
+      leading-5
+      font-medium
+      px-4
+      py-2
+      transition-all
+      duration-200
+      cursor-pointer
+      select-none
+      outline-none
+      border-b-2
+      border-b-transparent
+      mb-[1px]
+      rounded-none
+      bg-transparent
+      text-[var(--text-muted)];
+
+    &[data-state='active'] {
+      @apply font-semibold
+        shadow-none
+        border-b-2
+        text-[var(--text-strong)]
+        border-b-[var(--border-focus)];
+    }
+
+    &--disabled {
+      @apply opacity-40
+        pointer-events-none;
+    }
+  }
+}

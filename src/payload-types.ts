@@ -106,16 +106,22 @@ export interface Config {
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
   db: {
-    defaultIDType: number;
+    defaultIDType: string;
   };
   fallbackLocale: null;
   globals: {
     header: Header;
     footer: Footer;
+    businessBankAccounts: BusinessBankAccount;
+    legalSidenav: LegalSidenav;
+    packagesNav: PackagesNav;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    businessBankAccounts: BusinessBankAccountsSelect<false> | BusinessBankAccountsSelect<true>;
+    legalSidenav: LegalSidenavSelect<false> | LegalSidenavSelect<true>;
+    packagesNav: PackagesNavSelect<false> | PackagesNavSelect<true>;
   };
   locale: null;
   widgets: {
@@ -156,7 +162,7 @@ export interface UserAuthOperations {
  * via the `definition` "pages".
  */
 export interface Page {
-  id: number;
+  id: string;
   title: string;
   hero: {
     type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
@@ -183,11 +189,11 @@ export interface Page {
             reference?:
               | ({
                   relationTo: 'pages';
-                  value: number | Page;
+                  value: string | Page;
                 } | null)
               | ({
                   relationTo: 'posts';
-                  value: number | Post;
+                  value: string | Post;
                 } | null);
             url?: string | null;
             label: string;
@@ -199,23 +205,106 @@ export interface Page {
           id?: string | null;
         }[]
       | null;
-    media?: (number | null) | Media;
+    media?: (string | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
+  layout?:
+    | (
+        | CallToActionBlock
+        | ContentBlock
+        | MediaBlock
+        | ArchiveBlock
+        | FormBlock
+        | FAQsBlock
+        | FormationPackagesBlock
+        | RegisterCompanyStepsBlock
+        | BusinessBankAccountsBlock
+        | LandingHeroBlock
+        | SupportBlock
+        | TestimonialsBlock
+        | WhyChooseUsBlock
+        | BCorpCertificationBlock
+        | ChooseCompanyStructureBlock
+        | OurLatestBlogsBlock
+        | AdditionalServicesBlock
+        | CallOutCTABlock
+        | TrustPilotBannerBlock
+        | PackagesHeroBlock
+        | WhatsIncludedBlock
+        | SearchCTABlock
+        | AboutThisServiceBlock
+        | OtherWaysToBuyBlock
+        | ServicesHeroBlock
+        | RegisteredOfficePurposeBlock
+        | OfficePhotoAddressBlock
+        | ServicesCTABlock
+        | RegisteredOfficeAddressBlock
+        | ServicesTestimonialBlock
+        | TestimonialBannerBlock
+        | HowItWorksBlock
+        | LegalSidenavBlock
+        | LegalContentBlock
+        | ComparePackagesHeaderBlock
+        | PromoCardBlock
+        | PromoTier3Block
+        | PromoTier2Block
+        | WhatIsPrivateLimitedCompanyBlock
+        | HeroStepperBlock
+        | PackagesNavBlock
+        | ComparePackagesBlock
+        | PackageCardHeroBlock
+        | WhatsIncludedSinglePackageBlock
+        | WiseBusinessAccountBlock
+        | ServicesTextWithCardBlock
+        | ContentWithPricingCardBlock
+        | ContentWithExtendedPricingCardBlock
+        | HeroServicesBannerBlock
+        | ServiceCardsBlock
+        | HowItWorksListBlock
+        | ServiceTextBlock
+        | NoteBlock
+        | RegisterOverseasBlock
+      )[]
+    | null;
   meta?: {
     title?: string | null;
     /**
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
-    image?: (number | null) | Media;
+    image?: (string | null) | Media;
     description?: string | null;
   };
+  /**
+   * Short label used in navigation menus. Falls back to the page title if left blank.
+   */
+  navigationLabel?: string | null;
+  /**
+   * Marks this page as a legal page. Sidebar contents are managed under Globals → Legal Sidenav.
+   */
+  isLegalPage?: boolean | null;
+  /**
+   * Offset the header down by 40px (e.g. pages with an announcement bar above it).
+   */
+  isHeaderOffset?: boolean | null;
+  /**
+   * Show white logo and light nav links — use when the header overlays a dark hero image.
+   */
+  isHeaderOnDark?: boolean | null;
   publishedAt?: string | null;
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
   generateSlug?: boolean | null;
   slug: string;
+  fullPath?: string | null;
+  parent?: (string | null) | Page;
+  breadcrumbs?:
+    | {
+        doc?: (string | null) | Page;
+        url?: string | null;
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -225,9 +314,9 @@ export interface Page {
  * via the `definition` "posts".
  */
 export interface Post {
-  id: number;
+  id: string;
   title: string;
-  heroImage?: (number | null) | Media;
+  heroImage?: (string | null) | Media;
   content: {
     root: {
       type: string;
@@ -243,18 +332,18 @@ export interface Post {
     };
     [k: string]: unknown;
   };
-  relatedPosts?: (number | Post)[] | null;
-  categories?: (number | Category)[] | null;
+  relatedPosts?: (string | Post)[] | null;
+  categories?: (string | Category)[] | null;
   meta?: {
     title?: string | null;
     /**
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
-    image?: (number | null) | Media;
+    image?: (string | null) | Media;
     description?: string | null;
   };
   publishedAt?: string | null;
-  authors?: (number | User)[] | null;
+  authors?: (string | User)[] | null;
   populatedAuthors?:
     | {
         id?: string | null;
@@ -275,7 +364,7 @@ export interface Post {
  * via the `definition` "media".
  */
 export interface Media {
-  id: number;
+  id: string;
   alt?: string | null;
   caption?: {
     root: {
@@ -292,7 +381,7 @@ export interface Media {
     };
     [k: string]: unknown;
   } | null;
-  folder?: (number | null) | FolderInterface;
+  folder?: (string | null) | FolderInterface;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -368,18 +457,18 @@ export interface Media {
  * via the `definition` "payload-folders".
  */
 export interface FolderInterface {
-  id: number;
+  id: string;
   name: string;
-  folder?: (number | null) | FolderInterface;
+  folder?: (string | null) | FolderInterface;
   documentsAndFolders?: {
     docs?: (
       | {
           relationTo?: 'payload-folders';
-          value: number | FolderInterface;
+          value: string | FolderInterface;
         }
       | {
           relationTo?: 'media';
-          value: number | Media;
+          value: string | Media;
         }
     )[];
     hasNextPage?: boolean;
@@ -394,17 +483,17 @@ export interface FolderInterface {
  * via the `definition` "categories".
  */
 export interface Category {
-  id: number;
+  id: string;
   title: string;
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
   generateSlug?: boolean | null;
   slug: string;
-  parent?: (number | null) | Category;
+  parent?: (string | null) | Category;
   breadcrumbs?:
     | {
-        doc?: (number | null) | Category;
+        doc?: (string | null) | Category;
         url?: string | null;
         label?: string | null;
         id?: string | null;
@@ -418,7 +507,7 @@ export interface Category {
  * via the `definition` "users".
  */
 export interface User {
-  id: number;
+  id: string;
   name?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -467,11 +556,11 @@ export interface CallToActionBlock {
           reference?:
             | ({
                 relationTo: 'pages';
-                value: number | Page;
+                value: string | Page;
               } | null)
             | ({
                 relationTo: 'posts';
-                value: number | Post;
+                value: string | Post;
               } | null);
           url?: string | null;
           label: string;
@@ -517,11 +606,11 @@ export interface ContentBlock {
           reference?:
             | ({
                 relationTo: 'pages';
-                value: number | Page;
+                value: string | Page;
               } | null)
             | ({
                 relationTo: 'posts';
-                value: number | Post;
+                value: string | Post;
               } | null);
           url?: string | null;
           label: string;
@@ -542,7 +631,7 @@ export interface ContentBlock {
  * via the `definition` "MediaBlock".
  */
 export interface MediaBlock {
-  media: number | Media;
+  media: string | Media;
   id?: string | null;
   blockName?: string | null;
   blockType: 'mediaBlock';
@@ -569,12 +658,12 @@ export interface ArchiveBlock {
   } | null;
   populateBy?: ('collection' | 'selection') | null;
   relationTo?: 'posts' | null;
-  categories?: (number | Category)[] | null;
+  categories?: (string | Category)[] | null;
   limit?: number | null;
   selectedDocs?:
     | {
         relationTo: 'posts';
-        value: number | Post;
+        value: string | Post;
       }[]
     | null;
   id?: string | null;
@@ -586,7 +675,7 @@ export interface ArchiveBlock {
  * via the `definition` "FormBlock".
  */
 export interface FormBlock {
-  form: number | Form;
+  form: string | Form;
   enableIntro?: boolean | null;
   introContent?: {
     root: {
@@ -612,7 +701,7 @@ export interface FormBlock {
  * via the `definition` "forms".
  */
 export interface Form {
-  id: number;
+  id: string;
   title: string;
   fields?:
     | (
@@ -783,10 +872,2308 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FAQsBlock".
+ */
+export interface FAQsBlock {
+  title?: string | null;
+  faqs?:
+    | {
+        title: string;
+        description: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'faqs';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FormationPackagesBlock".
+ */
+export interface FormationPackagesBlock {
+  title?: string | null;
+  subtitle?: string | null;
+  packages: {
+    name: string;
+    description?: string | null;
+    /**
+     * Include currency symbol, e.g. "£1.99"
+     */
+    price: string;
+    /**
+     * E.g. "+ £100 Companies House fee"
+     */
+    priceSuffix?: string | null;
+    isHighlighted?: boolean | null;
+    /**
+     * E.g. "Best value"
+     */
+    badgeText?: string | null;
+    orderLink?: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label?: string | null;
+    };
+    /**
+     * E.g. "Everything in Basic, plus:"
+     */
+    prefixText?: string | null;
+    benefits: {
+      benefit: string;
+      /**
+       * Optional. Heading shown in the info tooltip (e.g. "LTD Company").
+       */
+      infoText?: string | null;
+      /**
+       * Optional. Body text shown in the info tooltip. An info icon appears when either tooltip field is filled.
+       */
+      tooltipText?: {
+        root: {
+          type: string;
+          children: {
+            type: any;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      } | null;
+      id?: string | null;
+    }[];
+    showFindOutMoreLink?: boolean | null;
+    findOutMoreLink?: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label?: string | null;
+    };
+    id?: string | null;
+  }[];
+  footerTitle?: string | null;
+  footerDescription?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  footerLink?: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label?: string | null;
+  };
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'formationPackages';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RegisterCompanyStepsBlock".
+ */
+export interface RegisterCompanyStepsBlock {
+  title: string;
+  subtitle: string;
+  steps: {
+    image: string | Media;
+    title: string;
+    description: string;
+    id?: string | null;
+  }[];
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'registerCompanySteps';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BusinessBankAccountsBlock".
+ */
+export interface BusinessBankAccountsBlock {
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'businessBankAccounts';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LandingHeroBlock".
+ */
+export interface LandingHeroBlock {
+  eyebrow?: string | null;
+  heading: string;
+  benefits?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  searchPlaceholder?: string | null;
+  searchLink?: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+  };
+  pricingLink: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+  };
+  packagesLink: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+  };
+  backgroundImage: string | Media;
+  google?: {
+    logo?: (string | null) | Media;
+    rating?: string | null;
+    reviewCount?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'landingHero';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SupportBlock".
+ */
+export interface SupportBlock {
+  heading: string;
+  description?: string | null;
+  phone?: string | null;
+  image?: (string | null) | Media;
+  stats?:
+    | {
+        label: string;
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'support';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialsBlock".
+ */
+export interface TestimonialsBlock {
+  heading: string;
+  description?: string | null;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'testimonials';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WhyChooseUsBlock".
+ */
+export interface WhyChooseUsBlock {
+  heading: string;
+  description?: string | null;
+  features?:
+    | {
+        icon?: (string | null) | Media;
+        title: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'whyChooseUs';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BCorpCertificationBlock".
+ */
+export interface BCorpCertificationBlock {
+  backgroundImage: string | Media;
+  badge: string | Media;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bCorpCertification';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ChooseCompanyStructureBlock".
+ */
+export interface ChooseCompanyStructureBlock {
+  heading: string;
+  description: string;
+  cards: {
+    title: string;
+    cardDescription?: string | null;
+    image: string | Media;
+    link?: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+    };
+    id?: string | null;
+  }[];
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'chooseCompanyStructure';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "OurLatestBlogsBlock".
+ */
+export interface OurLatestBlogsBlock {
+  heading: string;
+  cards: {
+    title: string;
+    description: string;
+    readTime?: string | null;
+    image: string | Media;
+    link?: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+    };
+    id?: string | null;
+  }[];
+  viewBlogLink: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+  };
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'ourLatestBlogs';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AdditionalServicesBlock".
+ */
+export interface AdditionalServicesBlock {
+  heading: string;
+  cards?:
+    | {
+        title: string;
+        description: string;
+        /**
+         * Shown on hover (desktop) and always visible on mobile/tablet.
+         */
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'additionalServices';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CallOutCTABlock".
+ */
+export interface CallOutCTABlock {
+  heading: string;
+  image: string | Media;
+  /**
+   * Placeholder text for the company name input. Defaults to "Enter company name".
+   */
+  searchPlaceholder?: string | null;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'callOutCTA';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TrustPilotBannerBlock".
+ */
+export interface TrustPilotBannerBlock {
+  /**
+   * Found in your Trustpilot Business account under Integrations.
+   */
+  businessUnitId: string;
+  locale?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'trustpilotBanner';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PackagesHeroBlock".
+ */
+export interface PackagesHeroBlock {
+  heading: string;
+  subtitle?: string | null;
+  benefits?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  heroImage: string | Media;
+  topCard?: {
+    /**
+     * Lucide icon name, e.g. "FileText", "ShieldCheck"
+     */
+    iconName?: string | null;
+    /**
+     * e.g. "Preparing... Documents"
+     */
+    title?: string | null;
+    /**
+     * e.g. "2/4" — shown right of title. Leave blank if using subtitle.
+     */
+    detail?: string | null;
+    /**
+     * Second line of text, e.g. "Hassle-Free Compliance". Used when no detail/progress bar.
+     */
+    subtitle?: string | null;
+    /**
+     * When set, shows a progress bar below the title row.
+     */
+    progressValue?: number | null;
+    /**
+     * Shows decorative redacted-text bars below the title. Used for the Privacy Package EyeOff card.
+     */
+    showRedactedLines?: boolean | null;
+  };
+  /**
+   * Optional second card near the top-right. Hidden on mobile.
+   */
+  topCardExtra?: {
+    /**
+     * Lucide icon name, e.g. "Mails"
+     */
+    iconName?: string | null;
+    title?: string | null;
+    /**
+     * e.g. "2/4" — shown right of title. Leave blank if using subtitle.
+     */
+    detail?: string | null;
+    /**
+     * Second line of text. Used when no detail/progress bar.
+     */
+    subtitle?: string | null;
+    /**
+     * When set, shows a progress bar below the title row.
+     */
+    progressValue?: number | null;
+  };
+  /**
+   * Optional second card near the bottom-left.
+   */
+  bottomCardExtra?: {
+    /**
+     * Lucide icon name, e.g. "CircleCheckBig"
+     */
+    iconName?: string | null;
+    title?: string | null;
+    subtitle?: string | null;
+  };
+  bottomCard?: {
+    /**
+     * Lucide icon name, e.g. "CircleCheckBig", "MapPin"
+     */
+    iconName?: string | null;
+    /**
+     * e.g. "Bramble & Wick Ltd" or "Covent Garden, London"
+     */
+    title?: string | null;
+    /**
+     * e.g. "Reserved at Companies House" or "Registered office active"
+     */
+    subtitle?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'packagesHero';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WhatsIncludedBlock".
+ */
+export interface WhatsIncludedBlock {
+  /**
+   * "Side by Side" places text left and the package card right. "Stacked" places a 2-column text header above a wide card with 2-column benefits.
+   */
+  layout: 'side-by-side' | 'stacked';
+  heading: string;
+  /**
+   * For "Side by Side": subsection headings and body text displayed on the left. For "Stacked": only the first section is used — its title becomes the subtitle and its content becomes the description paragraph.
+   */
+  contentSections: {
+    title: string;
+    content: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    id?: string | null;
+  }[];
+  packageCard: {
+    name: string;
+    /**
+     * Include currency symbol, e.g. "£1.99"
+     */
+    price: string;
+    /**
+     * E.g. "+ £100 Companies House fee"
+     */
+    priceSuffix?: string | null;
+    orderLink: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+    };
+    benefitsLabel: string;
+    benefits: {
+      benefit: string;
+      id?: string | null;
+    }[];
+  };
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'whatsIncluded';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SearchCTABlock".
+ */
+export interface SearchCTABlock {
+  /**
+   * Light = white text on a dark photo (existing pricing-page behaviour). Dark = black text for light/gradient backgrounds (homepage style).
+   */
+  textTheme?: ('light' | 'dark') | null;
+  trustPillText?: string | null;
+  trustPillTextMobile?: string | null;
+  heading: string;
+  subtitle?: string | null;
+  inputPlaceholder?: string | null;
+  submitButtonText?: string | null;
+  /**
+   * URL to navigate to when the user submits the company name (e.g. /search?q=)
+   */
+  searchActionUrl?: string | null;
+  footerNote?: string | null;
+  /**
+   * Optional. If omitted, the card renders with a CSS gradient (intended for the dark-text / light-card variant).
+   */
+  image?: (string | null) | Media;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'packagesCTA';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutThisServiceBlock".
+ */
+export interface AboutThisServiceBlock {
+  title: string;
+  paragraphs: {
+    text: string;
+    id?: string | null;
+  }[];
+  /**
+   * Bold prefix shown before the note text.
+   */
+  noteLabel?: string | null;
+  /**
+   * Body of the "Please note" callout.
+   */
+  noteText?: string | null;
+  orderLink: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'outline') | null;
+  };
+  price?: string | null;
+  /**
+   * Renders the Trustpilot Micro TrustScore widget under the order CTA.
+   */
+  showTrustpilot?: boolean | null;
+  /**
+   * Square gradient image used behind the floating feature cards.
+   */
+  cardImage: string | Media;
+  /**
+   * Up to 3 floating feature cards layered over the card image.
+   */
+  features: {
+    icon: 'shieldCheck' | 'mapPin' | 'mail' | 'check' | 'phone' | 'sparkles';
+    label: string;
+    id?: string | null;
+  }[];
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'aboutThisService';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "OtherWaysToBuyBlock".
+ */
+export interface OtherWaysToBuyBlock {
+  /**
+   * Section heading. Use a newline to force a line break.
+   */
+  heading: string;
+  /**
+   * Text shown between the cards (e.g. "or").
+   */
+  separator?: string | null;
+  ways: {
+    title: string;
+    description: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    cta: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+    };
+    id?: string | null;
+  }[];
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'otherWaysToBuy';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesHeroBlock".
+ */
+export interface ServicesHeroBlock {
+  title: string;
+  description?: string | null;
+  /**
+   * e.g. "Only £39.00"
+   */
+  priceText?: string | null;
+  /**
+   * e.g. "+VAT per year"
+   */
+  priceSuffix?: string | null;
+  heroImage1?: (string | null) | Media;
+  heroImage2?: (string | null) | Media;
+  addressCard?: {
+    /**
+     * e.g. "Your Company Ltd"
+     */
+    companyName?: string | null;
+    /**
+     * Use line breaks to separate address lines
+     */
+    address?: string | null;
+    badges?:
+      | {
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'servicesHero';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RegisteredOfficePurposeBlock".
+ */
+export interface RegisteredOfficePurposeBlock {
+  title: string;
+  /**
+   * Icon + text items, rendered in a 2-column grid (single column on mobile). Add as many rows as needed.
+   */
+  items: {
+    /**
+     * Lucide icon name in kebab-case (e.g. "scale", "mail-check", "eye", "shield-check"). Browse the full set at https://lucide.dev/icons.
+     */
+    icon: string;
+    body: string;
+    id?: string | null;
+  }[];
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'registeredOfficePurpose';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "OfficePhotoAddressBlock".
+ */
+export interface OfficePhotoAddressBlock {
+  eyebrow: string;
+  /**
+   * Multi-line address. Each new line renders on its own line.
+   */
+  address: string;
+  image: string | Media;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'officePhotoAddress';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesCTABlock".
+ */
+export interface ServicesCTABlock {
+  title: string;
+  description?: string | null;
+  /**
+   * e.g. "350,000+ UK"
+   */
+  trustPillBoldPrefix?: string | null;
+  /**
+   * e.g. "companies formed · Rated Excellent on Trustpilot"
+   */
+  trustPillText?: string | null;
+  /**
+   * Shorter text shown only on mobile, e.g. "companies formed"
+   */
+  trustPillTextMobile?: string | null;
+  ctaLink: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'outline') | null;
+  };
+  /**
+   * Green gradient background image for the CTA card
+   */
+  backgroundImage?: (string | null) | Media;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'servicesCTA';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RegisteredOfficeAddressBlock".
+ */
+export interface RegisteredOfficeAddressBlock {
+  heading: string;
+  image: string | Media;
+  /**
+   * Multi-line address. Each new line renders on its own line.
+   */
+  address: string;
+  price: string;
+  /**
+   * Suffix shown next to the price. Include leading space.
+   */
+  priceSuffix: string;
+  cta: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+  };
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'registeredOfficeAddress';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesTestimonialBlock".
+ */
+export interface ServicesTestimonialBlock {
+  /**
+   * The testimonial quote text (without quotation marks)
+   */
+  quoteText: string;
+  authorName: string;
+  /**
+   * e.g. "Quality Company Formations customer"
+   */
+  authorRole?: string | null;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'servicesTestimonial';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialBannerBlock".
+ */
+export interface TestimonialBannerBlock {
+  /**
+   * The testimonial quote text. Curly quotes are added automatically.
+   */
+  quote: string;
+  authorName: string;
+  /**
+   * e.g. "Quality Company Formations customer"
+   */
+  authorRole?: string | null;
+  /**
+   * Top/bottom section padding (BSQ Spacing/Section tokens, responsive). Background is fixed to surface-accent-light for this variant.
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'testimonialBanner';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HowItWorksBlock".
+ */
+export interface HowItWorksBlock {
+  heading: string;
+  description?: string | null;
+  steps: {
+    /**
+     * e.g. "01"
+     */
+    stepNumber: string;
+    title: string;
+    body: string;
+    image: string | Media;
+    id?: string | null;
+  }[];
+  ctaLink: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'outline') | null;
+  };
+  /**
+   * e.g. "from £12.99 + VAT"
+   */
+  priceText?: string | null;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'howItWorks';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LegalSidenavBlock".
+ */
+export interface LegalSidenavBlock {
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'legalSidenav';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LegalContentBlock".
+ */
+export interface LegalContentBlock {
+  /**
+   * Top-level page heading, e.g. "Environmental Policy".
+   */
+  pageTitle: string;
+  /**
+   * Top-level sections rendered as H2 (e.g. "1. Introduction"). Numbering is authored manually.
+   */
+  sections: {
+    /**
+     * H2 heading, e.g. "1. Introduction" or "3. Our Environmental Commitments".
+     */
+    heading: string;
+    /**
+     * Body text directly under the section heading. Leave empty if the section only contains subsections.
+     */
+    intro?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    /**
+     * Optional subsections rendered as H3 (e.g. "3.1 Compliance with…").
+     */
+    subsections?:
+      | {
+          heading: string;
+          body: {
+            root: {
+              type: string;
+              children: {
+                type: any;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          };
+          id?: string | null;
+        }[]
+      | null;
+    id?: string | null;
+  }[];
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'legalContent';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ComparePackagesHeaderBlock".
+ */
+export interface ComparePackagesHeaderBlock {
+  /**
+   * Section title. Use a newline to force a line break.
+   */
+  title: string;
+  /**
+   * First paragraph of supporting text.
+   */
+  descriptionPrimary?: string | null;
+  /**
+   * Text before the inline link (include a trailing space).
+   */
+  descriptionSecondaryBefore?: string | null;
+  /**
+   * Inline link rendered inside the second paragraph (e.g. "here").
+   */
+  descriptionLink?: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label?: string | null;
+  };
+  /**
+   * Text after the inline link (typically just punctuation).
+   */
+  descriptionSecondaryAfter?: string | null;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'comparePackagesHeader';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PromoCardBlock".
+ */
+export interface PromoCardBlock {
+  title: string;
+  /**
+   * Body copy. Bold any inline values (e.g. the price) using the rich text editor.
+   */
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * Small label above the price. Defaults to "Add".
+   */
+  addLabel?: string | null;
+  price: string;
+  /**
+   * Small caption below the price. Defaults to "at the checkout".
+   */
+  priceCaption?: string | null;
+  /**
+   * Decorative card background (Figma gradient export).
+   */
+  backgroundImage: string | Media;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'promoCard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PromoTier3Block".
+ */
+export interface PromoTier3Block {
+  /**
+   * Small uppercase label above the title.
+   */
+  eyebrow?: string | null;
+  title: string;
+  description: string;
+  /**
+   * Short benefit pills shown below the description.
+   */
+  pills?:
+    | {
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  price: string;
+  /**
+   * Smaller text shown next to the price (e.g. "per year").
+   */
+  priceCaption?: string | null;
+  /**
+   * Decorative card background (Figma gradient export).
+   */
+  backgroundImage: string | Media;
+  cta: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: 'default' | null;
+  };
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'promoTier3';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PromoTier2Block".
+ */
+export interface PromoTier2Block {
+  /**
+   * Lucide icon name (e.g. FileCheck2). Rendered in green on the left tile.
+   */
+  icon?: string | null;
+  title: string;
+  /**
+   * Small label above the price (e.g. "from").
+   */
+  pricePrefix?: string | null;
+  price: string;
+  cta: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: 'default' | null;
+  };
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'promoTier2';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WhatIsPrivateLimitedCompanyBlock".
+ */
+export interface WhatIsPrivateLimitedCompanyBlock {
+  title: string;
+  paragraphs: {
+    text: string;
+    id?: string | null;
+  }[];
+  /**
+   * Portrait image shown beside (mobile: above) the copy.
+   */
+  image: string | Media;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'whatIsPrivateLimitedCompany';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroStepperBlock".
+ */
+export interface HeroStepperBlock {
+  steps: {
+    label: string;
+    id?: string | null;
+  }[];
+  /**
+   * Which step is currently active (1-indexed). E.g. 2 means step 2 is active.
+   */
+  currentStep: number;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'heroStepper';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PackagesNavBlock".
+ */
+export interface PackagesNavBlock {
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'packagesNav';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ComparePackagesBlock".
+ */
+export interface ComparePackagesBlock {
+  heading: string;
+  description?: string | null;
+  /**
+   * Label shown in the dark header above the feature column.
+   */
+  featuresLabel: string;
+  /**
+   * Exactly three plans, in the order they should appear left-to-right.
+   */
+  plans: {
+    name: string;
+    /**
+     * e.g. "£1.99"
+     */
+    price: string;
+    /**
+     * e.g. "+ £100 Companies House fee"
+     */
+    subPrice?: string | null;
+    /**
+     * Use the primary (green) Order button for this plan.
+     */
+    featured?: boolean | null;
+    button: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+    };
+    id?: string | null;
+  }[];
+  sections: {
+    /**
+     * e.g. "CORE SERVICES"
+     */
+    label: string;
+    features: {
+      name: string;
+      description?: string | null;
+      /**
+       * Optional heading shown in the info tooltip.
+       */
+      infoText?: string | null;
+      /**
+       * Optional body text shown in the info tooltip. An info icon appears when either tooltip field is filled.
+       */
+      tooltipText?: {
+        root: {
+          type: string;
+          children: {
+            type: any;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      } | null;
+      inPlan1?: boolean | null;
+      inPlan2?: boolean | null;
+      inPlan3?: boolean | null;
+      id?: string | null;
+    }[];
+    id?: string | null;
+  }[];
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'comparePackages';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PackageCardHeroBlock".
+ */
+export interface PackageCardHeroBlock {
+  /**
+   * E.g. "Non-Residents Package"
+   */
+  title: string;
+  description?: string | null;
+  /**
+   * Include currency symbol, e.g. "£19.99"
+   */
+  price: string;
+  /**
+   * E.g. "+ £100 Companies House fee"
+   */
+  priceSuffix?: string | null;
+  orderLink: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+  };
+  /**
+   * E.g. "Ideal for:"
+   */
+  prefixText?: string | null;
+  benefits: {
+    benefit: string;
+    /**
+     * Optional. Heading shown in the info tooltip.
+     */
+    infoText?: string | null;
+    /**
+     * Optional. Body text shown in the info tooltip. An info icon appears when either tooltip field is filled.
+     */
+    tooltipText?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'packageCardHero';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WhatsIncludedSinglePackageBlock".
+ */
+export interface WhatsIncludedSinglePackageBlock {
+  /**
+   * Section heading shown above the table.
+   */
+  heading: string;
+  /**
+   * Shown in the dark table header and in the CTA row, e.g. "Non-Residents Package".
+   */
+  packageName: string;
+  /**
+   * Rows in the comparison table, in display order.
+   */
+  features: {
+    title: string;
+    /**
+     * Optional second line shown under the title.
+     */
+    description?: string | null;
+    /**
+     * Optional heading shown in the info tooltip.
+     */
+    tooltipTitle?: string | null;
+    /**
+     * Optional body text shown in the info tooltip. An info icon appears when either tooltip field is filled.
+     */
+    tooltipContent?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    id?: string | null;
+  }[];
+  /**
+   * e.g. "£19.99"
+   */
+  price: string;
+  /**
+   * e.g. "+ £100 Companies House fee"
+   */
+  priceSubtext?: string | null;
+  orderButton: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+  };
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'whatsIncludedSinglePackage';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WiseBusinessAccountBlock".
+ */
+export interface WiseBusinessAccountBlock {
+  /**
+   * Heading shown at the top of the card, e.g. "Wise Business Account Referral".
+   */
+  title: string;
+  /**
+   * Paragraph content rendered under the title.
+   */
+  body: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'wiseBusinessAccount';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesTextWithCardBlock".
+ */
+export interface ServicesTextWithCardBlock {
+  title: string;
+  paragraphs: {
+    text: string;
+    id?: string | null;
+  }[];
+  card: {
+    price: string;
+    subtitle?: string | null;
+    serviceLabel: string;
+    cta: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+      /**
+       * Choose how the link should be rendered.
+       */
+      appearance?: ('default' | 'outline') | null;
+    };
+  };
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'servicesTextWithCard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentWithPricingCardBlock".
+ */
+export interface ContentWithPricingCardBlock {
+  sections: {
+    heading: string;
+    bulletItems?:
+      | {
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+    tickItems?:
+      | {
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+    id?: string | null;
+  }[];
+  card: {
+    price: string;
+    serviceLabel: string;
+    cta: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+      /**
+       * Choose how the link should be rendered.
+       */
+      appearance?: ('default' | 'outline') | null;
+    };
+  };
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contentWithPricingCard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentWithExtendedPricingCardBlock".
+ */
+export interface ContentWithExtendedPricingCardBlock {
+  title: string;
+  intro: string;
+  sections: {
+    heading: string;
+    bulletItems?:
+      | {
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+    id?: string | null;
+  }[];
+  card: {
+    price: string;
+    serviceLabel: string;
+    cta: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+      /**
+       * Choose how the link should be rendered.
+       */
+      appearance?: ('default' | 'outline') | null;
+    };
+    /**
+     * Optional descriptive block shown below the CTA (e.g. "Improve your corporate image").
+     */
+    feature?: {
+      title?: string | null;
+      description?: string | null;
+    };
+    detailsTitle?: string | null;
+    details?:
+      | {
+          label: string;
+          value: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contentWithExtendedPricingCard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroServicesBannerBlock".
+ */
+export interface HeroServicesBannerBlock {
+  title: string;
+  description?: string | null;
+  priceText?: string | null;
+  cta?: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label?: string | null;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'outline') | null;
+  };
+  /**
+   * Renders the Trustpilot Micro TrustScore widget under the CTA.
+   */
+  showTrustpilot?: boolean | null;
+  /**
+   * Photo shown in the visual area to the right of the copy.
+   */
+  image: string | Media;
+  /**
+   * Up to three floating "service status" widgets layered over the hero image. With 2 widgets: first goes top-right, second mid-left. With 3 widgets: first top-right (sits more inset to make room), second mid-left, third bottom-right. At mobile only the last two widgets render in the 3-widget variant.
+   */
+  widgets?:
+    | {
+        /**
+         * Lucide icon name in PascalCase, e.g. "BadgeCheck", "FileText", "Building2". See lucide.dev for the full set.
+         */
+        icon?: string | null;
+        title: string;
+        subtitle?: string | null;
+        showProgress?: boolean | null;
+        /**
+         * Progress fill percentage (0–100).
+         */
+        progressPercent?: number | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'heroServicesBanner';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServiceCardsBlock".
+ */
+export interface ServiceCardsBlock {
+  title: string;
+  /**
+   * Card groups. Each group can have an optional subtitle (e.g. "Address Services") that renders above its cards. Use a single group with no subtitle for the simple subheading-less layout. If empty, the legacy `cards` field below is rendered as a single anonymous group (backwards compatibility — new content should use Groups).
+   */
+  groups?:
+    | {
+        /**
+         * Optional. Renders as a section subheading above this group's cards. Leave blank for a single anonymous group.
+         */
+        subtitle?: string | null;
+        /**
+         * Cards in this group. Desktop layout adapts to the count: 2 cards render side-by-side; 3 or more render 3 per row (trailing cards left-align at the same card width).
+         */
+        cards: {
+          /**
+           * Lucide icon name in kebab-case (e.g. "badge-check", "file-text", "building-2", "mail"). Browse the full set at https://lucide.dev/icons.
+           */
+          icon: string;
+          title: string;
+          description: string;
+          /**
+           * Price label, e.g. "£75.99 +VAT".
+           */
+          price: string;
+          orderLink: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline') | null;
+          };
+          id?: string | null;
+        }[];
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Legacy. Only used when Groups above is empty. New content should add cards under a Group.
+   */
+  cards?:
+    | {
+        /**
+         * Lucide icon name in kebab-case (e.g. "badge-check", "file-text", "building-2", "mail"). Browse the full set at https://lucide.dev/icons.
+         */
+        icon: string;
+        title: string;
+        description: string;
+        /**
+         * Price label, e.g. "£75.99 +VAT".
+         */
+        price: string;
+        orderLink: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'serviceCards';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HowItWorksListBlock".
+ */
+export interface HowItWorksListBlock {
+  stepsHeading: string;
+  /**
+   * Numbered automatically based on order.
+   */
+  steps: {
+    text: string;
+    id?: string | null;
+  }[];
+  includedHeading: string;
+  includedItems: {
+    text: string;
+    id?: string | null;
+  }[];
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'howItWorksList';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServiceTextBlock".
+ */
+export interface ServiceTextBlock {
+  title: string;
+  description: string;
+  listTitle: string;
+  items: {
+    text: string;
+    id?: string | null;
+  }[];
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'serviceText';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NoteBlock".
+ */
+export interface NoteBlock {
+  heading: string;
+  /**
+   * HTML heading tag emitted for the heading text. Use h2 for top-level section headings; h3/h4/h5 when this Note sits inside a deeper content hierarchy.
+   */
+  headingLevel: 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+  body: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'note';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RegisterOverseasBlock".
+ */
+export interface RegisterOverseasBlock {
+  /**
+   * Main section heading. A <br> sets the desktop/mobile line break (after "company", matching Figma); it is automatically suppressed at the tablet breakpoint where the heading fits on one line.
+   */
+  heading: string;
+  body: string;
+  /**
+   * Primary CTA button (e.g. "Start now").
+   */
+  cta: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+  };
+  image: string | Media;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'registerOverseas';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
-  id: number;
+  id: string;
   /**
    * You will need to rebuild the website when changing this field.
    */
@@ -796,11 +3183,11 @@ export interface Redirect {
     reference?:
       | ({
           relationTo: 'pages';
-          value: number | Page;
+          value: string | Page;
         } | null)
       | ({
           relationTo: 'posts';
-          value: number | Post;
+          value: string | Post;
         } | null);
     url?: string | null;
   };
@@ -812,8 +3199,8 @@ export interface Redirect {
  * via the `definition` "form-submissions".
  */
 export interface FormSubmission {
-  id: number;
-  form: number | Form;
+  id: string;
+  form: string | Form;
   submissionData?:
     | {
         field: string;
@@ -831,18 +3218,18 @@ export interface FormSubmission {
  * via the `definition` "search".
  */
 export interface Search {
-  id: number;
+  id: string;
   title?: string | null;
   priority?: number | null;
   doc: {
     relationTo: 'posts';
-    value: number | Post;
+    value: string | Post;
   };
   slug?: string | null;
   meta?: {
     title?: string | null;
     description?: string | null;
-    image?: (number | null) | Media;
+    image?: (string | null) | Media;
   };
   categories?:
     | {
@@ -860,7 +3247,7 @@ export interface Search {
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
-  id: number;
+  id: string;
   key: string;
   data:
     | {
@@ -877,7 +3264,7 @@ export interface PayloadKv {
  * via the `definition` "payload-jobs".
  */
 export interface PayloadJob {
-  id: number;
+  id: string;
   /**
    * Input data provided to the job
    */
@@ -969,52 +3356,52 @@ export interface PayloadJob {
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: number;
+  id: string;
   document?:
     | ({
         relationTo: 'pages';
-        value: number | Page;
+        value: string | Page;
       } | null)
     | ({
         relationTo: 'posts';
-        value: number | Post;
+        value: string | Post;
       } | null)
     | ({
         relationTo: 'media';
-        value: number | Media;
+        value: string | Media;
       } | null)
     | ({
         relationTo: 'categories';
-        value: number | Category;
+        value: string | Category;
       } | null)
     | ({
         relationTo: 'users';
-        value: number | User;
+        value: string | User;
       } | null)
     | ({
         relationTo: 'redirects';
-        value: number | Redirect;
+        value: string | Redirect;
       } | null)
     | ({
         relationTo: 'forms';
-        value: number | Form;
+        value: string | Form;
       } | null)
     | ({
         relationTo: 'form-submissions';
-        value: number | FormSubmission;
+        value: string | FormSubmission;
       } | null)
     | ({
         relationTo: 'search';
-        value: number | Search;
+        value: string | Search;
       } | null)
     | ({
         relationTo: 'payload-folders';
-        value: number | FolderInterface;
+        value: string | FolderInterface;
       } | null);
   globalSlug?: string | null;
   user: {
     relationTo: 'users';
-    value: number | User;
+    value: string | User;
   };
   updatedAt: string;
   createdAt: string;
@@ -1024,10 +3411,10 @@ export interface PayloadLockedDocument {
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: number;
+  id: string;
   user: {
     relationTo: 'users';
-    value: number | User;
+    value: string | User;
   };
   key?: string | null;
   value?:
@@ -1047,7 +3434,7 @@ export interface PayloadPreference {
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: number;
+  id: string;
   name?: string | null;
   batch?: number | null;
   updatedAt: string;
@@ -1089,6 +3476,55 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
+        faqs?: T | FAQsBlockSelect<T>;
+        formationPackages?: T | FormationPackagesBlockSelect<T>;
+        registerCompanySteps?: T | RegisterCompanyStepsBlockSelect<T>;
+        businessBankAccounts?: T | BusinessBankAccountsBlockSelect<T>;
+        landingHero?: T | LandingHeroBlockSelect<T>;
+        support?: T | SupportBlockSelect<T>;
+        testimonials?: T | TestimonialsBlockSelect<T>;
+        whyChooseUs?: T | WhyChooseUsBlockSelect<T>;
+        bCorpCertification?: T | BCorpCertificationBlockSelect<T>;
+        chooseCompanyStructure?: T | ChooseCompanyStructureBlockSelect<T>;
+        ourLatestBlogs?: T | OurLatestBlogsBlockSelect<T>;
+        additionalServices?: T | AdditionalServicesBlockSelect<T>;
+        callOutCTA?: T | CallOutCTABlockSelect<T>;
+        trustpilotBanner?: T | TrustPilotBannerBlockSelect<T>;
+        packagesHero?: T | PackagesHeroBlockSelect<T>;
+        whatsIncluded?: T | WhatsIncludedBlockSelect<T>;
+        packagesCTA?: T | SearchCTABlockSelect<T>;
+        aboutThisService?: T | AboutThisServiceBlockSelect<T>;
+        otherWaysToBuy?: T | OtherWaysToBuyBlockSelect<T>;
+        servicesHero?: T | ServicesHeroBlockSelect<T>;
+        registeredOfficePurpose?: T | RegisteredOfficePurposeBlockSelect<T>;
+        officePhotoAddress?: T | OfficePhotoAddressBlockSelect<T>;
+        servicesCTA?: T | ServicesCTABlockSelect<T>;
+        registeredOfficeAddress?: T | RegisteredOfficeAddressBlockSelect<T>;
+        servicesTestimonial?: T | ServicesTestimonialBlockSelect<T>;
+        testimonialBanner?: T | TestimonialBannerBlockSelect<T>;
+        howItWorks?: T | HowItWorksBlockSelect<T>;
+        legalSidenav?: T | LegalSidenavBlockSelect<T>;
+        legalContent?: T | LegalContentBlockSelect<T>;
+        comparePackagesHeader?: T | ComparePackagesHeaderBlockSelect<T>;
+        promoCard?: T | PromoCardBlockSelect<T>;
+        promoTier3?: T | PromoTier3BlockSelect<T>;
+        promoTier2?: T | PromoTier2BlockSelect<T>;
+        whatIsPrivateLimitedCompany?: T | WhatIsPrivateLimitedCompanyBlockSelect<T>;
+        heroStepper?: T | HeroStepperBlockSelect<T>;
+        packagesNav?: T | PackagesNavBlockSelect<T>;
+        comparePackages?: T | ComparePackagesBlockSelect<T>;
+        packageCardHero?: T | PackageCardHeroBlockSelect<T>;
+        whatsIncludedSinglePackage?: T | WhatsIncludedSinglePackageBlockSelect<T>;
+        wiseBusinessAccount?: T | WiseBusinessAccountBlockSelect<T>;
+        servicesTextWithCard?: T | ServicesTextWithCardBlockSelect<T>;
+        contentWithPricingCard?: T | ContentWithPricingCardBlockSelect<T>;
+        contentWithExtendedPricingCard?: T | ContentWithExtendedPricingCardBlockSelect<T>;
+        heroServicesBanner?: T | HeroServicesBannerBlockSelect<T>;
+        serviceCards?: T | ServiceCardsBlockSelect<T>;
+        howItWorksList?: T | HowItWorksListBlockSelect<T>;
+        serviceText?: T | ServiceTextBlockSelect<T>;
+        note?: T | NoteBlockSelect<T>;
+        registerOverseas?: T | RegisterOverseasBlockSelect<T>;
       };
   meta?:
     | T
@@ -1097,9 +3533,23 @@ export interface PagesSelect<T extends boolean = true> {
         image?: T;
         description?: T;
       };
+  navigationLabel?: T;
+  isLegalPage?: T;
+  isHeaderOffset?: T;
+  isHeaderOnDark?: T;
   publishedAt?: T;
   generateSlug?: T;
   slug?: T;
+  fullPath?: T;
+  parent?: T;
+  breadcrumbs?:
+    | T
+    | {
+        doc?: T;
+        url?: T;
+        label?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -1185,6 +3635,1517 @@ export interface FormBlockSelect<T extends boolean = true> {
   form?: T;
   enableIntro?: T;
   introContent?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FAQsBlock_select".
+ */
+export interface FAQsBlockSelect<T extends boolean = true> {
+  title?: T;
+  faqs?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FormationPackagesBlock_select".
+ */
+export interface FormationPackagesBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  packages?:
+    | T
+    | {
+        name?: T;
+        description?: T;
+        price?: T;
+        priceSuffix?: T;
+        isHighlighted?: T;
+        badgeText?: T;
+        orderLink?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        prefixText?: T;
+        benefits?:
+          | T
+          | {
+              benefit?: T;
+              infoText?: T;
+              tooltipText?: T;
+              id?: T;
+            };
+        showFindOutMoreLink?: T;
+        findOutMoreLink?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  footerTitle?: T;
+  footerDescription?: T;
+  footerLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RegisterCompanyStepsBlock_select".
+ */
+export interface RegisterCompanyStepsBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  steps?:
+    | T
+    | {
+        image?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BusinessBankAccountsBlock_select".
+ */
+export interface BusinessBankAccountsBlockSelect<T extends boolean = true> {
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LandingHeroBlock_select".
+ */
+export interface LandingHeroBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  benefits?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  searchPlaceholder?: T;
+  searchLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+      };
+  pricingLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
+  packagesLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
+  backgroundImage?: T;
+  google?:
+    | T
+    | {
+        logo?: T;
+        rating?: T;
+        reviewCount?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SupportBlock_select".
+ */
+export interface SupportBlockSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  phone?: T;
+  image?: T;
+  stats?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        id?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialsBlock_select".
+ */
+export interface TestimonialsBlockSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WhyChooseUsBlock_select".
+ */
+export interface WhyChooseUsBlockSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  features?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BCorpCertificationBlock_select".
+ */
+export interface BCorpCertificationBlockSelect<T extends boolean = true> {
+  backgroundImage?: T;
+  badge?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ChooseCompanyStructureBlock_select".
+ */
+export interface ChooseCompanyStructureBlockSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  cards?:
+    | T
+    | {
+        title?: T;
+        cardDescription?: T;
+        image?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+            };
+        id?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "OurLatestBlogsBlock_select".
+ */
+export interface OurLatestBlogsBlockSelect<T extends boolean = true> {
+  heading?: T;
+  cards?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        readTime?: T;
+        image?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+            };
+        id?: T;
+      };
+  viewBlogLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AdditionalServicesBlock_select".
+ */
+export interface AdditionalServicesBlockSelect<T extends boolean = true> {
+  heading?: T;
+  cards?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CallOutCTABlock_select".
+ */
+export interface CallOutCTABlockSelect<T extends boolean = true> {
+  heading?: T;
+  image?: T;
+  searchPlaceholder?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TrustPilotBannerBlock_select".
+ */
+export interface TrustPilotBannerBlockSelect<T extends boolean = true> {
+  businessUnitId?: T;
+  locale?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PackagesHeroBlock_select".
+ */
+export interface PackagesHeroBlockSelect<T extends boolean = true> {
+  heading?: T;
+  subtitle?: T;
+  benefits?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  heroImage?: T;
+  topCard?:
+    | T
+    | {
+        iconName?: T;
+        title?: T;
+        detail?: T;
+        subtitle?: T;
+        progressValue?: T;
+        showRedactedLines?: T;
+      };
+  topCardExtra?:
+    | T
+    | {
+        iconName?: T;
+        title?: T;
+        detail?: T;
+        subtitle?: T;
+        progressValue?: T;
+      };
+  bottomCardExtra?:
+    | T
+    | {
+        iconName?: T;
+        title?: T;
+        subtitle?: T;
+      };
+  bottomCard?:
+    | T
+    | {
+        iconName?: T;
+        title?: T;
+        subtitle?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WhatsIncludedBlock_select".
+ */
+export interface WhatsIncludedBlockSelect<T extends boolean = true> {
+  layout?: T;
+  heading?: T;
+  contentSections?:
+    | T
+    | {
+        title?: T;
+        content?: T;
+        id?: T;
+      };
+  packageCard?:
+    | T
+    | {
+        name?: T;
+        price?: T;
+        priceSuffix?: T;
+        orderLink?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        benefitsLabel?: T;
+        benefits?:
+          | T
+          | {
+              benefit?: T;
+              id?: T;
+            };
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SearchCTABlock_select".
+ */
+export interface SearchCTABlockSelect<T extends boolean = true> {
+  textTheme?: T;
+  trustPillText?: T;
+  trustPillTextMobile?: T;
+  heading?: T;
+  subtitle?: T;
+  inputPlaceholder?: T;
+  submitButtonText?: T;
+  searchActionUrl?: T;
+  footerNote?: T;
+  image?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutThisServiceBlock_select".
+ */
+export interface AboutThisServiceBlockSelect<T extends boolean = true> {
+  title?: T;
+  paragraphs?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  noteLabel?: T;
+  noteText?: T;
+  orderLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        appearance?: T;
+      };
+  price?: T;
+  showTrustpilot?: T;
+  cardImage?: T;
+  features?:
+    | T
+    | {
+        icon?: T;
+        label?: T;
+        id?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "OtherWaysToBuyBlock_select".
+ */
+export interface OtherWaysToBuyBlockSelect<T extends boolean = true> {
+  heading?: T;
+  separator?: T;
+  ways?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        cta?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesHeroBlock_select".
+ */
+export interface ServicesHeroBlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  priceText?: T;
+  priceSuffix?: T;
+  heroImage1?: T;
+  heroImage2?: T;
+  addressCard?:
+    | T
+    | {
+        companyName?: T;
+        address?: T;
+        badges?:
+          | T
+          | {
+              label?: T;
+              id?: T;
+            };
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RegisteredOfficePurposeBlock_select".
+ */
+export interface RegisteredOfficePurposeBlockSelect<T extends boolean = true> {
+  title?: T;
+  items?:
+    | T
+    | {
+        icon?: T;
+        body?: T;
+        id?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "OfficePhotoAddressBlock_select".
+ */
+export interface OfficePhotoAddressBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  address?: T;
+  image?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesCTABlock_select".
+ */
+export interface ServicesCTABlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  trustPillBoldPrefix?: T;
+  trustPillText?: T;
+  trustPillTextMobile?: T;
+  ctaLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        appearance?: T;
+      };
+  backgroundImage?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RegisteredOfficeAddressBlock_select".
+ */
+export interface RegisteredOfficeAddressBlockSelect<T extends boolean = true> {
+  heading?: T;
+  image?: T;
+  address?: T;
+  price?: T;
+  priceSuffix?: T;
+  cta?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesTestimonialBlock_select".
+ */
+export interface ServicesTestimonialBlockSelect<T extends boolean = true> {
+  quoteText?: T;
+  authorName?: T;
+  authorRole?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialBannerBlock_select".
+ */
+export interface TestimonialBannerBlockSelect<T extends boolean = true> {
+  quote?: T;
+  authorName?: T;
+  authorRole?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HowItWorksBlock_select".
+ */
+export interface HowItWorksBlockSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  steps?:
+    | T
+    | {
+        stepNumber?: T;
+        title?: T;
+        body?: T;
+        image?: T;
+        id?: T;
+      };
+  ctaLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        appearance?: T;
+      };
+  priceText?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LegalSidenavBlock_select".
+ */
+export interface LegalSidenavBlockSelect<T extends boolean = true> {
+  content?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LegalContentBlock_select".
+ */
+export interface LegalContentBlockSelect<T extends boolean = true> {
+  pageTitle?: T;
+  sections?:
+    | T
+    | {
+        heading?: T;
+        intro?: T;
+        subsections?:
+          | T
+          | {
+              heading?: T;
+              body?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ComparePackagesHeaderBlock_select".
+ */
+export interface ComparePackagesHeaderBlockSelect<T extends boolean = true> {
+  title?: T;
+  descriptionPrimary?: T;
+  descriptionSecondaryBefore?: T;
+  descriptionLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
+  descriptionSecondaryAfter?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PromoCardBlock_select".
+ */
+export interface PromoCardBlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  addLabel?: T;
+  price?: T;
+  priceCaption?: T;
+  backgroundImage?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PromoTier3Block_select".
+ */
+export interface PromoTier3BlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  description?: T;
+  pills?:
+    | T
+    | {
+        label?: T;
+        id?: T;
+      };
+  price?: T;
+  priceCaption?: T;
+  backgroundImage?: T;
+  cta?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        appearance?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PromoTier2Block_select".
+ */
+export interface PromoTier2BlockSelect<T extends boolean = true> {
+  icon?: T;
+  title?: T;
+  pricePrefix?: T;
+  price?: T;
+  cta?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        appearance?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WhatIsPrivateLimitedCompanyBlock_select".
+ */
+export interface WhatIsPrivateLimitedCompanyBlockSelect<T extends boolean = true> {
+  title?: T;
+  paragraphs?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  image?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroStepperBlock_select".
+ */
+export interface HeroStepperBlockSelect<T extends boolean = true> {
+  steps?:
+    | T
+    | {
+        label?: T;
+        id?: T;
+      };
+  currentStep?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PackagesNavBlock_select".
+ */
+export interface PackagesNavBlockSelect<T extends boolean = true> {
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ComparePackagesBlock_select".
+ */
+export interface ComparePackagesBlockSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  featuresLabel?: T;
+  plans?:
+    | T
+    | {
+        name?: T;
+        price?: T;
+        subPrice?: T;
+        featured?: T;
+        button?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  sections?:
+    | T
+    | {
+        label?: T;
+        features?:
+          | T
+          | {
+              name?: T;
+              description?: T;
+              infoText?: T;
+              tooltipText?: T;
+              inPlan1?: T;
+              inPlan2?: T;
+              inPlan3?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PackageCardHeroBlock_select".
+ */
+export interface PackageCardHeroBlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  price?: T;
+  priceSuffix?: T;
+  orderLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
+  prefixText?: T;
+  benefits?:
+    | T
+    | {
+        benefit?: T;
+        infoText?: T;
+        tooltipText?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WhatsIncludedSinglePackageBlock_select".
+ */
+export interface WhatsIncludedSinglePackageBlockSelect<T extends boolean = true> {
+  heading?: T;
+  packageName?: T;
+  features?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        tooltipTitle?: T;
+        tooltipContent?: T;
+        id?: T;
+      };
+  price?: T;
+  priceSubtext?: T;
+  orderButton?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WiseBusinessAccountBlock_select".
+ */
+export interface WiseBusinessAccountBlockSelect<T extends boolean = true> {
+  title?: T;
+  body?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesTextWithCardBlock_select".
+ */
+export interface ServicesTextWithCardBlockSelect<T extends boolean = true> {
+  title?: T;
+  paragraphs?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  card?:
+    | T
+    | {
+        price?: T;
+        subtitle?: T;
+        serviceLabel?: T;
+        cta?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentWithPricingCardBlock_select".
+ */
+export interface ContentWithPricingCardBlockSelect<T extends boolean = true> {
+  sections?:
+    | T
+    | {
+        heading?: T;
+        bulletItems?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        tickItems?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  card?:
+    | T
+    | {
+        price?: T;
+        serviceLabel?: T;
+        cta?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentWithExtendedPricingCardBlock_select".
+ */
+export interface ContentWithExtendedPricingCardBlockSelect<T extends boolean = true> {
+  title?: T;
+  intro?: T;
+  sections?:
+    | T
+    | {
+        heading?: T;
+        bulletItems?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  card?:
+    | T
+    | {
+        price?: T;
+        serviceLabel?: T;
+        cta?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+        feature?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+            };
+        detailsTitle?: T;
+        details?:
+          | T
+          | {
+              label?: T;
+              value?: T;
+              id?: T;
+            };
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroServicesBannerBlock_select".
+ */
+export interface HeroServicesBannerBlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  priceText?: T;
+  cta?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        appearance?: T;
+      };
+  showTrustpilot?: T;
+  image?: T;
+  widgets?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        subtitle?: T;
+        showProgress?: T;
+        progressPercent?: T;
+        id?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServiceCardsBlock_select".
+ */
+export interface ServiceCardsBlockSelect<T extends boolean = true> {
+  title?: T;
+  groups?:
+    | T
+    | {
+        subtitle?: T;
+        cards?:
+          | T
+          | {
+              icon?: T;
+              title?: T;
+              description?: T;
+              price?: T;
+              orderLink?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    appearance?: T;
+                  };
+              id?: T;
+            };
+        id?: T;
+      };
+  cards?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        description?: T;
+        price?: T;
+        orderLink?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+        id?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HowItWorksListBlock_select".
+ */
+export interface HowItWorksListBlockSelect<T extends boolean = true> {
+  stepsHeading?: T;
+  steps?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  includedHeading?: T;
+  includedItems?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServiceTextBlock_select".
+ */
+export interface ServiceTextBlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  listTitle?: T;
+  items?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NoteBlock_select".
+ */
+export interface NoteBlockSelect<T extends boolean = true> {
+  heading?: T;
+  headingLevel?: T;
+  body?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RegisterOverseasBlock_select".
+ */
+export interface RegisterOverseasBlockSelect<T extends boolean = true> {
+  heading?: T;
+  body?: T;
+  cta?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
+  image?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -1636,7 +5597,10 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  * via the `definition` "header".
  */
 export interface Header {
-  id: number;
+  id: string;
+  /**
+   * Primary navigation links (left side)
+   */
   navItems?:
     | {
         link: {
@@ -1645,11 +5609,63 @@ export interface Header {
           reference?:
             | ({
                 relationTo: 'pages';
-                value: number | Page;
+                value: string | Page;
               } | null)
             | ({
                 relationTo: 'posts';
-                value: number | Post;
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        /**
+         * If populated, this nav item will show a mega menu dropdown on desktop and a sub-menu on mobile
+         */
+        megaMenuCategories?:
+          | {
+              title: string;
+              links?:
+                | {
+                    link: {
+                      type?: ('reference' | 'custom') | null;
+                      newTab?: boolean | null;
+                      reference?:
+                        | ({
+                            relationTo: 'pages';
+                            value: string | Page;
+                          } | null)
+                        | ({
+                            relationTo: 'posts';
+                            value: string | Post;
+                          } | null);
+                      url?: string | null;
+                      label: string;
+                    };
+                    id?: string | null;
+                  }[]
+                | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Secondary links (right side, e.g. Blog, About)
+   */
+  secondaryNavItems?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
               } | null);
           url?: string | null;
           label: string;
@@ -1657,6 +5673,44 @@ export interface Header {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Links shown in the account dropdown (desktop) and account sub-panel (mobile) when logged in
+   */
+  accountLinks?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  loginLink: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1665,8 +5719,12 @@ export interface Header {
  * via the `definition` "footer".
  */
 export interface Footer {
-  id: number;
-  navItems?:
+  id: string;
+  logo: string | Media;
+  companyAddress: string;
+  registrationDetails: string;
+  policyLinksHeading: string;
+  policyLinks?:
     | {
         link: {
           type?: ('reference' | 'custom') | null;
@@ -1674,11 +5732,139 @@ export interface Footer {
           reference?:
             | ({
                 relationTo: 'pages';
-                value: number | Page;
+                value: string | Page;
               } | null)
             | ({
                 relationTo: 'posts';
-                value: number | Post;
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  navigationLinksHeading: string;
+  navigationColumns?:
+    | {
+        heading: string;
+        links?:
+          | {
+              link: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                reference?:
+                  | ({
+                      relationTo: 'pages';
+                      value: string | Page;
+                    } | null)
+                  | ({
+                      relationTo: 'posts';
+                      value: string | Post;
+                    } | null);
+                url?: string | null;
+                label: string;
+              };
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  socialLinks?:
+    | {
+        platform: string;
+        icon: string | Media;
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  copyrightText: string;
+  copyrightSubtext?: string | null;
+  paymentIcons?:
+    | {
+        name: string;
+        icon: string | Media;
+        id?: string | null;
+      }[]
+    | null;
+  certificationLogos?:
+    | {
+        name: string;
+        logo: string | Media;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "businessBankAccounts".
+ */
+export interface BusinessBankAccount {
+  id: string;
+  heading: string;
+  banks?:
+    | {
+        name: string;
+        cardImage: string | Media;
+        logo: string | Media;
+        subtext?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Order and visibility of legal pages in the sidebar. Pages are added here automatically when you mark them as a legal page on the Pages collection. Drag to reorder; tick "hidden" to keep a page out of the menu without unmarking it as a legal page.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "legalSidenav".
+ */
+export interface LegalSidenav {
+  id: string;
+  /**
+   * Auto-synced from Pages where “Is legal page” is ticked.
+   */
+  items?:
+    | {
+        /**
+         * Set automatically. To remove a page from this list, untick “Is legal page” on the Pages collection.
+         */
+        page: string | Page;
+        /**
+         * Keep the page marked as legal but hide it from this menu.
+         */
+        hidden?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Tabs shown in the packages navigation pill across all package pages. Drag to reorder.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "packagesNav".
+ */
+export interface PackagesNav {
+  id: string;
+  tabs?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
               } | null);
           url?: string | null;
           label: string;
@@ -1706,7 +5892,64 @@ export interface HeaderSelect<T extends boolean = true> {
               url?: T;
               label?: T;
             };
+        megaMenuCategories?:
+          | T
+          | {
+              title?: T;
+              links?:
+                | T
+                | {
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                        };
+                    id?: T;
+                  };
+              id?: T;
+            };
         id?: T;
+      };
+  secondaryNavItems?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  accountLinks?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  loginLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -1717,7 +5960,114 @@ export interface HeaderSelect<T extends boolean = true> {
  * via the `definition` "footer_select".
  */
 export interface FooterSelect<T extends boolean = true> {
-  navItems?:
+  logo?: T;
+  companyAddress?: T;
+  registrationDetails?: T;
+  policyLinksHeading?: T;
+  policyLinks?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  navigationLinksHeading?: T;
+  navigationColumns?:
+    | T
+    | {
+        heading?: T;
+        links?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              id?: T;
+            };
+        id?: T;
+      };
+  socialLinks?:
+    | T
+    | {
+        platform?: T;
+        icon?: T;
+        url?: T;
+        id?: T;
+      };
+  copyrightText?: T;
+  copyrightSubtext?: T;
+  paymentIcons?:
+    | T
+    | {
+        name?: T;
+        icon?: T;
+        id?: T;
+      };
+  certificationLogos?:
+    | T
+    | {
+        name?: T;
+        logo?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "businessBankAccounts_select".
+ */
+export interface BusinessBankAccountsSelect<T extends boolean = true> {
+  heading?: T;
+  banks?:
+    | T
+    | {
+        name?: T;
+        cardImage?: T;
+        logo?: T;
+        subtext?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "legalSidenav_select".
+ */
+export interface LegalSidenavSelect<T extends boolean = true> {
+  items?:
+    | T
+    | {
+        page?: T;
+        hidden?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "packagesNav_select".
+ */
+export interface PackagesNavSelect<T extends boolean = true> {
+  tabs?:
     | T
     | {
         link?:
@@ -1756,14 +6106,14 @@ export interface TaskSchedulePublish {
     doc?:
       | ({
           relationTo: 'pages';
-          value: number | Page;
+          value: string | Page;
         } | null)
       | ({
           relationTo: 'posts';
-          value: number | Post;
+          value: string | Post;
         } | null);
     global?: string | null;
-    user?: (number | null) | User;
+    user?: (string | null) | User;
   };
   output?: unknown;
 }
