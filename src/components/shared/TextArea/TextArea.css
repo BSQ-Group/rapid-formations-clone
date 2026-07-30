@@ -1,0 +1,116 @@
+
+.textarea {
+  @apply relative
+    w-full;
+
+  &--width-auto {
+    @apply w-auto;
+  }
+
+  &--small {
+    @apply text-sm;
+  }
+
+  &__wrapper {
+    @apply relative
+      flex
+      flex-col
+      w-full;
+
+    &--actionable {
+      @apply cursor-pointer;
+    }
+
+    &:focus-within {
+      .textarea__field {
+        @apply ring-2
+          bg-[var(--control-input-background-focus)]
+          ring-[var(--control-input-border-focus)];
+      }
+    }
+
+    /* Error state: hide focus ring, keep error styling */
+    &--error:focus-within {
+      .textarea__field {
+        @apply ring-0
+          bg-[var(--feedback-error-background-muted)]
+          border-[var(--border-error)];
+      }
+    }
+  }
+
+  &__button-container {
+    @apply absolute
+      bottom-0
+      right-3
+      mb-[18px]
+      flex
+      justify-end;
+  }
+
+  &__submit-button {
+    @apply flex
+      items-center
+      justify-center
+      h-10
+      w-12
+      rounded-xs
+      bg-white
+      text-black
+      transition-colors
+      duration-200;
+
+    &:hover {
+      @apply bg-white/90;
+    }
+
+    &:focus {
+      @apply outline-none;
+    }
+
+    &:active {
+      @apply transform scale-95;
+    }
+
+    &:disabled {
+      @apply opacity-50
+        cursor-not-allowed;
+    }
+  }
+
+  &__description {
+    @apply mt-2
+      px-1
+      text-xs
+      text-table-text-muted;
+  }
+
+  &__error {
+    @apply mt-2
+      flex
+      items-center
+      gap-2
+      px-1
+      text-xs
+      text-[var(--text-error)];
+
+    & svg {
+      @apply flex-shrink-0
+        w-4
+        h-4;
+    }
+  }
+}
+
+.textarea-label {
+  @apply block
+    text-sm
+    font-medium
+    text-white
+    mb-1;
+
+  &__required {
+    @apply text-[var(--text-error)]
+      ml-1;
+  }
+}

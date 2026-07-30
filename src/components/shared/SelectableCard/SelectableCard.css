@@ -1,0 +1,89 @@
+
+.selectable-card {
+  @apply flex
+    items-center
+    justify-between
+    rounded-sm
+    px-4
+    py-6
+    mb-3
+    gap-4
+    bg-[var(--surface-primary)]
+    border
+    border-[var(--border-subtle)];
+
+  &--selected {
+    @apply bg-[var(--surface-primary)]
+      border
+      border-[var(--border-subtle)];
+  }
+
+  &__image {
+    @apply flex
+      items-center
+      justify-center
+      w-10
+      h-10
+      rounded-xs
+      overflow-hidden
+      shrink-0;
+  }
+
+  &__img {
+    @apply w-10
+      h-10
+      object-contain;
+  }
+
+  &__content {
+    @apply flex 
+      flex-col 
+      flex-1
+      gap-1
+      min-w-0;
+  }
+
+  &__number-row {
+    @apply flex
+      items-center;
+  }
+
+  &__number {
+    @apply font-bold
+      tracking-wide
+      text-[var(--text-strong)];
+  }
+
+  &__title {
+    @apply font-bold
+      text-base
+      mb-1
+      text-[var(--text-strong)];
+  }
+
+  &__description {
+    @apply text-sm
+      text-[var(--text-muted)];
+  }
+
+  &__subtitle {
+    @apply text-[var(--text-muted)];
+  }
+
+  &__term {
+    @apply text-[var(--text-muted)];
+  }
+
+  &__add-button {
+    &--selected {
+      @apply border-none
+        w-[56px]
+        bg-[var(--feedback-success-surface)]
+        text-[var(--icon-inverse)];
+
+      &:hover {
+        @apply bg-[var(--surface-accent-muted)];
+      }
+    }
+  }
+}

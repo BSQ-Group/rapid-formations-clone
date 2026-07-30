@@ -1,0 +1,170 @@
+
+.select {
+  &__wrapper {
+    @apply flex
+      flex-col
+      gap-2
+      w-full;
+
+    &:focus-within {
+      @apply relative;
+
+      &::before {
+        content: '';
+        @apply absolute
+          -inset-0
+          rounded-[6px]
+          border-2
+          pointer-events-none
+          border-[var(--control-input-border-focus)];
+      }
+
+      .select__trigger {
+        @apply ring-0
+          outline-none
+          bg-[var(--control-input-background-focus)];
+      }
+    }
+  }
+
+  &__wrapper > button {
+    @apply h-12;
+  }
+
+  &__label {
+    @apply text-[var(--text-strong)]
+      text-sm
+      font-medium
+      leading-none;
+  }
+
+  &__trigger {
+    @apply text-sm;
+
+    &--large {
+      @apply h-[46px];
+    }
+
+    &--small {
+      @apply h-[40px];
+    }
+
+    &--error {
+      @apply border-[var(--border-error)];
+    }
+
+    &:hover:not(:disabled):not([data-disabled]) {
+      @apply bg-[var(--surface-hover)];
+    }
+  }
+
+  &__wrapper--dark .select__trigger {
+    @apply bg-[var(--control-input-background-dark)];
+
+    &:hover:not(:disabled):not([data-disabled]) {
+      @apply bg-[var(--surface-hover)];
+    }
+  }
+
+  &__wrapper--dark:focus-within .select__trigger {
+    @apply bg-[var(--control-input-background-focus)];
+  }
+
+  &__value {
+    @apply text-sm
+      font-medium
+      text-[var(--text-strong)];
+  }
+
+  &__value[data-placeholder] {
+    @apply text-[var(--text-muted)];
+  }
+
+  &__icon-container {
+    @apply flex
+      items-center
+      justify-center
+      h-full
+      ml-2;
+  }
+
+  &__icon {
+    @apply h-4
+      w-4
+      text-[var(--icon-default)];
+  }
+
+  &__content {
+    @apply z-50
+      w-full
+      max-h-[250px]
+      min-w-[var(--radix-select-trigger-width)]
+      overflow-hidden
+      overflow-y-auto
+      rounded-[6px]
+      border
+      border-[var(--border-subtle)]
+      text-[var(--text-strong)]
+      shadow-[var(--shadow-md)];
+  }
+
+  &__content--light {
+    @apply bg-[var(--control-input-background-light)];
+  }
+
+  &__content--dark {
+    @apply bg-[var(--control-input-background-dark)];
+  }
+
+  &__viewport {
+    @apply p-1
+      w-full;
+  }
+
+  &__item-icon {
+    & svg {
+      @apply rounded-full;
+    }
+  }
+
+  &__item--selected {
+    @apply bg-[var(--surface-accent)]
+      font-semibold
+      text-[var(--text-inverse)]
+      hover:bg-[var(--surface-accent)]
+      hover:text-[var(--text-inverse)];
+  }
+
+  &__item--checkbox {
+    @apply hover:bg-[var(--surface-hover)];
+  }
+
+  &__item--checkbox.select__item--selected {
+    @apply bg-[var(--surface-accent)]
+      font-semibold
+      text-[var(--text-inverse)]
+      hover:bg-[var(--surface-accent)]
+      hover:text-[var(--text-inverse)];
+  }
+
+  &__checkbox--checked {
+    @apply border-[var(--border-subtle)]
+      bg-[var(--control-input-background-light)]
+      text-[var(--text-strong)];
+  }
+
+  &__check-icon--selected {
+    @apply stroke-[1.5px]
+      text-[var(--text-strong)];
+  }
+
+  &__check-icon--unselected {
+    @apply text-[var(--text-strong)]
+      opacity-0;
+  }
+
+  &__error {
+    @apply text-[var(--feedback-error-surface)]
+      text-xs;
+  }
+}

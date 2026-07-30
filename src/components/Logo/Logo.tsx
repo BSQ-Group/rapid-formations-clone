@@ -1,29 +1,27 @@
-import clsx from 'clsx'
-import React from 'react'
+import { getBrand, getDomainConfig, Brand } from '@/lib/brand'
+import { cn } from '@/utilities/ui'
+import type { FC, SVGProps } from 'react'
+import QCFLogoSvg from '@/public/images/QCF-logo-icon.svg'
+import RFLogoSvg from '@/public/images/RF-logo.svg'
+import FirstFormationsLogoSvg from '@/public/images/1F-logo.svg'
+
+type SvgComponent = FC<SVGProps<SVGSVGElement>>
+
+const brandLogoMap: Record<Brand, SvgComponent> = {
+  [Brand.QualityCompanyFormations]: QCFLogoSvg,
+  [Brand.RapidFormations]: RFLogoSvg,
+  [Brand.FirstFormations]: FirstFormationsLogoSvg,
+}
 
 interface Props {
   className?: string
-  loading?: 'lazy' | 'eager'
-  priority?: 'auto' | 'high' | 'low'
+  fill?: string
 }
 
-export const Logo = (props: Props) => {
-  const { loading: loadingFromProps, priority: priorityFromProps, className } = props
+export const Logo = ({ className, fill = 'white' }: Props) => {
+  const brand = getBrand()
+  const config = getDomainConfig(brand)
+  const LogoSvg = brandLogoMap[brand]
 
-  const loading = loadingFromProps || 'lazy'
-  const priority = priorityFromProps || 'low'
-
-  return (
-    /* eslint-disable @next/next/no-img-element */
-    <img
-      alt="Payload Logo"
-      width={193}
-      height={34}
-      loading={loading}
-      fetchPriority={priority}
-      decoding="async"
-      className={clsx('max-w-[9.375rem] w-full h-[34px]', className)}
-      src="https://raw.githubusercontent.com/payloadcms/payload/main/packages/ui/src/assets/payload-logo-light.svg"
-    />
-  )
+  return <LogoSvg aria-label={config.alt} fill={fill} className={cn('h-11 w-auto', className)} />
 }

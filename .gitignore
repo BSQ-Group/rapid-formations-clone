@@ -3,9 +3,22 @@ dist / media
 node_modules
 .DS_Store
 .env
+.env.qcf
+.env.rf
+.env.example
+.env.local
 .next
 next-env.d.ts
 .vercel
+.claude/settings.json
+.claude/tmp/
+
+# SSL certificates for local HTTPS dev server
+*.pem
+.claude/worktrees/
+tsconfig.tsbuildinfo
+storybook-static
+debug-storybook.log
 
 # Payload default media upload directory
 public/media/
@@ -20,3 +33,12 @@ node_modules/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+.playwright-mcp/
+
+# Ad-hoc Playwright screenshots (visual QA captures)
+/prod-*.png
+/local-*.png
+.gstack/
+
+# Local Claude Code runtime artifacts
+.claude/scheduled_tasks.lock

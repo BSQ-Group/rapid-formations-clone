@@ -1,0 +1,36 @@
+
+.progress-bar {
+  @apply flex
+    flex-col
+    gap-2
+    w-full;
+
+  &__label {
+    @apply text-white
+      font-semibold;
+  }
+
+  &__track {
+    @apply relative
+      w-full
+      h-1
+      bg-pagination
+      rounded-full
+      overflow-hidden;
+  }
+
+  &__fill {
+    @apply absolute
+      top-0
+      left-0
+      h-full
+      mix-blend-color-dodge
+      rounded-full
+      bg-[var(--progress-bar-fill)];
+  }
+
+  &__value {
+    @apply text-white
+      font-semibold;
+  }
+}

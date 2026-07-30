@@ -1,0 +1,151 @@
+
+.text {
+  /* Headline tokens — responsive upscale per breakpoint tier.
+     base = Mobile, md: = Tablet (768px), lg: = Desktop (1024px), wide: = Desktop Wide (1800px).
+     Tracking tightens as font size grows — each breakpoint has its own tracking value. */
+  &-headline-xl {
+    @apply text-base font-semibold lg:text-xl;
+  }
+  &-headline-2xl {
+    @apply text-xl font-semibold lg:text-2xl wide:text-3xl lg:tracking-[-0.25px];
+  }
+  &-headline-3xl {
+    @apply text-xl font-semibold md:text-2xl lg:text-3xl wide:text-4xl md:tracking-[-0.25px] wide:tracking-[-1px];
+  }
+  &-headline-4xl {
+    @apply text-2xl font-semibold md:text-3xl md:font-semibold lg:text-4xl lg:font-bold wide:text-5xl tracking-[-0.25px] lg:tracking-[-1px];
+  }
+  &-headline-5xl {
+    @apply text-3xl font-extrabold md:text-4xl lg:text-5xl wide:text-6xl tracking-[-0.25px] md:tracking-[-1px] wide:tracking-[-2px];
+  }
+  &-headline-6xl {
+    @apply text-4xl font-bold md:text-5xl md:font-extrabold lg:text-6xl lg:font-extrabold wide:text-7xl tracking-[-0.25px] md:tracking-[-1px] lg:tracking-[-2px];
+  }
+  &-headline-7xl {
+    @apply text-5xl font-extrabold md:text-6xl lg:text-7xl wide:text-8xl tracking-[-1px] md:tracking-[-2px];
+  }
+  &-headline-8xl {
+    @apply text-5xl font-extrabold md:text-7xl lg:text-8xl wide:text-9xl tracking-[-1px] md:tracking-[-2px];
+  }
+  &-headline-9xl {
+    @apply text-6xl font-extrabold md:text-8xl lg:text-9xl tracking-[-2px];
+  }
+
+  /* Statistic tokens — Light weight throughout, discrete upscale.
+     antialiased matches Figma's greyscale smoothing — without it browsers
+     apply subpixel antialiasing which makes Inter Light strokes appear heavier.
+     leading-none at EVERY breakpoint (CORE-3721): these big single-line numerals always
+     rendered at line-height == font-size (the old text-5xl/7xl/8xl lineHeight:1). Now that
+     text-5xl/6xl/7xl carry 56/68/80px, leading-none pins them back to ratio-1. The variant
+     must be re-applied per breakpoint (md:/lg:) — an unprefixed leading-none loses to a
+     responsive md:/lg:text-Nxl token whose line-height sits inside a media query. */
+  &-statistic-5xl {
+    /* 48px. Before: LH 48px. After: LH 48px (leading-none). No change. */
+    @apply text-5xl font-light tracking-[-3px] antialiased leading-none;
+  }
+  &-statistic-7xl {
+    /* 48/48/72px. Before: LH 48/48/72px. After: LH 48/48/72px (leading-none). No change. */
+    @apply text-5xl font-light md:text-5xl lg:text-7xl tracking-[-3px] antialiased leading-none md:leading-none lg:leading-none;
+  }
+  &-statistic-8xl {
+    /* 48/72/96px. Before: LH 48/72/96px. After: LH 48/72/96px (leading-none). No change. */
+    @apply text-5xl font-light md:text-7xl lg:text-8xl tracking-[-3px] lg:tracking-[-4px] antialiased leading-none md:leading-none lg:leading-none;
+  }
+
+  /* Body tokens — mobile base, tablet md:, wide: upscale. Weight is caller-set. */
+  &-body-xs {
+    @apply text-xs wide:text-sm;
+  }
+  &-body-sm {
+    @apply text-sm wide:text-base;
+  }
+  /* wide:leading-6 (24px) overrides text-lg's bundled 28px to match Figma body-300.
+     Before: 16px/24px → wide 18px/28px.  After: 16px/24px → wide 18px/24px. (CORE-3721) */
+  &-body-base {
+    @apply text-base wide:text-lg wide:leading-6;
+  }
+  &-body-lg {
+    @apply text-base md:text-lg wide:text-xl;
+  }
+
+  /* Legacy aliases mapped per Daniel's sign-off on CORE-3146 Q2/Q3. */
+  &-h1 {
+    @apply text-5xl font-extrabold md:text-6xl lg:text-7xl wide:text-8xl tracking-[-1px] md:tracking-[-2px];
+  }
+  &-h2 {
+    @apply text-3xl font-semibold md:text-4xl md:font-bold lg:text-5xl lg:font-extrabold wide:text-6xl tracking-[-0.25px] md:tracking-[-1px] wide:tracking-[-2px];
+  }
+  &-h3 {
+    @apply text-xl font-semibold md:text-2xl lg:text-3xl wide:text-4xl md:tracking-[-0.25px] wide:tracking-[-1px];
+  }
+  &-h4 {
+    @apply text-xl font-semibold md:text-xl lg:text-2xl wide:text-3xl lg:tracking-[-0.25px];
+  }
+  &-h5 {
+    @apply text-xl font-semibold;
+  }
+  &-h6 {
+    @apply text-base wide:text-lg;
+  }
+  /* display-* (CORE-3721): uppercase hero text that always rendered at line-height
+     == font-size (the old text-5xl/6xl/8xl/9xl lineHeight:1). leading-none pins
+     ratio-1 so the token bump (text-5xl/6xl → 56/68px) doesn't loosen it. No change. */
+  &-display-lg {
+    /* 60/96/128px. Before: LH 60/96/128px. After: LH 60/96/128px (leading-none). No change. */
+    @apply uppercase text-6xl font-extrabold md:text-8xl lg:text-9xl tracking-[-2px] leading-none md:leading-none lg:leading-none;
+
+    &[class*='secondary'] {
+      @apply leading-[0.9];
+    }
+  }
+  &-display-sm {
+    /* 48/72/96px. Before: LH 48/72/96px. After: LH 48/72/96px (leading-none). No change. */
+    @apply uppercase text-5xl font-extrabold md:text-7xl lg:text-8xl tracking-[-2px] leading-none md:leading-none lg:leading-none;
+  }
+  &-p-lg {
+    @apply text-base md:text-lg wide:text-xl;
+  }
+  /* Legacy twin of body-base. Before: 16px/24px → wide 18px/28px.
+     After: 16px/24px → wide 18px/24px. (CORE-3721) */
+  &-p {
+    @apply text-base wide:text-lg wide:leading-6;
+  }
+  &-p-sm {
+    @apply text-sm wide:text-base;
+  }
+  &-label {
+    @apply text-xs wide:text-sm;
+  }
+
+  &-a {
+    @apply text-lg
+    underline;
+  }
+
+  &-a,
+  &-button {
+    @apply flex
+    items-center
+    gap-2;
+
+    svg {
+      @apply w-4
+      -mb-[0.15rem];
+    }
+  }
+
+  &.primary {
+    &-bold {
+      @apply font-semibold;
+    }
+  }
+
+  &.secondary {
+    @apply font-secondary;
+
+    &-bold {
+      @apply font-secondary
+      font-semibold;
+    }
+  }
+}

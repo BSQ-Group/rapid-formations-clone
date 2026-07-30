@@ -1,0 +1,59 @@
+
+.actions-menu {
+  &__actions-btn {
+    @apply bg-transparent
+        border-none
+        shadow-none
+        w-8
+        h-8
+        flex
+        items-center
+        justify-center
+        rounded
+        p-0
+        hover:bg-[var(--surface-hover)]
+        focus:outline-none
+        focus-visible:outline-none
+        focus-visible:ring-0
+        focus-visible:shadow-none
+        transition-colors
+        duration-200;
+    /*  Need raw CSS as !focus-visible:shadow-none is not in Tailwind */
+    &:focus-visible {
+      outline: none;
+      box-shadow: none;
+    }
+    &--active {
+      @apply bg-[var(--surface-tertiary)];
+    }
+  }
+  &__dropdown-menu {
+    @apply bg-[var(--surface-tertiary)]
+        shadow-lg
+        rounded
+        p-1;
+  }
+  &__dropdown-item {
+    @apply flex
+        items-center
+        w-full
+        px-2
+        py-1.5
+        text-sm
+        font-medium
+        text-[var(--text-strong)]
+        rounded
+        transition-colors
+        duration-150
+        cursor-pointer
+        select-none
+        hover:bg-[var(--surface-primary)]
+        focus:bg-[var(--surface-primary)]
+        focus-visible:outline-none
+        focus-visible:ring-0;
+
+    &--destructive {
+      @apply hover:text-[var(--feedback-error-surface)];
+    }
+  }
+}

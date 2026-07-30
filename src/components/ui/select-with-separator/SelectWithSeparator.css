@@ -1,0 +1,26 @@
+
+.select-with-separator {
+  &__trigger {
+    @apply flex
+      items-center
+      justify-between
+      gap-2
+      w-full
+      bg-white
+      rounded-xs;
+  }
+
+  &__separator {
+    @apply h-9
+      ml-auto
+      mr-1;
+  }
+
+  &__content {
+    @apply w-full
+      max-h-[200px]
+      overflow-y-auto
+      bg-white
+      rounded-xs;
+  }
+}

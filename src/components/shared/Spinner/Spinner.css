@@ -1,0 +1,35 @@
+
+.spinner {
+  &-container {
+    @apply relative
+    flex
+    justify-center
+    items-center;
+
+    &--full-screen {
+      @apply fixed
+      top-0
+      left-0
+      z-50
+      h-screen
+      w-screen;
+    }
+  }
+
+  &__icon {
+    @apply animate-spin
+      text-[var(--icon-default)];
+
+    &-wrapper {
+      @apply flex
+      justify-center
+      items-center
+      h-20 w-20
+      rounded-sm;
+
+      &--with-background {
+        @apply bg-[var(--surface-primary)];
+      }
+    }
+  }
+}

@@ -1,0 +1,55 @@
+
+.question-yes-no {
+  @apply w-full;
+
+  &__row {
+    @apply mt-3
+      flex
+      items-center
+      justify-between
+      gap-6
+      rounded-sm
+      bg-[var(--surface-primary)]
+      p-6
+      shadow-sm;
+  }
+
+  &__question {
+    @apply text-base
+      font-semibold
+      leading-tight
+      tracking-tight
+      text-[var(--text-strong)];
+  }
+
+  &__toggle-group {
+    @apply flex
+      items-center
+      gap-2;
+  }
+
+  &__toggle {
+    @apply h-8
+      cursor-pointer
+      rounded-md
+      border-0
+      px-[14px]
+      py-2
+      text-[11px]
+      font-bold
+      leading-5
+      transition-all
+      duration-200;
+
+    &.active {
+      @apply bg-[var(--button-tertiary-selected)]
+        text-[var(--text-inverse)];
+    }
+
+    &:focus {
+      @apply outline-none
+        ring-2
+        ring-[var(--border-focus)];
+    }
+  }
+}
