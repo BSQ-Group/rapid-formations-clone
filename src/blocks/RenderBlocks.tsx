@@ -36,6 +36,7 @@ import { RegisteredOfficePurposeBlock } from '@/blocks/RegisteredOfficePurpose/C
 import { OfficePhotoAddressBlock } from '@/blocks/OfficePhotoAddress/Component'
 import { ServicesCTABlock } from '@/blocks/ServicesCTA/Component'
 import { CustomerQuoteBlock } from '@/blocks/CustomerQuote/Component'
+import { RegisterCtaPanelBlock } from '@/blocks/RegisterCtaPanel/Component'
 import { RegisteredOfficeAddressBlock } from '@/blocks/RegisteredOfficeAddress/Component'
 import { ServicesTestimonialBlock } from '@/blocks/ServicesTestimonial/Component'
 import { TestimonialBannerBlock } from '@/blocks/TestimonialBanner/Component'
@@ -98,6 +99,7 @@ const blockComponents = {
   officePhotoAddress: OfficePhotoAddressBlock,
   servicesCTA: ServicesCTABlock,
   customerQuote: CustomerQuoteBlock,
+  registerCtaPanel: RegisterCtaPanelBlock,
   registeredOfficeAddress: RegisteredOfficeAddressBlock,
   servicesTestimonial: ServicesTestimonialBlock,
   testimonialBanner: TestimonialBannerBlock,

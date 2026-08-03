@@ -36,6 +36,7 @@ import { RegisteredOfficePurpose } from '../../blocks/RegisteredOfficePurpose/co
 import { OfficePhotoAddress } from '../../blocks/OfficePhotoAddress/config'
 import { ServicesCTA } from '../../blocks/ServicesCTA/config'
 import { CustomerQuote } from '../../blocks/CustomerQuote/config'
+import { RegisterCtaPanel } from '../../blocks/RegisterCtaPanel/config'
 import { RegisteredOfficeAddress } from '../../blocks/RegisteredOfficeAddress/config'
 import { ServicesTestimonial } from '../../blocks/ServicesTestimonial/config'
 import { TestimonialBanner } from '../../blocks/TestimonialBanner/config'
@@ -170,6 +171,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 OfficePhotoAddress,
                 ServicesCTA,
                 CustomerQuote,
+                RegisterCtaPanel,
                 RegisteredOfficeAddress,
                 ServicesTestimonial,
                 TestimonialBanner,
