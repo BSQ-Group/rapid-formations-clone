@@ -13,14 +13,12 @@
     font-size: unset;
   }
 
-
-
   html {
     scroll-padding-top: calc(var(--header-height) + 0.75rem);
   }
 
   :root {
-    --header-height: 76px;
+    --header-height: 90px;
     --radius: 0.5rem;
 
     /* Header overlay tokens — default (inner page).
@@ -34,7 +32,7 @@
     /* Informational Colors - Common between themes */
     --white: 255 255 255;
     --black: 0 0 0;
-    
+
     /* Global Feedback Primitives */
     --feedback-green-50: rgb(240 247 242);
     --feedback-green-100: rgb(227 247 233);
@@ -65,6 +63,12 @@
     --section-spacing-l: 56px;
     --section-spacing-xl: 64px;
     --section-spacing-xxl: 96px;
+  }
+
+  @media (min-width: 1023px) {
+    :root {
+      --header-height: 151px;
+    }
   }
 
   @media (min-width: 768px) {
@@ -265,11 +269,18 @@
     --slider-gradient: linear-gradient(90deg, rgb(130 238 139) 0%, rgb(0 194 184) 100%);
 
     /* Shadows */
-    --shadow-sm: 0px 1px 3px 0px color-mix(in srgb, var(--qcf-grey-700) 10%, transparent), 0px 1px 2px -1px color-mix(in srgb, var(--qcf-grey-700) 10%, transparent);
-    --shadow-md: 0px 4px 6px -1px color-mix(in srgb, var(--qcf-grey-700) 10%, transparent), 0px 2px 4px -2px color-mix(in srgb, var(--qcf-grey-700) 10%, transparent);
-    --shadow-lg: 0px 10px 15px -3px color-mix(in srgb, var(--qcf-grey-700) 10%, transparent), 0px 4px 6px -4px color-mix(in srgb, var(--qcf-grey-700) 10%, transparent);
+    --shadow-sm:
+      0px 1px 3px 0px color-mix(in srgb, var(--qcf-grey-700) 10%, transparent),
+      0px 1px 2px -1px color-mix(in srgb, var(--qcf-grey-700) 10%, transparent);
+    --shadow-md:
+      0px 4px 6px -1px color-mix(in srgb, var(--qcf-grey-700) 10%, transparent),
+      0px 2px 4px -2px color-mix(in srgb, var(--qcf-grey-700) 10%, transparent);
+    --shadow-lg:
+      0px 10px 15px -3px color-mix(in srgb, var(--qcf-grey-700) 10%, transparent),
+      0px 4px 6px -4px color-mix(in srgb, var(--qcf-grey-700) 10%, transparent);
     --shadow-xl:
-      0px 20px 25px -5px color-mix(in srgb, var(--qcf-grey-700) 10%, transparent), 0px 8px 10px -6px color-mix(in srgb, var(--qcf-grey-700) 10%, transparent);
+      0px 20px 25px -5px color-mix(in srgb, var(--qcf-grey-700) 10%, transparent),
+      0px 8px 10px -6px color-mix(in srgb, var(--qcf-grey-700) 10%, transparent);
     --shadow-2xl: 0px 25px 50px -6px color-mix(in srgb, var(--qcf-grey-700) 25%, transparent);
 
     & .page-content-background {
@@ -285,8 +296,41 @@
      Rapid Formations
      ============================================================ */
   .theme-rapidformations {
+    --surface-hero-brand: rgb(39 94 226);
+    --surface-cta-success: rgb(0 182 122);
+    --surface-cta-success-hover: rgb(0 208 139);
+    --icon-success: rgb(46 204 113);
+    --surface-review-card: rgb(0 0 0 / 0.35);
+    --border-review-card: rgb(255 255 255 / 0.65);
+    --scrim-hero: rgb(0 0 0 / 0.45);
+    --border-review-card-dim: rgb(179 173 173 / 0.65);
+    --icon-rating-filled: rgb(243 156 18);
+    --icon-rating-empty: rgb(197 197 197);
+
+    --text-on-light-strong: rgb(49 49 49);
+    --text-on-light-base: rgb(54 54 54);
+    --text-on-light-subtle: rgb(103 103 103);
+    --text-on-light-muted: rgb(89 89 89);
+    --text-on-light-link-hover: rgb(0 177 227);
+    --border-on-light: rgb(218 218 218);
+    --border-on-light-faint: rgb(0 0 0 / 0.05);
+    --surface-on-light-canvas: rgb(245 245 245);
+    --surface-on-light-sunken: rgb(240 240 240);
+    --surface-on-light-hover: rgb(0 0 0 / 0.03);
+    --icon-on-light-faint: rgb(199 199 199);
+    --scrim-image-strong: rgb(0 0 0 / 0.3);
+    --scrim-image-soft: rgb(0 0 0 / 0.15);
+    --scrim-caption-grey: rgb(125 125 125 / 0.3);
+
+    --surface-brand-cyan: rgb(0 177 227);
+    --surface-brand-cyan-hover: rgb(0 156 200);
+    --surface-brand-cyan-light: rgb(101 205 255);
+    --surface-brand-cyan-wash: rgb(242 250 252);
+    --border-on-dark-subtle: rgb(68 68 68);
+    --border-step-number: rgb(23 131 214);
+
     /* Surface */
-    --surface-canvas: rgb(4 4 41);
+    --surface-canvas: rgb(255 255 255);
     --surface-canvas-inverse: rgb(255 255 255);
     --surface-primary: rgb(42 42 67);
     --surface-secondary: rgb(23 23 51);
@@ -498,14 +542,16 @@
 }
 
 section {
-  width: 100%;           /* Take full available width */
-  max-width: 100%;       /* Never exceed the parent's width */
-  overflow-x: clip;      /* Clips horizontal overflow without creating a scroll container — preserves position:sticky in descendants */
-  min-width: 0;          /* Helps flex/grid children shrink properly */
+  width: 100%; /* Take full available width */
+  max-width: 100%; /* Never exceed the parent's width */
+  overflow-x: clip; /* Clips horizontal overflow without creating a scroll container — preserves position:sticky in descendants */
+  min-width: 0; /* Helps flex/grid children shrink properly */
 }
 
 [data-header] {
-  transition: background-color 200ms ease, border-color 200ms ease;
+  transition:
+    background-color 200ms ease,
+    border-color 200ms ease;
 }
 html [data-header][data-scrolled],
 html [data-header][data-nav-hovered] {
@@ -519,6 +565,31 @@ html [data-header][data-nav-hovered] {
 @layer utilities {
   .translate-z-0 {
     transform: translateZ(0);
+  }
+
+  /* Typeface for blocks ported from the legacy Rapid Formations site, which
+     sets Myriad Pro Semi Condensed. That face comes from BSQ's own Adobe Fonts
+     kit, loaded in the frontend layout when NEXT_PUBLIC_ADOBE_FONT_PROJECT_ID
+     is set — so this is the real thing, not a lookalike.
+
+     Encode Sans is the fallback for when the kit is unavailable (id unset, or a
+     deploy domain not yet added to the kit's allowed list). Its wdth axis is
+     tuned to 75.6, which matches Myriad's measured string widths with a mean
+     ratio of 1.000 and a worst single-string error of 3.19%, at true font-size.
+     font-variation-settings is inert on Myriad, which is not variable, so it
+     costs nothing to leave here.
+
+     Inter is the last resort and sets the same strings ~25% wider, which
+     changes where copy wraps and therefore every card height.
+
+     Applied per block rather than globally — the rest of the app stays on
+     Inter. */
+  .font-legacy-condensed {
+    font-family:
+      'myriad-pro-semi-condensed', var(--font-legacy-condensed), var(--font-inter), sans-serif;
+    font-variation-settings: 'wdth' 75.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
@@ -579,13 +650,17 @@ button {
   ul {
     list-style-type: disc;
     padding-left: 1.25rem;
-    &:not(:last-child) { margin-bottom: 0.75em; }
+    &:not(:last-child) {
+      margin-bottom: 0.75em;
+    }
   }
 
   ol {
     list-style-type: decimal;
     padding-left: 1.25rem;
-    &:not(:last-child) { margin-bottom: 0.75em; }
+    &:not(:last-child) {
+      margin-bottom: 0.75em;
+    }
   }
 
   li {
@@ -681,7 +756,7 @@ button {
      * get the same fill (Figma renders the term column as a bold <th>, which
      * also needs the grey background). */
     tr:nth-child(odd) > * {
-      background-color: var(--surface-canvas);
+      background-color: var(--surface-on-light-sunken, var(--surface-canvas));
     }
 
     p,
@@ -691,4 +766,3 @@ button {
     }
   }
 }
-

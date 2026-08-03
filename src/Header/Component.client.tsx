@@ -11,16 +11,21 @@ import React, {
   useSyncExternalStore,
 } from 'react'
 import dynamic from 'next/dynamic'
-import { Menu, X, ChevronRight, ChevronLeft } from 'lucide-react'
+import { ChevronDown, ChevronRight, Layers, Minus, Plus } from 'lucide-react'
 
 import type { Header } from '@/payload-types'
+import type { Page, Post } from '@/payload-types'
 
-import { Logo } from '@/components/Logo/Logo'
-import { CMSLink } from '@/components/Link'
 import { Button } from '@/components/ui/button'
-import { ThemeSwitcher } from '@/components/ThemeSwitcher'
 import { OAuthRedirectHandler } from '@/components/shared/OAuthRedirectHandler'
 import { IdleMount } from '@/components/shared/IdleMount'
+import { LockSolid } from '@/components/shared/SVG/LockSolid'
+import Text from '@/components/shared/Text'
+import { cn } from '@/utilities/ui'
+import { useToken } from '@/state/auth'
+import { firebaseSignOut } from '@/lib/firebase'
+import { getBrand, getDomainConfig, getLogoPath, Brand } from '@/lib/brand'
+import { headerStyles as s } from './Header.styles'
 
 const LoginModal = dynamic(
   () => import('@/components/shared/LoginModal/LoginModal').then((m) => m.LoginModal),
@@ -34,43 +39,67 @@ const GoogleOneTapProvider = dynamic(
     ),
   { ssr: false },
 )
-import Text from '@/components/shared/Text'
-import { cn } from '@/utilities/ui'
-import { useToken } from '@/state/auth'
-import { firebaseSignOut } from '@/lib/firebase'
-import { headerStyles as s } from './Header.styles'
 
-const isDev = process.env.NODE_ENV === 'development'
-const MAX_COLUMN_ITEMS = 6
+const DESKTOP_NAV_QUERY = '(min-width: 1200px)'
+
+const LOGO_INTRINSIC: Record<Brand, { width: number; height: number }> = {
+  [Brand.RapidFormations]: { width: 1296, height: 130 },
+  [Brand.QualityCompanyFormations]: { width: 44, height: 44 },
+  [Brand.FirstFormations]: { width: 44, height: 44 },
+}
+
+type NavItem = NonNullable<Header['navItems']>[number]
+type CMSLinkValue = Omit<NavItem['link'], 'label'>
+
+function resolveHref(link: CMSLinkValue | undefined | null): string | null {
+  if (!link) return null
+  if (
+    link.type === 'reference' &&
+    typeof link.reference?.value === 'object' &&
+    link.reference.value !== null
+  ) {
+    const value = link.reference.value as Page | Post
+    if (!value.slug) return null
+    return `${link.reference.relationTo !== 'pages' ? `/${link.reference.relationTo}` : ''}/${value.slug}`
+  }
+  return link.url || null
+}
+
+function isDesktopNav(): boolean {
+  return typeof window !== 'undefined' && window.matchMedia(DESKTOP_NAV_QUERY).matches
+}
 
 interface HeaderClientProps {
   data: Header
+  onDark?: boolean
 }
 
-export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
+export const HeaderClient: React.FC<HeaderClientProps> = ({ data, onDark = false }) => {
   const navItems = data?.navItems || []
   const secondaryNavItems = data?.secondaryNavItems || []
   const accountLinks = data?.accountLinks || []
   const loginLink = data?.loginLink
   const pathname = usePathname()
 
-  // Login modal
+  const brand = getBrand()
+  const domain = getDomainConfig(brand)
+  const logoSize = LOGO_INTRINSIC[brand] ?? LOGO_INTRINSIC[Brand.RapidFormations]
+
   const [loginModalOpen, setLoginModalOpen] = useState(false)
   const [loginError, setLoginError] = useState<string | null>(null)
 
-  const handleOAuthError = useCallback((message: string) => {
-    setLoginError(message)
-    setLoginModalOpen(true)
-  }, [])
+  const handleOAuthError = useCallback(
+    (message: string) => {
+      setLoginError(message)
+      setLoginModalOpen(true)
+    },
+    [setLoginModalOpen],
+  )
 
-  // Desktop mega menu
-  const [activeMegaMenu, setActiveMegaMenu] = useState<number | null>(null)
-  const [navHovered, setNavHovered] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [openKey, setOpenKey] = useState<string | null>(null)
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  // Auth state — token is only readable on the client (cookie). To avoid a
-  // flash of the logged-out UI on hydration for already-signed-in users, we
-  // skip rendering the auth-dependent slot until after mount.
   const token = useToken()
   const hasMounted = useSyncExternalStore(
     () => () => {},
@@ -81,19 +110,11 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   const showLoggedIn = hasMounted && isLoggedIn
   const showLoggedOut = hasMounted && !isLoggedIn
 
-  // Account dropdown (desktop)
-  const [accountOpen, setAccountOpen] = useState(false)
-
-  // Mobile menu
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [mobileSubMenu, setMobileSubMenu] = useState<number | 'account' | null>(null)
-
   const headerRef = useRef<HTMLElement>(null)
   useEffect(() => {
     const el = headerRef.current
     if (!el) return
 
-    // Publish header height for downstream sticky elements
     const publish = () => {
       const h = el.offsetHeight
       if (h > 0) document.documentElement.style.setProperty('--nav-height', `${h}px`)
@@ -102,320 +123,183 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
     const ro = new ResizeObserver(publish)
     ro.observe(el)
 
-    // Use a sentinel at the top of the document to detect scroll without
-    // relying on which element fires the scroll event.
-    const sentinel = document.createElement('div')
-    sentinel.style.cssText =
-      'position:absolute;top:0;left:0;width:1px;height:1px;pointer-events:none;'
-    document.body.insertAdjacentElement('afterbegin', sentinel)
-
-    const io = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        el.removeAttribute('data-scrolled')
-      } else {
-        el.setAttribute('data-scrolled', '')
-      }
-    })
-    io.observe(sentinel)
+    const onScroll = () => {
+      if (window.scrollY > 0) el.setAttribute('data-scrolled', '')
+      else el.removeAttribute('data-scrolled')
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
 
     return () => {
       ro.disconnect()
-      io.disconnect()
-      sentinel.remove()
+      window.removeEventListener('scroll', onScroll)
     }
   }, [])
 
-  // Close menus on route change
   useEffect(() => {
     startTransition(() => {
-      setActiveMegaMenu(null)
-      setAccountOpen(false)
-      setMobileMenuOpen(false)
-      setMobileSubMenu(null)
+      setMenuOpen(false)
+      setOpenKey(null)
     })
   }, [pathname])
 
-  // Lock body scroll when mobile menu is open
-  useEffect(() => {
-    document.body.style.overflow = mobileMenuOpen ? 'hidden' : ''
-    return () => {
-      document.body.style.overflow = ''
-    }
-  }, [mobileMenuOpen])
-
-  const handleMegaMenuEnter = useCallback((index: number) => {
+  const handleRowEnter = useCallback(() => {
+    if (!isDesktopNav()) return
     if (closeTimeoutRef.current) {
       clearTimeout(closeTimeoutRef.current)
       closeTimeoutRef.current = null
     }
-    setActiveMegaMenu(index)
-    setNavHovered(true)
-    setAccountOpen(false)
   }, [])
 
-  const handleMegaMenuLeave = useCallback(() => {
-    closeTimeoutRef.current = setTimeout(() => {
-      setActiveMegaMenu(null)
-      setNavHovered(false)
-    }, 150)
+  const handleRowLeave = useCallback(() => {
+    if (!isDesktopNav()) return
+    closeTimeoutRef.current = setTimeout(() => setOpenKey(null), 150)
   }, [])
 
-  const handlePlainLinkEnter = useCallback(() => {
-    if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current)
-    setActiveMegaMenu(null)
-    setNavHovered(true)
+  const handleToggle = useCallback((key: string) => {
+    setOpenKey((current) => (current === key ? null : key))
   }, [])
 
-  const handleMobileClose = useCallback(() => {
-    setMobileMenuOpen(false)
-    setMobileSubMenu(null)
-  }, [])
+  const closeEverything = useCallback(() => {
+    setMenuOpen(false)
+    setOpenKey(null)
+  }, [setMenuOpen])
 
-  const handleMobileOpen = useCallback(() => {
-    setMobileMenuOpen(true)
-    setMobileSubMenu(null)
-  }, [])
-
-  const activeNavItem = activeMegaMenu !== null ? navItems[activeMegaMenu] : null
-  const hasMegaMenu =
-    activeNavItem?.megaMenuCategories && activeNavItem.megaMenuCategories.length > 0
-  const mobileSubMenuData = typeof mobileSubMenu === 'number' ? navItems[mobileSubMenu] : null
+  const renderRow = (item: NavItem, key: string, isLast: boolean, inMainNav = false) => (
+    <NavRow
+      key={key}
+      item={item}
+      rowKey={key}
+      isLast={isLast}
+      inMainNav={inMainNav}
+      isOpen={openKey === key}
+      onEnter={handleRowEnter}
+      onLeave={handleRowLeave}
+      onToggle={handleToggle}
+      onNavigate={closeEverything}
+    />
+  )
 
   return (
     <>
       <header
         ref={headerRef}
-        className={s.header}
-        data-header
-        {...(navHovered ? { 'data-nav-hovered': '' } : {})}
+        data-on-light={onDark ? undefined : ''}
+        className={cn(s.header, s.headerScrolled)}
       >
-        {/* ─────────── Desktop fixed nav ─────────── */}
-        <div className={s.desktopNav} data-desktop-nav="" onMouseLeave={handleMegaMenuLeave}>
-          <div className={s.desktopContainer}>
-            <div className={s.navBar}>
-              <div className={s.leftGroup}>
-                <Link href="/">
-                  <Logo className={cn(s.logo, s.logoIdle)} fill="black" />
-                </Link>
-
-                {navItems.length > 0 && (
-                  <NavItems
-                    items={navItems}
-                    linkClass={s.navLinkWithBg}
-                    activeMegaMenu={activeMegaMenu}
-                    onMegaMenuEnter={handleMegaMenuEnter}
-                    onPlainLinkEnter={handlePlainLinkEnter}
-                  />
-                )}
-              </div>
-
-              <div className={s.rightGroup}>
-                {isDev && <ThemeSwitcher />}
-                <SecondaryNav items={secondaryNavItems} linkClass={s.navLinkWithBg} />
-                {showLoggedIn && (
-                  <AccountMenu
-                    open={accountOpen}
-                    onOpenChange={setAccountOpen}
-                    linkClass={s.navLinkWithBg}
-                    onHover={handlePlainLinkEnter}
-                    links={accountLinks}
-                  />
-                )}
-                {showLoggedOut && (
-                  <LoginButton loginLink={loginLink} onLogin={() => setLoginModalOpen(true)} />
-                )}
-              </div>
-            </div>
-          </div>
-
-          {hasMegaMenu && activeMegaMenu !== null && (
-            <div className={s.megaMenuDropdown}>
-              <MegaMenuPanel
-                activeNavItem={activeNavItem!}
-                activeMegaMenu={activeMegaMenu}
-                onEnter={handleMegaMenuEnter}
-              />
-            </div>
-          )}
-        </div>
-
-        {/* ─────────── Mobile fixed bar ─────────── */}
-        {!mobileMenuOpen && (
-          <div className={s.mobileScrollNav}>
-            <div className={s.mobileScrollBar}>
-              <Link href="/">
-                <Logo className={cn(s.logo, s.logoIdle)} fill="black" />
+        <div className={s.container}>
+          <div className={s.topRow}>
+            <div className={s.logoCell}>
+              <Link href="/" className={s.logoLink} onClick={closeEverything}>
+                <img
+                  src={getLogoPath(domain, onDark)}
+                  alt={domain.alt}
+                  width={logoSize.width}
+                  height={logoSize.height}
+                  loading="eager"
+                  className={s.logoImage}
+                />
               </Link>
-              <div className={s.mobileActions}>
-                {showLoggedOut && (
-                  <LoginButton loginLink={loginLink} onLogin={() => setLoginModalOpen(true)} />
-                )}
-                <HamburgerButton className={s.mobileScrollHamburger} onOpen={handleMobileOpen} />
-              </div>
+            </div>
+            <div className={s.burgerCell}>
+              <Button
+                type="button"
+                variant="tertiary"
+                size="icon"
+                className={s.burgerButton}
+                aria-expanded={menuOpen}
+                aria-controls="header-nav"
+                aria-label="Toggle navigation"
+                onClick={() => setMenuOpen((open) => !open)}
+              >
+                <span className={s.burgerBox}>
+                  <span
+                    className={cn(s.burgerBar, s.burgerBarTop, menuOpen && s.burgerBarTopOpen)}
+                  />
+                  <span
+                    className={cn(
+                      s.burgerBar,
+                      s.burgerBarMiddle,
+                      menuOpen && s.burgerBarMiddleOpen,
+                    )}
+                  />
+                  <span
+                    className={cn(
+                      s.burgerBar,
+                      s.burgerBarBottom,
+                      menuOpen && s.burgerBarBottomOpen,
+                    )}
+                  />
+                </span>
+              </Button>
             </div>
           </div>
-        )}
-
-        {/* ─────────── Mobile overlay ─────────── */}
-        {mobileMenuOpen && (
-          <div className={s.mobileOverlay} onClick={handleMobileClose}>
-            <div className={s.mobileContainer} onClick={(e) => e.stopPropagation()} style={{ '--header-logo-fill': 'rgb(var(--black))' } as React.CSSProperties}>
-              <div className={s.mobileHeader}>
-                <Link href="/" onClick={handleMobileClose}>
-                  <Logo className={cn(s.logo, s.logoIdle)} fill="black" />
-                </Link>
-                <div className={s.mobileActions}>
-                  {showLoggedOut && (
-                    <LoginButton loginLink={loginLink} onLogin={() => setLoginModalOpen(true)} />
+          <div id="header-nav">
+            <div className={cn(s.bottomWrap, menuOpen && s.bottomWrapOpen)}>
+              <nav
+                className={cn(s.siteNav, menuOpen ? 'flex' : 'hidden')}
+                aria-label="Main navigation"
+              >
+                <ul className={cn(s.navList, s.siteNavListOffset)}>
+                  {navItems.map((item, i) => renderRow(item, `main-${i}`, false, true))}
+                </ul>
+              </nav>
+              <nav
+                className={cn(s.userNav, menuOpen ? 'flex' : 'hidden')}
+                aria-label="Secondary navigation"
+              >
+                <ul className={cn(s.navList, s.userNavListOffset)}>
+                  {secondaryNavItems.map((item, i) =>
+                    renderRow(
+                      item,
+                      `secondary-${i}`,
+                      i === secondaryNavItems.length - 1 && !showLoggedIn,
+                    ),
                   )}
-                  <button
-                    type="button"
-                    className={s.mobileCloseButton}
-                    aria-label="Close menu"
-                    onClick={handleMobileClose}
-                  >
-                    <X size={24} />
-                  </button>
-                </div>
-              </div>
-
-              {mobileSubMenu === null ? (
-                <div className={s.mobileMenuContent}>
-                  {navItems.map((item, i) => {
-                    const hasSubmenu = item.megaMenuCategories && item.megaMenuCategories.length > 0
-
-                    if (hasSubmenu) {
-                      return (
-                        <button
-                          key={i}
-                          type="button"
-                          className={s.mobileMenuItem}
-                          onClick={() => setMobileSubMenu(i)}
-                        >
-                          <Text
-                            text={item.link.label || ''}
-                            textStyle="body-sm"
-                            className={s.mobileMenuItemLabel}
-                          />
-                          <ChevronRight size={16} className="text-[var(--text-strong)]" />
-                        </button>
-                      )
-                    }
-
-                    return (
-                      <div key={i} onClick={handleMobileClose}>
-                        <CMSLink
-                          {...item.link}
-                          appearance="inline"
-                          className={cn(s.mobileMenuItem, s.mobileMenuItemLabel)}
-                        />
-                      </div>
-                    )
-                  })}
-
-                  <div className={s.mobileMenuDivider} />
-
-                  {secondaryNavItems.map(({ link }, i) => (
-                    <div key={i} className={s.mobileSecondaryItem} onClick={handleMobileClose}>
-                      <CMSLink {...link} appearance="inline" className={s.mobileSecondaryLabel} />
-                    </div>
-                  ))}
+                  {showLoggedOut && loginLink?.label && (
+                    <li className={cn(s.navRow, s.navRowPlain, s.navRowLast)}>
+                      <button
+                        type="button"
+                        className={cn(s.navLink, s.navLinkFlushRight)}
+                        onClick={() => setLoginModalOpen(true)}
+                      >
+                        <LockSolid className={s.navLinkIcon} />
+                        <Text text={loginLink.label} textStyle="span" />
+                      </button>
+                    </li>
+                  )}
                   {showLoggedIn && (
                     <>
-                      <button
-                        type="button"
-                        className={cn(s.mobileSecondaryItem, 'w-full justify-start')}
-                        onClick={() => setMobileSubMenu('account')}
-                      >
-                        <Text
-                          text="Account"
-                          textStyle="body-sm"
-                          className={s.mobileSecondaryLabel}
+                      {accountLinks.length > 0 && (
+                        <AccountRow
+                          links={accountLinks}
+                          isOpen={openKey === 'account'}
+                          onEnter={handleRowEnter}
+                          onLeave={handleRowLeave}
+                          onToggle={handleToggle}
+                          onNavigate={closeEverything}
                         />
-                      </button>
-                      <div className={s.mobileMenuDivider} />
-                      <button
-                        type="button"
-                        className={cn(s.mobileSecondaryItem, 'w-full justify-start')}
-                        onClick={() => {
-                          firebaseSignOut()
-                          handleMobileClose()
-                        }}
-                      >
-                        <Text
-                          text="Log out"
-                          textStyle="body-sm"
-                          className={s.mobileSecondaryLabel}
-                        />
-                      </button>
+                      )}
+                      <li className={cn(s.navRow, s.navRowPlain, s.navRowLast)}>
+                        <button
+                          type="button"
+                          className={cn(s.navLink, s.navLinkFlushRight)}
+                          onClick={() => {
+                            firebaseSignOut()
+                            closeEverything()
+                          }}
+                        >
+                          <Text text="Log out" textStyle="span" />
+                        </button>
+                      </li>
                     </>
                   )}
-                </div>
-              ) : mobileSubMenu === 'account' ? (
-                <div className={s.mobileSubMenuContent}>
-                  <button
-                    type="button"
-                    className={s.mobileBackButton}
-                    onClick={() => setMobileSubMenu(null)}
-                  >
-                    <ChevronLeft size={16} className="text-[var(--text-muted)]" />
-                    <Text text="Back" textStyle="body-sm" className={s.mobileBackLabel} />
-                  </button>
-
-                  <div className={s.mobileMenuDivider} />
-
-                  <div className={s.mobileSubLinks}>
-                    {accountLinks.map(({ link }, i) => (
-                      <div key={i} onClick={handleMobileClose}>
-                        <CMSLink {...link} appearance="inline" className={s.mobileSubLink} />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ) : (
-                <div className={s.mobileSubMenuContent}>
-                  <button
-                    type="button"
-                    className={s.mobileBackButton}
-                    onClick={() => setMobileSubMenu(null)}
-                  >
-                    <ChevronLeft size={16} className="text-[var(--text-muted)]" />
-                    <Text text="Back" textStyle="body-sm" className={s.mobileBackLabel} />
-                  </button>
-
-                  <div className={s.mobileMenuDivider} />
-
-                  {mobileSubMenuData?.megaMenuCategories?.map((category, catIdx) => (
-                    <React.Fragment key={catIdx}>
-                      {catIdx > 0 && <div className={s.mobileMenuDivider} />}
-                      <div className={s.mobileSubCategory}>
-                        <Text
-                          as="h4"
-                          text={category.title}
-                          textStyle="body-sm"
-                          className={s.mobileSubCategoryTitle}
-                        />
-                        <div className={s.mobileSubLinks}>
-                          {(category.links || []).map((item, linkIdx) => (
-                            <div key={linkIdx} onClick={handleMobileClose}>
-                              <CMSLink
-                                {...item.link}
-                                appearance="inline"
-                                className={s.mobileSubLink}
-                              />
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </React.Fragment>
-                  ))}
-                </div>
-              )}
+                </ul>
+              </nav>
             </div>
           </div>
-        )}
+        </div>
       </header>
-
       <OAuthRedirectHandler onError={handleOAuthError} />
       <IdleMount>
         <GoogleOneTapProvider />
@@ -425,194 +309,209 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   )
 }
 
-/* ─── Sub-components ─── */
-
-function LoginButton({
-  loginLink,
-  onLogin,
-}: {
-  loginLink: Header['loginLink']
-  onLogin: () => void
-}) {
-  if (!loginLink?.label) return null
-  return (
-    <Button variant="primary" size="sm" onClick={onLogin}>
-      {loginLink.label}
-    </Button>
-  )
+interface NavRowProps {
+  item: NavItem
+  rowKey: string
+  isLast: boolean
+  inMainNav: boolean
+  isOpen: boolean
+  onEnter: () => void
+  onLeave: () => void
+  onToggle: (key: string) => void
+  onNavigate: () => void
 }
 
-interface AccountMenuProps {
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  linkClass: string
-  onHover: () => void
-  links: NonNullable<Header['accountLinks']>
-}
+function NavRow({
+  item,
+  rowKey,
+  isLast,
+  inMainNav,
+  isOpen,
+  onEnter,
+  onLeave,
+  onToggle,
+  onNavigate,
+}: NavRowProps) {
+  const columns = item.dropdownColumns || []
+  const href = resolveHref(item.link)
+  const label = item.link?.label || ''
+  const icon = item.icon === 'lock' ? <LockSolid className={s.navLinkIcon} /> : null
 
-function AccountMenu({ open, onOpenChange, linkClass, onHover, links }: AccountMenuProps) {
-  return (
-    <div
-      className={s.accountMenuWrapper}
-      onMouseEnter={() => {
-        onOpenChange(true)
-        onHover()
-      }}
-      onMouseLeave={() => onOpenChange(false)}
-    >
-      <button type="button" className={cn(linkClass, open && s.navLinkActive)}>
-        My Account
-      </button>
-      {open && (
-        <div className={s.accountDropdown}>
-          <div className={s.accountDropdownPanel}>
-            <div className={s.accountDropdownLinks}>
-              {links.map(({ link }, i) => (
-                <CMSLink key={i} {...link} appearance="inline" className={s.accountDropdownLink} />
-              ))}
-            </div>
-            <div className={s.accountDropdownDivider} />
-            <button
-              type="button"
-              className={s.accountDropdownLogout}
-              onClick={() => firebaseSignOut()}
-            >
-              Log out
-            </button>
-          </div>
-        </div>
-      )}
-    </div>
-  )
-}
-
-type NavItemType = NonNullable<Header['navItems']>[number]
-
-interface NavItemsProps {
-  items: NavItemType[]
-  linkClass: string
-  activeMegaMenu: number | null
-  onMegaMenuEnter: (index: number) => void
-  onPlainLinkEnter: () => void
-}
-
-function NavItems({
-  items,
-  linkClass,
-  activeMegaMenu,
-  onMegaMenuEnter,
-  onPlainLinkEnter,
-}: NavItemsProps) {
-  return (
-    <nav className={s.mainNav}>
-      {items.map((item, i) => {
-        const hasSubmenu = item.megaMenuCategories && item.megaMenuCategories.length > 0
-        const isActive = activeMegaMenu === i && hasSubmenu
-
-        if (hasSubmenu) {
-          return (
-            <button
-              key={i}
-              type="button"
-              className={cn(linkClass, isActive && s.navLinkActive)}
-              onMouseEnter={() => onMegaMenuEnter(i)}
-            >
-              {item.link.label}
-            </button>
-          )
-        }
-
-        return (
-          <div key={i} role="none" onMouseEnter={onPlainLinkEnter}>
-            <CMSLink {...item.link} appearance="inline" className={linkClass} />
-          </div>
-        )
-      })}
-    </nav>
-  )
-}
-
-function SecondaryNav({
-  items,
-  linkClass,
-}: {
-  items: Header['secondaryNavItems']
-  linkClass: string
-}) {
-  if (!items || items.length === 0) return null
-  return (
-    <nav className={s.secondaryNav}>
-      {items.map(({ link }, i) => (
-        <CMSLink key={i} {...link} appearance="inline" className={linkClass} />
-      ))}
-    </nav>
-  )
-}
-
-interface MegaMenuPanelProps {
-  activeNavItem: NavItemType
-  activeMegaMenu: number
-  onEnter: (index: number) => void
-}
-
-function MegaMenuPanel({ activeNavItem, activeMegaMenu, onEnter }: MegaMenuPanelProps) {
-  return (
-    <div className={s.megaMenu} onMouseEnter={() => onEnter(activeMegaMenu)}>
-      <div className={s.megaMenuLinks}>
-        {activeNavItem.megaMenuCategories!.map((category, catIdx) => (
-          <React.Fragment key={catIdx}>
-            {catIdx > 0 && <div className={s.megaMenuDivider} />}
-            <MegaMenuCategory category={category} />
-          </React.Fragment>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-function HamburgerButton({ className, onOpen }: { className: string; onOpen: () => void }) {
-  return (
-    <button type="button" className={className} aria-label="Open menu" onClick={onOpen}>
-      <Menu size={24} />
-    </button>
-  )
-}
-
-interface MegaMenuCategoryProps {
-  category: NonNullable<NonNullable<Header['navItems']>[number]['megaMenuCategories']>[number]
-}
-
-function MegaMenuCategory({ category }: MegaMenuCategoryProps) {
-  const links = category.links || []
-  const columns = splitIntoColumns(links, MAX_COLUMN_ITEMS)
-
-  return (
-    <div className={s.megaMenuCategory}>
-      <Text as="h4" text={category.title} textStyle="body-sm" className={s.megaMenuCategoryTitle} />
-      <div className={s.megaMenuLinkList}>
-        {columns.map((column, colIdx) => (
-          <div key={colIdx} className={s.megaMenuColumn}>
-            {column.map((item, linkIdx) => (
-              <CMSLink
-                key={linkIdx}
-                {...item.link}
-                appearance="inline"
-                className={s.megaMenuLink}
-              />
-            ))}
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-/** Split an array into columns of the given max size */
-function splitIntoColumns<T>(items: T[], maxPerColumn: number): T[][] {
-  if (items.length <= maxPerColumn) return [items]
-  const columns: T[][] = []
-  for (let i = 0; i < items.length; i += maxPerColumn) {
-    columns.push(items.slice(i, i + maxPerColumn))
+  if (columns.length === 0) {
+    if (!href) return null
+    return (
+      <li
+        className={cn(
+          s.navRow,
+          s.navRowPlain,
+          isLast && s.navRowLast,
+          inMainNav && s.navRowNoBorder,
+        )}
+      >
+        <Text
+          href={href}
+          text={label}
+          textStyle="span"
+          className={cn(s.navLink, isLast && s.navLinkFlushRight)}
+          onClick={onNavigate}
+          {...(icon ? { icons: { iconBefore: icon } } : {})}
+          {...(item.link?.newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {})}
+        />
+      </li>
+    )
   }
-  return columns
+
+  return (
+    <li
+      className={cn(s.navRow, isLast && s.navRowLast)}
+      onMouseEnter={onEnter}
+      onMouseLeave={onLeave}
+    >
+      <div className={s.dropdown}>
+        <button
+          type="button"
+          className={s.dropdownTrigger}
+          aria-expanded={isOpen}
+          onClick={() => onToggle(rowKey)}
+        >
+          <Text text={label} textStyle="span" className={s.dropdownTitle} />
+          <ChevronDown className={s.dropdownCaret} aria-hidden />
+          <span className={s.dropdownToggle}>
+            <span className={s.dropdownToggleIcon}>
+              {isOpen ? (
+                <Minus className={s.dropdownToggleGlyph} aria-hidden />
+              ) : (
+                <Plus className={s.dropdownToggleGlyph} aria-hidden />
+              )}
+            </span>
+          </span>
+        </button>
+        <DropdownPanel
+          columns={columns}
+          cta={item.dropdownCta}
+          isOpen={isOpen}
+          onNavigate={onNavigate}
+        />
+      </div>
+    </li>
+  )
+}
+
+interface DropdownPanelProps {
+  columns: NonNullable<NavItem['dropdownColumns']>
+  cta?: NavItem['dropdownCta']
+  isOpen: boolean
+  onNavigate: () => void
+}
+
+function DropdownPanel({ columns, cta, isOpen, onNavigate }: DropdownPanelProps) {
+  const ctaHref = resolveHref(cta)
+  const ctaLabel = cta?.label || ''
+  const showCta = Boolean(ctaHref && ctaLabel)
+
+  const ctaLink = showCta ? (
+    <Text
+      href={ctaHref!}
+      text={ctaLabel}
+      textStyle="span"
+      className={s.panelCtaLink}
+      onClick={onNavigate}
+      icons={{ iconBefore: <Layers className={s.panelCtaIcon} aria-hidden /> }}
+    />
+  ) : null
+
+  return (
+    <ul className={cn(s.panel, isOpen ? 'flex' : 'hidden')}>
+      {showCta && <li className={s.panelCtaTop}>{ctaLink}</li>}
+      <li
+        className={cn(
+          s.panelColumns,
+          columns.length === 2 && s.panelColumnsTwo,
+          columns.length >= 3 && s.panelColumnsThree,
+        )}
+      >
+        {columns.map((column, colIdx) => (
+          <div key={colIdx} className={cn(s.panelColumn, showCta && s.panelColumnSpaced)}>
+            {column.heading && (
+              <Text as="h4" text={column.heading} textStyle="span" className={s.panelHeading} />
+            )}
+            {(column.links || []).map((entry, linkIdx) => {
+              const href = resolveHref(entry.link)
+              if (!href) return null
+              return (
+                <Text
+                  key={linkIdx}
+                  href={href}
+                  text={entry.link?.label || ''}
+                  textStyle="span"
+                  className={s.panelLink}
+                  onClick={onNavigate}
+                  icons={{ iconBefore: <ChevronRight className={s.panelLinkIcon} aria-hidden /> }}
+                  {...(entry.link?.newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {})}
+                />
+              )
+            })}
+          </div>
+        ))}
+      </li>
+      {showCta && <li className={s.panelCtaBottom}>{ctaLink}</li>}
+    </ul>
+  )
+}
+
+interface AccountRowProps {
+  links: NonNullable<Header['accountLinks']>
+  isOpen: boolean
+  onEnter: () => void
+  onLeave: () => void
+  onToggle: (key: string) => void
+  onNavigate: () => void
+}
+
+function AccountRow({ links, isOpen, onEnter, onLeave, onToggle, onNavigate }: AccountRowProps) {
+  return (
+    <li className={s.navRow} onMouseEnter={onEnter} onMouseLeave={onLeave}>
+      <div className={s.dropdown}>
+        <button
+          type="button"
+          className={s.dropdownTrigger}
+          aria-expanded={isOpen}
+          onClick={() => onToggle('account')}
+        >
+          <Text text="My Account" textStyle="span" className={s.dropdownTitle} />
+          <ChevronDown className={s.dropdownCaret} aria-hidden />
+          <span className={s.dropdownToggle}>
+            <span className={s.dropdownToggleIcon}>
+              {isOpen ? (
+                <Minus className={s.dropdownToggleGlyph} aria-hidden />
+              ) : (
+                <Plus className={s.dropdownToggleGlyph} aria-hidden />
+              )}
+            </span>
+          </span>
+        </button>
+        <ul className={cn(s.panel, isOpen ? 'flex' : 'hidden')}>
+          <li className={s.panelColumns}>
+            <div className={s.panelColumn}>
+              {links.map((entry, i) => {
+                const href = resolveHref(entry.link)
+                if (!href) return null
+                return (
+                  <Text
+                    key={i}
+                    href={href}
+                    text={entry.link?.label || ''}
+                    textStyle="span"
+                    className={s.panelLink}
+                    onClick={onNavigate}
+                    icons={{ iconBefore: <ChevronRight className={s.panelLinkIcon} aria-hidden /> }}
+                  />
+                )
+              })}
+            </div>
+          </li>
+        </ul>
+      </div>
+    </li>
+  )
 }

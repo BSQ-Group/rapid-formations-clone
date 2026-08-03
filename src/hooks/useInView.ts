@@ -1,4 +1,8 @@
-import { useEffect, useRef, useState, type RefObject } from 'react'
+import { useEffect, useRef, useState, useSyncExternalStore, type RefObject } from 'react'
+
+const subscribeToNothing = () => () => {}
+const getSupportsIntersectionObserver = () => typeof IntersectionObserver !== 'undefined'
+const getServerSupportsIntersectionObserver = () => true
 
 interface UseInViewOptions {
   /** Extra margin around the viewport that still counts as "in view". Accepts any IntersectionObserver rootMargin string. */
@@ -22,14 +26,16 @@ export function useInView<T extends Element = HTMLDivElement>(
   const { rootMargin = '0px', threshold = 0, once = true } = options
   const ref = useRef<T | null>(null)
   const [inView, setInView] = useState(false)
+  const supportsIntersectionObserver = useSyncExternalStore(
+    subscribeToNothing,
+    getSupportsIntersectionObserver,
+    getServerSupportsIntersectionObserver,
+  )
 
   useEffect(() => {
     const node = ref.current
     if (!node) return
-    if (typeof IntersectionObserver === 'undefined') {
-      setInView(true)
-      return
-    }
+    if (typeof IntersectionObserver === 'undefined') return
 
     const io = new IntersectionObserver(
       ([entry]) => {
@@ -47,5 +53,5 @@ export function useInView<T extends Element = HTMLDivElement>(
     return () => io.disconnect()
   }, [rootMargin, threshold, once])
 
-  return { ref, inView }
+  return { ref, inView: inView || !supportsIntersectionObserver }
 }

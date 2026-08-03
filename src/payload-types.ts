@@ -214,17 +214,13 @@ export interface Page {
         | MediaBlock
         | ArchiveBlock
         | FormBlock
-        | FAQsBlock
         | FormationPackagesBlock
         | RegisterCompanyStepsBlock
         | BusinessBankAccountsBlock
-        | LandingHeroBlock
         | SupportBlock
         | TestimonialsBlock
         | WhyChooseUsBlock
-        | BCorpCertificationBlock
         | ChooseCompanyStructureBlock
-        | OurLatestBlogsBlock
         | AdditionalServicesBlock
         | CallOutCTABlock
         | TrustPilotBannerBlock
@@ -237,7 +233,6 @@ export interface Page {
         | RegisteredOfficePurposeBlock
         | OfficePhotoAddressBlock
         | ServicesCTABlock
-        | RegisteredOfficeAddressBlock
         | ServicesTestimonialBlock
         | TestimonialBannerBlock
         | HowItWorksBlock
@@ -262,7 +257,6 @@ export interface Page {
         | HowItWorksListBlock
         | ServiceTextBlock
         | NoteBlock
-        | RegisterOverseasBlock
       )[]
     | null;
   meta?: {
@@ -872,45 +866,6 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FAQsBlock".
- */
-export interface FAQsBlock {
-  title?: string | null;
-  faqs?:
-    | {
-        title: string;
-        description: {
-          root: {
-            type: string;
-            children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
-   */
-  sectionLayout: {
-    background: 'light' | 'dark' | 'inverse';
-    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
-    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'faqs';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "FormationPackagesBlock".
  */
 export interface FormationPackagesBlock {
@@ -1082,74 +1037,6 @@ export interface BusinessBankAccountsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "LandingHeroBlock".
- */
-export interface LandingHeroBlock {
-  eyebrow?: string | null;
-  heading: string;
-  benefits?:
-    | {
-        text: string;
-        id?: string | null;
-      }[]
-    | null;
-  searchPlaceholder?: string | null;
-  searchLink?: {
-    type?: ('reference' | 'custom') | null;
-    newTab?: boolean | null;
-    reference?:
-      | ({
-          relationTo: 'pages';
-          value: string | Page;
-        } | null)
-      | ({
-          relationTo: 'posts';
-          value: string | Post;
-        } | null);
-    url?: string | null;
-  };
-  pricingLink: {
-    type?: ('reference' | 'custom') | null;
-    newTab?: boolean | null;
-    reference?:
-      | ({
-          relationTo: 'pages';
-          value: string | Page;
-        } | null)
-      | ({
-          relationTo: 'posts';
-          value: string | Post;
-        } | null);
-    url?: string | null;
-    label: string;
-  };
-  packagesLink: {
-    type?: ('reference' | 'custom') | null;
-    newTab?: boolean | null;
-    reference?:
-      | ({
-          relationTo: 'pages';
-          value: string | Page;
-        } | null)
-      | ({
-          relationTo: 'posts';
-          value: string | Post;
-        } | null);
-    url?: string | null;
-    label: string;
-  };
-  backgroundImage: string | Media;
-  google?: {
-    logo?: (string | null) | Media;
-    rating?: string | null;
-    reviewCount?: string | null;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'landingHero';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "SupportBlock".
  */
 export interface SupportBlock {
@@ -1224,25 +1111,6 @@ export interface WhyChooseUsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "BCorpCertificationBlock".
- */
-export interface BCorpCertificationBlock {
-  backgroundImage: string | Media;
-  badge: string | Media;
-  /**
-   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
-   */
-  sectionLayout: {
-    background: 'light' | 'dark' | 'inverse';
-    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
-    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'bCorpCertification';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ChooseCompanyStructureBlock".
  */
 export interface ChooseCompanyStructureBlock {
@@ -1279,60 +1147,6 @@ export interface ChooseCompanyStructureBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'chooseCompanyStructure';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "OurLatestBlogsBlock".
- */
-export interface OurLatestBlogsBlock {
-  heading: string;
-  cards: {
-    title: string;
-    description: string;
-    readTime?: string | null;
-    image: string | Media;
-    link?: {
-      type?: ('reference' | 'custom') | null;
-      newTab?: boolean | null;
-      reference?:
-        | ({
-            relationTo: 'pages';
-            value: string | Page;
-          } | null)
-        | ({
-            relationTo: 'posts';
-            value: string | Post;
-          } | null);
-      url?: string | null;
-    };
-    id?: string | null;
-  }[];
-  viewBlogLink: {
-    type?: ('reference' | 'custom') | null;
-    newTab?: boolean | null;
-    reference?:
-      | ({
-          relationTo: 'pages';
-          value: string | Page;
-        } | null)
-      | ({
-          relationTo: 'posts';
-          value: string | Post;
-        } | null);
-    url?: string | null;
-    label: string;
-  };
-  /**
-   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
-   */
-  sectionLayout: {
-    background: 'light' | 'dark' | 'inverse';
-    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
-    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'ourLatestBlogs';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1891,49 +1705,6 @@ export interface ServicesCTABlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'servicesCTA';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "RegisteredOfficeAddressBlock".
- */
-export interface RegisteredOfficeAddressBlock {
-  heading: string;
-  image: string | Media;
-  /**
-   * Multi-line address. Each new line renders on its own line.
-   */
-  address: string;
-  price: string;
-  /**
-   * Suffix shown next to the price. Include leading space.
-   */
-  priceSuffix: string;
-  cta: {
-    type?: ('reference' | 'custom') | null;
-    newTab?: boolean | null;
-    reference?:
-      | ({
-          relationTo: 'pages';
-          value: string | Page;
-        } | null)
-      | ({
-          relationTo: 'posts';
-          value: string | Post;
-        } | null);
-    url?: string | null;
-    label: string;
-  };
-  /**
-   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
-   */
-  sectionLayout: {
-    background: 'light' | 'dark' | 'inverse';
-    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
-    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'registeredOfficeAddress';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3129,47 +2900,6 @@ export interface NoteBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "RegisterOverseasBlock".
- */
-export interface RegisterOverseasBlock {
-  /**
-   * Main section heading. A <br> sets the desktop/mobile line break (after "company", matching Figma); it is automatically suppressed at the tablet breakpoint where the heading fits on one line.
-   */
-  heading: string;
-  body: string;
-  /**
-   * Primary CTA button (e.g. "Start now").
-   */
-  cta: {
-    type?: ('reference' | 'custom') | null;
-    newTab?: boolean | null;
-    reference?:
-      | ({
-          relationTo: 'pages';
-          value: string | Page;
-        } | null)
-      | ({
-          relationTo: 'posts';
-          value: string | Post;
-        } | null);
-    url?: string | null;
-    label: string;
-  };
-  image: string | Media;
-  /**
-   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
-   */
-  sectionLayout: {
-    background: 'light' | 'dark' | 'inverse';
-    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
-    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'registerOverseas';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -3476,17 +3206,13 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
-        faqs?: T | FAQsBlockSelect<T>;
         formationPackages?: T | FormationPackagesBlockSelect<T>;
         registerCompanySteps?: T | RegisterCompanyStepsBlockSelect<T>;
         businessBankAccounts?: T | BusinessBankAccountsBlockSelect<T>;
-        landingHero?: T | LandingHeroBlockSelect<T>;
         support?: T | SupportBlockSelect<T>;
         testimonials?: T | TestimonialsBlockSelect<T>;
         whyChooseUs?: T | WhyChooseUsBlockSelect<T>;
-        bCorpCertification?: T | BCorpCertificationBlockSelect<T>;
         chooseCompanyStructure?: T | ChooseCompanyStructureBlockSelect<T>;
-        ourLatestBlogs?: T | OurLatestBlogsBlockSelect<T>;
         additionalServices?: T | AdditionalServicesBlockSelect<T>;
         callOutCTA?: T | CallOutCTABlockSelect<T>;
         trustpilotBanner?: T | TrustPilotBannerBlockSelect<T>;
@@ -3499,7 +3225,6 @@ export interface PagesSelect<T extends boolean = true> {
         registeredOfficePurpose?: T | RegisteredOfficePurposeBlockSelect<T>;
         officePhotoAddress?: T | OfficePhotoAddressBlockSelect<T>;
         servicesCTA?: T | ServicesCTABlockSelect<T>;
-        registeredOfficeAddress?: T | RegisteredOfficeAddressBlockSelect<T>;
         servicesTestimonial?: T | ServicesTestimonialBlockSelect<T>;
         testimonialBanner?: T | TestimonialBannerBlockSelect<T>;
         howItWorks?: T | HowItWorksBlockSelect<T>;
@@ -3524,7 +3249,6 @@ export interface PagesSelect<T extends boolean = true> {
         howItWorksList?: T | HowItWorksListBlockSelect<T>;
         serviceText?: T | ServiceTextBlockSelect<T>;
         note?: T | NoteBlockSelect<T>;
-        registerOverseas?: T | RegisterOverseasBlockSelect<T>;
       };
   meta?:
     | T
@@ -3640,29 +3364,6 @@ export interface FormBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FAQsBlock_select".
- */
-export interface FAQsBlockSelect<T extends boolean = true> {
-  title?: T;
-  faqs?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        id?: T;
-      };
-  sectionLayout?:
-    | T
-    | {
-        background?: T;
-        paddingTop?: T;
-        paddingBottom?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "FormationPackagesBlock_select".
  */
 export interface FormationPackagesBlockSelect<T extends boolean = true> {
@@ -3770,57 +3471,6 @@ export interface BusinessBankAccountsBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "LandingHeroBlock_select".
- */
-export interface LandingHeroBlockSelect<T extends boolean = true> {
-  eyebrow?: T;
-  heading?: T;
-  benefits?:
-    | T
-    | {
-        text?: T;
-        id?: T;
-      };
-  searchPlaceholder?: T;
-  searchLink?:
-    | T
-    | {
-        type?: T;
-        newTab?: T;
-        reference?: T;
-        url?: T;
-      };
-  pricingLink?:
-    | T
-    | {
-        type?: T;
-        newTab?: T;
-        reference?: T;
-        url?: T;
-        label?: T;
-      };
-  packagesLink?:
-    | T
-    | {
-        type?: T;
-        newTab?: T;
-        reference?: T;
-        url?: T;
-        label?: T;
-      };
-  backgroundImage?: T;
-  google?:
-    | T
-    | {
-        logo?: T;
-        rating?: T;
-        reviewCount?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "SupportBlock_select".
  */
 export interface SupportBlockSelect<T extends boolean = true> {
@@ -3889,23 +3539,6 @@ export interface WhyChooseUsBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "BCorpCertificationBlock_select".
- */
-export interface BCorpCertificationBlockSelect<T extends boolean = true> {
-  backgroundImage?: T;
-  badge?: T;
-  sectionLayout?:
-    | T
-    | {
-        background?: T;
-        paddingTop?: T;
-        paddingBottom?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ChooseCompanyStructureBlock_select".
  */
 export interface ChooseCompanyStructureBlockSelect<T extends boolean = true> {
@@ -3926,48 +3559,6 @@ export interface ChooseCompanyStructureBlockSelect<T extends boolean = true> {
               url?: T;
             };
         id?: T;
-      };
-  sectionLayout?:
-    | T
-    | {
-        background?: T;
-        paddingTop?: T;
-        paddingBottom?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "OurLatestBlogsBlock_select".
- */
-export interface OurLatestBlogsBlockSelect<T extends boolean = true> {
-  heading?: T;
-  cards?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        readTime?: T;
-        image?: T;
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-            };
-        id?: T;
-      };
-  viewBlogLink?:
-    | T
-    | {
-        type?: T;
-        newTab?: T;
-        reference?: T;
-        url?: T;
-        label?: T;
       };
   sectionLayout?:
     | T
@@ -4333,35 +3924,6 @@ export interface ServicesCTABlockSelect<T extends boolean = true> {
         appearance?: T;
       };
   backgroundImage?: T;
-  sectionLayout?:
-    | T
-    | {
-        background?: T;
-        paddingTop?: T;
-        paddingBottom?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "RegisteredOfficeAddressBlock_select".
- */
-export interface RegisteredOfficeAddressBlockSelect<T extends boolean = true> {
-  heading?: T;
-  image?: T;
-  address?: T;
-  price?: T;
-  priceSuffix?: T;
-  cta?:
-    | T
-    | {
-        type?: T;
-        newTab?: T;
-        reference?: T;
-        url?: T;
-        label?: T;
-      };
   sectionLayout?:
     | T
     | {
@@ -5124,33 +4686,6 @@ export interface NoteBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "RegisterOverseasBlock_select".
- */
-export interface RegisterOverseasBlockSelect<T extends boolean = true> {
-  heading?: T;
-  body?: T;
-  cta?:
-    | T
-    | {
-        type?: T;
-        newTab?: T;
-        reference?: T;
-        url?: T;
-        label?: T;
-      };
-  image?: T;
-  sectionLayout?:
-    | T
-    | {
-        background?: T;
-        paddingTop?: T;
-        paddingBottom?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "posts_select".
  */
 export interface PostsSelect<T extends boolean = true> {
@@ -5599,7 +5134,7 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 export interface Header {
   id: string;
   /**
-   * Primary navigation links (left side)
+   * Primary navigation links (left of the nav row)
    */
   navItems?:
     | {
@@ -5619,11 +5154,18 @@ export interface Header {
           label: string;
         };
         /**
-         * If populated, this nav item will show a mega menu dropdown on desktop and a sub-menu on mobile
+         * Small glyph before the label. The legacy site uses the lock on Login.
          */
-        megaMenuCategories?:
+        icon?: ('none' | 'lock') | null;
+        /**
+         * If populated, this nav item becomes a dropdown. One column stacks; two or three lay out side by side from 768px.
+         */
+        dropdownColumns?:
           | {
-              title: string;
+              /**
+               * Optional. Only the Company Formation dropdown uses headings.
+               */
+              heading?: string | null;
               links?:
                 | {
                     link: {
@@ -5647,11 +5189,29 @@ export interface Header {
               id?: string | null;
             }[]
           | null;
+        /**
+         * Optional uppercase link shown under the dropdown columns on desktop and above them on mobile.
+         */
+        dropdownCta?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label?: string | null;
+        };
         id?: string | null;
       }[]
     | null;
   /**
-   * Secondary links (right side, e.g. Blog, About)
+   * Secondary links (right of the nav row, e.g. Help Centre, Resources, Login)
    */
   secondaryNavItems?:
     | {
@@ -5669,6 +5229,60 @@ export interface Header {
               } | null);
           url?: string | null;
           label: string;
+        };
+        /**
+         * Small glyph before the label. The legacy site uses the lock on Login.
+         */
+        icon?: ('none' | 'lock') | null;
+        /**
+         * If populated, this nav item becomes a dropdown. One column stacks; two or three lay out side by side from 768px.
+         */
+        dropdownColumns?:
+          | {
+              /**
+               * Optional. Only the Company Formation dropdown uses headings.
+               */
+              heading?: string | null;
+              links?:
+                | {
+                    link: {
+                      type?: ('reference' | 'custom') | null;
+                      newTab?: boolean | null;
+                      reference?:
+                        | ({
+                            relationTo: 'pages';
+                            value: string | Page;
+                          } | null)
+                        | ({
+                            relationTo: 'posts';
+                            value: string | Post;
+                          } | null);
+                      url?: string | null;
+                      label: string;
+                    };
+                    id?: string | null;
+                  }[]
+                | null;
+              id?: string | null;
+            }[]
+          | null;
+        /**
+         * Optional uppercase link shown under the dropdown columns on desktop and above them on mobile.
+         */
+        dropdownCta?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label?: string | null;
         };
         id?: string | null;
       }[]
@@ -5696,7 +5310,7 @@ export interface Header {
         id?: string | null;
       }[]
     | null;
-  loginLink: {
+  loginLink?: {
     type?: ('reference' | 'custom') | null;
     newTab?: boolean | null;
     reference?:
@@ -5709,43 +5323,50 @@ export interface Header {
           value: string | Post;
         } | null);
     url?: string | null;
-    label: string;
+    label?: string | null;
   };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
 /**
+ * The site-wide footer. Column order, accreditation order and payment-card order are all the array order below.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "footer".
  */
 export interface Footer {
   id: string;
-  logo: string | Media;
-  companyAddress: string;
-  registrationDetails: string;
-  policyLinksHeading: string;
-  policyLinks?:
+  /**
+   * Rendered at 55x35 below 768px and 65x45 above it.
+   */
+  paymentIcons?:
     | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: string | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: string | Post;
-              } | null);
-          url?: string | null;
-          label: string;
-        };
+        name: string;
+        /**
+         * Set the media item's alt text — it is what a screen reader announces for the card.
+         */
+        icon: string | Media;
         id?: string | null;
       }[]
     | null;
-  navigationLinksHeading: string;
-  navigationColumns?:
+  socialLinks?:
+    | {
+        /**
+         * Picks the glyph. Adding a platform needs a matching icon in src/Footer/icons.tsx.
+         */
+        platform: 'instagram' | 'facebook' | 'linkedin' | 'youtube';
+        url: string;
+        /**
+         * The platform's own brand colour, e.g. rgb(225, 48, 108) for Instagram. Held as content because it belongs to the third party, not to this site's theme.
+         */
+        iconColor: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Five columns at 1023px and up. Below that each one collapses into an accordion, closed by default.
+   */
+  linkColumns?:
     | {
         heading: string;
         links?:
@@ -5771,30 +5392,42 @@ export interface Footer {
         id?: string | null;
       }[]
     | null;
-  socialLinks?:
-    | {
-        platform: string;
-        icon: string | Media;
-        url: string;
-        id?: string | null;
-      }[]
-    | null;
-  copyrightText: string;
-  copyrightSubtext?: string | null;
-  paymentIcons?:
-    | {
-        name: string;
-        icon: string | Media;
-        id?: string | null;
-      }[]
-    | null;
-  certificationLogos?:
+  parentCompanyPrefix?: string | null;
+  parentCompanyLogo?: (string | null) | Media;
+  parentCompanyUrl?: string | null;
+  logo?: (string | null) | Media;
+  companyName?: string | null;
+  registrationPrefix?: string | null;
+  address?: string | null;
+  addressUrl?: string | null;
+  companyNumber?: string | null;
+  /**
+   * Links to the ICO register entry for this number automatically.
+   */
+  icoNumber?: string | null;
+  vatNumber?: string | null;
+  /**
+   * Eight fit on one row at 1023px and up. Each keeps its own display width, so the row is not evenly divided.
+   */
+  accreditations?:
     | {
         name: string;
         logo: string | Media;
+        /**
+         * Rendered width at 1023px and up. Height follows from the image ratio. The source uses 65-115.
+         */
+        displayWidth: number;
+        url?: string | null;
         id?: string | null;
       }[]
     | null;
+  /**
+   * Rendered as "Copyright <current year> © <this> ®". The year is always the current one.
+   */
+  copyrightBrand?: string | null;
+  certificationPrefix?: string | null;
+  certificationLabel?: string | null;
+  certificationUrl?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -5892,10 +5525,11 @@ export interface HeaderSelect<T extends boolean = true> {
               url?: T;
               label?: T;
             };
-        megaMenuCategories?:
+        icon?: T;
+        dropdownColumns?:
           | T
           | {
-              title?: T;
+              heading?: T;
               links?:
                 | T
                 | {
@@ -5912,12 +5546,51 @@ export interface HeaderSelect<T extends boolean = true> {
                   };
               id?: T;
             };
+        dropdownCta?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
         id?: T;
       };
   secondaryNavItems?:
     | T
     | {
         link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        icon?: T;
+        dropdownColumns?:
+          | T
+          | {
+              heading?: T;
+              links?:
+                | T
+                | {
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                        };
+                    id?: T;
+                  };
+              id?: T;
+            };
+        dropdownCta?:
           | T
           | {
               type?: T;
@@ -5960,26 +5633,22 @@ export interface HeaderSelect<T extends boolean = true> {
  * via the `definition` "footer_select".
  */
 export interface FooterSelect<T extends boolean = true> {
-  logo?: T;
-  companyAddress?: T;
-  registrationDetails?: T;
-  policyLinksHeading?: T;
-  policyLinks?:
+  paymentIcons?:
     | T
     | {
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-            };
+        name?: T;
+        icon?: T;
         id?: T;
       };
-  navigationLinksHeading?: T;
-  navigationColumns?:
+  socialLinks?:
+    | T
+    | {
+        platform?: T;
+        url?: T;
+        iconColor?: T;
+        id?: T;
+      };
+  linkColumns?:
     | T
     | {
         heading?: T;
@@ -5999,30 +5668,30 @@ export interface FooterSelect<T extends boolean = true> {
             };
         id?: T;
       };
-  socialLinks?:
-    | T
-    | {
-        platform?: T;
-        icon?: T;
-        url?: T;
-        id?: T;
-      };
-  copyrightText?: T;
-  copyrightSubtext?: T;
-  paymentIcons?:
-    | T
-    | {
-        name?: T;
-        icon?: T;
-        id?: T;
-      };
-  certificationLogos?:
+  parentCompanyPrefix?: T;
+  parentCompanyLogo?: T;
+  parentCompanyUrl?: T;
+  logo?: T;
+  companyName?: T;
+  registrationPrefix?: T;
+  address?: T;
+  addressUrl?: T;
+  companyNumber?: T;
+  icoNumber?: T;
+  vatNumber?: T;
+  accreditations?:
     | T
     | {
         name?: T;
         logo?: T;
+        displayWidth?: T;
+        url?: T;
         id?: T;
       };
+  copyrightBrand?: T;
+  certificationPrefix?: T;
+  certificationLabel?: T;
+  certificationUrl?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

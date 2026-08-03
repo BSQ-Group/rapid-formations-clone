@@ -50,6 +50,71 @@ Use **bun** for all commands (`bun run dev`, `bun run storybook`, `bun run paylo
 
 Production for this repo is **https://quality-company-formations.vercel.app/** — the Vercel deployment, not the `qualitycompanyformations.co.uk` domain. Use the Vercel URL for any "live in prod" link in PR bodies, ticket updates, or verification notes. Per-PR preview deployments live under the same Vercel project — pull the `Visit Preview` URL from the PR's deployment status when you need a branch-specific link.
 
+## Blank lines inside JSX — don't
+
+**No blank lines between sibling JSX elements.** A component's return should read
+as one tree, not as paragraphs.
+
+```tsx
+// ❌ the siblings drift apart and the tree stops reading as a tree
+</Track>
+
+{pages > 1 && (
+  <div className={s.dots}>
+
+// ✅
+</Track>
+{pages > 1 && (
+  <div className={s.dots}>
+```
+
+This is enforced, not left to discipline — `react/jsx-newline` is set to
+`['error', { prevent: true }]` in `eslint.config.mjs` and is auto-fixable:
+
+```bash
+bunx eslint src --fix
+```
+
+Blank lines *outside* JSX are fine and often right — between imports and the
+component, between hooks and the return, between top-level declarations. The
+rule is specifically about the markup.
+
+It matters most during porting. Nobody adds these deliberately; they accumulate
+one edit at a time, and the first sweep of this repo removed **312 of them
+across 87 files**.
+
+## Comments — don't write them
+
+**Write no comments in this repo's source.** No header block on a styles file, no
+note per key, no paragraph explaining a breakpoint or a measured value. The code
+should read on its own.
+
+This matters most during porting work, which pulls hard toward annotating every
+value with where it came from. One sweep produced **851 comment lines across 37
+files**, with styles files reaching 73% comments — unreadable, and permanently
+the next reader's problem.
+
+The reasoning is worth keeping; the source file is the wrong place for it:
+
+| what you want to say | where it goes |
+|---|---|
+| why this value, what it measured against | the **commit message** |
+| a divergence, substitution or accepted gap | **`decisions`** in `.port-source-facts.json` |
+| a trap that will recur | **`.claude/QCF_GOTCHAS.md`** |
+
+Two narrow exceptions, kept to a single short clause:
+
+- A line that looks like a typo and will be "corrected" back — e.g.
+  `min-[1023px]:` where a reader expects `lg:`.
+- A value that is load-bearing for a non-obvious reason — e.g. an
+  `overflow-visible` that exists only so an absolutely-positioned child is not
+  clipped.
+
+If it doesn't fit in under a line, it belongs in the commit message.
+
+Markdown files (this one, `QCF_GOTCHAS.md`, skill docs) are the opposite — that
+is where explanation is expected and welcome.
+
 ## Component Structure
 
 Every component follows a **styles + component** pattern:

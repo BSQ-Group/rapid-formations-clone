@@ -9,6 +9,9 @@ import { cache } from 'react'
 import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { RenderHero } from '@/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
+import { getCachedGlobal } from '@/utilities/getGlobals'
+import { JsonLd, buildSiteGraph } from '@/components/StructuredData'
+import type { Footer as FooterType } from '@/payload-types'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { Header } from '@/Header/Component'
 import { TrustPilotBannerBlock } from '@/blocks/TrustPilotBanner/Component'
@@ -57,6 +60,7 @@ export default async function Page({ params: paramsPromise }: Args) {
   }
 
   const { hero, layout, isHeaderOnDark } = page
+  const footer = (await getCachedGlobal('footer', 1)()) as FooterType
 
   const blocks = layout ?? []
   const firstBlock = blocks[0]
@@ -68,8 +72,9 @@ export default async function Page({ params: paramsPromise }: Args) {
       {isHeaderOnDark && (
         <style>{`:root{--header-logo-fill:rgb(var(--white));--header-link-color:var(--text-inverse-muted);--header-link-hover-color:var(--text-inverse)}`}</style>
       )}
+      <JsonLd data={buildSiteGraph(page, footer)} />
       {hasBanner && <TrustPilotBannerBlock {...(firstBlock as TrustPilotBannerBlockType)} />}
-      <Header />
+      <Header onDark={Boolean(isHeaderOnDark)} />
       <main>
         {/* Allows redirects for valid pages too */}
         <PayloadRedirects disableNotFound url={url} />

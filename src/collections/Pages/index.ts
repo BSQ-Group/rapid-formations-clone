@@ -6,19 +6,15 @@ import { Archive } from '../../blocks/ArchiveBlock/config'
 import { BusinessBankAccounts } from '../../blocks/BusinessBankAccounts/config'
 import { CallToAction } from '../../blocks/CallToAction/config'
 import { Content } from '../../blocks/Content/config'
-import { FAQs } from '../../blocks/FAQs/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { FormationPackages } from '../../blocks/FormationPackages/config'
-import { LandingHero } from '../../blocks/LandingHero/config'
 import { RegisterCompanySteps } from '../../blocks/RegisterCompanySteps/config'
 import { Support } from '../../blocks/Support/config'
 import { Testimonials } from '../../blocks/Testimonials/config'
 import { WhyChooseUs } from '../../blocks/WhyChooseUs/config'
-import { BCorpCertification } from '../../blocks/BCorpCertification/config'
 import { AdditionalServices } from '../../blocks/AdditionalServices/config'
 import { CallOutCTA } from '../../blocks/CallOutCTA/config'
 import { ChooseCompanyStructure } from '../../blocks/ChooseCompanyStructure/config'
-import { OurLatestBlogs } from '../../blocks/OurLatestBlogs/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { TrustPilotBanner } from '../../blocks/TrustPilotBanner/config'
 import { PackagesHero } from '../../blocks/PackagesHero/config'
@@ -30,7 +26,6 @@ import { ServicesHero } from '../../blocks/ServicesHero/config'
 import { RegisteredOfficePurpose } from '../../blocks/RegisteredOfficePurpose/config'
 import { OfficePhotoAddress } from '../../blocks/OfficePhotoAddress/config'
 import { ServicesCTA } from '../../blocks/ServicesCTA/config'
-import { RegisteredOfficeAddress } from '../../blocks/RegisteredOfficeAddress/config'
 import { ServicesTestimonial } from '../../blocks/ServicesTestimonial/config'
 import { TestimonialBanner } from '../../blocks/TestimonialBanner/config'
 import { HowItWorks } from '../../blocks/HowItWorks/config'
@@ -48,7 +43,6 @@ import { PackageCardHero } from '../../blocks/PackageCardHero/config'
 import { WhatsIncludedSinglePackage } from '../../blocks/WhatsIncludedSinglePackage/config'
 import { WiseBusinessAccount } from '../../blocks/WiseBusinessAccount/config'
 import { ServicesTextWithCard } from '../../blocks/ServicesTextWithCard/config'
-import { RegisterOverseas } from '../../blocks/RegisterOverseas/config'
 import { ContentWithPricingCard } from '../../blocks/ContentWithPricingCard/config'
 import { ContentWithExtendedPricingCard } from '../../blocks/ContentWithExtendedPricingCard/config'
 import { HeroServicesBanner } from '../../blocks/HeroServicesBanner/config'
@@ -80,9 +74,6 @@ export const Pages: CollectionConfig<'pages'> = {
     read: authenticatedOrPublished,
     update: authenticated,
   },
-  // This config controls what's populated by default when a page is referenced
-  // https://payloadcms.com/docs/queries/select#defaultpopulate-collection-config-property
-  // Type safe if the collection slug generic is passed to `CollectionConfig` - `CollectionConfig<'pages'>
   defaultPopulate: {
     title: true,
     slug: true,
@@ -138,17 +129,13 @@ export const Pages: CollectionConfig<'pages'> = {
                 MediaBlock,
                 Archive,
                 FormBlock,
-                FAQs,
                 FormationPackages,
                 RegisterCompanySteps,
                 BusinessBankAccounts,
-                LandingHero,
                 Support,
                 Testimonials,
                 WhyChooseUs,
-                BCorpCertification,
                 ChooseCompanyStructure,
-                OurLatestBlogs,
                 AdditionalServices,
                 CallOutCTA,
                 TrustPilotBanner,
@@ -161,7 +148,6 @@ export const Pages: CollectionConfig<'pages'> = {
                 RegisteredOfficePurpose,
                 OfficePhotoAddress,
                 ServicesCTA,
-                RegisteredOfficeAddress,
                 ServicesTestimonial,
                 TestimonialBanner,
                 HowItWorks,
@@ -186,7 +172,6 @@ export const Pages: CollectionConfig<'pages'> = {
                 HowItWorksList,
                 ServiceText,
                 Note,
-                RegisterOverseas,
               ],
               admin: {
                 initCollapsed: true,
@@ -213,10 +198,8 @@ export const Pages: CollectionConfig<'pages'> = {
 
             MetaDescriptionField({}),
             PreviewField({
-              // if the `generateUrl` function is configured
               hasGenerateFn: true,
 
-              // field paths to match the target field for data
               titlePath: 'meta.title',
               descriptionPath: 'meta.description',
             }),
@@ -286,7 +269,7 @@ export const Pages: CollectionConfig<'pages'> = {
   versions: {
     drafts: {
       autosave: {
-        interval: 100, // We set this interval for optimal live preview
+        interval: 100,
       },
       schedulePublish: true,
     },

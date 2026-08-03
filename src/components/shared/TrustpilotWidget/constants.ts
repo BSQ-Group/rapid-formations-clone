@@ -1,4 +1,10 @@
-export const TRUSTPILOT_BUSINESS_UNIT_ID = '5714e6d50000ff00058baea3'
+import { getBrand, getDomainConfig } from '@/lib/brand'
+
+const brandConfig = getDomainConfig(getBrand())
+
+export const TRUSTPILOT_BUSINESS_UNIT_ID = brandConfig.trustpilotBusinessUnitId
+
+export const TRUSTPILOT_REVIEW_URL = brandConfig.trustpilotReviewUrl
 
 export const TRUSTPILOT_TEMPLATE_IDS = {
   mini: '53aa8807dec7e10d38f59f32',
@@ -8,6 +14,3 @@ export const TRUSTPILOT_TEMPLATE_IDS = {
 } as const
 
 export type TrustpilotTemplate = keyof typeof TRUSTPILOT_TEMPLATE_IDS
-
-export const TRUSTPILOT_REVIEW_URL =
-  'https://uk.trustpilot.com/review/www.qualitycompanyformations.co.uk'

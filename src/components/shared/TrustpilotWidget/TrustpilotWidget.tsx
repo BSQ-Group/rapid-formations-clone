@@ -40,6 +40,8 @@ export function TrustpilotWidget({
   const widgetRef = useRef<HTMLDivElement>(null)
   const { containerRef, inView } = useTrustpilotWidget([widgetRef])
 
+  if (!businessUnitId) return null
+
   return (
     <div ref={containerRef} className={className}>
       {inView && <Script src={TRUSTPILOT_SCRIPT_URL} strategy="lazyOnload" />}
@@ -56,9 +58,11 @@ export function TrustpilotWidget({
         {...(stars ? { 'data-stars': stars } : {})}
         {...(reviewLanguages ? { 'data-review-languages': reviewLanguages } : {})}
       >
-        <a href={TRUSTPILOT_REVIEW_URL} target="_blank" rel="noopener noreferrer">
-          Trustpilot
-        </a>
+        {TRUSTPILOT_REVIEW_URL && (
+          <a href={TRUSTPILOT_REVIEW_URL} target="_blank" rel="noopener noreferrer">
+            Trustpilot
+          </a>
+        )}
       </div>
     </div>
   )

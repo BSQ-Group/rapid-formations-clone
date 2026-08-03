@@ -2,7 +2,7 @@
 
 import { Brand, DEFAULT_BRAND, VALID_BRANDS } from '@/lib/brand'
 import { Switch } from '@/components/ui/switch'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useSyncExternalStore } from 'react'
 
 function getCurrentBrand(): Brand {
   const classList = document.documentElement.classList
@@ -23,17 +23,17 @@ function applyTheme(brand: Brand) {
   html.classList.add(`theme-${brand}`)
 }
 
-export const ThemeSwitcher: React.FC = () => {
-  const [brand, setBrand] = useState<Brand | null>(null)
+function subscribeToBrand(onChange: () => void) {
+  const observer = new MutationObserver(onChange)
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
+  return () => observer.disconnect()
+}
 
-  useEffect(() => {
-    setBrand(getCurrentBrand())
-  }, [])
+export const ThemeSwitcher: React.FC = () => {
+  const brand = useSyncExternalStore(subscribeToBrand, getCurrentBrand, () => null)
 
   const handleToggle = useCallback((checked: boolean) => {
-    const next = checked ? Brand.QualityCompanyFormations : Brand.RapidFormations
-    setBrand(next)
-    applyTheme(next)
+    applyTheme(checked ? Brand.QualityCompanyFormations : Brand.RapidFormations)
   }, [])
 
   if (!brand) return null

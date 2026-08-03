@@ -19,8 +19,12 @@ export function isValidBrand(value: string | undefined): value is Brand {
 export interface DomainConfig {
   alt: string
   logoPath: string
+  logoOnDarkPath?: string
   siteName: string
   tenantId: string
+  blogUrl?: string
+  trustpilotBusinessUnitId?: string
+  trustpilotReviewUrl?: string
 }
 
 export const domainsConfigMap: Record<Brand, DomainConfig> = {
@@ -35,13 +39,24 @@ export const domainsConfigMap: Record<Brand, DomainConfig> = {
     logoPath: '/images/QCF-logo-icon.svg',
     siteName: 'Quality Company Formations',
     tenantId: 'quality-company-7a0c3',
+    blogUrl: 'https://www.qualityformationsblog.co.uk',
+    trustpilotBusinessUnitId: '5714e6d50000ff00058baea3',
+    trustpilotReviewUrl: 'https://uk.trustpilot.com/review/www.qualitycompanyformations.co.uk',
   },
   [Brand.RapidFormations]: {
-    alt: 'Rapid Formations',
+    alt: 'Rapid Formations Ltd Logo',
     logoPath: '/images/RF-logo.png',
+    logoOnDarkPath: '/images/RF-logo-on-dark.png',
     siteName: 'Rapid Formations',
     tenantId: 'rapid-90xzd',
+    blogUrl: 'https://www.rapidformationsblog.co.uk',
+    trustpilotBusinessUnitId: '51d2b23c0000640005506d5b',
+    trustpilotReviewUrl: 'https://uk.trustpilot.com/review/www.rapidformations.co.uk',
   },
+}
+
+export function getLogoPath(config: DomainConfig, onDark: boolean): string {
+  return onDark ? (config.logoOnDarkPath ?? config.logoPath) : config.logoPath
 }
 
 export function getDomainConfig(brand: Brand | string): DomainConfig {

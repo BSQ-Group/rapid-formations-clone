@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 import { cn } from '@/utilities/ui'
-import { Inter, Work_Sans, Montserrat } from 'next/font/google'
+import { Inter, Work_Sans, Encode_Sans } from 'next/font/google'
 import React from 'react'
 
 const inter = Inter({
@@ -9,6 +9,7 @@ const inter = Inter({
   weight: ['300', '400', '500', '600', '700', '800', '900'],
   variable: '--font-inter',
   display: 'optional',
+  preload: false,
 })
 
 const workSans = Work_Sans({
@@ -16,12 +17,13 @@ const workSans = Work_Sans({
   weight: ['400', '500', '600', '700', '800', '900'],
   variable: '--font-work-sans',
   display: 'swap',
+  preload: false,
 })
 
-const montserrat = Montserrat({
+const encodeSans = Encode_Sans({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800', '900'],
-  variable: '--font-montserrat',
+  axes: ['wdth'],
+  variable: '--font-legacy-condensed',
   display: 'swap',
 })
 
@@ -36,6 +38,8 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
 
+const adobeFontProjectId = process.env.NEXT_PUBLIC_ADOBE_FONT_PROJECT_ID
+
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
   const brand = getBrand()
@@ -43,12 +47,19 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html
-      className={cn(inter.variable, workSans.variable, montserrat.variable, themeClass)}
+      className={cn(inter.variable, workSans.variable, encodeSans.variable, themeClass)}
       lang="en"
     >
       <head>
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+        {adobeFontProjectId && (
+          <>
+            <link rel="preconnect" href="https://use.typekit.net" />
+            <link rel="preconnect" href="https://p.typekit.net" />
+            <link rel="stylesheet" href={`https://use.typekit.net/${adobeFontProjectId}.css`} />
+          </>
+        )}
         <Script
           id="Cookiebot"
           src="https://consent.cookiebot.com/uc.js"

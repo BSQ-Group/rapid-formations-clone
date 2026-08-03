@@ -9,6 +9,8 @@ interface TurnstileHookResult {
   latestToken: string | null
   resetToken: () => void
   TurnstileComponent: FC
+  // Gate on this before latestToken — with no site key no token ever arrives.
+  isEnabled: boolean
 }
 
 /**
@@ -53,5 +55,5 @@ export const useTurnstileToken = (): TurnstileHookResult => {
     )
   }, [handleSuccess, handleExpire, handleLoad, siteKey])
 
-  return { latestToken, resetToken, TurnstileComponent }
+  return { latestToken, resetToken, TurnstileComponent, isEnabled: Boolean(siteKey) }
 }
