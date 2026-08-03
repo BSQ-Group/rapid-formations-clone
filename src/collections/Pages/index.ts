@@ -8,6 +8,7 @@ import { CallToAction } from '../../blocks/CallToAction/config'
 import { Content } from '../../blocks/Content/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { FormationPackages } from '../../blocks/FormationPackages/config'
+import { LandingHero } from '../../blocks/LandingHero/config'
 import { RegisterCompanySteps } from '../../blocks/RegisterCompanySteps/config'
 import { Support } from '../../blocks/Support/config'
 import { Testimonials } from '../../blocks/Testimonials/config'
@@ -132,6 +133,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 FormationPackages,
                 RegisterCompanySteps,
                 BusinessBankAccounts,
+                LandingHero,
                 Support,
                 Testimonials,
                 WhyChooseUs,

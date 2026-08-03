@@ -10,6 +10,7 @@ import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { FormationPackagesBlock } from '@/blocks/FormationPackages/Component'
+import { LandingHeroBlock } from '@/blocks/LandingHero/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { RegisterCompanyStepsBlock } from '@/blocks/RegisterCompanySteps/Component'
 import { SupportBlock } from '@/blocks/Support/Component'
@@ -60,6 +61,7 @@ const blockComponents = {
   cta: CallToActionBlock,
   formBlock: FormBlock,
   formationPackages: FormationPackagesBlock,
+  landingHero: LandingHeroBlock,
   mediaBlock: MediaBlock,
   registerCompanySteps: RegisterCompanyStepsBlock,
   support: SupportBlock,

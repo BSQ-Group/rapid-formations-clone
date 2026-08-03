@@ -217,6 +217,7 @@ export interface Page {
         | FormationPackagesBlock
         | RegisterCompanyStepsBlock
         | BusinessBankAccountsBlock
+        | LandingHeroBlock
         | SupportBlock
         | TestimonialsBlock
         | WhyChooseUsBlock
@@ -1034,6 +1035,175 @@ export interface BusinessBankAccountsBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'businessBankAccounts';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LandingHeroBlock".
+ */
+export interface LandingHeroBlock {
+  eyebrow?: string | null;
+  heading: string;
+  benefits?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  searchPlaceholder?: string | null;
+  pricingLink: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+  };
+  packagesLink: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+  };
+  backgroundImage: string | Media;
+  /**
+   * Small centred badge above the headline, shown ONLY below 768px — the source puts the B Corp mark here, where the desktop accreditation strip is hidden. Set the alt text on the media item.
+   */
+  mobileBadge?: (string | null) | Media;
+  /**
+   * Looping, muted video shown to the right of the headline. Desktop only — hidden below 1200px, matching the source, which renders nothing there rather than shrinking it.
+   */
+  illustration?: {
+    /**
+     * Played by Chrome and Firefox. Leave empty to hide the column.
+     */
+    video?: (string | null) | Media;
+    /**
+     * Safari cannot play WebM. Offered as a second <source>, so the browser picks for itself — the source site sniffs the user agent instead, which misreports on Chromium-based browsers and every new release.
+     */
+    videoFallback?: (string | null) | Media;
+    /**
+     * Shown while the video loads, and to anyone who blocks autoplay.
+     */
+    poster?: (string | null) | Media;
+  };
+  /**
+   * Logo strip pinned to the top-right of the hero (e.g. "Part of" + BSQ group, B Corp). Desktop only — hidden below xl, matching the source design.
+   */
+  accreditations?:
+    | {
+        /**
+         * Optional text shown before the logo, e.g. "Part of". Leave blank for a logo on its own.
+         */
+        label?: string | null;
+        logo: string | Media;
+        size?: ('sm' | 'lg') | null;
+        link?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Strip of partner bank cards shown at the foot of the hero.
+   */
+  bankCards?: {
+    heading?: string | null;
+    banks?:
+      | {
+          name: string;
+          /**
+           * Rendered at 32x32.
+           */
+          logo: string | Media;
+          /**
+           * CSS colour for the card background, e.g. #4DAFEA. This is per-bank brand data, so it is stored as content rather than a theme token.
+           */
+          brandColour: string;
+          backgroundImage?: (string | null) | Media;
+          link?: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
+  };
+  /**
+   * Review provider cards shown beneath the name search (e.g. Google, Trustpilot).
+   */
+  reviewCards?:
+    | {
+        /**
+         * Used for the logo alt text and the link label, e.g. "Google".
+         */
+        provider: string;
+        logo: string | Media;
+        /**
+         * e.g. "4.9"
+         */
+        score: string;
+        maxScore?: string | null;
+        /**
+         * e.g. "1,429"
+         */
+        reviewCount: string;
+        link?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'landingHero';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3209,6 +3379,7 @@ export interface PagesSelect<T extends boolean = true> {
         formationPackages?: T | FormationPackagesBlockSelect<T>;
         registerCompanySteps?: T | RegisterCompanyStepsBlockSelect<T>;
         businessBankAccounts?: T | BusinessBankAccountsBlockSelect<T>;
+        landingHero?: T | LandingHeroBlockSelect<T>;
         support?: T | SupportBlockSelect<T>;
         testimonials?: T | TestimonialsBlockSelect<T>;
         whyChooseUs?: T | WhyChooseUsBlockSelect<T>;
@@ -3465,6 +3636,106 @@ export interface BusinessBankAccountsBlockSelect<T extends boolean = true> {
         background?: T;
         paddingTop?: T;
         paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LandingHeroBlock_select".
+ */
+export interface LandingHeroBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  benefits?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  searchPlaceholder?: T;
+  pricingLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
+  packagesLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
+  backgroundImage?: T;
+  mobileBadge?: T;
+  illustration?:
+    | T
+    | {
+        video?: T;
+        videoFallback?: T;
+        poster?: T;
+      };
+  accreditations?:
+    | T
+    | {
+        label?: T;
+        logo?: T;
+        size?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+            };
+        id?: T;
+      };
+  bankCards?:
+    | T
+    | {
+        heading?: T;
+        banks?:
+          | T
+          | {
+              name?: T;
+              logo?: T;
+              brandColour?: T;
+              backgroundImage?: T;
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                  };
+              id?: T;
+            };
+      };
+  reviewCards?:
+    | T
+    | {
+        provider?: T;
+        logo?: T;
+        score?: T;
+        maxScore?: T;
+        reviewCount?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+            };
+        id?: T;
       };
   id?: T;
   blockName?: T;
