@@ -266,6 +266,7 @@ export interface Page {
         | HowItWorksListBlock
         | ServiceTextBlock
         | NoteBlock
+        | RegisterOverseasBlock
       )[]
     | null;
   meta?: {
@@ -3506,6 +3507,68 @@ export interface NoteBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RegisterOverseasBlock".
+ */
+export interface RegisterOverseasBlock {
+  /**
+   * Centred heading above the bordered panel. Newlines are preserved, so a deliberate line break can be typed in.
+   */
+  sectionHeading: string;
+  /**
+   * Heading inside the panel, above the body copy.
+   */
+  heading: string;
+  /**
+   * Panel body copy. Rich text so multiple paragraphs and inline links can be authored.
+   */
+  body: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * Primary CTA button (e.g. "Our Non-Resident Packages").
+   */
+  cta: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+  };
+  image: string | Media;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'registerOverseas';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -3864,6 +3927,7 @@ export interface PagesSelect<T extends boolean = true> {
         howItWorksList?: T | HowItWorksListBlockSelect<T>;
         serviceText?: T | ServiceTextBlockSelect<T>;
         note?: T | NoteBlockSelect<T>;
+        registerOverseas?: T | RegisterOverseasBlockSelect<T>;
       };
   meta?:
     | T
@@ -5625,6 +5689,34 @@ export interface NoteBlockSelect<T extends boolean = true> {
   heading?: T;
   headingLevel?: T;
   body?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RegisterOverseasBlock_select".
+ */
+export interface RegisterOverseasBlockSelect<T extends boolean = true> {
+  sectionHeading?: T;
+  heading?: T;
+  body?: T;
+  cta?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
+  image?: T;
   sectionLayout?:
     | T
     | {

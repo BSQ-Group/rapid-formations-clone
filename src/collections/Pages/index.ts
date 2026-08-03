@@ -52,6 +52,7 @@ import { PackageCardHero } from '../../blocks/PackageCardHero/config'
 import { WhatsIncludedSinglePackage } from '../../blocks/WhatsIncludedSinglePackage/config'
 import { WiseBusinessAccount } from '../../blocks/WiseBusinessAccount/config'
 import { ServicesTextWithCard } from '../../blocks/ServicesTextWithCard/config'
+import { RegisterOverseas } from '../../blocks/RegisterOverseas/config'
 import { ContentWithPricingCard } from '../../blocks/ContentWithPricingCard/config'
 import { ContentWithExtendedPricingCard } from '../../blocks/ContentWithExtendedPricingCard/config'
 import { HeroServicesBanner } from '../../blocks/HeroServicesBanner/config'
@@ -190,6 +191,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 HowItWorksList,
                 ServiceText,
                 Note,
+                RegisterOverseas,
               ],
               admin: {
                 initCollapsed: true,
