@@ -17,6 +17,7 @@ import { FourSteps } from '../../blocks/FourSteps/config'
 import { PackageGrid } from '../../blocks/PackageGrid/config'
 import { UniqueSellingPoints } from '../../blocks/UniqueSellingPoints/config'
 import { WhyChooseUs } from '../../blocks/WhyChooseUs/config'
+import { BCorpCertification } from '../../blocks/BCorpCertification/config'
 import { AdditionalServices } from '../../blocks/AdditionalServices/config'
 import { CallOutCTA } from '../../blocks/CallOutCTA/config'
 import { ChooseCompanyStructure } from '../../blocks/ChooseCompanyStructure/config'
@@ -145,6 +146,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 PackageGrid,
                 UniqueSellingPoints,
                 WhyChooseUs,
+                BCorpCertification,
                 ChooseCompanyStructure,
                 AdditionalServices,
                 CallOutCTA,

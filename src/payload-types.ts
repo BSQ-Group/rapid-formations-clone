@@ -225,6 +225,7 @@ export interface Page {
         | PackageGridBlock
         | UniqueSellingPointsBlock
         | WhyChooseUsBlock
+        | BCorpCertificationBlock
         | ChooseCompanyStructureBlock
         | AdditionalServicesBlock
         | CallOutCTABlock
@@ -1514,6 +1515,43 @@ export interface WhyChooseUsBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'whyChooseUs';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BCorpCertificationBlock".
+ */
+export interface BCorpCertificationBlock {
+  /**
+   * Full-bleed photograph behind the badge. A dark scrim is laid over it automatically, so pick for composition rather than contrast.
+   */
+  backgroundImage: string | Media;
+  /**
+   * Short line over the photo, e.g. "Rapid Formations, Covent Garden HQ." Leave empty to show the badge alone.
+   */
+  caption?: string | null;
+  /**
+   * Certification badge. Its alt text is what a screen reader announces — set that on the media item.
+   */
+  badge: string | Media;
+  /**
+   * Optional. Where the badge links, e.g. the B Corp directory listing. External links open in a new tab.
+   */
+  badgeUrl?: string | null;
+  /**
+   * Optional tooltip for the badge link, e.g. "View Rapid Formations on the B Corporation website".
+   */
+  badgeLinkTitle?: string | null;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bCorpCertification';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3623,6 +3661,7 @@ export interface PagesSelect<T extends boolean = true> {
         packageGrid?: T | PackageGridBlockSelect<T>;
         uniqueSellingPoints?: T | UniqueSellingPointsBlockSelect<T>;
         whyChooseUs?: T | WhyChooseUsBlockSelect<T>;
+        bCorpCertification?: T | BCorpCertificationBlockSelect<T>;
         chooseCompanyStructure?: T | ChooseCompanyStructureBlockSelect<T>;
         additionalServices?: T | AdditionalServicesBlockSelect<T>;
         callOutCTA?: T | CallOutCTABlockSelect<T>;
@@ -4171,6 +4210,26 @@ export interface WhyChooseUsBlockSelect<T extends boolean = true> {
         description?: T;
         id?: T;
       };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BCorpCertificationBlock_select".
+ */
+export interface BCorpCertificationBlockSelect<T extends boolean = true> {
+  backgroundImage?: T;
+  caption?: T;
+  badge?: T;
+  badgeUrl?: T;
+  badgeLinkTitle?: T;
   sectionLayout?:
     | T
     | {

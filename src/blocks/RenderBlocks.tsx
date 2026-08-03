@@ -20,6 +20,7 @@ import { FourStepsBlock } from '@/blocks/FourSteps/Component'
 import { PackageGridBlock } from '@/blocks/PackageGrid/Component'
 import { UniqueSellingPointsBlock } from '@/blocks/UniqueSellingPoints/Component'
 import { WhyChooseUsBlock } from '@/blocks/WhyChooseUs/Component'
+import { BCorpCertificationBlock } from '@/blocks/BCorpCertification/Component'
 import { ChooseCompanyStructureBlock } from '@/blocks/ChooseCompanyStructure/Component'
 import { TrustPilotBannerBlock } from '@/blocks/TrustPilotBanner/Component'
 import { PackagesHeroBlock } from '@/blocks/PackagesHero/Component'
@@ -75,6 +76,7 @@ const blockComponents = {
   packageGrid: PackageGridBlock,
   uniqueSellingPoints: UniqueSellingPointsBlock,
   whyChooseUs: WhyChooseUsBlock,
+  bCorpCertification: BCorpCertificationBlock,
   chooseCompanyStructure: ChooseCompanyStructureBlock,
   trustpilotBanner: TrustPilotBannerBlock,
   packagesHero: PackagesHeroBlock,
