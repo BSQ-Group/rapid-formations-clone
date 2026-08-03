@@ -28,7 +28,6 @@ export const Modal: React.FC<ModalProps> = ({
   confirmButtonDisabled = false,
   onConfirmClick,
 }) => {
-  // Register or unregistermodal with global store
   useRegisterModal(open)
 
   const handleClose = () => {
@@ -75,9 +74,7 @@ export const Modal: React.FC<ModalProps> = ({
         {!description && title && (
           <DialogDescription className="sr-only">{title}</DialogDescription>
         )}
-
         {children}
-
         {renderFooter()}
       </DialogContent>
     </Dialog>

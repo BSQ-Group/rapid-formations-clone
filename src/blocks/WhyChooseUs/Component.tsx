@@ -1,8 +1,10 @@
 import React from 'react'
 import type { WhyChooseUsBlock as WhyChooseUsBlockProps, Media } from '@/payload-types'
 import Image from 'next/image'
+import Link from 'next/link'
 import { SectionWrapper } from '@/components/shared/SectionWrapper/SectionWrapper'
 import Text from '@/components/shared/Text'
+import { getLinkHref, type LinkData } from '@/utilities/links'
 import { whyChooseUsStyles as s } from './WhyChooseUs.styles'
 
 type Props = WhyChooseUsBlockProps
@@ -29,8 +31,10 @@ export const WhyChooseUsBlock: React.FC<Props> = ({ heading, description, featur
       <div className={s.grid}>
         {features.map((feature, index) => {
           const iconUrl = getIconUrl(feature.icon)
-          return (
-            <div key={feature.id ?? index} className={s.card}>
+          const href = feature.link ? getLinkHref(feature.link as LinkData) : null
+
+          const cardBody = (
+            <>
               {iconUrl && (
                 <div className={s.iconContainer}>
                   <Image
@@ -45,6 +49,25 @@ export const WhyChooseUsBlock: React.FC<Props> = ({ heading, description, featur
               )}
               <Text as="h3" textStyle="headline-xl" text={feature.title} className={s.cardTitle} />
               <Text textStyle="body-sm" text={feature.description} className={s.cardDescription} />
+            </>
+          )
+
+          if (href && href !== '#') {
+            return (
+              <Link
+                key={feature.id ?? index}
+                href={href}
+                className={s.cardLink}
+                {...(feature.link?.newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              >
+                {cardBody}
+              </Link>
+            )
+          }
+
+          return (
+            <div key={feature.id ?? index} className={s.card}>
+              {cardBody}
             </div>
           )
         })}

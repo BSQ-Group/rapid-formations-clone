@@ -12,14 +12,15 @@ import { LucideIcon } from '@/components/shared/LucideIcon'
 import { Tooltip } from '@/components/ui/tooltip'
 import RichText from '@/components/RichText'
 
-function useIsDesktop() {
+function useIsDesktop(minWidth: number) {
+  const query = `(min-width: ${minWidth}px)`
   return useSyncExternalStore(
     (cb) => {
-      const mq = window.matchMedia('(min-width: 768px)')
+      const mq = window.matchMedia(query)
       mq.addEventListener('change', cb)
       return () => mq.removeEventListener('change', cb)
     },
-    () => window.matchMedia('(min-width: 768px)').matches,
+    () => window.matchMedia(query).matches,
     () => true,
   )
 }
@@ -27,9 +28,17 @@ function useIsDesktop() {
 interface InfoTooltipProps {
   title?: string | null
   content?: DefaultTypedEditorState | null
+  text?: string | null
   dark?: boolean
-  /** Icon size in px. Defaults to 16 to match the FormationPackages benefits list. */
   iconSize?: number
+  icon?: React.ReactNode
+  trigger?: React.ReactNode
+  triggerLabel?: string
+  triggerStyle?: React.CSSProperties
+  side?: 'top' | 'right' | 'bottom' | 'left'
+  desktopMinWidth?: number
+  width?: number
+  triggerClassName?: string
 }
 
 const TOOLTIP_MIN_WIDTH = 300
@@ -37,11 +46,25 @@ const TOOLTIP_MAX_WIDTH = 500
 const TOOLTIP_WIDTH_STEP = 40
 const TOOLTIP_HEIGHT_THRESHOLD = 0.65
 
-export function InfoTooltip({ title, content, dark, iconSize = 16 }: InfoTooltipProps) {
+export function InfoTooltip({
+  title,
+  content,
+  text,
+  dark,
+  iconSize = 16,
+  icon,
+  trigger,
+  triggerLabel = 'More information',
+  triggerStyle,
+  side = 'right',
+  desktopMinWidth = 768,
+  width,
+  triggerClassName: triggerClassNameProp,
+}: InfoTooltipProps) {
   const [open, setOpen] = useState(false)
-  const [tooltipWidth, setTooltipWidth] = useState(TOOLTIP_MIN_WIDTH)
+  const [tooltipWidth, setTooltipWidth] = useState(width ?? TOOLTIP_MIN_WIDTH)
   const contentRef = useRef<HTMLDivElement>(null)
-  const isDesktop = useIsDesktop()
+  const isDesktop = useIsDesktop(desktopMinWidth)
 
   useEffect(() => {
     const el = contentRef.current
@@ -60,24 +83,55 @@ export function InfoTooltip({ title, content, dark, iconSize = 16 }: InfoTooltip
   }, [open])
 
   const handleOpenChange = (nextOpen: boolean) => {
-    if (!nextOpen) setTooltipWidth(TOOLTIP_MIN_WIDTH)
+    if (!nextOpen) setTooltipWidth(width ?? TOOLTIP_MIN_WIDTH)
     setOpen(nextOpen)
   }
 
-  if (!title && !content) return null
+  if (!title && !content && !text) return null
 
   const triggerClassName = cn(
-    'flex-shrink-0 rounded-full p-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-focus)]',
-    dark ? 'text-[var(--text-inverse-muted)]' : 'text-[var(--text-muted)]',
+    !trigger &&
+      'flex-shrink-0 rounded-full p-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-focus)]',
+    !trigger && (dark ? 'text-[var(--text-inverse-muted)]' : 'text-[var(--text-muted)]'),
+    trigger &&
+      'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-focus)] focus-visible:ring-offset-2',
+    triggerClassNameProp,
   )
+  const glyph = trigger ?? icon ?? <LucideIcon name="Info" size={iconSize} />
+  const body = (className: string) => {
+    if (content) {
+      return <RichText data={content} enableGutter={false} enableProse={false} className={className} />
+    }
+    if (!text) return null
+    return (
+      <div className={className}>
+        {text
+          .split(/\n{2,}/)
+          .map((para) => para.trim())
+          .filter(Boolean)
+          .map((para, i) => (
+            <p
+              key={i}
+              className={cn('whitespace-pre-line [overflow-wrap:anywhere]', i > 0 && 'mt-3')}
+            >
+              {para}
+            </p>
+          ))}
+      </div>
+    )
+  }
 
-  // Mobile / tablet — centered modal dialog with overlay
   if (!isDesktop) {
     return (
       <DialogPrimitive.Root open={open} onOpenChange={setOpen}>
         <DialogPrimitive.Trigger asChild>
-          <button type="button" aria-label="More information" className={triggerClassName}>
-            <LucideIcon name="Info" size={16} />
+          <button
+            type="button"
+            aria-label={triggerLabel}
+            style={triggerStyle}
+            className={triggerClassName}
+          >
+            {glyph}
           </button>
         </DialogPrimitive.Trigger>
         <DialogPrimitive.Portal>
@@ -86,7 +140,7 @@ export function InfoTooltip({ title, content, dark, iconSize = 16 }: InfoTooltip
             <DialogDescription className="sr-only">{title ?? 'More information'}</DialogDescription>
             <div className="flex-shrink-0 px-6 pb-3 pt-6">
               <div className="flex items-start gap-3">
-                <DialogPrimitive.Title className="flex-1 text-base font-semibold leading-6 text-[var(--text-inverse)]">
+                <DialogPrimitive.Title className="min-w-0 flex-1 text-base font-semibold leading-6 text-[var(--text-inverse)] [overflow-wrap:anywhere]">
                   {title ?? 'Information'}
                 </DialogPrimitive.Title>
                 <DialogPrimitive.Close
@@ -97,15 +151,9 @@ export function InfoTooltip({ title, content, dark, iconSize = 16 }: InfoTooltip
                 </DialogPrimitive.Close>
               </div>
             </div>
-
-            {content && (
+            {(content || text) && (
               <div className="overflow-y-auto px-6 pb-6">
-                <RichText
-                  data={content}
-                  enableGutter={false}
-                  enableProse={false}
-                  className="text-sm leading-5 text-[var(--text-inverse-subtle)]"
-                />
+                {body('text-sm leading-5 text-[var(--text-inverse-subtle)]')}
               </div>
             )}
           </DialogPrimitive.Content>
@@ -114,7 +162,6 @@ export function InfoTooltip({ title, content, dark, iconSize = 16 }: InfoTooltip
     )
   }
 
-  // Desktop — tooltip anchored to the right of the icon (original working code)
   const handlePointerDown = (e: React.PointerEvent<HTMLButtonElement>) => {
     if (e.pointerType === 'touch') {
       e.preventDefault()
@@ -127,45 +174,36 @@ export function InfoTooltip({ title, content, dark, iconSize = 16 }: InfoTooltip
       <TooltipPrimitive.Trigger asChild>
         <button
           type="button"
-          aria-label="More information"
+          aria-label={triggerLabel}
           aria-expanded={open}
           onPointerDown={handlePointerDown}
+          style={triggerStyle}
           className={triggerClassName}
         >
-          <LucideIcon name="Info" size={iconSize} />
+          {glyph}
         </button>
       </TooltipPrimitive.Trigger>
-
       <TooltipPrimitive.Portal>
         <TooltipPrimitive.Content
           ref={contentRef}
-          side="right"
+          side={side}
           align="center"
           sideOffset={8}
           collisionPadding={12}
           style={{ width: tooltipWidth }}
-          className="relative z-50 rounded-2xl p-6 text-left shadow-xl transition-[width] duration-150 bg-[var(--surface-canvas-inverse)] animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=right]:slide-in-from-left-2 data-[side=left]:slide-in-from-right-2"
+          className="relative z-50 rounded-2xl border border-[var(--border-on-light)] p-6 text-left shadow-xl transition-[width] duration-150 bg-[var(--surface-canvas-inverse)] animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=right]:slide-in-from-left-2 data-[side=left]:slide-in-from-right-2 data-[side=top]:slide-in-from-bottom-2 data-[side=bottom]:slide-in-from-top-2"
         >
           <TooltipPrimitive.Arrow
             className="fill-[var(--surface-canvas-inverse)]"
             width={16}
             height={8}
           />
-
           {title && (
-            <p className="mb-3 text-base font-semibold leading-6 text-[var(--text-inverse)]">
+            <p className="mb-3 text-base font-semibold leading-6 text-[var(--text-inverse)] [overflow-wrap:anywhere]">
               {title}
             </p>
           )}
-
-          {content && (
-            <RichText
-              data={content}
-              enableGutter={false}
-              enableProse={false}
-              className="text-sm leading-5 text-[var(--text-inverse-subtle)]"
-            />
-          )}
+          {body('text-sm leading-5 text-[var(--text-inverse-subtle)]')}
         </TooltipPrimitive.Content>
       </TooltipPrimitive.Portal>
     </Tooltip>

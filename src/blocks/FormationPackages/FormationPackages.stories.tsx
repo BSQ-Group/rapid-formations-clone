@@ -116,7 +116,7 @@ const defaultArgs: FormationPackagesBlockProps = {
             {
               type: 'text',
               text: '020 3908 0044',
-              format: 1, // bold
+              format: 1,
               version: 1,
             },
             {

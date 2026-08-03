@@ -1,7 +1,8 @@
 'use client'
 
 import React, { useRef, useState } from 'react'
-import { ArrowRight, Check, Loader2 } from 'lucide-react'
+import Image from 'next/image'
+import { Loader2 } from 'lucide-react'
 
 import type { LandingHeroBlock as LandingHeroBlockProps } from '@/payload-types'
 import { checkCompany } from '@/api/checkCompany'
@@ -19,10 +20,29 @@ type SearchResult =
   | { status: 'available'; name: string }
   | { status: 'unavailable'; name: string; alsoUnavailable?: string }
 
+type Badge = { src: string; alt: string; width: number; height: number }
+
 type Props = Pick<
   LandingHeroBlockProps,
   'eyebrow' | 'heading' | 'benefits' | 'searchPlaceholder' | 'pricingLink' | 'packagesLink'
->
+> & { badge?: Badge | null }
+
+const BenefitCheck = ({ className }: { className?: string }) => (
+  <svg
+    className={className}
+    width="11"
+    height="11"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={4.5}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden
+  >
+    <path d="M20 6 9 17l-5-5" />
+  </svg>
+)
 
 export function LandingHeroContent({
   eyebrow,
@@ -31,10 +51,16 @@ export function LandingHeroContent({
   searchPlaceholder,
   pricingLink,
   packagesLink,
+  badge,
 }: Props) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [result, setResult] = useState<SearchResult>({ status: 'idle' })
-  const { latestToken, resetToken, TurnstileComponent } = useTurnstileToken()
+  const {
+    latestToken,
+    resetToken,
+    TurnstileComponent,
+    isEnabled: turnstileEnabled,
+  } = useTurnstileToken()
   const { customToast } = useCustomToast()
 
   const handleSearch = async (value?: string) => {
@@ -51,7 +77,9 @@ export function LandingHeroContent({
       }
     } catch (err) {
       setResult({ status: 'idle' })
-      customToast.error(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
+      customToast.error(
+        err instanceof Error ? err.message : 'Something went wrong. Please try again.',
+      )
     } finally {
       resetToken()
     }
@@ -67,47 +95,55 @@ export function LandingHeroContent({
   }
 
   const isLoading = result.status === 'loading'
-  const isReady = latestToken !== null
+  const isReady = !turnstileEnabled || latestToken !== null
 
   const renderContent = () => {
-    // ── Idle / Loading state ──────────────────────────────────────────────────
     if (result.status === 'idle' || result.status === 'loading') {
       return (
-        <div className={s.content}>
+        <>
           <div className={s.headlineBlock}>
-            <div className={s.headlineGroup}>
-              {eyebrow && <Text text={eyebrow} textStyle="body-sm" className={s.eyebrow} />}
-              {heading && (
-                <Text text={heading} as="h1" textStyle="headline-6xl" className={s.heading} />
-              )}
-            </div>
+            {badge && (
+              <Image
+                src={badge.src}
+                alt={badge.alt}
+                width={badge.width}
+                height={badge.height}
+                className={s.mobileBadge}
+                loading="eager"
+                unoptimized
+              />
+            )}
+            {eyebrow && <Text text={eyebrow} textStyle="body-sm" className={s.eyebrow} />}
+            {heading && <Text text={heading} as="h1" textStyle="span" className={s.heading} />}
             {benefits && benefits.length > 0 && (
-              <div className={s.benefitsList}>
-                {benefits.map((item) => (
-                  <div key={item.id} className={s.benefitItem}>
-                    <span className={s.benefitIconContainer}>
-                      <Check size={16} className={s.benefitIcon} />
-                    </span>
-                    <Text text={item.text} textStyle="body-sm" className={s.benefitText} />
-                  </div>
-                ))}
+              <div className={s.benefitsWrap}>
+                <ul className={s.benefitsList}>
+                  {benefits.map((item) => (
+                    <li key={item.id} className={s.benefitItem}>
+                      <span className={s.benefitIconContainer}>
+                        <BenefitCheck className={s.benefitIcon} />
+                      </span>
+                      <Text text={item.text} textStyle="span" className={s.benefitText} />
+                    </li>
+                  ))}
+                </ul>
               </div>
             )}
           </div>
-
-          <div className={s.ctaContainer}>
-            <div className={s.searchInput}>
+          <div className={s.searchForm}>
+            <div className={s.searchRow}>
               <input
                 ref={inputRef}
                 type="text"
-                placeholder={searchPlaceholder || 'What will you call your company?'}
-                className={s.searchPlaceholder}
+                placeholder={searchPlaceholder || 'Find your perfect company name'}
+                aria-label={searchPlaceholder || 'Find your perfect company name'}
+                className={s.searchInput}
                 onKeyDown={handleKeyDown}
                 disabled={isLoading}
               />
               <Button
                 variant="primary"
-                size="icon"
+                size="lg"
                 aria-label="Check company name availability"
                 className={s.searchButton}
                 onClick={() => handleSearch()}
@@ -116,23 +152,23 @@ export function LandingHeroContent({
                 {isLoading ? (
                   <Loader2 size={20} className="animate-spin text-[var(--icon-default)]" />
                 ) : (
-                  <ArrowRight size={24} className={s.searchButtonIcon} />
+                  'Search'
                 )}
               </Button>
             </div>
-
-            {pricingLink && (
-              <CMSLink {...pricingLink} appearance="inline" className={s.pricingLink} />
-            )}
           </div>
-        </div>
+          {pricingLink && (
+            <div className={s.pricingLinkWrap}>
+              <CMSLink {...pricingLink} appearance="inline" className={s.pricingLink} />
+            </div>
+          )}
+        </>
       )
     }
 
-    // ── Available state ───────────────────────────────────────────────────────
     if (result.status === 'available') {
       return (
-        <div className={s.content}>
+        <div className="flex flex-col gap-6">
           <div className={s.headlineBlock}>
             <div className={cn(s.resultBadge, s.resultBadgeAvailable)}>
               <span>✓</span>
@@ -158,7 +194,6 @@ export function LandingHeroContent({
               />
             </div>
           </div>
-
           <div className={s.availableCtaRow}>
             <CMSLink
               {...(packagesLink ?? {})}
@@ -175,9 +210,8 @@ export function LandingHeroContent({
       )
     }
 
-    // ── Unavailable state ─────────────────────────────────────────────────────
     return (
-      <div className={s.content}>
+      <div className="flex flex-col gap-6">
         <div className={s.headlineBlock}>
           <div className={cn(s.resultBadge, s.resultBadgeUnavailable)}>
             <span>✕</span>
@@ -212,7 +246,6 @@ export function LandingHeroContent({
             </div>
           </div>
         </div>
-
         <div className={s.unavailableSearchRow}>
           <input
             ref={inputRef}

@@ -41,7 +41,6 @@ const meta: Meta<typeof ConfirmationModal> = {
 export default meta
 type Story = StoryObj<typeof ConfirmationModal>
 
-// Interactive wrapper for stories
 const InteractiveWrapper = ({
   children,
   buttonLabel = 'Open Modal',
@@ -65,7 +64,6 @@ const InteractiveWrapper = ({
   )
 }
 
-// Success confirmation (like document submission)
 export const DocumentsSubmitted: Story = {
   args: {
     open: false,
@@ -80,7 +78,6 @@ export const DocumentsSubmitted: Story = {
   ),
 }
 
-// Invitation sent confirmation
 export const InvitationSent: Story = {
   args: {
     open: false,
@@ -95,7 +92,6 @@ export const InvitationSent: Story = {
   ),
 }
 
-// Generic success message
 export const GenericSuccess: Story = {
   args: {
     open: false,
@@ -110,7 +106,6 @@ export const GenericSuccess: Story = {
   ),
 }
 
-// Email sent confirmation
 export const EmailSent: Story = {
   args: {
     open: false,
@@ -125,7 +120,6 @@ export const EmailSent: Story = {
   ),
 }
 
-// Account created confirmation
 export const AccountCreated: Story = {
   args: {
     open: false,
@@ -140,7 +134,6 @@ export const AccountCreated: Story = {
   ),
 }
 
-// Payment processed confirmation
 export const PaymentProcessed: Story = {
   args: {
     open: false,
@@ -155,7 +148,6 @@ export const PaymentProcessed: Story = {
   ),
 }
 
-// File uploaded confirmation
 export const FileUploaded: Story = {
   args: {
     open: false,
@@ -170,7 +162,6 @@ export const FileUploaded: Story = {
   ),
 }
 
-// Settings saved confirmation
 export const SettingsSaved: Story = {
   args: {
     open: false,
@@ -185,7 +176,6 @@ export const SettingsSaved: Story = {
   ),
 }
 
-// Long message example
 export const LongMessage: Story = {
   args: {
     open: false,
@@ -201,7 +191,6 @@ export const LongMessage: Story = {
   ),
 }
 
-// Custom button text variations
 export const CustomButtonText: Story = {
   args: {
     open: false,
@@ -216,7 +205,6 @@ export const CustomButtonText: Story = {
   ),
 }
 
-// Always visible for design review
 export const AlwaysVisible: Story = {
   args: {
     open: true,

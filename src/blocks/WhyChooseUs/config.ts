@@ -1,5 +1,6 @@
 import type { Block } from 'payload'
 
+import { link } from '@/fields/link'
 import { sectionLayoutField } from '@/fields/sectionLayout'
 
 export const WhyChooseUs: Block = {
@@ -40,6 +41,16 @@ export const WhyChooseUs: Block = {
           label: 'Description',
           required: true,
         },
+        link({
+          appearances: false,
+          disableLabel: true,
+          optional: true,
+          overrides: {
+            admin: {
+              description: 'Optional — when set, the whole card becomes a link.',
+            },
+          },
+        }),
       ],
     },
     sectionLayoutField({

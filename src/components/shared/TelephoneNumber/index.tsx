@@ -5,14 +5,12 @@ import { Input, Label } from '@/components/shared/Input'
 import './TelephoneNumber.css'
 import { ChevronDown } from 'lucide-react'
 
-// Define the CountryCode interface
 interface CountryCode {
   code: string
   dialCode: string
   name?: string
 }
 
-// Define countries list with names to avoid dynamic import issues
 const CountryCodeList: CountryCode[] = [
   { code: 'GB', dialCode: '44', name: 'United Kingdom' },
   { code: 'US', dialCode: '1', name: 'United States' },
@@ -20,16 +18,13 @@ const CountryCodeList: CountryCode[] = [
   { code: 'FR', dialCode: '33', name: 'France' },
   { code: 'ES', dialCode: '34', name: 'Spain' },
   { code: 'IT', dialCode: '39', name: 'Italy' },
-  // Add more countries as needed
 ]
 
-// Get the country calling code for a given country code
 function getCountryCallingCode(countryCode: string, countryCodeList: CountryCode[]): string {
   const country = countryCodeList.find((c) => c.code === countryCode)
-  return country?.dialCode || '44' // Default to UK (+44) if not found
+  return country?.dialCode || '44'
 }
 
-// Get the country name for a given country code
 function getCountryName(countryCode: string, countryCodeList: CountryCode[]): string {
   const country = countryCodeList.find((c) => c.code === countryCode)
   return country?.name || countryCode
@@ -130,25 +125,20 @@ export const TelephoneNumber = React.forwardRef<HTMLInputElement, TelephoneNumbe
     const countryDropdownRef = React.useRef<HTMLDivElement>(null)
     const inputRef = React.useRef<HTMLInputElement>(null)
 
-    // Create a combined ref for the input
     const combinedRef = (node: HTMLInputElement) => {
-      // Apply the forwarded ref
       if (typeof ref === 'function') {
         ref(node)
       } else if (ref) {
         ref.current = node
       }
-      // Apply our internal ref
       inputRef.current = node
     }
 
-    // If disabled is passed, set variant to disabled
     const resolvedVariant = disabled ? 'disabled' : variant
     const errorId = error ? `${id}-error` : undefined
     const descriptionId = description ? `${id}-description` : undefined
     const describedBy = ariaDescribedby || errorId || descriptionId
 
-    // Close dropdown when clicking outside
     React.useEffect(() => {
       const handleClickOutside = (event: MouseEvent) => {
         if (
@@ -163,7 +153,7 @@ export const TelephoneNumber = React.forwardRef<HTMLInputElement, TelephoneNumbe
       return () => {
         document.removeEventListener('mousedown', handleClickOutside)
       }
-    }, []) // eslint-disable-line react-hooks/exhaustive-deps
+    }, [])  
 
     React.useEffect(() => {
       if (countryCode && countryCode !== selectedCountry) {
@@ -176,7 +166,6 @@ export const TelephoneNumber = React.forwardRef<HTMLInputElement, TelephoneNumbe
       setIsCountryDropdownOpen(false)
       onCountryCodeChange?.(countryCode)
 
-      // After selecting a country, focus the input field
       if (inputRef.current) {
         inputRef.current.focus()
       }
@@ -214,7 +203,6 @@ export const TelephoneNumber = React.forwardRef<HTMLInputElement, TelephoneNumbe
           >
             <ChevronDown size={size === 'small' ? 14 : 16} className="telephone-number__chevron" />
             <div className="telephone-number__country-code">+{selectedCountryDialCode}</div>
-
             {isCountryDropdownOpen && (
               <div className="telephone-number__dropdown">
                 {CountryCodeList.map((country) => (
@@ -238,7 +226,6 @@ export const TelephoneNumber = React.forwardRef<HTMLInputElement, TelephoneNumbe
               </div>
             )}
           </div>
-
           <Input
             type="tel"
             ref={combinedRef}
@@ -248,18 +235,16 @@ export const TelephoneNumber = React.forwardRef<HTMLInputElement, TelephoneNumbe
             size={size}
             aria-describedby={describedBy}
             disabled={disabled}
-            error={undefined} // Handle error display at the component level instead
+            error={undefined}
             {...props}
           />
         </div>
-
         {error && resolvedVariant === 'error' && (
           <div id={errorId} className="telephone-number__error" role="alert">
             <span className="telephone-number__error-icon" />
             <span>{error}</span>
           </div>
         )}
-
         {description && !error && (
           <div id={descriptionId} className="telephone-number__description">
             {description}

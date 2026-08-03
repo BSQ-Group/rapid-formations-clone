@@ -19,21 +19,18 @@ export const Textarea: React.FC<
     <Width width={width}>
       <Label htmlFor={name}>
         {label}
-
         {required && (
           <span className="required">
             * <span className="sr-only">(required)</span>
           </span>
         )}
       </Label>
-
       <TextAreaComponent
         defaultValue={defaultValue}
         id={name}
         rows={rows}
         {...register(name, { required: required })}
       />
-
       {errors[name] && <Error name={name} />}
     </Width>
   )

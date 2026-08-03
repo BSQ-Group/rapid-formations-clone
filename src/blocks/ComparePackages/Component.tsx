@@ -8,11 +8,6 @@ import { ComparePackagesClient } from './ComparePackagesClient'
 import { normalizePlans, normalizeSections } from './normalize'
 
 type Props = ComparePackagesBlockProps & {
-  /**
-   * Set by RenderBlocks when a FormationPackages block on the same page renders
-   * the combined card+services carousel on tablet/mobile (CORE-3620). When true
-   * this block shows only its desktop table (≥lg) and collapses its <lg padding.
-   */
   mobileCombinedElsewhere?: boolean
 }
 

@@ -32,7 +32,6 @@ export const WhatsIncludedBlock: React.FC<WhatsIncludedBlockProps> = ({
     return (
       <SectionWrapper {...sectionLayout} className={s.section}>
         <div className={s.stackedInner}>
-          {/* Text row: heading+subtitle left / description right */}
           <div className={s.stackedTextRow}>
             <div className={s.stackedTitleCol}>
               <Text as="h2" textStyle="headline-5xl" text={heading} />
@@ -49,8 +48,6 @@ export const WhatsIncludedBlock: React.FC<WhatsIncludedBlockProps> = ({
               />
             )}
           </div>
-
-          {/* Wide package card */}
           {packageCard && (
             <div className={s.stackedCard}>
               <div className={s.stackedCardHeader}>
@@ -79,7 +76,6 @@ export const WhatsIncludedBlock: React.FC<WhatsIncludedBlockProps> = ({
                   </Link>
                 )}
               </div>
-
               <div className={s.benefits}>
                 <hr className={s.divider} />
                 {packageCard.benefitsLabel && (
@@ -107,11 +103,9 @@ export const WhatsIncludedBlock: React.FC<WhatsIncludedBlockProps> = ({
     )
   }
 
-  // Default: side-by-side layout
   return (
     <SectionWrapper {...sectionLayout} className={s.section}>
       <div className={s.inner}>
-        {/* Left — Heading + content sections */}
         <div className={s.textCol}>
           <Text as="h2" textStyle="headline-5xl" text={heading} className={s.heading} />
           {contentSections?.map((section) => (
@@ -126,8 +120,6 @@ export const WhatsIncludedBlock: React.FC<WhatsIncludedBlockProps> = ({
             </div>
           ))}
         </div>
-
-        {/* Right — Package card */}
         {packageCard && (
           <div className={s.card}>
             <div className={s.cardHeader}>
@@ -161,7 +153,6 @@ export const WhatsIncludedBlock: React.FC<WhatsIncludedBlockProps> = ({
                 </Link>
               )}
             </div>
-
             <div className={s.benefits}>
               <hr className={s.divider} />
               {packageCard.benefitsLabel && (

@@ -1,5 +1,22 @@
+// @vitest-environment node
 import { describe, expect, it } from 'vitest'
-import { sanitizeHtml } from '@/components/shared/Text/sanitize'
+import { createElement } from 'react'
+import { renderToStaticMarkup } from 'react-dom/server'
+import Text from '@/components/shared/Text'
+import { decodeEntities, sanitizeHtml } from '@/components/shared/Text/sanitize'
+
+const CORPUS = [
+  'Director Appointment & Resignation',
+  'A &amp; B',
+  'AT&T',
+  '&pound;10 &amp; &lt;b&gt;',
+  '<a class="x" href="/y?a=1&b=2">z</a>',
+  '<strong>A&nbsp;B</strong>',
+  '<script>alert(1)</script>',
+  '<img src=x onerror=alert(1)>',
+  '<div onclick="alert(1)">x</div>',
+  '&nbsp;&#39;&reg;&#x27;',
+]
 
 describe('sanitizeHtml — tag allowlist', () => {
   it('preserves allowed inline tags verbatim', () => {
@@ -155,5 +172,137 @@ describe('sanitizeHtml — plain text', () => {
   it('preserves nested allowed tags around entities', () => {
     expect(sanitizeHtml('<strong>A&nbsp;B</strong>')).toBe('<strong>A B</strong>')
     expect(sanitizeHtml('<em>Acme &amp; Co</em>')).toBe('<em>Acme &amp; Co</em>')
+  })
+})
+
+describe('sanitizeHtml — single-escape correctness (nav double-escape regression)', () => {
+  it('escapes a bare & exactly once', () => {
+    const out = sanitizeHtml('Director Appointment & Resignation')
+    expect(out).toBe('Director Appointment &amp; Resignation')
+    expect(out).not.toContain('&amp;amp;')
+  })
+
+  it('leaves an already-escaped & at exactly one level', () => {
+    const out = sanitizeHtml('A &amp; B')
+    expect(out).toBe('A &amp; B')
+    expect(out).not.toContain('&amp;amp;')
+  })
+
+  it('preserves an anchor with class and href', () => {
+    expect(sanitizeHtml('<a class="x" href="/y">z</a>')).toBe('<a class="x" href="/y">z</a>')
+  })
+
+  it('preserves named, numeric and hex entities', () => {
+    expect(sanitizeHtml('&nbsp;')).toBe(' ')
+    expect(sanitizeHtml('&#39;')).toBe('&#39;')
+    expect(sanitizeHtml('&#x27;')).toBe('&#39;')
+    expect(sanitizeHtml('&reg;')).toBe('®')
+  })
+
+  it('is idempotent — re-sanitising never adds an escape level', () => {
+    for (const input of CORPUS) {
+      const once = sanitizeHtml(input)
+      expect(sanitizeHtml(once), `not idempotent for ${JSON.stringify(input)}`).toBe(once)
+    }
+  })
+})
+
+describe('sanitizeHtml — safety', () => {
+  it('neutralises script injection', () => {
+    expect(sanitizeHtml('<script>alert(1)</script>')).toBe('&lt;script&gt;alert(1)&lt;/script&gt;')
+  })
+
+  it('neutralises event-handler attributes on unknown tags', () => {
+    expect(sanitizeHtml('<img src=x onerror=alert(1)>')).toBe('&lt;img src=x onerror=alert(1)&gt;')
+    expect(sanitizeHtml('<div onclick="alert(1)">x</div>')).toBe(
+      '&lt;div onclick=&quot;alert(1)&quot;&gt;x&lt;/div&gt;',
+    )
+  })
+
+  it('strips event-handler attributes from allowed tags', () => {
+    expect(sanitizeHtml('<a href="/x" onclick="alert(1)">k</a>')).toBe('<a href="/x">k</a>')
+  })
+
+  it('drops javascript: hrefs', () => {
+    expect(sanitizeHtml('<a href="javascript:alert(1)">x</a>')).toBe('<a>x</a>')
+  })
+
+  it('neutralises unclosed tags', () => {
+    expect(sanitizeHtml('<script>alert(1)')).toBe('&lt;script&gt;alert(1)')
+    expect(sanitizeHtml('<a href="/x"')).toBe('&lt;a href=&quot;/x&quot;')
+    expect(sanitizeHtml('<img src=x onerror=alert(1)')).toBe('&lt;img src=x onerror=alert(1)')
+  })
+
+  it('neutralises style blocks', () => {
+    expect(sanitizeHtml('<style>body{background:url(javascript:alert(1))}</style>')).toBe(
+      '&lt;style&gt;body{background:url(javascript:alert(1))}&lt;/style&gt;',
+    )
+  })
+
+  it('never emits a live tag or handler for any dangerous input', () => {
+    const dangerous = [
+      '<script>alert(1)</script>',
+      '<img src=x onerror=alert(1)>',
+      '<div onclick="alert(1)">x</div>',
+      '<style>body{}</style>',
+      '<iframe src="javascript:alert(1)"></iframe>',
+      '<svg/onload=alert(1)>',
+      '<script>alert(1)',
+      '<a href="/x" onclick="alert(1)">k</a>',
+      '<a href="javascript:alert(1)">x</a>',
+    ]
+    for (const input of dangerous) {
+      const out = sanitizeHtml(input)
+      for (const tag of out.match(/<[^>]*>/g) || []) {
+        expect(tag, input).not.toMatch(/^<\/?(script|img|div|style|iframe|svg|object|embed)\b/i)
+        expect(tag, input).not.toMatch(/\bon[a-z]+\s*=/i)
+        expect(tag, input).not.toMatch(/javascript:/i)
+      }
+    }
+  })
+})
+
+describe('Text — icons path must not double-escape', () => {
+  const render = (text: string, withIcon: boolean) =>
+    renderToStaticMarkup(
+      createElement(Text, {
+        text,
+        ...(withIcon ? { icons: { iconBefore: createElement('i', { key: 'i' }) } } : {}),
+      }),
+    )
+
+  it('renders a bare & once whether or not an icon is present', () => {
+    const label = 'Director Appointment & Resignation'
+    expect(render(label, true)).toContain('Director Appointment &amp; Resignation')
+    expect(render(label, true)).not.toContain('&amp;amp;')
+    expect(render(label, false)).toContain('Director Appointment &amp; Resignation')
+  })
+
+  it('renders an already-escaped & once whether or not an icon is present', () => {
+    expect(render('A &amp; B', true)).toContain('A &amp; B')
+    expect(render('A &amp; B', true)).not.toContain('&amp;amp;')
+    expect(render('A &amp; B', false)).toContain('A &amp; B')
+  })
+
+  it('produces the same text for the icon and no-icon paths', () => {
+    const textOf = (html: string) => decodeEntities(html.replace(/<[^>]*>/g, ''))
+    for (const label of ['Acme & Co', 'A &amp; B', '5 < 3', 'x &#39; y', 'AT&T']) {
+      expect(textOf(render(label, true)), label).toBe(textOf(render(label, false)))
+    }
+  })
+
+  it('still neutralises injection on the icons path', () => {
+    for (const payload of [
+      '<script>alert(1)</script>',
+      '<img src=x onerror=alert(1)>',
+      '<div onclick="alert(1)">x</div>',
+      '<style>body{}</style>',
+    ]) {
+      const out = render(payload, true)
+      for (const tag of out.match(/<[^>]*>/g) || []) {
+        expect(tag, payload).not.toMatch(/^<\/?(script|img|div|style)\b/i)
+        expect(tag, payload).not.toMatch(/\bon[a-z]+\s*=/i)
+      }
+    }
   })
 })

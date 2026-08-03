@@ -5,6 +5,7 @@ export const whyChooseUsStyles = {
   description: 'text-[var(--text-subtle)]',
   grid: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[984px] 2xl:max-w-[1440px] w-full',
   card: 'flex flex-col items-center text-center gap-2',
+  cardLink: 'flex flex-col items-center text-center gap-2 transition-opacity hover:opacity-80',
   iconContainer: 'relative w-[156px] h-[156px] shrink-0 overflow-clip',
   icon: 'object-contain',
   cardTitle: 'text-[var(--text-strong)]',

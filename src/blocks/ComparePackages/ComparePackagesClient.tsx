@@ -38,11 +38,6 @@ export interface ComparePackagesClientProps {
   featuresLabel: string
   plans: [Plan, Plan, Plan]
   sections: Section[]
-  /**
-   * When the combined card+services carousel is rendered by a sibling
-   * FormationPackages block (CORE-3620), hide this block's own UI below lg —
-   * the desktop table (lg+) still renders.
-   */
   mobileHidden?: boolean
 }
 
@@ -57,9 +52,6 @@ function FeatureIcon({ included }: { included: boolean }) {
 function OrderButton({ plan, planIndex }: { plan: Plan; planIndex: number }) {
   const label = plan.button?.label || 'Order'
   const href = plan.button ? getLinkHref(plan.button) : '#'
-  // Only the 3rd plan (index 2 — Fully Inclusive) gets the primary green button.
-  // Using position rather than plan.featured prevents CMS misconfiguration from
-  // showing the wrong plan in green (QA issue: Privacy was green due to bad data).
   const variant = planIndex === 2 ? 'primary' : 'secondary-light'
 
   return (
@@ -74,11 +66,6 @@ function OrderButton({ plan, planIndex }: { plan: Plan; planIndex: number }) {
   )
 }
 
-// Per-plan feature column for the tablet/mobile carousel (used when this block
-// renders standalone, i.e. NOT combined with a FormationPackages block). It
-// keeps a price + Order footer so a ComparePackages-only page still has a CTA.
-// When combined (CORE-3620) the whole <lg section is hidden and the price/CTA
-// live in the FormationPackages cards above instead.
 function CarouselCard({
   plan,
   planIndex,
@@ -140,8 +127,6 @@ export function ComparePackagesClient({
           <h2 className={s.heading}>{heading}</h2>
           {description && <p className={s.description}>{description}</p>}
         </div>
-
-        {/* ── Desktop (lg+) ── full shared-label table ── */}
         <div className={s.desktopTable}>
           <div className={s.desktopHeader}>
             <div className={s.desktopHeaderLabelCol}>{featuresLabel}</div>
@@ -151,7 +136,6 @@ export function ComparePackagesClient({
               </div>
             ))}
           </div>
-
           {sections.map((section, sIdx) => (
             <div key={sIdx}>
               <div className={s.desktopSectionLabel}>
@@ -189,7 +173,6 @@ export function ComparePackagesClient({
               ))}
             </div>
           ))}
-
           <div className={s.desktopCtaRow}>
             <div className={s.desktopCtaLabelCol} />
             {plans.map((plan, i) => (
@@ -207,11 +190,6 @@ export function ComparePackagesClient({
           </div>
         </div>
       </div>
-
-      {/* ── Tablet / mobile (< lg) ── standalone feature-table carousel.
-          Shown only when NOT combined with a FormationPackages block (e.g. a
-          page with ComparePackages alone); otherwise the whole section is
-          hidden <lg and the combined carousel above renders the services. ── */}
       <div className={s.carouselViewport}>
         <div className={s.carouselTrack}>
           {plans.map((plan, i) => (

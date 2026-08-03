@@ -3,8 +3,7 @@ import type { Block } from 'payload'
 import { sectionLayoutField } from '@/fields/sectionLayout'
 
 export const SearchCTA: Block = {
-  // Slug kept as 'packagesCTA' for backward-compat with existing CMS records.
-  // Folder and interface renamed in CORE-3270 to reuse the block on the homepage.
+  // Slug stays 'packagesCTA' despite the SearchCTA rename — existing CMS records key off it.
   slug: 'packagesCTA',
   interfaceName: 'SearchCTABlock',
   labels: { singular: 'Search CTA', plural: 'Search CTAs' },

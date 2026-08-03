@@ -17,7 +17,6 @@ export function LegalContentBody({ pageTitle, sections }: Props) {
       {pageTitle && (
         <Text as="h1" text={pageTitle} textStyle="headline-5xl" className={s.pageTitle} />
       )}
-
       {sections && sections.length > 0 && (
         <div className={s.sectionsList}>
           {sections.map((section) => (
@@ -28,11 +27,9 @@ export function LegalContentBody({ pageTitle, sections }: Props) {
                 textStyle="headline-3xl"
                 className={s.sectionHeading}
               />
-
               {section.intro && (
                 <RichText data={section.intro} enableGutter={false} className={s.intro} />
               )}
-
               {section.subsections && section.subsections.length > 0 && (
                 <div className={s.subsectionsList}>
                   {section.subsections.map((sub) => (

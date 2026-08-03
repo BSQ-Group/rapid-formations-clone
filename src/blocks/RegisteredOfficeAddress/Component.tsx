@@ -6,68 +6,63 @@ import type { RegisteredOfficeAddressBlock as RegisteredOfficeAddressBlockProps 
 import { SectionWrapper } from '@/components/shared/SectionWrapper/SectionWrapper'
 import Text from '@/components/shared/Text'
 import { Media } from '@/components/Media'
-import { Button } from '@/components/ui/button'
 import { getLinkHref, type LinkData } from '@/utilities/links'
+import { Container } from '@/components/shared/Container/Container'
 import { registeredOfficeAddressStyles as s } from './RegisteredOfficeAddress.styles'
+
+const BAND_ASPECT = 585 / 281
 
 export const RegisteredOfficeAddressBlock: React.FC<RegisteredOfficeAddressBlockProps> = ({
   heading,
   image,
-  address,
+  serviceTitle,
+  description,
   price,
   priceSuffix,
   cta,
   sectionLayout,
 }) => {
   const ctaHref = getLinkHref(cta as LinkData | undefined)
+  const illustration = image && typeof image === 'object' ? image : null
+  const illustrationAspect =
+    illustration?.width &&
+    illustration.height &&
+    illustration.width / illustration.height < BAND_ASPECT
+      ? { aspectRatio: `${illustration.width} / ${illustration.height}` }
+      : undefined
 
   return (
     <SectionWrapper {...sectionLayout} className={s.section}>
-      <div className={s.header}>
+      <Container>
         <Text as="h2" textStyle="span" text={heading} className={s.heading} />
-      </div>
-
-      <div className={s.card}>
-        <div className={s.imageWrap}>
-          {image && typeof image === 'object' && (
-            <Media resource={image} fill imgClassName={s.image} />
+        <div className={s.card}>
+          <Link href={ctaHref} className={s.cardLink}>
+            {illustration && (
+              <div className={s.imageWrap} style={illustrationAspect}>
+                <Media resource={illustration} fill imgClassName={s.image} />
+              </div>
+            )}
+            <Text as="h3" textStyle="span" text={serviceTitle} className={s.serviceTitle} />
+            <Text
+              as="p"
+              textStyle="span"
+              text={`${price ?? ''}${priceSuffix ?? ''}`}
+              className={s.price}
+            />
+          </Link>
+          <Text as="p" textStyle="span" text={description} className={s.description} />
+          {cta?.label && (
+            <Link
+              href={ctaHref}
+              target={cta.newTab ? '_blank' : undefined}
+              rel={cta.newTab ? 'noopener noreferrer' : undefined}
+              className={s.ctaButton}
+            >
+              {cta.label}
+            </Link>
           )}
         </div>
-
-        <div className={s.textCol}>
-          <div className={s.addressRow}>
-            <Text
-              as="div"
-              textStyle="span"
-              text={address}
-              className={s.address}
-            />
-            <div className={s.pricingMobile} aria-hidden="true">
-              <Text textStyle="span" text={price} className={s.priceMobile} />
-              <Text textStyle="span" text={priceSuffix} className={s.priceSuffix} />
-            </div>
-          </div>
-
-          <div className={s.ctaGroup}>
-            {cta?.label && (
-              <Link
-                href={ctaHref}
-                target={cta.newTab ? '_blank' : undefined}
-                rel={cta.newTab ? 'noopener noreferrer' : undefined}
-                className={s.ctaButton}
-              >
-                <Button variant="primary" size="lg" className="w-full md:w-auto">
-                  {cta.label}
-                </Button>
-              </Link>
-            )}
-            <div className={s.pricingInline}>
-              <Text textStyle="span" text={price} className={s.priceInline} />
-              <Text textStyle="span" text={priceSuffix} className={s.priceSuffix} />
-            </div>
-          </div>
-        </div>
-      </div>
+      </Container>
     </SectionWrapper>
   )
 }

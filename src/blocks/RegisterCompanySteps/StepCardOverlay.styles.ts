@@ -1,5 +1,4 @@
 export const stepCardOverlayStyles = {
-  // ── Card 1: Namechecker ─────────────────────────────────────────────────────
   nc_root: 'absolute inset-0 flex flex-col items-center justify-end pb-7',
   nc_widget: 'flex flex-col items-center gap-3',
   nc_input:
@@ -10,7 +9,6 @@ export const stepCardOverlayStyles = {
   nc_badge: 'flex items-center gap-1.5 bg-[var(--icon-background-accent)] rounded-full px-3 py-1',
   nc_badgeText: 'text-[10px] font-medium text-[var(--text-strong)]',
 
-  // ── Card 2: Package Cards ───────────────────────────────────────────────────
   pkg_root: 'absolute inset-0 overflow-hidden',
   pkg_card: 'bg-[var(--surface-primary)] rounded-2xl p-4 w-[212px] shadow-xl flex flex-col gap-3',
   pkg_title: 'text-[13px] font-semibold text-[var(--text-strong)] shrink-0',
@@ -26,7 +24,6 @@ export const stepCardOverlayStyles = {
     'bg-[var(--surface-accent-subtle)] rounded-full flex items-center justify-center shrink-0 w-[17.6px] h-[17.6px]',
   pkg_footerSkeleton: 'h-2 bg-[var(--surface-tertiary)] rounded w-20 mx-auto',
 
-  // ── Card 3: Basket ──────────────────────────────────────────────────────────
   bsk_root: 'absolute inset-0 flex items-end justify-center px-6 pb-5',
   bsk_card: 'bg-[var(--surface-primary)] rounded-xl shadow-xl flex flex-col gap-2 p-3 w-full',
   bsk_header: 'flex items-center gap-1.5',
@@ -44,7 +41,6 @@ export const stepCardOverlayStyles = {
     'bg-[var(--surface-accent)] rounded flex items-center justify-center py-2 w-full',
   bsk_checkoutBtnText: 'text-xs font-semibold text-[var(--text-strong)]',
 
-  // ── Card 4: Company Details ─────────────────────────────────────────────────
   dtl_root: 'absolute inset-0 flex items-end justify-center px-5 pb-5',
   dtl_container: 'relative w-[241px] h-[108px]',
   dtl_card1:

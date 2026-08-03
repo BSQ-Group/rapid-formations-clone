@@ -9,13 +9,10 @@ interface TurnstileHookResult {
   latestToken: string | null
   resetToken: () => void
   TurnstileComponent: FC
+  // Gate on this before latestToken — with no site key no token ever arrives.
+  isEnabled: boolean
 }
 
-/**
- * Hook that provides access to the latest Turnstile token.
- * Call resetToken() after each use to invalidate the consumed token and
- * trigger a fresh challenge for the next request.
- */
 export const useTurnstileToken = (): TurnstileHookResult => {
   const [latestToken, setLatestToken] = useState<string | null>(null)
   const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
@@ -53,5 +50,5 @@ export const useTurnstileToken = (): TurnstileHookResult => {
     )
   }, [handleSuccess, handleExpire, handleLoad, siteKey])
 
-  return { latestToken, resetToken, TurnstileComponent }
+  return { latestToken, resetToken, TurnstileComponent, isEnabled: Boolean(siteKey) }
 }

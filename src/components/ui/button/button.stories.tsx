@@ -52,7 +52,6 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof Button>
 
-// Variant stories
 export const Primary: Story = {
   args: {
     variant: 'primary',
@@ -128,7 +127,6 @@ export const BackButton: Story = {
   name: 'Back - with arrow',
 }
 
-// Size variations
 export const Small: Story = {
   args: {
     size: 'sm',
@@ -186,7 +184,6 @@ export const IconSizePerVariant: Story = {
   },
 }
 
-// State variations
 export const Disabled: Story = {
   args: {
     disabled: true,
@@ -223,7 +220,6 @@ export const DisabledPerVariant: Story = {
   },
 }
 
-// Example with icon
 export const WithIcon: Story = {
   args: {
     children: (
@@ -248,7 +244,6 @@ export const WithIcon: Story = {
   },
 }
 
-// Loading state
 export const Loading: Story = {
   args: {
     isLoading: true,
@@ -285,12 +280,10 @@ export const LoadingPerVariant: Story = {
   },
 }
 
-// All variants on dark background
 export const AllVariantsDark: Story = {
   render: () => (
     <div className="flex flex-col gap-8 p-8 bg-[#040429] min-h-screen">
       <h2 className="text-xl font-bold text-white mb-4">All Variants on Dark Background</h2>
-
       <div className="flex flex-col gap-4">
         <h3 className="text-lg font-bold text-white">Primary</h3>
         <div className="flex flex-wrap gap-4">
@@ -308,7 +301,6 @@ export const AllVariantsDark: Story = {
           </Button>
         </div>
       </div>
-
       <div className="flex flex-col gap-4">
         <h3 className="text-lg font-bold text-white">Secondary (for dark backgrounds)</h3>
         <div className="flex flex-wrap gap-4">
@@ -326,7 +318,6 @@ export const AllVariantsDark: Story = {
           </Button>
         </div>
       </div>
-
       <div className="flex flex-col gap-4">
         <h3 className="text-lg font-bold text-white">Tertiary (for dark backgrounds)</h3>
         <div className="flex flex-wrap gap-4">
@@ -336,7 +327,6 @@ export const AllVariantsDark: Story = {
           </Button>
         </div>
       </div>
-
       <div className="flex flex-col gap-4">
         <h3 className="text-lg font-bold text-white">Download</h3>
         <div className="flex flex-wrap gap-4">
@@ -354,7 +344,6 @@ export const AllVariantsDark: Story = {
           </Button>
         </div>
       </div>
-
       <div className="flex flex-col gap-4">
         <h3 className="text-lg font-bold text-white">Back</h3>
         <div className="flex flex-wrap gap-4">
@@ -371,12 +360,10 @@ export const AllVariantsDark: Story = {
   },
 }
 
-// All variants on light background
 export const AllVariantsLight: Story = {
   render: () => (
     <div className="flex flex-col gap-8 p-8 bg-white min-h-screen">
       <h2 className="text-xl font-bold text-[#1C1D24] mb-4">All Variants on Light Background</h2>
-
       <div className="flex flex-col gap-4">
         <h3 className="text-lg font-bold text-[#1C1D24]">Primary</h3>
         <div className="flex flex-wrap gap-4">
@@ -394,7 +381,6 @@ export const AllVariantsLight: Story = {
           </Button>
         </div>
       </div>
-
       <div className="flex flex-col gap-4">
         <h3 className="text-lg font-bold text-[#1C1D24]">Secondary Light (for light backgrounds)</h3>
         <div className="flex flex-wrap gap-4">
@@ -412,7 +398,6 @@ export const AllVariantsLight: Story = {
           </Button>
         </div>
       </div>
-
       <div className="flex flex-col gap-4">
         <h3 className="text-lg font-bold text-[#1C1D24]">Tertiary Light (for light backgrounds)</h3>
         <div className="flex flex-wrap gap-4">
@@ -422,7 +407,6 @@ export const AllVariantsLight: Story = {
           </Button>
         </div>
       </div>
-
       <div className="flex flex-col gap-4">
         <h3 className="text-lg font-bold text-[#1C1D24]">Download</h3>
         <div className="flex flex-wrap gap-4">
@@ -447,7 +431,6 @@ export const AllVariantsLight: Story = {
   },
 }
 
-// Compact grid of all variants
 export const AllVariants: Story = {
   render: () => (
     <div className="flex flex-col gap-8 p-8">
@@ -468,7 +451,6 @@ export const AllVariants: Story = {
           </Button>
         </div>
       </div>
-
       <div className="flex flex-col gap-4">
         <h3 className="text-lg font-bold text-[var(--text-strong)]">Secondary</h3>
         <div className="flex flex-wrap gap-4">
@@ -486,7 +468,6 @@ export const AllVariants: Story = {
           </Button>
         </div>
       </div>
-
       <div className="flex flex-col gap-4">
         <h3 className="text-lg font-bold text-[var(--text-strong)]">Secondary Light</h3>
         <div className="flex flex-wrap gap-4">
@@ -504,7 +485,6 @@ export const AllVariants: Story = {
           </Button>
         </div>
       </div>
-
       <div className="flex flex-col gap-4">
         <h3 className="text-lg font-bold text-[var(--text-strong)]">Tertiary</h3>
         <div className="flex flex-wrap gap-4">
@@ -514,7 +494,6 @@ export const AllVariants: Story = {
           </Button>
         </div>
       </div>
-
       <div className="flex flex-col gap-4">
         <h3 className="text-lg font-bold text-[var(--text-strong)]">Tertiary Light</h3>
         <div className="flex flex-wrap gap-4">
@@ -524,7 +503,6 @@ export const AllVariants: Story = {
           </Button>
         </div>
       </div>
-
       <div className="flex flex-col gap-4">
         <h3 className="text-lg font-bold text-[var(--text-strong)]">Download</h3>
         <div className="flex flex-wrap gap-4">
@@ -542,7 +520,6 @@ export const AllVariants: Story = {
           </Button>
         </div>
       </div>
-
       <div className="flex flex-col gap-4">
         <h3 className="text-lg font-bold text-[var(--text-strong)]">Back</h3>
         <div className="flex flex-wrap gap-4">

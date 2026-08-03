@@ -1,7 +1,5 @@
-// Client-side call (not a server action) — Cloudflare blocks server-side
-// requests from Vercel's serverless functions. Calling from the browser
-// passes Cloudflare's challenge naturally.
-
+// Must stay a browser fetch, not a server action — Cloudflare blocks Vercel's
+// serverless egress.
 export const sendEmailOrPin = async (
   path: string,
   email: string,

@@ -1,59 +1,47 @@
 import React from 'react'
-import Link from 'next/link'
 
 import type { RegisterOverseasBlock as RegisterOverseasBlockProps } from '@/payload-types'
 
-import { Button } from '@/components/ui/button'
+import { Container } from '@/components/shared/Container/Container'
+import { CtaLink } from '@/components/shared/CtaLink'
 import { Media } from '@/components/Media'
+import RichText from '@/components/RichText'
 import { SectionWrapper } from '@/components/shared/SectionWrapper/SectionWrapper'
 import Text from '@/components/shared/Text'
 import { getLinkHref, type LinkData } from '@/utilities/links'
 import { registerOverseasStyles as s } from './RegisterOverseas.styles'
 
 export const RegisterOverseasBlock: React.FC<RegisterOverseasBlockProps> = ({
+  sectionHeading,
   heading,
   body,
   cta,
   image,
   sectionLayout,
 }) => {
-  // CTA wraps Button inside Link directly (mirrors PromoTier3) instead of going
-  // through CMSLink → Slot, which drops the Button's base classes.
-  const ctaHref = cta ? getLinkHref(cta as LinkData) : null
+  const ctaHref = getLinkHref(cta as LinkData | undefined)
 
   return (
     <SectionWrapper {...sectionLayout} className={s.section}>
-      <div className={s.card}>
-        {/* Content: heading, body, CTA button */}
-        <div className={s.content}>
-          <div className={s.textGroup}>
-            {heading && (
-              <Text as="h2" textStyle="headline-4xl" text={heading} className={s.heading} />
-            )}
+      <Container>
+        <Text as="h2" textStyle="span" text={sectionHeading} className={s.sectionHeading} />
+        <div className={s.panel}>
+          <div className={s.content}>
+            <Text as="h3" textStyle="span" text={heading} className={s.heading} />
             {body && (
-              <Text as="p" textStyle="body-sm" text={body} className={s.body} />
+              <RichText data={body} enableGutter={false} enableProse={false} className={s.body} />
+            )}
+            {cta?.label && (
+              <div className={s.ctaWrap}>
+                <CtaLink href={ctaHref} label={cta.label} newTab={cta.newTab} size="lg" />
+              </div>
             )}
           </div>
-
-          {ctaHref && ctaHref !== '#' && cta?.label && (
-            <Link
-              href={ctaHref}
-              {...(cta.newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-            >
-              <Button variant="primary" size="lg">
-                {cta.label}
-              </Button>
-            </Link>
+          {image && (
+            <Media resource={image} className={s.imageWrap} imgClassName={s.image} loading="lazy" />
           )}
         </div>
-
-        {/* Image: below text on mobile/tablet, right column on desktop */}
-        {image && (
-          <div className={s.imageWrapper}>
-            <Media resource={image} fill imgClassName={s.image} />
-          </div>
-        )}
-      </div>
+      </Container>
     </SectionWrapper>
   )
 }

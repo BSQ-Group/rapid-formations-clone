@@ -79,7 +79,7 @@ const meta: Meta<typeof Select> = {
     backgrounds: {
       default: 'dark',
       values: [
-        { name: 'dark', value: '#111827' }, // gray-900
+        { name: 'dark', value: '#111827' },
         { name: 'light', value: '#FFFFFF' },
       ],
     },
@@ -94,7 +94,6 @@ export const DependentSelects: Story = {
     const [country, setCountry] = useState<string>('')
     const [city, setCity] = useState<string>('')
 
-    // Reset city when country changes
     useEffect(() => {
       setCity('')
     }, [country])
@@ -102,7 +101,6 @@ export const DependentSelects: Story = {
     return (
       <div className="w-96 p-6 bg-[var(--surface-canvas)] rounded-[6px]">
         <h2 className="text-xl font-bold text-white mb-6">Dependent Selects</h2>
-
         <div className="space-y-4">
           <Select
             label="Country"
@@ -111,7 +109,6 @@ export const DependentSelects: Story = {
             value={country}
             onValueChange={setCountry}
           />
-
           <Select
             label="City"
             placeholder={country ? 'Select a city' : 'Select a country first'}
@@ -120,7 +117,6 @@ export const DependentSelects: Story = {
             onValueChange={setCity}
             disabled={!country}
           />
-
           {country && city && (
             <div className="mt-6 p-4 bg-[var(--surface-primary)] rounded-[6px] text-white">
               Selected: {countryOptions.find((c) => c.value === country)?.label},{' '}
@@ -144,7 +140,6 @@ export const AsyncLoading: Story = {
 
     const loadOptions = () => {
       setLoading(true)
-      // Simulate async request
       setTimeout(() => {
         setOptions([
           { value: 'option1', label: 'Loaded Option 1' },
@@ -160,7 +155,6 @@ export const AsyncLoading: Story = {
     return (
       <div className="w-96 p-6 bg-[var(--surface-canvas)] rounded-[6px]">
         <h2 className="text-xl font-bold text-white mb-4">Async Loading Demo</h2>
-
         <div className="space-y-4">
           <Select
             label="Async Select"
@@ -170,7 +164,6 @@ export const AsyncLoading: Story = {
             onValueChange={setValue}
             disabled={loading}
           />
-
           {options.length === 0 && (
             <button
               className="w-full py-2 px-4 bg-amethyst text-white rounded-[6px]"
@@ -180,7 +173,6 @@ export const AsyncLoading: Story = {
               {loading ? <Spinner fullScreen={false} /> : 'Load Options'}
             </button>
           )}
-
           {value && (
             <div className="mt-2 p-2 bg-[var(--surface-primary)] rounded-[6px] text-white/70 text-sm">
               Selected: {options.find((opt) => opt.value === value)?.label}
@@ -215,7 +207,6 @@ export const CustomStyling: Story = {
     return (
       <div className="w-96 p-6 bg-[var(--surface-canvas)] rounded-[6px]">
         <h2 className="text-xl font-bold text-white mb-4">Custom Styling</h2>
-
         <style jsx global>{`
           .custom-item {
             transition: all 0.2s ease;
@@ -230,7 +221,6 @@ export const CustomStyling: Story = {
             border-radius: 2px;
           }
         `}</style>
-
         <Select
           label="Choose a color"
           placeholder="Select a color"
@@ -243,7 +233,6 @@ export const CustomStyling: Story = {
               : 'custom-item'
           }
         />
-
         {value && (
           <div
             className="mt-4 p-4 rounded-[6px] flex items-center justify-center text-black font-bold"

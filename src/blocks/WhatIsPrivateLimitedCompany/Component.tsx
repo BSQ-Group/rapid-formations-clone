@@ -18,12 +18,10 @@ export const WhatIsPrivateLimitedCompanyBlock: React.FC<
             <Media resource={image} fill imgClassName={s.imageEl} />
           </div>
         )}
-
         <div className={s.textCol}>
           {title && (
             <Text text={title} as="h2" textStyle="span" className={s.title} />
           )}
-
           {paragraphs && paragraphs.length > 0 && (
             <div className={s.paragraphs}>
               {paragraphs.map((p) => (

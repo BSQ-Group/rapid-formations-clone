@@ -148,7 +148,6 @@ export const AllVariants: Story = {
         <h3 className="text-lg font-semibold">Default</h3>
         <TelephoneNumber id="all-default" placeholder="Default variant" />
       </div>
-
       <div className="space-y-2">
         <h3 className="text-lg font-semibold">Error</h3>
         <TelephoneNumber
@@ -158,17 +157,14 @@ export const AllVariants: Story = {
           error="This field is required"
         />
       </div>
-
       <div className="space-y-2">
         <h3 className="text-lg font-semibold">Disabled</h3>
         <TelephoneNumber id="all-disabled" placeholder="Disabled variant" disabled />
       </div>
-
       <div className="space-y-2">
         <h3 className="text-lg font-semibold">Small</h3>
         <TelephoneNumber id="all-small" placeholder="Small size" size="small" />
       </div>
-
       <div className="space-y-2">
         <h3 className="text-lg font-semibold">Small Error</h3>
         <TelephoneNumber
@@ -179,7 +175,6 @@ export const AllVariants: Story = {
           error="Invalid phone number"
         />
       </div>
-
       <div className="space-y-2">
         <h3 className="text-lg font-semibold">Not Full Width</h3>
         <div className="flex justify-center">

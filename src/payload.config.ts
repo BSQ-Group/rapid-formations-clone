@@ -26,11 +26,7 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   admin: {
     components: {
-      // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
-      // Feel free to delete this at any time. Simply remove the line below.
       beforeLogin: ['@/components/BeforeLogin'],
-      // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
-      // Feel free to delete this at any time. Simply remove the line below.
       beforeDashboard: ['@/components/BeforeDashboard'],
     },
     importMap: {
@@ -60,34 +56,17 @@ export default buildConfig({
       ],
     },
   },
-  // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,
   db: mongooseAdapter({
     url: process.env.MONGODB_URI || '',
     connectOptions: {
-      // Cap sockets per function instance. Default 100 × N cold-started Vercel
-      // instances trivially saturates Atlas M0's 500-connection cluster cap;
-      // 10 leaves headroom for ~50 concurrent instances before pressure starts.
+      // Pool is sized against Atlas M0's cluster connection cap, not throughput.
       maxPoolSize: 2,
-      // Let idle pools drain to 0 on serverless — function instances are
-      // short-lived, so keeping warm sockets open just wastes the cluster cap.
       minPoolSize: 1,
-      // Vercel's connection-pooling guide recommends a short idle timeout
-      // (~5s) so suspended Fluid Compute instances release sockets quickly.
-      // https://vercel.com/kb/guide/connection-pooling-with-functions
       maxIdleTimeMS: 5000,
-      // Detect Atlas primary changes in ~5s instead of ~10s. Shrinks the window
-      // where requests fall into the failed-handshake hole during M0 elections.
       heartbeatFrequencyMS: 5000,
-      // Tag connections so they're attributable to this app in Atlas server-side
-      // logs and currentOp() — free observability for incident triage.
       appName: 'qcf-prod',
     },
-    // Hand the underlying MongoClient to Vercel's Fluid Compute runtime so it
-    // can drain idle sockets before the function instance suspends. Without
-    // this, idle Vercel Functions hold their sockets open until cold-stop,
-    // burning Atlas connection slots. Mongo equivalent of the `attachDatabasePool(pool)`
-    // pattern in https://vercel.com/kb/guide/connection-pooling-with-functions
     afterOpenConnection: async (adapter) => {
       attachDatabasePool(adapter.connection.getClient())
     },
@@ -113,15 +92,11 @@ export default buildConfig({
   jobs: {
     access: {
       run: ({ req }: { req: PayloadRequest }): boolean => {
-        // Allow logged in users to execute this endpoint (default)
         if (req.user) return true
 
         const secret = process.env.CRON_SECRET
         if (!secret) return false
 
-        // If there is no logged in user, then check
-        // for the Vercel Cron secret to be present as an
-        // Authorization header:
         const authHeader = req.headers.get('authorization')
         return authHeader === `Bearer ${secret}`
       },

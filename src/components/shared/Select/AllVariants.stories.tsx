@@ -76,7 +76,6 @@ type Story = StoryObj<typeof Select>
 
 export const AllVariants: Story = {
   render: () => {
-    // Default variant states
     const [defaultValue, setDefaultValue] = useState<string>('')
     const [smallValue, setSmallValue] = useState<string>('')
     const [errorValue, setErrorValue] = useState<string>('')
@@ -84,7 +83,6 @@ export const AllVariants: Story = {
     const [multiValue, setMultiValue] = useState<string>('')
     const [preselectedValue, setPreselectedValue] = useState<string>('option2')
 
-    // Checkbox variant states
     const [checkboxValue, setCheckboxValue] = useState<string>('')
     const [checkboxSmallValue, setCheckboxSmallValue] = useState<string>('')
     const [checkboxErrorValue, setCheckboxErrorValue] = useState<string>('')
@@ -99,13 +97,10 @@ export const AllVariants: Story = {
         <h2 className="text-xl font-bold text-white border-b border-[var(--border-subtle)] pb-2">
           Select Component - All Variants
         </h2>
-
-        {/* Default Variant Section */}
         <section>
           <h3 className="text-lg font-semibold text-white mb-4 border-b border-[var(--border-subtle)] pb-2">
             Default Variant
           </h3>
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
               <h4 className="text-white font-medium">Standard (Large)</h4>
@@ -118,7 +113,6 @@ export const AllVariants: Story = {
                 variant="default"
               />
             </div>
-
             <div className="space-y-2">
               <h4 className="text-white font-medium">Small Size</h4>
               <Select
@@ -131,7 +125,6 @@ export const AllVariants: Story = {
                 variant="default"
               />
             </div>
-
             <div className="space-y-2">
               <h4 className="text-white font-medium">With Error</h4>
               <Select
@@ -144,7 +137,6 @@ export const AllVariants: Story = {
                 variant="default"
               />
             </div>
-
             <div className="space-y-2">
               <h4 className="text-white font-medium">Disabled</h4>
               <Select
@@ -157,7 +149,6 @@ export const AllVariants: Story = {
                 variant="default"
               />
             </div>
-
             <div className="space-y-2">
               <h4 className="text-white font-medium">Multi-Select</h4>
               <Select
@@ -171,7 +162,6 @@ export const AllVariants: Story = {
               />
               <p className="text-white text-sm">Selected: {multiValue || 'None'}</p>
             </div>
-
             <div className="space-y-2">
               <h4 className="text-white font-medium">Pre-selected Value</h4>
               <Select
@@ -185,13 +175,10 @@ export const AllVariants: Story = {
             </div>
           </div>
         </section>
-
-        {/* Checkbox Variant Section */}
         <section className="mt-8">
           <h3 className="text-lg font-semibold text-white mb-4 border-b border-[var(--border-subtle)] pb-2">
             Checkbox Variant
           </h3>
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
               <h4 className="text-white font-medium">Standard (Large)</h4>
@@ -204,7 +191,6 @@ export const AllVariants: Story = {
                 variant="checkbox"
               />
             </div>
-
             <div className="space-y-2">
               <h4 className="text-white font-medium">Small Size</h4>
               <Select
@@ -217,7 +203,6 @@ export const AllVariants: Story = {
                 variant="checkbox"
               />
             </div>
-
             <div className="space-y-2">
               <h4 className="text-white font-medium">With Error</h4>
               <Select
@@ -230,7 +215,6 @@ export const AllVariants: Story = {
                 variant="checkbox"
               />
             </div>
-
             <div className="space-y-2">
               <h4 className="text-white font-medium">Disabled</h4>
               <Select
@@ -243,7 +227,6 @@ export const AllVariants: Story = {
                 variant="checkbox"
               />
             </div>
-
             <div className="space-y-2">
               <h4 className="text-white font-medium">Multi-Select</h4>
               <Select
@@ -257,7 +240,6 @@ export const AllVariants: Story = {
               />
               <p className="text-white text-sm">Selected: {checkboxMultiValue || 'None'}</p>
             </div>
-
             <div className="space-y-2">
               <h4 className="text-white font-medium">Pre-selected Value</h4>
               <Select
@@ -269,7 +251,6 @@ export const AllVariants: Story = {
                 variant="checkbox"
               />
             </div>
-
             <div className="space-y-2 col-span-1 md:col-span-2">
               <h4 className="text-white font-medium">Multi-Select with Pre-selected Values</h4>
               <Select

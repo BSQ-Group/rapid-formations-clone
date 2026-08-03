@@ -40,7 +40,6 @@ Uses theme tokens: \`--surface-primary\`, \`--border-subtle\`, \`--surface-hover
 export default meta
 type Story = StoryObj<typeof meta>
 
-// Default variant examples
 export const Default: Story = {
   args: {
     checked: false,

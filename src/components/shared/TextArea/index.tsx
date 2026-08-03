@@ -76,7 +76,6 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
     const descriptionId = description ? `${id}-description` : undefined
     const describedBy = ariaDescribedby || errorId || descriptionId
 
-    // If disabled is passed, set variant to disabled
     const resolvedVariant = disabled ? 'disabled' : error ? 'error' : variant
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -118,7 +117,6 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
               onKeyDown={handleKeyDown}
               {...props}
             />
-
             {showSubmitButton && (
               <div className="textarea__button-container">
                 <button
@@ -134,14 +132,12 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
             )}
           </div>
         </div>
-
         {error && resolvedVariant === 'error' && (
           <div id={errorId} className="textarea__error" role="alert">
             {errorIcon}
             <span>{error}</span>
           </div>
         )}
-
         {description && !error && (
           <div id={descriptionId} className="textarea__description">
             {description}

@@ -20,7 +20,7 @@ type Story = StoryObj<typeof TrustPilotBannerBlock>
 export const Default: Story = {
   args: {
     blockType: 'trustpilotBanner',
-    businessUnitId: '5714e6d50000ff00058baea3',
+    businessUnitId: '51d2b23c0000640005506d5b',
     locale: 'en-GB',
   },
 }

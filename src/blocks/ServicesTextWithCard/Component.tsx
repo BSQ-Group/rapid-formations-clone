@@ -20,7 +20,6 @@ export const ServicesTextWithCardBlock: React.FC<ServicesTextWithCardBlockProps>
         {title && (
           <Text text={title} as="h2" textStyle="headline-5xl" className={s.title} />
         )}
-
         {paragraphs && paragraphs.length > 0 && (
           <div className={s.paragraphs}>
             {paragraphs.map((p) => (
@@ -29,7 +28,6 @@ export const ServicesTextWithCardBlock: React.FC<ServicesTextWithCardBlockProps>
           </div>
         )}
       </div>
-
       <div className={s.card}>
         <div className={s.cardDescription}>
           <div className={s.cardPriceGroup}>
@@ -65,7 +63,6 @@ export const ServicesTextWithCardBlock: React.FC<ServicesTextWithCardBlockProps>
             </Text>
           )}
         </div>
-
         {card?.cta && (() => {
           const ref = card.cta.reference
           const refValue = ref?.value

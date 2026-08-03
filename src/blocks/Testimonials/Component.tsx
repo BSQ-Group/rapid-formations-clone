@@ -19,7 +19,6 @@ export const TestimonialsBlock: React.FC<Props> = ({ heading, description, secti
             <Text textStyle="body-sm" text={description} className={s.description} />
           )}
         </div>
-
         <TrustpilotCarousel />
       </div>
     </SectionWrapper>

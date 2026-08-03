@@ -16,19 +16,8 @@ import {
 import type { Section } from './ComparePackagesClient'
 import { combinedPlansCarouselStyles as s } from './CombinedPlansCarousel.styles'
 
-/**
- * Tablet/mobile combined carousel (CORE-3620). Each slide is a single plan:
- * the marketing card (reusing the shared PackageCard) stacked directly on top
- * of that plan's services list, moving together as one scroll-snap item — no
- * gap, no second synced scroller. Tabs above switch plans.
- *
- * Card content per plan comes in as PackageCard props; the services columns
- * come from the shared `sections` (availability read per plan index).
- */
 export interface CombinedPlan {
-  /** Plan tab label (e.g. "Basic"). */
   name: string
-  /** Full marketing card props for this plan's header. */
   card: Omit<PackageCardProps, 'styles' | 'textStyles' | 'titleAs'>
 }
 
@@ -82,7 +71,6 @@ export function CombinedPlansCarousel({ plans, sections, cardStyles = formationP
 
   return (
     <div className={s.viewport}>
-      {/* Plan tabs */}
       <div className={s.tabs}>
         {plans.map((plan, i) => (
           <button
@@ -94,8 +82,6 @@ export function CombinedPlansCarousel({ plans, sections, cardStyles = formationP
           </button>
         ))}
       </div>
-
-      {/* One slide per plan: marketing card + that plan's services list */}
       <div ref={trackRef} className={s.track}>
         {plans.map((plan, i) => (
           <div key={plan.name} className={s.slide}>

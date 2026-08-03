@@ -21,7 +21,6 @@ export const HowItWorksListBlock: React.FC<HowItWorksListBlockProps> = ({
           {stepsHeading && (
             <Text as="h2" textStyle="headline-4xl" text={stepsHeading} className={s.heading} />
           )}
-
           {steps && steps.length > 0 && (
             <ol className={s.list}>
               {steps.map((step, index) => (
@@ -38,7 +37,6 @@ export const HowItWorksListBlock: React.FC<HowItWorksListBlockProps> = ({
             </ol>
           )}
         </div>
-
         <div className={s.includedCol}>
           {includedHeading && (
             <Text
@@ -48,7 +46,6 @@ export const HowItWorksListBlock: React.FC<HowItWorksListBlockProps> = ({
               className={s.heading}
             />
           )}
-
           {includedItems && includedItems.length > 0 && (
             <ul className={s.list}>
               {includedItems.map((item, index) => (

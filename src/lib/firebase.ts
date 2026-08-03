@@ -19,12 +19,6 @@ let authStateAvailable = false
 
 export const isAuthStateAvailable = () => authStateAvailable
 
-/**
- * Lazily initialize Firebase + auth listeners. Dynamic imports keep
- * `firebase/app` and `firebase/auth` out of the landing-page bundle.
- * Returns both the `auth` instance and the `firebase/auth` module so
- * callers don't need to re-import.
- */
 export async function getAuth(): Promise<FirebaseAuthBundle> {
   if (_authPromise) return _authPromise
 
@@ -54,8 +48,6 @@ export async function getAuth(): Promise<FirebaseAuthBundle> {
     return { auth: authInstance, firebaseAuth }
   })()
 
-  // If init fails (e.g. chunk load error after a deploy), clear the cache
-  // so the next caller can retry instead of receiving the same rejection.
   promise.catch(() => {
     if (_authPromise === promise) _authPromise = null
   })
@@ -63,10 +55,6 @@ export async function getAuth(): Promise<FirebaseAuthBundle> {
   _authPromise = promise
   return promise
 }
-
-// ---------------------------------------------------------------------------
-// Email + OTP sign-in
-// ---------------------------------------------------------------------------
 
 export async function firebaseSendSignInLink(email: string) {
   const {
@@ -118,10 +106,6 @@ export async function firebaseSignInWithLink(email: string, link: string, onSucc
   }
 }
 
-// ---------------------------------------------------------------------------
-// Token refresh
-// ---------------------------------------------------------------------------
-
 let nrOfMaxRetries = 0
 
 export async function getRefreshIdToken(): Promise<string | null> {
@@ -157,10 +141,6 @@ export async function getRefreshIdToken(): Promise<string | null> {
   }
 }
 
-// ---------------------------------------------------------------------------
-// Sign out
-// ---------------------------------------------------------------------------
-
 export async function firebaseSignOut() {
   try {
     const { auth } = await getAuth()
@@ -187,19 +167,11 @@ export async function firebaseSignOut() {
   }
 }
 
-// ---------------------------------------------------------------------------
-// OAuth redirect helpers
-// ---------------------------------------------------------------------------
-
 function markOAuthFlowInProgress() {
   if (typeof sessionStorage !== 'undefined') {
     sessionStorage.setItem('oauth_flow_in_progress', String(Date.now()))
   }
 }
-
-// ---------------------------------------------------------------------------
-// OAuth redirect — Google
-// ---------------------------------------------------------------------------
 
 export async function firebaseSignInWithGoogle() {
   try {
@@ -222,10 +194,6 @@ export async function firebaseSignInWithGoogle() {
   }
 }
 
-// ---------------------------------------------------------------------------
-// OAuth redirect — Apple
-// ---------------------------------------------------------------------------
-
 export async function firebaseSignInWithApple() {
   try {
     const {
@@ -247,10 +215,6 @@ export async function firebaseSignInWithApple() {
   }
 }
 
-// ---------------------------------------------------------------------------
-// OAuth redirect — Microsoft
-// ---------------------------------------------------------------------------
-
 export async function firebaseSignInWithMicrosoft() {
   try {
     const {
@@ -270,10 +234,6 @@ export async function firebaseSignInWithMicrosoft() {
   }
 }
 
-// ---------------------------------------------------------------------------
-// OAuth redirect — BSQ (OIDC)
-// ---------------------------------------------------------------------------
-
 export async function firebaseSignInWithBSQAccount() {
   try {
     const {
@@ -292,10 +252,6 @@ export async function firebaseSignInWithBSQAccount() {
     return { ok: false, error: (error as Error).message || 'BSQ sign-in redirect failed' }
   }
 }
-
-// ---------------------------------------------------------------------------
-// Cross-domain logout cookie
-// ---------------------------------------------------------------------------
 
 export function removeCrossOriginAutoLogoutCookie() {
   Cookies.remove(CROSS_ORIGIN_AUTO_LOGOUT, {

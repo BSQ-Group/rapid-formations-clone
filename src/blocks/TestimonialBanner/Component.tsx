@@ -41,7 +41,6 @@ export const TestimonialBannerBlock: React.FC<TestimonialBannerBlockProps> = ({
             className={s.tpWidget}
           />
         </div>
-
         <div className={s.quoteCol}>
           <div className={s.quoteAndMark}>
             <div className={s.quoteMark}>
@@ -54,7 +53,6 @@ export const TestimonialBannerBlock: React.FC<TestimonialBannerBlockProps> = ({
               className={s.quoteText}
             />
           </div>
-
           <div className={s.footer}>
             <Text as="p" textStyle="body-lg" text={authorName} className={s.authorName} />
             {authorRole && (

@@ -7,6 +7,7 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
 import { Header } from '@/Header/Component'
+import { getBrand, getDomainConfig } from '@/lib/brand'
 
 export const dynamic = 'force-static'
 export const revalidate = 600
@@ -36,7 +37,6 @@ export default async function Page() {
             <h1>Posts</h1>
           </div>
         </div>
-
         <div className="container mb-8">
           <PageRange
             collection="posts"
@@ -45,9 +45,7 @@ export default async function Page() {
             totalDocs={posts.totalDocs}
           />
         </div>
-
         <CollectionArchive posts={posts.docs} />
-
         <div className="container">
           {posts.totalPages > 1 && posts.page && (
             <Pagination page={posts.page} totalPages={posts.totalPages} />
@@ -59,7 +57,8 @@ export default async function Page() {
 }
 
 export function generateMetadata(): Metadata {
+  const { siteName } = getDomainConfig(getBrand())
   return {
-    title: `Payload Website Template Posts`,
+    title: `${siteName} Posts`,
   }
 }

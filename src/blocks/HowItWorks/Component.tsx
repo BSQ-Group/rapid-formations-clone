@@ -12,10 +12,6 @@ import { getLinkHref, type LinkData } from '@/utilities/links'
 import { cn } from '@/utilities/ui'
 import { howItWorksStyles as s } from './HowItWorks.styles'
 
-// ─────────────────────────────────────────────
-// Decorative overlay widgets — hardcoded per step
-// ─────────────────────────────────────────────
-
 function Overlay1() {
   return (
     <div className={cn(s.overlayBase, s.overlay1Pos)}>
@@ -61,9 +57,7 @@ function Overlay2() {
 function Overlay3() {
   return (
     <>
-      {/* Ghost card (visually behind the email card) */}
       <div className={s.ghostCard} />
-      {/* Inbox header + email card grouped so the header always sits above the card */}
       <div className={s.inboxGroup}>
         <div className={s.inboxHeader}>
           <Text textStyle="span" text="Inbox" className={s.inboxLabel} />
@@ -92,10 +86,6 @@ function Overlay3() {
 
 const OVERLAYS = [Overlay1, Overlay2, Overlay3]
 
-// ─────────────────────────────────────────────
-// Step card
-// ─────────────────────────────────────────────
-
 type Step = NonNullable<HowItWorksBlockProps['steps']>[number]
 
 function StepCard({ step, index }: { step: Step; index: number }) {
@@ -109,7 +99,6 @@ function StepCard({ step, index }: { step: Step; index: number }) {
         )}
         {Overlay && <Overlay />}
       </div>
-
       <div className={s.cardBody}>
         <Text textStyle="body-sm" text={step.stepNumber} className={s.stepNumber} />
         <div className={s.cardTextGroup}>
@@ -120,10 +109,6 @@ function StepCard({ step, index }: { step: Step; index: number }) {
     </div>
   )
 }
-
-// ─────────────────────────────────────────────
-// Block
-// ─────────────────────────────────────────────
 
 export const HowItWorksBlock: React.FC<HowItWorksBlockProps> = ({
   heading,
@@ -173,7 +158,6 @@ export const HowItWorksBlock: React.FC<HowItWorksBlockProps> = ({
   return (
     <SectionWrapper {...sectionLayout} className={s.section}>
       <div className={s.inner}>
-        {/* Section header */}
         <div className={s.header}>
           {heading && (
             <Text as="h2" textStyle="headline-5xl" text={heading} className={s.heading} />
@@ -182,15 +166,11 @@ export const HowItWorksBlock: React.FC<HowItWorksBlockProps> = ({
             <Text textStyle="body-base" text={description} className={s.description} />
           )}
         </div>
-
-        {/* ── Mobile column (< md) ── */}
         <div className={s.mobileCol}>
           {steps?.map((step, i) => (
             <StepCard key={step.id ?? i} step={step} index={i} />
           ))}
         </div>
-
-        {/* ── Tablet carousel (md only) ── */}
         <div className={s.tabletCarousel}>
           <div ref={trackRef} className={s.carouselTrack}>
             {steps?.map((step, i) => (
@@ -198,15 +178,11 @@ export const HowItWorksBlock: React.FC<HowItWorksBlockProps> = ({
             ))}
           </div>
         </div>
-
-        {/* ── Desktop / laptop row (lg+) ── */}
         <div className={s.desktopRow}>
           {steps?.map((step, i) => (
             <StepCard key={step.id ?? i} step={step} index={i} />
           ))}
         </div>
-
-        {/* CTA */}
         {ctaLink && (
           <div className={s.ctaRow}>
             <Link href={getLinkHref(ctaLink as LinkData)}>
@@ -217,8 +193,6 @@ export const HowItWorksBlock: React.FC<HowItWorksBlockProps> = ({
             {priceText && <Text textStyle="body-base" text={priceText} className={s.priceText} />}
           </div>
         )}
-
-        {/* Carousel arrows — tablet only, absolute bottom-right of inner container */}
         {showNav && (
           <div className={s.arrowsOuter}>
             <Button

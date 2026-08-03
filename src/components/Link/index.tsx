@@ -20,7 +20,6 @@ type CMSLinkType = {
   url?: string | null
 }
 
-/** Map legacy Payload CMS appearance values to new button variants */
 function resolveAppearance(
   appearance: CMSLinkType['appearance'],
 ): 'inline' | ButtonProps['variant'] {
@@ -56,7 +55,6 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
   const size = sizeFromProps
   const newTabProps = newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {}
 
-  /* Ensure we don't break any styles set by richText */
   if (appearance === 'inline') {
     return (
       <Link className={cn(className)} href={href || url || ''} {...newTabProps}>

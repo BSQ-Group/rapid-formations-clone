@@ -31,7 +31,6 @@ export const PromoTier2Block: React.FC<Props> = ({
           </span>
           <Text as="h2" textStyle="headline-2xl" text={title} className={s.title} />
         </div>
-
         <div className={s.right}>
           <div className={s.priceBlock}>
             {pricePrefix && (

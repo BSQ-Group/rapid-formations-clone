@@ -8,19 +8,15 @@ const collectionPrefixMap: Partial<Record<CollectionSlug, string>> = {
 type Props = {
   collection: keyof typeof collectionPrefixMap
   slug: string
-  // Full URL path override — use when the page has a nested breadcrumb URL.
-  // Falls back to /{collection-prefix}/{slug} when omitted.
   path?: string
   req: PayloadRequest
 }
 
 export const generatePreviewPath = ({ collection, slug, path }: Props) => {
-  // Allow empty strings, e.g. for the homepage
   if (slug === undefined || slug === null) {
     return null
   }
 
-  // Encode to support slugs with special characters
   const encodedSlug = encodeURIComponent(slug)
   const resolvedPath = path ?? `${collectionPrefixMap[collection]}/${encodedSlug}`
 

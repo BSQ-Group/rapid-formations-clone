@@ -27,7 +27,6 @@ export const revalidatePage: CollectionAfterChangeHook<Page> = ({
       revalidateTag('pages-sitemap', 'max')
     }
 
-    // If the page was previously published, we need to revalidate the old path
     if (previousDoc?._status === 'published' && doc._status !== 'published') {
       const oldPath = getPagePath(previousDoc)
 

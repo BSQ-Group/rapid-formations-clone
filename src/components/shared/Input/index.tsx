@@ -95,18 +95,14 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const descriptionId = description ? `${id}-description` : undefined
     const describedBy = ariaDescribedby || errorId || descriptionId
 
-    // If disabled is passed, set variant to disabled (preserve background when disabled)
     const resolvedVariant = disabled ? 'disabled' : variant
 
-    // Set input type based on password visibility if it's a password field with toggle
     const inputType = type === 'password' && showPassword && showPasswordToggle ? 'text' : type
 
-    // Determine if we have icons
     const hasLeftIconValue = !!icon || hasLeftIcon
     const hasRightIconValue =
       !!(rightIcon || (showPasswordToggle && type === 'password')) || hasRightIcon
 
-    // Password toggle icon
     const passwordToggleIcon =
       showPasswordToggle && type === 'password' ? (
         <span
@@ -157,14 +153,12 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           />
           {passwordToggleIcon}
         </div>
-
         {error && resolvedVariant === 'error' && (
           <div id={errorId} className="input__error" role="alert">
             {errorIcon}
             <span>{error}</span>
           </div>
         )}
-
         {description && !error && (
           <div id={descriptionId} className="input__description">
             {description}

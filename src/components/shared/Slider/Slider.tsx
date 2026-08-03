@@ -49,16 +49,14 @@ export const Slider: React.FC<SliderProps> = React.forwardRef<
     const percentageRef = React.useRef<HTMLSpanElement>(null)
     const trackRef = React.useRef<HTMLDivElement>(null)
 
-    // Calculate percentage based on current value and max value, capped at 100%
     const calculatePercentage = React.useCallback(
       (val: number) => {
         const percentage = Math.round((val / total) * 100)
-        return Math.min(percentage, 100) // Ensure percentage never exceeds 100%
+        return Math.min(percentage, 100)
       },
       [total],
     )
 
-    // Calculate value from click position
     const handleTrackClick = (e: React.MouseEvent<HTMLDivElement>) => {
       if (disabled) return
 
@@ -72,7 +70,6 @@ export const Slider: React.FC<SliderProps> = React.forwardRef<
       updateValue(newValue)
     }
 
-    // Update percentage position (for the visual indicator)
     const updatePercentagePosition = React.useCallback(() => {
       if (percentageRef.current) {
         const percentage = calculatePercentage(localValue)
@@ -80,7 +77,6 @@ export const Slider: React.FC<SliderProps> = React.forwardRef<
       }
     }, [localValue, calculatePercentage])
 
-    // Central function to update values
     const updateValue = (newValue: number) => {
       const min = minValue ?? 0
       const max = maxValue ?? total
@@ -91,7 +87,6 @@ export const Slider: React.FC<SliderProps> = React.forwardRef<
       onValueChange?.(safeValue)
     }
 
-    // Handle input value change
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       if (disabled) return
       setInputValue(e.target.value)
@@ -102,7 +97,6 @@ export const Slider: React.FC<SliderProps> = React.forwardRef<
       }
     }
 
-    // Handle input blur (validate and clean up input)
     const handleInputBlur = () => {
       if (disabled) return
 
@@ -114,7 +108,6 @@ export const Slider: React.FC<SliderProps> = React.forwardRef<
       }
     }
 
-    // Handle slider value change from the slider primitive
     const handleSliderChange = (values: number[]) => {
       if (disabled) return
       const firstValue = values[0]
@@ -123,7 +116,6 @@ export const Slider: React.FC<SliderProps> = React.forwardRef<
       }
     }
 
-    // Update local value when controlled value changes
     React.useEffect(() => {
       if (value !== undefined) {
         setLocalValue(value)
@@ -131,7 +123,6 @@ export const Slider: React.FC<SliderProps> = React.forwardRef<
       }
     }, [value])
 
-    // Update percentage position when value changes
     React.useEffect(() => {
       updatePercentagePosition()
     }, [updatePercentagePosition])

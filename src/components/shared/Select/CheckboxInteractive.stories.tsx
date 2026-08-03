@@ -46,7 +46,6 @@ export const ComparisonDemo: Story = {
     return (
       <div className="flex flex-col gap-8 p-8 bg-[var(--surface-canvas)] rounded-[6px] max-w-3xl">
         <h2 className="text-xl font-bold text-white">Select Component Variants Comparison</h2>
-
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="space-y-2">
             <h3 className="text-white font-medium">Standard Select</h3>
@@ -65,7 +64,6 @@ export const ComparisonDemo: Story = {
               )}
             </div>
           </div>
-
           <div className="space-y-2">
             <h3 className="text-white font-medium">Checkbox Select</h3>
             <Select
@@ -84,7 +82,6 @@ export const ComparisonDemo: Story = {
               )}
             </div>
           </div>
-
           <div className="space-y-2">
             <h3 className="text-white font-medium">Standard Multi-Select</h3>
             <Select
@@ -112,7 +109,6 @@ export const ComparisonDemo: Story = {
               )}
             </div>
           </div>
-
           <div className="space-y-2">
             <h3 className="text-white font-medium">Checkbox Multi-Select</h3>
             <Select
@@ -142,7 +138,6 @@ export const ComparisonDemo: Story = {
             </div>
           </div>
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
           <div className="p-4 bg-[var(--surface-primary)] rounded-md">
             <h3 className="text-white font-medium mb-2">Standard Select Values</h3>
@@ -157,7 +152,6 @@ export const ComparisonDemo: Story = {
               </div>
             </div>
           </div>
-
           <div className="p-4 bg-[var(--surface-primary)] rounded-md">
             <h3 className="text-white font-medium mb-2">Checkbox Select Values</h3>
             <div className="space-y-2">

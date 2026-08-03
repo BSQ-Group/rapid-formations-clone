@@ -35,8 +35,6 @@ const NAMED_ENTITIES: Record<string, string> = {
   rsquo: '’',
 }
 
-// Unicode code-point range is 0..0x10FFFF. String.fromCodePoint throws
-// RangeError outside that. Guard to keep sanitize total.
 const decodeCodePoint = (code: number, raw: string): string =>
   Number.isFinite(code) && code >= 0 && code <= 0x10ffff ? String.fromCodePoint(code) : raw
 
@@ -47,10 +45,6 @@ export const decodeEntities = (s: string): string =>
     return NAMED_ENTITIES[body] ?? raw
   })
 
-// Matches `&` not followed by a valid entity pattern. Entity-like sequences
-// (named, numeric, hex) are left intact so the browser decodes them natively
-// on render — covers the ~2200 HTML5 entities we don't list in NAMED_ENTITIES
-// without shipping a full entity table.
 const BARE_AMP = /&(?!#x[0-9a-fA-F]+;|#\d+;|[a-zA-Z][a-zA-Z0-9]*;)/g
 
 const escapeHtml = (s: string) =>

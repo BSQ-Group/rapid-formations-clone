@@ -43,9 +43,7 @@ export const HeroServicesBannerBlock: React.FC<HeroServicesBannerBlockProps> = (
               <Text text={description} textStyle="body-base" className={s.description} />
             )}
           </div>
-
           {priceText && <Text text={priceText} textStyle="headline-4xl" className={s.price} />}
-
           <div className={s.ctaRow}>
             {ctaHasLink && (
               <Link
@@ -70,22 +68,18 @@ export const HeroServicesBannerBlock: React.FC<HeroServicesBannerBlockProps> = (
             )}
           </div>
         </div>
-
         <div className={s.visualCol}>
           <div className={s.imageFrame}>
             {image && typeof image === 'object' && (
               <Media resource={image} fill imgClassName={s.image} />
             )}
           </div>
-
           {visibleWidgets.map((widget, i) => {
             const slot = slotClasses[i]
             if (!slot) return null
             const progress = Math.max(0, Math.min(100, widget.progressPercent ?? 50))
-            // Positioning + visibility live on the outer wrapper; the inner
-            // widgetCard owns flex/border/background. Keeping the two on
-            // separate elements means tailwind-merge can't collapse the slot's
-            // `hidden md:block` (3-widget mobile case) into the card's `flex`.
+            // Slot and card stay separate so tailwind-merge can't fold the
+            // slot's `hidden md:block` into the card's `flex`.
             return (
               <div key={widget.id} className={slot}>
                 <div className={s.widgetCard}>

@@ -53,7 +53,9 @@ export function LoginModal({ open, onOpenChange, error }: LoginModalProps) {
     defaultValues: { email: '' },
   })
 
-  useEffect(() => {
+  const [wasOpen, setWasOpen] = useState(open)
+  if (wasOpen !== open) {
+    setWasOpen(open)
     if (!open) {
       setView('methods')
       setEmail('')
@@ -61,8 +63,11 @@ export function LoginModal({ open, onOpenChange, error }: LoginModalProps) {
       setAuthError(null)
       setIsLoading(false)
       setResendTimer(0)
-      emailForm.reset()
     }
+  }
+
+  useEffect(() => {
+    if (!open) emailForm.reset()
   }, [open, emailForm])
 
   useEffect(() => {
@@ -211,19 +216,16 @@ export function LoginModal({ open, onOpenChange, error }: LoginModalProps) {
         contentClassName={s.content}
       >
         {displayError && <Text text={displayError} textStyle="body-sm" className={s.error} />}
-
         <div className={s.methods}>
           <button type="button" className={s.methodButton} onClick={() => setView('email')}>
             <IconEmail className={s.methodIcon} />
             Continue with Email
           </button>
-
           <div className={s.dividerRow}>
             <div className={s.dividerLine} />
             <Text text="or" textStyle="body-xs" className={s.dividerText} />
             <div className={s.dividerLine} />
           </div>
-
           <button
             type="button"
             className={s.methodButton}
@@ -232,7 +234,6 @@ export function LoginModal({ open, onOpenChange, error }: LoginModalProps) {
             <IconGoogle className={s.methodIcon} />
             Continue with Google
           </button>
-
           <button
             type="button"
             className={s.methodButton}
@@ -241,7 +242,6 @@ export function LoginModal({ open, onOpenChange, error }: LoginModalProps) {
             <IconApple className={s.methodIcon} />
             Continue with Apple
           </button>
-
           <button
             type="button"
             className={s.methodButton}
@@ -267,11 +267,12 @@ export function LoginModal({ open, onOpenChange, error }: LoginModalProps) {
           <ChevronLeft size={16} />
           Back
         </button>
-
         {displayError && <Text text={displayError} textStyle="body-sm" className={s.error} />}
-
         <Form {...emailForm}>
-          <form onSubmit={emailForm.handleSubmit(handleSendOtp)} className={s.emailForm}>
+          <form
+            onSubmit={(event) => emailForm.handleSubmit(handleSendOtp)(event)}
+            className={s.emailForm}
+          >
             <InputHookForm
               name="email"
               control={emailForm.control}
@@ -301,9 +302,7 @@ export function LoginModal({ open, onOpenChange, error }: LoginModalProps) {
         <ChevronLeft size={16} />
         Back
       </button>
-
       {displayError && <Text text={displayError} textStyle="body-sm" className={s.error} />}
-
       <div className={s.emailForm}>
         <div className={s.pinRow} onPaste={handlePinPaste}>
           {pin.map((digit, i) => (
@@ -323,7 +322,6 @@ export function LoginModal({ open, onOpenChange, error }: LoginModalProps) {
             />
           ))}
         </div>
-
         <div className={s.resendRow}>
           {resendTimer > 0 ? (
             <Text

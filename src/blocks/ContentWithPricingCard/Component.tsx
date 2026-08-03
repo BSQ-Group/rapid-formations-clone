@@ -17,7 +17,6 @@ export const ContentWithPricingCardBlock: React.FC<ContentWithPricingCardBlockPr
 }) => {
   return (
     <SectionWrapper {...sectionLayout} className={s.section}>
-      {/* Left content column */}
       <div className={s.contentCol}>
         {sections?.map((section) => (
           <div key={section.id} className={s.contentSection}>
@@ -29,8 +28,6 @@ export const ContentWithPricingCardBlock: React.FC<ContentWithPricingCardBlockPr
                 className={s.sectionHeading}
               />
             )}
-
-            {/* Bullet items */}
             {section.bulletItems && section.bulletItems.length > 0 && (
               <ul className={s.bulletList}>
                 {section.bulletItems.map((item) => (
@@ -41,8 +38,6 @@ export const ContentWithPricingCardBlock: React.FC<ContentWithPricingCardBlockPr
                 ))}
               </ul>
             )}
-
-            {/* Tick items */}
             {section.tickItems && section.tickItems.length > 0 && (
               <ul className={s.tickList}>
                 {section.tickItems.map((item) => (
@@ -58,8 +53,6 @@ export const ContentWithPricingCardBlock: React.FC<ContentWithPricingCardBlockPr
           </div>
         ))}
       </div>
-
-      {/* Right pricing card */}
       <div className={s.card}>
         <div className={s.cardPriceGroup}>
           {card?.price && (
@@ -77,7 +70,6 @@ export const ContentWithPricingCardBlock: React.FC<ContentWithPricingCardBlockPr
             />
           )}
         </div>
-
         {(() => {
           const ctaHref = card?.cta ? getLinkHref(card.cta as LinkData) : null
           if (!ctaHref || ctaHref === '#' || !card?.cta?.label) return null

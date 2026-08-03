@@ -113,3 +113,14 @@ export const NoDescription: Story = {
     description: null,
   },
 }
+
+export const LinkedFeatures: Story = {
+  args: {
+    ...defaultArgs,
+    features: features.map((f, i) =>
+      i % 2 === 0
+        ? { ...f, link: { type: 'custom' as const, url: '/company-formation', newTab: false } }
+        : f,
+    ),
+  },
+}

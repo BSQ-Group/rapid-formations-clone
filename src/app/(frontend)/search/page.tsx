@@ -7,6 +7,7 @@ import React from 'react'
 import { Search } from '@/search/Component'
 import { CardPostData } from '@/components/Card'
 import { Header } from '@/Header/Component'
+import { getBrand, getDomainConfig } from '@/lib/brand'
 
 type Args = {
   searchParams: Promise<{
@@ -27,7 +28,6 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
       categories: true,
       meta: true,
     },
-    // pagination: false reduces overhead if you don't need totalDocs
     pagination: false,
     ...(query
       ? {
@@ -61,30 +61,29 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
 
   return (
     <>
-    <Header />
-    <div className="pt-24 pb-24">
-      <div className="container mb-16">
-        <div className="prose dark:prose-invert max-w-none text-center">
-          <h1 className="mb-8 lg:mb-16">Search</h1>
-
-          <div className="max-w-[50rem] mx-auto">
-            <Search />
+      <Header />
+      <div className="pt-24 pb-24">
+        <div className="container mb-16">
+          <div className="prose dark:prose-invert max-w-none text-center">
+            <h1 className="mb-8 lg:mb-16">Search</h1>
+            <div className="max-w-[50rem] mx-auto">
+              <Search />
+            </div>
           </div>
         </div>
+        {posts.totalDocs > 0 ? (
+          <CollectionArchive posts={posts.docs as CardPostData[]} />
+        ) : (
+          <div className="container">No results found.</div>
+        )}
       </div>
-
-      {posts.totalDocs > 0 ? (
-        <CollectionArchive posts={posts.docs as CardPostData[]} />
-      ) : (
-        <div className="container">No results found.</div>
-      )}
-    </div>
     </>
   )
 }
 
 export function generateMetadata(): Metadata {
+  const { siteName } = getDomainConfig(getBrand())
   return {
-    title: `Payload Website Template Search`,
+    title: `${siteName} Search`,
   }
 }

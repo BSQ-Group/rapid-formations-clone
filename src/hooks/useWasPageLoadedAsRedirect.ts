@@ -1,33 +1,37 @@
-import { useRef } from 'react'
+import { useSyncExternalStore } from 'react'
 
 const OAUTH_TIMEOUT_MS = 5 * 60 * 1000
 
-const useWasPageLoadedAsRedirect = (): boolean => {
-  const initialRedirectState = useRef<boolean | null>(null)
+let cachedRedirectState: boolean | null = null
 
-  if (initialRedirectState.current === null) {
-    let isRedirect = false
+const computeRedirectState = (): boolean => {
+  if (typeof sessionStorage === 'undefined') return false
 
-    if (typeof sessionStorage !== 'undefined') {
-      const oauthFlowTimestamp = sessionStorage.getItem('oauth_flow_in_progress')
+  const oauthFlowTimestamp = sessionStorage.getItem('oauth_flow_in_progress')
+  if (!oauthFlowTimestamp) return false
 
-      if (oauthFlowTimestamp) {
-        const timestamp = parseInt(oauthFlowTimestamp, 10)
-        const now = Date.now()
-        const isValid = !isNaN(timestamp) && now - timestamp < OAUTH_TIMEOUT_MS
+  const timestamp = parseInt(oauthFlowTimestamp, 10)
+  const isValid = !isNaN(timestamp) && Date.now() - timestamp < OAUTH_TIMEOUT_MS
 
-        isRedirect = isValid
-
-        if (!isValid) {
-          sessionStorage.removeItem('oauth_flow_in_progress')
-        }
-      }
-    }
-
-    initialRedirectState.current = isRedirect
+  if (!isValid) {
+    sessionStorage.removeItem('oauth_flow_in_progress')
   }
 
-  return initialRedirectState.current ?? false
+  return isValid
 }
+
+const getRedirectState = (): boolean => {
+  if (cachedRedirectState === null) {
+    cachedRedirectState = computeRedirectState()
+  }
+  return cachedRedirectState
+}
+
+const subscribe = () => () => {}
+
+const getServerRedirectState = () => false
+
+const useWasPageLoadedAsRedirect = (): boolean =>
+  useSyncExternalStore(subscribe, getRedirectState, getServerRedirectState)
 
 export default useWasPageLoadedAsRedirect

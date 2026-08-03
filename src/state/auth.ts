@@ -113,7 +113,6 @@ export const useAuthState = create<AuthState>()(
   ),
 )
 
-// Always-fresh token hook — reads cookie every time
 export const useToken = () => {
   const _ts = useAuthState((state) => state._ts)
   void _ts

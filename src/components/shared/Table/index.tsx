@@ -14,7 +14,6 @@ import './Table.css'
 
 type TableVariant = 'default' | 'card'
 
-// Create context for table headers
 type TableContextType = {
   headers: Map<number, string>
   registerHeader: (index: number, label: string) => void
@@ -92,7 +91,6 @@ export const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(
       ? `table__row table__row--header-${variant}`
       : `table__row table__row--${variant}`
 
-    // For header rows, register the header cells
     const [childrenWithIndex] = React.useState(() => {
       if (!isHeader) return children
 
@@ -126,12 +124,10 @@ export const TableHead = React.forwardRef<HTMLTableCellElement, TableHeadProps>(
 
     React.useEffect(() => {
       if (headerIndex !== undefined) {
-        // Extract only direct string children, not from nested components like Badge
         let textContent = ''
         if (typeof children === 'string') {
           textContent = children
         } else if (Array.isArray(children)) {
-          // If children is an array, extract only string elements
           textContent = children.filter((child) => typeof child === 'string').join('')
         }
         if (textContent) {
@@ -174,7 +170,6 @@ export const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
   ) => {
     const { headers } = React.useContext(TableContext)
 
-    // Get header label from context if not explicitly provided and auto-labeling is enabled
     const cellLabel = enableAutoDataLabel
       ? dataLabel || (columnIndex !== undefined ? headers.get(columnIndex) : undefined)
       : dataLabel
@@ -195,7 +190,6 @@ export const TableBody = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
 >(({ className, children, ...props }, ref) => {
-  // Add columnIndex to each cell based on its position in the row
   const enhancedChildren = React.Children.map(children, (rowChild) => {
     if (!React.isValidElement(rowChild)) return rowChild
 

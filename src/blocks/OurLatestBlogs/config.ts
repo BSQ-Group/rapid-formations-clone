@@ -10,18 +10,38 @@ export const OurLatestBlogs: Block = {
     plural: 'Our Latest Blogs',
   },
   fields: [
-    { name: 'heading', type: 'text', required: true, label: 'Section Heading' },
+    {
+      name: 'heading',
+      type: 'text',
+      required: true,
+      label: 'Section Heading',
+      admin: {
+        description: 'Centred heading above the grid. Newlines are preserved as line breaks.',
+      },
+    },
+    {
+      name: 'cardCtaLabel',
+      type: 'text',
+      defaultValue: 'Read Post',
+      label: 'Card Button Label',
+      admin: {
+        description: 'Label on the button inside every article card.',
+      },
+    },
     {
       name: 'cards',
       type: 'array',
       required: true,
       minRows: 1,
       labels: { singular: 'Article', plural: 'Articles' },
-      admin: { initCollapsed: true },
+      admin: {
+        initCollapsed: true,
+        description:
+          'Editorial fallback. Used only when the brand blog feed cannot be reached at render time.',
+      },
       fields: [
         { name: 'title', type: 'text', required: true, label: 'Title' },
         { name: 'description', type: 'textarea', required: true, label: 'Description' },
-        { name: 'readTime', type: 'text', label: 'Read time (e.g. 3m)' },
         {
           name: 'image',
           type: 'upload',
@@ -38,7 +58,7 @@ export const OurLatestBlogs: Block = {
       overrides: { name: 'viewBlogLink', label: 'View Blog Button' },
     }),
     sectionLayoutField({
-      defaults: { background: 'dark', paddingTop: 'xl', paddingBottom: 'xl' },
+      defaults: { background: 'inverse', paddingTop: 'none', paddingBottom: 'none' },
     }),
   ],
 }

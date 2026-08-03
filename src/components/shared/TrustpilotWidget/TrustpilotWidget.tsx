@@ -18,9 +18,7 @@ interface TrustpilotWidgetProps {
   token?: string
   locale?: string
   businessUnitId?: string
-  /** Filter to only show reviews with these star ratings (e.g. "5" or "4,5"). Carousel/review-list templates only. */
   stars?: string
-  /** Filter reviews by language code (e.g. "en"). Carousel/review-list templates only. */
   reviewLanguages?: string
   className?: string
 }
@@ -40,6 +38,8 @@ export function TrustpilotWidget({
   const widgetRef = useRef<HTMLDivElement>(null)
   const { containerRef, inView } = useTrustpilotWidget([widgetRef])
 
+  if (!businessUnitId) return null
+
   return (
     <div ref={containerRef} className={className}>
       {inView && <Script src={TRUSTPILOT_SCRIPT_URL} strategy="lazyOnload" />}
@@ -56,9 +56,11 @@ export function TrustpilotWidget({
         {...(stars ? { 'data-stars': stars } : {})}
         {...(reviewLanguages ? { 'data-review-languages': reviewLanguages } : {})}
       >
-        <a href={TRUSTPILOT_REVIEW_URL} target="_blank" rel="noopener noreferrer">
-          Trustpilot
-        </a>
+        {TRUSTPILOT_REVIEW_URL && (
+          <a href={TRUSTPILOT_REVIEW_URL} target="_blank" rel="noopener noreferrer">
+            Trustpilot
+          </a>
+        )}
       </div>
     </div>
   )

@@ -11,8 +11,6 @@ function isPublishedPage(value: unknown): value is Page {
   if (typeof value !== 'object' || value === null) return false
   const page = value as Page
   if (typeof page.slug !== 'string') return false
-  // _status is not included in depth-1 relationship population; treat its
-  // absence as published (Payload returns the published version by default).
   return !page._status || page._status === 'published'
 }
 
@@ -32,8 +30,6 @@ export async function fetchLegalNavLinks(): Promise<LegalNavLink[]> {
 
   const items = global?.items ?? []
 
-  // Fallback: if the global hasn't been populated by the sync hook yet, list all
-  // current legal pages in title order so the sidebar isn't empty.
   if (items.length === 0) {
     const result = await payload.find({
       collection: 'pages',
