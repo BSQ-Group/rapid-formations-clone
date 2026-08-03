@@ -35,6 +35,7 @@ import { ServicesHeroBlock } from '@/blocks/ServicesHero/Component'
 import { RegisteredOfficePurposeBlock } from '@/blocks/RegisteredOfficePurpose/Component'
 import { OfficePhotoAddressBlock } from '@/blocks/OfficePhotoAddress/Component'
 import { ServicesCTABlock } from '@/blocks/ServicesCTA/Component'
+import { RegisteredOfficeAddressBlock } from '@/blocks/RegisteredOfficeAddress/Component'
 import { ServicesTestimonialBlock } from '@/blocks/ServicesTestimonial/Component'
 import { TestimonialBannerBlock } from '@/blocks/TestimonialBanner/Component'
 import { HowItWorksBlock } from '@/blocks/HowItWorks/Component'
@@ -95,6 +96,7 @@ const blockComponents = {
   registeredOfficePurpose: RegisteredOfficePurposeBlock,
   officePhotoAddress: OfficePhotoAddressBlock,
   servicesCTA: ServicesCTABlock,
+  registeredOfficeAddress: RegisteredOfficeAddressBlock,
   servicesTestimonial: ServicesTestimonialBlock,
   testimonialBanner: TestimonialBannerBlock,
   howItWorks: HowItWorksBlock,

@@ -242,6 +242,7 @@ export interface Page {
         | RegisteredOfficePurposeBlock
         | OfficePhotoAddressBlock
         | ServicesCTABlock
+        | RegisteredOfficeAddressBlock
         | ServicesTestimonialBlock
         | TestimonialBannerBlock
         | HowItWorksBlock
@@ -2315,6 +2316,47 @@ export interface ServicesCTABlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RegisteredOfficeAddressBlock".
+ */
+export interface RegisteredOfficeAddressBlock {
+  heading: string;
+  image: string | Media;
+  serviceTitle: string;
+  description: string;
+  price: string;
+  /**
+   * Suffix shown next to the price. Include leading space.
+   */
+  priceSuffix: string;
+  cta: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+  };
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'registeredOfficeAddress';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ServicesTestimonialBlock".
  */
 export interface ServicesTestimonialBlock {
@@ -3903,6 +3945,7 @@ export interface PagesSelect<T extends boolean = true> {
         registeredOfficePurpose?: T | RegisteredOfficePurposeBlockSelect<T>;
         officePhotoAddress?: T | OfficePhotoAddressBlockSelect<T>;
         servicesCTA?: T | ServicesCTABlockSelect<T>;
+        registeredOfficeAddress?: T | RegisteredOfficeAddressBlockSelect<T>;
         servicesTestimonial?: T | ServicesTestimonialBlockSelect<T>;
         testimonialBanner?: T | TestimonialBannerBlockSelect<T>;
         howItWorks?: T | HowItWorksBlockSelect<T>;
@@ -4939,6 +4982,36 @@ export interface ServicesCTABlockSelect<T extends boolean = true> {
         appearance?: T;
       };
   backgroundImage?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RegisteredOfficeAddressBlock_select".
+ */
+export interface RegisteredOfficeAddressBlockSelect<T extends boolean = true> {
+  heading?: T;
+  image?: T;
+  serviceTitle?: T;
+  description?: T;
+  price?: T;
+  priceSuffix?: T;
+  cta?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
   sectionLayout?:
     | T
     | {
