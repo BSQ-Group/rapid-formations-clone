@@ -20,6 +20,7 @@ import { WhyChooseUs } from '../../blocks/WhyChooseUs/config'
 import { BankingPartners } from '../../blocks/BankingPartners/config'
 import { BCorpCertification } from '../../blocks/BCorpCertification/config'
 import { CaseStudyMosaic } from '../../blocks/CaseStudyMosaic/config'
+import { FormationVideo } from '../../blocks/FormationVideo/config'
 import { AdditionalServices } from '../../blocks/AdditionalServices/config'
 import { CallOutCTA } from '../../blocks/CallOutCTA/config'
 import { ChooseCompanyStructure } from '../../blocks/ChooseCompanyStructure/config'
@@ -151,6 +152,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 BCorpCertification,
                 BankingPartners,
                 CaseStudyMosaic,
+                FormationVideo,
                 ChooseCompanyStructure,
                 AdditionalServices,
                 CallOutCTA,

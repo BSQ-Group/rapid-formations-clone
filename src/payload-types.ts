@@ -228,6 +228,7 @@ export interface Page {
         | BCorpCertificationBlock
         | BankingPartnersBlock
         | CaseStudyMosaicBlock
+        | FormationVideoBlock
         | ChooseCompanyStructureBlock
         | AdditionalServicesBlock
         | CallOutCTABlock
@@ -1676,6 +1677,43 @@ export interface CaseStudyMosaicBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'caseStudyMosaic';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FormationVideoBlock".
+ */
+export interface FormationVideoBlock {
+  /**
+   * Centred heading above the video still. Newlines are preserved, so a deliberate line break can be typed in.
+   */
+  heading: string;
+  /**
+   * Optional centred line under the heading. Leave blank to drop it entirely.
+   */
+  subheading?: string | null;
+  /**
+   * Video still. Landscape, and it is the whole clickable target — set the alt text on the media item, because that is what a screen reader announces. With no still the section renders as heading and subheading only.
+   */
+  image?: (string | null) | Media;
+  /**
+   * Player embed URL (Vimeo/YouTube) or a direct .mp4 file URL. An embed URL opens in an iframe, a file URL in a native player.
+   */
+  videoUrl: string;
+  /**
+   * Leave off when the still already has a play button in the artwork, which is the case on the home page. Turn it on for a still that does not.
+   */
+  showPlayIcon?: boolean | null;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'formationVideo';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3788,6 +3826,7 @@ export interface PagesSelect<T extends boolean = true> {
         bCorpCertification?: T | BCorpCertificationBlockSelect<T>;
         bankingPartners?: T | BankingPartnersBlockSelect<T>;
         caseStudyMosaic?: T | CaseStudyMosaicBlockSelect<T>;
+        formationVideo?: T | FormationVideoBlockSelect<T>;
         chooseCompanyStructure?: T | ChooseCompanyStructureBlockSelect<T>;
         additionalServices?: T | AdditionalServicesBlockSelect<T>;
         callOutCTA?: T | CallOutCTABlockSelect<T>;
@@ -4419,6 +4458,26 @@ export interface CaseStudyMosaicBlockSelect<T extends boolean = true> {
         videoUrl?: T;
         id?: T;
       };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FormationVideoBlock_select".
+ */
+export interface FormationVideoBlockSelect<T extends boolean = true> {
+  heading?: T;
+  subheading?: T;
+  image?: T;
+  videoUrl?: T;
+  showPlayIcon?: T;
   sectionLayout?:
     | T
     | {
