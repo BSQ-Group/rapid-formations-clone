@@ -12,6 +12,7 @@ import { LandingHero } from '../../blocks/LandingHero/config'
 import { RegisterCompanySteps } from '../../blocks/RegisterCompanySteps/config'
 import { Support } from '../../blocks/Support/config'
 import { Testimonials } from '../../blocks/Testimonials/config'
+import { UniqueSellingPoints } from '../../blocks/UniqueSellingPoints/config'
 import { WhyChooseUs } from '../../blocks/WhyChooseUs/config'
 import { AdditionalServices } from '../../blocks/AdditionalServices/config'
 import { CallOutCTA } from '../../blocks/CallOutCTA/config'
@@ -136,6 +137,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 LandingHero,
                 Support,
                 Testimonials,
+                UniqueSellingPoints,
                 WhyChooseUs,
                 ChooseCompanyStructure,
                 AdditionalServices,
