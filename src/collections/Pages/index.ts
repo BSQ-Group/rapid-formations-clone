@@ -35,6 +35,7 @@ import { ServicesHero } from '../../blocks/ServicesHero/config'
 import { RegisteredOfficePurpose } from '../../blocks/RegisteredOfficePurpose/config'
 import { OfficePhotoAddress } from '../../blocks/OfficePhotoAddress/config'
 import { ServicesCTA } from '../../blocks/ServicesCTA/config'
+import { CustomerQuote } from '../../blocks/CustomerQuote/config'
 import { RegisteredOfficeAddress } from '../../blocks/RegisteredOfficeAddress/config'
 import { ServicesTestimonial } from '../../blocks/ServicesTestimonial/config'
 import { TestimonialBanner } from '../../blocks/TestimonialBanner/config'
@@ -168,6 +169,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 RegisteredOfficePurpose,
                 OfficePhotoAddress,
                 ServicesCTA,
+                CustomerQuote,
                 RegisteredOfficeAddress,
                 ServicesTestimonial,
                 TestimonialBanner,
