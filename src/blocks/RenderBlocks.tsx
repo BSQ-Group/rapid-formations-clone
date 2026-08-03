@@ -22,6 +22,7 @@ import { UniqueSellingPointsBlock } from '@/blocks/UniqueSellingPoints/Component
 import { WhyChooseUsBlock } from '@/blocks/WhyChooseUs/Component'
 import { BankingPartnersBlock } from '@/blocks/BankingPartners/Component'
 import { BCorpCertificationBlock } from '@/blocks/BCorpCertification/Component'
+import { CaseStudyMosaicBlock } from '@/blocks/CaseStudyMosaic/Component'
 import { ChooseCompanyStructureBlock } from '@/blocks/ChooseCompanyStructure/Component'
 import { TrustPilotBannerBlock } from '@/blocks/TrustPilotBanner/Component'
 import { PackagesHeroBlock } from '@/blocks/PackagesHero/Component'
@@ -79,6 +80,7 @@ const blockComponents = {
   whyChooseUs: WhyChooseUsBlock,
   bCorpCertification: BCorpCertificationBlock,
   bankingPartners: BankingPartnersBlock,
+  caseStudyMosaic: CaseStudyMosaicBlock,
   chooseCompanyStructure: ChooseCompanyStructureBlock,
   trustpilotBanner: TrustPilotBannerBlock,
   packagesHero: PackagesHeroBlock,
