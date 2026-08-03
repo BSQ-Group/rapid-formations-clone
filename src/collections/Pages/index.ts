@@ -6,6 +6,7 @@ import { Archive } from '../../blocks/ArchiveBlock/config'
 import { BusinessBankAccounts } from '../../blocks/BusinessBankAccounts/config'
 import { CallToAction } from '../../blocks/CallToAction/config'
 import { Content } from '../../blocks/Content/config'
+import { FAQs } from '../../blocks/FAQs/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { FormationPackages } from '../../blocks/FormationPackages/config'
 import { LandingHero } from '../../blocks/LandingHero/config'
@@ -132,6 +133,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 MediaBlock,
                 Archive,
                 FormBlock,
+                FAQs,
                 FormationPackages,
                 RegisterCompanySteps,
                 BusinessBankAccounts,

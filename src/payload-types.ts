@@ -214,6 +214,7 @@ export interface Page {
         | MediaBlock
         | ArchiveBlock
         | FormBlock
+        | FAQsBlock
         | FormationPackagesBlock
         | RegisterCompanyStepsBlock
         | BusinessBankAccountsBlock
@@ -866,6 +867,43 @@ export interface Form {
     | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FAQsBlock".
+ */
+export interface FAQsBlock {
+  /**
+   * Line breaks are preserved, matching the source layout.
+   */
+  title?: string | null;
+  /**
+   * Single-open accordion — opening one question closes the others.
+   */
+  faqs?:
+    | {
+        title: string;
+        description: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'faqs';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3527,6 +3565,7 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
+        faqs?: T | FAQsBlockSelect<T>;
         formationPackages?: T | FormationPackagesBlockSelect<T>;
         registerCompanySteps?: T | RegisterCompanyStepsBlockSelect<T>;
         businessBankAccounts?: T | BusinessBankAccountsBlockSelect<T>;
@@ -3683,6 +3722,22 @@ export interface FormBlockSelect<T extends boolean = true> {
   form?: T;
   enableIntro?: T;
   introContent?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FAQsBlock_select".
+ */
+export interface FAQsBlockSelect<T extends boolean = true> {
+  title?: T;
+  faqs?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }

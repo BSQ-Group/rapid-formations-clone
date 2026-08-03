@@ -8,6 +8,7 @@ import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { BusinessBankAccountsBlock } from '@/blocks/BusinessBankAccounts/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
+import { FAQsBlock } from '@/blocks/FAQs/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { FormationPackagesBlock } from '@/blocks/FormationPackages/Component'
 import { LandingHeroBlock } from '@/blocks/LandingHero/Component'
@@ -61,6 +62,7 @@ const blockComponents = {
   businessBankAccounts: BusinessBankAccountsBlock,
   content: ContentBlock,
   cta: CallToActionBlock,
+  faqs: FAQsBlock,
   formBlock: FormBlock,
   formationPackages: FormationPackagesBlock,
   landingHero: LandingHeroBlock,
