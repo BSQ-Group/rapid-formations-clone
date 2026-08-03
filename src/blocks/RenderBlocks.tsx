@@ -25,6 +25,7 @@ import { BCorpCertificationBlock } from '@/blocks/BCorpCertification/Component'
 import { CaseStudyMosaicBlock } from '@/blocks/CaseStudyMosaic/Component'
 import { FormationVideoBlock } from '@/blocks/FormationVideo/Component'
 import { ChooseCompanyStructureBlock } from '@/blocks/ChooseCompanyStructure/Component'
+import { OurLatestBlogsBlock } from '@/blocks/OurLatestBlogs/Component'
 import { TrustPilotBannerBlock } from '@/blocks/TrustPilotBanner/Component'
 import { PackagesHeroBlock } from '@/blocks/PackagesHero/Component'
 import { WhatsIncludedBlock } from '@/blocks/WhatsIncluded/Component'
@@ -88,6 +89,7 @@ const blockComponents = {
   caseStudyMosaic: CaseStudyMosaicBlock,
   formationVideo: FormationVideoBlock,
   chooseCompanyStructure: ChooseCompanyStructureBlock,
+  ourLatestBlogs: OurLatestBlogsBlock,
   trustpilotBanner: TrustPilotBannerBlock,
   packagesHero: PackagesHeroBlock,
   whatsIncluded: WhatsIncludedBlock,

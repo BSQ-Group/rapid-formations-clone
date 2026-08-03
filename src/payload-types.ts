@@ -230,6 +230,7 @@ export interface Page {
         | CaseStudyMosaicBlock
         | FormationVideoBlock
         | ChooseCompanyStructureBlock
+        | OurLatestBlogsBlock
         | AdditionalServicesBlock
         | CallOutCTABlock
         | TrustPilotBannerBlock
@@ -1757,6 +1758,69 @@ export interface ChooseCompanyStructureBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'chooseCompanyStructure';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "OurLatestBlogsBlock".
+ */
+export interface OurLatestBlogsBlock {
+  /**
+   * Centred heading above the grid. Newlines are preserved as line breaks.
+   */
+  heading: string;
+  /**
+   * Label on the button inside every article card.
+   */
+  cardCtaLabel?: string | null;
+  /**
+   * Editorial fallback. Used only when the brand blog feed cannot be reached at render time.
+   */
+  cards: {
+    title: string;
+    description: string;
+    image: string | Media;
+    link?: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+    };
+    id?: string | null;
+  }[];
+  viewBlogLink: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+  };
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'ourLatestBlogs';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4022,6 +4086,7 @@ export interface PagesSelect<T extends boolean = true> {
         caseStudyMosaic?: T | CaseStudyMosaicBlockSelect<T>;
         formationVideo?: T | FormationVideoBlockSelect<T>;
         chooseCompanyStructure?: T | ChooseCompanyStructureBlockSelect<T>;
+        ourLatestBlogs?: T | OurLatestBlogsBlockSelect<T>;
         additionalServices?: T | AdditionalServicesBlockSelect<T>;
         callOutCTA?: T | CallOutCTABlockSelect<T>;
         trustpilotBanner?: T | TrustPilotBannerBlockSelect<T>;
@@ -4708,6 +4773,48 @@ export interface ChooseCompanyStructureBlockSelect<T extends boolean = true> {
               url?: T;
             };
         id?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "OurLatestBlogsBlock_select".
+ */
+export interface OurLatestBlogsBlockSelect<T extends boolean = true> {
+  heading?: T;
+  cardCtaLabel?: T;
+  cards?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+            };
+        id?: T;
+      };
+  viewBlogLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
       };
   sectionLayout?:
     | T

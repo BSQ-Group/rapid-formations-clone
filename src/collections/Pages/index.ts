@@ -24,6 +24,7 @@ import { FormationVideo } from '../../blocks/FormationVideo/config'
 import { AdditionalServices } from '../../blocks/AdditionalServices/config'
 import { CallOutCTA } from '../../blocks/CallOutCTA/config'
 import { ChooseCompanyStructure } from '../../blocks/ChooseCompanyStructure/config'
+import { OurLatestBlogs } from '../../blocks/OurLatestBlogs/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { TrustPilotBanner } from '../../blocks/TrustPilotBanner/config'
 import { PackagesHero } from '../../blocks/PackagesHero/config'
@@ -158,6 +159,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 CaseStudyMosaic,
                 FormationVideo,
                 ChooseCompanyStructure,
+                OurLatestBlogs,
                 AdditionalServices,
                 CallOutCTA,
                 TrustPilotBanner,
