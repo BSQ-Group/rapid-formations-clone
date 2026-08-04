@@ -16,6 +16,7 @@ import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { RegisterCompanyStepsBlock } from '@/blocks/RegisterCompanySteps/Component'
 import { SupportBlock } from '@/blocks/Support/Component'
 import { TestimonialsBlock } from '@/blocks/Testimonials/Component'
+import { UniqueSellingPointsBlock } from '@/blocks/UniqueSellingPoints/Component'
 import { WhyChooseUsBlock } from '@/blocks/WhyChooseUs/Component'
 import { BCorpCertificationBlock } from '@/blocks/BCorpCertification/Component'
 import { ChooseCompanyStructureBlock } from '@/blocks/ChooseCompanyStructure/Component'
@@ -72,6 +73,7 @@ const blockComponents = {
   registerCompanySteps: RegisterCompanyStepsBlock,
   support: SupportBlock,
   testimonials: TestimonialsBlock,
+  uniqueSellingPoints: UniqueSellingPointsBlock,
   whyChooseUs: WhyChooseUsBlock,
   bCorpCertification: BCorpCertificationBlock,
   chooseCompanyStructure: ChooseCompanyStructureBlock,

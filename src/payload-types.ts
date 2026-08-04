@@ -221,6 +221,7 @@ export interface Page {
         | LandingHeroBlock
         | SupportBlock
         | TestimonialsBlock
+        | UniqueSellingPointsBlock
         | WhyChooseUsBlock
         | BCorpCertificationBlock
         | ChooseCompanyStructureBlock
@@ -1295,6 +1296,46 @@ export interface TestimonialsBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'testimonials';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "UniqueSellingPointsBlock".
+ */
+export interface UniqueSellingPointsBlock {
+  /**
+   * Full-bleed band of equal columns separated by dividers. The live site runs four across at desktop.
+   */
+  points?:
+    | {
+        /**
+         * Rendered at 90x90.
+         */
+        icon: string | Media;
+        title: string;
+        description: string;
+        /**
+         * Optional — when set, the whole column becomes a link.
+         */
+        link?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'uniqueSellingPoints';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3584,6 +3625,7 @@ export interface PagesSelect<T extends boolean = true> {
         landingHero?: T | LandingHeroBlockSelect<T>;
         support?: T | SupportBlockSelect<T>;
         testimonials?: T | TestimonialsBlockSelect<T>;
+        uniqueSellingPoints?: T | UniqueSellingPointsBlockSelect<T>;
         whyChooseUs?: T | WhyChooseUsBlockSelect<T>;
         bCorpCertification?: T | BCorpCertificationBlockSelect<T>;
         chooseCompanyStructure?: T | ChooseCompanyStructureBlockSelect<T>;
@@ -4008,6 +4050,30 @@ export interface TestimonialsBlockSelect<T extends boolean = true> {
         background?: T;
         paddingTop?: T;
         paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "UniqueSellingPointsBlock_select".
+ */
+export interface UniqueSellingPointsBlockSelect<T extends boolean = true> {
+  points?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        description?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+            };
+        id?: T;
       };
   id?: T;
   blockName?: T;
