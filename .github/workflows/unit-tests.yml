@@ -25,6 +25,8 @@ jobs:
 
       - name: Install dependencies
         run: bun install
+        env:
+          FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
 
       - name: Run TypeScript type check
         run: bun run ts
