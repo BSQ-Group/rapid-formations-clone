@@ -394,3 +394,25 @@ Each entry has four parts:
   git diff main...HEAD -- 'src/blocks/**/*.styles.ts' | grep -E '^\+.*justify-center' || true
   ```
 - **Fix:** Make the strip intrinsically wider than the largest supported viewport so it always overflows and clips — render enough fixed-size cards each side (e.g. 4) that the outermost clip at the edges, keep the featured/centre item centred, and let a full-width `overflow-x-hidden` wrapper do the clipping. Don't scale card sizes down per breakpoint when the design uses fixed-size cards + clip. See `BusinessBankAccounts` (CORE-3524): fixed 180×113 side / 280×176 featured cards, 4 per side, `justify-center` inside a `w-full overflow-x-hidden` wrapper; verified at 1800 that the outer cards clip (negative left/right gap).
+
+## Heading gap derived from the SCSS instead of measured — margin collapsing makes the same component render two different gaps
+
+- **When it bites:** Porting a Gatsby/SCSS component, you read the SCSS and translate every declaration it contains — but the source's rendered spacing is SCSS **plus** a browser/reset default the SCSS never mentions. Chrome's UA stylesheet puts `margin: 0.5em 0` (8px at 16px root) on `h1`–`h6` and `p`; the source SCSS only sets the *extra* margin on a wrapper. The port renders the heading through `Text` (or a `<span>`), which carries no default margin, so the block is uniformly ~8px shorter than the source and the whole section below it shifts up. Every font-size, padding and width matches, so a typography/box probe passes. Real incidents: PR #10 (source `<h3>` had an 8px reset margin, port `<span>` had none — tile 8px short at 390/768) and PR #21 WhyChooseUs (source `SectionTitle` = `h2 { margin-bottom: 8px }` + `.sectionTitle { margin-bottom: 32px }` = **40px** below the heading; port shipped `mb-8` = 32px at all three breakpoints).
+- **Detect:** Never derive spacing from the SCSS alone — read the **computed** margin off the live source element, and diff the total gap between consecutive elements rather than each element's own box:
+  ```js
+  // Run on localhost:8000 (source) AND localhost:3000 (port) at 390/768/1440.
+  // Compare `gapBelow`, not the SCSS: it folds in UA-default margins the SCSS never declares.
+  const h = [...document.querySelectorAll('h2')].find(e => /<heading copy>/i.test(e.textContent))
+  const next = h.closest('div').nextElementSibling || h.nextElementSibling
+  const s = getComputedStyle(h), w = getComputedStyle(h.parentElement)
+  ;({ ownMb: s.marginBottom, wrapperMb: w.marginBottom,
+      gapBelow: Math.round(next.getBoundingClientRect().top - h.getBoundingClientRect().bottom) })
+  // Source gapBelow 40 vs port 32 => the missing UA default. Any non-zero `ownMb`
+  // on a source h1-h6/p is a margin the port's <Text>/<span> will NOT reproduce.
+  ```
+  ```bash
+  # Static smell: a ported heading whose margin is a single round Tailwind step is
+  # usually the wrapper value copied straight out of the SCSS, minus the UA default.
+  git diff origin/main...HEAD -- 'src/blocks/**/*.styles.ts' | grep -E '^\+.*(heading|title).*\bmb-[0-9]+' || true
+  ```
+- **Fix:** Set the port's margin to the source's **measured rendered gap**. Do NOT compute it — neither the wrapper value from the SCSS nor wrapper + UA default is reliable, because whether the two margins collapse depends on what follows the wrapper. Same `SectionTitle`, two sections, two different answers: S18/WhyChooseUs renders **40px** (next sibling is an inline `<span>`, so the h2's 8px does not collapse away) while S19/RegisteredOffices renders **32px** (next sibling is a block, the 8px and 32px collapse to 32). Read `gapBelow` off the live source at 390/768/1440, set the port to that number, re-measure both servers and require an exact match. The same applies to `<p>`: a source paragraph's margin can come from a UA default or a global rule the block's SCSS never mentions — and measure the *inner* `<p>`, not the wrapper, whose computed `font-size`/`line-height` are inherited values that the paragraph then overrides (S19: wrapper reported 18px/27px, the `<p>` inside was 20px/30px).

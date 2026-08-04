@@ -1,7 +1,10 @@
 'use client'
 
 import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { faAngleLeft } from '@fortawesome/pro-solid-svg-icons/faAngleLeft'
+import { faAngleRight } from '@fortawesome/pro-solid-svg-icons/faAngleRight'
 
+import { FaIcon } from '@/components/shared/FaIcon'
 import { cn } from '@/utilities/ui'
 import { snapCarouselStyles as s } from './SnapCarousel.styles'
 
@@ -12,6 +15,8 @@ interface SnapCarouselProps {
   slideClassName?: string
   dotsClassName?: string
   as?: 'ol' | 'ul' | 'div'
+  arrows?: boolean
+  arrowsClassName?: string
 }
 
 const SLIDE_TAG = { ol: 'li', ul: 'li', div: 'div' } as const
@@ -23,6 +28,8 @@ export function SnapCarousel({
   slideClassName,
   dotsClassName,
   as = 'div',
+  arrows = false,
+  arrowsClassName,
 }: SnapCarouselProps) {
   const trackRef = useRef<HTMLElement>(null)
   const slides = React.Children.toArray(children)
@@ -78,6 +85,28 @@ export function SnapCarousel({
           </Slide>
         ))}
       </Track>
+      {arrows && pages > 1 && (
+        <div className={cn(s.arrows, arrowsClassName)}>
+          <button
+            type="button"
+            onClick={() => goTo(active - 1)}
+            disabled={active === 0}
+            aria-label={`Previous slide, ${label}`}
+            className={s.arrow}
+          >
+            <FaIcon icon={faAngleLeft} className={s.arrowIcon} />
+          </button>
+          <button
+            type="button"
+            onClick={() => goTo(active + 1)}
+            disabled={active === pages - 1}
+            aria-label={`Next slide, ${label}`}
+            className={s.arrow}
+          >
+            <FaIcon icon={faAngleRight} className={s.arrowIcon} />
+          </button>
+        </div>
+      )}
       {pages > 1 && (
         <div className={cn(s.dots, dotsClassName)}>
           {Array.from({ length: pages }, (_, i) => (
