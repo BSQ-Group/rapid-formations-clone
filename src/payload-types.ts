@@ -1648,13 +1648,24 @@ export interface BankingPartnersBlock {
  * via the `definition` "ChooseCompanyStructureBlock".
  */
 export interface ChooseCompanyStructureBlock {
+  /**
+   * Centred above the cards. Line breaks are preserved, so the two-line source heading can be typed as two lines.
+   */
   heading: string;
-  description: string;
+  /**
+   * One card per structure. Below 1200px these scroll one at a time with dots; from 1200px they lay out as a row.
+   */
   cards: {
     title: string;
-    cardDescription?: string | null;
+    /**
+     * Line breaks are preserved.
+     */
+    body: string;
     image: string | Media;
-    link?: {
+    /**
+     * The image, the title and the button all point here. The label is the button text, e.g. "LLP Package".
+     */
+    link: {
       type?: ('reference' | 'custom') | null;
       newTab?: boolean | null;
       reference?:
@@ -1667,6 +1678,7 @@ export interface ChooseCompanyStructureBlock {
             value: string | Post;
           } | null);
       url?: string | null;
+      label: string;
     };
     id?: string | null;
   }[];
@@ -4784,12 +4796,11 @@ export interface BankingPartnersBlockSelect<T extends boolean = true> {
  */
 export interface ChooseCompanyStructureBlockSelect<T extends boolean = true> {
   heading?: T;
-  description?: T;
   cards?:
     | T
     | {
         title?: T;
-        cardDescription?: T;
+        body?: T;
         image?: T;
         link?:
           | T
@@ -4798,6 +4809,7 @@ export interface ChooseCompanyStructureBlockSelect<T extends boolean = true> {
               newTab?: T;
               reference?: T;
               url?: T;
+              label?: T;
             };
         id?: T;
       };
