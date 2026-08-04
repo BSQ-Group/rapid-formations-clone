@@ -12,6 +12,7 @@ import { CaseStudyMosaicBlock } from '@/blocks/CaseStudyMosaic/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { FAQsBlock } from '@/blocks/FAQs/Component'
 import { FormBlock } from '@/blocks/Form/Component'
+import { FormationVideoBlock } from '@/blocks/FormationVideo/Component'
 import { FormationPackagesBlock } from '@/blocks/FormationPackages/Component'
 import { LandingHeroBlock } from '@/blocks/LandingHero/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
@@ -76,6 +77,7 @@ const blockComponents = {
   faqs: FAQsBlock,
   formBlock: FormBlock,
   formationPackages: FormationPackagesBlock,
+  formationVideo: FormationVideoBlock,
   landingHero: LandingHeroBlock,
   mediaBlock: MediaBlock,
   registerCompanySteps: RegisterCompanyStepsBlock,
