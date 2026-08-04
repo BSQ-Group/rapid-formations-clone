@@ -221,6 +221,7 @@ export interface Page {
         | LandingHeroBlock
         | SupportBlock
         | TestimonialsBlock
+        | PackageGridBlock
         | UniqueSellingPointsBlock
         | WhyChooseUsBlock
         | BCorpCertificationBlock
@@ -1296,6 +1297,115 @@ export interface TestimonialsBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'testimonials';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PackageGridBlock".
+ */
+export interface PackageGridBlock {
+  heading: string;
+  subheading?: string | null;
+  /**
+   * Three per row on desktop, two on tablet, one on mobile. On desktop a row that is not full is centred, so 1, 2 and 4 packages all stay balanced under the heading.
+   */
+  packages?:
+    | {
+        name: string;
+        nameLink?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+        };
+        /**
+         * e.g. "£ 2.99"
+         */
+        price: string;
+        priceNote?: string | null;
+        description: string;
+        buyLink?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label?: string | null;
+        };
+        highlightsTitle?: string | null;
+        highlights?:
+          | {
+              text: string;
+              tooltipTitle?: string | null;
+              /**
+               * Optional — makes the info disc an interactive tooltip. Blank lines separate paragraphs.
+               */
+              tooltip?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        readMoreLink?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label?: string | null;
+        };
+        /**
+         * e.g. "BEST VALUE". Leave blank for no badge.
+         */
+        badgeText?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  compareLink?: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label?: string | null;
+  };
+  /**
+   * Line under the compare button, e.g. "Have a question? Use our live chat facility." Rendered as plain text — it does not open a chat widget.
+   */
+  contactNote?: string | null;
+  /**
+   * e.g. the Companies House fee disclaimer.
+   */
+  footerNote?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'packageGrid';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3625,6 +3735,7 @@ export interface PagesSelect<T extends boolean = true> {
         landingHero?: T | LandingHeroBlockSelect<T>;
         support?: T | SupportBlockSelect<T>;
         testimonials?: T | TestimonialsBlockSelect<T>;
+        packageGrid?: T | PackageGridBlockSelect<T>;
         uniqueSellingPoints?: T | UniqueSellingPointsBlockSelect<T>;
         whyChooseUs?: T | WhyChooseUsBlockSelect<T>;
         bCorpCertification?: T | BCorpCertificationBlockSelect<T>;
@@ -4051,6 +4162,72 @@ export interface TestimonialsBlockSelect<T extends boolean = true> {
         paddingTop?: T;
         paddingBottom?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PackageGridBlock_select".
+ */
+export interface PackageGridBlockSelect<T extends boolean = true> {
+  heading?: T;
+  subheading?: T;
+  packages?:
+    | T
+    | {
+        name?: T;
+        nameLink?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+            };
+        price?: T;
+        priceNote?: T;
+        description?: T;
+        buyLink?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        highlightsTitle?: T;
+        highlights?:
+          | T
+          | {
+              text?: T;
+              tooltipTitle?: T;
+              tooltip?: T;
+              id?: T;
+            };
+        readMoreLink?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        badgeText?: T;
+        id?: T;
+      };
+  compareLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
+  contactNote?: T;
+  footerNote?: T;
   id?: T;
   blockName?: T;
 }
