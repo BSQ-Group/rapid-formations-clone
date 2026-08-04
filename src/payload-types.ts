@@ -269,6 +269,7 @@ export interface Page {
         | RegisterOverseasBlock
         | CaseStudyVideoBlock
         | RequiredInformationBlock
+        | CaseStudyMosaicBlock
       )[]
     | null;
   meta?: {
@@ -3679,6 +3680,47 @@ export interface RequiredInformationBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CaseStudyMosaicBlock".
+ */
+export interface CaseStudyMosaicBlock {
+  heading: string;
+  subheading?: string | null;
+  /**
+   * The mosaic is a hand-composed layout: each of the six positions has its own size and place in the grid, so ORDER MATTERS and the design assumes exactly six. Below 768px they simply stack in this order.
+   */
+  items: {
+    /**
+     * Portrait of the founder. Set the alt text on the media item — it is what a screen reader announces.
+     */
+    image: string | Media;
+    /**
+     * e.g. "Riderr" — the bold line in the caption bar.
+     */
+    company: string;
+    /**
+     * e.g. "Health and Fitness: Ride Sports". Hidden between 768px and 1023px, where the tiles are too small to carry two lines.
+     */
+    category?: string | null;
+    /**
+     * Optional. Direct .mp4 file URL, or a player embed URL (Vimeo/YouTube). Leave blank to show the photo with no play button.
+     */
+    videoUrl?: string | null;
+    id?: string | null;
+  }[];
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'caseStudyMosaic';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -4040,6 +4082,7 @@ export interface PagesSelect<T extends boolean = true> {
         registerOverseas?: T | RegisterOverseasBlockSelect<T>;
         caseStudyVideo?: T | CaseStudyVideoBlockSelect<T>;
         requiredInformation?: T | RequiredInformationBlockSelect<T>;
+        caseStudyMosaic?: T | CaseStudyMosaicBlockSelect<T>;
       };
   meta?:
     | T
@@ -5907,6 +5950,32 @@ export interface RequiredInformationBlockSelect<T extends boolean = true> {
         reference?: T;
         url?: T;
         label?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CaseStudyMosaicBlock_select".
+ */
+export interface CaseStudyMosaicBlockSelect<T extends boolean = true> {
+  heading?: T;
+  subheading?: T;
+  items?:
+    | T
+    | {
+        image?: T;
+        company?: T;
+        category?: T;
+        videoUrl?: T;
+        id?: T;
       };
   sectionLayout?:
     | T

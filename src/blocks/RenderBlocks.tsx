@@ -8,6 +8,7 @@ import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { BusinessBankAccountsBlock } from '@/blocks/BusinessBankAccounts/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { CaseStudyVideoBlock } from '@/blocks/CaseStudyVideo/Component'
+import { CaseStudyMosaicBlock } from '@/blocks/CaseStudyMosaic/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { FAQsBlock } from '@/blocks/FAQs/Component'
 import { FormBlock } from '@/blocks/Form/Component'
@@ -69,6 +70,7 @@ const blockComponents = {
   archive: ArchiveBlock,
   businessBankAccounts: BusinessBankAccountsBlock,
   caseStudyVideo: CaseStudyVideoBlock,
+  caseStudyMosaic: CaseStudyMosaicBlock,
   content: ContentBlock,
   cta: CallToActionBlock,
   faqs: FAQsBlock,
