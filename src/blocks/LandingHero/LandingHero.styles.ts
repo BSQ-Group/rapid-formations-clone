@@ -1,53 +1,64 @@
 export const landingHeroStyles = {
-  // Section wrapper
   section:
-    'relative w-full flex flex-col items-center -mt-[var(--header-height)] md:pt-0 justify-center min-h-[900px] bg-[var(--surface-canvas-inverse)] overflow-hidden',
+    'font-legacy-condensed relative w-full flex flex-col -mt-[var(--header-height)] pt-[var(--header-height)] min-h-[820px] min-[1023px]:min-h-[700px] min-[1200px]:min-h-[1045px] bg-[var(--surface-hero-brand)] overflow-hidden',
 
-  // Background image — hidden on mobile, covers full area on tablet+
-  backgroundWrapper: 'absolute inset-0 hidden md:block',
-  backgroundImg: 'object-cover object-right-top size-full',
+  backgroundWrapper: 'hidden md:block absolute inset-0 bg-cover bg-top bg-no-repeat',
 
-  // Main content container
+  overlay: 'absolute inset-0 pointer-events-none bg-[var(--scrim-hero)] md:bg-transparent',
+
+  accreditations: 'hidden min-[1590px]:flex flex-col items-end gap-4 absolute top-4 right-4 z-10',
+  accreditationItem: 'flex flex-row items-center gap-2',
+  accreditationLabel: 'max-w-xs break-words text-right text-[var(--text-strong)]',
+  accreditationLogoSm: 'w-11 h-auto',
+  accreditationLogoLg: 'w-28 h-auto',
+
   container:
-    'relative flex flex-col gap-9 items-start w-full max-w-[1200px] wide:max-w-[1440px] mx-auto px-4 md:px-8 lg:px-10 xl:px-0 pt-10 md:pt-0',
+    'w-full mx-auto px-2 min-[576px]:max-w-[560px] md:max-w-[752px] min-[992px]:max-w-[976px] min-[1200px]:max-w-[1184px] wide:max-w-[1456px]',
+  row: 'flex flex-row flex-wrap -mx-2',
+  col: 'w-full px-2',
+  colMain: 'w-full px-2 flex flex-col min-[1200px]:w-7/12',
+  colIllustration: 'w-full px-2 min-[1200px]:w-5/12',
+  colReviews: 'w-full px-2 min-[1200px]:w-11/12',
 
-  // Content group (headline + CTAs)
-  content: 'flex flex-col gap-6 w-full',
+  namecheckSection: 'relative mt-10 min-[1023px]:mt-7 min-[1590px]:mt-[60px] min-[1590px]:mb-8',
 
-  // Headline block (eyebrow + heading + benefits)
-  headlineBlock: 'flex flex-col gap-5 w-full',
-  headlineGroup: 'flex flex-col gap-3 max-w-[670px]',
+  headlineBlock:
+    'flex flex-col px-5 text-center min-h-[206.36px] md:px-0 md:text-left md:min-h-[128px] min-[1023px]:min-h-[206.36px]',
 
-  // Eyebrow
-  eyebrow: 'font-medium opacity-80 text-[var(--text-inverse)]',
+  mobileBadge: 'block md:hidden mx-auto mb-6 w-full max-w-[50px] h-auto',
 
-  // Heading
-  heading: 'text-[var(--text-inverse)]',
+  eyebrow: 'mb-2 break-words font-medium opacity-80 text-[var(--text-strong)]',
 
-  // Benefits list
-  benefitsList: 'flex flex-col max-w-[670px]',
-  benefitItem: 'flex items-center gap-3 py-1',
-  benefitIconContainer:
-    'flex-shrink-0 size-8 rounded-full flex items-center justify-center bg-[var(--surface-accent)]',
-  benefitIcon: 'text-[var(--icon-default)]',
-  benefitText: 'font-medium text-[var(--text-inverse)]',
+  heading:
+    'block mb-4 break-words text-[var(--text-strong)] [text-shadow:2px_2px_3px_rgba(0,0,0,0.1)] text-[42px] leading-[48.3px] font-normal md:text-[44px] md:leading-[50.6px] md:font-semibold min-[1023px]:text-[50px] min-[1023px]:leading-[57.5px]',
 
-  // CTAs container (search input + pricing link)
-  ctaContainer: 'flex flex-col gap-3 w-full max-w-[500px]',
+  benefitsWrap:
+    'mb-4 text-left text-[var(--text-strong)] [text-shadow:2px_2px_3px_rgba(0,0,0,0.15)]',
+  benefitsList: 'mb-4 flex flex-col gap-2.5',
+  benefitItem: 'grid grid-cols-[20px_minmax(0,1fr)] gap-2 items-start',
+  benefitIcon: 'mt-[7px] size-[18px] shrink-0 text-[var(--icon-default)]',
+  benefitText: 'block break-words text-[20px] leading-[30px] font-light text-[var(--text-strong)]',
 
-  // Search input
-  searchInput: 'flex items-center bg-[var(--surface-primary)] rounded-xl pl-6 pr-2 py-2 w-full',
-  searchPlaceholder:
-    'flex-1 min-w-0 bg-transparent border-none outline-none font-medium text-md text-[var(--text-strong)] placeholder:text-[var(--text-placeholder)]',
-  searchButton: 'flex-shrink-0 rounded size-[46px]',
+  searchForm:
+    'my-4 flex w-full max-w-[670px] flex-row justify-center rounded-[5px] p-[15px] md:p-0',
+
+  searchRow:
+    'flex flex-col gap-2 w-full shadow-[2px_2px_3px_rgba(0,0,0,0.1)] md:flex-row md:gap-0 md:items-stretch md:justify-start',
+  searchInput:
+    'flex-1 min-w-0 min-h-[59.5px] rounded-[6px] border border-[var(--surface-canvas-inverse)] bg-[var(--surface-canvas-inverse)] px-[21px] py-[15.75px] text-[21px] leading-[normal] text-[var(--text-on-light-muted)] outline-none placeholder:text-center placeholder:text-[var(--text-on-light-subtle)] md:min-h-0 md:rounded-r-none md:border-r-0 md:placeholder:text-left',
+  searchButton:
+    'flex-shrink-0 rounded-[6px] md:rounded-l-none h-[65px] px-6 md:px-10 md:min-w-[25%] bg-[var(--surface-cta-success)] hover:bg-[var(--surface-cta-success-hover)] text-[var(--text-strong)] font-semibold text-[21px] leading-[31.5px]',
   searchButtonIcon: 'text-[var(--icon-default)]',
 
-  // Pricing link
-  pricingLink: 'text-sm font-normal text-[var(--text-inverse)] underline hover:opacity-80',
+  pricingLinkWrap: 'min-w-0 leading-[27px] [&>*]:align-top',
+  pricingLink:
+    'inline-block w-fit max-w-full py-px pr-0.5 text-[18px] md:text-[21px] leading-[normal] font-semibold text-[var(--text-strong)] [text-shadow:2px_2px_3px_rgba(0,0,0,0.15)] no-underline border-b border-[var(--text-strong)] hover:opacity-80 [overflow-wrap:anywhere]',
 
-  // ─── Result states (available / unavailable) ────────────────────────────────
+  illustration:
+    'hidden min-[1200px]:block min-[1200px]:min-h-[337px] shrink-0 text-[18px] leading-[27px]',
+  illustrationVideo:
+    'hidden min-[1201px]:inline align-baseline w-[500px] h-[400px] -mt-12 max-w-none min-[1400px]:w-[600px]',
 
-  // Status badge — shared chrome
   resultBadge:
     'flex items-center gap-1.5 w-fit rounded-full px-4 py-2 border text-sm font-semibold',
   resultBadgeAvailable:
@@ -55,58 +66,47 @@ export const landingHeroStyles = {
   resultBadgeUnavailable:
     'bg-[rgba(231,71,39,0.1)] border-[rgba(231,71,39,0.4)] text-[var(--border-error)]',
 
-  // Result eyebrow ("COMPANY NAME CHECK")
-  resultEyebrow: 'text-[var(--text-inverse-muted)] text-xs font-semibold uppercase tracking-wider',
+  resultEyebrow: 'text-[var(--text-subtle)] text-xs font-semibold uppercase tracking-wider',
 
-  // Company name + decorative bar
   resultNameBlock: 'flex flex-col gap-1.5',
-  resultName: 'text-[var(--text-inverse)] uppercase',
+  resultName: 'text-[var(--text-strong)] uppercase',
   resultNameUnavailable: 'line-through decoration-[rgba(234,61,61,0.6)]',
   resultBarAvailable: 'h-[3px] w-16 rounded-sm bg-[var(--surface-accent)]',
   resultBarUnavailable: 'h-[3px] w-16 rounded-sm bg-[var(--border-error)]',
 
-  // Description
-  resultDescription: 'text-[var(--text-inverse)]',
+  resultDescription: 'text-[var(--text-strong)]',
 
-  // Available state CTAs
   availableCtaRow: 'flex flex-col sm:flex-row items-stretch sm:items-center gap-3',
   searchAgainLink:
-    'text-[var(--text-inverse-muted)] text-sm font-medium underline cursor-pointer whitespace-nowrap hover:opacity-80 text-center sm:text-left',
+    'text-[var(--text-subtle)] text-sm font-medium underline cursor-pointer whitespace-nowrap hover:opacity-80 text-center sm:text-left',
 
-  // Unavailable state search row
   unavailableSearchRow: 'flex flex-col sm:flex-row items-stretch w-full max-w-[500px] gap-4',
   unavailableInput:
-    'flex-1 min-w-0 px-4 py-3 bg-transparent border border-[rgba(255,255,255,0.2)] rounded sm:rounded-r-none text-[var(--text-inverse)] placeholder:text-[var(--text-inverse-muted)] outline-none focus:border-[rgba(255,255,255,0.5)] transition-colors',
+    'flex-1 min-w-0 px-4 py-3 bg-transparent border border-[rgba(255,255,255,0.2)] rounded sm:rounded-r-none text-[var(--text-strong)] placeholder:text-[var(--text-subtle)] outline-none focus:border-[rgba(255,255,255,0.5)] transition-colors',
   unavailableSearchButton: 'sm:rounded-l-none',
 
-  // Reviews section — Figma centre-aligns the Trustpilot and Google blocks
-  // (their star rows/text line up); the live Trustpilot Mini iframe is a fixed
-  // 100px tall while the Google block is ~89px, so `items-end` pushed Google
-  // ~5px below the Figma Y. `items-center` lands the Google stars/text on the
-  // Figma row. Figma's inter-block gap is ~7px; `gap-1` (4px) matches once the
-  // Trustpilot iframe's own right padding is accounted for (CORE-3494).
-  reviews: 'flex gap-1 md:gap-2 items-center',
+  reviewsSection: 'relative mb-8 md:mb-0 min-[1590px]:mb-8',
+  reviews: 'mt-[15px] grid gap-[15px] md:grid-cols-2 md:pb-8 md:pr-32 min-[1023px]:pr-56',
+  reviewCard:
+    'relative flex flex-col justify-between min-h-[104px] rounded-[6px] border border-[var(--border-review-card-dim)] md:border-[var(--border-review-card)] bg-[var(--surface-review-card)] shadow-[2px_2px_3px_rgba(0,0,0,0.15)] px-5 py-4',
+  reviewTop:
+    'flex flex-col items-center min-h-[70px] min-[1200px]:min-h-0 min-[1200px]:flex-row min-[1200px]:justify-between',
+  reviewLogo: 'mb-1.5 h-[30px] w-auto object-contain brightness-0 invert',
+  reviewStarsWrap: 'h-[34px]',
+  reviewBottom:
+    'flex flex-col items-center justify-between text-[21px] leading-[31.5px] [text-shadow:2px_2px_3px_rgba(0,0,0,0.1)] min-[1200px]:flex-row',
+  reviewCount: 'block text-[var(--text-strong)]',
+  reviewScore: 'block text-[var(--text-strong)] whitespace-nowrap',
 
-  // Trustpilot — wraps the official Trustpilot Mini widget (logo + stars + score).
-  // Figma sizes the Mini lock-up at ~179px wide; the live widget previously got a
-  // 200px container, which (plus the -ml-2 nudge) pushed the Google column past the
-  // 328px content area at 360px and clipped "Rated 4.9 | 462 reviews". Constraining
-  // the container to the Figma width lets the full-size Google stars fit (CORE-3494).
-  trustpilotContainer: 'w-[180px] -ml-2',
-
-  // Google — gold-star glyph is 24px at every breakpoint per Figma (re-measured
-  // CORE-3494): the gold stars are SMALLER than the Trustpilot green squares
-  // (~32px) — the prior `size-7`/28px oversized them (5-star span rendered ~144px
-  // vs Figma's ~132px mobile / ~136px desktop). `size-6` (24px) + `gap-1` (4px)
-  // gives a 136px span (5×24 + 4×4), an exact desktop match and within tolerance
-  // of mobile (the 25×24 viewBox glyph occupies ~23px, so the visible span lands
-  // ~132px). Stars→text gap: Figma sits the "Rated…" line directly under the star
-  // band (~2px); `gap-0` on the container + an `h-6` box that hugs the 24px glyph
-  // lands the text top on the Figma Y. Logo→stars gap (`googleInner gap-1.5`) kept.
-  googleContainer: 'flex flex-col gap-0 items-start pt-[12px]',
-  googleInner: 'flex flex-col gap-1.5 items-start',
-  googleLogo: 'h-5 w-auto',
-  googleStars: 'flex items-center h-6 gap-1 mb-[9px]',
-  googleStar: 'size-6',
-  googleText: 'whitespace-nowrap text-[var(--text-inverse)] text-[11px]',
+  bankSection: 'relative mb-12',
+  bankHeading:
+    'block mb-4 break-words text-center text-[21px] leading-[25.935px] font-normal text-[var(--text-strong)] [text-shadow:2px_2px_3px_rgba(0,0,0,0.15)] md:text-left md:text-[22.8px] md:leading-[28.158px] md:font-light',
+  bankGrid: 'grid grid-cols-4 md:grid-cols-8 gap-2.5 w-full',
+  bankCard:
+    'relative overflow-hidden rounded p-2.5 bg-auto bg-repeat [background-blend-mode:overlay] shadow-[0_2px_7px_1px_rgba(0,0,0,0.2)]',
+  bankLogoTile:
+    'mb-[5px] grid justify-center overflow-hidden size-8 rounded-[5px] bg-[var(--surface-canvas-inverse)]',
+  bankLogo: 'size-8 object-contain',
+  bankName:
+    'block [overflow-wrap:anywhere] text-[16px] leading-[19.76px] font-normal text-[var(--text-strong)] [text-shadow:2px_2px_3px_rgba(0,0,0,0.15)]',
 } as const

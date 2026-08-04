@@ -11,7 +11,7 @@ import React, {
   useSyncExternalStore,
 } from 'react'
 import dynamic from 'next/dynamic'
-import { ChevronDown, ChevronRight, Layers, Minus, Plus } from 'lucide-react'
+import { Layers, Minus, Plus } from 'lucide-react'
 
 import type { Header } from '@/payload-types'
 import type { Page, Post } from '@/payload-types'
@@ -19,7 +19,10 @@ import type { Page, Post } from '@/payload-types'
 import { Button } from '@/components/ui/button'
 import { OAuthRedirectHandler } from '@/components/shared/OAuthRedirectHandler'
 import { IdleMount } from '@/components/shared/IdleMount'
-import { LockSolid } from '@/components/shared/SVG/LockSolid'
+import { faAngleDown } from '@fortawesome/pro-light-svg-icons/faAngleDown'
+import { faChevronRight } from '@fortawesome/pro-light-svg-icons/faChevronRight'
+import { faLock } from '@fortawesome/pro-solid-svg-icons/faLock'
+import { FaIcon } from '@/components/shared/FaIcon'
 import Text from '@/components/shared/Text'
 import { cn } from '@/utilities/ui'
 import { useToken } from '@/state/auth'
@@ -263,7 +266,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, onDark = false
                         className={cn(s.navLink, s.navLinkFlushRight)}
                         onClick={() => setLoginModalOpen(true)}
                       >
-                        <LockSolid className={s.navLinkIcon} />
+                        <FaIcon icon={faLock} className={s.navLinkIcon} />
                         <Text text={loginLink.label} textStyle="span" />
                       </button>
                     </li>
@@ -335,7 +338,7 @@ function NavRow({
   const columns = item.dropdownColumns || []
   const href = resolveHref(item.link)
   const label = item.link?.label || ''
-  const icon = item.icon === 'lock' ? <LockSolid className={s.navLinkIcon} /> : null
+  const icon = item.icon === 'lock' ? <FaIcon icon={faLock} className={s.navLinkIcon} /> : null
 
   if (columns.length === 0) {
     if (!href) return null
@@ -375,7 +378,7 @@ function NavRow({
           onClick={() => onToggle(rowKey)}
         >
           <Text text={label} textStyle="span" className={s.dropdownTitle} />
-          <ChevronDown className={s.dropdownCaret} aria-hidden />
+          <FaIcon icon={faAngleDown} className={s.dropdownCaret} />
           <span className={s.dropdownToggle}>
             <span className={s.dropdownToggleIcon}>
               {isOpen ? (
@@ -446,7 +449,9 @@ function DropdownPanel({ columns, cta, isOpen, onNavigate }: DropdownPanelProps)
                   textStyle="span"
                   className={s.panelLink}
                   onClick={onNavigate}
-                  icons={{ iconBefore: <ChevronRight className={s.panelLinkIcon} aria-hidden /> }}
+                  icons={{
+                    iconBefore: <FaIcon icon={faChevronRight} className={s.panelLinkIcon} />,
+                  }}
                   {...(entry.link?.newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {})}
                 />
               )
@@ -479,7 +484,7 @@ function AccountRow({ links, isOpen, onEnter, onLeave, onToggle, onNavigate }: A
           onClick={() => onToggle('account')}
         >
           <Text text="My Account" textStyle="span" className={s.dropdownTitle} />
-          <ChevronDown className={s.dropdownCaret} aria-hidden />
+          <FaIcon icon={faAngleDown} className={s.dropdownCaret} />
           <span className={s.dropdownToggle}>
             <span className={s.dropdownToggleIcon}>
               {isOpen ? (
@@ -504,7 +509,9 @@ function AccountRow({ links, isOpen, onEnter, onLeave, onToggle, onNavigate }: A
                     textStyle="span"
                     className={s.panelLink}
                     onClick={onNavigate}
-                    icons={{ iconBefore: <ChevronRight className={s.panelLinkIcon} aria-hidden /> }}
+                    icons={{
+                      iconBefore: <FaIcon icon={faChevronRight} className={s.panelLinkIcon} />,
+                    }}
                   />
                 )
               })}
