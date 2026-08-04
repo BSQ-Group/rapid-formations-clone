@@ -7,6 +7,7 @@ import React from 'react'
 import { Search } from '@/search/Component'
 import { CardPostData } from '@/components/Card'
 import { Header } from '@/Header/Component'
+import { getBrand, getDomainConfig } from '@/lib/brand'
 
 type Args = {
   searchParams: Promise<{
@@ -84,7 +85,8 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
 }
 
 export function generateMetadata(): Metadata {
+  const { siteName } = getDomainConfig(getBrand())
   return {
-    title: `Payload Website Template Search`,
+    title: `${siteName} Search`,
   }
 }

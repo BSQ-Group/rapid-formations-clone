@@ -69,7 +69,7 @@ export default async function Page({ params: paramsPromise }: Args) {
         <style>{`:root{--header-logo-fill:rgb(var(--white));--header-link-color:var(--text-inverse-muted);--header-link-hover-color:var(--text-inverse)}`}</style>
       )}
       {hasBanner && <TrustPilotBannerBlock {...(firstBlock as TrustPilotBannerBlockType)} />}
-      <Header />
+      <Header onDark={Boolean(isHeaderOnDark)} />
       <main>
         {/* Allows redirects for valid pages too */}
         <PayloadRedirects disableNotFound url={url} />

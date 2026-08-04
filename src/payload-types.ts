@@ -5599,7 +5599,7 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 export interface Header {
   id: string;
   /**
-   * Primary navigation links (left side)
+   * Primary navigation links (left of the nav row)
    */
   navItems?:
     | {
@@ -5619,11 +5619,18 @@ export interface Header {
           label: string;
         };
         /**
-         * If populated, this nav item will show a mega menu dropdown on desktop and a sub-menu on mobile
+         * Small glyph before the label. The legacy site uses the lock on Login.
          */
-        megaMenuCategories?:
+        icon?: ('none' | 'lock') | null;
+        /**
+         * If populated, this nav item becomes a dropdown. One column stacks; two or three lay out side by side from 768px.
+         */
+        dropdownColumns?:
           | {
-              title: string;
+              /**
+               * Optional. Only the Company Formation dropdown uses headings.
+               */
+              heading?: string | null;
               links?:
                 | {
                     link: {
@@ -5647,11 +5654,29 @@ export interface Header {
               id?: string | null;
             }[]
           | null;
+        /**
+         * Optional uppercase link shown under the dropdown columns on desktop and above them on mobile.
+         */
+        dropdownCta?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label?: string | null;
+        };
         id?: string | null;
       }[]
     | null;
   /**
-   * Secondary links (right side, e.g. Blog, About)
+   * Secondary links (right of the nav row, e.g. Help Centre, Resources, Login)
    */
   secondaryNavItems?:
     | {
@@ -5669,6 +5694,60 @@ export interface Header {
               } | null);
           url?: string | null;
           label: string;
+        };
+        /**
+         * Small glyph before the label. The legacy site uses the lock on Login.
+         */
+        icon?: ('none' | 'lock') | null;
+        /**
+         * If populated, this nav item becomes a dropdown. One column stacks; two or three lay out side by side from 768px.
+         */
+        dropdownColumns?:
+          | {
+              /**
+               * Optional. Only the Company Formation dropdown uses headings.
+               */
+              heading?: string | null;
+              links?:
+                | {
+                    link: {
+                      type?: ('reference' | 'custom') | null;
+                      newTab?: boolean | null;
+                      reference?:
+                        | ({
+                            relationTo: 'pages';
+                            value: string | Page;
+                          } | null)
+                        | ({
+                            relationTo: 'posts';
+                            value: string | Post;
+                          } | null);
+                      url?: string | null;
+                      label: string;
+                    };
+                    id?: string | null;
+                  }[]
+                | null;
+              id?: string | null;
+            }[]
+          | null;
+        /**
+         * Optional uppercase link shown under the dropdown columns on desktop and above them on mobile.
+         */
+        dropdownCta?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label?: string | null;
         };
         id?: string | null;
       }[]
@@ -5696,7 +5775,7 @@ export interface Header {
         id?: string | null;
       }[]
     | null;
-  loginLink: {
+  loginLink?: {
     type?: ('reference' | 'custom') | null;
     newTab?: boolean | null;
     reference?:
@@ -5709,43 +5788,50 @@ export interface Header {
           value: string | Post;
         } | null);
     url?: string | null;
-    label: string;
+    label?: string | null;
   };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
 /**
+ * The site-wide footer. Column order, accreditation order and payment-card order are all the array order below.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "footer".
  */
 export interface Footer {
   id: string;
-  logo: string | Media;
-  companyAddress: string;
-  registrationDetails: string;
-  policyLinksHeading: string;
-  policyLinks?:
+  /**
+   * Rendered at 55x35 below 768px and 65x45 above it.
+   */
+  paymentIcons?:
     | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: string | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: string | Post;
-              } | null);
-          url?: string | null;
-          label: string;
-        };
+        name: string;
+        /**
+         * Set the media item's alt text — it is what a screen reader announces for the card.
+         */
+        icon: string | Media;
         id?: string | null;
       }[]
     | null;
-  navigationLinksHeading: string;
-  navigationColumns?:
+  socialLinks?:
+    | {
+        /**
+         * Picks the glyph. Adding a platform needs a matching icon in src/Footer/icons.tsx.
+         */
+        platform: 'instagram' | 'facebook' | 'linkedin' | 'youtube';
+        url: string;
+        /**
+         * The platform's own brand colour, e.g. rgb(225, 48, 108) for Instagram. Held as content because it belongs to the third party, not to this site's theme.
+         */
+        iconColor: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Five columns at 1023px and up. Below that each one collapses into an accordion, closed by default.
+   */
+  linkColumns?:
     | {
         heading: string;
         links?:
@@ -5771,30 +5857,42 @@ export interface Footer {
         id?: string | null;
       }[]
     | null;
-  socialLinks?:
-    | {
-        platform: string;
-        icon: string | Media;
-        url: string;
-        id?: string | null;
-      }[]
-    | null;
-  copyrightText: string;
-  copyrightSubtext?: string | null;
-  paymentIcons?:
-    | {
-        name: string;
-        icon: string | Media;
-        id?: string | null;
-      }[]
-    | null;
-  certificationLogos?:
+  parentCompanyPrefix?: string | null;
+  parentCompanyLogo?: (string | null) | Media;
+  parentCompanyUrl?: string | null;
+  logo?: (string | null) | Media;
+  companyName?: string | null;
+  registrationPrefix?: string | null;
+  address?: string | null;
+  addressUrl?: string | null;
+  companyNumber?: string | null;
+  /**
+   * Links to the ICO register entry for this number automatically.
+   */
+  icoNumber?: string | null;
+  vatNumber?: string | null;
+  /**
+   * Eight fit on one row at 1023px and up. Each keeps its own display width, so the row is not evenly divided.
+   */
+  accreditations?:
     | {
         name: string;
         logo: string | Media;
+        /**
+         * Rendered width at 1023px and up. Height follows from the image ratio. The source uses 65-115.
+         */
+        displayWidth: number;
+        url?: string | null;
         id?: string | null;
       }[]
     | null;
+  /**
+   * Rendered as "Copyright <current year> © <this> ®". The year is always the current one.
+   */
+  copyrightBrand?: string | null;
+  certificationPrefix?: string | null;
+  certificationLabel?: string | null;
+  certificationUrl?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -5892,10 +5990,11 @@ export interface HeaderSelect<T extends boolean = true> {
               url?: T;
               label?: T;
             };
-        megaMenuCategories?:
+        icon?: T;
+        dropdownColumns?:
           | T
           | {
-              title?: T;
+              heading?: T;
               links?:
                 | T
                 | {
@@ -5912,12 +6011,51 @@ export interface HeaderSelect<T extends boolean = true> {
                   };
               id?: T;
             };
+        dropdownCta?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
         id?: T;
       };
   secondaryNavItems?:
     | T
     | {
         link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        icon?: T;
+        dropdownColumns?:
+          | T
+          | {
+              heading?: T;
+              links?:
+                | T
+                | {
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                        };
+                    id?: T;
+                  };
+              id?: T;
+            };
+        dropdownCta?:
           | T
           | {
               type?: T;
@@ -5960,26 +6098,22 @@ export interface HeaderSelect<T extends boolean = true> {
  * via the `definition` "footer_select".
  */
 export interface FooterSelect<T extends boolean = true> {
-  logo?: T;
-  companyAddress?: T;
-  registrationDetails?: T;
-  policyLinksHeading?: T;
-  policyLinks?:
+  paymentIcons?:
     | T
     | {
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-            };
+        name?: T;
+        icon?: T;
         id?: T;
       };
-  navigationLinksHeading?: T;
-  navigationColumns?:
+  socialLinks?:
+    | T
+    | {
+        platform?: T;
+        url?: T;
+        iconColor?: T;
+        id?: T;
+      };
+  linkColumns?:
     | T
     | {
         heading?: T;
@@ -5999,30 +6133,30 @@ export interface FooterSelect<T extends boolean = true> {
             };
         id?: T;
       };
-  socialLinks?:
-    | T
-    | {
-        platform?: T;
-        icon?: T;
-        url?: T;
-        id?: T;
-      };
-  copyrightText?: T;
-  copyrightSubtext?: T;
-  paymentIcons?:
-    | T
-    | {
-        name?: T;
-        icon?: T;
-        id?: T;
-      };
-  certificationLogos?:
+  parentCompanyPrefix?: T;
+  parentCompanyLogo?: T;
+  parentCompanyUrl?: T;
+  logo?: T;
+  companyName?: T;
+  registrationPrefix?: T;
+  address?: T;
+  addressUrl?: T;
+  companyNumber?: T;
+  icoNumber?: T;
+  vatNumber?: T;
+  accreditations?:
     | T
     | {
         name?: T;
         logo?: T;
+        displayWidth?: T;
+        url?: T;
         id?: T;
       };
+  copyrightBrand?: T;
+  certificationPrefix?: T;
+  certificationLabel?: T;
+  certificationUrl?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

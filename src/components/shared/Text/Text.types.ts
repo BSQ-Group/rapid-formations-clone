@@ -50,10 +50,6 @@ export type TextProps = {
     iconBefore?: React.ReactNode
     iconAfter?: React.ReactNode
   }
-  initial?: string
-  animate?: string
-  variants?: Record<string, any>
-  spanVariants?: Record<string, any>
 }
 
 export const usePTag = [

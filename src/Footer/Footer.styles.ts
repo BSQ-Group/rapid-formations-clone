@@ -1,74 +1,66 @@
 export const footerStyles = {
-  // Outer section — full-bleed at every breakpoint
-  section: 'w-full',
+  section:
+    'font-legacy-condensed w-full bg-[var(--surface-on-light-sunken)] pb-[50px] text-[18px] leading-[27px] text-[var(--text-on-light-base)] min-[1023px]:pb-0',
 
-  // Black container — full-width, no rounding
+  scrollToTopRow: 'flex h-0 justify-center',
+  scrollToTopButton:
+    'relative top-[-18px] inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-none bg-[var(--surface-canvas-inverse)] p-2 text-[var(--surface-brand-cyan)] transition-colors hover:text-[var(--surface-brand-cyan-light)]',
+  scrollToTopIcon: 'inline-block shrink-0 text-[2rem]',
+
   container:
-    'bg-black flex flex-col gap-14 items-center overflow-hidden px-4 py-14 lg:gap-10 lg:p-14',
+    'mx-auto block w-full max-w-[1210px] px-5 min-[1023px]:max-w-[1230px] min-[1023px]:px-[30px]',
+  content: 'flex flex-col pt-10 min-[1023px]:py-5',
 
-  // Inner content constraint
-  inner: 'w-full max-w-[1200px] flex flex-col gap-14 lg:gap-10',
+  iconsRow:
+    'flex flex-col-reverse md:flex-row md:items-center md:justify-between min-[1023px]:mb-[27px] min-[1023px]:grid min-[1023px]:grid-cols-[2fr_1fr] min-[1023px]:gap-5',
 
-  // ============ DESKTOP LAYOUT (≥1024px) ============
-  desktopLayout: 'hidden lg:flex flex-col gap-10 w-full',
+  cardIcons: 'mb-5 flex flex-row justify-center gap-2.5 md:mb-0 md:justify-start',
+  cardIcon: 'h-[35px] w-[55px] min-w-0 md:h-[45px] md:w-[65px]',
 
-  // Desktop top half
-  desktopTop: 'flex items-start justify-between w-full',
+  socialSlot: 'flex justify-center',
+  socialIcons: 'mx-auto mb-4 flex flex-row min-[1023px]:ml-auto min-[1023px]:mr-0',
+  socialLink: 'block px-[0.3em] hover:underline',
+  socialIcon: 'inline-block align-[-0.125em] text-[42px]',
 
-  // Logo + details + links group
-  desktopLogoAndLinks: 'flex gap-20 items-start',
+  linkColumns: 'grid w-full grid-cols-1 gap-5 min-[1023px]:grid-cols-5',
+  column: 'flex w-full flex-col overflow-hidden',
+  columnHeader:
+    'flex w-full cursor-pointer flex-row justify-normal border-b-[3px] border-[var(--border-on-light)] bg-transparent p-0 text-left min-[1023px]:grid min-[1023px]:cursor-auto min-[1023px]:gap-5 min-[1023px]:border-b min-[1023px]:py-2.5',
+  columnTitle:
+    'self-center text-[22px] font-semibold leading-[33px] text-[var(--text-on-light-base)]',
+  columnToggle: 'ml-auto flex flex-row justify-end self-center min-[1023px]:hidden',
+  columnToggleIcon: 'flex p-[18px] text-[18px]',
+  columnList:
+    'mt-2.5 mb-0 list-none p-0 text-left text-[20px] leading-[30px] text-[var(--text-on-light-muted)]',
+  columnListClosed: 'hidden min-[1023px]:block',
+  columnListOpen: 'block',
+  columnLink:
+    'mb-2 inline-block h-full min-w-full text-[17px] leading-[25.5px] text-[var(--text-on-light-muted)] no-underline hover:underline',
 
-  // Desktop link columns wrapper
-  desktopLinkColumns: 'flex lg:gap-3 xl:gap-20 items-start self-stretch',
+  companyRow:
+    'mt-[18px] flex flex-col min-[1023px]:grid min-[1023px]:grid-cols-[1fr_1fr] min-[1023px]:flex-row',
+  company: 'mt-[18px] min-[1023px]:w-[450px]',
+  companyBsq: 'mb-2 flex flex-row items-center gap-2',
+  companyLogoLink: 'hover:underline',
+  companyBsqLogo: 'block w-[111px]',
+  companyLogo: 'block w-[275px]',
+  companyDetails: 'mt-6 mb-8 text-[var(--text-on-light-muted)] min-[1023px]:mt-4 min-[1023px]:mb-0',
+  companyDetailLine: 'block w-full md:inline-block md:w-auto',
+  companyDetailLink: 'text-[var(--text-on-light-muted)] no-underline hover:underline',
+  divider: 'md:hidden min-[1023px]:block',
+  accreditationSlot: 'block max-w-full',
 
-  // Desktop bottom half
-  desktopBottom: 'flex gap-8 items-end w-full',
+  accreditations:
+    'flex h-full flex-row flex-wrap md:pt-[18px] min-[1023px]:flex-nowrap min-[1023px]:justify-start min-[1300px]:justify-end',
+  accreditation:
+    'mb-6 flex max-w-full flex-[1_1_50%] items-center justify-center self-center md:mx-[18px] md:mt-4 md:mb-0 md:flex-[1_1_20%] md:first:ml-0 md:[&:nth-child(-n+4)]:mt-0 min-[1023px]:mt-0 min-[1023px]:flex-1',
+  accreditationBox: 'shrink-0',
+  accreditationImage: 'h-auto w-full max-w-full object-contain object-left',
 
-  // ============ MOBILE LAYOUT (<1024px) ============
-  mobileLayout: 'flex lg:hidden flex-col gap-10 w-full',
-
-  // Mobile link columns container
-  mobileLinkColumns: 'flex gap-10 w-full',
-
-  // Mobile policy links (underlined at bottom)
-  mobilePolicyLinks: 'flex flex-wrap gap-x-3 gap-y-2',
-  policyLink: 'font-normal text-[var(--text-inverse-muted)] underline',
-
-  // ============ SHARED STYLES ============
-
-  // Logo + company details — tablet: row layout, mobile: column
-  logoSection:
-    'flex flex-col gap-6 w-full md:flex-row md:flex-wrap md:gap-x-10 lg:flex-col lg:w-60',
-  logo: 'relative w-[180px] h-[98px] shrink-0',
-  companyDetails: 'flex flex-col gap-4 text-[var(--text-inverse-muted)]',
-
-  // Link column
-  linkColumn: 'flex flex-col gap-3 flex-1 lg:flex-initial',
-  linkColumnHeading: 'font-medium text-[var(--text-inverse-muted)]',
-  linkList: 'flex flex-col gap-2',
-  linkItem:
-    'font-medium text-[var(--text-inverse)] hover:opacity-80 transition-opacity',
-
-  // Social links
-  socialLinks: 'flex gap-4 items-center',
-  socialIcon: 'relative w-6 h-6',
-
-  // Small print / copyright
-  smallPrint: 'flex flex-col gap-1 lg:flex-1 text-[var(--text-inverse-muted)]',
-  mobileSmallPrint: 'flex flex-col gap-4 text-[var(--text-inverse-muted)]',
-
-  // Logos + bank cards (desktop right side)
-  logosAndCards: 'flex flex-col gap-3 items-end',
-
-  // Bank cards + social row (tablet: same line)
-  bankCardsAndSocial:
-    'flex flex-col gap-10 md:flex-row md:items-center md:justify-between lg:hidden',
-  bankCards: 'flex items-center gap-1.5',
-  bankCard: 'relative w-9 h-6',
-
-  // Certification logos — tablet: 4 cols, mobile: 3 cols
-  certLogos: 'flex gap-4 items-center h-[76px]',
-  mobileCertLogos: 'grid grid-cols-3 md:grid-cols-4 gap-4',
-  mobileCertLogoCell: 'flex items-center justify-center h-[140px]',
-  certLogoWrapper: 'relative flex items-center justify-center',
+  contacts:
+    'mt-[18px] flex flex-col border-t border-[var(--border-on-light)] pt-[9px] pb-5 min-[470px]:mt-[9px] min-[470px]:grid min-[470px]:w-full min-[470px]:grid-cols-2 min-[470px]:gap-5 min-[470px]:pt-[22.5px] md:pb-8 min-[1023px]:mt-[54px] min-[1023px]:pb-12 min-[1590px]:pb-5',
+  copyright: 'm-0 block text-[20px] leading-[30px] text-[var(--text-on-light-muted)]',
+  copyrightReg: 'relative top-1 inline align-middle text-[200%] font-thin leading-[0]',
+  copyrightLink:
+    'text-[var(--text-on-light-muted)] no-underline hover:underline',
 } as const

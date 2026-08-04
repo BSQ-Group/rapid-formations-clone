@@ -19,6 +19,7 @@ export function isValidBrand(value: string | undefined): value is Brand {
 export interface DomainConfig {
   alt: string
   logoPath: string
+  logoOnDarkPath?: string
   siteName: string
   tenantId: string
 }
@@ -37,11 +38,16 @@ export const domainsConfigMap: Record<Brand, DomainConfig> = {
     tenantId: 'quality-company-7a0c3',
   },
   [Brand.RapidFormations]: {
-    alt: 'Rapid Formations',
+    alt: 'Rapid Formations Ltd Logo',
     logoPath: '/images/RF-logo.png',
+    logoOnDarkPath: '/images/RF-logo-on-dark.png',
     siteName: 'Rapid Formations',
     tenantId: 'rapid-90xzd',
   },
+}
+
+export function getLogoPath(config: DomainConfig, onDark: boolean): string {
+  return onDark ? (config.logoOnDarkPath ?? config.logoPath) : config.logoPath
 }
 
 export function getDomainConfig(brand: Brand | string): DomainConfig {

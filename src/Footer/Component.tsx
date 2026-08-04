@@ -6,367 +6,233 @@ import type { Footer as FooterType, Media as MediaType } from '@/payload-types'
 
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import Text from '@/components/shared/Text'
-import { CMSLink } from '@/components/Link'
-import { cn } from '@/utilities/ui'
 import { footerStyles as s } from './Footer.styles'
+import { FooterLinkColumn } from './FooterLinkColumn'
+import { ScrollToTopButton } from './ScrollToTopButton'
+import { socialIcons, type SocialPlatform } from './icons'
 
-type PolicyLinkItem = NonNullable<FooterType['policyLinks']>[number]
+type MediaRef = MediaType | string | number | null | undefined
 
-function getMediaUrl(media: MediaType | string | number | null | undefined): string {
-  if (typeof media === 'object' && media?.url) return media.url
-  return ''
+function asMedia(media: MediaRef): MediaType | null {
+  return typeof media === 'object' && media !== null ? media : null
 }
 
-function getMediaAlt(media: MediaType | string | number | null | undefined): string {
-  if (typeof media === 'object' && media?.alt) return media.alt
-  return ''
+function isVector(media: MediaType): boolean {
+  return media.mimeType?.includes('svg') ?? false
 }
 
-function FooterLink({ item, className }: { item: PolicyLinkItem; className?: string }) {
-  return (
-    <CMSLink
-      className={cn(s.linkItem, className)}
-      label={item.link?.label}
-      type={item.link?.type}
-      reference={item.link?.reference}
-      url={item.link?.url}
-      newTab={item.link?.newTab}
-      appearance="inline"
-    />
-  )
-}
+const NBSP = ' '
 
 export async function Footer() {
-  const footerData: FooterType = (await getCachedGlobal('footer', 1)()) as FooterType
+  const footerData: FooterType = (await getCachedGlobal('footer', 2)()) as FooterType
 
   const {
-    logo,
-    companyAddress,
-    registrationDetails,
-    policyLinksHeading,
-    policyLinks,
-    navigationLinksHeading,
-    navigationColumns,
-    socialLinks,
-    copyrightText,
-    copyrightSubtext,
     paymentIcons,
-    certificationLogos,
+    socialLinks,
+    linkColumns,
+    parentCompanyPrefix,
+    parentCompanyLogo,
+    parentCompanyUrl,
+    logo,
+    companyName,
+    registrationPrefix,
+    address,
+    addressUrl,
+    companyNumber,
+    icoNumber,
+    vatNumber,
+    accreditations,
+    copyrightBrand,
+    certificationPrefix,
+    certificationLabel,
+    certificationUrl,
   } = footerData || {}
 
-  const logoUrl = getMediaUrl(logo)
-  const logoAlt = getMediaAlt(logo) || 'Quality Company Formations'
-
-  const allNavLinks =
-    navigationColumns?.flatMap((col) => col.links?.map((item) => item) ?? []) ?? []
+  const brandLogo = asMedia(logo)
+  const parentLogo = asMedia(parentCompanyLogo)
+  const year = new Date().getFullYear()
 
   return (
-    <footer className={s.section}>
+    <footer className={s.section} itemType="https://schema.org/Organization">
+      <ScrollToTopButton />
       <div className={s.container}>
-        <div className={s.inner}>
-          {/* ============ DESKTOP LAYOUT ============ */}
-          <div className={s.desktopLayout}>
-            {/* Top half */}
-            <div className={s.desktopTop}>
-              <div className={s.desktopLogoAndLinks}>
-                {/* Logo + company details */}
-                <div className={s.logoSection}>
-                  {logoUrl && (
-                    <div className={s.logo}>
-                      <Image
-                        src={logoUrl}
-                        alt={logoAlt}
-                        fill
-                        className="object-contain object-left"
-                        unoptimized
-                      />
-                    </div>
-                  )}
-                  <div className={s.companyDetails}>
-                    {companyAddress && (
-                      <Text
-                        text={companyAddress}
-                        textStyle="body-xs"
-                        className="whitespace-pre-line"
-                      />
-                    )}
-                    {registrationDetails && (
-                      <Text
-                        text={registrationDetails}
-                        textStyle="body-xs"
-                        className="whitespace-pre-line"
-                      />
-                    )}
-                  </div>
-                </div>
-
-                {/* Link columns */}
-                <div className={s.desktopLinkColumns}>
-                  {/* Policy links column */}
-                  {policyLinks && policyLinks.length > 0 && (
-                    <div className={s.linkColumn}>
-                      <Text
-                        as="h3"
-                        text={policyLinksHeading || 'Company'}
-                        textStyle="body-sm"
-                        className={s.linkColumnHeading}
-                      />
-                      <div className={s.linkList}>
-                        {policyLinks.map((item, i) => (
-                          <FooterLink key={i} item={item} />
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Navigation links column (merged) */}
-                  {allNavLinks.length > 0 && (
-                    <div className={s.linkColumn}>
-                      <Text
-                        as="h3"
-                        text={navigationLinksHeading || 'Useful Links'}
-                        textStyle="body-sm"
-                        className={s.linkColumnHeading}
-                      />
-                      <div className={s.linkList}>
-                        {allNavLinks.map((item, i) => (
-                          <FooterLink key={i} item={item} />
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
+        <div className={s.content}>
+          <div className={s.iconsRow}>
+            {paymentIcons && paymentIcons.length > 0 && (
+              <div className={s.cardIcons}>
+                {paymentIcons.map((card, i) => {
+                  const icon = asMedia(card.icon)
+                  if (!icon?.url) return null
+                  return (
+                    <Image
+                      key={i}
+                      src={icon.url}
+                      alt={icon.alt || card.name}
+                      title={icon.alt || card.name}
+                      width={65}
+                      height={45}
+                      className={s.cardIcon}
+                      unoptimized={isVector(icon)}
+                    />
+                  )
+                })}
               </div>
-
-              {/* Social icons */}
+            )}
+            <div className={s.socialSlot}>
               {socialLinks && socialLinks.length > 0 && (
-                <div className={s.socialLinks}>
+                <div className={s.socialIcons}>
                   {socialLinks.map((social, i) => {
-                    const iconUrl = getMediaUrl(social.icon)
+                    const Icon = socialIcons[social.platform as SocialPlatform]
+                    if (!Icon) return null
                     return (
-                      <Link
+                      <a
                         key={i}
                         href={social.url}
+                        className={s.socialLink}
                         target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={social.platform}
+                        rel="noreferrer"
+                        title={`Social icon for ${social.platform}`}
+                        aria-label={`Social icon for ${social.platform}`}
+                        style={{ color: social.iconColor }}
                       >
-                        <div className={s.socialIcon}>
-                          {iconUrl && (
-                            <Image
-                              src={iconUrl}
-                              alt={social.platform}
-                              fill
-                              className="object-contain"
-                              unoptimized
-                            />
-                          )}
-                        </div>
-                      </Link>
+                        <Icon className={s.socialIcon} />
+                      </a>
                     )
                   })}
                 </div>
               )}
             </div>
-
-            {/* Bottom half */}
-            <div className={s.desktopBottom}>
-              {/* Copyright */}
-              <div className={s.smallPrint}>
-                {copyrightText && <Text text={copyrightText} textStyle="body-xs" />}
-                {copyrightSubtext && <Text text={copyrightSubtext} textStyle="body-xs" />}
-              </div>
-
-              {/* Logos + bank cards */}
-              <div className={s.logosAndCards}>
-                {/* Payment icons */}
-                {paymentIcons && paymentIcons.length > 0 && (
-                  <div className={s.bankCards}>
-                    {paymentIcons.map((card, i) => {
-                      const iconUrl = getMediaUrl(card.icon)
-                      return (
-                        <div key={i} className={s.bankCard}>
-                          {iconUrl && (
-                            <Image
-                              src={iconUrl}
-                              alt={card.name}
-                              fill
-                              className="object-contain"
-                              unoptimized
-                            />
-                          )}
-                        </div>
-                      )
-                    })}
-                  </div>
-                )}
-
-                {/* Certification logos */}
-                {certificationLogos && certificationLogos.length > 0 && (
-                  <div className={s.certLogos}>
-                    {certificationLogos.map((cert, i) => {
-                      const certUrl = getMediaUrl(cert.logo)
-                      return (
-                        <div key={i} className={s.certLogoWrapper}>
-                          {certUrl && (
-                            <Image
-                              src={certUrl}
-                              alt={cert.name}
-                              width={65}
-                              height={76}
-                              className="object-contain"
-                              unoptimized
-                            />
-                          )}
-                        </div>
-                      )
-                    })}
-                  </div>
-                )}
-              </div>
-            </div>
           </div>
-
-          {/* ============ MOBILE LAYOUT ============ */}
-          <div className={s.mobileLayout}>
-            {/* Logo + company details */}
-            <div className={s.logoSection}>
-              {logoUrl && (
-                <div className={s.logo}>
-                  <Image
-                    src={logoUrl}
-                    alt={logoAlt}
-                    fill
-                    className="object-contain object-left"
-                    unoptimized
+          {linkColumns && linkColumns.length > 0 && (
+            <div className={s.linkColumns}>
+              {linkColumns.map((column, i) => (
+                <FooterLinkColumn key={i} column={column} />
+              ))}
+            </div>
+          )}
+          <div className={s.companyRow}>
+            <div className={s.company}>
+              {parentLogo?.url && (
+                <div className={s.companyBsq}>
+                  <Text
+                    text={parentCompanyPrefix ?? ''}
+                    textStyle="span"
+                    className="text-[var(--text-on-light-muted)]"
                   />
+                  <Link
+                    href={parentCompanyUrl || '#'}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={s.companyLogoLink}
+                  >
+                    <Image
+                      src={parentLogo.url}
+                      alt={parentLogo.alt || ''}
+                      width={parentLogo.width || 333}
+                      height={parentLogo.height || 62}
+                      className={s.companyBsqLogo}
+                      unoptimized={isVector(parentLogo)}
+                    />
+                  </Link>
                 </div>
               )}
-              <div className={s.companyDetails}>
-                {companyAddress && (
-                  <Text text={companyAddress} textStyle="body-xs" className="whitespace-pre-line" />
-                )}
-                {registrationDetails && (
-                  <Text
-                    text={registrationDetails}
-                    textStyle="body-xs"
-                    className="whitespace-pre-line"
+              {brandLogo?.url && (
+                <Link href="/" title={companyName || undefined} className={s.companyLogoLink}>
+                  <Image
+                    src={brandLogo.url}
+                    alt={brandLogo.alt || ''}
+                    width={brandLogo.width || 560}
+                    height={brandLogo.height || 56}
+                    className={s.companyLogo}
+                    unoptimized={isVector(brandLogo)}
                   />
-                )}
+                </Link>
+              )}
+              <div className={s.companyDetails}>
+                <Text
+                  text={`${companyName},${NBSP}`}
+                  textStyle="span"
+                  className={s.companyDetailLine}
+                />
+                <Text
+                  text={registrationPrefix ?? ''}
+                  textStyle="span"
+                  className={s.companyDetailLine}
+                />
+                <div>
+                  <Text
+                    text={address ?? ''}
+                    href={addressUrl || undefined}
+                    textStyle="span"
+                    className={s.companyDetailLink}
+                  />
+                </div>
+                <Text
+                  text={`Company Nr: ${companyNumber}.${NBSP}${NBSP}`}
+                  textStyle="span"
+                  className={s.companyDetailLine}
+                />
+                <Text
+                  text={`ICO Registration Nr: <a class="${s.companyDetailLink}" href="https://ico.org.uk/ESDWebPages/Entry/${icoNumber}">${icoNumber}</a>.${NBSP}${NBSP}`}
+                  textStyle="span"
+                  className={s.companyDetailLine}
+                />
+                <Text
+                  text={`VAT Registration Nr: ${vatNumber}${NBSP}`}
+                  textStyle="span"
+                  className={s.companyDetailLine}
+                />
               </div>
             </div>
-
-            {/* Navigation link columns */}
-            {navigationColumns && navigationColumns.length > 0 && (
-              <div className={s.mobileLinkColumns}>
-                {navigationColumns.map((col, i) => (
-                  <div key={i} className={s.linkColumn}>
-                    <Text
-                      as="h3"
-                      text={col.heading}
-                      textStyle="body-sm"
-                      className={s.linkColumnHeading}
-                    />
-                    <div className={s.linkList}>
-                      {col.links?.map((item, j) => (
-                        <FooterLink key={j} item={item} />
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {/* Certification logos grid */}
-            {certificationLogos && certificationLogos.length > 0 && (
-              <div className={s.mobileCertLogos}>
-                {certificationLogos.map((cert, i) => {
-                  const certUrl = getMediaUrl(cert.logo)
-                  return (
-                    <div key={i} className={s.mobileCertLogoCell}>
-                      {certUrl && (
+            <div aria-hidden="true" className={s.divider} />
+            <div className={s.accreditationSlot}>
+              {accreditations && accreditations.length > 0 && (
+                <div className={s.accreditations}>
+                  {accreditations.map((item, i) => {
+                    const badge = asMedia(item.logo)
+                    if (!badge?.url) return null
+                    const width = item.displayWidth
+                    const ratio = badge.width && badge.height ? badge.height / badge.width : 1
+                    const image = (
+                      <div className={s.accreditationBox} style={{ width: `${width}px` }}>
                         <Image
-                          src={certUrl}
-                          alt={cert.name}
-                          width={100}
-                          height={100}
-                          className="object-contain"
-                          unoptimized
+                          src={badge.url}
+                          alt={badge.alt || item.name}
+                          width={width}
+                          height={Math.round(width * ratio)}
+                          className={s.accreditationImage}
+                          unoptimized={isVector(badge)}
                         />
-                      )}
-                    </div>
-                  )
-                })}
-              </div>
-            )}
-
-            {/* Payment icons + Social links (tablet: same row) */}
-            <div className={s.bankCardsAndSocial}>
-              {paymentIcons && paymentIcons.length > 0 && (
-                <div className={s.bankCards}>
-                  {paymentIcons.map((card, i) => {
-                    const iconUrl = getMediaUrl(card.icon)
+                      </div>
+                    )
                     return (
-                      <div key={i} className={s.bankCard}>
-                        {iconUrl && (
-                          <Image
-                            src={iconUrl}
-                            alt={card.name}
-                            fill
-                            className="object-contain"
-                            unoptimized
-                          />
+                      <div key={i} className={s.accreditation}>
+                        {item.url ? (
+                          <a
+                            href={item.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            className={s.companyLogoLink}
+                          >
+                            {image}
+                          </a>
+                        ) : (
+                          image
                         )}
                       </div>
                     )
                   })}
                 </div>
               )}
-
-              {socialLinks && socialLinks.length > 0 && (
-                <div className={s.socialLinks}>
-                  {socialLinks.map((social, i) => {
-                    const iconUrl = getMediaUrl(social.icon)
-                    return (
-                      <Link
-                        key={i}
-                        href={social.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={social.platform}
-                      >
-                        <div className={s.socialIcon}>
-                          {iconUrl && (
-                            <Image
-                              src={iconUrl}
-                              alt={social.platform}
-                              fill
-                              className="object-contain"
-                              unoptimized
-                            />
-                          )}
-                        </div>
-                      </Link>
-                    )
-                  })}
-                </div>
-              )}
             </div>
-
-            {/* Copyright + policy links */}
-            <div className={s.mobileSmallPrint}>
-              {copyrightText && <Text text={copyrightText} textStyle="body-xs" />}
-              {copyrightSubtext && <Text text={copyrightSubtext} textStyle="body-xs" />}
-
-              {/* Policy links (underlined) */}
-              {policyLinks && policyLinks.length > 0 && (
-                <div className={s.mobilePolicyLinks}>
-                  {policyLinks.map((item, i) => (
-                    <FooterLink key={i} item={item} className={s.policyLink} />
-                  ))}
-                </div>
-              )}
-            </div>
+          </div>
+          <div className={s.contacts}>
+            <Text
+              as="p"
+              textStyle="span"
+              className={s.copyright}
+              text={`Copyright ${year} &copy; ${copyrightBrand} <span class="${s.copyrightReg}">&reg;</span><br />${certificationPrefix} <a class="${s.copyrightLink}" href="${certificationUrl}" rel="noreferrer">${certificationLabel}</a>`}
+            />
           </div>
         </div>
       </div>
