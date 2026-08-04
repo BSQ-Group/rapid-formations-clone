@@ -54,6 +54,7 @@ import { WhatsIncludedSinglePackage } from '../../blocks/WhatsIncludedSinglePack
 import { WiseBusinessAccount } from '../../blocks/WiseBusinessAccount/config'
 import { ServicesTextWithCard } from '../../blocks/ServicesTextWithCard/config'
 import { RegisterOverseas } from '../../blocks/RegisterOverseas/config'
+import { RequiredInformation } from '../../blocks/RequiredInformation/config'
 import { ContentWithPricingCard } from '../../blocks/ContentWithPricingCard/config'
 import { ContentWithExtendedPricingCard } from '../../blocks/ContentWithExtendedPricingCard/config'
 import { HeroServicesBanner } from '../../blocks/HeroServicesBanner/config'
@@ -197,6 +198,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 Note,
                 RegisterOverseas,
                 CaseStudyVideo,
+                RequiredInformation,
               ],
               admin: {
                 initCollapsed: true,

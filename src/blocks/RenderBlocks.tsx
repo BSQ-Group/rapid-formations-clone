@@ -61,6 +61,7 @@ import { HowItWorksListBlock } from '@/blocks/HowItWorksList/Component'
 import { ServiceTextBlock } from '@/blocks/ServiceText/Component'
 import { NoteBlock } from '@/blocks/Note/Component'
 import { RegisterOverseasBlock } from '@/blocks/RegisterOverseas/Component'
+import { RequiredInformationBlock } from '@/blocks/RequiredInformation/Component'
 
 const blockComponents = {
   additionalServices: AdditionalServicesBlock,
@@ -122,6 +123,7 @@ const blockComponents = {
   serviceText: ServiceTextBlock,
   note: NoteBlock,
   registerOverseas: RegisterOverseasBlock,
+  requiredInformation: RequiredInformationBlock,
 }
 
 const noMarginBlocks: string[] = ['landingHero']
