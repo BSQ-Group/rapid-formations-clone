@@ -1,10 +1,22 @@
+import { unstable_cache } from 'next/cache'
+import { getPayload } from 'payload'
+import configPromise from '@payload-config'
+
 import { HeaderClient } from './Component.client'
-import { getCachedGlobal } from '@/utilities/getGlobals'
 
-import type { Header } from '@/payload-types'
+import type { Header as HeaderType } from '@/payload-types'
 
-export async function Header() {
-  const headerData: Header = (await getCachedGlobal('header', 1)()) as Header
+const getHeaderGlobal = unstable_cache(
+  async () => {
+    const payload = await getPayload({ config: configPromise })
+    return payload.findGlobal({ slug: 'header', depth: 1 })
+  },
+  ['global', 'header'],
+  { tags: ['global_header'] },
+)
 
-  return <HeaderClient data={headerData} />
+export async function Header({ onDark = false }: { onDark?: boolean }) {
+  const headerData = (await getHeaderGlobal()) as HeaderType
+
+  return <HeaderClient data={headerData} onDark={onDark} />
 }

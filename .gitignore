@@ -42,3 +42,17 @@ node_modules/
 
 # Local Claude Code runtime artifacts
 .claude/scheduled_tasks.lock
+
+# Scratch from the gatsby-section-to-payload-block skill
+page-*-backup-*.json
+content.json
+/shots/
+
+# Per-section scratch from the porting skill (measurements, extracted content,
+# downloaded assets). Regenerated on demand.
+/port/
+/page-compare/
+
+# Port working notes -- the per-decision record and the section map. Local only.
+.port-source-facts.json
+.port-site-map.json
