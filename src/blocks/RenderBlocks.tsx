@@ -145,22 +145,12 @@ export const RenderBlocks: React.FC<{
 
   const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0
 
-  // CORE-3620: on a page with both a FormationPackages and a ComparePackages
-  // block, the two render as one combined card+services carousel on tablet/
-  // mobile. Wire them up server-side (so SSR is correct — no post-hydration
-  // flash): FormationPackages renders the combined carousel <lg from the
-  // ComparePackages services; ComparePackages renders its desktop table only.
   const compareBlock = hasBlocks
     ? blocks.find((b) => b.blockType === 'comparePackages')
     : undefined
   const formationBlock = hasBlocks
     ? blocks.find((b) => b.blockType === 'formationPackages')
     : undefined
-  // Only combine when BOTH blocks will actually render the combined view:
-  // ComparePackages needs 3 plans + sections (it returns null otherwise), and
-  // FormationPackages renders the combined carousel only with >= 3 packages.
-  // If either falls short we must NOT hide ComparePackages <lg, or mobile users
-  // lose the comparison with nothing replacing it.
   const compareValid =
     Boolean(compareBlock) &&
     'plans' in compareBlock! &&
@@ -186,9 +176,6 @@ export const RenderBlocks: React.FC<{
             const Block = blockComponents[blockType] as React.ComponentType<typeof block>
 
             if (Block) {
-              // Pair the specific first FormationPackages + ComparePackages
-              // blocks by reference, so extra blocks of either type keep their
-              // own layout.
               const extraProps =
                 combinePackages && block === formationBlock
                   ? { combineWith: compareBlock }

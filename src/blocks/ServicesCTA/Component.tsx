@@ -27,16 +27,12 @@ export const ServicesCTABlock: React.FC<ServicesCTABlockProps> = ({
           <Media resource={backgroundImage} fill imgClassName="object-cover object-left" />
         </div>
       )}
-
       <div className={s.content}>
-        {/* Text + trust pill lock-up — pill above heading/description, gap-5 (20px) per Figma */}
         <div className={s.lockup}>
-          {/* Trust pill */}
           {(trustPillBoldPrefix || trustPillText || trustPillTextMobile) && (
             <div className={s.pill}>
               <div className={s.pillBorder} />
               <div className={s.pillFill} />
-              {/* Mobile: shorter text, hidden on md+ */}
               {(trustPillBoldPrefix || trustPillTextMobile) && (
                 <span className={s.pillTextMobile}>
                   {trustPillBoldPrefix && (
@@ -45,7 +41,6 @@ export const ServicesCTABlock: React.FC<ServicesCTABlockProps> = ({
                   {trustPillTextMobile}
                 </span>
               )}
-              {/* Tablet+: full text, hidden on mobile */}
               {(trustPillBoldPrefix || trustPillText) && (
                 <span className={s.pillTextDesktop}>
                   {trustPillBoldPrefix && (
@@ -56,8 +51,6 @@ export const ServicesCTABlock: React.FC<ServicesCTABlockProps> = ({
               )}
             </div>
           )}
-
-          {/* Heading + description */}
           <div className={s.textGroup}>
             <Text as="h2" textStyle="headline-4xl" text={title} className={s.heading} />
             {description && (
@@ -65,8 +58,6 @@ export const ServicesCTABlock: React.FC<ServicesCTABlockProps> = ({
             )}
           </div>
         </div>
-
-        {/* CTA button */}
         {ctaLink && (
           <Link href={getLinkHref(ctaLink as LinkData)}>
             <Button variant="primary" size="lg">

@@ -28,8 +28,6 @@ function CardImage({ bank, className }: { bank: Bank; className: string }) {
   )
 }
 
-// When the copy contains two sentences, force the break at the end-of-sentence `.`
-// so text-balance doesn't split mid-sentence.
 function formatSubtext(text: string): string {
   const match = text.match(/^(.*?[.!?])\s+(.+)$/)
   return match ? `${match[1]}\n${match[2]}` : text
@@ -97,7 +95,6 @@ export function BusinessBankAccountsCarousel({ heading, banks }: Props) {
   return (
     <div className={s.section} onMouseEnter={stopAutoplay} onMouseLeave={scheduleAutoplay}>
       {heading && <Text as="h2" textStyle="headline-5xl" text={heading} className={s.heading} />}
-
       <div className={s.carouselGroup}>
         <div
           className={s.carouselWrapper}
@@ -120,7 +117,6 @@ export function BusinessBankAccountsCarousel({ heading, banks }: Props) {
             className={`${s.carousel} ${direction === 'right' ? 'carousel-slide-right' : 'carousel-slide-left'}`}
           >
             <div className={s.sideCards}>
-              {/* Outermost card — clips at the left edge to bleed the strip full-width. */}
               <div className={s.sideCard}>
                 <CardImage bank={leftCard0} className={s.cardImage} />
               </div>
@@ -137,7 +133,6 @@ export function BusinessBankAccountsCarousel({ heading, banks }: Props) {
                 <CardImage bank={leftCard3} className={s.cardImage} />
               </div>
             </div>
-
             <div className={s.featuredContainer}>
               <div
                 key={animKey}
@@ -146,7 +141,6 @@ export function BusinessBankAccountsCarousel({ heading, banks }: Props) {
                 <CardImage bank={activeBank} className={s.featuredImage} />
               </div>
             </div>
-
             <div className={s.sideCards}>
               <div
                 className={`${s.sideCard} ${direction === 'left' && 'carousel-featured-out-right'}`}
@@ -160,14 +154,12 @@ export function BusinessBankAccountsCarousel({ heading, banks }: Props) {
               <div className={s.sideCard}>
                 <CardImage bank={rightCard3} className={s.cardImage} />
               </div>
-              {/* Outermost card — clips at the right edge to bleed the strip full-width. */}
               <div className={s.sideCard}>
                 <CardImage bank={rightCard4} className={s.cardImage} />
               </div>
             </div>
           </div>
         </div>
-
         <div className={s.footer}>
           <div className={s.nav}>
             <button
@@ -207,7 +199,6 @@ export function BusinessBankAccountsCarousel({ heading, banks }: Props) {
               <ChevronRight size={24} className={s.navIcon} />
             </button>
           </div>
-
           {activeBank.subtext && (
             <Text
               textStyle="body-sm"

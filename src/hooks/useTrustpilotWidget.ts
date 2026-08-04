@@ -15,23 +15,6 @@ interface UseTrustpilotWidgetOptions {
   once?: boolean
 }
 
-/**
- * Lazy-initialises one or more Trustpilot widget elements once they scroll
- * near the viewport. Polls for window.Trustpilot after the bootstrap script
- * loads, then calls loadFromElement on each element.
- *
- * Pass widgetRefs for the elements that need initialising. When omitted the
- * returned containerRef is used directly — suitable when the widget div is
- * also the scroll sentinel (TrustpilotCarousel pattern).
- *
- * Usage:
- *   // single widget, separate container
- *   const widgetRef = useRef<HTMLDivElement>(null)
- *   const { containerRef, inView } = useTrustpilotWidget([widgetRef])
- *
- *   // widget div is also the scroll sentinel
- *   const { containerRef, inView } = useTrustpilotWidget()
- */
 export function useTrustpilotWidget(
   widgetRefs: RefObject<HTMLElement | null>[] = [],
   options: UseTrustpilotWidgetOptions = {},
@@ -43,7 +26,6 @@ export function useTrustpilotWidget(
   useEffect(() => {
     if (!inView) return
 
-    // When no widget refs are supplied, the container itself is the widget.
     const targets: RefObject<HTMLElement | null>[] =
       widgetRefs.length > 0 ? widgetRefs : [containerRef as RefObject<HTMLElement | null>]
 
@@ -63,8 +45,6 @@ export function useTrustpilotWidget(
     return () => {
       if (timerRef.current !== null) clearTimeout(timerRef.current)
     }
-    // widgetRefs and containerRef are stable ref objects — intentionally omitted
-    // from deps. Only inView controls when loading should fire.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inView])
 

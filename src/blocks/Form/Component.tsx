@@ -57,7 +57,6 @@ export const FormBlock: React.FC<
           value,
         }))
 
-        // delay loading indicator by 1s
         loadingTimerID = setTimeout(() => {
           setIsLoading(true)
         }, 1000)
@@ -150,7 +149,6 @@ export const FormBlock: React.FC<
                     return null
                   })}
               </div>
-
               <Button form={formID} type="submit" variant="primary">
                 {submitButtonLabel}
               </Button>

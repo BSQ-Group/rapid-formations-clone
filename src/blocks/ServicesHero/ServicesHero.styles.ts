@@ -1,12 +1,10 @@
 export const servicesHeroStyles = {
-  // Match `landingHeroStyles.section` vertical rhythm (min height + md centering).
   section:
     'relative w-full flex flex-col items-center md:justify-center min-h-[703px] md:min-h-[827px] lg:min-h-[572px] overflow-x-clip',
   inner:
     'mx-auto max-w-[1200px] w-full px-4 md:px-10 pb-20 md:pb-0 ' +
     'flex flex-col lg:flex-row items-center gap-10 lg:gap-12',
 
-  // ─── Left column ───
   leftCol:
     'w-full lg:flex-1 flex flex-col gap-7 items-center lg:items-start text-center lg:text-left',
   heading: 'text-[var(--text-strong)]',
@@ -15,28 +13,21 @@ export const servicesHeroStyles = {
   priceText: 'text-[var(--text-strong)]',
   priceSuffix: 'text-[var(--text-subtle)]',
 
-  // ─── Right column — image area ───
-  // Per-breakpoint pixel positions. See CLAUDE.md → "Per-breakpoint exceptions".
   rightCol: 'w-full lg:flex-[0_0_560px]',
   imageArea: 'relative h-[299px] md:h-[451px] lg:h-[480px] w-full',
 
-  // Main image (large Covent Garden interior)
   mainImage:
     'absolute left-0 top-0 rounded-xl overflow-hidden ' +
     'w-[252px] h-[176px] ' +
     'md:left-6 md:top-0 md:w-[399px] md:h-[279px] md:rounded-2xl ' +
     'lg:left-[-24px] lg:top-7 lg:w-[420px] lg:h-[294px]',
 
-  // Secondary image (small shutterstock — hidden on mobile)
   secondaryImage:
     'absolute overflow-hidden rounded-xl ' +
     'hidden ' +
     'md:block md:left-[177px] md:top-[269px] md:w-[270px] md:h-[182px] ' +
     'lg:left-[95px] lg:top-[309px] lg:w-[240px] lg:h-[162px]',
 
-  // ─── Floating address card ───
-  // Width is content-driven; chrome scales per Figma per breakpoint.
-  // See CLAUDE.md → "Per-breakpoint exceptions".
   addressCard:
     'absolute z-10 bg-white rounded-xl shadow-2xl ring-8 ring-white/20 ' +
     'flex flex-col gap-4 p-5 ' +

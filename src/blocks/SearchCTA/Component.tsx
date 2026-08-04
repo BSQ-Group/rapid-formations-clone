@@ -46,15 +46,12 @@ export const SearchCTABlock: React.FC<SearchCTABlockProps> = ({
     <SectionWrapper {...sectionLayout} className={s.section}>
       <div className={s.inner}>
         <div className={s.card}>
-          {/* Background — uploaded image, or CSS gradient fallback */}
           {image && typeof image === 'object' ? (
             <Media resource={image} fill imgClassName="object-cover" />
           ) : (
             <div className={s.cardGradient} aria-hidden />
           )}
-
           <div className={s.content}>
-            {/* Trust pill */}
             {(trustPillText || trustPillTextMobile) && (
               <div className={s.pill}>
                 <div className={s.pillBorder} />
@@ -72,8 +69,6 @@ export const SearchCTABlock: React.FC<SearchCTABlockProps> = ({
                 )}
               </div>
             )}
-
-            {/* Heading + subtitle */}
             <div className={s.textGroup}>
               <Text
                 as="h2"
@@ -89,8 +84,6 @@ export const SearchCTABlock: React.FC<SearchCTABlockProps> = ({
                 />
               )}
             </div>
-
-            {/* Input row */}
             <div className={s.inputWrap}>
               <input
                 ref={inputRef}
@@ -99,7 +92,6 @@ export const SearchCTABlock: React.FC<SearchCTABlockProps> = ({
                 className={s.inputField}
                 onKeyDown={handleKeyDown}
               />
-              {/* Text button — md+ */}
               <Button
                 variant="primary"
                 size="lg"
@@ -108,7 +100,6 @@ export const SearchCTABlock: React.FC<SearchCTABlockProps> = ({
               >
                 {submitButtonText ?? 'Check availability'}
               </Button>
-              {/* Icon button — mobile */}
               <Button
                 variant="primary"
                 size="icon"
@@ -119,8 +110,6 @@ export const SearchCTABlock: React.FC<SearchCTABlockProps> = ({
                 <LucideIcon name="ArrowRight" size={20} />
               </Button>
             </div>
-
-            {/* Footer note */}
             {footerNote && (
               <Text
                 textStyle="body-xs"

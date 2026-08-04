@@ -8,7 +8,6 @@ export const whatsIncludedStyles = {
     'gap-14 lg:gap-10',
   ].join(' '),
 
-  // Left column — text content (480px on mobile/tablet stacked, 484px at desktop side-by-side)
   textCol: 'flex min-w-0 flex-col gap-6 w-full md:w-[480px] lg:w-[484px] lg:shrink-0',
   heading: 'text-[var(--text-strong)] text-[36px] leading-[40px] md:text-4xl md:leading-[40px] lg:text-5xl',
 
@@ -56,7 +55,6 @@ export const whatsIncludedStyles = {
     'flex flex-col gap-10 sm:gap-14',
   ].join(' '),
 
-  // Text row: stacked on mobile, side-by-side from sm+
   stackedTextRow: 'flex flex-col gap-6 sm:flex-row sm:gap-8 sm:items-start',
   stackedTitleCol: 'flex flex-col gap-3 sm:flex-1 min-w-0',
 
@@ -74,14 +72,11 @@ export const whatsIncludedStyles = {
     'flex flex-col gap-4',
   ].join(' '),
 
-  // Card header: stacked on mobile, row (title-left / button-right) from sm+
   stackedCardHeader: 'flex flex-col gap-4 sm:flex-row sm:items-end',
   stackedCardHeaderText: 'flex flex-col gap-2 sm:flex-1 min-w-0',
 
-  // Order button wrapper: full-width on mobile, auto from sm+
   stackedOrderButtonWrapper: 'w-full sm:w-auto shrink-0',
 
-  // Benefits: single column on mobile, CSS 2-column from sm+
   stackedBenefitsList: 'sm:columns-2 sm:gap-6',
   stackedBenefitItem: 'flex items-center gap-2 py-1 break-inside-avoid',
 } as const

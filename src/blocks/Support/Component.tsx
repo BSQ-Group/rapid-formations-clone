@@ -26,13 +26,11 @@ export const SupportBlock: React.FC<Props> = ({ heading, image, stats, sectionLa
             <Text as="h2" textStyle="headline-5xl" text={heading} className={s.heading} />
           </div>
         )}
-
         {image && getMediaUrl(image) && (
           <div className={s.imageWrapper}>
             <Image src={getMediaUrl(image)} alt={getMediaAlt(image)} fill className={s.image} />
           </div>
         )}
-
         {stats && stats.length > 0 && (
           <div className={s.statsList}>
             {stats.map((stat, index) => (

@@ -71,11 +71,8 @@ export default async function Page({ params: paramsPromise }: Args) {
       {hasBanner && <TrustPilotBannerBlock {...(firstBlock as TrustPilotBannerBlockType)} />}
       <Header onDark={Boolean(isHeaderOnDark)} />
       <main>
-        {/* Allows redirects for valid pages too */}
         <PayloadRedirects disableNotFound url={url} />
-
         {draft && <LivePreviewListener />}
-
         <RenderHero {...hero} />
         <RenderBlocks blocks={remainingBlocks} />
       </main>
@@ -96,8 +93,6 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
 const queryPageByUrl = cache(async ({ url, draft }: { url: string; draft: boolean }) => {
   const payload = await getPayload({ config: configPromise })
 
-  // Primary: fullPath is a flat indexed field set to the page's own URL only,
-  // avoiding false matches against ancestor entries in the breadcrumbs array.
   let result = await payload.find({
     collection: 'pages',
     draft,
@@ -109,7 +104,6 @@ const queryPageByUrl = cache(async ({ url, draft }: { url: string; draft: boolea
     },
   })
 
-  // Fallback for pages not yet re-saved after nested-docs plugin was enabled
   if (!result.docs?.length) {
     const slug = url.split('/').filter(Boolean).pop() ?? ''
     result = await payload.find({

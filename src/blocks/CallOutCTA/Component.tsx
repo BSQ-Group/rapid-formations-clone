@@ -15,7 +15,6 @@ export const CallOutCTABlock: React.FC<Props> = ({ heading, image, searchPlaceho
   return (
     <SectionWrapper {...sectionLayout} className={s.section}>
       <div className={s.card}>
-        {/* Image — top on mobile, right column on desktop (via flex-row-reverse) */}
         {image && (
           <div className={s.imageWrapper}>
             <Media
@@ -25,11 +24,8 @@ export const CallOutCTABlock: React.FC<Props> = ({ heading, image, searchPlaceho
             />
           </div>
         )}
-
-        {/* Content — bottom on mobile, left column on desktop */}
         <div className={s.content}>
           <Text as="h2" textStyle="headline-5xl" text={heading} className={s.heading} />
-
           <div className={s.searchInput}>
             <input
               type="text"

@@ -2,7 +2,6 @@ export type SemanticTag = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span'
 
 export type TextProps = {
   asChild?: boolean
-  /** Override the emitted HTML tag without changing visual styling (textStyle). Use for semantic a11y fixes where the document outline needs a specific level but the design calls for a different visual size. */
   as?: SemanticTag
   text?: string | string[]
   textStyle?:
@@ -43,7 +42,6 @@ export type TextProps = {
   variant?: any
   className?: any | any[]
   onClick?: () => void
-  /** Hide decorative text from assistive tech (e.g. a manual list ordinal whose order is already conveyed by the surrounding <ol>). */
   'aria-hidden'?: React.AriaAttributes['aria-hidden']
   children?: React.ReactNode
   icons?: {

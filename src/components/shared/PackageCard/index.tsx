@@ -32,15 +32,10 @@ export function PackageCard({
 }: PackageCardProps) {
   const dark = Boolean(isHighlighted)
 
-  // When contentBlock is set, the header + price-block share a single row so the price/CTA
-  // can sit to the right of the title (hero layout). Otherwise they render as direct card
-  // children (stacked / subgrid layout) — Fragment keeps the DOM identical to before.
   const ContentWrap = s.contentBlock ? 'div' : React.Fragment
   const contentWrapProps = s.contentBlock ? { className: s.contentBlock } : {}
 
   const showDivider = Boolean(s.divider)
-  // findOutMore div always renders when styles define the key (supports CSS subgrid layouts
-  // where each card needs a consistent 4th row even when there is no link to show).
   const hasFindOutMoreRow = s.findOutMore !== undefined
   const showFindOutMoreContent =
     Boolean(s.findOutMore) && showFindOutMoreLink !== false && Boolean(findOutMoreLink?.label)
@@ -62,7 +57,6 @@ export function PackageCard({
               </Badge>
             )}
           </div>
-
           {description && (
             <Text
               text={description}
@@ -71,8 +65,6 @@ export function PackageCard({
             />
           )}
         </div>
-
-        {/* Price + order button — grouped together when priceBlock is set, legacy layout otherwise */}
         <div className={s.priceBlock ?? ''}>
           <div className={s.priceRow}>
             <Text
@@ -88,7 +80,6 @@ export function PackageCard({
               />
             )}
           </div>
-
           {orderLink && (
             <div className={s.orderButton}>
               <Link
@@ -104,9 +95,7 @@ export function PackageCard({
           )}
         </div>
       </ContentWrap>
-
       {showDivider && <hr className={cn(s.divider, dark ? s.dividerDark : s.dividerLight)} />}
-
       <div className={s.benefitsContainer}>
         {prefixText && (
           <Text
@@ -115,7 +104,6 @@ export function PackageCard({
             className={cn(s.prefixText, dark ? s.prefixTextDark : s.prefixTextLight)}
           />
         )}
-
         <ul className={s.benefitsList}>
           {benefits?.map((item, i) => (
             <li key={item.id ?? i} className={s.benefitItem}>
@@ -140,7 +128,6 @@ export function PackageCard({
           ))}
         </ul>
       </div>
-
       {hasFindOutMoreRow && (
         <div className={s.findOutMore ?? ''}>
           {showFindOutMoreContent && findOutMoreLink && (

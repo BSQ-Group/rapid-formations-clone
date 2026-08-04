@@ -46,7 +46,6 @@ export const AboutThisServiceBlock: React.FC<AboutThisServiceBlockProps> = ({
         {title && (
           <Text text={title} as="h2" textStyle="headline-5xl" className={s.title} />
         )}
-
         {paragraphs && paragraphs.length > 0 && (
           <div className={s.paragraphs}>
             {paragraphs.map((p) => (
@@ -54,7 +53,6 @@ export const AboutThisServiceBlock: React.FC<AboutThisServiceBlockProps> = ({
             ))}
           </div>
         )}
-
         {(noteLabel || noteText) && (
           <p className={s.note}>
             {noteLabel && (
@@ -70,7 +68,6 @@ export const AboutThisServiceBlock: React.FC<AboutThisServiceBlockProps> = ({
             )}
           </p>
         )}
-
         <div className={s.ctaRow}>
           <div className={s.ctaInline}>
             {orderLink?.url && (
@@ -80,7 +77,6 @@ export const AboutThisServiceBlock: React.FC<AboutThisServiceBlockProps> = ({
             )}
             {price && <Text text={price} textStyle="body-sm" className={s.price} />}
           </div>
-
           {showTrustpilot && (
             <TrustpilotWidget
               template="microTrustScore"
@@ -91,12 +87,10 @@ export const AboutThisServiceBlock: React.FC<AboutThisServiceBlockProps> = ({
           )}
         </div>
       </div>
-
       <div className={s.packageCard}>
         {cardImage && typeof cardImage === 'object' && (
           <Media resource={cardImage} fill imgClassName={s.packageImage} />
         )}
-
         {features?.slice(0, 3).map((feature, i) => {
           const layer = FLOATING_LAYERS[i]
           if (!layer) return null

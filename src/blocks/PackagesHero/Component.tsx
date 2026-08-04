@@ -29,7 +29,6 @@ export const PackagesHeroBlock: React.FC<PackagesHeroBlockProps> = ({
   return (
     <section className={s.section}>
       <div className={s.inner}>
-        {/* Left column */}
         <div className={s.leftCol}>
           <Text as="h1" textStyle="headline-6xl" text={heading} className={s.heading} />
           {subtitle && <Text textStyle="body-sm" text={subtitle} className={s.subtitle} />}
@@ -46,18 +45,13 @@ export const PackagesHeroBlock: React.FC<PackagesHeroBlockProps> = ({
             </ul>
           )}
         </div>
-
-        {/* Right column — image + floating cards */}
         <div className={s.rightCol}>
           <div className={s.imageArea}>
-            {/* Hero image */}
             <div className={s.imageWrap}>
               {heroImage && typeof heroImage === 'object' && (
                 <Media resource={heroImage} fill imgClassName={s.imageInner} />
               )}
             </div>
-
-            {/* Top card — top-right of image */}
             {topCard?.title && (
               <div className={cn(s.cardChrome, hasFourCards ? s.topCard4 : s.topCard)}>
                 <div className={s.cardIconWrap}>
@@ -95,8 +89,6 @@ export const PackagesHeroBlock: React.FC<PackagesHeroBlockProps> = ({
                 </div>
               </div>
             )}
-
-            {/* Top extra card — near top-right, smaller, hidden on mobile */}
             {topCardExtra?.title && (
               <div className={cn(s.cardChromeSmall, s.topCardExtraPos)}>
                 <div className={s.cardIconWrapSmall}>
@@ -139,8 +131,6 @@ export const PackagesHeroBlock: React.FC<PackagesHeroBlockProps> = ({
                 </div>
               </div>
             )}
-
-            {/* Bottom extra card — near bottom-left, smaller */}
             {bottomCardExtra?.title && (
               <div className={cn(s.cardChromeSmall, s.bottomCardExtraPos)}>
                 <div className={s.cardIconWrapSmall}>
@@ -166,8 +156,6 @@ export const PackagesHeroBlock: React.FC<PackagesHeroBlockProps> = ({
                 </div>
               </div>
             )}
-
-            {/* Bottom card — bottom-left of image */}
             {bottomCard?.title && (
               <div className={cn(s.cardChrome, hasFourCards ? s.bottomCard4 : s.bottomCard)}>
                 <div className={s.cardIconWrap}>

@@ -1,7 +1,3 @@
-// Floating-card sizes are pulled per-breakpoint from Figma. Positions stay
-// as percentages of the package card (Figma keeps them constant across all
-// four viewports), but every dimension (gap, padding, radius, icon, font,
-// line-height) is the rounded Figma px for that breakpoint.
 export const aboutThisServiceStyles = {
   section: [
     'flex flex-col items-center gap-14 px-4',

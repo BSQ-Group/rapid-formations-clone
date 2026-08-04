@@ -32,7 +32,6 @@ interface InfoTooltipProps {
   content?: DefaultTypedEditorState | null
   text?: string | null
   dark?: boolean
-  /** Icon size in px. Defaults to 16 to match the FormationPackages benefits list. */
   iconSize?: number
   icon?: React.ReactNode
   trigger?: React.ReactNode

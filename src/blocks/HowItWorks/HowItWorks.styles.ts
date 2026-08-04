@@ -13,7 +13,6 @@ export const howItWorksStyles = {
   heading: 'text-[var(--text-strong)]',
   description: 'text-[var(--text-subtle)] max-w-[600px] lg:max-w-none',
 
-  // ── Mobile column (< md) ──
   mobileCol: 'w-full flex flex-col gap-4 md:hidden',
 
   // ── Tablet carousel (md only) ──
@@ -26,7 +25,6 @@ export const howItWorksStyles = {
     '[&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]',
   ].join(' '),
 
-  // Carousel arrows — absolutely positioned bottom-right, tablet only
   arrowsOuter: 'hidden md:flex lg:hidden absolute bottom-0 right-8 flex-row gap-4',
 
   // ── Desktop / laptop row (lg+) ──
@@ -47,7 +45,6 @@ export const howItWorksStyles = {
 
   cardImageWrap: 'relative w-full h-56 md:h-[340px] overflow-hidden',
 
-  // ── Card text area ──
   cardBody: 'flex flex-col gap-3 pt-6 pb-7 px-6',
 
   stepNumber: 'font-semibold text-[var(--text-strong)]',
@@ -62,11 +59,9 @@ export const howItWorksStyles = {
     'flex flex-row gap-3 items-start p-3',
   ].join(' '),
 
-  // Absolutely-positioned overlays (cards 1 & 2)
   overlay1Pos: 'absolute bottom-7 left-1/2 -translate-x-1/2 whitespace-nowrap',
   overlay2Pos: 'absolute top-[36%] -translate-y-1/2 left-1/2 -translate-x-1/2 whitespace-nowrap',
 
-  // Card 3 — inbox group anchors both header and email card together at bottom
   inboxGroup: 'absolute bottom-6 left-4 right-4 flex flex-col gap-2',
 
   overlayIconWrap: [
@@ -83,11 +78,9 @@ export const howItWorksStyles = {
   overlaySubBold: 'font-semibold text-[10px] leading-4 text-[var(--text-subtle)]',
   overlaySub: 'text-[10px] mt-[-3px] leading-4 text-[var(--text-subtle)] whitespace-nowrap',
 
-  // Progress bar (Card 2)
   progressTrack: 'w-full h-1 rounded-full bg-[var(--surface-canvas)]',
   progressFill: 'h-full w-3/4 rounded-full bg-[var(--surface-accent)]',
 
-  // Inbox header (Card 3) — relative inside inboxGroup
   inboxHeader: 'flex items-center justify-between',
 
   inboxLabel: 'font-semibold text-xs leading-4 text-white',
@@ -103,7 +96,6 @@ export const howItWorksStyles = {
     'shadow-[0_25px_50px_0_rgba(98,98,113,0.25)]',
   ].join(' '),
 
-  // ── CTA row ──
   ctaRow: 'flex flex-row items-center gap-4',
   priceText: 'font-semibold text-[var(--text-subtle)]',
 } as const

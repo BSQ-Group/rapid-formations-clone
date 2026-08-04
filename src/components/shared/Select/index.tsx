@@ -14,7 +14,6 @@ export interface SelectOption {
   icon?: ReactNode
 }
 
-// Define trigger variants
 const selectTriggerVariants = cva(
   'select__trigger flex items-center justify-between rounded-[6px] border-[length:var(--control-input-border-width)] border-[var(--border-subtle)] px-4 text-[var(--text-strong)] outline-none focus:border-[var(--control-input-border-focus)]',
   {
@@ -49,7 +48,6 @@ const selectTriggerVariants = cva(
   },
 )
 
-// Define item variants
 const selectItemVariants = cva(
   'select__item relative flex w-full cursor-pointer select-none items-center justify-between rounded-[2px] px-2 py-1.5 text-sm outline-none transition-colors',
   {
@@ -83,12 +81,10 @@ const selectItemVariants = cva(
   },
 )
 
-// Checkbox cell: Figma Select/Light — white field, 1px subtle border, 4px radius (semantic tokens)
 const checkboxVariants = cva(
   'select__checkbox box-border flex h-4 w-4 shrink-0 items-center justify-center rounded border border-[var(--border-subtle)] bg-[var(--control-input-background-light)] text-[var(--text-strong)]',
 )
 
-// Check mark: ~14px, 1.5px stroke, #1C1D24 — use text-strong; hidden when unchecked
 const checkIconVariants = cva('select__check-icon h-[14px] w-[14px] stroke-[1.5px]', {
   variants: {
     checked: {
@@ -101,7 +97,6 @@ const checkIconVariants = cva('select__check-icon h-[14px] w-[14px] stroke-[1.5p
   },
 })
 
-// Export variant types
 export type SelectSize = 'small' | 'large'
 export type SelectState = 'default' | 'error' | 'disabled'
 export type SelectBackground = 'light' | 'dark'
@@ -155,9 +150,6 @@ export const Select: FC<SelectProps> = ({
   const internalChangeRef = useRef(false)
   const searchInputRef = useRef<HTMLInputElement>(null)
 
-  // Search variant only:
-  // Radix Select runs focusSelectedItem in a passive effect after popper positions (isPositioned).
-  // Defer past that so the search input keeps focus (FocusScope also prevents mount autoFocus).
   useEffect(() => {
     if (!open || variant !== 'search') return
 
@@ -169,12 +161,10 @@ export const Select: FC<SelectProps> = ({
     }
   }, [open, variant])
 
-  // Filter options based on search term
   const filteredOptions = options.filter((option) =>
     option.label.toLowerCase().includes(searchTerm.toLowerCase()),
   )
 
-  // Determine state based on disabled and error props
   const resolvedState = disabled ? 'disabled' : error ? 'error' : state || 'default'
 
   const handleValueChange = (val: string) => {
@@ -196,7 +186,6 @@ export const Select: FC<SelectProps> = ({
   }
 
   const handleOpenChange = (isOpen: boolean) => {
-    // If it's multiselect and we're closing due to selection (not outside click)
     if (multiSelect && !isOpen && internalChangeRef.current) {
       internalChangeRef.current = false
       return // Don't close the dropdown
@@ -212,7 +201,6 @@ export const Select: FC<SelectProps> = ({
     return value === val
   }
 
-  // Initialize selectedOptions from value prop when it changes
   React.useEffect(() => {
     if (value && multiSelect) {
       setSelectedOptions(value.split(','))
@@ -228,7 +216,6 @@ export const Select: FC<SelectProps> = ({
       className={cn('select__wrapper', background === 'dark' && 'select__wrapper--dark', className)}
     >
       {label && <label className="select__label">{label}</label>}
-
       <SelectPrimitive.Root
         defaultValue={defaultValue}
         value={value}
@@ -269,7 +256,6 @@ export const Select: FC<SelectProps> = ({
             )}
           </div>
         </SelectPrimitive.Trigger>
-
         <SelectPrimitive.Portal>
           <SelectPrimitive.Content
             className={cn(
@@ -361,7 +347,6 @@ export const Select: FC<SelectProps> = ({
           </SelectPrimitive.Content>
         </SelectPrimitive.Portal>
       </SelectPrimitive.Root>
-
       {error && (
         <section className="flex items-center gap-2">
           {errorIcon}
@@ -372,7 +357,6 @@ export const Select: FC<SelectProps> = ({
   )
 }
 
-// Export variant utilities for use in other components
 export { selectTriggerVariants, selectItemVariants, checkboxVariants, checkIconVariants }
 
 export default Select

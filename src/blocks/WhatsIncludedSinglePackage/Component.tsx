@@ -24,12 +24,10 @@ export const WhatsIncludedSinglePackageBlock: React.FC<
         <div className={s.titleBlock}>
           <Text as="h2" text={heading} textStyle="span" className={s.title} />
         </div>
-
         <div className={s.table}>
           <div className={s.header}>
             <Text as="span" textStyle="span" text={packageName} className={s.headerLabel} />
           </div>
-
           {features?.map((feature, index) => (
             <div
               key={feature.id || index}
@@ -72,7 +70,6 @@ export const WhatsIncludedSinglePackageBlock: React.FC<
               />
             </div>
           ))}
-
           <div className={s.ctaRow}>
             <div className={s.ctaInner}>
               <div className={s.ctaContent}>

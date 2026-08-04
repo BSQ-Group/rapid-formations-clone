@@ -21,7 +21,6 @@ export const OtherWaysToBuyBlock: React.FC<OtherWaysToBuyBlockProps> = ({
       <div className={s.header}>
         <Text text={heading} as="h2" textStyle="headline-5xl" className={s.heading} />
       </div>
-
       <div className={s.cards}>
         {ways?.map((way, idx) => (
           <React.Fragment key={way.id ?? idx}>
@@ -35,7 +34,6 @@ export const OtherWaysToBuyBlock: React.FC<OtherWaysToBuyBlockProps> = ({
                 <span />
               </Text>
             )}
-
             <article className={s.card}>
               <Text
                 text={String(idx + 1).padStart(2, '0')}
@@ -45,7 +43,6 @@ export const OtherWaysToBuyBlock: React.FC<OtherWaysToBuyBlockProps> = ({
               >
                 <span />
               </Text>
-
               <div className={s.cardBody}>
                 <div className={s.titleAndText}>
                   <Text
@@ -63,7 +60,6 @@ export const OtherWaysToBuyBlock: React.FC<OtherWaysToBuyBlockProps> = ({
                     />
                   )}
                 </div>
-
                 {way.cta?.label && (
                   <div className={s.ctaRow}>
                     <Link

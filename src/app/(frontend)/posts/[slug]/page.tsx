@@ -44,7 +44,6 @@ type Args = {
 export default async function Post({ params: paramsPromise }: Args) {
   const { isEnabled: draft } = await draftMode()
   const { slug = '' } = await paramsPromise
-  // Decode to support slugs with special characters
   const decodedSlug = decodeURIComponent(slug)
   const url = '/posts/' + decodedSlug
   const post = await queryPostBySlug({ slug: decodedSlug })
@@ -55,13 +54,9 @@ export default async function Post({ params: paramsPromise }: Args) {
     <>
       <Header />
       <article className="pt-16 pb-16">
-        {/* Allows redirects for valid pages too */}
         <PayloadRedirects disableNotFound url={url} />
-
         {draft && <LivePreviewListener />}
-
         <PostHero post={post} />
-
         <div className="flex flex-col items-center gap-4 pt-8">
           <div className="container">
             <RichText className="max-w-[48rem] mx-auto" data={post.content} enableGutter={false} />
@@ -80,7 +75,6 @@ export default async function Post({ params: paramsPromise }: Args) {
 
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
   const { slug = '' } = await paramsPromise
-  // Decode to support slugs with special characters
   const decodedSlug = decodeURIComponent(slug)
   const post = await queryPostBySlug({ slug: decodedSlug })
 

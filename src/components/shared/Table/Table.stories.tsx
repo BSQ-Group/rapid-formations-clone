@@ -33,7 +33,6 @@ const meta: Meta<typeof Table> = {
 export default meta
 type Story = StoryObj<typeof Table>
 
-// Standard Table
 export const DefaultVariant: Story = {
   parameters: {
     docs: {
@@ -78,7 +77,6 @@ export const DefaultVariant: Story = {
   ),
 }
 
-// Card variant
 export const CardVariant: Story = {
   parameters: {
     docs: {
@@ -123,7 +121,6 @@ export const CardVariant: Story = {
   ),
 }
 
-// With Status Tags
 export const WithStatusTags: Story = {
   render: () => (
     <Table>
@@ -166,7 +163,6 @@ export const WithStatusTags: Story = {
   ),
 }
 
-// With Actions
 export const WithActions: Story = {
   render: () => (
     <Table>
@@ -211,7 +207,6 @@ export const WithActions: Story = {
   ),
 }
 
-// Sortable columns
 const sortableSampleData = [
   { id: 1, name: 'SALT N PEPPA LTD', status: 'Incorporated', number: '87654321', date: '2024-01-15' },
   { id: 2, name: 'Zerofy Ltd', status: 'In Progress', number: '12345678', date: '2024-03-20' },

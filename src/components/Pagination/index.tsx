@@ -39,13 +39,11 @@ export const Pagination: React.FC<{
               }}
             />
           </PaginationItem>
-
           {hasExtraPrevPages && (
             <PaginationItem>
               <PaginationEllipsis />
             </PaginationItem>
           )}
-
           {hasPrevPage && (
             <PaginationItem>
               <PaginationLink
@@ -57,7 +55,6 @@ export const Pagination: React.FC<{
               </PaginationLink>
             </PaginationItem>
           )}
-
           <PaginationItem>
             <PaginationLink
               isActive
@@ -68,7 +65,6 @@ export const Pagination: React.FC<{
               {page}
             </PaginationLink>
           </PaginationItem>
-
           {hasNextPage && (
             <PaginationItem>
               <PaginationLink
@@ -80,13 +76,11 @@ export const Pagination: React.FC<{
               </PaginationLink>
             </PaginationItem>
           )}
-
           {hasExtraNextPages && (
             <PaginationItem>
               <PaginationEllipsis />
             </PaginationItem>
           )}
-
           <PaginationItem>
             <PaginationNext
               aria-disabled={!hasNextPage}

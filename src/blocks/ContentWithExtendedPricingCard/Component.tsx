@@ -22,9 +22,7 @@ export const ContentWithExtendedPricingCardBlock: React.FC<
   return (
     <SectionWrapper {...sectionLayout} className={s.section}>
       <div className={s.container}>
-        {/* Left content column */}
         <div className={s.contentCol}>
-          {/* Big title + intro */}
           <div className={s.contentSection}>
             {title && (
               <Text as="h2" textStyle="headline-5xl" text={title} className={s.bigTitle} />
@@ -46,7 +44,6 @@ export const ContentWithExtendedPricingCardBlock: React.FC<
                       className={s.sectionHeading}
                     />
                   )}
-
                   {section.bulletItems && section.bulletItems.length > 0 && (
                     <ul className={s.itemsList}>
                       {section.bulletItems.map((item) => (
@@ -62,10 +59,7 @@ export const ContentWithExtendedPricingCardBlock: React.FC<
             </div>
           )}
         </div>
-
-        {/* Right extended pricing card */}
         <div className={s.card}>
-          {/* Price details */}
           <div className={s.priceDetails}>
             <div className={s.priceGroup}>
               {card?.price && (
@@ -75,7 +69,6 @@ export const ContentWithExtendedPricingCardBlock: React.FC<
                 <Text textStyle="body-lg" text={card.serviceLabel} className={s.serviceLabel} />
               )}
             </div>
-
             {showCta && (
               <Link
                 href={ctaHref}
@@ -88,11 +81,8 @@ export const ContentWithExtendedPricingCardBlock: React.FC<
               </Link>
             )}
           </div>
-
-          {/* Details container (optional content) */}
           {(showFeature || showDetails) && (
             <div className={s.detailsContainer}>
-              {/* Feature block */}
               {showFeature && (
                 <div className={s.feature}>
                   {feature?.title && (
@@ -113,8 +103,6 @@ export const ContentWithExtendedPricingCardBlock: React.FC<
                   )}
                 </div>
               )}
-
-              {/* Details & Costs */}
               {showDetails && (
                 <div className={s.detailsAndCosts}>
                   {card?.detailsTitle && (

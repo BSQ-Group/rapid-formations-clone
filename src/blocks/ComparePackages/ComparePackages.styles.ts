@@ -6,7 +6,6 @@ export const comparePackagesStyles = {
     'px-4 md:px-8 lg:px-10',
   ].join(' '),
 
-  // ── Heading ──────────────────────────────────────────────
   headingWrap: 'flex flex-col gap-2 w-full',
 
   heading: [
@@ -191,7 +190,6 @@ export const comparePackagesStyles = {
 
   cardFeatureTierIcon: 'flex items-center justify-center shrink-0 w-8 h-8',
 
-  // ── Icons ────────────────────────────────────────────────
   checkIcon: 'text-[var(--icon-accent)] w-8 h-8',
   minusIcon: 'text-[var(--icon-background-muted)] w-8 h-8',
 } as const

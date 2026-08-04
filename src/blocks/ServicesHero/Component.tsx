@@ -19,7 +19,6 @@ export const ServicesHeroBlock: React.FC<ServicesHeroBlockProps> = ({
   return (
     <SectionWrapper {...sectionLayout} className={s.section}>
       <div className={s.inner}>
-        {/* Left column */}
         <div className={s.leftCol}>
           <Text as="h1" textStyle="headline-6xl" text={title} className={s.heading} />
           {description && (
@@ -34,25 +33,18 @@ export const ServicesHeroBlock: React.FC<ServicesHeroBlockProps> = ({
             </div>
           )}
         </div>
-
-        {/* Right column — images */}
         <div className={s.rightCol}>
           <div className={s.imageArea}>
-            {/* Main image */}
             {heroImage1 && typeof heroImage1 === 'object' && (
               <div className={s.mainImage}>
                 <Media resource={heroImage1} fill />
               </div>
             )}
-
-            {/* Secondary image — hidden on mobile */}
             {heroImage2 && typeof heroImage2 === 'object' && (
               <div className={s.secondaryImage}>
                 <Media resource={heroImage2} fill />
               </div>
             )}
-
-            {/* Floating address card */}
             {addressCard?.companyName && (
               <div className={s.addressCard}>
                 <div className={s.addressIconRow}>

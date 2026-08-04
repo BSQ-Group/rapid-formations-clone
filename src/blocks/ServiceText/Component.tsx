@@ -25,12 +25,10 @@ export const ServiceTextBlock: React.FC<ServiceTextBlockProps> = ({
             <Text as="p" textStyle="body-base" text={description} className={s.description} />
           )}
         </div>
-
         <div className={s.listCol}>
           {listTitle && (
             <Text as="h3" textStyle="headline-3xl" text={listTitle} className={s.listTitle} />
           )}
-
           {items && items.length > 0 && (
             <div className={s.itemsWrap}>
               {[

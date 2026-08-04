@@ -17,18 +17,14 @@ export const servicesTestimonialStyles = {
     'flex flex-col items-center justify-center',
   ].join(' '),
 
-  // Quote column
   quoteCol: 'order-1 md:order-2 w-full md:flex-1 flex flex-col gap-11 items-start',
 
-  // Quote mark icon — inline SVG uses currentColor for the quote paths
   quoteMark: 'shrink-0 text-[var(--icon-accent)]',
 
   quoteAndMark: 'flex flex-col gap-4 w-full',
 
-  // Quote text — no preset matches font-normal at 24px; use span escape hatch
   quoteText: 'font-normal text-[var(--text-strong)] text-xl leading-7 lg:text-2xl lg:leading-8',
 
-  // Author footer
   footer: 'flex flex-col gap-3 w-full',
   authorName: 'font-semibold text-[var(--text-strong)]',
   authorRole: 'text-[var(--text-subtle)]',

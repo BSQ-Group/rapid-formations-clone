@@ -82,13 +82,10 @@ export const ServiceRestricted: React.FC<ServiceRestrictedProps> = ({
           <div className="service-restricted__icon-wrapper">
             <Icon className="service-restricted__icon" />
           </div>
-
           <Text as="h3" textStyle="headline-xl" text={title} className="service-restricted__title" />
-
           <div className="service-restricted__description-wrapper">
             <Text textStyle="body-sm" text={description} className="service-restricted__description" />
           </div>
-
           <div className="service-restricted__actions">{actions.map(renderAction)}</div>
         </div>
       </div>

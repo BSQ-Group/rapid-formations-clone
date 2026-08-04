@@ -31,9 +31,6 @@ export const PromoTier3Block: React.FC<Props> = ({
       ? backgroundImage.alt || ''
       : ''
 
-  // CTA wraps Button inside Link directly (mirrors HeroServicesBanner) so
-  // we share the project's link-resolution helper instead of going through
-  // CMSLink → Slot (Slot was dropping the Button's base classes — see PR).
   const ctaHref = cta ? getLinkHref(cta as LinkData) : null
 
   return (
@@ -44,7 +41,6 @@ export const PromoTier3Block: React.FC<Props> = ({
           <div className={s.overlayGreen} aria-hidden="true" />
           <div className={s.overlayBlue} aria-hidden="true" />
           <div className={s.overlayWhite} aria-hidden="true" />
-
           <div className={s.content}>
             <div className={s.textCol}>
               <div className={s.titleBlock}>
@@ -54,7 +50,6 @@ export const PromoTier3Block: React.FC<Props> = ({
                 <Text as="h2" textStyle="headline-3xl" text={title} className={s.title} />
                 <Text as="p" textStyle="body-sm" text={description} className={s.description} />
               </div>
-
               {pills && pills.length > 0 && (
                 <ul className={s.pills}>
                   {pills.map((pill) => (
@@ -66,7 +61,6 @@ export const PromoTier3Block: React.FC<Props> = ({
                 </ul>
               )}
             </div>
-
             <div className={s.rightCol}>
               <div className={s.priceRow}>
                 <Text as="span" textStyle="headline-3xl" text={price} className={s.price} />

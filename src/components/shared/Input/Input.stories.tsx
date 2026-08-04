@@ -3,7 +3,6 @@ import { Mail, Search, Lock, User } from 'lucide-react'
 import { Input, Label } from './index'
 import React from 'react'
 
-// More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta: Meta<typeof Input> = {
   title: 'Components/Input',
   component: Input,
@@ -32,7 +31,6 @@ const meta: Meta<typeof Input> = {
 export default meta
 type Story = StoryObj<typeof Input>
 
-// More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const LargeDefault: Story = {
   args: {
     placeholder: 'Placeholder',
@@ -135,7 +133,6 @@ export const SmallError: Story = {
   ],
 }
 
-// With Icons examples
 export const WithLeftIcon: Story = {
   args: {
     placeholder: 'Email address',
@@ -186,7 +183,6 @@ export const WithBothIcons: Story = {
   ],
 }
 
-// Password input with toggle functionality
 export const PasswordToggle: Story = {
   render: () => {
     return (
@@ -209,7 +205,6 @@ export const PasswordToggle: Story = {
   },
 }
 
-// All States Grid
 export const AllVariants: Story = {
   render: () => {
     return (
@@ -247,7 +242,6 @@ export const AllVariants: Story = {
             />
           </div>
         </div>
-
         <h2 className="text-xl font-bold text-white mt-8">Small Size Inputs</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
@@ -286,14 +280,12 @@ export const AllVariants: Story = {
   },
 }
 
-// Add this new story at the end of the file
 export const ErrorInputWithFocus: Story = {
   name: 'Error with Focus',
   render: () => {
     const inputRef = React.useRef<HTMLInputElement>(null)
 
     React.useEffect(() => {
-      // Focus the input when the component mounts
       if (inputRef.current) {
         inputRef.current.focus()
       }

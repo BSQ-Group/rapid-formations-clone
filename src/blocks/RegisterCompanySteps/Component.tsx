@@ -36,7 +36,6 @@ export const RegisterCompanyStepsBlock: React.FC<Props> = ({
           {title && <Text as="h2" textStyle="headline-5xl" text={title} className={s.title} />}
           {subtitle && <Text textStyle="body-base" text={subtitle} className={s.subtitle} />}
         </div>
-
         {steps && steps.length > 0 && (
           <div className={s.cardsWrapper}>
             <div className={s.cardsTrack}>

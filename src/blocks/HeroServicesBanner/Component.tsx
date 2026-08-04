@@ -43,9 +43,7 @@ export const HeroServicesBannerBlock: React.FC<HeroServicesBannerBlockProps> = (
               <Text text={description} textStyle="body-base" className={s.description} />
             )}
           </div>
-
           {priceText && <Text text={priceText} textStyle="headline-4xl" className={s.price} />}
-
           <div className={s.ctaRow}>
             {ctaHasLink && (
               <Link
@@ -70,14 +68,12 @@ export const HeroServicesBannerBlock: React.FC<HeroServicesBannerBlockProps> = (
             )}
           </div>
         </div>
-
         <div className={s.visualCol}>
           <div className={s.imageFrame}>
             {image && typeof image === 'object' && (
               <Media resource={image} fill imgClassName={s.image} />
             )}
           </div>
-
           {visibleWidgets.map((widget, i) => {
             const slot = slotClasses[i]
             if (!slot) return null

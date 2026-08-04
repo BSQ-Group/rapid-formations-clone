@@ -25,7 +25,6 @@ export const ComparePackagesHeaderBlock: React.FC<ComparePackagesHeaderBlockProp
         {title && (
           <Text text={title} as="h2" textStyle="span" className={s.title} />
         )}
-
         <div className={s.description}>
           {descriptionPrimary && (
             <Text
@@ -35,7 +34,6 @@ export const ComparePackagesHeaderBlock: React.FC<ComparePackagesHeaderBlockProp
               className={s.descriptionPrimary}
             />
           )}
-
           {(descriptionSecondaryBefore || hasLink || descriptionSecondaryAfter) && (
             <p>
               {descriptionSecondaryBefore}

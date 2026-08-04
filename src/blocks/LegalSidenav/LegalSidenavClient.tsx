@@ -8,7 +8,6 @@ import { cn } from '@/utilities/ui'
 import { legalSidenavStyles as s } from './LegalSidenav.styles'
 import type { LegalNavLink } from './fetchLegalNavLinks'
 
-// py-4 (32px) + leading-6 (24px) + border-t + border-b (2px) = 58px
 const DROPDOWN_BAR_HEIGHT = 58
 
 export function LegalSidenavClient({ links }: { links: LegalNavLink[] }) {
@@ -21,7 +20,6 @@ export function LegalSidenavClient({ links }: { links: LegalNavLink[] }) {
   return (
     <>
       <style>{`@media (max-width: 1023px) { html { scroll-padding-top: calc(var(--header-height) + ${DROPDOWN_BAR_HEIGHT}px + 0.75rem); } }`}</style>
-      {/* Desktop sticky sidenav (lg+) */}
       <aside className={s.sidenavWrapper}>
         <nav className={s.navContainer} aria-label="Legal pages">
           <ul className={s.navGroup}>
@@ -45,8 +43,6 @@ export function LegalSidenavClient({ links }: { links: LegalNavLink[] }) {
           </ul>
         </nav>
       </aside>
-
-      {/* Mobile / tablet dropdown (<lg) */}
       <div className={s.dropdownWrapper}>
         <button
           type="button"
@@ -62,7 +58,6 @@ export function LegalSidenavClient({ links }: { links: LegalNavLink[] }) {
             <ChevronDown size={24} aria-hidden strokeWidth={2} />
           )}
         </button>
-
         {open && (
           <ul id="legal-sidenav-panel" className={s.dropdownPanel}>
             {links.map(({ slug, label }) => {
