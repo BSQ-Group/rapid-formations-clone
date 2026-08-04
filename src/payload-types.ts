@@ -241,6 +241,7 @@ export interface Page {
         | RegisteredOfficePurposeBlock
         | OfficePhotoAddressBlock
         | ServicesCTABlock
+        | CustomerQuoteBlock
         | RegisteredOfficeAddressBlock
         | ServicesTestimonialBlock
         | TestimonialBannerBlock
@@ -2296,6 +2297,37 @@ export interface ServicesCTABlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CustomerQuoteBlock".
+ */
+export interface CustomerQuoteBlock {
+  /**
+   * Include the surrounding quotation marks — they are not added for you.
+   */
+  quote: string;
+  authorName: string;
+  authorRole: string;
+  /**
+   * Square crop. Renders at 323×323 from tablet up.
+   */
+  image: string | Media;
+  /**
+   * Optional. Full player embed URL, e.g. https://player.vimeo.com/video/1030834360?autoplay=1&muted=0 — paste the whole URL, not just the video ID. Leave blank to show the photo with no play button.
+   */
+  videoUrl?: string | null;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'customerQuote';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "RegisteredOfficeAddressBlock".
  */
 export interface RegisteredOfficeAddressBlock {
@@ -4169,6 +4201,7 @@ export interface PagesSelect<T extends boolean = true> {
         registeredOfficePurpose?: T | RegisteredOfficePurposeBlockSelect<T>;
         officePhotoAddress?: T | OfficePhotoAddressBlockSelect<T>;
         servicesCTA?: T | ServicesCTABlockSelect<T>;
+        customerQuote?: T | CustomerQuoteBlockSelect<T>;
         registeredOfficeAddress?: T | RegisteredOfficeAddressBlockSelect<T>;
         servicesTestimonial?: T | ServicesTestimonialBlockSelect<T>;
         testimonialBanner?: T | TestimonialBannerBlockSelect<T>;
@@ -5207,6 +5240,26 @@ export interface ServicesCTABlockSelect<T extends boolean = true> {
         appearance?: T;
       };
   backgroundImage?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CustomerQuoteBlock_select".
+ */
+export interface CustomerQuoteBlockSelect<T extends boolean = true> {
+  quote?: T;
+  authorName?: T;
+  authorRole?: T;
+  image?: T;
+  videoUrl?: T;
   sectionLayout?:
     | T
     | {
