@@ -8,7 +8,7 @@ export function TrustpilotCarousel() {
       width="100%"
       stars="5"
       reviewLanguages="en"
-      className="w-full max-w-[985px] min-h-[240px]"
+      className="w-full min-h-[240px]"
     />
   )
 }

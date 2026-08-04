@@ -1,4 +1,4 @@
-export const TRUSTPILOT_BUSINESS_UNIT_ID = '5714e6d50000ff00058baea3'
+export const TRUSTPILOT_BUSINESS_UNIT_ID = '51d2b23c0000640005506d5b'
 
 export const TRUSTPILOT_TEMPLATE_IDS = {
   mini: '53aa8807dec7e10d38f59f32',
@@ -9,5 +9,4 @@ export const TRUSTPILOT_TEMPLATE_IDS = {
 
 export type TrustpilotTemplate = keyof typeof TRUSTPILOT_TEMPLATE_IDS
 
-export const TRUSTPILOT_REVIEW_URL =
-  'https://uk.trustpilot.com/review/www.qualitycompanyformations.co.uk'
+export const TRUSTPILOT_REVIEW_URL = 'https://uk.trustpilot.com/review/rapidformations.co.uk'

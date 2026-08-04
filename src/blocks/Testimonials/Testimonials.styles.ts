@@ -1,10 +1,15 @@
 export const testimonialsStyles = {
-  // Prod renders this block edge-to-edge below lg (no outer vertical padding); the wrapper's
-  // XL default would otherwise add 80px top + bottom on mobile/tablet. Override there so the
-  // wrapper's lg+ padding (112px, matching prior `lg:py-28`) stays intact above the breakpoint.
-  section: 'w-full max-lg:!py-0',
-  inner: 'flex flex-col items-center gap-14 w-full max-w-[1280px] px-2 lg:px-6 mx-auto',
-  header: 'flex flex-col gap-3 items-center text-center w-full px-6',
-  heading: 'text-[var(--text-strong)]',
-  description: 'text-[var(--text-subtle)]',
+  section: 'font-legacy-condensed w-full mb-[70px] md:mb-[140px]',
+
+  header: 'mb-10 text-center',
+
+  heading:
+    'mb-2 block whitespace-pre-line break-words text-[36px] font-normal leading-[44.46px] text-[var(--text-on-light-base)]',
+
+  subheading:
+    'block whitespace-pre-line break-words text-[24px] font-normal leading-[32.4px] text-[var(--text-on-light-muted)]',
+
+  ctaWrap: 'mt-2 flex items-center justify-center',
+
+  cta: 'w-full md:w-auto',
 } as const
