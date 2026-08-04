@@ -271,6 +271,7 @@ export interface Page {
         | RequiredInformationBlock
         | CaseStudyMosaicBlock
         | FormationVideoBlock
+        | WhyUseAgentBlock
       )[]
     | null;
   meta?: {
@@ -3759,6 +3760,61 @@ export interface FormationVideoBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WhyUseAgentBlock".
+ */
+export interface WhyUseAgentBlock {
+  /**
+   * Centred above the grid. Line breaks are preserved.
+   */
+  heading: string;
+  /**
+   * Optional line under the heading. Line breaks are preserved.
+   */
+  subheading?: string | null;
+  /**
+   * One per column: one column below 576px, two from 576px, three from 768px. Any number of items works, and rows simply wrap.
+   */
+  items: {
+    /**
+     * A FontAwesome solid icon name in kebab-case. Available: building-shield, chart-pie, clipboard-list-check, globe, hand-holding-hand, phone, piggy-bank, sliders-up, thumbs-up. Adding another means importing it in the block's icons.ts, so that the glyph ships from the licensed package rather than as copied path data. An unrecognised name renders nothing.
+     */
+    icon: string;
+    title: string;
+    description: string;
+    id?: string | null;
+  }[];
+  /**
+   * Optional centred button below the grid, e.g. "Get Started".
+   */
+  cta?: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label?: string | null;
+  };
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'whyUseAgent';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -4122,6 +4178,7 @@ export interface PagesSelect<T extends boolean = true> {
         requiredInformation?: T | RequiredInformationBlockSelect<T>;
         caseStudyMosaic?: T | CaseStudyMosaicBlockSelect<T>;
         formationVideo?: T | FormationVideoBlockSelect<T>;
+        whyUseAgent?: T | WhyUseAgentBlockSelect<T>;
       };
   meta?:
     | T
@@ -6036,6 +6093,40 @@ export interface FormationVideoBlockSelect<T extends boolean = true> {
   image?: T;
   videoUrl?: T;
   showPlayIcon?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WhyUseAgentBlock_select".
+ */
+export interface WhyUseAgentBlockSelect<T extends boolean = true> {
+  heading?: T;
+  subheading?: T;
+  items?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  cta?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
   sectionLayout?:
     | T
     | {
