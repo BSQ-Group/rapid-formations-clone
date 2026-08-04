@@ -1,54 +1,43 @@
-'use client'
+import React from 'react'
 
-import React, { useState } from 'react'
-import { ChevronDown } from 'lucide-react'
 import type { FAQsBlock as FAQsBlockProps } from '@/payload-types'
-import { SectionWrapper } from '@/components/shared/SectionWrapper/SectionWrapper'
-import Text from '@/components/shared/Text'
+
+import { Collapsible } from '@/components/shared/Collapsible'
+import { Container } from '@/components/shared/Container/Container'
 import RichText from '@/components/RichText'
-import { styles } from './Component.styles'
+import Text from '@/components/shared/Text'
+import { cn } from '@/utilities/ui'
+import { faqsStyles as s } from './FAQs.styles'
 
-type Props = FAQsBlockProps
-
-export const FAQsBlock: React.FC<Props> = ({ title, faqs, sectionLayout }) => {
-  const [openIndex, setOpenIndex] = useState<number | null>(null)
-
+export const FAQsBlock: React.FC<FAQsBlockProps> = ({ title, faqs }) => {
   if (!faqs?.length) return null
 
   return (
-    <SectionWrapper {...sectionLayout} className={styles.section}>
-      {title && <Text as="h2" textStyle="headline-5xl" text={title} className={styles.heading} />}
-      <div className={styles.faqList}>
-        {faqs.map((item, index) => {
-          const isOpen = openIndex === index
-          return (
-            <div key={index} className={styles.card}>
-              <button
-                type="button"
-                className={styles.trigger}
-                onClick={() => setOpenIndex(isOpen ? null : index)}
-                aria-expanded={isOpen}
-              >
-                <Text textStyle="body-base" text={item.title} className={styles.triggerLabel} />
-                <ChevronDown
-                  className={`${styles.chevronBase} ${isOpen ? styles.chevronOpen : ''}`}
+    <section className={s.section}>
+      <Container>
+        {title && (
+          <div className={s.header}>
+            <Text as="h2" textStyle="span" text={title} className={s.heading} />
+          </div>
+        )}
+        <div className={s.panel}>
+          <Collapsible
+            className={s.list}
+            items={faqs.map((item, index) => ({
+              id: item.id,
+              title: item.title,
+              content: (
+                <RichText
+                  data={item.description}
+                  enableGutter={false}
+                  enableProse={false}
+                  className={cn(s.answerText, index === faqs.length - 1 && s.answerTextLast)}
                 />
-              </button>
-              <div
-                className={`${styles.answerGrid} ${isOpen ? styles.answerGridOpen : styles.answerGridClosed}`}
-              >
-                <div className={styles.answerInner}>
-                  <RichText
-                    data={item.description}
-                    enableGutter={false}
-                    className={styles.answerText}
-                  />
-                </div>
-              </div>
-            </div>
-          )
-        })}
-      </div>
-    </SectionWrapper>
+              ),
+            }))}
+          />
+        </div>
+      </Container>
+    </section>
   )
 }

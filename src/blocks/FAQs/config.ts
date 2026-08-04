@@ -1,20 +1,28 @@
 import type { Block } from 'payload'
 import { defaultLexical } from '@/fields/defaultLexical'
-import { sectionLayoutField } from '@/fields/sectionLayout'
 
 export const FAQs: Block = {
   slug: 'faqs',
   interfaceName: 'FAQsBlock',
+  labels: {
+    singular: 'FAQs',
+    plural: 'FAQs',
+  },
   fields: [
     {
       name: 'title',
-      type: 'text',
+      type: 'textarea',
       label: 'Title',
+      admin: { description: 'Line breaks are preserved, matching the source layout.' },
     },
     {
       name: 'faqs',
       type: 'array',
       label: 'FAQ Items',
+      admin: {
+        initCollapsed: true,
+        description: 'Single-open accordion — opening one question closes the others.',
+      },
       fields: [
         {
           name: 'title',
@@ -31,8 +39,5 @@ export const FAQs: Block = {
         },
       ],
     },
-    sectionLayoutField({
-      defaults: { background: 'dark', paddingTop: 'xl', paddingBottom: 'xl' },
-    }),
   ],
 }
