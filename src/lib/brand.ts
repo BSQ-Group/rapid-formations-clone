@@ -22,6 +22,7 @@ export interface DomainConfig {
   logoOnDarkPath?: string
   siteName: string
   tenantId: string
+  blogUrl?: string
 }
 
 export const domainsConfigMap: Record<Brand, DomainConfig> = {
@@ -36,6 +37,7 @@ export const domainsConfigMap: Record<Brand, DomainConfig> = {
     logoPath: '/images/QCF-logo-icon.svg',
     siteName: 'Quality Company Formations',
     tenantId: 'quality-company-7a0c3',
+    blogUrl: 'https://www.qualityformationsblog.co.uk',
   },
   [Brand.RapidFormations]: {
     alt: 'Rapid Formations Ltd Logo',
@@ -43,6 +45,7 @@ export const domainsConfigMap: Record<Brand, DomainConfig> = {
     logoOnDarkPath: '/images/RF-logo-on-dark.png',
     siteName: 'Rapid Formations',
     tenantId: 'rapid-90xzd',
+    blogUrl: 'https://www.rapidformationsblog.co.uk',
   },
 }
 
