@@ -266,6 +266,7 @@ export interface Page {
         | HowItWorksListBlock
         | ServiceTextBlock
         | NoteBlock
+        | RegisterCtaPanelBlock
         | RegisterOverseasBlock
         | CaseStudyVideoBlock
         | RequiredInformationBlock
@@ -3531,6 +3532,62 @@ export interface NoteBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RegisterCtaPanelBlock".
+ */
+export interface RegisterCtaPanelBlock {
+  /**
+   * Line breaks are preserved as written.
+   */
+  heading: string;
+  description: string;
+  /**
+   * Text after the phone link. Usually just a full stop.
+   */
+  descriptionSuffix?: string | null;
+  phone: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+  };
+  cta: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+  };
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'registerCtaPanel';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "RegisterOverseasBlock".
  */
 export interface RegisterOverseasBlock {
@@ -4194,6 +4251,7 @@ export interface PagesSelect<T extends boolean = true> {
         howItWorksList?: T | HowItWorksListBlockSelect<T>;
         serviceText?: T | ServiceTextBlockSelect<T>;
         note?: T | NoteBlockSelect<T>;
+        registerCtaPanel?: T | RegisterCtaPanelBlockSelect<T>;
         registerOverseas?: T | RegisterOverseasBlockSelect<T>;
         caseStudyVideo?: T | CaseStudyVideoBlockSelect<T>;
         requiredInformation?: T | RequiredInformationBlockSelect<T>;
@@ -5986,6 +6044,42 @@ export interface NoteBlockSelect<T extends boolean = true> {
   heading?: T;
   headingLevel?: T;
   body?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RegisterCtaPanelBlock_select".
+ */
+export interface RegisterCtaPanelBlockSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  descriptionSuffix?: T;
+  phone?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
+  cta?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
   sectionLayout?:
     | T
     | {
