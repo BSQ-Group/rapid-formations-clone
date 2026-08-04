@@ -13,6 +13,7 @@ import { LandingHero } from '../../blocks/LandingHero/config'
 import { RegisterCompanySteps } from '../../blocks/RegisterCompanySteps/config'
 import { Support } from '../../blocks/Support/config'
 import { Testimonials } from '../../blocks/Testimonials/config'
+import { UniqueSellingPoints } from '../../blocks/UniqueSellingPoints/config'
 import { WhyChooseUs } from '../../blocks/WhyChooseUs/config'
 import { BCorpCertification } from '../../blocks/BCorpCertification/config'
 import { AdditionalServices } from '../../blocks/AdditionalServices/config'
@@ -145,6 +146,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 LandingHero,
                 Support,
                 Testimonials,
+                UniqueSellingPoints,
                 WhyChooseUs,
                 BCorpCertification,
                 ChooseCompanyStructure,
