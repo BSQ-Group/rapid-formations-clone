@@ -15,23 +15,27 @@ export const RegisteredOfficeAddress: Block = {
       name: 'heading',
       type: 'text',
       required: true,
-      defaultValue: 'Our registered office address',
+      defaultValue: "Use our impressive address as your company's registered office",
     },
     {
       name: 'image',
       type: 'upload',
       relationTo: 'media',
       required: true,
-      label: 'Office photo',
+      label: 'Illustration',
     },
     {
-      name: 'address',
+      name: 'serviceTitle',
+      type: 'text',
+      required: true,
+      defaultValue: 'London Registered Office',
+    },
+    {
+      name: 'description',
       type: 'textarea',
       required: true,
-      admin: {
-        description: 'Multi-line address. Each new line renders on its own line.',
-      },
-      defaultValue: "Your Company's Name\n71–75 Shelton Street\nCovent Garden\nLondon\nWC2H 9JQ",
+      defaultValue:
+        'A Covent Garden registered office address for your company, with all government mail scanned and emailed to you, free of charge.',
     },
     {
       type: 'row',
@@ -40,14 +44,14 @@ export const RegisteredOfficeAddress: Block = {
           name: 'price',
           type: 'text',
           required: true,
-          defaultValue: '£39',
+          defaultValue: '£39.00',
           admin: { width: '50%' },
         },
         {
           name: 'priceSuffix',
           type: 'text',
           required: true,
-          defaultValue: ' + VAT per year',
+          defaultValue: ' per year',
           admin: {
             width: '50%',
             description: 'Suffix shown next to the price. Include leading space.',
@@ -63,7 +67,7 @@ export const RegisteredOfficeAddress: Block = {
       },
     }),
     sectionLayoutField({
-      defaults: { background: 'dark', paddingTop: 'xl', paddingBottom: 'xl' },
+      defaults: { background: 'inverse', paddingTop: 'none', paddingBottom: 'none' },
     }),
   ],
 }
