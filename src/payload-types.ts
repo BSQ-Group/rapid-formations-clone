@@ -1524,8 +1524,26 @@ export interface WhyChooseUsBlock {
  * via the `definition` "BCorpCertificationBlock".
  */
 export interface BCorpCertificationBlock {
+  /**
+   * Full-bleed photograph behind the badge. A dark scrim is laid over it automatically, so pick for composition rather than contrast.
+   */
   backgroundImage: string | Media;
+  /**
+   * Short line over the photo, e.g. "Rapid Formations, Covent Garden HQ." Leave empty to show the badge alone.
+   */
+  caption?: string | null;
+  /**
+   * Certification badge. Its alt text is what a screen reader announces — set that on the media item.
+   */
   badge: string | Media;
+  /**
+   * Optional. Where the badge links, e.g. the B Corp directory listing. External links open in a new tab.
+   */
+  badgeUrl?: string | null;
+  /**
+   * Optional tooltip for the badge link, e.g. "View Rapid Formations on the B Corporation website".
+   */
+  badgeLinkTitle?: string | null;
   /**
    * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
    */
@@ -4352,7 +4370,10 @@ export interface WhyChooseUsBlockSelect<T extends boolean = true> {
  */
 export interface BCorpCertificationBlockSelect<T extends boolean = true> {
   backgroundImage?: T;
+  caption?: T;
   badge?: T;
+  badgeUrl?: T;
+  badgeLinkTitle?: T;
   sectionLayout?:
     | T
     | {

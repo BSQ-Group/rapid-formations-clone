@@ -1,25 +1,18 @@
 export const bCorpCertificationStyles = {
-  // Section: SectionWrapper provides bg + vertical padding via sectionLayout.
-  // Horizontal padding: px-4 (16px mobile) → md:px-10 (40px tablet/laptop) → xl:px-0
-  // (desktop+, where banner self-limits via max-w-[1200px] / wide:max-w-[1440px]).
-  section: 'w-full px-4 md:px-10 xl:px-0',
+  section: 'w-full',
 
-  // Banner: fluid with 1200:640 aspect-ratio on mobile/tablet so the height
-  // scales naturally with the available width.
-  // At lg (1024px): switches to fixed 640px height — the section still has
-  // 40px padding each side, giving a 944px-wide banner at 1024px viewport.
-  // At xl (1280px): max-w-[1200px] + mx-auto → 40px gutters each side.
-  // At wide (1800px): max-w-[1440px] → 180px gutters: (1800−80)/2 − 1440/2 = 180px.
   banner:
-    'relative w-full rounded-3xl aspect-[1200/640] lg:aspect-auto lg:h-[640px] xl:max-w-[1200px] wide:max-w-[1440px] xl:mx-auto overflow-hidden',
+    'font-legacy-condensed relative flex w-full flex-col-reverse items-end justify-start gap-8 p-6 min-h-[500px] mb-[70px] md:flex-row md:justify-between md:gap-0 md:p-12 md:min-h-screen md:mb-[140px]',
 
+  backgroundWrapper: 'absolute inset-0',
   backgroundImage: 'object-cover',
 
-  // Dark overlay: 20% black tint over the background photo (Figma: rgba(0,0,0,0.2)).
-  darkOverlay: 'absolute inset-0 bg-black/20',
+  overlay: 'absolute inset-0 bg-black/30 md:bg-black/15',
 
-  // Badge: centered inside the banner.
-  // Mobile: 244 × 123px; tablet/desktop (md+): 485 × 244px.
-  badgeWrapper: 'absolute inset-0 flex items-center justify-center',
-  badgeImage: 'relative w-[244px] h-[123px] md:w-[485px] md:h-[244px] shrink-0',
+  caption:
+    'relative min-w-0 max-w-full [overflow-wrap:anywhere] text-right text-[20px] font-normal text-[var(--text-strong)] md:text-left md:text-[28px] md:leading-[42px] md:font-semibold',
+
+  badgeLink: 'relative',
+
+  badgeImage: 'h-auto w-full max-w-[250px] md:max-w-[350px] min-[1023px]:max-w-[500px]',
 } as const
