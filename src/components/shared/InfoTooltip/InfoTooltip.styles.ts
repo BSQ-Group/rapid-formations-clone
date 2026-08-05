@@ -6,9 +6,8 @@ export const infoTooltipStyles = {
   triggerCustom:
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-focus)] focus-visible:ring-offset-2',
 
-  bodyText: 'text-sm leading-5 text-[var(--text-inverse-subtle)]',
-  paragraph: 'whitespace-pre-line [overflow-wrap:anywhere]',
-  paragraphSpaced: 'mt-3',
+  bodyText: 'text-[18px] leading-[21.6px] text-[var(--text-inverse-subtle)]',
+  paragraph: 'mb-2 whitespace-pre-line [overflow-wrap:anywhere]',
 
   overlay: 'fixed inset-0 z-50 bg-black/60',
   dialog:
@@ -17,13 +16,14 @@ export const infoTooltipStyles = {
   dialogHeader: 'flex-shrink-0 px-6 pb-3 pt-6',
   dialogHeaderRow: 'flex items-start gap-3',
   dialogTitle:
-    'min-w-0 flex-1 text-base font-semibold leading-6 text-[var(--text-inverse)] [overflow-wrap:anywhere]',
+    'min-w-0 flex-1 text-[21.6px] font-semibold leading-[21.6px] text-[var(--text-inverse)] [overflow-wrap:anywhere]',
   dialogClose: 'flex-shrink-0 text-[var(--text-inverse-subtle)] hover:text-[var(--text-inverse)]',
   dialogBody: 'overflow-y-auto px-6 pb-6',
 
   tooltipContent:
-    'relative z-50 rounded-2xl border border-[var(--border-on-light)] p-6 text-left shadow-xl transition-[width] duration-150 bg-[var(--surface-canvas-inverse)] animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=right]:slide-in-from-left-2 data-[side=left]:slide-in-from-right-2 data-[side=top]:slide-in-from-bottom-2 data-[side=bottom]:slide-in-from-top-2',
-  tooltipArrow: 'fill-[var(--surface-canvas-inverse)]',
+    'group relative z-50 max-w-[550px] rounded-none border-[5px] border-[var(--border-on-light-strong)] p-4 text-left bg-[var(--surface-canvas-inverse)] animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=right]:slide-in-from-left-2 data-[side=left]:slide-in-from-right-2 data-[side=top]:slide-in-from-bottom-2 data-[side=bottom]:slide-in-from-top-2',
+  tooltipArrow:
+    'pointer-events-none absolute h-4 w-4 rotate-45 border-solid border-[var(--border-on-light-strong)] bg-[var(--surface-canvas-inverse)] group-data-[side=right]:top-1/2 group-data-[side=right]:-mt-2 group-data-[side=right]:-left-[13px] group-data-[side=right]:border-b-[5px] group-data-[side=right]:border-l-[5px] group-data-[side=left]:top-1/2 group-data-[side=left]:-mt-2 group-data-[side=left]:-right-[13px] group-data-[side=left]:border-t-[5px] group-data-[side=left]:border-r-[5px] group-data-[side=top]:left-1/2 group-data-[side=top]:-ml-2 group-data-[side=top]:-bottom-[13px] group-data-[side=top]:border-b-[5px] group-data-[side=top]:border-r-[5px] group-data-[side=bottom]:left-1/2 group-data-[side=bottom]:-ml-2 group-data-[side=bottom]:-top-[13px] group-data-[side=bottom]:border-t-[5px] group-data-[side=bottom]:border-l-[5px]',
   tooltipTitle:
-    'mb-3 text-base font-semibold leading-6 text-[var(--text-inverse)] [overflow-wrap:anywhere]',
+    'mb-2 text-[21.6px] font-semibold leading-[21.6px] text-[var(--text-inverse)] [overflow-wrap:anywhere]',
 } as const

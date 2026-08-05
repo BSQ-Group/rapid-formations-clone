@@ -20,7 +20,7 @@ export const bankingPartnersStyles = {
 
   logo: 'size-[58px] object-contain',
 
-  name: 'block break-words text-[26px] font-normal leading-[32.11px] text-[rgb(var(--white))] md:text-[28px] md:leading-[34.58px]',
+  name: 'mb-2 block break-words text-[26px] font-normal leading-[32.11px] text-[rgb(var(--white))] md:text-[28px] md:leading-[34.58px]',
 
   ctaWrap: 'mt-[50px] flex justify-center',
 

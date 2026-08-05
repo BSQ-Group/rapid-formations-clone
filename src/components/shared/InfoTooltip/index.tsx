@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useEffect, useSyncExternalStore } from 'react'
+import { useState, useSyncExternalStore } from 'react'
 import * as TooltipPrimitive from '@radix-ui/react-tooltip'
 import * as DialogPrimitive from '@radix-ui/react-dialog'
 import { DialogDescription } from '@/components/ui/dialog'
@@ -40,14 +40,8 @@ interface InfoTooltipProps {
   triggerStyle?: React.CSSProperties
   side?: 'top' | 'right' | 'bottom' | 'left'
   desktopMinWidth?: number
-  width?: number
   triggerClassName?: string
 }
-
-const TOOLTIP_MIN_WIDTH = 300
-const TOOLTIP_MAX_WIDTH = 500
-const TOOLTIP_WIDTH_STEP = 40
-const TOOLTIP_HEIGHT_THRESHOLD = 0.65
 
 export function InfoTooltip({
   title,
@@ -61,34 +55,10 @@ export function InfoTooltip({
   triggerStyle,
   side = 'right',
   desktopMinWidth = 768,
-  width,
   triggerClassName: triggerClassNameProp,
 }: InfoTooltipProps) {
   const [open, setOpen] = useState(false)
-  const [tooltipWidth, setTooltipWidth] = useState(width ?? TOOLTIP_MIN_WIDTH)
-  const contentRef = useRef<HTMLDivElement>(null)
   const isDesktop = useIsDesktop(desktopMinWidth)
-
-  useEffect(() => {
-    const el = contentRef.current
-    if (!el) return
-
-    const ro = new ResizeObserver(() => {
-      if (el.offsetHeight > window.innerHeight * TOOLTIP_HEIGHT_THRESHOLD) {
-        setTooltipWidth((prev) =>
-          prev < TOOLTIP_MAX_WIDTH ? Math.min(prev + TOOLTIP_WIDTH_STEP, TOOLTIP_MAX_WIDTH) : prev,
-        )
-      }
-    })
-
-    ro.observe(el)
-    return () => ro.disconnect()
-  }, [open])
-
-  const handleOpenChange = (nextOpen: boolean) => {
-    if (!nextOpen) setTooltipWidth(width ?? TOOLTIP_MIN_WIDTH)
-    setOpen(nextOpen)
-  }
 
   if (!title && !content && !text) return null
 
@@ -113,7 +83,7 @@ export function InfoTooltip({
           .map((para) => para.trim())
           .filter(Boolean)
           .map((para, i) => (
-            <p key={i} className={cn(s.paragraph, i > 0 && s.paragraphSpaced)}>
+            <p key={i} className={s.paragraph}>
               {para}
             </p>
           ))}
@@ -165,7 +135,7 @@ export function InfoTooltip({
   }
 
   return (
-    <Tooltip open={open} onOpenChange={handleOpenChange}>
+    <Tooltip open={open} onOpenChange={setOpen}>
       <TooltipPrimitive.Trigger asChild>
         <button
           type="button"
@@ -180,15 +150,13 @@ export function InfoTooltip({
       </TooltipPrimitive.Trigger>
       <TooltipPrimitive.Portal>
         <TooltipPrimitive.Content
-          ref={contentRef}
           side={side}
           align="center"
           sideOffset={8}
           collisionPadding={12}
-          style={{ width: tooltipWidth }}
           className={s.tooltipContent}
         >
-          <TooltipPrimitive.Arrow className={s.tooltipArrow} width={16} height={8} />
+          <span aria-hidden className={s.tooltipArrow} />
           {title && <Text as="p" textStyle="span" text={title} className={s.tooltipTitle} />}
           {body(s.bodyText)}
         </TooltipPrimitive.Content>

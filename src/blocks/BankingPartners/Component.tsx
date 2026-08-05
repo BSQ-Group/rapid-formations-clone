@@ -68,7 +68,6 @@ export const BankingPartnersBlock: React.FC<BankingPartnersBlockProps> = ({
                     triggerStyle={style}
                     side="top"
                     desktopMinWidth={769}
-                    width={550}
                   />
                 ) : (
                   <div className={s.tile} style={style}>

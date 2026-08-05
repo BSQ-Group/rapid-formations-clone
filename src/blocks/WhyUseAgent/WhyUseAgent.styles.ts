@@ -1,5 +1,5 @@
 export const whyUseAgentStyles = {
-  section: 'font-legacy-condensed w-full mb-[70px] md:mb-[140px]',
+  section: 'font-legacy-condensed w-full pb-2.5 mb-[70px] md:mb-[140px]',
 
   header: 'mb-8 text-center',
 
