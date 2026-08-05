@@ -57,6 +57,7 @@ import { PackageCardHero } from '../../blocks/PackageCardHero/config'
 import { WhatsIncludedSinglePackage } from '../../blocks/WhatsIncludedSinglePackage/config'
 import { WiseBusinessAccount } from '../../blocks/WiseBusinessAccount/config'
 import { ServicesTextWithCard } from '../../blocks/ServicesTextWithCard/config'
+import { RegisterCtaPanel } from '../../blocks/RegisterCtaPanel/config'
 import { RegisterOverseas } from '../../blocks/RegisterOverseas/config'
 import { RequiredInformation } from '../../blocks/RequiredInformation/config'
 import { ContentWithPricingCard } from '../../blocks/ContentWithPricingCard/config'
@@ -201,6 +202,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 HowItWorksList,
                 ServiceText,
                 Note,
+                RegisterCtaPanel,
                 RegisterOverseas,
                 CaseStudyVideo,
                 RequiredInformation,
