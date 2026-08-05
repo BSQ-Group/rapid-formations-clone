@@ -11,6 +11,7 @@ import { Content } from '../../blocks/Content/config'
 import { FAQs } from '../../blocks/FAQs/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { FormationPackages } from '../../blocks/FormationPackages/config'
+import { FormationVideo } from '../../blocks/FormationVideo/config'
 import { LandingHero } from '../../blocks/LandingHero/config'
 import { RegisterCompanySteps } from '../../blocks/RegisterCompanySteps/config'
 import { Support } from '../../blocks/Support/config'
@@ -201,6 +202,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 CaseStudyVideo,
                 RequiredInformation,
                 CaseStudyMosaic,
+                FormationVideo,
               ],
               admin: {
                 initCollapsed: true,
