@@ -3,12 +3,6 @@ export const bankingPartnersStyles = {
 
   header: 'mb-10 text-center',
 
-  heading:
-    'mb-2 block whitespace-pre-line break-words text-[36px] font-normal leading-[44.46px] text-[var(--text-on-light-base)]',
-
-  subheading:
-    'block whitespace-pre-line break-words text-[24px] font-normal leading-[32.4px] text-[var(--text-on-light-muted)]',
-
   grid: 'grid w-full list-none grid-cols-2 auto-rows-fr gap-2.5 p-0 min-[470px]:gap-10 min-[1023px]:grid-cols-4 min-[1023px]:min-h-[380px]',
 
   tileWrap: 'flex min-w-0',

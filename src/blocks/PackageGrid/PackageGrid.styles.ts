@@ -2,10 +2,6 @@ export const packageGridStyles = {
   section:
     'font-legacy-condensed w-full bg-[var(--surface-on-light-canvas)] pt-[104px] pb-[80px] mb-[70px] md:mb-[140px] min-[1023px]:pt-[84px] min-[1023px]:pb-[100px]',
   header: 'text-center',
-  heading:
-    'break-words text-[36px] leading-[44.46px] font-normal tracking-normal text-[var(--text-on-light-base)]',
-  subheading:
-    'mt-2 break-words text-[24px] leading-[32.4px] font-normal tracking-normal text-[var(--text-on-light-muted)]',
 
   grid: 'mt-[45px] mb-[25px] md:mb-[35px] min-[1023px]:mb-[45px] mx-auto flex w-full flex-wrap min-[1023px]:justify-center min-[1023px]:max-w-[85%] gap-5',
 

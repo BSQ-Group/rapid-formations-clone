@@ -4,6 +4,7 @@ import type { CaseStudyMosaicBlock as CaseStudyMosaicBlockProps } from '@/payloa
 
 import { SectionWrapper } from '@/components/shared/SectionWrapper/SectionWrapper'
 import { Media } from '@/components/Media'
+import { SectionTitle } from '@/components/shared/SectionTitle'
 import Text from '@/components/shared/Text'
 import { cn } from '@/utilities/ui'
 import { Container } from '@/components/shared/Container/Container'
@@ -24,12 +25,13 @@ export const CaseStudyMosaicBlock: React.FC<CaseStudyMosaicBlockProps> = ({
   return (
     <SectionWrapper {...sectionLayout} className={s.section}>
       <Container>
-        <div className={s.title}>
-          <Text as="h2" textStyle="span" text={heading} className={s.heading} />
-          {subheading && (
-            <Text as="p" textStyle="span" text={subheading} className={s.subheading} />
-          )}
-        </div>
+        <SectionTitle
+          title={heading}
+          subtitle={subheading}
+          className={s.title}
+          titleClassName="w-full"
+          subtitleClassName="mb-2 w-full"
+        />
         <div className={cn(s.mosaic, isComposed ? s.mosaicComposed : s.mosaicFlow)}>
           {list.map((item, i) => {
             const tileClassName = cn(s.item, isComposed && s.itemPlacement[i])

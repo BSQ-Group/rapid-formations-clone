@@ -2,10 +2,6 @@ export const caseStudyMosaicStyles = {
   section: 'font-legacy-condensed flex w-full flex-col mb-[70px] md:mb-[140px]',
 
   title: 'flex flex-col items-center text-center mb-8',
-  heading:
-    'mb-2 w-full break-words text-[36px] leading-[44.46px] font-normal text-[var(--text-on-light-base)]',
-  subheading:
-    'mb-2 w-full break-words text-[24px] leading-[1.35] font-normal text-[var(--text-on-light-muted)]',
 
   mosaic: 'grid justify-center gap-8 overflow-hidden grid-cols-1',
 

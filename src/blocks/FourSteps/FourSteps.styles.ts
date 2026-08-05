@@ -2,10 +2,6 @@ export const fourStepsStyles = {
   section:
     'font-legacy-condensed w-full bg-[var(--surface-canvas-inverse)] mb-[70px] md:mb-[140px]',
   header: 'text-center',
-  heading:
-    'mb-2 break-words text-[36px] leading-[44.46px] font-normal tracking-normal text-[var(--text-on-light-base)]',
-  subheading:
-    'mb-10 break-words text-[24px] leading-[32.4px] font-normal tracking-normal text-[var(--text-on-light-muted)]',
 
   grid: 'flex w-full snap-x snap-mandatory overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] md:grid md:grid-cols-2 md:gap-5 md:overflow-visible min-[1023px]:grid-cols-4',
   slide: 'w-full shrink-0 snap-start min-[501px]:w-1/2 md:w-auto',

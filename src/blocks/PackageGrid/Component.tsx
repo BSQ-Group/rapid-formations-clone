@@ -3,6 +3,7 @@ import Link from 'next/link'
 
 import type { PackageGridBlock as PackageGridBlockProps } from '@/payload-types'
 
+import { SectionTitle } from '@/components/shared/SectionTitle'
 import Text from '@/components/shared/Text'
 import { getLinkHref, type LinkData } from '@/utilities/links'
 import { Container } from '@/components/shared/Container/Container'
@@ -30,12 +31,13 @@ export const PackageGridBlock: React.FC<PackageGridBlockProps> = ({
   return (
     <section id="package-grid" className={s.section}>
       <Container>
-        <div className={s.header}>
-          <Text as="h2" textStyle="span" text={heading} className={s.heading} />
-          {subheading && (
-            <Text as="p" textStyle="span" text={subheading} className={s.subheading} />
-          )}
-        </div>
+        <SectionTitle
+          title={heading}
+          subtitle={subheading}
+          className={s.header}
+          titleClassName="mb-0"
+          subtitleClassName="mt-2"
+        />
         <div className={s.grid}>
           {packages.map((pkg, index) => (
             <PackageGridCard
