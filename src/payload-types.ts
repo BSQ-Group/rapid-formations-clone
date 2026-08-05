@@ -877,7 +877,13 @@ export interface Form {
  * via the `definition` "FAQsBlock".
  */
 export interface FAQsBlock {
+  /**
+   * Line breaks are preserved, matching the source layout.
+   */
   title?: string | null;
+  /**
+   * Single-open accordion — opening one question closes the others.
+   */
   faqs?:
     | {
         title: string;
@@ -899,14 +905,6 @@ export interface FAQsBlock {
         id?: string | null;
       }[]
     | null;
-  /**
-   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
-   */
-  sectionLayout: {
-    background: 'light' | 'dark' | 'inverse';
-    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
-    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
-  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'faqs';
@@ -3904,13 +3902,6 @@ export interface FAQsBlockSelect<T extends boolean = true> {
         title?: T;
         description?: T;
         id?: T;
-      };
-  sectionLayout?:
-    | T
-    | {
-        background?: T;
-        paddingTop?: T;
-        paddingBottom?: T;
       };
   id?: T;
   blockName?: T;
