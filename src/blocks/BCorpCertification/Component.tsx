@@ -4,33 +4,46 @@ import type { BCorpCertificationBlock as BCorpCertificationBlockProps } from '@/
 
 import { SectionWrapper } from '@/components/shared/SectionWrapper/SectionWrapper'
 import { Media } from '@/components/Media'
-import Image from 'next/image'
+import Text from '@/components/shared/Text'
 import { bCorpCertificationStyles as s } from './BCorpCertification.styles'
 
 export const BCorpCertificationBlock: React.FC<BCorpCertificationBlockProps> = ({
   backgroundImage,
+  caption,
   badge,
+  badgeUrl,
+  badgeLinkTitle,
   sectionLayout,
 }) => {
+  const hasBadge = badge && typeof badge === 'object'
+  const isExternal = Boolean(badgeUrl && /^https?:\/\//.test(badgeUrl))
+
+  const badgeImage = hasBadge ? <Media resource={badge} imgClassName={s.badgeImage} /> : null
+
   return (
     <SectionWrapper {...sectionLayout} className={s.section}>
       <div className={s.banner}>
         {backgroundImage && typeof backgroundImage === 'object' && (
-          <Media resource={backgroundImage} fill imgClassName={s.backgroundImage} />
+          <Media
+            resource={backgroundImage}
+            fill
+            className={s.backgroundWrapper}
+            imgClassName={s.backgroundImage}
+          />
         )}
-        <div className={s.darkOverlay} />
-        {badge && typeof badge === 'object' && badge.url && (
-          <div className={s.badgeWrapper}>
-            <div className={s.badgeImage}>
-              <Image
-                src={badge.url}
-                alt={badge.alt || 'B Corp Certification'}
-                fill
-                className="object-contain"
-                unoptimized
-              />
-            </div>
-          </div>
+        <div className={s.overlay} />
+        {caption && <Text text={caption} textStyle="span" className={s.caption} />}
+        {badgeUrl ? (
+          <a
+            href={badgeUrl}
+            className={s.badgeLink}
+            title={badgeLinkTitle || undefined}
+            {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+          >
+            {badgeImage}
+          </a>
+        ) : (
+          <div className={s.badgeLink}>{badgeImage}</div>
         )}
       </div>
     </SectionWrapper>
