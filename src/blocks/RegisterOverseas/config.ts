@@ -1,5 +1,6 @@
 import type { Block } from 'payload'
 
+import { defaultLexical } from '@/fields/defaultLexical'
 import { link } from '@/fields/link'
 import { sectionLayoutField } from '@/fields/sectionLayout'
 
@@ -12,23 +13,36 @@ export const RegisterOverseas: Block = {
   },
   fields: [
     {
-      name: 'heading',
+      name: 'sectionHeading',
       type: 'text',
-      label: 'Heading',
+      label: 'Section Heading',
       required: true,
-      defaultValue: 'Register a company <br> in the UK from overseas',
+      defaultValue: 'Want to register a UK company from abroad?',
       admin: {
         description:
-          'Main section heading. A <br> sets the desktop/mobile line break (after "company", matching Figma); it is automatically suppressed at the tablet breakpoint where the heading fits on one line.',
+          'Centred heading above the bordered panel. Newlines are preserved, so a deliberate line break can be typed in.',
+      },
+    },
+    {
+      name: 'heading',
+      type: 'text',
+      label: 'Panel Heading',
+      required: true,
+      defaultValue: 'Non-resident UK company formation',
+      admin: {
+        description: 'Heading inside the panel, above the body copy.',
       },
     },
     {
       name: 'body',
-      type: 'textarea',
+      type: 'richText',
       label: 'Body Text',
       required: true,
-      defaultValue:
-        'Quality Company Formations enable non-UK residents to register a company with a prestigious Central London office address which includes same-day digital mail service and business address service with international mail forwarding of all your business correspondence.',
+      editor: defaultLexical,
+      admin: {
+        description:
+          'Panel body copy. Rich text so multiple paragraphs and inline links can be authored.',
+      },
     },
     link({
       appearances: false,
@@ -36,7 +50,7 @@ export const RegisterOverseas: Block = {
         name: 'cta',
         label: 'Call to Action',
         admin: {
-          description: 'Primary CTA button (e.g. "Start now").',
+          description: 'Primary CTA button (e.g. "Our Non-Resident Packages").',
         },
       },
     }),
@@ -48,7 +62,7 @@ export const RegisterOverseas: Block = {
       required: true,
     },
     sectionLayoutField({
-      defaults: { background: 'dark', paddingTop: 'm', paddingBottom: 'm' },
+      defaults: { background: 'inverse', paddingTop: 'none', paddingBottom: 'none' },
     }),
   ],
 }

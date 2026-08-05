@@ -3534,12 +3534,33 @@ export interface NoteBlock {
  */
 export interface RegisterOverseasBlock {
   /**
-   * Main section heading. A <br> sets the desktop/mobile line break (after "company", matching Figma); it is automatically suppressed at the tablet breakpoint where the heading fits on one line.
+   * Centred heading above the bordered panel. Newlines are preserved, so a deliberate line break can be typed in.
+   */
+  sectionHeading: string;
+  /**
+   * Heading inside the panel, above the body copy.
    */
   heading: string;
-  body: string;
   /**
-   * Primary CTA button (e.g. "Start now").
+   * Panel body copy. Rich text so multiple paragraphs and inline links can be authored.
+   */
+  body: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * Primary CTA button (e.g. "Our Non-Resident Packages").
    */
   cta: {
     type?: ('reference' | 'custom') | null;
@@ -5923,6 +5944,7 @@ export interface NoteBlockSelect<T extends boolean = true> {
  * via the `definition` "RegisterOverseasBlock_select".
  */
 export interface RegisterOverseasBlockSelect<T extends boolean = true> {
+  sectionHeading?: T;
   heading?: T;
   body?: T;
   cta?:
