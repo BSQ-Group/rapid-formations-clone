@@ -266,6 +266,7 @@ export interface Page {
         | ServiceTextBlock
         | NoteBlock
         | RegisterOverseasBlock
+        | CaseStudyVideoBlock
       )[]
     | null;
   meta?: {
@@ -3485,6 +3486,47 @@ export interface RegisterOverseasBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CaseStudyVideoBlock".
+ */
+export interface CaseStudyVideoBlock {
+  /**
+   * Centred above the video. Line breaks are preserved.
+   */
+  heading: string;
+  /**
+   * Optional line under the heading. Line breaks are preserved.
+   */
+  subheading?: string | null;
+  /**
+   * Shown before the video plays. Upload a 16:9 still — the player is always 16:9 and the poster is scaled to fill it.
+   */
+  posterImage?: (string | null) | Media;
+  /**
+   * Direct URL to an MP4. Hosted externally rather than uploaded, so the file stays out of the media library.
+   */
+  videoUrl: string;
+  /**
+   * Optional WebVTT captions track. A cross-origin file needs CORS headers, otherwise the browser drops the track silently.
+   */
+  captionsUrl?: string | null;
+  /**
+   * Plays muted when the video enters the viewport and pauses when it leaves. Never autoplays for visitors who have asked for reduced motion, and stops for good once the visitor pauses it themselves.
+   */
+  autoplayInView?: boolean | null;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'caseStudyVideo';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -3843,6 +3885,7 @@ export interface PagesSelect<T extends boolean = true> {
         serviceText?: T | ServiceTextBlockSelect<T>;
         note?: T | NoteBlockSelect<T>;
         registerOverseas?: T | RegisterOverseasBlockSelect<T>;
+        caseStudyVideo?: T | CaseStudyVideoBlockSelect<T>;
       };
   meta?:
     | T
@@ -5619,6 +5662,27 @@ export interface RegisterOverseasBlockSelect<T extends boolean = true> {
         label?: T;
       };
   image?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CaseStudyVideoBlock_select".
+ */
+export interface CaseStudyVideoBlockSelect<T extends boolean = true> {
+  heading?: T;
+  subheading?: T;
+  posterImage?: T;
+  videoUrl?: T;
+  captionsUrl?: T;
+  autoplayInView?: T;
   sectionLayout?:
     | T
     | {
