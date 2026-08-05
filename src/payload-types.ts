@@ -1744,11 +1744,20 @@ export interface ChooseCompanyStructureBlock {
  * via the `definition` "OurLatestBlogsBlock".
  */
 export interface OurLatestBlogsBlock {
+  /**
+   * Centred heading above the grid. Newlines are preserved as line breaks.
+   */
   heading: string;
+  /**
+   * Label on the button inside every article card.
+   */
+  cardCtaLabel?: string | null;
+  /**
+   * Editorial fallback. Used only when the brand blog feed cannot be reached at render time.
+   */
   cards: {
     title: string;
     description: string;
-    readTime?: string | null;
     image: string | Media;
     link?: {
       type?: ('reference' | 'custom') | null;
@@ -4912,12 +4921,12 @@ export interface ChooseCompanyStructureBlockSelect<T extends boolean = true> {
  */
 export interface OurLatestBlogsBlockSelect<T extends boolean = true> {
   heading?: T;
+  cardCtaLabel?: T;
   cards?:
     | T
     | {
         title?: T;
         description?: T;
-        readTime?: T;
         image?: T;
         link?:
           | T

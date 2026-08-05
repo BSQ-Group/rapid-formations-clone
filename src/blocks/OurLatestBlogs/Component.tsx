@@ -1,16 +1,15 @@
 import React from 'react'
 import Link from 'next/link'
-import { ArrowUpRight } from 'lucide-react'
 
 import type { OurLatestBlogsBlock as OurLatestBlogsBlockProps } from '@/payload-types'
 
+import { Container } from '@/components/shared/Container/Container'
+import { CtaLink } from '@/components/shared/CtaLink'
+import { Media } from '@/components/Media'
 import { SectionWrapper } from '@/components/shared/SectionWrapper/SectionWrapper'
 import Text from '@/components/shared/Text'
-import { Media } from '@/components/Media'
-import { buttonVariants } from '@/components/ui/button'
-import { cn } from '@/utilities/ui'
-import { ScrollCarousel } from '@/components/shared/ScrollCarousel'
-import { stripHtml, readingTime } from '@/utilities/formatting'
+import { getBrand, getDomainConfig } from '@/lib/brand'
+import { stripHtml } from '@/utilities/formatting'
 import { getLinkHref, type LinkData } from '@/utilities/links'
 import { ourLatestBlogsStyles as s } from './OurLatestBlogs.styles'
 
@@ -20,7 +19,6 @@ type WpPost = {
   link: string
   title: { rendered: string }
   excerpt: { rendered: string }
-  content: { rendered: string }
   _embedded?: {
     'wp:featuredmedia'?: Array<{
       alt_text?: string
@@ -30,21 +28,23 @@ type WpPost = {
   }
 }
 
-type ApiCard = {
+type FeedCard = {
   id: string
   title: string
   description: string
-  readTime: string
   href: string
   imageUrl?: string
   imageAlt: string
 }
 
-const BLOG_API_URL = 'https://www.qualityformationsblog.co.uk/wp-json/wp/v2/posts?_embed&per_page=6'
+const POST_COUNT = 3
 
 async function fetchBlogPosts(): Promise<WpPost[] | null> {
+  const { blogUrl } = getDomainConfig(getBrand())
+  if (!blogUrl) return null
+
   try {
-    const res = await fetch(BLOG_API_URL, {
+    const res = await fetch(`${blogUrl}/wp-json/wp/v2/posts?_embed&per_page=${POST_COUNT}`, {
       next: { revalidate: 3600 },
       signal: AbortSignal.timeout(5000),
     })
@@ -56,7 +56,7 @@ async function fetchBlogPosts(): Promise<WpPost[] | null> {
   }
 }
 
-function mapApiCards(posts: WpPost[]): ApiCard[] {
+function mapFeedCards(posts: WpPost[]): FeedCard[] {
   return posts.map((p, i) => {
     const featured = p._embedded?.['wp:featuredmedia']?.[0]
     const sizes = featured?.media_details?.sizes ?? {}
@@ -65,140 +65,117 @@ function mapApiCards(posts: WpPost[]): ApiCard[] {
       sizes.medium?.source_url ??
       sizes.large?.source_url ??
       featured?.source_url
+    const title = stripHtml(p.title?.rendered ?? '')
     return {
       id: `wp-${i}`,
-      title: stripHtml(p.title?.rendered ?? ''),
+      title,
       description: stripHtml(p.excerpt?.rendered ?? ''),
-      readTime: readingTime(p.content?.rendered ?? ''),
       href: p.link,
       imageUrl,
-      imageAlt: featured?.alt_text || stripHtml(p.title?.rendered ?? ''),
+      imageAlt: featured?.alt_text || title,
     }
   })
 }
 
 export const OurLatestBlogsBlock: React.FC<Props> = async ({
   heading,
+  cardCtaLabel,
   cards: cmsCards,
   viewBlogLink,
   sectionLayout,
 }) => {
   const posts = await fetchBlogPosts()
-  const apiCards = posts && posts.length > 0 ? mapApiCards(posts) : null
+  const feedCards = posts && posts.length > 0 ? mapFeedCards(posts) : null
 
-  if (!apiCards && (!cmsCards || cmsCards.length === 0)) return null
+  if (!feedCards && (!cmsCards || cmsCards.length === 0)) return null
 
-  const viewBlogHref = getLinkHref(viewBlogLink as LinkData)
-  const viewBlogLabel = viewBlogLink?.label || 'View our Blog'
-
-  const viewBlogButton = viewBlogLink ? (
-    <Link
-      href={viewBlogHref}
-      target={viewBlogLink.newTab ? '_blank' : undefined}
-      className={cn(buttonVariants({ variant: 'secondary', size: 'md' }), 'w-full md:w-auto')}
-    >
-      {viewBlogLabel}
-    </Link>
-  ) : null
+  const ctaLabel = cardCtaLabel || 'Read Post'
+  const viewBlogHref = getLinkHref(viewBlogLink as LinkData | undefined)
 
   return (
     <SectionWrapper {...sectionLayout} className={s.section}>
-      <div className={s.header}>
-        {heading && <Text as="h2" textStyle="headline-5xl" text={heading} className={s.heading} />}
-      </div>
-      <ScrollCarousel bleedBoth centerControl={viewBlogButton}>
-        {apiCards
-          ? apiCards.map((card) => (
-              <Link
-                key={card.id}
-                href={card.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={s.card}
-              >
-                {card.imageUrl && (
-                  <div className={s.cardImageWrapper}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
+      <Container>
+        <Text as="h2" textStyle="span" text={heading} className={s.heading} />
+        <div className={s.grid}>
+          {feedCards
+            ? feedCards.map((card) => (
+                <article key={card.id} className={s.card}>
+                  {card.imageUrl && (
+                    // eslint-disable-next-line @next/next/no-img-element
                     <img
                       src={card.imageUrl}
                       alt={card.imageAlt}
-                      className={`${s.cardImage} absolute inset-0 w-full h-full`}
+                      className={s.cardImage}
                       loading="lazy"
                     />
+                  )}
+                  <div className={s.cardBody}>
+                    <Text as="h3" textStyle="span" className={s.cardTitle}>
+                      <Link href={card.href} className={s.cardTitleLink}>
+                        {card.title}
+                      </Link>
+                    </Text>
+                    <Text
+                      as="p"
+                      textStyle="span"
+                      text={card.description}
+                      className={s.cardDescription}
+                    />
+                    <div className={s.cardCtaWrap}>
+                      <CtaLink href={card.href} label={ctaLabel} size="md" />
+                    </div>
                   </div>
-                )}
-                <div className={s.cardText}>
-                  <Text as="h3" textStyle="headline-xl" text={card.title} className={s.cardTitle} />
-                  <Text
-                    textStyle="body-sm"
-                    text={card.description}
-                    className={`${s.cardDescription} line-clamp-3`}
-                  />
-                </div>
-                <div className={s.cardFooter}>
-                  <span className={s.cardBadge}>
-                    <Text textStyle="body-sm" text={card.readTime} className={s.cardBadgeText} />
-                  </span>
-                  <span className={s.cardCta}>
-                    <Text textStyle="body-sm" text="Read more" className={s.cardCtaText} />
-                    <ArrowUpRight size={24} className={s.cardCtaIcon} />
-                  </span>
-                </div>
-              </Link>
-            ))
-          : (cmsCards ?? []).map((card, index) => {
-              const cardLink = card.link as LinkData | undefined
-              const href = getLinkHref(cardLink)
-              const hasImage = card.image && typeof card.image === 'object'
-              return (
-                <Link
-                  key={card.id ?? index}
-                  href={href}
-                  target={cardLink?.newTab ? '_blank' : undefined}
-                  className={s.card}
-                >
-                  {hasImage && (
-                    <div className={s.cardImageWrapper}>
+                </article>
+              ))
+            : (cmsCards ?? []).map((card, index) => {
+                const cardLink = card.link as LinkData | undefined
+                const href = getLinkHref(cardLink)
+                return (
+                  <article key={card.id ?? index} className={s.card}>
+                    {card.image && (
                       <Media
                         resource={card.image}
                         alt={card.title}
-                        fill
                         imgClassName={s.cardImage}
+                        loading="lazy"
                       />
-                    </div>
-                  )}
-                  <div className={s.cardText}>
-                    <Text
-                      as="h3"
-                      textStyle="headline-xl"
-                      text={card.title}
-                      className={s.cardTitle}
-                    />
-                    <Text
-                      textStyle="body-sm"
-                      text={card.description}
-                      className={`${s.cardDescription} line-clamp-3`}
-                    />
-                  </div>
-                  <div className={s.cardFooter}>
-                    {card.readTime && (
-                      <span className={s.cardBadge}>
-                        <Text
-                          textStyle="body-sm"
-                          text={card.readTime}
-                          className={s.cardBadgeText}
-                        />
-                      </span>
                     )}
-                    <span className={s.cardCta}>
-                      <Text textStyle="body-sm" text="Read more" className={s.cardCtaText} />
-                      <ArrowUpRight size={24} className={s.cardCtaIcon} />
-                    </span>
-                  </div>
-                </Link>
-              )
-            })}
-      </ScrollCarousel>
+                    <div className={s.cardBody}>
+                      <Text as="h3" textStyle="span" className={s.cardTitle}>
+                        <Link
+                          href={href}
+                          target={cardLink?.newTab ? '_blank' : undefined}
+                          className={s.cardTitleLink}
+                        >
+                          {card.title}
+                        </Link>
+                      </Text>
+                      <Text
+                        as="p"
+                        textStyle="span"
+                        text={card.description}
+                        className={s.cardDescription}
+                      />
+                      <div className={s.cardCtaWrap}>
+                        <CtaLink href={href} label={ctaLabel} newTab={cardLink?.newTab} size="md" />
+                      </div>
+                    </div>
+                  </article>
+                )
+              })}
+        </div>
+        {viewBlogLink?.label && (
+          <div className={s.ctaWrap}>
+            <CtaLink
+              href={viewBlogHref}
+              label={viewBlogLink.label}
+              newTab={viewBlogLink.newTab}
+              size="lg"
+              className={s.viewBlogCta}
+            />
+          </div>
+        )}
+      </Container>
     </SectionWrapper>
   )
 }
