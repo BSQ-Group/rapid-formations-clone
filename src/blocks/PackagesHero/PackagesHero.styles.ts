@@ -27,11 +27,7 @@ export const packagesHeroStyles = {
   // Chrome (bg, shadow, ring, padding, gap, border-radius) scales per Figma per breakpoint.
   // See CLAUDE.md → "Per-breakpoint exceptions".
   cardChrome:
-    'flex absolute z-10 items-center bg-white shadow-2xl ring-white/15 ' +
-    'rounded-[9px] ring-[6px] gap-[9px] p-[9px] pr-[15px] ' +
-    'md:rounded-[11px] md:ring-[7px] md:gap-[11px] md:p-[11px] md:pr-[19px] ' +
-    'lg:rounded-[9px] lg:ring-[6px] lg:gap-[9px] lg:p-[9px] lg:pr-[15px] ' +
-    'xl:rounded-xl xl:ring-8 xl:gap-3 xl:p-3 xl:pr-5',
+    'flex absolute z-10 items-center bg-white shadow-2xl ring-white/15 rounded-[9px] ring-[6px] gap-[9px] p-[9px] pr-[15px] md:rounded-[11px] md:ring-[7px] md:gap-[11px] md:p-[11px] md:pr-[19px] lg:rounded-[9px] lg:ring-[6px] lg:gap-[9px] lg:p-[9px] lg:pr-[15px] xl:rounded-xl xl:ring-8 xl:gap-3 xl:p-3 xl:pr-5',
 
   // Floating top card — top-right of image.
   topCard:
@@ -43,11 +39,7 @@ export const packagesHeroStyles = {
 
   // Shared icon wrap — scales per Figma per breakpoint.
   cardIconWrap:
-    'shrink-0 bg-[var(--icon-background-accent)] flex items-center justify-center ' +
-    'rounded-[3px] p-3 [&>svg]:size-[18px] ' +
-    'md:rounded-[4px] md:p-[15px] md:[&>svg]:size-[22px] ' +
-    'lg:rounded-[3px] lg:p-3 lg:[&>svg]:size-[18px] ' +
-    'xl:rounded-[4px] xl:p-4 xl:[&>svg]:size-6',
+    'shrink-0 bg-[var(--icon-background-accent)] flex items-center justify-center rounded-[3px] p-3 [&>svg]:size-[18px] md:rounded-[4px] md:p-[15px] md:[&>svg]:size-[22px] lg:rounded-[3px] lg:p-3 lg:[&>svg]:size-[18px] xl:rounded-[4px] xl:p-4 xl:[&>svg]:size-6',
 
   // Top card content
   topCardContent: 'flex-1 flex flex-col gap-2 min-w-0',
@@ -55,23 +47,11 @@ export const packagesHeroStyles = {
   // Sizes match Figma per breakpoint (cards are physically scaled in the design,
   // not driven by a body-* preset's auto-scale). See CLAUDE.md → "Per-breakpoint exceptions".
   topCardLabel:
-    'font-medium text-[var(--text-subtle)] ' +
-    'text-[10.4px] leading-[14.85px] ' +
-    'md:text-[12.97px] md:leading-[18.53px] ' +
-    'lg:text-[10.54px] lg:leading-[15.06px] ' +
-    'xl:text-[14px] xl:leading-5',
+    'font-medium text-[var(--text-subtle)] text-[10.4px] leading-[14.85px] md:text-[12.97px] md:leading-[18.53px] lg:text-[10.54px] lg:leading-[15.06px] xl:text-[14px] xl:leading-5',
   topCardDetail:
-    'font-medium text-[var(--text-subtle)] shrink-0 ' +
-    'text-[10.4px] leading-[14.85px] ' +
-    'md:text-[12.97px] md:leading-[18.53px] ' +
-    'lg:text-[10.54px] lg:leading-[15.06px] ' +
-    'xl:text-[14px] xl:leading-5',
+    'font-medium text-[var(--text-subtle)] shrink-0 text-[10.4px] leading-[14.85px] md:text-[12.97px] md:leading-[18.53px] lg:text-[10.54px] lg:leading-[15.06px] xl:text-[14px] xl:leading-5',
   topCardSubtitle:
-    'font-medium text-[var(--text-muted)] ' +
-    'text-[8.91px] leading-[11.88px] ' +
-    'md:text-[11.12px] md:leading-[14.83px] ' +
-    'lg:text-[9.04px] lg:leading-[12.05px] ' +
-    'xl:text-[12px] xl:leading-4',
+    'font-medium text-[var(--text-muted)] text-[8.91px] leading-[11.88px] md:text-[11.12px] md:leading-[14.83px] lg:text-[9.04px] lg:leading-[12.05px] xl:text-[12px] xl:leading-4',
   progressBarTrack: 'w-full h-1 rounded-full bg-[var(--surface-canvas)] overflow-hidden',
   progressBarFill: 'h-full rounded-full bg-[var(--surface-accent)]',
   progressBarTrackSmall: 'w-full h-[2px] rounded-full bg-[var(--surface-canvas)] overflow-hidden',
@@ -84,17 +64,9 @@ export const packagesHeroStyles = {
   // Bottom card content
   bottomCardContent: 'flex flex-col gap-0.5 min-w-0',
   bottomCardTitle:
-    'font-semibold text-[var(--text-subtle)] whitespace-nowrap ' +
-    'text-[11.88px] leading-[17.82px] ' +
-    'md:text-[14.83px] md:leading-[22.24px] ' +
-    'lg:text-[12.05px] lg:leading-[18.07px] ' +
-    'xl:text-[16px] xl:leading-6',
+    'font-semibold text-[var(--text-subtle)] whitespace-nowrap text-[11.88px] leading-[17.82px] md:text-[14.83px] md:leading-[22.24px] lg:text-[12.05px] lg:leading-[18.07px] xl:text-[16px] xl:leading-6',
   bottomCardSubtitle:
-    'font-medium text-[var(--text-muted)] whitespace-nowrap ' +
-    'text-[8.91px] leading-[11.88px] ' +
-    'md:text-[11.12px] md:leading-[14.83px] ' +
-    'lg:text-[9.04px] lg:leading-[12.05px] ' +
-    'xl:text-[12px] xl:leading-4',
+    'font-medium text-[var(--text-muted)] whitespace-nowrap text-[8.91px] leading-[11.88px] md:text-[11.12px] md:leading-[14.83px] lg:text-[9.04px] lg:leading-[12.05px] xl:text-[12px] xl:leading-4',
 
   // ─── 4-card layout (Privacy Package) ───────────────────────────────────────
   // When topCardExtra or bottomCardExtra are present, primary cards shift to
@@ -102,61 +74,28 @@ export const packagesHeroStyles = {
 
   // Primary card positions for 4-card layout
   topCard4:
-    'top-[246px] left-[92px] ' +
-    'md:top-[103px] md:left-[274px] ' +
-    'lg:top-[97px] lg:left-[253px] ' +
-    'xl:top-[120px] xl:left-[311px]',
+    'top-[246px] left-[92px] md:top-[103px] md:left-[274px] lg:top-[97px] lg:left-[253px] xl:top-[120px] xl:left-[311px]',
   bottomCard4:
-    'top-[189px] left-[16px] ' +
-    'md:top-[246px] md:left-[-84px] ' +
-    'lg:top-[227px] lg:left-[-31px] ' +
-    'xl:top-[280px] xl:left-[-38px]',
+    'top-[189px] left-[16px] md:top-[246px] md:left-[-84px] lg:top-[227px] lg:left-[-31px] xl:top-[280px] xl:left-[-38px]',
 
-  // Small card chrome — absolute positioned, no 'flex' (comes from position styles below)
-  cardChromeSmall: [
-    'absolute z-10 items-center bg-white shadow-2xl ring-white/15',
-    'rounded-[6px] ring-[4px] gap-[6px] p-[6px] pr-[10px]',
-    'md:rounded-[7px] md:ring-[5px] md:gap-[7px] md:p-[7px] md:pr-[13px]',
-    'lg:rounded-[6px] lg:ring-[4px] lg:gap-[6px] lg:p-[6px] lg:pr-[10px]',
-    'xl:rounded-[8px] xl:ring-[5px] xl:gap-[8px] xl:p-[8px] xl:pr-[13px]',
-  ].join(' '),
+  cardChromeSmall:
+    'absolute z-10 items-center bg-white shadow-2xl ring-white/15 rounded-[6px] ring-[4px] gap-[6px] p-[6px] pr-[10px] md:rounded-[7px] md:ring-[5px] md:gap-[7px] md:p-[7px] md:pr-[13px] lg:rounded-[6px] lg:ring-[4px] lg:gap-[6px] lg:p-[6px] lg:pr-[10px] xl:rounded-[8px] xl:ring-[5px] xl:gap-[8px] xl:p-[8px] xl:pr-[13px]',
 
   // Secondary card positions — include display class (flex/hidden) since cardChromeSmall has none
   topCardExtraPos:
-    'hidden z-[5] ' + 'lg:flex lg:top-[46px] lg:left-[211px] ' + 'xl:top-[56px] xl:left-[260px]',
+    'hidden z-[5] lg:flex lg:top-[46px] lg:left-[211px] xl:top-[56px] xl:left-[260px]',
   bottomCardExtraPos:
-    'hidden ' + 'lg:flex lg:top-[162px] lg:left-[-38px] ' + 'xl:top-[199px] xl:left-[-46px]',
+    'hidden lg:flex lg:top-[162px] lg:left-[-38px] xl:top-[199px] xl:left-[-46px]',
 
-  // Small icon wrap — ~67% the size of the primary icon wrap
-  cardIconWrapSmall: [
-    'shrink-0 bg-[var(--icon-background-accent)] flex items-center justify-center',
-    'rounded-[2px] p-[9px] [&>svg]:size-[13px]',
-    'md:rounded-[3px] md:p-[10px] md:[&>svg]:size-[15px]',
-    'lg:rounded-[2px] lg:p-[9px] lg:[&>svg]:size-[13px]',
-    'xl:rounded-[3px] xl:p-[11px] xl:[&>svg]:size-4',
-  ].join(' '),
+  cardIconWrapSmall:
+    'shrink-0 bg-[var(--icon-background-accent)] flex items-center justify-center rounded-[2px] p-[9px] [&>svg]:size-[13px] md:rounded-[3px] md:p-[10px] md:[&>svg]:size-[15px] lg:rounded-[2px] lg:p-[9px] lg:[&>svg]:size-[13px] xl:rounded-[3px] xl:p-[11px] xl:[&>svg]:size-4',
 
   // Small card content areas
   smallTopCardContent: 'flex-1 flex flex-col gap-1 min-w-0',
-  smallCardLabel: [
-    'font-medium text-[var(--text-subtle)]',
-    'text-[7.8px] leading-[11.1px]',
-    'md:text-[9.75px] md:leading-[13.9px]',
-    'lg:text-[7.9px] lg:leading-[11.3px]',
-    'xl:text-[9.3px] xl:leading-[13.3px]',
-  ].join(' '),
-  smallCardTitle: [
-    'font-semibold text-[var(--text-subtle)] whitespace-nowrap',
-    'text-[8.91px] leading-[13.4px]',
-    'md:text-[11.12px] md:leading-[16.7px]',
-    'lg:text-[9.04px] lg:leading-[13.6px]',
-    'xl:text-[12px] xl:leading-[18px]',
-  ].join(' '),
-  smallCardSubtitle: [
-    'font-medium text-[var(--text-muted)] whitespace-nowrap',
-    'text-[6.68px] leading-[8.91px]',
-    'md:text-[8.34px] md:leading-[11.12px]',
-    'lg:text-[6.78px] lg:leading-[9.04px]',
-    'xl:text-[9px] xl:leading-[12px]',
-  ].join(' '),
+  smallCardLabel:
+    'font-medium text-[var(--text-subtle)] text-[7.8px] leading-[11.1px] md:text-[9.75px] md:leading-[13.9px] lg:text-[7.9px] lg:leading-[11.3px] xl:text-[9.3px] xl:leading-[13.3px]',
+  smallCardTitle:
+    'font-semibold text-[var(--text-subtle)] whitespace-nowrap text-[8.91px] leading-[13.4px] md:text-[11.12px] md:leading-[16.7px] lg:text-[9.04px] lg:leading-[13.6px] xl:text-[12px] xl:leading-[18px]',
+  smallCardSubtitle:
+    'font-medium text-[var(--text-muted)] whitespace-nowrap text-[6.68px] leading-[8.91px] md:text-[8.34px] md:leading-[11.12px] lg:text-[6.78px] lg:leading-[9.04px] xl:text-[9px] xl:leading-[12px]',
 } as const

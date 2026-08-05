@@ -1,21 +1,10 @@
 export const servicesTestimonialStyles = {
   section: 'w-full',
-  inner: [
-    'mx-auto max-w-[1200px]',
-    'px-4 md:px-8 lg:px-10',
-    'flex flex-col md:flex-row items-center',
-    'gap-14 md:gap-10 lg:gap-20',
-  ].join(' '),
+  inner:
+    'mx-auto max-w-[1200px] px-4 md:px-8 lg:px-10 flex flex-col md:flex-row items-center gap-14 md:gap-10 lg:gap-20',
 
-  // Trustpilot panel — full-width compact at mobile, fixed 340px square at md+
-  tpPanel: [
-    'order-2 md:order-1',
-    'w-full py-5',
-    'md:py-0 md:w-[340px] md:h-auto md:self-stretch',
-    'lg:h-[340px] lg:self-auto lg:shrink-0',
-    'bg-[var(--surface-primary)] rounded-2xl overflow-hidden',
-    'flex flex-col items-center justify-center',
-  ].join(' '),
+  tpPanel:
+    'order-2 md:order-1 w-full py-5 md:py-0 md:w-[340px] md:h-auto md:self-stretch lg:h-[340px] lg:self-auto lg:shrink-0 bg-[var(--surface-primary)] rounded-2xl overflow-hidden flex flex-col items-center justify-center',
 
   // Quote column
   quoteCol: 'order-1 md:order-2 w-full md:flex-1 flex flex-col gap-11 items-start',

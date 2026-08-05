@@ -10,7 +10,7 @@ export const heroStepperStyles = {
   compactEyebrow: 'text-xs font-semibold leading-4 text-[var(--text-inverse-muted)]',
   compactLabel: 'text-sm font-semibold leading-5 text-[var(--text-strong)]',
 
-  progressTrack: ['flex gap-1 h-1 w-full rounded', 'overflow-hidden'].join(' '),
+  progressTrack: 'flex gap-1 h-1 w-full rounded overflow-hidden',
   progressSegmentFilled: 'flex-1 rounded bg-[var(--surface-accent)]',
   progressSegmentEmpty: 'flex-1 rounded bg-[var(--border-strong)]',
 
@@ -30,18 +30,11 @@ export const heroStepperStyles = {
   nodeComplete:
     'w-8 h-8 rounded-full bg-[var(--surface-accent)] flex items-center justify-center bg-[var(--surface-accent)] flex items-center justify-center',
 
-  nodeActive: [
-    'w-8 h-8 rounded-full',
-    'bg-[var(--stepper-node-active)]',
-    'flex items-center justify-center',
-    'shadow-[0_0_0_4px_color-mix(in_srgb,var(--stepper-node-active)_20%,transparent)]',
-  ].join(' '),
+  nodeActive:
+    'w-8 h-8 rounded-full bg-[var(--stepper-node-active)] flex items-center justify-center shadow-[0_0_0_4px_color-mix(in_srgb,var(--stepper-node-active)_20%,transparent)]',
 
-  nodeInactive: [
-    'w-8 h-8 rounded-full',
-    'bg-[var(--border-strong)] border border-[var(--qcf-grey-400)]',
-    'flex items-center justify-center',
-  ].join(' '),
+  nodeInactive:
+    'w-8 h-8 rounded-full bg-[var(--border-strong)] border border-[var(--qcf-grey-400)] flex items-center justify-center',
 
   nodeNumber: 'text-xs font-semibold leading-none text-[var(--text-strong)]',
   nodeNumberInactive: 'text-xs font-semibold leading-none text-[var(--text-inverse-muted)]',
