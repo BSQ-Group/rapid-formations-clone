@@ -56,7 +56,7 @@ export default async function Page({ params: paramsPromise }: Args) {
     return <PayloadRedirects url={url} />
   }
 
-  const { hero, layout, isHeaderOnDark } = page
+  const { hero, layout, isHeaderOnDark, title } = page
 
   const blocks = layout ?? []
   const firstBlock = blocks[0]
@@ -74,7 +74,7 @@ export default async function Page({ params: paramsPromise }: Args) {
         <PayloadRedirects disableNotFound url={url} />
         {draft && <LivePreviewListener />}
         <RenderHero {...hero} />
-        <RenderBlocks blocks={remainingBlocks} />
+        <RenderBlocks blocks={remainingBlocks} pageTitle={title} />
       </main>
     </>
   )

@@ -60,6 +60,8 @@ import { ServicesTextWithCard } from '../../blocks/ServicesTextWithCard/config'
 import { RegisterCtaPanel } from '../../blocks/RegisterCtaPanel/config'
 import { RegisterOverseas } from '../../blocks/RegisterOverseas/config'
 import { RequiredInformation } from '../../blocks/RequiredInformation/config'
+import { PageTitle } from '../../components/shared/PageTitle/config'
+import { TextContent } from '../../blocks/TextContent/config'
 import { ContentWithPricingCard } from '../../blocks/ContentWithPricingCard/config'
 import { ContentWithExtendedPricingCard } from '../../blocks/ContentWithExtendedPricingCard/config'
 import { HeroServicesBanner } from '../../blocks/HeroServicesBanner/config'
@@ -206,6 +208,8 @@ export const Pages: CollectionConfig<'pages'> = {
                 CaseStudyMosaic,
                 FormationVideo,
                 WhyUseAgent,
+                PageTitle,
+                TextContent,
               ],
               admin: {
                 initCollapsed: true,

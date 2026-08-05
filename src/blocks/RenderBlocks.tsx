@@ -67,6 +67,8 @@ import { NoteBlock } from '@/blocks/Note/Component'
 import { RegisterCtaPanelBlock } from '@/blocks/RegisterCtaPanel/Component'
 import { RegisterOverseasBlock } from '@/blocks/RegisterOverseas/Component'
 import { RequiredInformationBlock } from '@/blocks/RequiredInformation/Component'
+import { PageTitle } from '@/components/shared/PageTitle'
+import { TextContentBlock } from '@/blocks/TextContent/Component'
 
 const blockComponents = {
   additionalServices: AdditionalServicesBlock,
@@ -134,20 +136,20 @@ const blockComponents = {
   registerCtaPanel: RegisterCtaPanelBlock,
   registerOverseas: RegisterOverseasBlock,
   requiredInformation: RequiredInformationBlock,
+  textContent: TextContentBlock,
 }
 
 const noMarginBlocks: string[] = ['landingHero']
 
 export const RenderBlocks: React.FC<{
   blocks: NonNullable<Page['layout']>[0][]
+  pageTitle?: string | null
 }> = (props) => {
-  const { blocks } = props
+  const { blocks, pageTitle } = props
 
   const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0
 
-  const compareBlock = hasBlocks
-    ? blocks.find((b) => b.blockType === 'comparePackages')
-    : undefined
+  const compareBlock = hasBlocks ? blocks.find((b) => b.blockType === 'comparePackages') : undefined
   const formationBlock = hasBlocks
     ? blocks.find((b) => b.blockType === 'formationPackages')
     : undefined
@@ -171,6 +173,16 @@ export const RenderBlocks: React.FC<{
       <Fragment>
         {blocks.map((block, index) => {
           const { blockType } = block
+
+          if (blockType === 'pageTitle') {
+            return (
+              <PageTitle
+                key={index}
+                title={block.title?.trim() || pageTitle?.trim()}
+                sectionLayout={block.sectionLayout}
+              />
+            )
+          }
 
           if (blockType && blockType in blockComponents) {
             const Block = blockComponents[blockType] as React.ComponentType<typeof block>
