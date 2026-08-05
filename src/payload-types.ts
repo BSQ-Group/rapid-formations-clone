@@ -2345,10 +2345,8 @@ export interface ServicesCTABlock {
 export interface RegisteredOfficeAddressBlock {
   heading: string;
   image: string | Media;
-  /**
-   * Multi-line address. Each new line renders on its own line.
-   */
-  address: string;
+  serviceTitle: string;
+  description: string;
   price: string;
   /**
    * Suffix shown next to the price. Include leading space.
@@ -5276,7 +5274,8 @@ export interface ServicesCTABlockSelect<T extends boolean = true> {
 export interface RegisteredOfficeAddressBlockSelect<T extends boolean = true> {
   heading?: T;
   image?: T;
-  address?: T;
+  serviceTitle?: T;
+  description?: T;
   price?: T;
   priceSuffix?: T;
   cta?:
