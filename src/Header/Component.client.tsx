@@ -46,7 +46,7 @@ const GoogleOneTapProvider = dynamic(
 const DESKTOP_NAV_QUERY = '(min-width: 1200px)'
 
 const LOGO_INTRINSIC: Record<Brand, { width: number; height: number }> = {
-  [Brand.RapidFormations]: { width: 1296, height: 130 },
+  [Brand.RapidFormations]: { width: 560, height: 56 },
   [Brand.QualityCompanyFormations]: { width: 44, height: 44 },
   [Brand.FirstFormations]: { width: 44, height: 44 },
 }

@@ -1,6 +1,6 @@
 export const headerStyles = {
   header:
-    'group font-legacy-condensed sticky top-0 z-[1000] w-full md:relative min-[1200px]:pb-[15px] data-[on-light]:bg-[rgb(var(--white))] data-[on-light]:shadow-[0_1px_3px_rgba(0,0,0,0.12),0_1px_2px_rgba(0,0,0,0.24)] min-[1200px]:data-[on-light]:border-b min-[1200px]:data-[on-light]:border-[var(--border-on-light)]',
+    'group font-legacy-condensed sticky top-0 z-[1000] w-full md:relative min-[1200px]:pb-[15px] data-[on-light]:bg-[rgb(var(--white))] data-[on-light]:shadow-[0_1px_15px_-5px_rgba(50,50,93,0.1),0_8px_16px_-8px_rgba(0,0,0,0.1),0_0_16px_-10px_rgba(0,0,0,0.01),0_0_20px_rgba(0,0,0,0.01)] min-[1200px]:data-[on-light]:border-b min-[1200px]:data-[on-light]:border-[var(--border-on-light)] min-[1200px]:data-[on-light]:shadow-none',
   headerScrolled:
     'data-[scrolled]:bg-[var(--surface-hero-brand)] min-[769px]:data-[scrolled]:bg-transparent',
 

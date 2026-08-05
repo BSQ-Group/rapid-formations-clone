@@ -274,6 +274,8 @@ export interface Page {
         | CaseStudyMosaicBlock
         | FormationVideoBlock
         | WhyUseAgentBlock
+        | PageTitleBlock
+        | TextContentBlock
       )[]
     | null;
   meta?: {
@@ -3988,6 +3990,66 @@ export interface WhyUseAgentBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PageTitleBlock".
+ */
+export interface PageTitleBlock {
+  /**
+   * Renders as the page H1. Leave empty to use the page's own title — fill this in only when the heading should read differently.
+   */
+  title?: string | null;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'pageTitle';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextContentBlock".
+ */
+export interface TextContentBlock {
+  /**
+   * Long-form body copy. H3 is a numbered top-level section ("1. Introduction"), H4 a subsection ("3.1 Compliance"). Numbering is authored manually.
+   */
+  body: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * Standard matches the default long-form body. Policy carries the page-scoped overrides the Environmental Policy page uses. Numbered clauses renders the multi-level counter numbering the Whistleblowing policy uses.
+   */
+  variant?: ('standard' | 'policy' | 'numbered') | null;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'textContent';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -4354,6 +4416,8 @@ export interface PagesSelect<T extends boolean = true> {
         caseStudyMosaic?: T | CaseStudyMosaicBlockSelect<T>;
         formationVideo?: T | FormationVideoBlockSelect<T>;
         whyUseAgent?: T | WhyUseAgentBlockSelect<T>;
+        pageTitle?: T | PageTitleBlockSelect<T>;
+        textContent?: T | TextContentBlockSelect<T>;
       };
   meta?:
     | T
@@ -6368,6 +6432,39 @@ export interface WhyUseAgentBlockSelect<T extends boolean = true> {
         url?: T;
         label?: T;
       };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PageTitleBlock_select".
+ */
+export interface PageTitleBlockSelect<T extends boolean = true> {
+  title?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextContentBlock_select".
+ */
+export interface TextContentBlockSelect<T extends boolean = true> {
+  body?: T;
+  variant?: T;
   sectionLayout?:
     | T
     | {

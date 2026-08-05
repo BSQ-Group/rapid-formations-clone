@@ -416,3 +416,21 @@ Each entry has four parts:
   git diff origin/main...HEAD -- 'src/blocks/**/*.styles.ts' | grep -E '^\+.*(heading|title).*\bmb-[0-9]+' || true
   ```
 - **Fix:** Set the port's margin to the source's **measured rendered gap**. Do NOT compute it — neither the wrapper value from the SCSS nor wrapper + UA default is reliable, because whether the two margins collapse depends on what follows the wrapper. Same `SectionTitle`, two sections, two different answers: S18/WhyChooseUs renders **40px** (next sibling is an inline `<span>`, so the h2's 8px does not collapse away) while S19/RegisteredOffices renders **32px** (next sibling is a block, the 8px and 32px collapse to 32). Read `gapBelow` off the live source at 390/768/1440, set the port to that number, re-measure both servers and require an exact match. The same applies to `<p>`: a source paragraph's margin can come from a UA default or a global rule the block's SCSS never mentions — and measure the *inner* `<p>`, not the wrapper, whose computed `font-size`/`line-height` are inherited values that the paragraph then overrides (S19: wrapper reported 18px/27px, the `<p>` inside was 20px/30px).
+## The page `H1` belongs to a `PageTitle` block, never inside a content block
+
+- **When it bites:** A ported page renders its heading plus its body, so the obvious move is one block carrying both — a `title` field above the content. It works for that page and quietly fails for the family. The source site composes the heading as its own section (`components/directus/page-title`), used on **60 pages**, and only **5** of those pair it with the text body; the rest pair it with `service-content`, `faq-page-questions`, `page-sections`, `package-inclusions` and others. Bake the `H1` into one content block and every other family needs its own copy of the same field, with nothing guaranteeing exactly one `H1` per page. The heading is also **not always first** — on 8 pages (`affiliate-program`, `contact-us`, `go-digital`, `site-map`, all four `help-centre/*`) it renders *below* `MainBanner`, which rules out emitting it from the page template. Real incident: the first cut of the TextContent port put the `H1` in the block's own `title` field and deleted the `PageTitle` block as "duplication of `page.title`"; it had to be rebuilt before the FAQ family (23 pages) could be started.
+  > Gate-escape: the block was reviewed against one page, where a self-contained title reads as the simpler design. Tightening: before adding a `title`/heading field to a block, grep the source for how many pages use that heading component and what else they compose it with. More than one composition == it is its own block.
+- **Detect:**
+  ```bash
+  # No block other than PageTitle (and the hero blocks, which own their own H1)
+  # may emit an H1.
+  grep -rn 'as="h1"' src/blocks --include=Component.tsx \
+    | grep -vE 'src/blocks/(PageTitle|LandingHero)/' || true
+  # And a `title` field on a block that renders body copy is the same smell:
+  git diff main...HEAD -- 'src/blocks/**/config.ts' | grep -B2 "name: 'title'" || true
+  ```
+  Runtime check — every page must have exactly one `H1`:
+  ```js
+  document.querySelectorAll('h1').length // must be 1
+  ```
+- **Fix:** Give the heading its own `PageTitle` block so editors can position it (above or below a banner), and make its `title` field **optional, falling back to the page's own `title`** — passed down as `RenderBlocks({ pageTitle })` and injected as `fallbackTitle`. That keeps a single source of truth for the 52 pages whose heading is just the page name, without a second copy to drift, while still allowing an override where the `H1` should read differently from the page/SEO title.
