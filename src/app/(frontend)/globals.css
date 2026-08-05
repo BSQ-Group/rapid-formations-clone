@@ -313,6 +313,7 @@
     --text-on-light-muted: rgb(89 89 89);
     --text-on-light-link-hover: rgb(0 177 227);
     --border-on-light: rgb(218 218 218);
+    --border-on-light-strong: rgb(204 204 204);
     --border-on-light-faint: rgb(0 0 0 / 0.05);
     --surface-on-light-canvas: rgb(245 245 245);
     --surface-on-light-sunken: rgb(240 240 240);
