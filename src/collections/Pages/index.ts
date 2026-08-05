@@ -18,7 +18,6 @@ import { FourSteps } from '../../blocks/FourSteps/config'
 import { PackageGrid } from '../../blocks/PackageGrid/config'
 import { UniqueSellingPoints } from '../../blocks/UniqueSellingPoints/config'
 import { WhyChooseUs } from '../../blocks/WhyChooseUs/config'
-import { BankingPartners } from '../../blocks/BankingPartners/config'
 import { BCorpCertification } from '../../blocks/BCorpCertification/config'
 import { AdditionalServices } from '../../blocks/AdditionalServices/config'
 import { CallOutCTA } from '../../blocks/CallOutCTA/config'
@@ -155,7 +154,6 @@ export const Pages: CollectionConfig<'pages'> = {
                 UniqueSellingPoints,
                 WhyChooseUs,
                 BCorpCertification,
-                BankingPartners,
                 ChooseCompanyStructure,
                 OurLatestBlogs,
                 AdditionalServices,

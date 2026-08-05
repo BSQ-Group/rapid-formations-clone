@@ -226,7 +226,6 @@ export interface Page {
         | UniqueSellingPointsBlock
         | WhyChooseUsBlock
         | BCorpCertificationBlock
-        | BankingPartnersBlock
         | ChooseCompanyStructureBlock
         | OurLatestBlogsBlock
         | AdditionalServicesBlock
@@ -1557,87 +1556,6 @@ export interface BCorpCertificationBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'bCorpCertification';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "BankingPartnersBlock".
- */
-export interface BankingPartnersBlock {
-  /**
-   * Centred heading above the partner grid. Newlines are preserved, so a deliberate line break can be typed in.
-   */
-  heading: string;
-  /**
-   * Optional line under the heading. Leave blank and the spacing above the grid stays the same.
-   */
-  subheading?: string | null;
-  /**
-   * Repeating texture tiled behind every partner tile and blended over its brand colour. One image is shared by all tiles.
-   */
-  backgroundPattern?: (string | null) | Media;
-  banks: {
-    name: string;
-    /**
-     * Rendered at 58x58 inside a white rounded tile.
-     */
-    logo: string | Media;
-    /**
-     * CSS colour for the tile background, e.g. #4DAFEA. This is per-partner brand data, so it is stored as content rather than a theme token.
-     */
-    brandColour: string;
-    /**
-     * Bold first line of the hover tooltip (desktop) and tap modal (mobile), e.g. "Barclays business bank account". Leave blank and the tile is not interactive.
-     */
-    infoTitle?: string | null;
-    /**
-     * Body of the hover tooltip (desktop) and tap modal (mobile). Leave blank and the tile is not interactive.
-     */
-    description?: {
-      root: {
-        type: string;
-        children: {
-          type: any;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    } | null;
-    id?: string | null;
-  }[];
-  /**
-   * Optional CTA below the grid (e.g. "Learn More").
-   */
-  cta: {
-    type?: ('reference' | 'custom') | null;
-    newTab?: boolean | null;
-    reference?:
-      | ({
-          relationTo: 'pages';
-          value: string | Page;
-        } | null)
-      | ({
-          relationTo: 'posts';
-          value: string | Post;
-        } | null);
-    url?: string | null;
-    label: string;
-  };
-  /**
-   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
-   */
-  sectionLayout: {
-    background: 'light' | 'dark' | 'inverse';
-    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
-    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'bankingPartners';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3927,7 +3845,6 @@ export interface PagesSelect<T extends boolean = true> {
         uniqueSellingPoints?: T | UniqueSellingPointsBlockSelect<T>;
         whyChooseUs?: T | WhyChooseUsBlockSelect<T>;
         bCorpCertification?: T | BCorpCertificationBlockSelect<T>;
-        bankingPartners?: T | BankingPartnersBlockSelect<T>;
         chooseCompanyStructure?: T | ChooseCompanyStructureBlockSelect<T>;
         ourLatestBlogs?: T | OurLatestBlogsBlockSelect<T>;
         additionalServices?: T | AdditionalServicesBlockSelect<T>;
@@ -4500,43 +4417,6 @@ export interface BCorpCertificationBlockSelect<T extends boolean = true> {
   badge?: T;
   badgeUrl?: T;
   badgeLinkTitle?: T;
-  sectionLayout?:
-    | T
-    | {
-        background?: T;
-        paddingTop?: T;
-        paddingBottom?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "BankingPartnersBlock_select".
- */
-export interface BankingPartnersBlockSelect<T extends boolean = true> {
-  heading?: T;
-  subheading?: T;
-  backgroundPattern?: T;
-  banks?:
-    | T
-    | {
-        name?: T;
-        logo?: T;
-        brandColour?: T;
-        infoTitle?: T;
-        description?: T;
-        id?: T;
-      };
-  cta?:
-    | T
-    | {
-        type?: T;
-        newTab?: T;
-        reference?: T;
-        url?: T;
-        label?: T;
-      };
   sectionLayout?:
     | T
     | {
