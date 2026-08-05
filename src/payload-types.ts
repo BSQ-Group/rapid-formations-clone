@@ -268,6 +268,7 @@ export interface Page {
         | NoteBlock
         | RegisterOverseasBlock
         | CaseStudyVideoBlock
+        | RequiredInformationBlock
       )[]
     | null;
   meta?: {
@@ -3609,6 +3610,75 @@ export interface CaseStudyVideoBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RequiredInformationBlock".
+ */
+export interface RequiredInformationBlock {
+  /**
+   * Centred heading above the cards. Newlines are preserved, so a deliberate line break can be typed in.
+   */
+  heading: string;
+  /**
+   * Optional line under the heading. Leave blank and the spacing above the cards stays the same.
+   */
+  subheading?: string | null;
+  items: {
+    title: string;
+    /**
+     * Body copy under the title. Inline links are rendered in the brand cyan, e.g. a link to a package page.
+     */
+    description: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    /**
+     * Sits above the copy at the full width of the card. The source uses square images; the card grows to whatever aspect is uploaded.
+     */
+    image: string | Media;
+    id?: string | null;
+  }[];
+  /**
+   * Optional centred button below the cards, e.g. "Register Now".
+   */
+  cta?: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label?: string | null;
+  };
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'requiredInformation';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -3969,6 +4039,7 @@ export interface PagesSelect<T extends boolean = true> {
         note?: T | NoteBlockSelect<T>;
         registerOverseas?: T | RegisterOverseasBlockSelect<T>;
         caseStudyVideo?: T | CaseStudyVideoBlockSelect<T>;
+        requiredInformation?: T | RequiredInformationBlockSelect<T>;
       };
   meta?:
     | T
@@ -5803,6 +5874,40 @@ export interface CaseStudyVideoBlockSelect<T extends boolean = true> {
   videoUrl?: T;
   captionsUrl?: T;
   autoplayInView?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RequiredInformationBlock_select".
+ */
+export interface RequiredInformationBlockSelect<T extends boolean = true> {
+  heading?: T;
+  subheading?: T;
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+        id?: T;
+      };
+  cta?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
   sectionLayout?:
     | T
     | {
