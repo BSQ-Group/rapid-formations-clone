@@ -1,5 +1,6 @@
 import type { Block } from 'payload'
 
+import { defaultLexical } from '@/fields/defaultLexical'
 import { sectionLayoutField } from '@/fields/sectionLayout'
 
 export const WhyChooseUs: Block = {
@@ -8,26 +9,27 @@ export const WhyChooseUs: Block = {
   fields: [
     {
       name: 'heading',
-      type: 'text',
+      type: 'textarea',
       label: 'Heading',
       required: true,
+      admin: {
+        description: 'Centred above the carousel. Line breaks are preserved.',
+      },
     },
     {
-      name: 'description',
-      type: 'text',
-      label: 'Description',
-    },
-    {
-      name: 'features',
+      name: 'panes',
       type: 'array',
-      label: 'Features',
+      label: 'Panes',
+      required: true,
+      minRows: 1,
+      maxRows: 8,
+      labels: { singular: 'Pane', plural: 'Panes' },
+      admin: {
+        initCollapsed: true,
+        description:
+          'One pane is shown at a time at every width, with arrows and dots. Copy sits on the left and the image on the right; below 768px they stack.',
+      },
       fields: [
-        {
-          name: 'icon',
-          type: 'upload',
-          relationTo: 'media',
-          label: 'Icon',
-        },
         {
           name: 'title',
           type: 'text',
@@ -35,15 +37,27 @@ export const WhyChooseUs: Block = {
           required: true,
         },
         {
-          name: 'description',
-          type: 'text',
-          label: 'Description',
+          name: 'body',
+          type: 'richText',
+          label: 'Body',
+          required: true,
+          editor: defaultLexical,
+          admin: {
+            description:
+              'Pane body copy. Rich text so multiple paragraphs and inline links can be authored.',
+          },
+        },
+        {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Image',
           required: true,
         },
       ],
     },
     sectionLayoutField({
-      defaults: { background: 'dark', paddingTop: 'xl', paddingBottom: 'xl' },
+      defaults: { background: 'inverse', paddingTop: 'none', paddingBottom: 'none' },
     }),
   ],
 }

@@ -1527,16 +1527,36 @@ export interface UniqueSellingPointsBlock {
  * via the `definition` "WhyChooseUsBlock".
  */
 export interface WhyChooseUsBlock {
+  /**
+   * Centred above the carousel. Line breaks are preserved.
+   */
   heading: string;
-  description?: string | null;
-  features?:
-    | {
-        icon?: (string | null) | Media;
-        title: string;
-        description: string;
-        id?: string | null;
-      }[]
-    | null;
+  /**
+   * One pane is shown at a time at every width, with arrows and dots. Copy sits on the left and the image on the right; below 768px they stack.
+   */
+  panes: {
+    title: string;
+    /**
+     * Pane body copy. Rich text so multiple paragraphs and inline links can be authored.
+     */
+    body: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    image: string | Media;
+    id?: string | null;
+  }[];
   /**
    * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
    */
@@ -4735,13 +4755,12 @@ export interface UniqueSellingPointsBlockSelect<T extends boolean = true> {
  */
 export interface WhyChooseUsBlockSelect<T extends boolean = true> {
   heading?: T;
-  description?: T;
-  features?:
+  panes?:
     | T
     | {
-        icon?: T;
         title?: T;
-        description?: T;
+        body?: T;
+        image?: T;
         id?: T;
       };
   sectionLayout?:
