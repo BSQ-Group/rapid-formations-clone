@@ -221,6 +221,7 @@ export interface Page {
         | LandingHeroBlock
         | SupportBlock
         | TestimonialsBlock
+        | FourStepsBlock
         | PackageGridBlock
         | UniqueSellingPointsBlock
         | WhyChooseUsBlock
@@ -1295,6 +1296,52 @@ export interface TestimonialsBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'testimonials';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FourStepsBlock".
+ */
+export interface FourStepsBlock {
+  heading?: string | null;
+  subheading?: string | null;
+  /**
+   * Numbered steps shown left to right with a chevron between each. The number is derived from position, so reordering renumbers automatically.
+   */
+  steps?:
+    | {
+        /**
+         * Circular icon, rendered at 140x140.
+         */
+        image: string | Media;
+        /**
+         * Line breaks are preserved, matching the source layout.
+         */
+        title: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Button below the steps, e.g. "Register Now".
+   */
+  ctaLink?: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'fourSteps';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3733,6 +3780,7 @@ export interface PagesSelect<T extends boolean = true> {
         landingHero?: T | LandingHeroBlockSelect<T>;
         support?: T | SupportBlockSelect<T>;
         testimonials?: T | TestimonialsBlockSelect<T>;
+        fourSteps?: T | FourStepsBlockSelect<T>;
         packageGrid?: T | PackageGridBlockSelect<T>;
         uniqueSellingPoints?: T | UniqueSellingPointsBlockSelect<T>;
         whyChooseUs?: T | WhyChooseUsBlockSelect<T>;
@@ -4152,6 +4200,33 @@ export interface TestimonialsBlockSelect<T extends boolean = true> {
         background?: T;
         paddingTop?: T;
         paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FourStepsBlock_select".
+ */
+export interface FourStepsBlockSelect<T extends boolean = true> {
+  heading?: T;
+  subheading?: T;
+  steps?:
+    | T
+    | {
+        image?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  ctaLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
       };
   id?: T;
   blockName?: T;
