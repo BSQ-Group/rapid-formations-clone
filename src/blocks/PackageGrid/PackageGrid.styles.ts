@@ -9,7 +9,7 @@ export const packageGridStyles = {
 
   footer: 'flex flex-col items-center text-center',
   compareButton:
-    'inline-flex w-full md:w-auto items-center justify-center rounded-md min-h-[54.5px] px-8 py-3 border border-[var(--surface-brand-cyan)] bg-[var(--surface-brand-cyan)] hover:bg-[var(--surface-brand-cyan-hover)] text-center text-[19px] leading-[28.5px] font-semibold text-[var(--text-strong)] [overflow-wrap:anywhere]',
+    'inline-flex w-full md:w-auto items-center justify-center rounded-md min-h-[54.5px] px-8 py-3 border border-[var(--surface-brand-cyan)] bg-[var(--surface-brand-cyan)] hover:bg-[var(--surface-brand-cyan-hover)] text-center text-[19px] leading-rf-base font-semibold text-[var(--text-strong)] [overflow-wrap:anywhere]',
   contactNote:
     'mt-8 w-full break-words text-[20px] leading-[27px] md:text-[24px] md:leading-[32.4px] font-normal text-[var(--text-on-light-base)] [&_em]:not-italic [&_em]:text-[var(--surface-brand-cyan)]',
   footerNote:

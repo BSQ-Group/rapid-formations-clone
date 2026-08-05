@@ -184,6 +184,15 @@ export default {
         mono: ['var(--font-geist-mono)'],
         sans: ['var(--font-inter)'],
       },
+      lineHeight: {
+        // Rapid Formations type ratios -- sp-rapid/src/styles/baseline.scss.
+        // The port previously hardcoded the pixels these compute to, which
+        // restates one fact per font-size and desyncs the moment a size moves.
+        'rf-h1': '1.15',
+        'rf-heading': '1.235',
+        'rf-h4': '1.35',
+        'rf-base': '1.5',
+      },
       fontSize: {
         // Body-range tokens carry NO letter-spacing to match the Figma body family
         // (body-100/200/300/400 all = letter-spacing 0). These previously had

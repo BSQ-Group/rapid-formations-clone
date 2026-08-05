@@ -11,7 +11,7 @@ export const uniqueSellingPointsStyles = {
 
   icon: 'mb-[5px] size-[90px] object-contain',
   title:
-    'mb-[5px] max-w-full [overflow-wrap:anywhere] text-[24px] leading-[29.64px] font-normal tracking-normal text-[var(--text-on-light-strong)]',
+    'mb-[5px] max-w-full [overflow-wrap:anywhere] text-[24px] leading-rf-heading font-normal tracking-normal text-[var(--text-on-light-strong)]',
   description:
     'max-w-full whitespace-pre-line [overflow-wrap:anywhere] text-[20px] leading-[30px] font-normal tracking-normal text-[var(--text-on-light-muted)]',
 } as const

@@ -18,7 +18,7 @@ export const fourStepsStyles = {
     'inline-flex h-[50px] w-[50px] items-center justify-center rounded-full border-4 border-[var(--border-step-number)] bg-[var(--surface-canvas-inverse)] p-[5px] text-[25px] leading-[1.25] font-normal text-[var(--surface-brand-cyan)]',
 
   title:
-    'mt-4 mx-auto break-words whitespace-pre-line text-[24px] leading-[32.4px] font-normal tracking-normal text-[var(--text-on-light-base)]',
+    'mt-4 mx-auto break-words whitespace-pre-line text-[24px] leading-rf-h4 font-normal tracking-normal text-[var(--text-on-light-base)]',
   content: 'mt-2 mb-4',
   description:
     'break-words text-[18px] leading-[27px] font-normal tracking-normal text-[var(--text-on-light-muted)]',
@@ -28,5 +28,5 @@ export const fourStepsStyles = {
 
   cta: 'mt-[50px] text-center',
   ctaButton:
-    'inline-flex max-w-full w-full md:w-auto items-center justify-center rounded-md border border-[var(--surface-cta-success)] bg-[var(--surface-cta-success)] hover:bg-[var(--surface-cta-success-hover)] px-8 py-3 text-center text-[19px] leading-[28.5px] font-semibold text-[var(--text-strong)] [overflow-wrap:anywhere]',
+    'inline-flex max-w-full w-full md:w-auto items-center justify-center rounded-md border border-[var(--surface-cta-success)] bg-[var(--surface-cta-success)] hover:bg-[var(--surface-cta-success-hover)] px-8 py-3 text-center text-[19px] leading-rf-base font-semibold text-[var(--text-strong)] [overflow-wrap:anywhere]',
 } as const

@@ -8,8 +8,8 @@ export const ctaLinkStyles = {
   },
 
   size: {
-    md: 'px-6 py-2 text-[17px] leading-[25.5px]',
-    lg: 'px-8 py-3 text-[19px] leading-[28.5px]',
+    md: 'px-6 py-2 text-[17px] leading-rf-base',
+    lg: 'px-8 py-3 text-[19px] leading-rf-base',
   },
 
   block: 'w-full',
