@@ -1289,8 +1289,32 @@ export interface SupportBlock {
  * via the `definition` "TestimonialsBlock".
  */
 export interface TestimonialsBlock {
+  /**
+   * Centred above the Trustpilot carousel.
+   */
   heading: string;
-  description?: string | null;
+  /**
+   * Optional line under the heading.
+   */
+  subheading?: string | null;
+  /**
+   * Optional centred button below the carousel, e.g. "Our Customer Reviews".
+   */
+  cta?: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label?: string | null;
+  };
   /**
    * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
    */
@@ -4568,7 +4592,16 @@ export interface SupportBlockSelect<T extends boolean = true> {
  */
 export interface TestimonialsBlockSelect<T extends boolean = true> {
   heading?: T;
-  description?: T;
+  subheading?: T;
+  cta?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
   sectionLayout?:
     | T
     | {

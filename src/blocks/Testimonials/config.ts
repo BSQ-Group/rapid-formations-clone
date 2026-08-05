@@ -1,5 +1,6 @@
 import type { Block } from 'payload'
 
+import { link } from '@/fields/link'
 import { sectionLayoutField } from '@/fields/sectionLayout'
 
 export const Testimonials: Block = {
@@ -11,14 +12,31 @@ export const Testimonials: Block = {
       type: 'text',
       label: 'Heading',
       required: true,
+      admin: {
+        description: 'Centred above the Trustpilot carousel.',
+      },
     },
     {
-      name: 'description',
+      name: 'subheading',
       type: 'text',
-      label: 'Description',
+      label: 'Subheading',
+      admin: {
+        description: 'Optional line under the heading.',
+      },
     },
+    link({
+      appearances: false,
+      optional: true,
+      overrides: {
+        name: 'cta',
+        label: 'Call to Action',
+        admin: {
+          description: 'Optional centred button below the carousel, e.g. "Our Customer Reviews".',
+        },
+      },
+    }),
     sectionLayoutField({
-      defaults: { background: 'dark', paddingTop: 'xl', paddingBottom: 'xl' },
+      defaults: { background: 'inverse', paddingTop: 'none', paddingBottom: 'none' },
     }),
   ],
 }
