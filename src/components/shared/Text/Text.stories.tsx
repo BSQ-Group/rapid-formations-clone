@@ -30,8 +30,6 @@ const meta: Meta<typeof Text> = {
 export default meta
 type Story = StoryObj<typeof Text>
 
-// Headline tokens — responsive scaling baked in (mobile → tablet → laptop+)
-
 export const Headline9xl: Story = {
   args: { text, textStyle: 'headline-9xl', as: 'h1' },
 }
@@ -60,8 +58,6 @@ export const HeadlineXl: Story = {
   args: { text, textStyle: 'headline-xl', as: 'h3' },
 }
 
-// Statistic tokens — Light weight, discrete downscale
-
 export const Statistic8xl: Story = {
   args: { text: '£9.99', textStyle: 'statistic-8xl' },
 }
@@ -71,8 +67,6 @@ export const Statistic7xl: Story = {
 export const Statistic5xl: Story = {
   args: { text: '£9.99', textStyle: 'statistic-5xl' },
 }
-
-// Body tokens — no breakpoint shift
 
 export const BodyLarge: Story = {
   args: { text, textStyle: 'body-lg' },
@@ -86,8 +80,6 @@ export const BodySmall: Story = {
 export const BodyExtraSmall: Story = {
   args: { text, textStyle: 'body-xs' },
 }
-
-// Legacy aliases — kept for back-compat, remap onto the headline/body scale
 
 export const DisplayLarge: Story = {
   args: { text, textStyle: 'display-lg', variant: 'primaryBold' },

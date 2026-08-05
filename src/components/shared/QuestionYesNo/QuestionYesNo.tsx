@@ -7,7 +7,6 @@ import './QuestionYesNo.css'
 
 export interface QuestionYesNoProps {
   question: string
-  /** `true` = Yes selected, `false` = No selected */
   value: boolean
   onValueChange: (value: boolean) => void
   className?: string

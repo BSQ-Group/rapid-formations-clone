@@ -35,7 +35,6 @@ export const AdditionalServicesBlock: React.FC<Props> = ({ heading, cards, secti
       <div className={s.header}>
         <Text as="h2" textStyle="headline-5xl" text={heading} className={s.heading} />
       </div>
-
       <div className={s.grid}>
         {cards.map((card, index) => {
           const href = getLinkHref(card.link)
@@ -47,7 +46,6 @@ export const AdditionalServicesBlock: React.FC<Props> = ({ heading, cards, secti
                 <Text as="h3" textStyle="headline-xl" text={card.title} className={s.cardTitle} />
                 <Text textStyle="body-sm" text={card.description} className={s.cardDescription} />
               </div>
-
               <div className={s.cardFooter}>
                 {href && (
                   <Link

@@ -42,7 +42,6 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
       </div>
       <Button
         variant="secondary-light"
-       
         className="confirmation-modal__button"
         onClick={handleClose}
       >

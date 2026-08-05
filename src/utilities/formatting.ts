@@ -16,17 +16,9 @@ export const curlyToEm = (str: string) => {
   return str.replaceAll('{', '<em>').replaceAll('}', '</em>')
 }
 
-/**
- * Strip all HTML tags and decode entities to produce plain text. For arbitrary
- * HTML inputs (e.g. WordPress excerpts/titles) used in plain-text contexts:
- * `<img alt>`, word counts, or feeding the Text component (which only allows
- * a small set of inline tags via its sanitizeHtml and would render disallowed
- * tags as escaped literals).
- */
 export const stripHtml = (html: string): string =>
   decodeEntities(html.replace(/<[^>]*>/g, '')).replace(/\s+/g, ' ').trim()
 
-/** Estimate reading time for a chunk of HTML at ~200 words/minute, minimum 1 minute. */
 export const readingTime = (html: string): string => {
   const words = stripHtml(html).split(' ').filter(Boolean).length
   return `${Math.max(1, Math.ceil(words / 200))}m`
@@ -54,7 +46,6 @@ export const formatOfficerName = (
   return [name.title, name.firstname, name.middlename, name.surname].filter(Boolean).join(' ')
 }
 
-// Format date (assuming incorporatedOn is in ISO format)
 export const formatDateISO = (dateString?: string | null) => {
   if (!dateString) return ''
   const date = new Date(dateString)
@@ -124,21 +115,14 @@ export const formatTime = (unixSeconds?: number) => {
   }
 }
 
-/**
- * Format TTL value from seconds to human-readable format
- * @param ttlSeconds TTL value in seconds
- * @returns Formatted TTL string (e.g., "3.6 sec", "1 sec", "1h", "30 min", "1h 30 min")
- */
 export const formatTTL = (ttlSeconds?: number): string => {
   if (!ttlSeconds || ttlSeconds <= 0) return '0sec'
 
-  // Helper function to format seconds with conditional decimal
   const formatSeconds = (seconds: number): string => {
     return seconds % 1 === 0 ? `${Math.floor(seconds)}sec` : `${seconds.toFixed(1)}sec`
   }
 
   if (ttlSeconds < 60) {
-    // Show decimal seconds for values less than 1 minute
     return formatSeconds(ttlSeconds)
   }
 

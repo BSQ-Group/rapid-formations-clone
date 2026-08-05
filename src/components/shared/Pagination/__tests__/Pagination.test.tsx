@@ -19,12 +19,10 @@ describe('Pagination', () => {
   it('renders correctly with default props', () => {
     render(<Pagination {...defaultProps} />)
 
-    // Check if pagination numbers are rendered correctly
     expect(screen.getByRole('link', { name: '1' })).toBeInTheDocument()
     expect(screen.getByRole('link', { name: '2' })).toBeInTheDocument()
     expect(screen.getByRole('link', { name: '3' })).toBeInTheDocument()
 
-    // Check if navigation buttons are present
     expect(screen.getByLabelText('Go to previous page')).toBeInTheDocument()
     expect(screen.getByLabelText('Go to next page')).toBeInTheDocument()
   })
@@ -53,7 +51,6 @@ describe('Pagination', () => {
   it('shows ellipsis for many pages', () => {
     render(<Pagination {...defaultProps} currentPage={5} totalNrOfResults={200} />)
 
-    // Find ellipsis by the sr-only text
     const ellipses = screen.getAllByText('More pages', { selector: '.sr-only' })
     expect(ellipses).toHaveLength(2)
   })
@@ -61,7 +58,6 @@ describe('Pagination', () => {
   it('prevents navigation beyond boundaries', () => {
     render(<Pagination {...defaultProps} currentPage={0} />)
 
-    // Try to go to previous page when on first page
     fireEvent.click(screen.getByLabelText('Go to previous page'))
     expect(defaultProps.onPageChange).not.toHaveBeenCalled()
   })
@@ -69,7 +65,6 @@ describe('Pagination', () => {
   it('handles last page correctly', () => {
     render(<Pagination {...defaultProps} currentPage={9} totalNrOfResults={100} pageSize={10} />)
 
-    // Try to go to next page when on last page
     fireEvent.click(screen.getByLabelText('Go to next page'))
     expect(defaultProps.onPageChange).not.toHaveBeenCalled()
   })
@@ -87,7 +82,6 @@ describe('Pagination', () => {
   it('handles direct page number clicks', () => {
     render(<Pagination {...defaultProps} currentPage={0} />)
 
-    // Click on page 2
     fireEvent.click(screen.getByRole('link', { name: '2' }))
     expect(defaultProps.onPageChange).toHaveBeenCalledWith(1)
   })
@@ -95,7 +89,6 @@ describe('Pagination', () => {
   it('shows correct page range for middle pages', () => {
     render(<Pagination {...defaultProps} currentPage={5} totalNrOfResults={200} />)
 
-    // Should show current page and neighbors
     expect(screen.getByRole('link', { name: '5' })).toBeInTheDocument()
     expect(screen.getByRole('link', { name: '6' })).toBeInTheDocument()
     expect(screen.getByRole('link', { name: '7' })).toBeInTheDocument()

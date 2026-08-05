@@ -191,7 +191,6 @@ export const FigmaStyles: Story = {
     return (
       <div className="w-[400px] p-6 bg-[var(--surface-canvas)] rounded-[6px]">
         <h2 className="text-xl font-bold text-white mb-6">Checkbox Styling from Figma</h2>
-
         <div className="space-y-6">
           <div>
             <h3 className="text-white font-medium mb-2">Single Selection</h3>
@@ -207,7 +206,6 @@ export const FigmaStyles: Story = {
               Note: Hover over options to see the hover state.
             </p>
           </div>
-
           <div>
             <h3 className="text-white font-medium mb-2">Multi Selection</h3>
             <Select
@@ -221,7 +219,6 @@ export const FigmaStyles: Story = {
             />
             <p className="text-white text-sm mt-2">Selected: {multiValue}</p>
           </div>
-
           <div className="mt-4 bg-[var(--surface-primary)] p-4 rounded-[6px]">
             <h3 className="text-white font-medium mb-2">Checkbox States</h3>
             <div className="grid grid-cols-2 gap-x-8 gap-y-4">

@@ -26,7 +26,6 @@ export const TrustPilotBannerBlock: React.FC<TrustPilotBannerBlockProps> = ({
     <div ref={containerRef} className={s.banner}>
       {inView && <Script src={TRUSTPILOT_SCRIPT_URL} strategy="lazyOnload" />}
 
-      {/* Micro Combo — md and above (768px+) */}
       <div className={s.comboWrapper}>
         <div
           ref={comboRef}
@@ -48,7 +47,6 @@ export const TrustPilotBannerBlock: React.FC<TrustPilotBannerBlockProps> = ({
         </div>
       </div>
 
-      {/* Micro TrustScore — below md (<768px) */}
       <div className={s.scoreWrapper}>
         <div
           ref={scoreRef}

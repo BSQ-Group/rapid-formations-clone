@@ -9,7 +9,6 @@ export const callOutCTAStyles = {
     'overflow-hidden',
   ].join(' '),
 
-  // Image — top on mobile, right column on desktop
   imageWrapper: 'relative w-full h-[212px] lg:h-auto lg:flex-1 rounded-lg overflow-hidden shrink-0',
   image: 'object-cover',
 
@@ -23,7 +22,6 @@ export const callOutCTAStyles = {
 
   heading: 'text-[var(--text-strong)]',
 
-  // Search input — matches LandingHero pattern with surface-secondary bg
   searchInput:
     'flex items-center bg-[var(--surface-secondary)] rounded-xl pl-5 lg:pl-6 pr-2 py-2 w-full',
   searchInputField:

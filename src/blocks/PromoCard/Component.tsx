@@ -35,7 +35,6 @@ export const PromoCardBlock: React.FC<Props> = ({
             />
           )}
         </div>
-
         <div className={s.pricePanel}>
           <Text textStyle="body-sm" text={addLabel || 'Add'} asChild className={s.addLabel}>
             <span />

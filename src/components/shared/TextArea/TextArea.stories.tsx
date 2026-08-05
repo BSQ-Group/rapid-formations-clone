@@ -118,7 +118,6 @@ export const AllVariants: Story = {
           <TextArea id="default-all" placeholder="Enter your message here..." />
         </div>
       </div>
-
       <div className="space-y-4">
         <h3 className="text-white text-lg font-medium">With Description</h3>
         <div className="w-full space-y-2">
@@ -130,7 +129,6 @@ export const AllVariants: Story = {
           />
         </div>
       </div>
-
       <div className="space-y-4">
         <h3 className="text-white text-lg font-medium">With Error</h3>
         <div className="w-full space-y-2">
@@ -143,7 +141,6 @@ export const AllVariants: Story = {
           />
         </div>
       </div>
-
       <div className="space-y-4">
         <h3 className="text-white text-lg font-medium">Disabled</h3>
         <div className="w-full space-y-2">
@@ -151,7 +148,6 @@ export const AllVariants: Story = {
           <TextArea id="disabled-all" placeholder="This field is disabled" disabled />
         </div>
       </div>
-
       <div className="space-y-4">
         <h3 className="text-white text-lg font-medium">Small Size</h3>
         <div className="w-full space-y-2">
@@ -159,7 +155,6 @@ export const AllVariants: Story = {
           <TextArea id="small-all" placeholder="Enter your message here..." size="small" />
         </div>
       </div>
-
       <div className="space-y-4">
         <h3 className="text-white text-lg font-medium">With Submit Button</h3>
         <div className="w-full space-y-2">

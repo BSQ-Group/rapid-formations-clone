@@ -18,10 +18,6 @@ export interface TabsProps {
   className?: string
 }
 
-/**
- * Tabs component styled according to Figma and BEM/TailwindCSS conventions.
- * Uses Radix Tabs under the hood for accessibility and keyboard navigation.
- */
 export const Tabs: React.FC<TabsProps> = ({
   options,
   value,

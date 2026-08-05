@@ -85,10 +85,6 @@ export const ServiceCards: Block = {
         },
       ],
     },
-    // Legacy field — used only when `groups` above is empty. Existing content
-    // (pre-CORE-3571) is rendered as a single anonymous group. New content
-    // should add cards under a Group instead. Plan to remove in a follow-up PR
-    // once all pages have been migrated to `groups`.
     {
       name: 'cards',
       type: 'array',

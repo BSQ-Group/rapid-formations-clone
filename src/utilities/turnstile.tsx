@@ -11,11 +11,6 @@ interface TurnstileHookResult {
   TurnstileComponent: FC
 }
 
-/**
- * Hook that provides access to the latest Turnstile token.
- * Call resetToken() after each use to invalidate the consumed token and
- * trigger a fresh challenge for the next request.
- */
 export const useTurnstileToken = (): TurnstileHookResult => {
   const [latestToken, setLatestToken] = useState<string | null>(null)
   const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY

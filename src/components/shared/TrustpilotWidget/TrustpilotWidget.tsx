@@ -18,9 +18,7 @@ interface TrustpilotWidgetProps {
   token?: string
   locale?: string
   businessUnitId?: string
-  /** Filter to only show reviews with these star ratings (e.g. "5" or "4,5"). Carousel/review-list templates only. */
   stars?: string
-  /** Filter reviews by language code (e.g. "en"). Carousel/review-list templates only. */
   reviewLanguages?: string
   className?: string
 }

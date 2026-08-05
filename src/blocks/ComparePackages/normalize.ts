@@ -3,12 +3,6 @@ import type { LinkData } from '@/utilities/links'
 
 import type { Feature, Plan, Section } from './ComparePackagesClient'
 
-/**
- * Normalisers for the ComparePackages CMS shape. Shared so FormationPackages can
- * build the combined tablet/mobile carousel (CORE-3620) from the same source
- * the ComparePackages block uses for its desktop table.
- */
-
 export function normalizePlans(plans: ComparePackagesBlockProps['plans']): [Plan, Plan, Plan] {
   return plans.slice(0, 3).map<Plan>((p) => ({
     name: p.name,

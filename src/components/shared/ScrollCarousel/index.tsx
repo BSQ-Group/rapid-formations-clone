@@ -8,15 +8,10 @@ import { scrollCarouselStyles as s } from './ScrollCarousel.styles'
 
 interface ScrollCarouselProps {
   children: React.ReactNode
-  /** Tailwind max-width utility for the container (e.g. `max-w-[1008px]`). */
   maxWidth?: string
-  /** When true, the track extends past the section's right padding so cards bleed to the screen edge. */
   bleedRight?: boolean
-  /** When true, the track extends past the section's padding on both sides equally. */
   bleedBoth?: boolean
-  /** Optional centered footer slot (e.g. a "View our Blog" CTA). When provided, footer becomes spacer | center | arrows. */
   centerControl?: React.ReactNode
-  /** Additional classes merged onto the arrows container. Use to control arrow visibility per breakpoint, e.g. `hidden lg:flex`. */
   arrowsClassName?: string
 }
 

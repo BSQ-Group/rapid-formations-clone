@@ -46,8 +46,6 @@ export function Pagination({
       return pages.slice(totalPages - maxButtons)
     }
 
-    // For middle range: show maxButtons buttons centered around currentPage
-    // For even maxButtons, show one less before and one more after (or vice versa)
     const buttonsBefore = Math.floor((maxButtons - 1) / 2)
     const buttonsAfter = Math.ceil((maxButtons - 1) / 2)
     const start = currentPage - buttonsBefore

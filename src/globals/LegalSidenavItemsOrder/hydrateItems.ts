@@ -5,9 +5,6 @@ type HookArgs = Parameters<GlobalAfterReadHook>[0]
 
 type Item = NonNullable<LegalSidenav['items']>[number]
 
-// Initial order for the first-time hydrate, matching the Figma design
-// (CORE-3272). Admins can drag-reorder after the first save; this only
-// affects the very first read when items is empty.
 const PREFERRED_ORDER: string[] = [
   'id-requirements',
   'complaints',
@@ -19,10 +16,6 @@ const PREFERRED_ORDER: string[] = [
   'whistleblowing-and-grievance',
 ]
 
-// One-time bootstrap: when this global is empty (first deploy), populate it
-// with every existing legal page so admins immediately see the full list.
-// After that, new legal pages get added by the Pages afterChange sync hook
-// and this becomes a no-op.
 export const hydrateLegalSidenavItems: GlobalAfterReadHook = async ({
   doc,
   req: { payload, context },

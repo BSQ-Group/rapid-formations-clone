@@ -23,11 +23,6 @@ import {
 } from './FormationPackages.styles'
 
 type Props = FormationPackagesBlockProps & {
-  /**
-   * Set by RenderBlocks when a ComparePackages block is on the same page
-   * (CORE-3620). Its services are rendered with these cards as one combined
-   * carousel on tablet/mobile.
-   */
   combineWith?: ComparePackagesBlockProps
 }
 
@@ -52,8 +47,6 @@ export const FormationPackagesBlock: React.FC<Props> = ({
         }
       : formationPackagesCardStyles
 
-  // Card props per plan, in plan order. Single source for both the rendered
-  // cards (≥lg) and the combined <lg carousel (CORE-3620).
   const cards = (packages ?? []).map((pkg) => ({
     name: pkg.name,
     card: {
@@ -72,11 +65,6 @@ export const FormationPackagesBlock: React.FC<Props> = ({
     },
   }))
 
-  // CORE-3620: when a ComparePackages block shares this page, render its
-  // services together with these cards as one combined carousel on <lg.
-  // ComparePackages compares exactly 3 plans (3 `inPlans` flags per feature), so
-  // only combine when there are at least 3 cards and use the first 3 — extra
-  // FormationPackages entries have no matching feature column.
   const combinedSections =
     combineWith?.sections?.length ? normalizeSections(combineWith.sections) : null
   const combined = Boolean(combinedSections && cards.length >= 3)
@@ -85,20 +73,15 @@ export const FormationPackagesBlock: React.FC<Props> = ({
   return (
     <SectionWrapper {...sectionLayout}>
       <div className={s.section}>
-      {/* Section Header */}
       <div className={s.header}>
         {title && <Text text={title} as="h2" textStyle="headline-5xl" className={s.title} />}
         {subtitle && <Text text={subtitle} textStyle="body-base" className={s.subtitle} />}
       </div>
-
-      {/* Combined card + services carousel — tablet/mobile only (CORE-3620). */}
       {combined && combinedSections && (
         <div className="lg:hidden">
           <CombinedPlansCarousel plans={combinedCards} sections={combinedSections} cardStyles={cardStyles} />
         </div>
       )}
-
-      {/* Pricing Cards with Tabs + Scroll */}
       <PackageCardsCarousel packageNames={packageNames} combined={combined}>
         {cards.map((c) => (
           <PackageCard
@@ -110,8 +93,6 @@ export const FormationPackagesBlock: React.FC<Props> = ({
           />
         ))}
       </PackageCardsCarousel>
-
-      {/* Footer */}
       {(() => {
         const hasFooterTitle = Boolean(footerTitle)
         const hasFooterDescription = Boolean(footerDescription)

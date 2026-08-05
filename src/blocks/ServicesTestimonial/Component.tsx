@@ -15,7 +15,6 @@ export const ServicesTestimonialBlock: React.FC<ServicesTestimonialBlockProps> =
   return (
     <SectionWrapper {...sectionLayout} className={s.section}>
       <div className={s.inner}>
-        {/* Trustpilot panel — left on desktop, bottom on mobile */}
         <div className={s.tpPanel}>
           <TrustpilotWidget
             template="mini"
@@ -25,16 +24,11 @@ export const ServicesTestimonialBlock: React.FC<ServicesTestimonialBlockProps> =
             className="w-full flex items-center justify-center"
           />
         </div>
-
-        {/* Quote column — top on mobile, right on desktop */}
         <div className={s.quoteCol}>
           <div className={s.quoteAndMark}>
-            {/* Quote mark icon */}
             <div className={s.quoteMark} aria-hidden>
               <IconQuoteMark width={64} height={64} className="shrink-0" />
             </div>
-
-            {/* Quote text */}
             <Text
               as="p"
               textStyle="span"
@@ -42,8 +36,6 @@ export const ServicesTestimonialBlock: React.FC<ServicesTestimonialBlockProps> =
               className={s.quoteText}
             />
           </div>
-
-          {/* Author footer */}
           <div className={s.footer}>
             <div>
               <Text textStyle="body-sm" text={authorName} className={s.authorName} />

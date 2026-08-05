@@ -3,7 +3,6 @@ export const packagesHeroStyles = {
   inner:
     'mx-auto max-w-[1200px] px-5 lg:px-10 lg:pr-24 pt-12 lg:pt-28 pb-20 flex flex-col lg:flex-row items-center gap-2',
 
-  // Left column
   leftCol:
     'w-full lg:flex-1 flex flex-col gap-4 items-center lg:items-start text-center lg:text-left',
   heading: 'text-[var(--text-strong)]',
@@ -15,7 +14,6 @@ export const packagesHeroStyles = {
     'shrink-0 w-8 h-8 rounded-full bg-[var(--surface-accent-light)] flex items-center justify-center',
   benefitText: 'font-medium text-[var(--text-subtle)]',
 
-  // Right column
   rightCol: 'w-full lg:w-auto flex items-center justify-center',
   imageArea:
     'relative w-full max-w-[480px] md:max-w-[420px] lg:max-w-none lg:w-[390px] xl:w-[518px] md:shrink-0 pb-16 md:pb-0 mt-12 lg:mt-0',
@@ -23,9 +21,6 @@ export const packagesHeroStyles = {
   imageInner:
     '!w-[188%] !h-[152%] !left-[-54%] !top-[-20%] !right-auto !bottom-auto !max-w-none object-cover',
 
-  // Shared card chrome — used by both floating cards.
-  // Chrome (bg, shadow, ring, padding, gap, border-radius) scales per Figma per breakpoint.
-  // See CLAUDE.md → "Per-breakpoint exceptions".
   cardChrome:
     'flex absolute z-10 items-center bg-white shadow-2xl ring-white/15 ' +
     'rounded-[9px] ring-[6px] gap-[9px] p-[9px] pr-[15px] ' +
@@ -33,15 +28,12 @@ export const packagesHeroStyles = {
     'lg:rounded-[9px] lg:ring-[6px] lg:gap-[9px] lg:p-[9px] lg:pr-[15px] ' +
     'xl:rounded-xl xl:ring-8 xl:gap-3 xl:p-3 xl:pr-5',
 
-  // Floating top card — top-right of image.
   topCard:
     'top-[243px] left-[89px] md:top-[50px] md:left-[281px] lg:top-[41px] lg:left-[250px] xl:top-[54px] xl:left-[300px]',
 
-  // Floating bottom card — bottom-left of image.
   bottomCard:
     'top-[187px] left-[27px] md:top-[165px] md:left-[-102px] lg:top-[165px] lg:left-[-83px] xl:top-[200px] xl:left-[-110px]',
 
-  // Shared icon wrap — scales per Figma per breakpoint.
   cardIconWrap:
     'shrink-0 bg-[var(--icon-background-accent)] flex items-center justify-center ' +
     'rounded-[3px] p-3 [&>svg]:size-[18px] ' +
@@ -49,11 +41,8 @@ export const packagesHeroStyles = {
     'lg:rounded-[3px] lg:p-3 lg:[&>svg]:size-[18px] ' +
     'xl:rounded-[4px] xl:p-4 xl:[&>svg]:size-6',
 
-  // Top card content
   topCardContent: 'flex-1 flex flex-col gap-2 min-w-0',
   topCardTitleRow: 'flex items-center justify-between gap-2 whitespace-nowrap',
-  // Sizes match Figma per breakpoint (cards are physically scaled in the design,
-  // not driven by a body-* preset's auto-scale). See CLAUDE.md → "Per-breakpoint exceptions".
   topCardLabel:
     'font-medium text-[var(--text-subtle)] ' +
     'text-[10.4px] leading-[14.85px] ' +
@@ -76,12 +65,10 @@ export const packagesHeroStyles = {
   progressBarFill: 'h-full rounded-full bg-[var(--surface-accent)]',
   progressBarTrackSmall: 'w-full h-[2px] rounded-full bg-[var(--surface-canvas)] overflow-hidden',
 
-  // Redacted lines — decorative grey bars shown in the EyeOff card (Privacy Package)
   redactedLines: 'flex flex-col gap-[3px]',
   redactedLine: 'h-[3px] w-full rounded-full bg-[var(--surface-secondary)]',
   redactedLineShort: 'h-[3px] w-[75%] rounded-full bg-[var(--surface-secondary)]',
 
-  // Bottom card content
   bottomCardContent: 'flex flex-col gap-0.5 min-w-0',
   bottomCardTitle:
     'font-semibold text-[var(--text-subtle)] whitespace-nowrap ' +
@@ -96,11 +83,6 @@ export const packagesHeroStyles = {
     'lg:text-[9.04px] lg:leading-[12.05px] ' +
     'xl:text-[12px] xl:leading-4',
 
-  // ─── 4-card layout (Privacy Package) ───────────────────────────────────────
-  // When topCardExtra or bottomCardExtra are present, primary cards shift to
-  // new positions so all four cards cluster correctly (Figma: CORE-3243).
-
-  // Primary card positions for 4-card layout
   topCard4:
     'top-[246px] left-[92px] ' +
     'md:top-[103px] md:left-[274px] ' +
@@ -121,7 +103,6 @@ export const packagesHeroStyles = {
     'xl:rounded-[8px] xl:ring-[5px] xl:gap-[8px] xl:p-[8px] xl:pr-[13px]',
   ].join(' '),
 
-  // Secondary card positions — include display class (flex/hidden) since cardChromeSmall has none
   topCardExtraPos:
     'hidden z-[5] ' + 'lg:flex lg:top-[46px] lg:left-[211px] ' + 'xl:top-[56px] xl:left-[260px]',
   bottomCardExtraPos:
@@ -136,7 +117,6 @@ export const packagesHeroStyles = {
     'xl:rounded-[3px] xl:p-[11px] xl:[&>svg]:size-4',
   ].join(' '),
 
-  // Small card content areas
   smallTopCardContent: 'flex-1 flex flex-col gap-1 min-w-0',
   smallCardLabel: [
     'font-medium text-[var(--text-subtle)]',

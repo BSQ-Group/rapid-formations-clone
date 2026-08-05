@@ -61,11 +61,9 @@ export function DateRangePicker({
     [placeholder],
   )
 
-  // Create dynamic options that include custom date range when selected
   const dateRangeOptions = React.useMemo(() => {
     const options = [...baseDateRangeOptions]
 
-    // If we have a custom date range selected, replace the 'custom' option with the formatted range
     if (selectedValue === 'custom' && value && value.from && value.to) {
       const customIndex = options.findIndex((opt) => opt.value === 'custom')
       if (customIndex !== -1) {
@@ -79,7 +77,6 @@ export function DateRangePicker({
     return options
   }, [selectedValue, value, formatDateRange])
 
-  // Close calendar when clicking outside
   React.useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (calendarRef.current && !calendarRef.current.contains(event.target as Node)) {
@@ -95,7 +92,6 @@ export function DateRangePicker({
     return () => {} // No-op cleanup when calendar is closed
   }, [calendarOpen])
 
-  // Calculate date ranges for predefined options
   const getDateRange = (option: string): DateRange | undefined => {
     const today = new Date()
     const yesterday = new Date(today)
@@ -120,7 +116,6 @@ export function DateRangePicker({
   }
 
   const handleSelectChange = (newValue: string) => {
-    // If user clicks on a custom date range (formatted dates), treat it as selecting custom
     if (newValue === 'custom' && selectedValue === 'custom' && value) {
       setCalendarOpen(true)
       return
@@ -140,16 +135,12 @@ export function DateRangePicker({
 
   const handleCalendarSelect = (range: DateRange | undefined) => {
     onChange?.(range)
-    // Close calendar only when we have a complete range (different from and to dates)
     if (range?.from && range?.to && range.from.getTime() !== range.to.getTime()) {
       setCalendarOpen(false)
     }
   }
 
-  // Determine the current select value
   const getCurrentSelectValue = (): string => {
-    // Always return a value that's in the options array
-    // For custom ranges, keep it as 'custom' so Select shows "Custom"
     return selectedValue
   }
 
@@ -167,7 +158,6 @@ export function DateRangePicker({
           contentClassName="date-range-picker__dropdown"
           itemClassName="date-range-picker__option"
         />
-
         {selectedValue === 'custom' && calendarOpen && (
           <div ref={calendarRef} className="date-range-picker__calendar-wrapper">
             <div className="date-range-picker__popover">

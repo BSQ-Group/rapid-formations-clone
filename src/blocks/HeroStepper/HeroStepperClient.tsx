@@ -53,7 +53,6 @@ export function HeroStepperClient({ steps, currentStep }: Props) {
     <>
       <div className={s.wrapper}>
         <div className={s.inner}>
-          {/* ── Compact: mobile + tablet ── */}
           <div className={s.compact}>
             <div className={s.compactHeader}>
               <span className={s.compactEyebrow}>
@@ -70,8 +69,6 @@ export function HeroStepperClient({ steps, currentStep }: Props) {
               ))}
             </div>
           </div>
-
-          {/* ── Full: laptop + desktop ── */}
           <div className={s.full}>
             {steps.map((step, i) => {
               const state = getStepState(i, currentStep)
@@ -82,13 +79,8 @@ export function HeroStepperClient({ steps, currentStep }: Props) {
 
               return (
                 <div key={i} className={cn(s.stepSlot, isLast && 'flex-none')}>
-                  {/* Connector line before node (not for first step) */}
                   {!isFirst && <div className={lineBeforeFilled ? s.lineFilled : s.lineEmpty} />}
-
-                  {/* Node */}
                   <StepNode state={state} number={i + 1} />
-
-                  {/* Label */}
                   <span
                     className={
                       state === 'inactive'
@@ -100,8 +92,6 @@ export function HeroStepperClient({ steps, currentStep }: Props) {
                   >
                     {step.label}
                   </span>
-
-                  {/* Connector line after label (not for last step) */}
                   {!isLast && <div className={state === 'complete' ? s.lineFilled : s.lineEmpty} />}
                 </div>
               )

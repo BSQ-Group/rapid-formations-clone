@@ -51,7 +51,6 @@ export const whatsIncludedSinglePackageStyles = {
 
   featureCheckIcon: 'shrink-0 text-[var(--icon-accent)] w-8 h-8',
 
-  // CTA row — separator is provided by the previous feature row's border-b.
   ctaRow: 'w-full bg-[var(--surface-primary)]',
   ctaInner: [
     'w-full flex p-6',

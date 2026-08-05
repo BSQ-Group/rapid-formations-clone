@@ -61,7 +61,6 @@ export default meta
 
 type Story = StoryObj<typeof Slider>
 
-// Base stories
 export const Default: Story = {
   render: () => (
     <>
@@ -105,22 +104,18 @@ export const Disabled: Story = {
   render: () => <Slider label="Progress" defaultValue={6} disabled />,
 }
 
-// All Variants Grid
 export const AllVariants: Story = {
   render: () => (
     <div className="flex flex-col gap-8 p-8 w-[600px]">
       <div className="flex flex-col gap-4">
         <Slider defaultValue={2} />
       </div>
-
       <div className="flex flex-col gap-4">
         <Slider label="Progress" defaultValue={5} />
       </div>
-
       <div className="flex flex-col gap-4">
         <Slider label="Progress" defaultValue={7} showValue={false} />
       </div>
-
       <div className="flex flex-col gap-4">
         <Slider label="Progress" defaultValue={6} disabled />
       </div>
@@ -137,21 +132,16 @@ export const AllVariants: Story = {
   },
 }
 
-// A simplified component that manages a group of connected sliders
 const ConnectedSliderGroup = ({ numSliders = 2, initialTotal = 100 }) => {
-  // Initialize child values with equal distribution
   const initialChildValue = Math.floor(initialTotal / numSliders)
   const [childValues, setChildValues] = useState(
-    // Create initial values and distribute any remainder to the last slider
     Array.from({ length: numSliders }, (_, i) =>
       i === numSliders - 1 ? initialChildValue + (initialTotal % numSliders) : initialChildValue,
     ),
   )
 
-  // Calculate the total as the sum of all child values
   const totalSum = childValues.reduce((sum, val) => sum + val, 0)
 
-  // Handle individual slider value changes
   const handleChildValueChange = (index: number, newValue: number) => {
     const newChildValues = [...childValues]
     newChildValues[index] = newValue
@@ -165,7 +155,6 @@ const ConnectedSliderGroup = ({ numSliders = 2, initialTotal = 100 }) => {
           <h3 className="text-lg font-bold text-white">Resource Allocation</h3>
           <span className="text-sm text-[var(--text-inverse-muted)]">Total: {totalSum}</span>
         </div>
-
         <div className="space-y-6">
           {childValues.map((value, index) => {
             return (
