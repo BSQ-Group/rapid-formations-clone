@@ -16,7 +16,7 @@ export const registerOverseasStyles = {
 
   body: 'text-[20px] font-normal leading-[30px] text-[var(--text-on-light-muted)] [&_p]:mb-4 [&_a]:text-[var(--surface-brand-cyan)] [&_a]:no-underline hover:[&_a]:underline',
 
-  ctaWrap: 'mt-6 flex items-center justify-center md:mt-12',
+  ctaWrap: 'flex items-center justify-center',
 
   imageWrap: 'md:relative',
 
