@@ -9,4 +9,11 @@ export const titleBannerStyles = {
 
   title:
     'mb-2 block whitespace-pre-line text-[40px] font-normal leading-[1.15] text-[rgb(var(--white))] [text-shadow:var(--shadow-banner-title)]',
+
+  imageSection: 'font-legacy-condensed w-full',
+
+  imageFrame:
+    'mx-auto w-full max-w-[1170px] bg-[var(--surface-banner-backdrop)]',
+
+  bannerImage: 'block h-auto max-h-[260px] w-full object-cover',
 } as const
