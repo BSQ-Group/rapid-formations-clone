@@ -1,7 +1,18 @@
 import React from 'react'
 
 import { cn } from '@/utilities/ui'
-import { ratingStarsStyles as s } from './RatingStars.styles'
+import {
+  ratingStarsStyles as s,
+  type RatingStarSize,
+  type RatingStarTone,
+} from './RatingStars.styles'
+
+export {
+  RATING_STAR_SIZES,
+  RATING_STAR_TONES,
+  type RatingStarSize,
+  type RatingStarTone,
+} from './RatingStars.styles'
 
 const Star = ({ className }: { className?: string }) => (
   <svg className={className} viewBox="0 0 25 24" xmlns="http://www.w3.org/2000/svg" aria-hidden>
@@ -16,20 +27,18 @@ interface RatingStarsProps {
   score: string | number
   maxScore?: string | number
   provider: string
+  size?: RatingStarSize
+  tone?: RatingStarTone
   className?: string
-  starClassName?: string
-  filledClassName?: string
-  emptyClassName?: string
 }
 
 export const RatingStars: React.FC<RatingStarsProps> = ({
   score,
   maxScore = 5,
   provider,
+  size = 'md',
+  tone = 'default',
   className,
-  starClassName,
-  filledClassName,
-  emptyClassName,
 }) => {
   const max = Math.max(1, Math.round(Number(maxScore) || 5))
   const value = Math.min(Math.max(Number(score) || 0, 0), max)
@@ -38,7 +47,7 @@ export const RatingStars: React.FC<RatingStarsProps> = ({
   const row = (colour: string) => (
     <div className={s.row} aria-hidden>
       {Array.from({ length: max }).map((_, i) => (
-        <Star key={i} className={cn(s.star, starClassName, colour)} />
+        <Star key={i} className={cn(s.star, s.size[size], colour)} />
       ))}
     </div>
   )
@@ -49,10 +58,12 @@ export const RatingStars: React.FC<RatingStarsProps> = ({
       role="img"
       aria-label={`Rated ${value} out of ${max} on ${provider}`}
     >
-      {row(cn(s.starEmpty, emptyClassName))}
+      {row(s.starEmpty)}
       <div className={s.fill} style={{ width: `${pct}%` }}>
-        {row(cn(s.starFilled, filledClassName))}
+        {row(s.tone[tone])}
       </div>
     </div>
   )
 }
+
+export default RatingStars

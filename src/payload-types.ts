@@ -113,15 +113,19 @@ export interface Config {
     header: Header;
     footer: Footer;
     businessBankAccounts: BusinessBankAccount;
+    faqTopics: FaqTopic;
     legalSidenav: LegalSidenav;
     packagesNav: PackagesNav;
+    reviewStats: ReviewStat;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     businessBankAccounts: BusinessBankAccountsSelect<false> | BusinessBankAccountsSelect<true>;
+    faqTopics: FaqTopicsSelect<false> | FaqTopicsSelect<true>;
     legalSidenav: LegalSidenavSelect<false> | LegalSidenavSelect<true>;
     packagesNav: PackagesNavSelect<false> | PackagesNavSelect<true>;
+    reviewStats: ReviewStatsSelect<false> | ReviewStatsSelect<true>;
   };
   locale: null;
   widgets: {
@@ -276,6 +280,10 @@ export interface Page {
         | WhyUseAgentBlock
         | PageTitleBlock
         | TextContentBlock
+        | TitleBannerBlock
+        | FaqTopicBlock
+        | ReviewRatingsBlock
+        | ClosingCTABlock
       )[]
     | null;
   meta?: {
@@ -4050,6 +4058,118 @@ export interface TextContentBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TitleBannerBlock".
+ */
+export interface TitleBannerBlock {
+  /**
+   * Line breaks are preserved. Leave blank for a photo-only band with no text over it.
+   */
+  title?: string | null;
+  /**
+   * Cropped to a 300px-tall full-bleed band, centred.
+   */
+  image: string | Media;
+  /**
+   * Leave ticked when the banner carries the page heading. Untick if the page already has an H1 elsewhere.
+   */
+  isPageTitle?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'titleBanner';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FaqTopicBlock".
+ */
+export interface FaqTopicBlock {
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'faqTopic';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewRatingsBlock".
+ */
+export interface ReviewRatingsBlock {
+  heading: string;
+  subheading?: string | null;
+  /**
+   * Optional centred button below the ratings, e.g. "Our Customer Reviews".
+   */
+  cta?: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label?: string | null;
+  };
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'reviewRatings';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ClosingCTABlock".
+ */
+export interface ClosingCTABlock {
+  heading: string;
+  /**
+   * Line breaks are preserved, matching the source layout.
+   */
+  description?: string | null;
+  cta: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+  };
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'closingCTA';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -4418,6 +4538,10 @@ export interface PagesSelect<T extends boolean = true> {
         whyUseAgent?: T | WhyUseAgentBlockSelect<T>;
         pageTitle?: T | PageTitleBlockSelect<T>;
         textContent?: T | TextContentBlockSelect<T>;
+        titleBanner?: T | TitleBannerBlockSelect<T>;
+        faqTopic?: T | FaqTopicBlockSelect<T>;
+        reviewRatings?: T | ReviewRatingsBlockSelect<T>;
+        closingCTA?: T | ClosingCTABlockSelect<T>;
       };
   meta?:
     | T
@@ -6477,6 +6601,84 @@ export interface TextContentBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TitleBannerBlock_select".
+ */
+export interface TitleBannerBlockSelect<T extends boolean = true> {
+  title?: T;
+  image?: T;
+  isPageTitle?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FaqTopicBlock_select".
+ */
+export interface FaqTopicBlockSelect<T extends boolean = true> {
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewRatingsBlock_select".
+ */
+export interface ReviewRatingsBlockSelect<T extends boolean = true> {
+  heading?: T;
+  subheading?: T;
+  cta?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ClosingCTABlock_select".
+ */
+export interface ClosingCTABlockSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  cta?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "posts_select".
  */
 export interface PostsSelect<T extends boolean = true> {
@@ -7242,6 +7444,34 @@ export interface BusinessBankAccount {
   createdAt?: string | null;
 }
 /**
+ * The FAQ subject list. Drives the card grid on /faqs and the quick-navigation dropdown on each topic page.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faqTopics".
+ */
+export interface FaqTopic {
+  id: string;
+  /**
+   * Order here is the order the cards render in.
+   */
+  topics?:
+    | {
+        /**
+         * Line breaks are preserved, matching the source layout.
+         */
+        title: string;
+        image: string | Media;
+        /**
+         * e.g. /faqs/basics
+         */
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * Order and visibility of legal pages in the sidebar. Pages are added here automatically when you mark them as a legal page on the Pages collection. Drag to reorder; tick "hidden" to keep a page out of the menu without unmarking it as a legal page.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -7293,6 +7523,39 @@ export interface PackagesNav {
           url?: string | null;
           label: string;
         };
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Ratings shown by the "How we are rated" block. The same figures appear on every page carrying that block.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "reviewStats".
+ */
+export interface ReviewStat {
+  id: string;
+  /**
+   * Order here is the order they render in. Untick Show to hide one.
+   */
+  platforms?:
+    | {
+        provider: string;
+        logo: string | Media;
+        score: number;
+        maxScore: number;
+        /**
+         * Rendered as written, e.g. "11,974".
+         */
+        totalReviews: string;
+        /**
+         * Each platform brands its stars a different colour.
+         */
+        starTone: 'trustpilot' | 'google' | 'facebook' | 'yell' | 'freeindex';
+        url: string;
+        show?: boolean | null;
         id?: string | null;
       }[]
     | null;
@@ -7508,6 +7771,23 @@ export interface BusinessBankAccountsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faqTopics_select".
+ */
+export interface FaqTopicsSelect<T extends boolean = true> {
+  topics?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        url?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "legalSidenav_select".
  */
 export interface LegalSidenavSelect<T extends boolean = true> {
@@ -7539,6 +7819,28 @@ export interface PackagesNavSelect<T extends boolean = true> {
               url?: T;
               label?: T;
             };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "reviewStats_select".
+ */
+export interface ReviewStatsSelect<T extends boolean = true> {
+  platforms?:
+    | T
+    | {
+        provider?: T;
+        logo?: T;
+        score?: T;
+        maxScore?: T;
+        totalReviews?: T;
+        starTone?: T;
+        url?: T;
+        show?: T;
         id?: T;
       };
   updatedAt?: T;

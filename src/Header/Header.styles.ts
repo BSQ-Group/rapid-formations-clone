@@ -5,7 +5,9 @@ export const headerStyles = {
     'data-[scrolled]:bg-[var(--surface-hero-brand)] min-[769px]:data-[scrolled]:bg-transparent',
 
   container:
-    'mx-auto w-full max-w-[1180px] px-5 group-data-[scrolled]:bg-[var(--scrim-hero)] min-[470px]:max-w-[1190px] md:max-w-[1210px] min-[769px]:group-data-[scrolled]:bg-transparent min-[1023px]:max-w-[1230px] min-[1023px]:px-[30px]',
+    'mx-auto w-full max-w-[1180px] px-5 min-[470px]:max-w-[1190px] md:max-w-[1210px] min-[1023px]:max-w-[1230px] min-[1023px]:px-[30px]',
+  containerScrolled:
+    'group-data-[scrolled]:bg-[var(--scrim-hero)] min-[769px]:group-data-[scrolled]:bg-transparent',
 
   topRow:
     'grid h-[90px] w-full grid-cols-[3fr_1fr] md:grid-cols-[8fr_5fr_1fr] min-[1200px]:grid-cols-2',

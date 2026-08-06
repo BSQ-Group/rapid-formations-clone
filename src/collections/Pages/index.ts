@@ -62,6 +62,10 @@ import { RegisterOverseas } from '../../blocks/RegisterOverseas/config'
 import { RequiredInformation } from '../../blocks/RequiredInformation/config'
 import { PageTitle } from '../../components/shared/PageTitle/config'
 import { TextContent } from '../../blocks/TextContent/config'
+import { TitleBanner } from '../../components/shared/TitleBanner/config'
+import { FaqTopic } from '../../blocks/FaqTopic/config'
+import { ReviewRatings } from '../../blocks/ReviewRatings/config'
+import { ClosingCTA } from '../../components/shared/ClosingCTA/config'
 import { ContentWithPricingCard } from '../../blocks/ContentWithPricingCard/config'
 import { ContentWithExtendedPricingCard } from '../../blocks/ContentWithExtendedPricingCard/config'
 import { HeroServicesBanner } from '../../blocks/HeroServicesBanner/config'
@@ -210,6 +214,10 @@ export const Pages: CollectionConfig<'pages'> = {
                 WhyUseAgent,
                 PageTitle,
                 TextContent,
+                TitleBanner,
+                FaqTopic,
+                ReviewRatings,
+                ClosingCTA,
               ],
               admin: {
                 initCollapsed: true,

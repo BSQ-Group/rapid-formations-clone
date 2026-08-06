@@ -169,6 +169,7 @@ export const LandingHeroBlock: React.FC<LandingHeroBlockProps> = ({
                             score={card.score}
                             maxScore={card.maxScore || '5.0'}
                             provider={card.provider}
+                            size="lg"
                             className={s.reviewStarsWrap}
                           />
                         </div>

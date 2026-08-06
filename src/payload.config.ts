@@ -13,8 +13,10 @@ import { Users } from './collections/Users'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { BusinessBankAccountsGlobal } from './globals/BusinessBankAccounts/config'
+import { FaqTopicsGlobal } from './globals/FaqTopics/config'
 import { LegalSidenavGlobal } from './globals/LegalSidenavItemsOrder/config'
 import { PackagesNavGlobal } from './globals/PackagesNavItems/config'
+import { ReviewStatsGlobal } from './globals/ReviewStats/config'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
@@ -85,7 +87,15 @@ export default buildConfig({
       access: 'public',
     }),
   ],
-  globals: [Header, Footer, BusinessBankAccountsGlobal, LegalSidenavGlobal, PackagesNavGlobal],
+  globals: [
+    Header,
+    Footer,
+    BusinessBankAccountsGlobal,
+    FaqTopicsGlobal,
+    LegalSidenavGlobal,
+    PackagesNavGlobal,
+    ReviewStatsGlobal,
+  ],
   secret: process.env.PAYLOAD_SECRET,
   sharp,
   typescript: {
