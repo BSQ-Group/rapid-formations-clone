@@ -163,6 +163,10 @@
     --text-inverse-subtle: var(--qcf-grey-300);
     --text-inverse-muted: var(--qcf-grey-500);
     --text-active: var(--qcf-grey-0);
+
+    --tooltip-surface: var(--surface-canvas-inverse);
+    --tooltip-text-title: var(--text-inverse);
+    --tooltip-text-body: var(--text-inverse-subtle);
     --text-placeholder: var(--qcf-grey-500);
     --text-error: var(--feedback-red-300);
     --text-link: var(--qcf-green-800);
@@ -322,6 +326,9 @@
     --border-on-light-tile: rgb(215 215 215);
     --surface-brand-orange: rgb(249 128 0);
     --surface-banner-backdrop: rgb(38 50 56);
+    --tooltip-surface: rgb(255 255 255);
+    --tooltip-text-title: var(--text-on-light-base);
+    --tooltip-text-body: var(--text-on-light-muted);
     --border-on-light-faint: rgb(0 0 0 / 0.05);
     --surface-on-light-canvas: rgb(245 245 245);
     --surface-on-light-sunken: rgb(240 240 240);
@@ -580,6 +587,14 @@ html [data-header][data-nav-hovered] {
   }
 
   .font-legacy-condensed {
+    font-family:
+      'myriad-pro-semi-condensed', var(--font-legacy-condensed), var(--font-inter), sans-serif;
+    font-variation-settings: 'wdth' 75.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .theme-rapidformations .portal-legacy-condensed {
     font-family:
       'myriad-pro-semi-condensed', var(--font-legacy-condensed), var(--font-inter), sans-serif;
     font-variation-settings: 'wdth' 75.6;
