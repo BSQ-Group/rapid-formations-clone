@@ -1,5 +1,5 @@
 export const pageTitleStyles = {
-  section: 'font-legacy-condensed w-full bg-[var(--surface-canvas)]',
+  section: 'font-legacy-condensed w-full bg-[var(--surface-canvas)] pt-10 min-[1023px]:pt-5',
 
   wrapper:
     'flex w-full flex-col items-start justify-between mb-10 md:mt-6 md:mb-[45px] md:flex-row md:flex-wrap md:items-center',

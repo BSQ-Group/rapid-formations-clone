@@ -10,10 +10,27 @@ export const FAQs: Block = {
   },
   fields: [
     {
+      name: 'variant',
+      type: 'select',
+      label: 'Variant',
+      defaultValue: 'panel',
+      options: [
+        { label: 'Panel — centred heading, inset list', value: 'panel' },
+        { label: 'Page — full-width list, no heading', value: 'page' },
+      ],
+      admin: {
+        description:
+          'Panel is the marketing-page treatment. Page is the FAQ topic pages: the list runs the full container width with no side inset.',
+      },
+    },
+    {
       name: 'title',
       type: 'textarea',
       label: 'Title',
-      admin: { description: 'Line breaks are preserved, matching the source layout.' },
+      admin: {
+        condition: (_, siblingData) => siblingData?.variant !== 'page',
+        description: 'Line breaks are preserved, matching the source layout.',
+      },
     },
     {
       name: 'faqs',

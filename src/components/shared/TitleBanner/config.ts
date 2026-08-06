@@ -9,10 +9,26 @@ export const TitleBanner: Block = {
   },
   fields: [
     {
+      name: 'variant',
+      type: 'select',
+      label: 'Variant',
+      defaultValue: 'titleBackground',
+      options: [
+        { label: 'Title over background image', value: 'titleBackground' },
+        { label: 'Image only — bleeds to viewport width', value: 'imageBleed' },
+        { label: 'Image only — stays inside the container', value: 'imageContained' },
+      ],
+      admin: {
+        description:
+          'The image-only variants ignore the title. They differ below 1170px: one runs edge to edge, the other keeps the page gutters.',
+      },
+    },
+    {
       name: 'title',
       type: 'textarea',
       label: 'Title',
       admin: {
+        condition: (_, siblingData) => siblingData?.variant === 'titleBackground',
         description:
           'Line breaks are preserved. Leave blank for a photo-only band with no text over it.',
       },
@@ -31,6 +47,7 @@ export const TitleBanner: Block = {
       label: 'Render as the page H1',
       defaultValue: true,
       admin: {
+        condition: (_, siblingData) => siblingData?.variant === 'titleBackground',
         description:
           'Leave ticked when the banner carries the page heading. Untick if the page already has an H1 elsewhere.',
       },
