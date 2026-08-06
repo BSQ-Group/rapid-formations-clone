@@ -48,7 +48,9 @@ Use **bun** for all commands (`bun run dev`, `bun run storybook`, `bun run paylo
 
 ## Production URL
 
-Production for this repo is **https://quality-company-formations.vercel.app/** — the Vercel deployment, not the `qualitycompanyformations.co.uk` domain. Use the Vercel URL for any "live in prod" link in PR bodies, ticket updates, or verification notes. Per-PR preview deployments live under the same Vercel project — pull the `Visit Preview` URL from the PR's deployment status when you need a branch-specific link.
+Production for this repo is **https://rapid-formations-clone.vercel.app/** — the Vercel deployment, not the `rapidformations.co.uk` domain. Use the Vercel URL for any "live in prod" link in PR bodies, ticket updates, or verification notes. Per-PR preview deployments live under the same Vercel project — pull the `Visit Preview` URL from the PR's deployment status when you need a branch-specific link.
+
+`https://quality-company-formations.vercel.app/` is a **different Vercel project** and does not serve this repo. It answers 200 on `/` and 404s on every route this repo adds, so checking it produces a convincing false negative — a ported page looks unshipped when it is live. Real incident: the 23 FAQ topic pages were reported as "404 in production" for most of a session on that basis, and a merge was nearly reverted because of it.
 
 ## Component Structure
 

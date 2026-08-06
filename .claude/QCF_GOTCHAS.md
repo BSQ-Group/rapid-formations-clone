@@ -434,3 +434,19 @@ Each entry has four parts:
   document.querySelectorAll('h1').length // must be 1
   ```
 - **Fix:** Give the heading its own `PageTitle` block so editors can position it (above or below a banner), and make its `title` field **optional, falling back to the page's own `title`** — passed down as `RenderBlocks({ pageTitle })` and injected as `fallbackTitle`. That keeps a single source of truth for the 52 pages whose heading is just the page name, without a second copy to drift, while still allowing an override where the `H1` should read differently from the page/SEO title.
+
+## `NEXT_PUBLIC_*` is baked in at build time — a missing one degrades silently in production
+
+- **When it bites:** Local renders correctly, production renders in the wrong font (or with a feature quietly absent) and nothing errors. `NEXT_PUBLIC_*` values are inlined into the bundle **when Vercel builds**, not read at runtime, so a variable that exists in `.env` but not in the Vercel project simply resolves to `undefined` there. When the value gates a JSX branch, the whole branch disappears from the HTML rather than failing loudly. Real incident: `NEXT_PUBLIC_ADOBE_FONT_PROJECT_ID` was absent in Vercel, so `layout.tsx`'s `{adobeFontProjectId && (...)}` never emitted the Typekit `<link>`, and every `.font-legacy-condensed` element on the deployed site fell back to Inter — the entire site in the wrong typeface, with a green build. The first guess was an unrelated variable (`FONTAWESOME_NPM_AUTH_TOKEN`), which would have *failed* the build rather than changed a font.
+  > Adding the variable is not enough — an existing deployment keeps the old bundle. It must be **redeployed** to bake the value in.
+- **Detect:**
+  ```bash
+  # Every NEXT_PUBLIC_* the code reads must be present in the deployed HTML's effects.
+  grep -rhoE 'process\.env\.NEXT_PUBLIC_[A-Z0-9_]+' src/ | sort -u
+  ```
+  ```bash
+  # Then assert the resulting markup on the deployed URL, not just that the build is green.
+  # e.g. for the Adobe font — 0 means the variable never reached the build:
+  curl -s https://rapid-formations-clone.vercel.app/ | grep -c typekit   # expect 3
+  ```
+- **Fix:** For each `NEXT_PUBLIC_*` the code branches on, assert the *rendered consequence* on the deployed URL after the first deploy of a branch that introduces it — the tag, the script, the attribute — not merely that the build passed. Prefer a check on markup over a check on the dashboard: the dashboard shows the variable exists now, the HTML shows whether the running bundle was built with it.
