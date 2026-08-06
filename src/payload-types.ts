@@ -4006,6 +4006,10 @@ export interface PageTitleBlock {
    */
   title?: string | null;
   /**
+   * Adds the "FAQs Quick Navigation" dropdown beside the heading, listing every FAQ topic. Used on the FAQ topic pages.
+   */
+  showFaqQuickNav?: boolean | null;
+  /**
    * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
    */
   sectionLayout: {
@@ -6572,6 +6576,7 @@ export interface WhyUseAgentBlockSelect<T extends boolean = true> {
  */
 export interface PageTitleBlockSelect<T extends boolean = true> {
   title?: T;
+  showFaqQuickNav?: T;
   sectionLayout?:
     | T
     | {
