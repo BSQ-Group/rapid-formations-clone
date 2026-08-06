@@ -68,7 +68,11 @@ import { RegisterCtaPanelBlock } from '@/blocks/RegisterCtaPanel/Component'
 import { RegisterOverseasBlock } from '@/blocks/RegisterOverseas/Component'
 import { RequiredInformationBlock } from '@/blocks/RequiredInformation/Component'
 import { PageTitle } from '@/components/shared/PageTitle'
+import { TitleBanner } from '@/components/shared/TitleBanner'
+import { ClosingCTA } from '@/components/shared/ClosingCTA'
 import { TextContentBlock } from '@/blocks/TextContent/Component'
+import { FaqTopicBlock } from '@/blocks/FaqTopic/Component'
+import { ReviewRatingsBlock } from '@/blocks/ReviewRatings/Component'
 
 const blockComponents = {
   additionalServices: AdditionalServicesBlock,
@@ -137,6 +141,10 @@ const blockComponents = {
   registerOverseas: RegisterOverseasBlock,
   requiredInformation: RequiredInformationBlock,
   textContent: TextContentBlock,
+  titleBanner: TitleBanner,
+  faqTopic: FaqTopicBlock,
+  reviewRatings: ReviewRatingsBlock,
+  closingCTA: ClosingCTA,
 }
 
 const noMarginBlocks: string[] = ['landingHero']

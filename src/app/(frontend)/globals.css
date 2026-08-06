@@ -306,6 +306,11 @@
     --border-review-card-dim: rgb(179 173 173 / 0.65);
     --icon-rating-filled: rgb(243 156 18);
     --icon-rating-empty: rgb(197 197 197);
+    --icon-rating-trustpilot: rgb(94 178 124);
+    --icon-rating-google: rgb(240 172 0);
+    --icon-rating-facebook: rgb(65 89 153);
+    --icon-rating-yell: rgb(253 219 0);
+    --icon-rating-freeindex: rgb(91 158 11);
 
     --text-on-light-strong: rgb(49 49 49);
     --text-on-light-base: rgb(54 54 54);
@@ -314,14 +319,18 @@
     --text-on-light-link-hover: rgb(0 177 227);
     --border-on-light: rgb(218 218 218);
     --border-on-light-strong: rgb(204 204 204);
+    --border-on-light-tile: rgb(215 215 215);
     --border-on-light-faint: rgb(0 0 0 / 0.05);
     --surface-on-light-canvas: rgb(245 245 245);
     --surface-on-light-sunken: rgb(240 240 240);
+    --surface-on-light-tile: rgb(241 241 241);
     --surface-on-light-hover: rgb(0 0 0 / 0.03);
     --icon-on-light-faint: rgb(199 199 199);
     --scrim-image-strong: rgb(0 0 0 / 0.3);
     --scrim-image-soft: rgb(0 0 0 / 0.15);
     --scrim-caption-grey: rgb(125 125 125 / 0.3);
+    --shadow-banner-title:
+      0 2px 2px rgb(255 255 255 / 0.3), 0 10px 10px rgb(0 0 0 / 0.3), 0 3px 3px rgb(0 0 0 / 0.8);
 
     --surface-brand-cyan: rgb(0 177 227);
     --surface-brand-cyan-hover: rgb(0 156 200);

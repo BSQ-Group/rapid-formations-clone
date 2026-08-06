@@ -188,9 +188,9 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, onDark = false
       <header
         ref={headerRef}
         data-on-light={onDark ? undefined : ''}
-        className={cn(s.header, s.headerScrolled)}
+        className={cn(s.header, onDark && s.headerScrolled)}
       >
-        <div className={s.container}>
+        <div className={cn(s.container, onDark && s.containerScrolled)}>
           <div className={s.topRow}>
             <div className={s.logoCell}>
               <Link href="/" className={s.logoLink} onClick={closeEverything}>
