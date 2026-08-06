@@ -35,7 +35,7 @@ export const footerStyles = {
   columnListClosed: 'hidden min-[1023px]:block',
   columnListOpen: 'block',
   columnLink:
-    'mb-2 inline-block h-full min-w-full text-[17px] leading-[25.5px] text-[var(--text-on-light-muted)] no-underline hover:underline',
+    'mb-2 inline-block h-full min-w-full text-[17px] leading-rf-base text-[var(--text-on-light-muted)] no-underline hover:underline',
 
   companyRow:
     'mt-[18px] flex flex-col min-[1023px]:grid min-[1023px]:grid-cols-[1fr_1fr] min-[1023px]:flex-row',

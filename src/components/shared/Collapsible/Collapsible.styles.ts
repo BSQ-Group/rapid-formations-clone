@@ -10,7 +10,7 @@ export const collapsibleStyles = {
   triggerOpen: 'border-b-transparent hover:border-b-transparent focus-visible:border-b-transparent',
 
   title:
-    'mb-2 min-w-0 break-words text-[24px] leading-[32.4px] font-normal tracking-normal text-[var(--text-on-light-base)] transition-colors duration-[350ms]',
+    'mb-2 min-w-0 break-words text-[24px] leading-rf-h4 font-normal tracking-normal text-[var(--text-on-light-base)] transition-colors duration-[350ms]',
   titleOpen: 'text-[var(--surface-brand-cyan)]',
 
   iconCircle:

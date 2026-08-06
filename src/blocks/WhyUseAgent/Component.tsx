@@ -6,6 +6,7 @@ import { Container } from '@/components/shared/Container/Container'
 import { CtaLink } from '@/components/shared/CtaLink'
 import { FaIcon } from '@/components/shared/FaIcon'
 import { SectionWrapper } from '@/components/shared/SectionWrapper/SectionWrapper'
+import { SectionTitle } from '@/components/shared/SectionTitle'
 import Text from '@/components/shared/Text'
 import { getLinkHref, type LinkData } from '@/utilities/links'
 import { whyUseAgentIcons } from './icons'
@@ -23,12 +24,7 @@ export const WhyUseAgentBlock: React.FC<WhyUseAgentBlockProps> = ({
   return (
     <SectionWrapper {...sectionLayout} className={s.section}>
       <Container>
-        <div className={s.header}>
-          <Text as="h2" textStyle="span" text={heading} className={s.heading} />
-          {subheading && (
-            <Text as="p" textStyle="span" text={subheading} className={s.subheading} />
-          )}
-        </div>
+        <SectionTitle title={heading} subtitle={subheading} className={s.header} />
         <ul className={s.grid}>
           {items?.map((item, index) => (
             <li key={item.id ?? index} className={s.item}>

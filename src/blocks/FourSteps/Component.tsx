@@ -6,6 +6,7 @@ import type { FourStepsBlock as FourStepsBlockProps } from '@/payload-types'
 
 import { faChevronRight } from '@fortawesome/pro-solid-svg-icons/faChevronRight'
 
+import { SectionTitle } from '@/components/shared/SectionTitle'
 import Text from '@/components/shared/Text'
 import { FaIcon } from '@/components/shared/FaIcon'
 import { SnapCarousel } from '@/components/shared/SnapCarousel/SnapCarousel'
@@ -29,12 +30,12 @@ export const FourStepsBlock: React.FC<FourStepsBlockProps> = ({
     <section className={s.section}>
       <Container>
         {(heading || subheading) && (
-          <div className={s.header}>
-            {heading && <Text as="h2" textStyle="span" text={heading} className={s.heading} />}
-            {subheading && (
-              <Text as="p" textStyle="span" text={subheading} className={s.subheading} />
-            )}
-          </div>
+          <SectionTitle
+            title={heading}
+            subtitle={subheading}
+            className={s.header}
+            subtitleClassName="mb-10"
+          />
         )}
         <SnapCarousel
           as="ol"

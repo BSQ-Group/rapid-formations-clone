@@ -3,12 +3,6 @@ export const requiredInformationStyles = {
 
   header: 'mb-10 text-center',
 
-  heading:
-    'mb-2 block whitespace-pre-line break-words text-[36px] font-normal leading-[1.235] text-[var(--text-on-light-base)]',
-
-  subheading:
-    'block whitespace-pre-line break-words text-[24px] font-normal leading-[1.35] text-[var(--text-on-light-muted)]',
-
   grid: 'flex list-none flex-col gap-6 p-0 md:grid md:grid-cols-3',
 
   card: 'min-w-0 border border-[var(--border-on-light)] bg-[var(--surface-canvas-inverse)]',

@@ -5,7 +5,7 @@ import type { FormationVideoBlock as FormationVideoBlockProps } from '@/payload-
 import { Container } from '@/components/shared/Container/Container'
 import { Media } from '@/components/Media'
 import { SectionWrapper } from '@/components/shared/SectionWrapper/SectionWrapper'
-import Text from '@/components/shared/Text'
+import { SectionTitle } from '@/components/shared/SectionTitle'
 import { VideoModal } from '@/components/shared/VideoModal'
 import { formationVideoStyles as s } from './FormationVideo.styles'
 
@@ -31,12 +31,12 @@ export const FormationVideoBlock: React.FC<FormationVideoBlockProps> = ({
   return (
     <SectionWrapper {...sectionLayout} className={s.section}>
       <Container>
-        <div className={s.header}>
-          <Text as="h2" textStyle="span" text={heading} className={s.heading} />
-          {subheading && (
-            <Text as="p" textStyle="span" text={subheading} className={s.subheading} />
-          )}
-        </div>
+        <SectionTitle
+          title={heading}
+          subtitle={subheading}
+          className={s.header}
+          subtitleClassName="mb-2"
+        />
         <div className={s.videoWrap}>
           {videoUrl && still ? (
             <VideoModal

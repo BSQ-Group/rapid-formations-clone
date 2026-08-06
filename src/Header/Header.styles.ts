@@ -69,9 +69,9 @@ export const headerStyles = {
   panelColumn: '',
   panelColumnSpaced: 'mb-4 md:mb-0',
   panelHeading:
-    'mb-2 text-[19.2px] font-semibold leading-[25.92px] text-[rgb(var(--white))] [text-shadow:2px_2px_3px_rgba(0,0,0,0.2)] group-data-[on-light]:text-[var(--text-on-light-strong)] group-data-[on-light]:[text-shadow:none] min-[1200px]:group-data-[on-light]:text-[rgb(var(--white))]',
+    'mb-2 text-[19.2px] font-semibold leading-rf-h4 text-[rgb(var(--white))] [text-shadow:2px_2px_3px_rgba(0,0,0,0.2)] group-data-[on-light]:text-[var(--text-on-light-strong)] group-data-[on-light]:[text-shadow:none] min-[1200px]:group-data-[on-light]:text-[rgb(var(--white))]',
   panelLink:
-    'flex flex-row items-baseline justify-start py-[6.4px] text-[rgb(var(--white))] transition-colors duration-100 hover:text-[var(--surface-brand-cyan)] focus:text-[var(--surface-brand-cyan)] group-data-[on-light]:text-[var(--text-on-light-muted)] group-data-[on-light]:hover:text-[var(--surface-brand-cyan)] group-data-[on-light]:focus:text-[var(--surface-brand-cyan)] min-[1200px]:group-data-[on-light]:text-[rgb(var(--white))] md:py-[3.2px] md:text-[17px] md:leading-[25.5px]',
+    'flex flex-row items-baseline justify-start py-[6.4px] text-[rgb(var(--white))] transition-colors duration-100 hover:text-[var(--surface-brand-cyan)] focus:text-[var(--surface-brand-cyan)] group-data-[on-light]:text-[var(--text-on-light-muted)] group-data-[on-light]:hover:text-[var(--surface-brand-cyan)] group-data-[on-light]:focus:text-[var(--surface-brand-cyan)] min-[1200px]:group-data-[on-light]:text-[rgb(var(--white))] md:py-[3.2px] md:text-[17px] md:leading-rf-base',
   panelLinkIcon:
     'mb-[0.075em] mr-[0.375em] h-[0.75em] w-[0.46875em] shrink-0 md:-ml-[13px] min-[1590px]:ml-0',
 

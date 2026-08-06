@@ -3,7 +3,7 @@ export const faqsStyles = {
 
   header: 'mb-8 w-full flow-root text-center',
   heading:
-    'mb-2 break-words whitespace-pre-line text-[36px] leading-[44.46px] font-normal tracking-normal text-[var(--text-on-light-base)]',
+    'mb-2 break-words whitespace-pre-line text-[36px] leading-rf-heading font-normal tracking-normal text-[var(--text-on-light-base)]',
 
   panel: 'relative overflow-hidden min-[1023px]:px-[63px] min-[1023px]:pb-[9px]',
   list: 'mb-4',

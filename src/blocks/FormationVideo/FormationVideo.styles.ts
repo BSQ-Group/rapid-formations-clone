@@ -3,12 +3,6 @@ export const formationVideoStyles = {
 
   header: 'mb-8 flex flex-col text-center',
 
-  heading:
-    'mb-2 block whitespace-pre-line break-words text-center text-[36px] font-normal leading-[44.46px] text-[var(--text-on-light-base)]',
-
-  subheading:
-    'mb-2 block whitespace-pre-line break-words text-center text-[24px] font-normal leading-[32.4px] text-[var(--text-on-light-muted)]',
-
   videoWrap: 'relative w-full',
 
   trigger:

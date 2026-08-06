@@ -8,6 +8,7 @@ import { CtaLink } from '@/components/shared/CtaLink'
 import { InfoTooltip } from '@/components/shared/InfoTooltip'
 import { Media } from '@/components/Media'
 import { SectionWrapper } from '@/components/shared/SectionWrapper/SectionWrapper'
+import { SectionTitle } from '@/components/shared/SectionTitle'
 import Text from '@/components/shared/Text'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
 import { getLinkHref, type LinkData } from '@/utilities/links'
@@ -30,12 +31,7 @@ export const BankingPartnersBlock: React.FC<BankingPartnersBlockProps> = ({
   return (
     <SectionWrapper {...sectionLayout} className={s.section}>
       <Container>
-        <div className={s.header}>
-          <Text as="h2" textStyle="span" text={heading} className={s.heading} />
-          {subheading && (
-            <Text as="p" textStyle="span" text={subheading} className={s.subheading} />
-          )}
-        </div>
+        <SectionTitle title={heading} subtitle={subheading} className={s.header} />
         <ul className={s.grid}>
           {banks?.map((bank, index) => {
             const style: React.CSSProperties = { backgroundColor: bank.brandColour }

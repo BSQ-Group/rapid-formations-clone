@@ -14,7 +14,7 @@ export const packageGridCardStyles = {
 
   buyGroup: 'flex flex-col',
   buyButton:
-    'mb-[5px] flex min-h-11 w-full items-center justify-center rounded-md px-6 py-2 bg-[var(--surface-cta-success)] hover:bg-[var(--surface-cta-success-hover)] text-center text-[17px] leading-[25.5px] font-semibold text-[var(--text-strong)] [overflow-wrap:anywhere]',
+    'mb-[5px] flex min-h-11 w-full items-center justify-center rounded-md px-6 py-2 bg-[var(--surface-cta-success)] hover:bg-[var(--surface-cta-success-hover)] text-center text-[17px] leading-rf-base font-semibold text-[var(--text-strong)] [overflow-wrap:anywhere]',
 
   highlights: 'mt-6 mb-6 flex flex-col gap-3 md:min-h-[300px] min-[1023px]:min-h-[420px]',
   highlightsTitle:
@@ -25,10 +25,10 @@ export const packageGridCardStyles = {
   highlightTrigger:
     'p-0 leading-none text-[var(--icon-on-light-faint)] hover:text-[var(--text-on-light-link-hover)]',
   highlightText:
-    'min-w-0 break-words text-[17px] leading-[19.55px] font-normal text-[var(--text-on-light-muted)]',
+    'min-w-0 break-words text-[17px] leading-rf-h1 font-normal text-[var(--text-on-light-muted)]',
 
   readMoreButton:
-    'mt-auto flex min-h-11 w-full items-center justify-center rounded-md px-6 py-2 bg-[var(--surface-canvas-inverse)] border border-[var(--border-on-light)] text-center text-[17px] leading-[25.5px] font-normal text-[var(--text-on-light-subtle)] hover:bg-[var(--surface-on-light-canvas)] [overflow-wrap:anywhere]',
+    'mt-auto flex min-h-11 w-full items-center justify-center rounded-md px-6 py-2 bg-[var(--surface-canvas-inverse)] border border-[var(--border-on-light)] text-center text-[17px] leading-rf-base font-normal text-[var(--text-on-light-subtle)] hover:bg-[var(--surface-on-light-canvas)] [overflow-wrap:anywhere]',
 
   badgeClip:
     'hidden min-[1023px]:block pointer-events-none absolute -top-2.5 -right-2.5 size-[150px] overflow-hidden',
