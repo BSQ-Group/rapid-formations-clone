@@ -897,6 +897,10 @@ export interface Form {
  */
 export interface FAQsBlock {
   /**
+   * Panel is the marketing-page treatment. Page is the FAQ topic pages: the list runs the full container width with no side inset.
+   */
+  variant?: ('panel' | 'page') | null;
+  /**
    * Line breaks are preserved, matching the source layout.
    */
   title?: string | null;
@@ -4006,6 +4010,10 @@ export interface PageTitleBlock {
    */
   title?: string | null;
   /**
+   * Adds the "FAQs Quick Navigation" dropdown beside the heading, listing every FAQ topic. Used on the FAQ topic pages.
+   */
+  showFaqQuickNav?: boolean | null;
+  /**
    * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
    */
   sectionLayout: {
@@ -4061,6 +4069,10 @@ export interface TextContentBlock {
  * via the `definition` "TitleBannerBlock".
  */
 export interface TitleBannerBlock {
+  /**
+   * The image-only variants ignore the title. They differ below 1170px: one runs edge to edge, the other keeps the page gutters.
+   */
+  variant?: ('titleBackground' | 'imageBleed' | 'imageContained') | null;
   /**
    * Line breaks are preserved. Leave blank for a photo-only band with no text over it.
    */
@@ -4660,6 +4672,7 @@ export interface FormBlockSelect<T extends boolean = true> {
  * via the `definition` "FAQsBlock_select".
  */
 export interface FAQsBlockSelect<T extends boolean = true> {
+  variant?: T;
   title?: T;
   faqs?:
     | T
@@ -6572,6 +6585,7 @@ export interface WhyUseAgentBlockSelect<T extends boolean = true> {
  */
 export interface PageTitleBlockSelect<T extends boolean = true> {
   title?: T;
+  showFaqQuickNav?: T;
   sectionLayout?:
     | T
     | {
@@ -6604,6 +6618,7 @@ export interface TextContentBlockSelect<T extends boolean = true> {
  * via the `definition` "TitleBannerBlock_select".
  */
 export interface TitleBannerBlockSelect<T extends boolean = true> {
+  variant?: T;
   title?: T;
   image?: T;
   isPageTitle?: T;

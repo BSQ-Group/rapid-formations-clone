@@ -11,4 +11,9 @@ export const faqsStyles = {
   answerText:
     'max-w-none pt-4 pb-8 text-[22px] leading-[33px] font-normal text-[var(--text-on-light-muted)] [&_p]:mb-4 [&_p:last-child]:mb-0 [&_ul]:ml-4 [&_ol]:ml-4 [&_a]:text-[var(--surface-brand-cyan)] [&_a]:no-underline',
   answerTextLast: 'pb-0',
+
+  pageSection:
+    'font-legacy-condensed w-full bg-[var(--surface-canvas)] mb-[50px] min-[1023px]:mb-[75px] min-[1590px]:mb-[110px]',
+  pagePanel: 'relative w-full',
+  pageList: 'mt-5',
 } as const
