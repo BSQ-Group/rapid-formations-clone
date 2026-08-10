@@ -11,3 +11,21 @@ export const textContentStyles = {
 
   numbered: 'rf-numbered-clauses',
 } as const
+
+export const policyTableStyles = {
+  table:
+    '[&.payload-richtext_table]:!table-auto [&.payload-richtext_table]:!border-collapse [&.payload-richtext_table]:!border [&.payload-richtext_table]:!border-solid [&.payload-richtext_table]:!border-[color:var(--border-on-light)] [&.payload-richtext_table]:!my-6',
+
+  headerCell:
+    '[&.payload-richtext_th]:!border [&.payload-richtext_th]:!border-solid [&.payload-richtext_th]:!border-[color:var(--border-on-light)] [&.payload-richtext_th]:!px-3 [&.payload-richtext_th]:!py-[5.6px] [&.payload-richtext_th]:!w-auto [&.payload-richtext_th]:align-middle [&.payload-richtext_th]:!font-bold',
+
+  dataCell:
+    '[&.payload-richtext_td]:!border [&.payload-richtext_td]:!border-solid [&.payload-richtext_td]:!border-[color:var(--border-on-light)] [&.payload-richtext_td]:!px-3 [&.payload-richtext_td]:!py-[5.6px] [&.payload-richtext_td]:!w-auto [&.payload-richtext_td]:align-top',
+
+  rows: '[&.payload-richtext_tr>*:first-child]:!rounded-none [&.payload-richtext_tr>*:last-child]:!rounded-none [&.payload-richtext_tr:nth-child(odd)>*]:bg-transparent [&.payload-richtext_tr>th]:!bg-[var(--surface-table-header)]',
+
+  nestedList: '[&.payload-richtext_td_ul]:list-disc [&.payload-richtext_td_ul]:!pl-6',
+
+  scroll:
+    'max-md:[&.payload-richtext_th]:!min-w-[200px] max-md:[&.payload-richtext_td]:!min-w-[200px]',
+} as const
