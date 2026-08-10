@@ -3,6 +3,7 @@ export const nameCheckStyles = {
   rootPackage: 'items-center',
 
   form: 'my-4 flex w-full max-w-[670px] flex-row justify-center rounded-[5px] p-[15px] md:p-0',
+  formPackage: 'my-9',
   row: 'flex w-full flex-col gap-2 shadow-[2px_2px_3px_rgba(0,0,0,0.1)] md:flex-row md:items-stretch md:justify-start md:gap-0',
   input:
     'flex-1 min-w-0 min-h-[59.5px] rounded-[6px] border border-[var(--surface-canvas-inverse)] bg-[var(--surface-canvas-inverse)] px-[21px] py-[15.75px] text-[21px] leading-[normal] text-[var(--text-on-light-muted)] outline-none placeholder:text-center placeholder:text-[var(--text-on-light-subtle)] md:min-h-0 md:rounded-r-none md:border-r-0 md:placeholder:text-left',

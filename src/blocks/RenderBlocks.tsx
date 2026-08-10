@@ -71,6 +71,7 @@ import { FaqQuickNavServer } from '@/components/shared/FaqQuickNav/Server'
 import { PageTitle } from '@/components/shared/PageTitle'
 import { TitleBanner } from '@/components/shared/TitleBanner'
 import { ClosingCTA } from '@/components/shared/ClosingCTA'
+import { NameCheckPackagesBlock } from '@/blocks/NameCheckPackages/Component'
 import { TextContentBlock } from '@/blocks/TextContent/Component'
 import { FaqTopicBlock } from '@/blocks/FaqTopic/Component'
 import { ReviewRatingsBlock } from '@/blocks/ReviewRatings/Component'
@@ -146,6 +147,7 @@ const blockComponents = {
   faqTopic: FaqTopicBlock,
   reviewRatings: ReviewRatingsBlock,
   closingCTA: ClosingCTA,
+  nameCheckPackages: NameCheckPackagesBlock,
 }
 
 const noMarginBlocks: string[] = ['landingHero']

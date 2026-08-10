@@ -66,6 +66,7 @@ import { TitleBanner } from '../../components/shared/TitleBanner/config'
 import { FaqTopic } from '../../blocks/FaqTopic/config'
 import { ReviewRatings } from '../../blocks/ReviewRatings/config'
 import { ClosingCTA } from '../../components/shared/ClosingCTA/config'
+import { NameCheckPackages } from '@/blocks/NameCheckPackages/config'
 import { ContentWithPricingCard } from '../../blocks/ContentWithPricingCard/config'
 import { ContentWithExtendedPricingCard } from '../../blocks/ContentWithExtendedPricingCard/config'
 import { HeroServicesBanner } from '../../blocks/HeroServicesBanner/config'
@@ -218,6 +219,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 FaqTopic,
                 ReviewRatings,
                 ClosingCTA,
+                NameCheckPackages,
               ],
               admin: {
                 initCollapsed: true,
