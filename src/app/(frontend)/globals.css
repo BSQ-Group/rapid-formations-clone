@@ -301,6 +301,9 @@
      ============================================================ */
   .theme-rapidformations {
     --surface-hero-brand: rgb(39 94 226);
+    --text-namecheck-success: rgb(107 203 91);
+    --text-namecheck-error: rgb(238 61 66);
+    --surface-cta-retry: rgb(243 156 18);
     --surface-cta-success: rgb(0 182 122);
     --surface-cta-success-hover: rgb(0 208 139);
     --icon-success: rgb(46 204 113);
