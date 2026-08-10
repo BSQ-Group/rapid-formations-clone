@@ -245,6 +245,16 @@ export const Pages: CollectionConfig<'pages'> = {
             }),
 
             MetaDescriptionField({}),
+            {
+              name: 'noindex',
+              type: 'checkbox',
+              label: 'Hide from search engines',
+              defaultValue: false,
+              admin: {
+                description:
+                  'Emits noindex, nofollow. Use for funnel pages that should not appear in search results.',
+              },
+            },
             PreviewField({
               hasGenerateFn: true,
 
