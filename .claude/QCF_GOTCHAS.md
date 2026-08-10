@@ -450,3 +450,37 @@ Each entry has four parts:
   curl -s https://rapid-formations-clone.vercel.app/ | grep -c typekit   # expect 3
   ```
 - **Fix:** For each `NEXT_PUBLIC_*` the code branches on, assert the *rendered consequence* on the deployed URL after the first deploy of a branch that introduces it — the tag, the script, the attribute — not merely that the build passed. Prefer a check on markup over a check on the dashboard: the dashboard shows the variable exists now, the HTML shows whether the running bundle was built with it.
+
+## Storybook renders `.font-legacy-condensed` in Inter — never size-check a port there
+
+- **When it bites:** You port a component, compare it against the Gatsby source in Storybook, and everything matches except height — the text wraps onto an extra line, so a step/card/label is one line-height taller than the source. You start hunting for a padding or `line-height` bug that does not exist. Storybook loads Inter/Work Sans/Montserrat via `next/font` (`.storybook/preview.tsx`) but **never loads the Adobe Typekit face**, and the `.font-legacy-condensed` rule does not win there even though it is present in the CSSOM. Inter is measurably wider than `myriad-pro-semi-condensed`, so any text near a wrap boundary breaks differently. Real incident: `OrderSteps` measured 117px against the source's 90px at 390 — pure font, the component was already exact. 768 and 1440 matched 54/54 because no label sat near a wrap point there.
+- **Detect:**
+  ```js
+  // In the story, before trusting ANY width/height/wrap measurement:
+  getComputedStyle(el).fontFamily.split(',')[0]
+  // 'Inter' => the measurement is invalid. The source renders 'myriad-pro-semi-condensed'.
+  ```
+- **Fix:** Do not "fix" the component. Either force the real face before measuring:
+  ```js
+  await page.addStyleTag({ url: 'https://use.typekit.net/wrj3hpa.css' })
+  await page.addStyleTag({ content: `[data-step], [data-step] * {
+    font-family: 'myriad-pro-semi-condensed', sans-serif !important;
+    font-variation-settings: 'wdth' 75.6 !important; }` })
+  await page.evaluate(() => document.fonts.ready)
+  ```
+  or verify on the Next dev server / preview deploy instead, which loads Typekit properly. Storybook stays valid for colour, spacing, flex rules and state variants — it is only text-metric checks that are untrustworthy.
+
+## `duration-[…]` / `ease-[…]` are ambiguous with `tailwindcss-animate` and get silently dropped
+
+- **When it bites:** You write an arbitrary transition value copied from the source's CSS — `duration-[350ms]`, `ease-[ease]` — the class appears on the element in DevTools, and the transition still runs at Tailwind's default. Nothing errors. `tailwindcss-animate` registers its own `duration-*`, `ease-*` and `delay-*` utilities for the **animation** properties, so an arbitrary value matches two utilities at once; Tailwind refuses to guess and **emits no rule at all**. The build prints `warn - The class 'duration-[350ms]' is ambiguous and matches multiple utilities`, which is easy to scroll past. Found while porting `OrderSteps`: the source eases with plain `ease`, `ease-[ease]` produced nothing, and the step kept Tailwind's `cubic-bezier(0.4, 0, 0.2, 1)`.
+- **Detect:**
+  ```bash
+  # Any hit here is a class that is probably not being emitted:
+  grep -rhoE '(duration|ease|delay)-\[[^]]+\]' src/ | sort | uniq -c
+  ```
+  ```bash
+  # Confirm against a real build — 0 means the class was dropped:
+  echo '@tailwind utilities;' > /tmp/in.css
+  npx tailwindcss -c tailwind.config.mjs -i /tmp/in.css 2>/dev/null | grep -c 'duration-\\\[350ms\\\]'
+  ```
+- **Fix:** Use the arbitrary-property form, which names the CSS property and cannot be ambiguous — `[transition-timing-function:ease]`, `[transition-duration:350ms]`. Standard tokens (`duration-300`, `ease-in-out`) are unaffected; only the `[...]` form collides. Note `ease-in-out` is **not** CSS `ease` — it is `cubic-bezier(0.4, 0, 0.2, 1)` against `ease`'s `cubic-bezier(0.25, 0.1, 0.25, 1)` — so it is not a valid substitute when matching a source that uses plain `ease`.

@@ -335,6 +335,7 @@
     --surface-on-light-tile: rgb(241 241 241);
     --surface-on-light-hover: rgb(0 0 0 / 0.03);
     --icon-on-light-faint: rgb(199 199 199);
+    --icon-step-complete: rgb(27 193 113);
     --scrim-image-strong: rgb(0 0 0 / 0.3);
     --scrim-image-soft: rgb(0 0 0 / 0.15);
     --scrim-caption-grey: rgb(125 125 125 / 0.3);
