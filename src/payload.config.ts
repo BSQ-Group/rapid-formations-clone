@@ -16,6 +16,7 @@ import { BusinessBankAccountsGlobal } from './globals/BusinessBankAccounts/confi
 import { FaqTopicsGlobal } from './globals/FaqTopics/config'
 import { LegalSidenavGlobal } from './globals/LegalSidenavItemsOrder/config'
 import { PackagesNavGlobal } from './globals/PackagesNavItems/config'
+import { PricesGlobal } from './globals/Prices/config'
 import { ReviewStatsGlobal } from './globals/ReviewStats/config'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
@@ -94,6 +95,7 @@ export default buildConfig({
     FaqTopicsGlobal,
     LegalSidenavGlobal,
     PackagesNavGlobal,
+    PricesGlobal,
     ReviewStatsGlobal,
   ],
   secret: process.env.PAYLOAD_SECRET,

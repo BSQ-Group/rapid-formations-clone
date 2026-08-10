@@ -7,12 +7,14 @@ import { draftMode } from 'next/headers'
 import { cache } from 'react'
 
 import { RenderBlocks } from '@/blocks/RenderBlocks'
+import { getCachedGlobal } from '@/utilities/getGlobals'
+import { resolveShortcodes, toPriceMap } from '@/utilities/shortcodes'
 import { RenderHero } from '@/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { Header } from '@/Header/Component'
 import { TrustPilotBannerBlock } from '@/blocks/TrustPilotBanner/Component'
-import type { TrustPilotBannerBlock as TrustPilotBannerBlockType } from '@/payload-types'
+import type { Price, TrustPilotBannerBlock as TrustPilotBannerBlockType } from '@/payload-types'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -58,7 +60,8 @@ export default async function Page({ params: paramsPromise }: Args) {
 
   const { hero, layout, isHeaderOnDark, title } = page
 
-  const blocks = layout ?? []
+  const prices = (await getCachedGlobal('prices', 0)()) as Price
+  const blocks = resolveShortcodes(layout ?? [], toPriceMap(prices?.items))
   const firstBlock = blocks[0]
   const hasBanner = firstBlock?.blockType === 'trustpilotBanner'
   const remainingBlocks = hasBanner ? blocks.slice(1) : blocks
