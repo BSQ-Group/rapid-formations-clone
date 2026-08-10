@@ -90,7 +90,7 @@ export const NameCheck: React.FC<NameCheckProps> = ({
   }
 
   const searchForm = (
-    <div className={s.form}>
+    <div className={cn(s.form, onLight && s.formPackage)}>
       <div className={s.row}>
         <input
           ref={inputRef}

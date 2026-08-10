@@ -284,6 +284,7 @@ export interface Page {
         | FaqTopicBlock
         | ReviewRatingsBlock
         | ClosingCTABlock
+        | NameCheckPackagesBlock
       )[]
     | null;
   meta?: {
@@ -4182,6 +4183,27 @@ export interface ClosingCTABlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NameCheckPackagesBlock".
+ */
+export interface NameCheckPackagesBlock {
+  /**
+   * Without the word "Package" — "Basic" renders as "You have chosen the BASIC PACKAGE."
+   */
+  packageName: string;
+  /**
+   * Path on client.rapidformations.co.uk, leading and trailing slash included — e.g. /buy/basic-package/. Two of these do not follow the package slug: Limited by Guarantee is /buy/limited-by-guarantee/ and LLP is /buy/limited-liability-partnership/.
+   */
+  checkoutPath: string;
+  /**
+   * Defaults to "Find your perfect company name".
+   */
+  searchPlaceholder?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'nameCheckPackages';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -4554,6 +4576,7 @@ export interface PagesSelect<T extends boolean = true> {
         faqTopic?: T | FaqTopicBlockSelect<T>;
         reviewRatings?: T | ReviewRatingsBlockSelect<T>;
         closingCTA?: T | ClosingCTABlockSelect<T>;
+        nameCheckPackages?: T | NameCheckPackagesBlockSelect<T>;
       };
   meta?:
     | T
@@ -6689,6 +6712,17 @@ export interface ClosingCTABlockSelect<T extends boolean = true> {
         paddingTop?: T;
         paddingBottom?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NameCheckPackagesBlock_select".
+ */
+export interface NameCheckPackagesBlockSelect<T extends boolean = true> {
+  packageName?: T;
+  checkoutPath?: T;
+  searchPlaceholder?: T;
   id?: T;
   blockName?: T;
 }
