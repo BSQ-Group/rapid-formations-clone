@@ -28,6 +28,7 @@ export const generateMeta = async (args: {
   const ogImage = getImageURL(doc?.meta?.image)
 
   const { siteName } = getDomainConfig(getBrand())
+  const noindex = doc?.meta && 'noindex' in doc.meta ? Boolean(doc.meta.noindex) : false
   const title = doc?.meta?.title ? `${doc.meta.title} | ${siteName}` : siteName
   const slug = Array.isArray(doc?.slug) ? doc?.slug.join('/') : doc?.slug
   const path = !slug || slug === 'home' ? '/' : `/${slug}`
@@ -36,7 +37,7 @@ export const generateMeta = async (args: {
     description: doc?.meta?.description,
     metadataBase: new URL(getServerSideURL()),
     alternates: { canonical: path },
-    robots: { index: true, follow: true },
+    robots: noindex ? { index: false, follow: false } : { index: true, follow: true },
     openGraph: mergeOpenGraph({
       description: doc?.meta?.description || '',
       images: ogImage

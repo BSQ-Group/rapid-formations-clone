@@ -294,6 +294,10 @@ export interface Page {
      */
     image?: (string | null) | Media;
     description?: string | null;
+    /**
+     * Emits noindex, nofollow. Use for funnel pages that should not appear in search results.
+     */
+    noindex?: boolean | null;
   };
   /**
    * Short label used in navigation menus. Falls back to the page title if left blank.
@@ -4584,6 +4588,7 @@ export interface PagesSelect<T extends boolean = true> {
         title?: T;
         image?: T;
         description?: T;
+        noindex?: T;
       };
   navigationLabel?: T;
   isLegalPage?: T;
