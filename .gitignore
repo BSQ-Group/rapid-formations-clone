@@ -49,8 +49,10 @@ content.json
 /shots/
 
 # Per-section scratch from the porting skill (measurements, extracted content,
-# downloaded assets). Regenerated on demand.
-/port/
+# downloaded assets). Regenerated on demand. Populate scripts that create real
+# pages are tracked -- they are the only record of what was written to the CMS.
+/port/*
+!/port/id-requirements/
 /page-compare/
 
 # Port working notes -- the per-decision record and the section map. Local only.
