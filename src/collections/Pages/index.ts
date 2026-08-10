@@ -270,7 +270,8 @@ export const Pages: CollectionConfig<'pages'> = {
       type: 'text',
       admin: {
         position: 'sidebar',
-        description: 'Short label used in navigation menus. Falls back to the page title if left blank.',
+        description:
+          'Short label used in navigation menus. Falls back to the page title if left blank.',
       },
     },
     {
@@ -290,7 +291,8 @@ export const Pages: CollectionConfig<'pages'> = {
       defaultValue: false,
       admin: {
         position: 'sidebar',
-        description: 'Offset the header down by 40px (e.g. pages with an announcement bar above it).',
+        description:
+          'Offset the header down by 40px (e.g. pages with an announcement bar above it).',
       },
     },
     {
@@ -299,7 +301,8 @@ export const Pages: CollectionConfig<'pages'> = {
       defaultValue: false,
       admin: {
         position: 'sidebar',
-        description: 'Show white logo and light nav links — use when the header overlays a dark hero image.',
+        description:
+          'Show white logo and light nav links — use when the header overlays a dark hero image.',
       },
     },
     {

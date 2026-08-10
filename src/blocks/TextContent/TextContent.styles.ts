@@ -1,18 +1,36 @@
+const bulletLists =
+  '[&_ul]:!mt-2 [&_ul]:!mb-2 [&_ul]:!pl-10 [&_ul]:list-disc [&_li]:!mb-2.5 [&_li]:!pl-2.5 [&_li:has(>ol)]:!mb-0 [&_li:has(>ol)]:!pl-0 [&_ol]:!mt-2 [&_ol]:!mb-0 [&_ol]:!pl-[15px] [&_li_ol]:!pl-8 [&_ol>li]:!my-0 [&_li_ol>li]:!my-2.5 [&_ol>li]:!pb-2.5 [&_ol>li:first-child]:!mt-0 [&_ol>li]:list-[lower-latin]'
+
 export const textContentStyles = {
   section: 'font-legacy-condensed w-full bg-[var(--surface-canvas)]',
-
-  body: 'block text-[20px] leading-[30px] text-[var(--text-on-light-muted)] [&_p]:!mb-2 [&_h2]:!mt-0 [&_h2]:!mb-4 [&_h2]:text-[28.8px] [&_h2]:font-normal [&_h2]:leading-[43.2px] [&_h2]:text-[var(--text-on-light-base)] [&_h3]:!mt-4 [&_h3]:!mb-3 [&_h3]:text-[20.8px] [&_h3]:font-normal [&_h3]:leading-[31.2px] [&_h3]:text-[var(--text-on-light-base)] [&_a]:!text-[var(--text-on-light-link-hover)] [&_a:hover]:!no-underline [&>*:last-child]:!mb-0',
-
-  lists:
-    '[&_ul]:!mt-2 [&_ul]:!mb-2 [&_ul]:!pl-10 [&_ul]:list-disc [&_li]:!mb-2.5 [&_li]:!pl-2.5 [&_li:has(>ol)]:!mb-0 [&_li:has(>ol)]:!pl-0 [&_ol]:!mt-2 [&_ol]:!mb-0 [&_ol]:!pl-[15px] [&_li_ol]:!pl-8 [&_ol>li]:!my-0 [&_li_ol>li]:!my-2.5 [&_ol>li]:!pb-2.5 [&_ol>li:first-child]:!mt-0 [&_ol>li]:list-[lower-latin]',
-
-  policy:
-    '[&_p]:!mb-4 [&_h3]:!leading-[25.688px] [&_p+h3]:!mt-6 [&_h4]:!mt-4 [&_h4]:!mb-2 [&_h4]:text-[20px] [&_h4]:font-normal [&_h4]:leading-[27px] [&_h4]:text-[var(--text-on-light-base)] [&_p+h4]:!mt-6 [&_ul]:!mb-6 [&_ul]:list-[lower-alpha] [&_li]:!my-2.5 [&_li]:!pl-2 [&_li:first-child]:!mt-0',
-
-  numbered: 'rf-numbered-clauses',
 } as const
 
-export const policyTableStyles = {
+export const richTextShell = {
+  text: 'block text-xl leading-[30px] text-[var(--text-on-light-muted)]',
+
+  paragraphs: '[&_p]:!mb-2 [&>*:last-child]:!mb-0',
+
+  headings:
+    '[&_h2]:!mt-0 [&_h2]:!mb-4 [&_h2]:text-[28.8px] [&_h2]:font-normal [&_h2]:leading-[43.2px] [&_h2]:text-[var(--text-on-light-base)] [&_h3]:!mt-4 [&_h3]:!mb-3 [&_h3]:text-[20.8px] [&_h3]:font-normal [&_h3]:leading-[31.2px] [&_h3]:text-[var(--text-on-light-base)]',
+
+  links: '[&_a]:!text-[var(--text-on-light-link-hover)] [&_a:hover]:!no-underline',
+} as const
+
+const standard = {
+  lists: bulletLists,
+}
+
+const policy = {
+  lists: bulletLists,
+
+  spacing: '[&_p]:!mb-4 [&_p+h3]:!mt-6 [&_p+h4]:!mt-6',
+
+  headings:
+    '[&_h3]:!leading-[25.688px] [&_h4]:!mt-4 [&_h4]:!mb-2 [&_h4]:text-xl [&_h4]:font-normal [&_h4]:leading-[27px] [&_h4]:text-[var(--text-on-light-base)]',
+
+  letteredLists:
+    '[&_ul]:!mb-6 [&_ul]:list-[lower-alpha] [&_li]:!my-2.5 [&_li]:!pl-2 [&_li:first-child]:!mt-0',
+
   table:
     '[&.payload-richtext_table]:!table-auto [&.payload-richtext_table]:!border-collapse [&.payload-richtext_table]:!border [&.payload-richtext_table]:!border-solid [&.payload-richtext_table]:!border-[color:var(--border-on-light)] [&.payload-richtext_table]:!my-6',
 
@@ -28,4 +46,52 @@ export const policyTableStyles = {
 
   scroll:
     'max-md:[&.payload-richtext_th]:!min-w-[200px] max-md:[&.payload-richtext_td]:!min-w-[200px]',
-} as const
+}
+
+const numbered = {
+  counters: 'rf-numbered-clauses',
+}
+
+const terms = {
+  spacing: '[&_p]:!mb-4',
+
+  emphasis: '[&_strong]:mr-2 [&_strong]:text-[var(--text-on-light-base)]',
+
+  headings:
+    '[&_h2]:!my-8 [&_h2]:text-[36px] [&_h2]:leading-[44.46px] [&_h3]:!mt-0 [&_h3]:!mb-6 [&_h3]:text-[28px] [&_h3]:leading-[34.58px]',
+
+  lists: '[&_ul]:!my-0 [&_ul]:list-disc [&_ol]:!my-0 [&_ol]:list-decimal [&_li]:!mb-4',
+
+  table:
+    '[&.payload-richtext_table]:!table-auto [&.payload-richtext_table]:!border-collapse [&.payload-richtext_table]:!my-0',
+
+  headerCell:
+    '[&.payload-richtext_th]:!p-px [&.payload-richtext_th]:!w-auto [&.payload-richtext_th]:!rounded-none [&.payload-richtext_th]:!border-r [&.payload-richtext_th]:!border-solid [&.payload-richtext_th]:!border-black [&.payload-richtext_th:last-child]:!border-r-0 [&.payload-richtext_th]:!font-bold [&.payload-richtext_th]:!text-center [&.payload-richtext_th]:align-middle [&.payload-richtext_th]:text-lg [&.payload-richtext_th]:leading-[27px]',
+
+  dataCell:
+    '[&.payload-richtext_td]:!px-3 [&.payload-richtext_td]:!py-4 [&.payload-richtext_td]:!w-auto [&.payload-richtext_td]:!rounded-none [&.payload-richtext_td]:align-middle [&.payload-richtext_td]:text-lg [&.payload-richtext_td]:leading-[27px]',
+
+  rows: '[&.payload-richtext_tr]:!border-b [&.payload-richtext_tr]:!border-solid [&.payload-richtext_tr]:!border-black [&.payload-richtext_tr:last-child]:!border-b-0 [&.payload-richtext_tr:nth-child(odd)>*]:bg-transparent',
+
+  nestedList:
+    '[&.payload-richtext_td_ol]:!list-[lower-latin] [&.payload-richtext_td_ol]:!pl-8 [&.payload-richtext_td_ol>li]:!pl-4 [&.payload-richtext_td_ol>li]:!mb-4 [&.payload-richtext_td_ol>li]:text-xl [&.payload-richtext_td_ol>li]:leading-[30px]',
+}
+
+const cookies = {
+  lists: bulletLists,
+
+  measure: 'max-w-[936px]',
+
+  paragraphs:
+    '[&_p]:text-[22px] [&_p]:leading-[33px] [&_p:has(+h2)]:!mb-8 [&_p:has(+h3)]:!mb-8 [&_h3+p]:!mb-[1.2rem]',
+
+  boxedParagraphs:
+    '[&_p:has(strong)]:!mb-[1.2rem] [&_p:has(strong)]:border [&_p:has(strong)]:border-[color:var(--border-on-light)] [&_p:has(strong)]:px-[1em] [&_p:has(strong)]:py-[0.5em] [&_p:has(strong)+h2]:!mt-8',
+
+  headings:
+    '[&_h2]:text-[26px] [&_h2]:leading-[39px] [&_h2]:!mb-3 [&_h2+h3]:!mt-0 [&_h3]:inline-block [&_h3]:border-b-2 [&_h3]:border-current [&_h3]:text-[22px] [&_h3]:leading-[33px] [&_h3]:!mb-2',
+
+  code: '[&_code]:[font-family:inherit]',
+}
+
+export const variantStyles = { standard, policy, numbered, terms, cookies }
