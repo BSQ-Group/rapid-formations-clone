@@ -1,29 +1,21 @@
-export const checkCompany = async (companyName: string, turnstileToken?: string) => {
-  const headers: Record<string, string> = { 'Content-Type': 'application/json' }
-  if (turnstileToken) headers['Captcha'] = turnstileToken
+import { ERROR_DESCRIPTION, ERROR_NAME, type NameCheckOutcome } from '@/lib/nameCheck/verdict'
 
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL!}/graphql`, {
+export const checkCompany = async (companyName: string): Promise<NameCheckOutcome> => {
+  const response = await fetch('/api/name-check', {
     method: 'POST',
-    headers,
-    body: JSON.stringify({
-      query: `
-        query IsCompanyNameAvailable($name: String!) {
-          isCompanyNameAvailable(name: $name) {
-            isAvailable
-          }
-        }
-      `,
-      variables: { name: companyName },
-    }),
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: companyName }),
   })
 
-  if (!response.ok) {
-    throw new Error(`HTTP error checking company name availability! status: ${response.status}`)
+  const result = (await response.json().catch(() => null)) as Partial<NameCheckOutcome> | null
+
+  if (!result || typeof result.description !== 'string') {
+    return { name: ERROR_NAME, available: false, description: ERROR_DESCRIPTION }
   }
 
-  const result = await response.json()
-  if (result.errors?.length) {
-    throw new Error(result.errors[0]?.message ?? 'Something went wrong. Please try again.')
+  return {
+    name: result.name || companyName,
+    available: Boolean(result.available),
+    description: result.description,
   }
-  return result.data?.isCompanyNameAvailable?.isAvailable ?? false
 }

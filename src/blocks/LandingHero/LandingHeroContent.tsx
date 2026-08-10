@@ -18,8 +18,8 @@ import { landingHeroStyles as s } from './LandingHero.styles'
 type SearchResult =
   | { status: 'idle' }
   | { status: 'loading' }
-  | { status: 'available'; name: string }
-  | { status: 'unavailable'; name: string; alsoUnavailable?: string }
+  | { status: 'available'; name: string; description: string }
+  | { status: 'unavailable'; name: string; description: string }
 
 type Badge = { src: string; alt: string; width: number; height: number }
 
@@ -47,12 +47,12 @@ export function LandingHeroContent({
 
     setResult({ status: 'loading' })
     try {
-      const available = await checkCompany(name)
-      if (available) {
-        setResult({ status: 'available', name })
-      } else {
-        setResult({ status: 'unavailable', name })
-      }
+      const outcome = await checkCompany(name)
+      setResult({
+        status: outcome.available ? 'available' : 'unavailable',
+        name: outcome.name,
+        description: outcome.description,
+      })
     } catch (err) {
       setResult({ status: 'idle' })
       customToast.error(
@@ -164,11 +164,7 @@ export function LandingHeroContent({
                   <div className={s.resultBarAvailable} />
                 </div>
               </div>
-              <Text
-                textStyle="body-lg"
-                text="Congratulations! This company name is available."
-                className={s.resultDescription}
-              />
+              <Text textStyle="body-lg" text={result.description} className={s.resultDescription} />
             </div>
           </div>
           <div className={s.availableCtaRow}>
@@ -208,18 +204,7 @@ export function LandingHeroContent({
               </div>
             </div>
             <div className="flex flex-col gap-1">
-              <Text
-                textStyle="body-lg"
-                text="Sorry, this company name is unavailable."
-                className={s.resultDescription}
-              />
-              {result.alsoUnavailable && (
-                <Text
-                  textStyle="body-lg"
-                  text={`Also unavailable is: ${result.alsoUnavailable}`}
-                  className={s.resultDescription}
-                />
-              )}
+              <Text textStyle="body-lg" text={result.description} className={s.resultDescription} />
             </div>
           </div>
         </div>

@@ -1,9 +1,11 @@
 'use client'
 
 import React, { useRef, useState } from 'react'
+import Image from 'next/image'
 import { Loader2 } from 'lucide-react'
 
 import { checkCompany } from '@/api/checkCompany'
+import { EMPTY_DESCRIPTION, ERROR_DESCRIPTION, ERROR_NAME } from '@/lib/nameCheck/verdict'
 import Text from '@/components/shared/Text'
 import { Button } from '@/components/ui/button'
 import { useCustomToast } from '@/components/shared/CustomToast/useCustomToast'
@@ -15,8 +17,9 @@ export const ACCOUNT_URL = 'https://client.rapidformations.co.uk'
 export type NameCheckResult =
   | { status: 'idle' }
   | { status: 'loading' }
-  | { status: 'available'; name: string }
-  | { status: 'unavailable'; name: string }
+  | { status: 'available'; name: string; description: string }
+  | { status: 'unavailable'; name: string; description: string }
+  | { status: 'error'; name: string; description: string }
 
 export type NameCheckProps = {
   variant?: 'hero' | 'package'
@@ -69,18 +72,23 @@ export const NameCheck: React.FC<NameCheckProps> = ({
 
   const handleSearch = async (value?: string) => {
     const name = (value ?? inputRef.current?.value ?? '').trim()
-    if (!name) return
+    if (!name) {
+      setResult({ status: 'error', name: ERROR_NAME, description: EMPTY_DESCRIPTION })
+      return
+    }
 
     setResult({ status: 'loading' })
     try {
-      const available = await checkCompany(name)
-      if (available) writeCompanyNameCookie(name)
-      setResult({ status: available ? 'available' : 'unavailable', name })
-    } catch (err) {
-      setResult({ status: 'idle' })
-      customToast.error(
-        err instanceof Error ? err.message : 'Something went wrong. Please try again.',
-      )
+      const outcome = await checkCompany(name)
+      if (outcome.available) writeCompanyNameCookie(outcome.name)
+      setResult({
+        status: outcome.available ? 'available' : 'unavailable',
+        name: outcome.name,
+        description: outcome.description,
+      })
+    } catch {
+      setResult({ status: 'error', name: ERROR_NAME, description: ERROR_DESCRIPTION })
+      customToast.error(ERROR_DESCRIPTION)
     }
   }
 
@@ -89,8 +97,8 @@ export const NameCheck: React.FC<NameCheckProps> = ({
     setTimeout(() => inputRef.current?.focus(), 0)
   }
 
-  const searchForm = (
-    <div className={cn(s.form, onLight && s.formPackage)}>
+  const renderForm = (isRetry: boolean) => (
+    <div className={cn(s.form, onLight && s.formPackage, isRetry && s.formRetry)}>
       <div className={s.row}>
         <input
           ref={inputRef}
@@ -107,12 +115,14 @@ export const NameCheck: React.FC<NameCheckProps> = ({
           variant="primary"
           size="lg"
           aria-label="Check company name availability"
-          className={s.button}
+          className={cn(s.button, isRetry && s.buttonRetry)}
           onClick={() => handleSearch()}
           disabled={isLoading}
         >
           {isLoading ? (
             <Loader2 size={20} className={cn('animate-spin', s.buttonIcon)} />
+          ) : isRetry ? (
+            'Search again'
           ) : (
             'Search'
           )}
@@ -125,95 +135,57 @@ export const NameCheck: React.FC<NameCheckProps> = ({
     return (
       <div className={cn(s.root, onLight && s.rootPackage, className)}>
         {idleSlot}
-        {searchForm}
+        {renderForm(false)}
         {footerSlot}
       </div>
     )
   }
 
   const isAvailable = result.status === 'available'
+  const isError = result.status === 'error'
+  const icon = isError ? 'oops' : isAvailable ? 'pass' : 'fail'
 
   return (
     <div className={cn(s.root, onLight && s.rootPackage, className)}>
       <div className={s.result}>
-        <div className={s.resultHead}>
-          <div
-            className={cn(
-              s.resultBadge,
-              isAvailable ? s.resultBadgeAvailable : s.resultBadgeUnavailable,
-            )}
-          >
-            <span>{isAvailable ? '✓' : '✕'}</span>
-            <span>{isAvailable ? 'Available' : 'Unavailable'}</span>
-          </div>
-          <div className={s.resultNameBlock}>
-            <Text
-              textStyle="body-xs"
-              text="COMPANY NAME CHECK"
-              className={cn(s.resultEyebrow, onLight && s.resultEyebrowOnLight)}
-            />
-            <Text
-              as={headingLevel}
-              textStyle="headline-6xl"
-              text={result.name}
-              className={cn(
-                s.resultName,
-                onLight && s.resultNameOnLight,
-                !isAvailable && s.resultNameUnavailable,
-              )}
-            />
-            <div className={isAvailable ? s.resultBarAvailable : s.resultBarUnavailable} />
-          </div>
-          <Text
-            textStyle="body-lg"
-            text={
-              isAvailable
-                ? 'Congratulations! This company name is available.'
-                : 'Sorry, this company name is unavailable.'
-            }
-            className={cn(s.resultDescription, onLight && s.resultDescriptionOnLight)}
-          />
-        </div>
-
-        {isAvailable ? (
-          <div className={s.ctaRow}>
-            {availableCta ??
-              (checkoutPath ? (
-                <a className={s.cta} href={buildCheckoutUrl(checkoutPath, result.name)}>
-                  Continue
-                </a>
-              ) : null)}
-            <button
-              type="button"
-              onClick={handleReset}
-              className={cn(s.searchAgain, onLight && s.searchAgainOnLight)}
-            >
-              Or search again
-            </button>
-          </div>
-        ) : (
-          <div className={s.retryRow}>
-            <input
-              ref={inputRef}
-              type="text"
-              placeholder="Check if your perfect company name is available"
-              aria-label="Check if your perfect company name is available"
-              className={s.retryInput}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') handleSearch(inputRef.current?.value)
-              }}
-            />
-            <Button
-              variant="secondary-light"
-              size="lg"
-              className={cn(s.retryButton, onLight && s.retryButtonOnLight)}
-              onClick={() => handleSearch(inputRef.current?.value)}
-            >
-              Search Again
-            </Button>
-          </div>
-        )}
+        <Image
+          src={`/images/namecheck/${icon}.png`}
+          alt={`Icon for ${isAvailable ? 'green' : isError ? 'error' : 'red'} status.`}
+          className={s.resultIcon}
+          width={40}
+          height={40}
+          unoptimized
+        />
+        <Text
+          as={headingLevel}
+          text={result.name}
+          className={cn(
+            s.resultName,
+            isAvailable
+              ? s.resultNameAvailable
+              : isError
+                ? s.resultNameError
+                : s.resultNameUnavailable,
+          )}
+        />
+        <Text textStyle="span" text={result.description} className={s.resultDescription} />
       </div>
+
+      {isAvailable ? (
+        <div className={s.ctaRow}>
+          {availableCta ??
+            (checkoutPath ? (
+              <a className={s.cta} href={buildCheckoutUrl(checkoutPath, result.name)}>
+                Continue
+              </a>
+            ) : null)}
+          <button type="button" onClick={handleReset} className={s.searchAgain}>
+            Or search again
+          </button>
+        </div>
+      ) : (
+        renderForm(true)
+      )}
     </div>
   )
 }
