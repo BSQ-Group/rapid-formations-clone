@@ -25,6 +25,7 @@ import { BankingPartners } from '../../blocks/BankingPartners/config'
 import { BCorpCertification } from '../../blocks/BCorpCertification/config'
 import { AdditionalServices } from '../../blocks/AdditionalServices/config'
 import { ServiceAds } from '../../blocks/ServiceAds/config'
+import { PurchaseAnAddress } from '../../blocks/PurchaseAnAddress/config'
 import { BuyService } from '../../blocks/BuyService/config'
 import { CallOutCTA } from '../../blocks/CallOutCTA/config'
 import { ChooseCompanyStructure } from '../../blocks/ChooseCompanyStructure/config'
@@ -172,6 +173,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 OurLatestBlogs,
                 AdditionalServices,
                 ServiceAds,
+                PurchaseAnAddress,
                 BuyService,
                 CallOutCTA,
                 TrustPilotBanner,
