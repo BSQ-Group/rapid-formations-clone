@@ -6,6 +6,7 @@ import { AdditionalServicesBlock } from '@/blocks/AdditionalServices/Component'
 import { ServiceAdsBlock } from '@/blocks/ServiceAds/Component'
 import { BuyServiceBlock } from '@/blocks/BuyService/Component'
 import { ServiceContentBlock } from '@/blocks/ServiceContent/Component'
+import { OurAddressBlock } from '@/blocks/OurAddress/Component'
 import { CallOutCTABlock } from '@/blocks/CallOutCTA/Component'
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { BusinessBankAccountsBlock } from '@/blocks/BusinessBankAccounts/Component'
@@ -85,6 +86,7 @@ const blockComponents = {
   serviceAds: ServiceAdsBlock,
   buyService: BuyServiceBlock,
   serviceContent: ServiceContentBlock,
+  ourAddress: OurAddressBlock,
   callOutCTA: CallOutCTABlock,
   archive: ArchiveBlock,
   businessBankAccounts: BusinessBankAccountsBlock,
