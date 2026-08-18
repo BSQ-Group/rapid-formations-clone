@@ -22,6 +22,8 @@ const buttonVariants = cva(
           'bg-[var(--button-tertiary-light-idle)] text-[var(--text-strong)] hover:bg-[var(--button-tertiary-light-hover)] rounded-full text-xs font-bold py-2 px-3.5 h-8 disabled:opacity-20',
         download:
           'bg-[var(--button-secondary-light-idle)] text-[var(--text-strong)] hover:bg-[var(--button-primary-hover)] font-bold shadow-sm disabled:opacity-20',
+        promo:
+          'bg-[var(--button-promo-idle)] text-[var(--text-strong)] border border-solid border-[var(--button-promo-idle)] hover:bg-[var(--button-promo-hover)] hover:border-[var(--button-promo-hover)] whitespace-normal disabled:opacity-20',
         back: 'bg-[var(--button-tertiary-dark-idle)] text-[var(--text-strong)] hover:bg-[var(--button-tertiary-dark-hover)] rounded-xs text-xs font-bold py-2 px-3.5 h-8 disabled:opacity-20',
       },
       size: {
@@ -29,6 +31,7 @@ const buttonVariants = cva(
         md: 'h-10 px-4 py-2 text-sm font-bold',
         lg: 'h-[46px] px-4 py-2 text-base font-bold',
         icon: 'h-10 w-10 [&_svg]:size-6',
+        promo: 'h-auto px-6 py-2 text-[17px] leading-[25.5px] font-semibold',
       },
     },
     compoundVariants: [
@@ -88,11 +91,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         data-size={size}
         className={cn(buttonVariants({ variant, size }), className)}
         ref={ref}
-        disabled={isLoading || disabled}
+        disabled={asChild ? undefined : isLoading || disabled}
         aria-disabled={isLoading || disabled}
         {...props}
       >
-        {isLoading ? (
+        {asChild ? (
+          children
+        ) : isLoading ? (
           <>
             <Loader2 className="animate-spin" />
             {loadingText || children}
