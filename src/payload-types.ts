@@ -244,6 +244,7 @@ export interface Page {
         | OurLatestBlogsBlock
         | AdditionalServicesBlock
         | ServiceAdsBlock
+        | PurchaseAnAddressBlock
         | BuyServiceBlock
         | ServiceContentBlock
         | CallOutCTABlock
@@ -1979,6 +1980,55 @@ export interface ServiceAd {
   };
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PurchaseAnAddressBlock".
+ */
+export interface PurchaseAnAddressBlock {
+  /**
+   * Centred above the cards, e.g. "Other ways to buy a service address".
+   */
+  heading: string;
+  /**
+   * Two is the usual pairing; the grid splits evenly however many there are.
+   */
+  methods: {
+    icon: 'share' | 'userPlus';
+    iconColour: 'cyan' | 'green';
+    /**
+     * Line breaks are preserved.
+     */
+    title: string;
+    body: string;
+    cta: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+    };
+    id?: string | null;
+  }[];
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'purchaseAnAddress';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4789,6 +4839,7 @@ export interface PagesSelect<T extends boolean = true> {
         ourLatestBlogs?: T | OurLatestBlogsBlockSelect<T>;
         additionalServices?: T | AdditionalServicesBlockSelect<T>;
         serviceAds?: T | ServiceAdsBlockSelect<T>;
+        purchaseAnAddress?: T | PurchaseAnAddressBlockSelect<T>;
         buyService?: T | BuyServiceBlockSelect<T>;
         serviceContent?: T | ServiceContentBlockSelect<T>;
         callOutCTA?: T | CallOutCTABlockSelect<T>;
@@ -5559,6 +5610,40 @@ export interface AdditionalServicesBlockSelect<T extends boolean = true> {
 export interface ServiceAdsBlockSelect<T extends boolean = true> {
   ads?: T;
   layout?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PurchaseAnAddressBlock_select".
+ */
+export interface PurchaseAnAddressBlockSelect<T extends boolean = true> {
+  heading?: T;
+  methods?:
+    | T
+    | {
+        icon?: T;
+        iconColour?: T;
+        title?: T;
+        body?: T;
+        cta?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
   sectionLayout?:
     | T
     | {

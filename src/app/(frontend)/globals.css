@@ -355,6 +355,7 @@
     --border-on-dark-subtle: rgb(68 68 68);
     --border-step-number: rgb(23 131 214);
     --icon-list-check: rgb(124 196 82);
+    --surface-icon-badge-cyan: rgb(62 195 233);
 
     --surface-promo-default: linear-gradient(
       51deg,
@@ -367,6 +368,9 @@
     --text-brand-cyan: rgb(0 177 227);
     --shadow-tile-raised:
       0 13px 27px -5px rgb(50 50 93 / 0.1), 0 8px 16px -8px rgb(0 0 0 / 0.1),
+      0 -6px 16px -6px rgb(0 0 0 / 0.01), 0 0 20px 0 rgb(0 0 0 / 0.01);
+    --shadow-tile-raised-hover:
+      0 13px 27px -5px rgb(50 50 93 / 0.3), 0 8px 16px -8px rgb(0 0 0 / 0.1),
       0 -6px 16px -6px rgb(0 0 0 / 0.01), 0 0 20px 0 rgb(0 0 0 / 0.01);
 
     /* Surface */
