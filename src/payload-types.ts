@@ -4054,9 +4054,9 @@ export interface TextContentBlock {
     [k: string]: unknown;
   };
   /**
-   * Standard matches the default long-form body. Policy carries the page-scoped overrides the Environmental Policy page uses. Numbered clauses renders the multi-level counter numbering the Whistleblowing policy uses.
+   * Standard matches the default long-form body. Policy carries the page-scoped overrides the Environmental Policy page uses. Numbered clauses renders the multi-level counter numbering the Whistleblowing policy uses. Cookies policy narrows the measure and boxes the paragraphs that name a cookie.
    */
-  variant?: ('standard' | 'policy' | 'numbered') | null;
+  variant?: ('standard' | 'policy' | 'numbered' | 'terms' | 'cookies') | null;
   /**
    * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
    */

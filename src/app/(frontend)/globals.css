@@ -14,7 +14,7 @@
   }
 
   html {
-    scroll-padding-top: calc(var(--header-height) + 0.75rem);
+    @apply scroll-pt-[calc(var(--header-height)_+_0.75rem)];
   }
 
   :root {
@@ -520,25 +520,19 @@
   }
 
   /* Shared base styles when any theme is active */
-  html[class*='theme-'] {
-    background-color: var(--surface-canvas);
-    color: var(--text-strong);
-  }
-
+  html[class*='theme-'],
   html[class*='theme-'] body {
-    background-color: var(--surface-canvas);
-    color: var(--text-strong);
+    @apply bg-[var(--surface-canvas)] text-[color:var(--text-strong)];
   }
 
   *,
   *::before,
   *::after {
-    box-sizing: border-box;
+    @apply box-border;
   }
 
   * {
-    margin: 0;
-    @apply border-[color:var(--border-subtle)];
+    @apply m-0 border-[color:var(--border-subtle)];
   }
 
   body {
@@ -546,31 +540,24 @@
   }
 
   html {
-    font-size: 16px;
-    @apply min-h-screen w-full;
+    @apply w-full min-h-screen text-[16px];
   }
 
   html,
   body {
-    max-width: 100vw;
-    width: 100%;
-    touch-action: pan-x pan-y;
+    @apply w-full max-w-[100vw] touch-pan-x touch-pan-y;
     -webkit-touch-callout: none;
   }
 
   img,
   picture,
   video {
-    display: block;
-    max-width: 100%;
+    @apply block max-w-full;
   }
 }
 
 section {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: clip;
-  min-width: 0;
+  @apply w-full max-w-full min-w-0 overflow-x-clip;
 }
 
 [data-header] {
@@ -580,8 +567,7 @@ section {
 }
 html [data-header][data-scrolled],
 html [data-header][data-nav-hovered] {
-  background-color: var(--surface-primary);
-  border-color: var(--border-strong);
+  @apply bg-[var(--surface-primary)] border-[color:var(--border-strong)];
   --header-logo-fill: rgb(var(--black));
   --header-link-color: var(--text-subtle);
   --header-link-hover-color: var(--text-strong);
@@ -592,20 +578,12 @@ html [data-header][data-nav-hovered] {
     transform: translateZ(0);
   }
 
-  .font-legacy-condensed {
-    font-family:
-      'myriad-pro-semi-condensed', var(--font-legacy-condensed), var(--font-inter), sans-serif;
-    font-variation-settings: 'wdth' 75.6;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
+  .font-legacy-condensed,
   .theme-rapidformations .portal-legacy-condensed {
+    @apply antialiased;
     font-family:
       'myriad-pro-semi-condensed', var(--font-legacy-condensed), var(--font-inter), sans-serif;
     font-variation-settings: 'wdth' 75.6;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
 }
 
@@ -664,151 +642,103 @@ button {
 
 .payload-richtext {
   ul {
-    list-style-type: disc;
-    padding-left: 1.25rem;
+    @apply list-disc pl-5;
+
     &:not(:last-child) {
-      margin-bottom: 0.75em;
+      @apply mb-[0.75em];
     }
   }
 
   ol {
-    list-style-type: decimal;
-    padding-left: 1.25rem;
+    @apply list-decimal pl-5;
+
     &:not(:last-child) {
-      margin-bottom: 0.75em;
+      @apply mb-[0.75em];
     }
   }
 
   li {
-    margin-bottom: 0.25em;
+    @apply mb-[0.25em];
   }
 
   p {
-    margin-top: 0;
+    @apply mt-0;
+
     &:not(:last-child) {
-      margin-bottom: 0.75em;
+      @apply mb-[0.75em];
     }
   }
 
   a,
   a strong {
-    color: var(--text-link);
-    text-decoration: none;
+    @apply text-[color:var(--text-link)] no-underline;
 
     &:hover {
-      text-decoration: underline;
+      @apply underline;
     }
   }
 
   ul,
   ol {
-    /* Prose plugin sets ::marker to --tw-prose-bullets (#d1d5db). Inherit
-     * from the <li> text color so bullets match in all color contexts. */
     li::marker {
-      color: inherit;
+      @apply text-[color:inherit];
     }
   }
 
-  /* Tailwind's prose plugin styles tables with border-collapse: collapse, 8px cell
-   * padding, and a 1px bottom border on cells. Override with !important so any
-   * rich text field that uses the prose class keeps the Figma-aligned look.
-   * border-collapse: separate is required for border-radius to render on cells. */
   table {
-    width: 100%;
-    table-layout: fixed;
-    border-collapse: separate !important;
-    border-spacing: 0 !important;
-    margin-top: 0 !important;
-    border: 0 !important;
+    @apply w-full table-fixed !mt-0 !border-0 !border-current !border-separate !border-spacing-0 max-md:block max-md:overflow-x-auto max-md:[-webkit-overflow-scrolling:touch];
 
     &:not(:last-child) {
-      margin-bottom: 1.5rem;
-    }
-
-    /* Horizontal scroll on mobile: display:block creates an overflow container;
-     * the inner table elements keep their default display and size by content. */
-    @media (max-width: 767px) {
-      display: block;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
+      @apply mb-6;
     }
 
     th {
-      /* Remove the browser's default bold so editors control bold via Lexical formatting. */
-      font-weight: inherit;
+      @apply [font-weight:inherit];
     }
 
     th,
     td {
-      padding: 16px !important;
-      border: 0 !important;
-      background-color: transparent;
-      vertical-align: top;
-      text-align: left;
-      word-wrap: break-word;
-
-      /* Prevent columns from collapsing to unreadable widths when scrolling. */
-      @media (max-width: 767px) {
-        min-width: 120px;
-      }
+      @apply !border-0 !border-current !p-4 bg-transparent text-left align-top break-words max-md:min-w-[120px];
 
       &:first-child {
-        width: 26%;
-        border-radius: 8px 0 0 8px !important;
-
-        /* Release the fixed 26% first-column width on mobile; columns size by content. */
-        @media (max-width: 767px) {
-          width: auto;
-        }
+        @apply w-[26%] !rounded-l-lg !rounded-r-none max-md:w-auto;
       }
 
       &:last-child {
-        border-radius: 0 8px 8px 0 !important;
+        @apply !rounded-r-lg !rounded-l-none;
       }
     }
 
-    /* Zebra striping — odd rows get the canvas bg, even rows stay transparent.
-     * Selects every direct child so both <th> row-headers and <td> data cells
-     * get the same fill (Figma renders the term column as a bold <th>, which
-     * also needs the grey background). */
     tr:nth-child(odd) > * {
-      background-color: var(--surface-on-light-sunken, var(--surface-canvas));
+      @apply bg-[var(--surface-on-light-sunken,var(--surface-canvas))];
     }
 
     p,
     ul,
     li {
-      margin: 0 !important;
+      @apply !m-0;
     }
   }
 }
 
 .payload-richtext.rf-numbered-clauses {
   ol {
+    @apply list-none pl-0 mt-0 mb-12;
     counter-reset: item;
-    list-style: none;
-    padding-left: 0;
-    margin-top: 0;
-    margin-bottom: 48px;
 
     > li {
+      @apply relative pl-6 mb-3;
       counter-increment: item;
-      position: relative;
-      padding-left: 24px;
-      margin-bottom: 12px;
 
       &::before {
+        @apply absolute left-0 w-8;
         content: counter(item) '. ';
-        position: absolute;
-        left: 0;
-        width: 32px;
       }
     }
 
     > li.nestedListItem {
+      @apply pl-6 mb-0;
       counter-increment: none;
-      padding-left: 24px;
-      margin-bottom: 0;
 
       &::before {
         content: none;
@@ -816,13 +746,12 @@ button {
     }
 
     ol {
+      @apply mt-3 mb-0;
       counter-reset: subitem;
-      margin-top: 12px;
-      margin-bottom: 0;
 
       > li {
+        @apply pl-9;
         counter-increment: subitem;
-        padding-left: 36px;
 
         &::before {
           content: counter(item) '.' counter(subitem) '. ';
@@ -830,8 +759,8 @@ button {
       }
 
       > li.nestedListItem {
+        @apply pl-0;
         counter-increment: none;
-        padding-left: 0;
 
         &::before {
           content: none;
@@ -842,28 +771,26 @@ button {
         counter-reset: subsubitem;
 
         > li {
+          @apply pl-12;
           counter-increment: subsubitem;
-          padding-left: 48px;
 
           &::before {
+            @apply w-10;
             content: counter(item) '.' counter(subitem) '.' counter(subsubitem) '. ';
-            width: 40px;
           }
         }
       }
 
       ul {
-        padding-left: 20px;
-        margin-top: 12px;
+        @apply pl-5 mt-3;
       }
     }
 
     ul {
-      list-style-type: lower-alpha;
-      list-style-position: outside;
+      @apply list-[lower-alpha] list-outside;
 
       li {
-        padding-left: 8px;
+        @apply pl-2;
 
         &::before {
           content: none;
@@ -872,7 +799,7 @@ button {
     }
 
     p {
-      margin-top: 12px;
+      @apply mt-3;
     }
   }
 }

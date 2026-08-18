@@ -6,15 +6,11 @@ import { Container } from '@/components/shared/Container/Container'
 import RichText from '@/components/RichText'
 import { SectionWrapper } from '@/components/shared/SectionWrapper/SectionWrapper'
 import { cn } from '@/utilities/ui'
-import { policyTableStyles as t, textContentStyles as s } from './TextContent.styles'
+import { richTextShell, textContentStyles as s, variantStyles } from './TextContent.styles'
 
 type Variant = NonNullable<TextContentBlockProps['variant']>
 
-const variantStyles: Record<Variant, readonly string[]> = {
-  standard: [s.lists],
-  policy: [s.lists, s.policy, t.table, t.headerCell, t.dataCell, t.rows, t.nestedList, t.scroll],
-  numbered: [s.numbered],
-}
+const variants: Record<Variant, Record<string, string>> = variantStyles
 
 export const TextContentBlock: React.FC<TextContentBlockProps> = ({
   body,
@@ -28,7 +24,10 @@ export const TextContentBlock: React.FC<TextContentBlockProps> = ({
           data={body}
           enableGutter={false}
           enableProse={false}
-          className={cn(s.body, variantStyles[variant ?? 'standard'])}
+          className={cn(
+            Object.values(richTextShell),
+            Object.values(variants[variant ?? 'standard'] ?? variants.standard),
+          )}
         />
       </Container>
     </SectionWrapper>

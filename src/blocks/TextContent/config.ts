@@ -31,10 +31,12 @@ export const TextContent: Block = {
         { label: 'Standard', value: 'standard' },
         { label: 'Policy (lettered lists, wider section spacing)', value: 'policy' },
         { label: 'Numbered clauses (1., 3.1., 3.1.1.)', value: 'numbered' },
+        { label: 'Terms (clause numbering typed into the text)', value: 'terms' },
+        { label: 'Cookies policy (narrow measure, boxed paragraphs)', value: 'cookies' },
       ],
       admin: {
         description:
-          'Standard matches the default long-form body. Policy carries the page-scoped overrides the Environmental Policy page uses. Numbered clauses renders the multi-level counter numbering the Whistleblowing policy uses.',
+          'Standard matches the default long-form body. Policy carries the page-scoped overrides the Environmental Policy page uses. Numbered clauses renders the multi-level counter numbering the Whistleblowing policy uses. Cookies policy narrows the measure and boxes the paragraphs that name a cookie.',
       },
     },
     sectionLayoutField({

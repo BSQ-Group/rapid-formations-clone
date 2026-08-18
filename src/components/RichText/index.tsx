@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import {
   DefaultNodeTypes,
@@ -35,9 +37,27 @@ const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   return relationTo === 'posts' ? `/posts/${slug}` : `/${slug}`
 }
 
+const INDENT_STEP_PX = 16
+
+const indentStyle = (node: { indent?: number }) => {
+  const indent = Number(node.indent) || 0
+  return indent ? { paddingInlineStart: `${indent * INDENT_STEP_PX}px` } : undefined
+}
+
 const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) => ({
   ...defaultConverters,
   ...LinkJSXConverter({ internalDocToHref }),
+  paragraph: ({ node, nodesToJSX }) => {
+    const children = nodesToJSX({ nodes: node.children })
+    return <p style={indentStyle(node)}>{children?.length ? children : <br />}</p>
+  },
+  list: (args) => {
+    const convertList = defaultConverters.list as ((a: typeof args) => React.ReactNode) | undefined
+    const rendered = convertList?.(args)
+    return React.isValidElement<{ style?: React.CSSProperties }>(rendered)
+      ? React.cloneElement(rendered, { style: indentStyle(args.node) })
+      : rendered
+  },
   blocks: {
     banner: ({ node }) => <BannerBlock className="col-start-2 mb-4" {...node.fields} />,
     mediaBlock: ({ node }) => (
