@@ -20,6 +20,7 @@ import { LegalSidenavGlobal } from './globals/LegalSidenavItemsOrder/config'
 import { PackagesNavGlobal } from './globals/PackagesNavItems/config'
 import { PricesGlobal } from './globals/Prices/config'
 import { ReviewStatsGlobal } from './globals/ReviewStats/config'
+import { TestimonialsGlobal } from './globals/Testimonials/config'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
@@ -99,6 +100,7 @@ export default buildConfig({
     PackagesNavGlobal,
     PricesGlobal,
     ReviewStatsGlobal,
+    TestimonialsGlobal,
   ],
   secret: process.env.PAYLOAD_SECRET,
   sharp,
