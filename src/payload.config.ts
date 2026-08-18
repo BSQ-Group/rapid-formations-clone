@@ -13,6 +13,7 @@ import { Users } from './collections/Users'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { ServiceAdsCollection } from './collections/ServiceAds'
+import { BuyServicesCollection } from './collections/BuyServices'
 import { BusinessBankAccountsGlobal } from './globals/BusinessBankAccounts/config'
 import { FaqTopicsGlobal } from './globals/FaqTopics/config'
 import { LegalSidenavGlobal } from './globals/LegalSidenavItemsOrder/config'
@@ -77,7 +78,7 @@ export default buildConfig({
       attachDatabasePool(adapter.connection.getClient())
     },
   }),
-  collections: [Pages, Posts, Media, Categories, Users, ServiceAdsCollection],
+  collections: [Pages, Posts, Media, Categories, Users, ServiceAdsCollection, BuyServicesCollection],
   cors: [getServerSideURL()].filter(Boolean),
   plugins: [
     ...plugins,

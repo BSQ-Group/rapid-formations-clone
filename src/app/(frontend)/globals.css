@@ -362,6 +362,10 @@
     --surface-promo-blue-green: linear-gradient(51deg, rgb(62 173 207) 0%, rgb(171 233 205) 100%);
     --surface-promo-blue-purple: linear-gradient(51deg, rgb(40 132 184) 0%, rgb(209 186 210) 100%);
     --surface-promo-pink-purple: linear-gradient(315deg, rgb(249 197 209) 0%, rgb(151 149 239) 74%);
+    --text-brand-cyan: rgb(0 177 227);
+    --shadow-tile-raised:
+      0 13px 27px -5px rgb(50 50 93 / 0.1), 0 8px 16px -8px rgb(0 0 0 / 0.1),
+      0 -6px 16px -6px rgb(0 0 0 / 0.01), 0 0 20px 0 rgb(0 0 0 / 0.01);
 
     /* Surface */
     --surface-canvas: rgb(255 255 255);

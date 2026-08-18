@@ -24,6 +24,8 @@ const buttonVariants = cva(
           'bg-[var(--button-secondary-light-idle)] text-[var(--text-strong)] hover:bg-[var(--button-primary-hover)] font-bold shadow-sm disabled:opacity-20',
         promo:
           'bg-[var(--button-promo-idle)] text-[var(--text-strong)] border border-solid border-[var(--button-promo-idle)] hover:bg-[var(--button-promo-hover)] hover:border-[var(--button-promo-hover)] whitespace-normal disabled:opacity-20',
+        success:
+          'bg-[var(--surface-cta-success)] text-[var(--text-strong)] border border-solid border-[var(--surface-cta-success)] hover:bg-[var(--surface-cta-success-hover)] hover:border-[var(--surface-cta-success-hover)] whitespace-normal disabled:opacity-20',
         back: 'bg-[var(--button-tertiary-dark-idle)] text-[var(--text-strong)] hover:bg-[var(--button-tertiary-dark-hover)] rounded-xs text-xs font-bold py-2 px-3.5 h-8 disabled:opacity-20',
       },
       size: {

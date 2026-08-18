@@ -73,6 +73,7 @@ export interface Config {
     categories: Category;
     users: User;
     serviceAds: ServiceAd;
+    buyServices: BuyService;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -96,6 +97,7 @@ export interface Config {
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     serviceAds: ServiceAdsSelect<false> | ServiceAdsSelect<true>;
+    buyServices: BuyServicesSelect<false> | BuyServicesSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -239,6 +241,7 @@ export interface Page {
         | OurLatestBlogsBlock
         | AdditionalServicesBlock
         | ServiceAdsBlock
+        | BuyServiceBlock
         | CallOutCTABlock
         | TrustPilotBannerBlock
         | PackagesHeroBlock
@@ -1952,6 +1955,90 @@ export interface ServiceAd {
      * Small line under the price (e.g. "+ £100 Companies House Fee").
      */
     postPrice?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BuyServiceBlock".
+ */
+export interface BuyServiceBlock {
+  /**
+   * Rendered in the order listed here.
+   */
+  services: (string | BuyService)[];
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'buyService';
+}
+/**
+ * Priced service cards. The price itself lives in the Prices global — this references it by slug so a change there updates every card.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "buyServices".
+ */
+export interface BuyService {
+  id: string;
+  /**
+   * Admin-only label used in lists and pickers. Never rendered.
+   */
+  name: string;
+  title: string;
+  /**
+   * Shown instead of the title below 1024px. Leave empty to use the title.
+   */
+  mobileTitle?: string | null;
+  /**
+   * Looked up in the Prices global — the same slug the [[price]] shortcode uses.
+   */
+  priceSlug: string;
+  /**
+   * Small text after the price (e.g. "per year").
+   */
+  postText?: string | null;
+  showVat?: boolean | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Matches the source, which hides the body on a fixed set of service pages.
+   */
+  hideBodyOnMobile?: boolean | null;
+  cta: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
   };
   updatedAt: string;
   createdAt: string;
@@ -4512,6 +4599,10 @@ export interface PayloadLockedDocument {
         value: string | ServiceAd;
       } | null)
     | ({
+        relationTo: 'buyServices';
+        value: string | BuyService;
+      } | null)
+    | ({
         relationTo: 'redirects';
         value: string | Redirect;
       } | null)
@@ -4626,6 +4717,7 @@ export interface PagesSelect<T extends boolean = true> {
         ourLatestBlogs?: T | OurLatestBlogsBlockSelect<T>;
         additionalServices?: T | AdditionalServicesBlockSelect<T>;
         serviceAds?: T | ServiceAdsBlockSelect<T>;
+        buyService?: T | BuyServiceBlockSelect<T>;
         callOutCTA?: T | CallOutCTABlockSelect<T>;
         trustpilotBanner?: T | TrustPilotBannerBlockSelect<T>;
         packagesHero?: T | PackagesHeroBlockSelect<T>;
@@ -5379,6 +5471,22 @@ export interface AdditionalServicesBlockSelect<T extends boolean = true> {
 export interface ServiceAdsBlockSelect<T extends boolean = true> {
   ads?: T;
   layout?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BuyServiceBlock_select".
+ */
+export interface BuyServiceBlockSelect<T extends boolean = true> {
+  services?: T;
   sectionLayout?:
     | T
     | {
@@ -7038,6 +7146,31 @@ export interface ServiceAdsSelect<T extends boolean = true> {
         prefix?: T;
         suffix?: T;
         postPrice?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "buyServices_select".
+ */
+export interface BuyServicesSelect<T extends boolean = true> {
+  name?: T;
+  title?: T;
+  mobileTitle?: T;
+  priceSlug?: T;
+  postText?: T;
+  showVat?: T;
+  content?: T;
+  hideBodyOnMobile?: T;
+  cta?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
       };
   updatedAt?: T;
   createdAt?: T;

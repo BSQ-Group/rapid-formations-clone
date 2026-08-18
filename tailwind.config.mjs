@@ -171,6 +171,7 @@ export default {
         lg: 'var(--shadow-lg)',
         xl: 'var(--shadow-xl)',
         '2xl': 'var(--shadow-2xl)',
+        'tile-raised': 'var(--shadow-tile-raised)',
       },
       borderRadius: {
         lg: 'var(--radius)',
