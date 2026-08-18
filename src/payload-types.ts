@@ -116,6 +116,7 @@ export interface Config {
     faqTopics: FaqTopic;
     legalSidenav: LegalSidenav;
     packagesNav: PackagesNav;
+    prices: Price;
     reviewStats: ReviewStat;
   };
   globalsSelect: {
@@ -125,6 +126,7 @@ export interface Config {
     faqTopics: FaqTopicsSelect<false> | FaqTopicsSelect<true>;
     legalSidenav: LegalSidenavSelect<false> | LegalSidenavSelect<true>;
     packagesNav: PackagesNavSelect<false> | PackagesNavSelect<true>;
+    prices: PricesSelect<false> | PricesSelect<true>;
     reviewStats: ReviewStatsSelect<false> | ReviewStatsSelect<true>;
   };
   locale: null;
@@ -7584,6 +7586,30 @@ export interface PackagesNav {
   createdAt?: string | null;
 }
 /**
+ * Prices quoted inside page copy via the [[price slug="..."]] shortcode. Changing a value here updates every page that quotes it.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "prices".
+ */
+export interface Price {
+  id: string;
+  /**
+   * Slug is what the shortcode references. Value is rendered after a £ sign.
+   */
+  items?:
+    | {
+        slug: string;
+        /**
+         * Without the £, trailing zeros kept — e.g. 100.00
+         */
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * Ratings shown by the "How we are rated" block. The same figures appear on every page carrying that block.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -7873,6 +7899,22 @@ export interface PackagesNavSelect<T extends boolean = true> {
               url?: T;
               label?: T;
             };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "prices_select".
+ */
+export interface PricesSelect<T extends boolean = true> {
+  items?:
+    | T
+    | {
+        slug?: T;
+        value?: T;
         id?: T;
       };
   updatedAt?: T;
