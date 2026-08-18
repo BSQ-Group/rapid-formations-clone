@@ -5,6 +5,7 @@ import type { Page } from '@/payload-types'
 import { AdditionalServicesBlock } from '@/blocks/AdditionalServices/Component'
 import { ServiceAdsBlock } from '@/blocks/ServiceAds/Component'
 import { BuyServiceBlock } from '@/blocks/BuyService/Component'
+import { ServiceContentBlock } from '@/blocks/ServiceContent/Component'
 import { CallOutCTABlock } from '@/blocks/CallOutCTA/Component'
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { BusinessBankAccountsBlock } from '@/blocks/BusinessBankAccounts/Component'
@@ -83,6 +84,7 @@ const blockComponents = {
   additionalServices: AdditionalServicesBlock,
   serviceAds: ServiceAdsBlock,
   buyService: BuyServiceBlock,
+  serviceContent: ServiceContentBlock,
   callOutCTA: CallOutCTABlock,
   archive: ArchiveBlock,
   businessBankAccounts: BusinessBankAccountsBlock,

@@ -245,6 +245,7 @@ export interface Page {
         | AdditionalServicesBlock
         | ServiceAdsBlock
         | BuyServiceBlock
+        | ServiceContentBlock
         | CallOutCTABlock
         | TrustPilotBannerBlock
         | PackagesHeroBlock
@@ -2062,6 +2063,56 @@ export interface BuyService {
   };
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServiceContentBlock".
+ */
+export interface ServiceContentBlock {
+  /**
+   * Two columns split at 1023px; below that everything stacks.
+   */
+  columns: 'two' | 'one';
+  /**
+   * Rendered in this order, down the left column then the right.
+   */
+  sections?:
+    | {
+        position: 'left' | 'right';
+        /**
+         * Replaces the bullet on every list item in this section.
+         */
+        icon?: ('none' | 'chevron' | 'check') | null;
+        iconColour?: ('inherit' | 'green' | 'subtle') | null;
+        content: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'serviceContent';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4739,6 +4790,7 @@ export interface PagesSelect<T extends boolean = true> {
         additionalServices?: T | AdditionalServicesBlockSelect<T>;
         serviceAds?: T | ServiceAdsBlockSelect<T>;
         buyService?: T | BuyServiceBlockSelect<T>;
+        serviceContent?: T | ServiceContentBlockSelect<T>;
         callOutCTA?: T | CallOutCTABlockSelect<T>;
         trustpilotBanner?: T | TrustPilotBannerBlockSelect<T>;
         packagesHero?: T | PackagesHeroBlockSelect<T>;
@@ -5523,6 +5575,31 @@ export interface ServiceAdsBlockSelect<T extends boolean = true> {
  */
 export interface BuyServiceBlockSelect<T extends boolean = true> {
   services?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServiceContentBlock_select".
+ */
+export interface ServiceContentBlockSelect<T extends boolean = true> {
+  columns?: T;
+  sections?:
+    | T
+    | {
+        position?: T;
+        icon?: T;
+        iconColour?: T;
+        content?: T;
+        id?: T;
+      };
   sectionLayout?:
     | T
     | {

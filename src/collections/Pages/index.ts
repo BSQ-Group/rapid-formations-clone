@@ -27,6 +27,7 @@ import { BCorpCertification } from '../../blocks/BCorpCertification/config'
 import { AdditionalServices } from '../../blocks/AdditionalServices/config'
 import { ServiceAds } from '../../blocks/ServiceAds/config'
 import { BuyService } from '../../blocks/BuyService/config'
+import { ServiceContent } from '../../blocks/ServiceContent/config'
 import { CallOutCTA } from '../../blocks/CallOutCTA/config'
 import { ChooseCompanyStructure } from '../../blocks/ChooseCompanyStructure/config'
 import { OurLatestBlogs } from '../../blocks/OurLatestBlogs/config'
@@ -175,6 +176,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 AdditionalServices,
                 ServiceAds,
                 BuyService,
+                ServiceContent,
                 CallOutCTA,
                 TrustPilotBanner,
                 PackagesHero,
