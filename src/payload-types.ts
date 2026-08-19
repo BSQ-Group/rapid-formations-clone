@@ -4323,6 +4323,51 @@ export interface PageTitleBlock {
    */
   showFaqQuickNav?: boolean | null;
   /**
+   * Price and buttons beside the heading, used on the service pages. Leave every field empty to show nothing.
+   */
+  buyNow?: {
+    /**
+     * Matches an entry in the Prices global, e.g. "ico-registration". Leave empty to show buttons without a price.
+     */
+    priceSlug?: string | null;
+    /**
+     * The green Buy Now button. Leave the label empty to omit it.
+     */
+    cta?: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label?: string | null;
+    };
+    /**
+     * Optional outlined button beside it, e.g. "View Packages".
+     */
+    secondaryCta?: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label?: string | null;
+    };
+  };
+  /**
    * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
    */
   sectionLayout: {
@@ -7035,6 +7080,29 @@ export interface WhyUseAgentBlockSelect<T extends boolean = true> {
 export interface PageTitleBlockSelect<T extends boolean = true> {
   title?: T;
   showFaqQuickNav?: T;
+  buyNow?:
+    | T
+    | {
+        priceSlug?: T;
+        cta?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        secondaryCta?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+      };
   sectionLayout?:
     | T
     | {
