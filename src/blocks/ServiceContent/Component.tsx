@@ -11,6 +11,7 @@ import { serviceContentStyles as s } from './ServiceContent.styles'
 
 export const ServiceContentBlock: React.FC<ServiceContentBlockProps> = ({
   columns,
+  cardSpacing,
   sections,
   buyServices,
   sectionLayout,
@@ -23,6 +24,8 @@ export const ServiceContentBlock: React.FC<ServiceContentBlockProps> = ({
   const split = columns !== 'one'
   const left = split ? all.filter((item) => item.position !== 'right') : all
   const right = split ? all.filter((item) => item.position === 'right') : []
+
+  const desktopCard = cardSpacing === 'compact' ? s.cardCompact : s.card
 
   const cards = (className: string, cardClassName: string) => (
     <BuyServiceCards services={buyServices} className={className} cardClassName={cardClassName} />
@@ -37,11 +40,11 @@ export const ServiceContentBlock: React.FC<ServiceContentBlockProps> = ({
             {left.map((item, index) => (
               <ServiceContentSection key={item.id ?? index} section={item} />
             ))}
-            {hasCards && !split && cards(s.cardsTrail, s.card)}
+            {hasCards && !split && cards(s.cardsTrail, desktopCard)}
           </div>
           {split && (right.length > 0 || hasCards) && (
             <div className={s.column}>
-              {hasCards && cards(s.cardsAside, s.card)}
+              {hasCards && cards(s.cardsAside, desktopCard)}
               {right.map((item, index) => (
                 <ServiceContentSection key={item.id ?? index} section={item} />
               ))}

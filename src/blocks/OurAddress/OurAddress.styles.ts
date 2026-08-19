@@ -1,7 +1,8 @@
 export const ourAddressStyles = {
-  section: 'font-legacy-condensed w-full bg-[var(--surface-canvas)]',
+  section:
+    'font-legacy-condensed w-full bg-[var(--surface-canvas)] mb-[50px] min-[1023px]:mb-[75px] min-[1590px]:mb-[110px]',
 
-  headingWrap: 'mb-8',
+  headingWrap: 'flex flex-col mb-8',
   heading:
     'mb-2 block text-center text-4xl font-normal leading-[1.235] tracking-normal text-[var(--text-on-light-base)]',
 
@@ -9,7 +10,7 @@ export const ourAddressStyles = {
     wrap: 'w-full md:mx-auto md:max-w-[50%]',
     card: 'grid w-full grid-cols-1 border border-solid border-[color:var(--border-on-light)] md:grid-rows-[250px_250px] md:gap-5 min-[1023px]:grid-cols-[6fr_3fr] min-[1023px]:grid-rows-1 min-[1023px]:gap-2.5',
     imageWrap:
-      'relative h-[225px] w-full md:h-[250px] min-[1023px]:h-auto min-[1023px]:aspect-[var(--photo-aspect)] min-[1023px]:w-[375px] min-[1023px]:max-w-full',
+      'relative h-[225px] w-full md:h-[250px] min-[1023px]:h-full min-[1023px]:aspect-[var(--photo-aspect)] min-[1023px]:w-[375px] min-[1023px]:max-w-full',
     image: 'object-cover',
     content: 'flex flex-col p-[15px]',
     address:

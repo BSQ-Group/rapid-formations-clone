@@ -1,5 +1,6 @@
 export const purchaseAnAddressStyles = {
-  section: 'font-legacy-condensed w-full bg-[var(--surface-canvas)]',
+  section:
+    'font-legacy-condensed w-full bg-[var(--surface-canvas)] mb-[50px] min-[1023px]:mb-[75px] min-[1590px]:mb-[110px]',
 
   heading:
     'mb-2 block text-center text-4xl font-normal leading-[1.235] tracking-normal text-[var(--text-on-light-base)]',
