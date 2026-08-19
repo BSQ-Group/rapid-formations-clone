@@ -2,7 +2,7 @@ export const purchaseAnAddressStyles = {
   section: 'font-legacy-condensed w-full bg-[var(--surface-canvas)]',
 
   heading:
-    'mb-2 block text-center text-4xl font-normal leading-[1.235] text-[var(--text-on-light-base)]',
+    'mb-2 block text-center text-4xl font-normal leading-[1.235] tracking-normal text-[var(--text-on-light-base)]',
 
   headingWrap: 'mb-8',
 

@@ -484,3 +484,18 @@ Each entry has four parts:
   npx tailwindcss -c tailwind.config.mjs -i /tmp/in.css 2>/dev/null | grep -c 'duration-\\\[350ms\\\]'
   ```
 - **Fix:** Use the arbitrary-property form, which names the CSS property and cannot be ambiguous — `[transition-timing-function:ease]`, `[transition-duration:350ms]`. Standard tokens (`duration-300`, `ease-in-out`) are unaffected; only the `[...]` form collides. Note `ease-in-out` is **not** CSS `ease` — it is `cubic-bezier(0.4, 0, 0.2, 1)` against `ease`'s `cubic-bezier(0.25, 0.1, 0.25, 1)` — so it is not a valid substitute when matching a source that uses plain `ease`.
+
+## Tailwind `fontSize` tokens bundle `letter-spacing` — a ported heading on `text-4xl` ships `-1px` where the source is `normal`
+
+- **When it bites:** You reach for `text-4xl` because the source heading measures 36px, override the line-height (`leading-[1.235]`) because the token's bundled `2.5rem` is wrong, and stop there. `tailwind.config.mjs` defines `'4xl': ['2.25rem', { lineHeight: '2.5rem', letterSpacing: '-1px' }]`, so the token also emits `letter-spacing: -1px` — and every heading on the rapidformations source measures `letter-spacing: normal`. Nothing in the class list resets it, no build warning fires, and the defect is invisible in a screenshot diff at anything below ~200% zoom: it only shows as a fractionally narrower heading. `text-3xl` / `text-5xl` / `text-6xl` carry the same bundled tracking. Shipped twice: `OurAddress` caught in review (#56), `PurchaseAnAddress` merged with it (#54) and fixed post-merge.
+- **Detect:**
+  ```bash
+  # A ported heading using a bundled-tracking token without resetting it:
+  grep -rnE "text-(3xl|4xl|5xl|6xl)" src/blocks/*/*.styles.ts src/components/shared/*/*.styles.ts \
+    | grep -v 'tracking-'
+  ```
+  ```bash
+  # Confirm against the render — must print "normal", not "-1px":
+  # node -e "...getComputedStyle(h2).letterSpacing"  (Storybook or the dev server)
+  ```
+- **Fix:** Add `tracking-normal` alongside the `leading-` override, or use the raw `text-[36px]` form which carries no bundled tracking (most ported headings in this repo use `text-[36px] leading-[44.46px]` for exactly this reason). Blocks of QCF origin that intentionally want the tight tracking already write `tracking-[-1px]` explicitly — an explicit `tracking-*` in either direction is the signal that the value was considered.
