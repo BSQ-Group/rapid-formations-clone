@@ -44,48 +44,65 @@ const indentStyle = (node: { indent?: number }) => {
   return indent ? { paddingInlineStart: `${indent * INDENT_STEP_PX}px` } : undefined
 }
 
-const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) => ({
-  ...defaultConverters,
-  ...LinkJSXConverter({ internalDocToHref }),
-  paragraph: ({ node, nodesToJSX }) => {
-    const children = nodesToJSX({ nodes: node.children })
-    return <p style={indentStyle(node)}>{children?.length ? children : <br />}</p>
-  },
-  list: (args) => {
-    const convertList = defaultConverters.list as ((a: typeof args) => React.ReactNode) | undefined
-    const rendered = convertList?.(args)
-    return React.isValidElement<{ style?: React.CSSProperties }>(rendered)
-      ? React.cloneElement(rendered, { style: indentStyle(args.node) })
-      : rendered
-  },
-  blocks: {
-    banner: ({ node }) => <BannerBlock className="col-start-2 mb-4" {...node.fields} />,
-    mediaBlock: ({ node }) => (
-      <MediaBlock
-        className="col-start-1 col-span-3"
-        imgClassName="m-0"
-        {...node.fields}
-        captionClassName="mx-auto max-w-[48rem]"
-        enableGutter={false}
-        disableInnerContainer={true}
-      />
-    ),
-    code: ({ node }) => <CodeBlock className="col-start-2" {...node.fields} />,
-    cta: ({ node }) => <CallToActionBlock {...node.fields} />,
-  },
-})
+const buildConverters =
+  (listItemIcon?: React.ReactNode): JSXConvertersFunction<NodeTypes> =>
+  ({ defaultConverters }) => ({
+    ...defaultConverters,
+    ...LinkJSXConverter({ internalDocToHref }),
+    listitem: ({ node, nodesToJSX }) => {
+      const children = nodesToJSX({ nodes: node.children })
+      if (!listItemIcon) return <li>{children}</li>
+      return (
+        <li>
+          {listItemIcon}
+          <span>{children}</span>
+        </li>
+      )
+    },
+    paragraph: ({ node, nodesToJSX }) => {
+      const children = nodesToJSX({ nodes: node.children })
+      return <p style={indentStyle(node)}>{children?.length ? children : <br />}</p>
+    },
+    list: (args) => {
+      const convertList = defaultConverters.list as
+        | ((a: typeof args) => React.ReactNode)
+        | undefined
+      const rendered = convertList?.(args)
+      return React.isValidElement<{ style?: React.CSSProperties }>(rendered)
+        ? React.cloneElement(rendered, { style: indentStyle(args.node) })
+        : rendered
+    },
+    blocks: {
+      banner: ({ node }) => <BannerBlock className="col-start-2 mb-4" {...node.fields} />,
+      mediaBlock: ({ node }) => (
+        <MediaBlock
+          className="col-start-1 col-span-3"
+          imgClassName="m-0"
+          {...node.fields}
+          captionClassName="mx-auto max-w-[48rem]"
+          enableGutter={false}
+          disableInnerContainer={true}
+        />
+      ),
+      code: ({ node }) => <CodeBlock className="col-start-2" {...node.fields} />,
+      cta: ({ node }) => <CallToActionBlock {...node.fields} />,
+    },
+  })
+
+const defaultJsxConverters = buildConverters()
 
 type Props = {
   data: DefaultTypedEditorState
   enableGutter?: boolean
   enableProse?: boolean
+  listItemIcon?: React.ReactNode
 } & React.HTMLAttributes<HTMLDivElement>
 
 export default function RichText(props: Props) {
-  const { className, enableProse = true, enableGutter = true, ...rest } = props
+  const { className, enableProse = true, enableGutter = true, listItemIcon, ...rest } = props
   return (
     <ConvertRichText
-      converters={jsxConverters}
+      converters={listItemIcon ? buildConverters(listItemIcon) : defaultJsxConverters}
       className={cn(
         'payload-richtext',
         {
