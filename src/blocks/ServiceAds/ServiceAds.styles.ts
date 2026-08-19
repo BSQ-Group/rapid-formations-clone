@@ -1,5 +1,5 @@
 export const serviceAdsStyles = {
-  section: 'font-legacy-condensed w-full bg-[var(--surface-canvas)]',
+  section: 'font-legacy-condensed w-full bg-[var(--surface-canvas)] mb-[50px]',
 
   grid: 'flex flex-col min-[1023px]:grid min-[1023px]:grid-cols-2 min-[1023px]:gap-5',
 

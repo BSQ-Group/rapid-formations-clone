@@ -6,7 +6,7 @@ export const collapsibleStyles = {
   heading: 'm-0 font-normal',
 
   trigger:
-    'group/collapsible flex w-full cursor-pointer items-center justify-between gap-4 border-b border-[var(--border-on-light)] bg-transparent pb-2.5 text-left transition-all duration-[350ms] hover:border-b-[var(--surface-brand-cyan)] focus-visible:border-b-[var(--surface-brand-cyan)]',
+    'group/collapsible flex w-full cursor-pointer items-center justify-between border-b border-[var(--border-on-light)] bg-transparent pb-2.5 text-left transition-all duration-[350ms] hover:border-b-[var(--surface-brand-cyan)] focus-visible:border-b-[var(--surface-brand-cyan)]',
   triggerOpen: 'border-b-transparent hover:border-b-transparent focus-visible:border-b-transparent',
 
   title:

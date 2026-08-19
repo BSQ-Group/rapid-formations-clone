@@ -1,4 +1,4 @@
-import type { SectionBackground, SectionSpacing } from '@/fields/sectionLayout'
+import type { SectionBackground, SectionGap, SectionSpacing } from '@/fields/sectionLayout'
 
 export const sectionWrapperStyles = {
   base: 'w-full',
@@ -25,4 +25,11 @@ export const sectionWrapperStyles = {
     xl: 'pb-[var(--section-spacing-xl)]',
     xxl: 'pb-[var(--section-spacing-xxl)]',
   } satisfies Record<SectionSpacing, string>,
+  gap: {
+    inherit: '',
+    xs: 'mb-[25px]',
+    s: 'mb-[75px]',
+    m: 'mb-[50px] min-[1023px]:mb-[75px] min-[1590px]:mb-[110px]',
+    l: 'mb-[70px] md:mb-[140px]',
+  } satisfies Record<SectionGap, string>,
 } as const

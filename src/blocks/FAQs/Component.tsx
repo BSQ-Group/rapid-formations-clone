@@ -4,18 +4,27 @@ import type { FAQsBlock as FAQsBlockProps } from '@/payload-types'
 
 import { Collapsible } from '@/components/shared/Collapsible'
 import { Container } from '@/components/shared/Container/Container'
+import { SectionWrapper } from '@/components/shared/SectionWrapper/SectionWrapper'
 import RichText from '@/components/RichText'
 import Text from '@/components/shared/Text'
 import { cn } from '@/utilities/ui'
 import { faqsStyles as s } from './FAQs.styles'
 
-export const FAQsBlock: React.FC<FAQsBlockProps> = ({ title, faqs, variant }) => {
+export const FAQsBlock: React.FC<FAQsBlockProps> = ({ title, faqs, variant, sectionLayout }) => {
   if (!faqs?.length) return null
 
   const isPage = variant === 'page'
+  const gap = sectionLayout?.gap
+  const resolvedGap = !gap || gap === 'inherit' ? (isPage ? 'm' : 'l') : gap
 
   return (
-    <section className={isPage ? s.pageSection : s.section}>
+    <SectionWrapper
+      background={sectionLayout?.background ?? 'light'}
+      paddingTop={sectionLayout?.paddingTop ?? 'none'}
+      paddingBottom={sectionLayout?.paddingBottom ?? 'none'}
+      gap={resolvedGap}
+      className={isPage ? s.pageSection : s.section}
+    >
       <Container>
         {title && !isPage && (
           <div className={s.header}>
@@ -40,6 +49,6 @@ export const FAQsBlock: React.FC<FAQsBlockProps> = ({ title, faqs, variant }) =>
           />
         </div>
       </Container>
-    </section>
+    </SectionWrapper>
   )
 }

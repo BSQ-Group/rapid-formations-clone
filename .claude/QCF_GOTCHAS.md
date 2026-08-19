@@ -499,3 +499,20 @@ Each entry has four parts:
   # node -e "...getComputedStyle(h2).letterSpacing"  (Storybook or the dev server)
   ```
 - **Fix:** Add `tracking-normal` alongside the `leading-` override, or use the raw `text-[36px]` form which carries no bundled tracking (most ported headings in this repo use `text-[36px] leading-[44.46px]` for exactly this reason). Blocks of QCF origin that intentionally want the tight tracking already write `tracking-[-1px]` explicitly — an explicit `tracking-*` in either direction is the signal that the value was considered.
+
+## A ported section with no `bg-` of its own inherits `--surface-primary`, which is dark navy in this theme
+
+- **When it bites:** You build a block that renders through `SectionWrapper` and never set a background, because the source section looks white and "no background" feels like the honest port. `SectionWrapper` defaults `background` to `light`, and in `.theme-rapidformations` **`--surface-primary` is `rgb(42 42 67)`** while `--surface-canvas` is `rgb(255 255 255)` — so the section paints navy. It is invisible in a Storybook story and in any screenshot of the block alone, because the block's own inner card covers the middle: the navy only shows in the **two strips either side of the `Container`**, at widths above the 1230px content column. Shipped in `TestimonialQuote` (#50), which sat on zero pages until the Tier 3 port put it on seven, at which point every one of them had a navy band behind the quote.
+- **Detect:**
+  ```bash
+  # Blocks rendering through SectionWrapper whose section style sets no background:
+  for f in $(grep -rl "SectionWrapper" src/blocks/*/Component.tsx); do
+    s=$(ls $(dirname $f)/*.styles.ts 2>/dev/null | head -1); [ -z "$s" ] && continue
+    grep -A1 "^  section:" $s | grep -q "bg-" || echo "no bg- : $s"
+  done
+  ```
+  ```bash
+  # Confirm against the render — must be rgb(255, 255, 255), not rgb(42, 42, 67):
+  # getComputedStyle(section).backgroundColor at 1440, where the container is inset
+  ```
+- **Fix:** Add `bg-[var(--surface-canvas)]` to the block's `section` style, as every other ported block does — it comes after the layout classes in `cn()`, so it wins over the `sectionLayout.background` default. A hit from the grep is not automatically a bug: QCF-origin blocks designed to take `dark`/`inverse` from the CMS legitimately leave it to `sectionLayout`. Judge by whether the source section is white.

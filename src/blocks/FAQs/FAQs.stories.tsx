@@ -173,12 +173,20 @@ const sourceFaqs: FaqItem[] = [
   ),
 ]
 
+const sectionLayout = {
+  background: 'light',
+  paddingTop: 'none',
+  paddingBottom: 'none',
+  gap: 'm',
+} as const
+
 const defaultArgs: FAQsBlockProps = {
   id: 'story-faqs',
   blockType: 'faqs',
   blockName: 'FAQs',
   title: "New to company formation?\nWe've got it covered.",
   faqs: sourceFaqs,
+  sectionLayout,
 }
 
 const narrowViewport = {
