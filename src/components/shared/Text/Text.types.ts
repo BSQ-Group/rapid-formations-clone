@@ -1,4 +1,20 @@
-export type SemanticTag = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span' | 'div' | 'section' | 'article' | 'aside' | 'label' | 'a'
+export type SemanticTag =
+  | 'h1'
+  | 'h2'
+  | 'h3'
+  | 'h4'
+  | 'h5'
+  | 'h6'
+  | 'p'
+  | 'span'
+  | 'div'
+  | 'section'
+  | 'article'
+  | 'aside'
+  | 'label'
+  | 'a'
+  | 'dt'
+  | 'dd'
 
 export type TextProps = {
   asChild?: boolean

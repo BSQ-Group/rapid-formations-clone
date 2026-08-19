@@ -244,6 +244,7 @@ export interface Page {
         | OurLatestBlogsBlock
         | AdditionalServicesBlock
         | ServiceAdsBlock
+        | GlossaryBlock
         | PurchaseAnAddressBlock
         | BuyServiceBlock
         | ServiceContentBlock
@@ -1993,6 +1994,63 @@ export interface ServiceAd {
   };
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GlossaryBlock".
+ */
+export interface GlossaryBlock {
+  /**
+   * One tab per range, in the order listed here. Only the selected range renders, so a range can hold as many terms as it needs.
+   */
+  groups: {
+    /**
+     * Shown on the tab, e.g. "A-C". Keep it short — tabs sit on one row.
+     */
+    label: string;
+    /**
+     * Listed in this order. Terms are grouped under a letter heading automatically, so keep terms sharing a letter together.
+     */
+    terms: {
+      /**
+       * Drives the heading this term sits under.
+       */
+      letter: string;
+      term: string;
+      definition: {
+        root: {
+          type: string;
+          children: {
+            type: any;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      };
+      /**
+       * Optional promo tile rendered directly beneath this definition, full width with its price.
+       */
+      ad?: (string | null) | ServiceAd;
+      id?: string | null;
+    }[];
+    id?: string | null;
+  }[];
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'glossary';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4963,6 +5021,7 @@ export interface PagesSelect<T extends boolean = true> {
         ourLatestBlogs?: T | OurLatestBlogsBlockSelect<T>;
         additionalServices?: T | AdditionalServicesBlockSelect<T>;
         serviceAds?: T | ServiceAdsBlockSelect<T>;
+        glossary?: T | GlossaryBlockSelect<T>;
         purchaseAnAddress?: T | PurchaseAnAddressBlockSelect<T>;
         buyService?: T | BuyServiceBlockSelect<T>;
         serviceContent?: T | ServiceContentBlockSelect<T>;
@@ -5743,6 +5802,36 @@ export interface AdditionalServicesBlockSelect<T extends boolean = true> {
 export interface ServiceAdsBlockSelect<T extends boolean = true> {
   ads?: T;
   layout?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GlossaryBlock_select".
+ */
+export interface GlossaryBlockSelect<T extends boolean = true> {
+  groups?:
+    | T
+    | {
+        label?: T;
+        terms?:
+          | T
+          | {
+              letter?: T;
+              term?: T;
+              definition?: T;
+              ad?: T;
+              id?: T;
+            };
+        id?: T;
+      };
   sectionLayout?:
     | T
     | {
