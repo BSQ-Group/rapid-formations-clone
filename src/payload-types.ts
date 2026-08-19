@@ -72,6 +72,7 @@ export interface Config {
     media: Media;
     categories: Category;
     users: User;
+    serviceAds: ServiceAd;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -94,6 +95,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    serviceAds: ServiceAdsSelect<false> | ServiceAdsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -236,6 +238,7 @@ export interface Page {
         | ChooseCompanyStructureBlock
         | OurLatestBlogsBlock
         | AdditionalServicesBlock
+        | ServiceAdsBlock
         | CallOutCTABlock
         | TrustPilotBannerBlock
         | PackagesHeroBlock
@@ -1866,6 +1869,92 @@ export interface AdditionalServicesBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'additionalServices';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServiceAdsBlock".
+ */
+export interface ServiceAdsBlock {
+  /**
+   * Rendered in the order listed here. Two tiles is the usual pairing.
+   */
+  ads: (string | ServiceAd)[];
+  layout: 'paired' | 'wide';
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'serviceAds';
+}
+/**
+ * Cross-sell promo tiles. Each ad is written once and placed on any number of pages via the Service Ads block.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "serviceAds".
+ */
+export interface ServiceAd {
+  id: string;
+  /**
+   * Admin-only label used in lists and pickers. Never rendered.
+   */
+  name: string;
+  /**
+   * Line breaks are preserved on the tile.
+   */
+  title: string;
+  body: string;
+  /**
+   * Sets the tile gradient and the matching button colour.
+   */
+  variant: 'default' | 'blue-green' | 'blue-purple' | 'pink-purple';
+  /**
+   * Blended into the right-hand side of the tile as decoration.
+   */
+  icon: string | Media;
+  cta: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+  };
+  /**
+   * Only rendered by the Wide layout. Leave empty for paired tiles.
+   */
+  pricing?: {
+    /**
+     * Amount only, without the currency symbol (e.g. 149.99).
+     */
+    price?: string | null;
+    /**
+     * Sits before the price (e.g. "from").
+     */
+    prefix?: string | null;
+    /**
+     * Sits after the price (e.g. "per year").
+     */
+    suffix?: string | null;
+    /**
+     * Small line under the price (e.g. "+ £100 Companies House Fee").
+     */
+    postPrice?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4419,6 +4508,10 @@ export interface PayloadLockedDocument {
         value: string | User;
       } | null)
     | ({
+        relationTo: 'serviceAds';
+        value: string | ServiceAd;
+      } | null)
+    | ({
         relationTo: 'redirects';
         value: string | Redirect;
       } | null)
@@ -4532,6 +4625,7 @@ export interface PagesSelect<T extends boolean = true> {
         chooseCompanyStructure?: T | ChooseCompanyStructureBlockSelect<T>;
         ourLatestBlogs?: T | OurLatestBlogsBlockSelect<T>;
         additionalServices?: T | AdditionalServicesBlockSelect<T>;
+        serviceAds?: T | ServiceAdsBlockSelect<T>;
         callOutCTA?: T | CallOutCTABlockSelect<T>;
         trustpilotBanner?: T | TrustPilotBannerBlockSelect<T>;
         packagesHero?: T | PackagesHeroBlockSelect<T>;
@@ -5268,6 +5362,23 @@ export interface AdditionalServicesBlockSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServiceAdsBlock_select".
+ */
+export interface ServiceAdsBlockSelect<T extends boolean = true> {
+  ads?: T;
+  layout?: T;
   sectionLayout?:
     | T
     | {
@@ -6900,6 +7011,36 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "serviceAds_select".
+ */
+export interface ServiceAdsSelect<T extends boolean = true> {
+  name?: T;
+  title?: T;
+  body?: T;
+  variant?: T;
+  icon?: T;
+  cta?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
+  pricing?:
+    | T
+    | {
+        price?: T;
+        prefix?: T;
+        suffix?: T;
+        postPrice?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

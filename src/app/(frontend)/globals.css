@@ -354,6 +354,15 @@
     --border-on-dark-subtle: rgb(68 68 68);
     --border-step-number: rgb(23 131 214);
 
+    --surface-promo-default: linear-gradient(
+      51deg,
+      rgb(99 164 255 / 0.8) 0%,
+      rgb(131 234 241) 100%
+    );
+    --surface-promo-blue-green: linear-gradient(51deg, rgb(62 173 207) 0%, rgb(171 233 205) 100%);
+    --surface-promo-blue-purple: linear-gradient(51deg, rgb(40 132 184) 0%, rgb(209 186 210) 100%);
+    --surface-promo-pink-purple: linear-gradient(315deg, rgb(249 197 209) 0%, rgb(151 149 239) 74%);
+
     /* Surface */
     --surface-canvas: rgb(255 255 255);
     --surface-canvas-inverse: rgb(255 255 255);
@@ -405,6 +414,14 @@
     --button-tertiary-selected: rgb(255 255 255);
     --button-icon: rgb(0 0 0);
     --button-border: rgb(255 255 255);
+    --button-promo-default-idle: rgb(46 154 190);
+    --button-promo-default-hover: rgb(41 137 169);
+    --button-promo-blue-green-idle: rgb(22 139 136);
+    --button-promo-blue-green-hover: rgb(19 117 114);
+    --button-promo-blue-purple-idle: rgb(73 101 144);
+    --button-promo-blue-purple-hover: rgb(56 77 110);
+    --button-promo-pink-purple-idle: rgb(188 103 197);
+    --button-promo-pink-purple-hover: rgb(180 85 190);
 
     /* Icon */
     --icon-default: rgb(255 255 255);
