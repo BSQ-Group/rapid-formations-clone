@@ -122,6 +122,7 @@ export interface Config {
     packagesNav: PackagesNav;
     prices: Price;
     reviewStats: ReviewStat;
+    testimonialPool: TestimonialPool;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
@@ -132,6 +133,7 @@ export interface Config {
     packagesNav: PackagesNavSelect<false> | PackagesNavSelect<true>;
     prices: PricesSelect<false> | PricesSelect<true>;
     reviewStats: ReviewStatsSelect<false> | ReviewStatsSelect<true>;
+    testimonialPool: TestimonialPoolSelect<false> | TestimonialPoolSelect<true>;
   };
   locale: null;
   widgets: {
@@ -231,6 +233,7 @@ export interface Page {
         | LandingHeroBlock
         | SupportBlock
         | TestimonialsBlock
+        | TestimonialQuoteBlock
         | FourStepsBlock
         | PackageGridBlock
         | UniqueSellingPointsBlock
@@ -1355,6 +1358,23 @@ export interface TestimonialsBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'testimonials';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialQuoteBlock".
+ */
+export interface TestimonialQuoteBlock {
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'testimonialQuote';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4707,6 +4727,7 @@ export interface PagesSelect<T extends boolean = true> {
         landingHero?: T | LandingHeroBlockSelect<T>;
         support?: T | SupportBlockSelect<T>;
         testimonials?: T | TestimonialsBlockSelect<T>;
+        testimonialQuote?: T | TestimonialQuoteBlockSelect<T>;
         fourSteps?: T | FourStepsBlockSelect<T>;
         packageGrid?: T | PackageGridBlockSelect<T>;
         uniqueSellingPoints?: T | UniqueSellingPointsBlockSelect<T>;
@@ -5149,6 +5170,21 @@ export interface TestimonialsBlockSelect<T extends boolean = true> {
         url?: T;
         label?: T;
       };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialQuoteBlock_select".
+ */
+export interface TestimonialQuoteBlockSelect<T extends boolean = true> {
   sectionLayout?:
     | T
     | {
@@ -7917,6 +7953,27 @@ export interface ReviewStat {
   createdAt?: string | null;
 }
 /**
+ * Customer quotes shared by the "Testimonial Quote" block. Every page carrying that block draws one from this pool, so a quote added here appears across the site.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "testimonialPool".
+ */
+export interface TestimonialPool {
+  id: string;
+  items?:
+    | {
+        /**
+         * Without surrounding quotation marks — the block adds them.
+         */
+        quote: string;
+        customerName: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
@@ -8211,6 +8268,22 @@ export interface ReviewStatsSelect<T extends boolean = true> {
         starTone?: T;
         url?: T;
         show?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "testimonialPool_select".
+ */
+export interface TestimonialPoolSelect<T extends boolean = true> {
+  items?:
+    | T
+    | {
+        quote?: T;
+        customerName?: T;
         id?: T;
       };
   updatedAt?: T;
