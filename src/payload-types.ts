@@ -2137,6 +2137,10 @@ export interface ServiceContentBlock {
    */
   columns: 'two' | 'one';
   /**
+   * Compact pulls the content under the card closer on wide screens.
+   */
+  cardSpacing: 'standard' | 'compact';
+  /**
    * Rendered in this order, down the left column then the right.
    */
   sections?:
@@ -5805,6 +5809,7 @@ export interface BuyServiceBlockSelect<T extends boolean = true> {
  */
 export interface ServiceContentBlockSelect<T extends boolean = true> {
   columns?: T;
+  cardSpacing?: T;
   sections?:
     | T
     | {

@@ -26,6 +26,20 @@ export const ServiceContent: Block = {
       },
     },
     {
+      name: 'cardSpacing',
+      type: 'select',
+      label: 'Space below the last buy card',
+      required: true,
+      defaultValue: 'standard',
+      options: [
+        { label: 'Standard — 56px at every width', value: 'standard' },
+        { label: 'Compact — 40px from 1023px, 12px from 1590px', value: 'compact' },
+      ],
+      admin: {
+        description: 'Compact pulls the content under the card closer on wide screens.',
+      },
+    },
+    {
       name: 'sections',
       type: 'array',
       label: 'Sections',
