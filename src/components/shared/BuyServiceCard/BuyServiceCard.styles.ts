@@ -14,7 +14,7 @@ export const buyServiceCardStyles = {
 
   priceSmall: 'm-0 text-md',
 
-  body: 'block text-xl leading-normal text-[var(--text-on-light-muted)] [&_p]:!mb-0 [&_ul]:!mt-2 [&_ul]:!mb-0 [&_ul]:!pl-10 [&_ul]:list-disc [&_li]:!mb-2.5',
+  body: 'block text-xl leading-normal text-[var(--text-on-light-muted)] [&_p]:!mb-4 [&_p:last-child]:!mb-0 [&_ul]:!mt-2 [&_ul]:!mb-0 [&_ul]:!pl-10 [&_ul]:list-disc [&_li]:!mb-2.5',
 
   bodyHiddenOnMobile: 'hidden lg:block',
 

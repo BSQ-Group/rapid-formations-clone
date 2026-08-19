@@ -15,8 +15,6 @@ export const ServiceAds: Block = {
       type: 'relationship',
       relationTo: 'serviceAds',
       hasMany: true,
-      required: true,
-      minRows: 1,
       maxRows: 4,
       label: 'Ads',
       admin: {

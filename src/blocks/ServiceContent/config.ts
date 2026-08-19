@@ -91,6 +91,17 @@ export const ServiceContent: Block = {
         },
       ],
     },
+    {
+      name: 'buyServices',
+      type: 'relationship',
+      relationTo: 'buyServices',
+      hasMany: true,
+      label: 'Buy cards',
+      admin: {
+        description:
+          'Priced cards rendered inside the content. Two columns puts them at the top of the right column, above everything on mobile; one column puts them after the copy.',
+      },
+    },
     sectionLayoutField({
       gap: true,
       defaults: { background: 'light', paddingTop: 'none', paddingBottom: 'none' },

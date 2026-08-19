@@ -5,9 +5,19 @@ export const serviceContentStyles = {
 
   split: 'min-[1023px]:grid min-[1023px]:grid-cols-2 min-[1023px]:gap-[30px]',
 
-  column: '[&>*:first-child_h3]:!mt-0',
+  column: '[&>div:first-of-type_h3]:!mt-0',
 
   item: 'mb-[30px] min-[1023px]:last:mb-0',
+
+  cardsLead: 'min-[1023px]:hidden',
+  cardsAside: 'hidden min-[1023px]:block',
+  cardsTrail: 'hidden min-[1023px]:block',
+
+  columnDesktopOnly: 'hidden min-[1023px]:block',
+
+  card: 'mb-8 last:mb-14',
+  cardMobile:
+    'mb-8 last:mb-14 !border-0 !border-b !border-solid !border-[color:var(--border-on-light)]',
 
   content:
     'block text-xl leading-normal text-[var(--text-on-light-muted)] [&_h3]:!mt-8 [&_h3]:!mb-5 [&_h3]:text-[23px] [&_h3]:leading-[1.235] [&_h3]:font-normal [&_h3]:text-[var(--text-on-light-base)] [&_h4]:!mt-[27.2px] [&_h4]:!mb-[17.6px] [&_h4]:text-[20.8px] [&_h4]:leading-[1.235] [&_h4]:font-normal [&_h4]:text-[var(--text-on-light-base)] [&_p]:!mb-4 [&_ul]:!mb-4 [&_ol]:!mb-4 [&_p:last-child]:!mb-0 [&_li]:!mb-2.5 [&_strong]:text-[var(--text-on-light-strong)]',
