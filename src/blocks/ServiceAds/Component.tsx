@@ -13,14 +13,12 @@ export const ServiceAdsBlock: React.FC<ServiceAdsBlockProps> = ({ ads, layout, s
     (ad): ad is ServiceAd => typeof ad === 'object' && ad !== null,
   )
 
-  if (!resolved.length) return null
-
   const wide = layout === 'wide'
 
   return (
     <SectionWrapper {...sectionLayout} className={s.section}>
       <Container>
-        <div className={cn(s.grid, wide && s.gridWide)}>
+        <div className={cn(resolved.length > 0 && s.grid, wide && s.gridWide)}>
           {resolved.map((ad) => (
             <ServiceAdCard key={ad.id} ad={ad} wide={wide} />
           ))}

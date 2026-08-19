@@ -955,9 +955,9 @@ export interface FAQsBlock {
     paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
     paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
     /**
-     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, S 75px, M 50/75/110, L 70/140.
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, S 75px, M 50/75/110, L 70/140.
      */
-    gap?: ('inherit' | 'xs' | 's' | 'm' | 'l') | null;
+    gap?: ('inherit' | 'xs' | 'sm' | 's' | 'm' | 'l') | null;
   };
   id?: string | null;
   blockName?: string | null;
@@ -1916,7 +1916,7 @@ export interface ServiceAdsBlock {
   /**
    * Rendered in the order listed here. Two tiles is the usual pairing.
    */
-  ads: (string | ServiceAd)[];
+  ads?: (string | ServiceAd)[] | null;
   layout: 'paired' | 'wide';
   /**
    * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
@@ -2166,6 +2166,10 @@ export interface ServiceContentBlock {
       }[]
     | null;
   /**
+   * Priced cards rendered inside the content. Two columns puts them at the top of the right column, above everything on mobile; one column puts them after the copy.
+   */
+  buyServices?: (string | BuyService)[] | null;
+  /**
    * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
    */
   sectionLayout: {
@@ -2173,9 +2177,9 @@ export interface ServiceContentBlock {
     paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
     paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
     /**
-     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, S 75px, M 50/75/110, L 70/140.
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, S 75px, M 50/75/110, L 70/140.
      */
-    gap?: ('inherit' | 'xs' | 's' | 'm' | 'l') | null;
+    gap?: ('inherit' | 'xs' | 'sm' | 's' | 'm' | 'l') | null;
   };
   id?: string | null;
   blockName?: string | null;
@@ -5810,6 +5814,7 @@ export interface ServiceContentBlockSelect<T extends boolean = true> {
         content?: T;
         id?: T;
       };
+  buyServices?: T;
   sectionLayout?:
     | T
     | {
