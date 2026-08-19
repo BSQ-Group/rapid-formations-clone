@@ -73,6 +73,7 @@ import { RegisterOverseasBlock } from '@/blocks/RegisterOverseas/Component'
 import { RequiredInformationBlock } from '@/blocks/RequiredInformation/Component'
 import { FaqQuickNavServer } from '@/components/shared/FaqQuickNav/Server'
 import { PageTitle } from '@/components/shared/PageTitle'
+import { BuyNow } from '@/components/shared/PageTitle/BuyNow'
 import { TitleBanner } from '@/components/shared/TitleBanner'
 import { ClosingCTA } from '@/components/shared/ClosingCTA'
 import { NameCheckPackagesBlock } from '@/blocks/NameCheckPackages/Component'
@@ -199,7 +200,14 @@ export const RenderBlocks: React.FC<{
                 key={index}
                 title={block.title?.trim() || pageTitle?.trim()}
                 sectionLayout={block.sectionLayout}
-                aside={block.showFaqQuickNav ? <FaqQuickNavServer /> : undefined}
+                aside={
+                  block.showFaqQuickNav || block.buyNow ? (
+                    <>
+                      <BuyNow buyNow={block.buyNow} />
+                      {block.showFaqQuickNav && <FaqQuickNavServer />}
+                    </>
+                  ) : undefined
+                }
               />
             )
           }

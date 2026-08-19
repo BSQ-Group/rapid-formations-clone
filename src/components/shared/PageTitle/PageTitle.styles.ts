@@ -10,4 +10,13 @@ export const pageTitleStyles = {
     'flex w-full flex-col items-stretch text-[var(--text-on-light-strong)] md:ml-auto md:w-auto md:flex-row md:self-center min-[1023px]:items-center',
 
   heading: 'block text-[38px] font-semibold leading-[1.15] text-[var(--text-on-light-base)]',
+
+  pricesWrap: 'mr-[6.4px] flex flex-col md:items-end',
+
+  prices: 'flex flex-row',
+
+  price: 'block w-full self-start text-[38px] font-semibold leading-[1.15] md:self-baseline',
+
+  buttons:
+    'mt-5 flex flex-col gap-2.5 [&_a]:w-full md:mt-0 md:mb-2 md:ml-2 md:flex-row md:flex-wrap md:[&_a]:min-h-[55px] md:[&_a]:w-auto min-[1023px]:mb-0',
 } as const
