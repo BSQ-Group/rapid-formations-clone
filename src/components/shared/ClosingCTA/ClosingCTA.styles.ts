@@ -1,6 +1,6 @@
 export const closingCTAStyles = {
   section:
-    'font-legacy-condensed w-full bg-[var(--surface-canvas)] mb-[50px] min-[1023px]:mb-[75px] min-[1023px]:pb-5 min-[1590px]:mb-[110px]',
+    'font-legacy-condensed w-full bg-[var(--surface-canvas)] mb-[50px] min-[1023px]:mb-[75px] min-[1590px]:mb-[110px]',
 
   wrapper: 'text-center',
 

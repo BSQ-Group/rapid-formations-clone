@@ -1,5 +1,7 @@
 import type { Block } from 'payload'
+
 import { defaultLexical } from '@/fields/defaultLexical'
+import { sectionLayoutField } from '@/fields/sectionLayout'
 
 export const FAQs: Block = {
   slug: 'faqs',
@@ -56,5 +58,9 @@ export const FAQs: Block = {
         },
       ],
     },
+    sectionLayoutField({
+      gap: true,
+      defaults: { background: 'light', paddingTop: 'none', paddingBottom: 'none' },
+    }),
   ],
 }

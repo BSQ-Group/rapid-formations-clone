@@ -947,6 +947,18 @@ export interface FAQsBlock {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, S 75px, M 50/75/110, L 70/140.
+     */
+    gap?: ('inherit' | 'xs' | 's' | 'm' | 'l') | null;
+  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'faqs';
@@ -2160,6 +2172,10 @@ export interface ServiceContentBlock {
     background: 'light' | 'dark' | 'inverse';
     paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
     paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, S 75px, M 50/75/110, L 70/140.
+     */
+    gap?: ('inherit' | 'xs' | 's' | 'm' | 'l') | null;
   };
   id?: string | null;
   blockName?: string | null;
@@ -5122,6 +5138,14 @@ export interface FAQsBlockSelect<T extends boolean = true> {
         description?: T;
         id?: T;
       };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+        gap?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -5792,6 +5816,7 @@ export interface ServiceContentBlockSelect<T extends boolean = true> {
         background?: T;
         paddingTop?: T;
         paddingBottom?: T;
+        gap?: T;
       };
   id?: T;
   blockName?: T;

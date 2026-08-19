@@ -1,5 +1,5 @@
 export const faqsStyles = {
-  section: 'font-legacy-condensed w-full bg-[var(--surface-canvas)] mb-[70px] md:mb-[140px]',
+  section: 'font-legacy-condensed w-full bg-[var(--surface-canvas)]',
 
   header: 'mb-8 w-full flow-root text-center',
   heading:
@@ -12,8 +12,7 @@ export const faqsStyles = {
     'max-w-none pt-4 pb-8 text-[22px] leading-[33px] font-normal text-[var(--text-on-light-muted)] [&_p]:mb-4 [&_p:last-child]:mb-0 [&_ul]:ml-4 [&_ol]:ml-4 [&_a]:text-[var(--surface-brand-cyan)] [&_a]:no-underline',
   answerTextLast: 'pb-0',
 
-  pageSection:
-    'font-legacy-condensed w-full bg-[var(--surface-canvas)] mb-[50px] min-[1023px]:mb-[75px] min-[1590px]:mb-[110px]',
+  pageSection: 'font-legacy-condensed w-full bg-[var(--surface-canvas)]',
   pagePanel: 'relative w-full',
   pageList: 'mt-5',
 } as const

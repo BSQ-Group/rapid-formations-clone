@@ -1,5 +1,6 @@
 export const testimonialQuoteStyles = {
-  section: 'font-legacy-condensed w-full',
+  section:
+    'font-legacy-condensed w-full bg-[var(--surface-canvas)] mb-[50px] min-[1023px]:mb-[75px] min-[1590px]:mb-[110px]',
 
   box: 'border border-solid border-[color:var(--border-on-light-tile)] bg-[var(--surface-on-light-canvas)] px-5 py-[30px]',
 

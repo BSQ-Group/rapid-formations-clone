@@ -90,6 +90,19 @@ const isShortcodeText = (value: unknown): value is TextNode =>
   typeof (value as TextNode).text === 'string' &&
   (value as TextNode).text.includes('[[')
 
+const expandString = (text: string, prices: Map<string, string>): string =>
+  text.replace(
+    new RegExp(SHORTCODE.source, 'g'),
+    (raw, identifier: string, rawAttributes: string) => {
+      if (identifier === 'telephone') return TELEPHONE_NUMBER
+      if (identifier === 'price') {
+        const value = prices.get(parseAttributes(rawAttributes ?? '').slug ?? '')
+        if (value !== undefined) return `£${value}`
+      }
+      return raw
+    },
+  )
+
 /**
  * Replaces [[telephone]] and [[price slug="..."]] anywhere in a Payload document
  * with the nodes they stand for, leaving every other shortcode untouched.
@@ -103,11 +116,17 @@ export const resolveShortcodes = <T>(value: T, prices: Map<string, string>): T =
 
   if (value && typeof value === 'object') {
     const entries = Object.entries(value as Record<string, unknown>)
-    if (!entries.some(([, item]) => item && typeof item === 'object')) return value
+    const worthWalking = entries.some(
+      ([, item]) =>
+        (item && typeof item === 'object') || (typeof item === 'string' && item.includes('[[')),
+    )
+    if (!worthWalking) return value
     return Object.fromEntries(
       entries.map(([key, item]) => [key, resolveShortcodes(item, prices)]),
     ) as T
   }
+
+  if (typeof value === 'string' && value.includes('[[')) return expandString(value, prices) as T
 
   return value
 }
