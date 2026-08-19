@@ -246,6 +246,7 @@ export interface Page {
         | ServiceAdsBlock
         | BuyServiceBlock
         | ServiceContentBlock
+        | OurAddressBlock
         | CallOutCTABlock
         | TrustPilotBannerBlock
         | PackagesHeroBlock
@@ -2113,6 +2114,60 @@ export interface ServiceContentBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'serviceContent';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "OurAddressBlock".
+ */
+export interface OurAddressBlock {
+  /**
+   * Compact is used on the service and business address pages, feature on the registered office page.
+   */
+  variant: 'compact' | 'feature';
+  /**
+   * Centred above the card, e.g. "Our London Service Address".
+   */
+  heading: string;
+  /**
+   * Sits above the address, e.g. "London".
+   */
+  label?: string | null;
+  image: string | Media;
+  /**
+   * One line per row. Line breaks are preserved.
+   */
+  address: string;
+  /**
+   * Matches an entry in the Prices global, e.g. "london-service-address".
+   */
+  priceSlug: string;
+  postText?: string | null;
+  cta: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+  };
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'ourAddress';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4791,6 +4846,7 @@ export interface PagesSelect<T extends boolean = true> {
         serviceAds?: T | ServiceAdsBlockSelect<T>;
         buyService?: T | BuyServiceBlockSelect<T>;
         serviceContent?: T | ServiceContentBlockSelect<T>;
+        ourAddress?: T | OurAddressBlockSelect<T>;
         callOutCTA?: T | CallOutCTABlockSelect<T>;
         trustpilotBanner?: T | TrustPilotBannerBlockSelect<T>;
         packagesHero?: T | PackagesHeroBlockSelect<T>;
@@ -5599,6 +5655,37 @@ export interface ServiceContentBlockSelect<T extends boolean = true> {
         iconColour?: T;
         content?: T;
         id?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "OurAddressBlock_select".
+ */
+export interface OurAddressBlockSelect<T extends boolean = true> {
+  variant?: T;
+  heading?: T;
+  label?: T;
+  image?: T;
+  address?: T;
+  priceSlug?: T;
+  postText?: T;
+  cta?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
       };
   sectionLayout?:
     | T
