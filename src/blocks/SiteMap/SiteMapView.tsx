@@ -15,7 +15,7 @@ export type SiteMapSection = {
 }
 
 export const SiteMapView: React.FC<{ sections: SiteMapSection[] }> = ({ sections }) => (
-  <div>
+  <div className={s.list}>
     {sections.map((section) => (
       <div key={section.id} className={s.item}>
         <Text as="h2" textStyle="span" text={section.heading} className={s.heading} />

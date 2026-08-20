@@ -29,7 +29,8 @@ export const SiteMap: Block = {
       ],
     },
     sectionLayoutField({
-      defaults: { background: 'light', paddingTop: 'none', paddingBottom: 'none' },
+      gap: true,
+      defaults: { background: 'light', paddingTop: 'none', paddingBottom: 'none', gap: 's' },
     }),
   ],
 }

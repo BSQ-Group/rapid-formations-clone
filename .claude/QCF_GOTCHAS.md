@@ -516,3 +516,20 @@ Each entry has four parts:
   # getComputedStyle(section).backgroundColor at 1440, where the container is inset
   ```
 - **Fix:** Add `bg-[var(--surface-canvas)]` to the block's `section` style, as every other ported block does — it comes after the layout classes in `cn()`, so it wins over the `sectionLayout.background` default. A hit from the grep is not automatically a bug: QCF-origin blocks designed to take `dark`/`inverse` from the CMS legitimately leave it to `sectionLayout`. Judge by whether the source section is white.
+
+## The 75px gap under a ported section goes missing twice over — the field isn't in the schema, and the card margin collapses away
+
+- **When it bites:** You port a section, it measures right, and the page still ends short of the source. Two independent causes stack. **(1)** Every section on the rapidformations source is wrapped in `Section--section`, which carries `margin-bottom: 75px`. That maps to `sectionLayoutField`'s `gap` field (`S` = `mb-[75px]`), but the field only exists when the block passes `gap: true` — call `sectionLayoutField({ defaults: {...} })` without it and the 75px is simply not expressible, with no error and no missing-field warning. **(2)** `Section--section` is `display: flex` in the source, so it contains its children's bottom margins. `SectionWrapper` renders a block-level `<section>`, so the last child's `mb-*` collapses up through the intervening block wrappers and **merges** with the section's own bottom margin instead of adding to it — `mb-[30px]` under `mb-[75px]` yields 75px, not 105px. Shipped in `SiteMap`, which landed 95px short of the source (30px of gap against 125px) with both causes present at once.
+- **Detect:**
+  ```bash
+  # Blocks that take a section layout but cannot express the source's inter-section margin:
+  grep -rl "sectionLayoutField" src/blocks/*/config.ts | while read -r f; do
+    grep -q "gap: true" "$f" || echo "no gap field: $f"
+  done
+  ```
+  ```bash
+  # Confirm against the render — a list container must be taller than its last child
+  # by that child's margin-bottom. Equal bottoms means the margin collapsed out:
+  # node -e "...lastCard.getBoundingClientRect().bottom vs container.getBoundingClientRect().bottom"
+  ```
+- **Fix:** Pass `gap: true` to `sectionLayoutField` and default it to the value the source Section contributes (`s` for the standard 75px), then set it on the CMS document — the schema change alone does nothing to pages already authored. For the collapse, give the block's list container `flex flex-col`, which contains the margins exactly as the source's flex Section does and leaves inter-item spacing untouched. A hit from the grep is not automatically a bug: a block that is always the only section on its page, or whose source section has no following sibling, has no gap to reproduce. Note the port is still ~20px short at the bottom of **every** page — that is the source's global `Wrapper--wrapper__content` `padding-bottom`, not a per-block defect, and it should not be absorbed into a block's gap to make one page measure right.
