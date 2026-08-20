@@ -42,6 +42,7 @@ import { WhyUseAgentBlock } from '@/blocks/WhyUseAgent/Component'
 import { BankingPartnersBlock } from '@/blocks/BankingPartners/Component'
 import { BCorpCertificationBlock } from '@/blocks/BCorpCertification/Component'
 import { ChooseCompanyStructureBlock } from '@/blocks/ChooseCompanyStructure/Component'
+import { ComparePackagesNavBlock } from '@/blocks/ComparePackagesNav/Component'
 import { OurLatestBlogsBlock } from '@/blocks/OurLatestBlogs/Component'
 import { TrustPilotBannerBlock } from '@/blocks/TrustPilotBanner/Component'
 import { PackagesHeroBlock } from '@/blocks/PackagesHero/Component'
@@ -133,6 +134,7 @@ const blockComponents = {
   bCorpCertification: BCorpCertificationBlock,
   bankingPartners: BankingPartnersBlock,
   chooseCompanyStructure: ChooseCompanyStructureBlock,
+  comparePackagesNav: ComparePackagesNavBlock,
   ourLatestBlogs: OurLatestBlogsBlock,
   trustpilotBanner: TrustPilotBannerBlock,
   packagesHero: PackagesHeroBlock,

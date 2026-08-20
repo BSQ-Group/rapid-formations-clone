@@ -41,6 +41,7 @@ import { ServiceContent } from '../../blocks/ServiceContent/config'
 import { OurAddress } from '../../blocks/OurAddress/config'
 import { CallOutCTA } from '../../blocks/CallOutCTA/config'
 import { ChooseCompanyStructure } from '../../blocks/ChooseCompanyStructure/config'
+import { ComparePackagesNav } from '@/blocks/ComparePackagesNav/config'
 import { OurLatestBlogs } from '../../blocks/OurLatestBlogs/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { TrustPilotBanner } from '../../blocks/TrustPilotBanner/config'
@@ -190,6 +191,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 BCorpCertification,
                 BankingPartners,
                 ChooseCompanyStructure,
+                ComparePackagesNav,
                 OurLatestBlogs,
                 AdditionalServices,
                 ServiceAds,
