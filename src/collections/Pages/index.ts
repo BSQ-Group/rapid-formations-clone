@@ -15,6 +15,7 @@ import { FormationVideo } from '../../blocks/FormationVideo/config'
 import { LandingHero } from '../../blocks/LandingHero/config'
 import { RegisterCompanySteps } from '../../blocks/RegisterCompanySteps/config'
 import { Support } from '../../blocks/Support/config'
+import { OnlineAdminPortal } from '../../blocks/OnlineAdminPortal/config'
 import { Testimonials } from '../../blocks/Testimonials/config'
 import { TestimonialQuote } from '@/blocks/TestimonialQuote/config'
 import { OrderSteps } from '@/blocks/OrderSteps/config'
@@ -172,6 +173,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 BusinessBankAccounts,
                 LandingHero,
                 Support,
+                OnlineAdminPortal,
                 Testimonials,
                 TestimonialQuote,
                 OrderSteps,

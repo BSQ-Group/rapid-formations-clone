@@ -232,6 +232,7 @@ export interface Page {
         | BusinessBankAccountsBlock
         | LandingHeroBlock
         | SupportBlock
+        | OnlineAdminPortalBlock
         | TestimonialsBlock
         | TestimonialQuoteBlock
         | OrderStepsBlock
@@ -1337,6 +1338,67 @@ export interface SupportBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'support';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "OnlineAdminPortalBlock".
+ */
+export interface OnlineAdminPortalBlock {
+  /**
+   * Full panels span the grid and carry no card chrome; half panels are bordered cards, two to a row from 768px.
+   */
+  items: {
+    width: 'half' | 'full';
+    icon: 'none' | 'lock' | 'userPlus';
+    iconColour?: ('cyan' | 'green') | null;
+    title: string;
+    /**
+     * List items render with a chevron.
+     */
+    content: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    ctaStyle?: ('green' | 'blue') | null;
+    cta?: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label?: string | null;
+    };
+    id?: string | null;
+  }[];
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'onlineAdminPortal';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -5357,6 +5419,7 @@ export interface PagesSelect<T extends boolean = true> {
         businessBankAccounts?: T | BusinessBankAccountsBlockSelect<T>;
         landingHero?: T | LandingHeroBlockSelect<T>;
         support?: T | SupportBlockSelect<T>;
+        onlineAdminPortal?: T | OnlineAdminPortalBlockSelect<T>;
         testimonials?: T | TestimonialsBlockSelect<T>;
         testimonialQuote?: T | TestimonialQuoteBlockSelect<T>;
         orderSteps?: T | OrderStepsBlockSelect<T>;
@@ -5791,6 +5854,41 @@ export interface SupportBlockSelect<T extends boolean = true> {
     | {
         label?: T;
         value?: T;
+        id?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "OnlineAdminPortalBlock_select".
+ */
+export interface OnlineAdminPortalBlockSelect<T extends boolean = true> {
+  items?:
+    | T
+    | {
+        width?: T;
+        icon?: T;
+        iconColour?: T;
+        title?: T;
+        content?: T;
+        ctaStyle?: T;
+        cta?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
         id?: T;
       };
   sectionLayout?:

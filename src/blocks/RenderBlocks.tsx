@@ -25,6 +25,7 @@ import { LandingHeroBlock } from '@/blocks/LandingHero/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { RegisterCompanyStepsBlock } from '@/blocks/RegisterCompanySteps/Component'
 import { SupportBlock } from '@/blocks/Support/Component'
+import { OnlineAdminPortalBlock } from '@/blocks/OnlineAdminPortal/Component'
 import { TestimonialsBlock } from '@/blocks/Testimonials/Component'
 import { TestimonialQuoteBlock } from '@/blocks/TestimonialQuote/Component'
 import { OrderStepsBlock } from '@/blocks/OrderSteps/Component'
@@ -114,6 +115,7 @@ const blockComponents = {
   mediaBlock: MediaBlock,
   registerCompanySteps: RegisterCompanyStepsBlock,
   support: SupportBlock,
+  onlineAdminPortal: OnlineAdminPortalBlock,
   testimonials: TestimonialsBlock,
   testimonialQuote: TestimonialQuoteBlock,
   orderSteps: OrderStepsBlock,
