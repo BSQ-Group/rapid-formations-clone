@@ -238,6 +238,7 @@ export interface Page {
         | OurOfficesBlock
         | FourStepsBlock
         | AdBannerBlock
+        | SameDayIncorporationBlock
         | PackageGridBlock
         | PackageInclusionsBlock
         | RecommendedPackagesBlock
@@ -1567,6 +1568,42 @@ export interface AdBannerBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'adBanner';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SameDayIncorporationBlock".
+ */
+export interface SameDayIncorporationBlock {
+  /**
+   * Mobile-only tile. Hidden from 768px up, where the same copy sits in the compare-packages table header.
+   */
+  heading: string;
+  body: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'sameDayIncorporation';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -5363,6 +5400,7 @@ export interface PagesSelect<T extends boolean = true> {
         ourOffices?: T | OurOfficesBlockSelect<T>;
         fourSteps?: T | FourStepsBlockSelect<T>;
         adBanner?: T | AdBannerBlockSelect<T>;
+        sameDayIncorporation?: T | SameDayIncorporationBlockSelect<T>;
         packageGrid?: T | PackageGridBlockSelect<T>;
         packageInclusions?: T | PackageInclusionsBlockSelect<T>;
         recommendedPackages?: T | RecommendedPackagesBlockSelect<T>;
@@ -5943,6 +5981,23 @@ export interface AdBannerBlockSelect<T extends boolean = true> {
         paddingTop?: T;
         paddingBottom?: T;
         gap?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SameDayIncorporationBlock_select".
+ */
+export interface SameDayIncorporationBlockSelect<T extends boolean = true> {
+  heading?: T;
+  body?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
       };
   id?: T;
   blockName?: T;
