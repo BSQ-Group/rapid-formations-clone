@@ -27,6 +27,7 @@ import { RegisterCompanyStepsBlock } from '@/blocks/RegisterCompanySteps/Compone
 import { SupportBlock } from '@/blocks/Support/Component'
 import { TestimonialsBlock } from '@/blocks/Testimonials/Component'
 import { TestimonialQuoteBlock } from '@/blocks/TestimonialQuote/Component'
+import { OrderStepsBlock } from '@/blocks/OrderSteps/Component'
 import { FourStepsBlock } from '@/blocks/FourSteps/Component'
 import { AdBannerBlock } from '@/blocks/AdBanner/Component'
 import { PackageGridBlock } from '@/blocks/PackageGrid/Component'
@@ -114,6 +115,7 @@ const blockComponents = {
   support: SupportBlock,
   testimonials: TestimonialsBlock,
   testimonialQuote: TestimonialQuoteBlock,
+  orderSteps: OrderStepsBlock,
   fourSteps: FourStepsBlock,
   adBanner: AdBannerBlock,
   packageGrid: PackageGridBlock,
