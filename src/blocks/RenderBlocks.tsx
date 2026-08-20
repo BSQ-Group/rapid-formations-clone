@@ -28,6 +28,7 @@ import { SupportBlock } from '@/blocks/Support/Component'
 import { TestimonialsBlock } from '@/blocks/Testimonials/Component'
 import { TestimonialQuoteBlock } from '@/blocks/TestimonialQuote/Component'
 import { OrderStepsBlock } from '@/blocks/OrderSteps/Component'
+import { OurOfficesBlockComponent } from '@/blocks/OurOffices/Component'
 import { FourStepsBlock } from '@/blocks/FourSteps/Component'
 import { AdBannerBlock } from '@/blocks/AdBanner/Component'
 import { PackageGridBlock } from '@/blocks/PackageGrid/Component'
@@ -116,6 +117,7 @@ const blockComponents = {
   testimonials: TestimonialsBlock,
   testimonialQuote: TestimonialQuoteBlock,
   orderSteps: OrderStepsBlock,
+  ourOffices: OurOfficesBlockComponent,
   fourSteps: FourStepsBlock,
   adBanner: AdBannerBlock,
   packageGrid: PackageGridBlock,
