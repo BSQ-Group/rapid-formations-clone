@@ -48,6 +48,7 @@ import { TrustPilotBannerBlock } from '@/blocks/TrustPilotBanner/Component'
 import { PackagesHeroBlock } from '@/blocks/PackagesHero/Component'
 import { WhatsIncludedBlock } from '@/blocks/WhatsIncluded/Component'
 import { SiteMapBlockComponent } from '@/blocks/SiteMap/Component'
+import { RenewalItemsBlockComponent } from '@/blocks/RenewalItems/Component'
 import { SearchCTABlock } from '@/blocks/SearchCTA/Component'
 import { AboutThisServiceBlock } from '@/blocks/AboutThisService/Component'
 import { OtherWaysToBuyBlock } from '@/blocks/OtherWaysToBuy/Component'
@@ -143,6 +144,7 @@ const blockComponents = {
   packagesHero: PackagesHeroBlock,
   whatsIncluded: WhatsIncludedBlock,
   siteMap: SiteMapBlockComponent,
+  renewalItems: RenewalItemsBlockComponent,
   packagesCTA: SearchCTABlock,
   aboutThisService: AboutThisServiceBlock,
   otherWaysToBuy: OtherWaysToBuyBlock,

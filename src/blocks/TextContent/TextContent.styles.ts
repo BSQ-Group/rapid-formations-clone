@@ -20,6 +20,15 @@ const standard = {
   lists: bulletLists,
 }
 
+const pageSections = {
+  lists: bulletLists,
+
+  spacing: '[&_p]:!mb-4',
+
+  headings:
+    '[&_h2]:!mb-2 [&_h2]:text-[36px] [&_h2]:leading-[44.46px] [&_h3]:!mt-0 [&_h3]:!mb-2 [&_h3]:text-[21px] [&_h3]:leading-[25.935px]',
+}
+
 const policy = {
   lists: bulletLists,
 
@@ -94,4 +103,4 @@ const cookies = {
   code: '[&_code]:[font-family:inherit]',
 }
 
-export const variantStyles = { standard, policy, numbered, terms, cookies }
+export const variantStyles = { standard, pageSections, policy, numbered, terms, cookies }

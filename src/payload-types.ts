@@ -263,6 +263,7 @@ export interface Page {
         | PackagesHeroBlock
         | WhatsIncludedBlock
         | SiteMapBlock
+        | RenewalItemsBlock
         | SearchCTABlock
         | AboutThisServiceBlock
         | OtherWaysToBuyBlock
@@ -3038,6 +3039,65 @@ export interface SiteMapBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RenewalItemsBlock".
+ */
+export interface RenewalItemsBlock {
+  items: {
+    title: string;
+    /**
+     * Matches an entry in the Prices global, e.g. "london-registered-office".
+     */
+    priceSlug: string;
+    body: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    cta: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+    };
+    id?: string | null;
+  }[];
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, S 75px, M 50/75/110, L 70/140.
+     */
+    gap?: ('inherit' | 'xs' | 'sm' | 's' | 'm' | 'l') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'renewalItems';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "SearchCTABlock".
  */
 export interface SearchCTABlock {
@@ -5179,9 +5239,9 @@ export interface TextContentBlock {
     [k: string]: unknown;
   };
   /**
-   * Standard matches the default long-form body. Policy carries the page-scoped overrides the Environmental Policy page uses. Numbered clauses renders the multi-level counter numbering the Whistleblowing policy uses. Cookies policy narrows the measure and boxes the paragraphs that name a cookie.
+   * Standard matches the default long-form body. Page sections carries the site baseline heading sizes the renewals page uses. Policy carries the page-scoped overrides the Environmental Policy page uses. Numbered clauses renders the multi-level counter numbering the Whistleblowing policy uses. Cookies policy narrows the measure and boxes the paragraphs that name a cookie.
    */
-  variant?: ('standard' | 'policy' | 'numbered' | 'terms' | 'cookies') | null;
+  variant?: ('standard' | 'pageSections' | 'policy' | 'numbered' | 'terms' | 'cookies') | null;
   /**
    * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
    */
@@ -5189,6 +5249,10 @@ export interface TextContentBlock {
     background: 'light' | 'dark' | 'inverse';
     paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
     paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, S 75px, M 50/75/110, L 70/140.
+     */
+    gap?: ('inherit' | 'xs' | 'sm' | 's' | 'm' | 'l') | null;
   };
   id?: string | null;
   blockName?: string | null;
@@ -5684,6 +5748,7 @@ export interface PagesSelect<T extends boolean = true> {
         packagesHero?: T | PackagesHeroBlockSelect<T>;
         whatsIncluded?: T | WhatsIncludedBlockSelect<T>;
         siteMap?: T | SiteMapBlockSelect<T>;
+        renewalItems?: T | RenewalItemsBlockSelect<T>;
         packagesCTA?: T | SearchCTABlockSelect<T>;
         aboutThisService?: T | AboutThisServiceBlockSelect<T>;
         otherWaysToBuy?: T | OtherWaysToBuyBlockSelect<T>;
@@ -6998,6 +7063,39 @@ export interface SiteMapBlockSelect<T extends boolean = true> {
     | {
         heading?: T;
         links?: T;
+        id?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+        gap?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RenewalItemsBlock_select".
+ */
+export interface RenewalItemsBlockSelect<T extends boolean = true> {
+  items?:
+    | T
+    | {
+        title?: T;
+        priceSlug?: T;
+        body?: T;
+        cta?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
         id?: T;
       };
   sectionLayout?:
@@ -8334,6 +8432,7 @@ export interface TextContentBlockSelect<T extends boolean = true> {
         background?: T;
         paddingTop?: T;
         paddingBottom?: T;
+        gap?: T;
       };
   id?: T;
   blockName?: T;

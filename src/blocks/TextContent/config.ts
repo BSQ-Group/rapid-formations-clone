@@ -29,6 +29,7 @@ export const TextContent: Block = {
       label: 'Typography variant',
       options: [
         { label: 'Standard', value: 'standard' },
+        { label: 'Page sections (site baseline headings, 21px H3)', value: 'pageSections' },
         { label: 'Policy (lettered lists, wider section spacing)', value: 'policy' },
         { label: 'Numbered clauses (1., 3.1., 3.1.1.)', value: 'numbered' },
         { label: 'Terms (clause numbering typed into the text)', value: 'terms' },
@@ -36,10 +37,11 @@ export const TextContent: Block = {
       ],
       admin: {
         description:
-          'Standard matches the default long-form body. Policy carries the page-scoped overrides the Environmental Policy page uses. Numbered clauses renders the multi-level counter numbering the Whistleblowing policy uses. Cookies policy narrows the measure and boxes the paragraphs that name a cookie.',
+          'Standard matches the default long-form body. Page sections carries the site baseline heading sizes the renewals page uses. Policy carries the page-scoped overrides the Environmental Policy page uses. Numbered clauses renders the multi-level counter numbering the Whistleblowing policy uses. Cookies policy narrows the measure and boxes the paragraphs that name a cookie.',
       },
     },
     sectionLayoutField({
+      gap: true,
       defaults: { background: 'light', paddingTop: 'none', paddingBottom: 'l' },
     }),
   ],
