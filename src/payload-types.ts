@@ -262,6 +262,7 @@ export interface Page {
         | TrustPilotBannerBlock
         | PackagesHeroBlock
         | WhatsIncludedBlock
+        | SiteMapBlock
         | SearchCTABlock
         | AboutThisServiceBlock
         | OtherWaysToBuyBlock
@@ -2992,6 +2993,45 @@ export interface WhatsIncludedBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SiteMapBlock".
+ */
+export interface SiteMapBlock {
+  sections: {
+    heading: string;
+    /**
+     * A bulleted list of links. Each bullet renders with a chevron.
+     */
+    links: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    id?: string | null;
+  }[];
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'siteMap';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "SearchCTABlock".
  */
 export interface SearchCTABlock {
@@ -5525,6 +5565,7 @@ export interface PagesSelect<T extends boolean = true> {
         trustpilotBanner?: T | TrustPilotBannerBlockSelect<T>;
         packagesHero?: T | PackagesHeroBlockSelect<T>;
         whatsIncluded?: T | WhatsIncludedBlockSelect<T>;
+        siteMap?: T | SiteMapBlockSelect<T>;
         packagesCTA?: T | SearchCTABlockSelect<T>;
         aboutThisService?: T | AboutThisServiceBlockSelect<T>;
         otherWaysToBuy?: T | OtherWaysToBuyBlockSelect<T>;
@@ -6816,6 +6857,28 @@ export interface WhatsIncludedBlockSelect<T extends boolean = true> {
               benefit?: T;
               id?: T;
             };
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SiteMapBlock_select".
+ */
+export interface SiteMapBlockSelect<T extends boolean = true> {
+  sections?:
+    | T
+    | {
+        heading?: T;
+        links?: T;
+        id?: T;
       };
   sectionLayout?:
     | T

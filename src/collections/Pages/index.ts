@@ -47,6 +47,7 @@ import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { TrustPilotBanner } from '../../blocks/TrustPilotBanner/config'
 import { PackagesHero } from '../../blocks/PackagesHero/config'
 import { WhatsIncluded } from '../../blocks/WhatsIncluded/config'
+import { SiteMap } from '@/blocks/SiteMap/config'
 import { SearchCTA } from '../../blocks/SearchCTA/config'
 import { AboutThisService } from '../../blocks/AboutThisService/config'
 import { OtherWaysToBuy } from '../../blocks/OtherWaysToBuy/config'
@@ -205,6 +206,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 TrustPilotBanner,
                 PackagesHero,
                 WhatsIncluded,
+                SiteMap,
                 SearchCTA,
                 AboutThisService,
                 OtherWaysToBuy,
