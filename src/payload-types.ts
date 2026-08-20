@@ -266,6 +266,7 @@ export interface Page {
         | RegisteredOfficePurposeBlock
         | OfficePhotoAddressBlock
         | ServicesCTABlock
+        | AffiliateProgramBlock
         | CustomerQuoteBlock
         | RegisteredOfficeAddressBlock
         | ServicesTestimonialBlock
@@ -3166,6 +3167,56 @@ export interface ServicesCTABlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AffiliateProgramBlock".
+ */
+export interface AffiliateProgramBlock {
+  /**
+   * Heading, intro paragraph and a bulleted list. Each bullet renders with a chevron.
+   */
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  cta: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+  };
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'affiliateProgram';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "CustomerQuoteBlock".
  */
 export interface CustomerQuoteBlock {
@@ -5391,6 +5442,7 @@ export interface PagesSelect<T extends boolean = true> {
         registeredOfficePurpose?: T | RegisteredOfficePurposeBlockSelect<T>;
         officePhotoAddress?: T | OfficePhotoAddressBlockSelect<T>;
         servicesCTA?: T | ServicesCTABlockSelect<T>;
+        affiliateProgram?: T | AffiliateProgramBlockSelect<T>;
         customerQuote?: T | CustomerQuoteBlockSelect<T>;
         registeredOfficeAddress?: T | RegisteredOfficeAddressBlockSelect<T>;
         servicesTestimonial?: T | ServicesTestimonialBlockSelect<T>;
@@ -6802,6 +6854,31 @@ export interface ServicesCTABlockSelect<T extends boolean = true> {
         appearance?: T;
       };
   backgroundImage?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AffiliateProgramBlock_select".
+ */
+export interface AffiliateProgramBlockSelect<T extends boolean = true> {
+  content?: T;
+  cta?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
   sectionLayout?:
     | T
     | {

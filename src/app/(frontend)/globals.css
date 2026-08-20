@@ -340,6 +340,7 @@
     --surface-on-light-sunken: rgb(240 240 240);
     --surface-on-light-tile: rgb(241 241 241);
     --surface-on-light-hover: rgb(0 0 0 / 0.03);
+    --surface-on-light-wash-blue: rgb(241 245 255);
     --icon-on-light-faint: rgb(199 199 199);
     --icon-step-complete: rgb(27 193 113);
     --icon-map-marker: rgb(231 76 60);
