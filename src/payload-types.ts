@@ -236,6 +236,7 @@ export interface Page {
         | TestimonialQuoteBlock
         | FourStepsBlock
         | PackageGridBlock
+        | PackageInclusionsBlock
         | UniqueSellingPointsBlock
         | WhyChooseUsBlock
         | BCorpCertificationBlock
@@ -1546,6 +1547,91 @@ export interface PackageGridBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'packageGrid';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PackageInclusionsBlock".
+ */
+export interface PackageInclusionsBlock {
+  heading: string;
+  /**
+   * Above 1023px these flow down the left column and then the right, so the order here reads column by column, not row by row. The source packages run 9, 12 and 17 items.
+   */
+  items: {
+    icon:
+      | 'badgeCheck'
+      | 'university'
+      | 'cashRegister'
+      | 'envelope'
+      | 'fileArchive'
+      | 'fileEdit'
+      | 'globeEurope'
+      | 'lifeRing'
+      | 'moneyCheckEdit'
+      | 'desktop'
+      | 'phoneRotary'
+      | 'screenUsers'
+      | 'tools'
+      | 'users';
+    title: string;
+    content: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    id?: string | null;
+  }[];
+  /**
+   * Matches an entry in the Prices global, e.g. "basic-package". Leave empty to show the button without a price.
+   */
+  priceSlug?: string | null;
+  /**
+   * Small line under the price, e.g. "+ £100 Companies House Fee".
+   */
+  priceNote?: string | null;
+  /**
+   * The green button beside the price. Leave the label empty to omit it.
+   */
+  cta?: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label?: string | null;
+  };
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, S 75px, M 50/75/110, L 70/140.
+     */
+    gap?: ('inherit' | 'xs' | 'sm' | 's' | 'm' | 'l') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'packageInclusions';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -5010,6 +5096,7 @@ export interface PagesSelect<T extends boolean = true> {
         testimonialQuote?: T | TestimonialQuoteBlockSelect<T>;
         fourSteps?: T | FourStepsBlockSelect<T>;
         packageGrid?: T | PackageGridBlockSelect<T>;
+        packageInclusions?: T | PackageInclusionsBlockSelect<T>;
         uniqueSellingPoints?: T | UniqueSellingPointsBlockSelect<T>;
         whyChooseUs?: T | WhyChooseUsBlockSelect<T>;
         bCorpCertification?: T | BCorpCertificationBlockSelect<T>;
@@ -5577,6 +5664,42 @@ export interface PackageGridBlockSelect<T extends boolean = true> {
       };
   contactNote?: T;
   footerNote?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PackageInclusionsBlock_select".
+ */
+export interface PackageInclusionsBlockSelect<T extends boolean = true> {
+  heading?: T;
+  items?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        content?: T;
+        id?: T;
+      };
+  priceSlug?: T;
+  priceNote?: T;
+  cta?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+        gap?: T;
+      };
   id?: T;
   blockName?: T;
 }

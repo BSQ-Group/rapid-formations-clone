@@ -28,6 +28,7 @@ import { TestimonialsBlock } from '@/blocks/Testimonials/Component'
 import { TestimonialQuoteBlock } from '@/blocks/TestimonialQuote/Component'
 import { FourStepsBlock } from '@/blocks/FourSteps/Component'
 import { PackageGridBlock } from '@/blocks/PackageGrid/Component'
+import { PackageInclusionsBlock } from '@/blocks/PackageInclusions/Component'
 import { UniqueSellingPointsBlock } from '@/blocks/UniqueSellingPoints/Component'
 import { WhyChooseUsBlock } from '@/blocks/WhyChooseUs/Component'
 import { WhyUseAgentBlock } from '@/blocks/WhyUseAgent/Component'
@@ -111,6 +112,7 @@ const blockComponents = {
   testimonialQuote: TestimonialQuoteBlock,
   fourSteps: FourStepsBlock,
   packageGrid: PackageGridBlock,
+  packageInclusions: PackageInclusionsBlock,
   uniqueSellingPoints: UniqueSellingPointsBlock,
   whyChooseUs: WhyChooseUsBlock,
   whyUseAgent: WhyUseAgentBlock,

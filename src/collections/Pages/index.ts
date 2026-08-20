@@ -19,6 +19,7 @@ import { Testimonials } from '../../blocks/Testimonials/config'
 import { TestimonialQuote } from '@/blocks/TestimonialQuote/config'
 import { FourSteps } from '../../blocks/FourSteps/config'
 import { PackageGrid } from '../../blocks/PackageGrid/config'
+import { PackageInclusions } from '../../blocks/PackageInclusions/config'
 import { UniqueSellingPoints } from '../../blocks/UniqueSellingPoints/config'
 import { WhyChooseUs } from '../../blocks/WhyChooseUs/config'
 import { WhyUseAgent } from '../../blocks/WhyUseAgent/config'
@@ -170,6 +171,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 TestimonialQuote,
                 FourSteps,
                 PackageGrid,
+                PackageInclusions,
                 UniqueSellingPoints,
                 WhyChooseUs,
                 BCorpCertification,
