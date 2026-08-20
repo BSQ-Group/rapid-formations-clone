@@ -27,6 +27,7 @@ import { BCorpCertification } from '../../blocks/BCorpCertification/config'
 import { AdditionalServices } from '../../blocks/AdditionalServices/config'
 import { ServiceAds } from '../../blocks/ServiceAds/config'
 import { PurchaseAnAddress } from '../../blocks/PurchaseAnAddress/config'
+import { StepsItems } from '../../blocks/StepsItems/config'
 import { BuyService } from '../../blocks/BuyService/config'
 import { ServiceContent } from '../../blocks/ServiceContent/config'
 import { OurAddress } from '../../blocks/OurAddress/config'
@@ -178,6 +179,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 AdditionalServices,
                 ServiceAds,
                 PurchaseAnAddress,
+                StepsItems,
                 BuyService,
                 ServiceContent,
                 OurAddress,

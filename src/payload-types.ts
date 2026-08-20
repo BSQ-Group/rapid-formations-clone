@@ -245,6 +245,7 @@ export interface Page {
         | AdditionalServicesBlock
         | ServiceAdsBlock
         | PurchaseAnAddressBlock
+        | StepsItemsBlock
         | BuyServiceBlock
         | ServiceContentBlock
         | OurAddressBlock
@@ -2042,6 +2043,60 @@ export interface PurchaseAnAddressBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'purchaseAnAddress';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StepsItemsBlock".
+ */
+export interface StepsItemsBlock {
+  /**
+   * One bordered tile per step, stacked full width. The source pages run 4 and 7 steps.
+   */
+  steps: {
+    icon: 'mapMarker' | 'fileChartLine' | 'user' | 'users' | 'file' | 'dotCircle' | 'search' | 'shoppingCart' | 'flag';
+    /**
+     * Tints the icon only. Every step on a help-centre checklist keeps the default; the 4-step formation walkthrough gives each step its own colour.
+     */
+    iconColour: 'cyan' | 'green' | 'orange' | 'magenta' | 'blue';
+    /**
+     * Includes the step number, e.g. "1. Registered Office Address".
+     */
+    heading: string;
+    /**
+     * Optional qualifier that wraps onto a second line under the heading, indented to match it.
+     */
+    subtitle?: string | null;
+    /**
+     * Paragraphs and lists. List items get a chevron marker instead of a bullet, and nesting is supported one level deep.
+     */
+    content: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    id?: string | null;
+  }[];
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'stepsItems';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4964,6 +5019,7 @@ export interface PagesSelect<T extends boolean = true> {
         additionalServices?: T | AdditionalServicesBlockSelect<T>;
         serviceAds?: T | ServiceAdsBlockSelect<T>;
         purchaseAnAddress?: T | PurchaseAnAddressBlockSelect<T>;
+        stepsItems?: T | StepsItemsBlockSelect<T>;
         buyService?: T | BuyServiceBlockSelect<T>;
         serviceContent?: T | ServiceContentBlockSelect<T>;
         ourAddress?: T | OurAddressBlockSelect<T>;
@@ -5775,6 +5831,31 @@ export interface PurchaseAnAddressBlockSelect<T extends boolean = true> {
               url?: T;
               label?: T;
             };
+        id?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StepsItemsBlock_select".
+ */
+export interface StepsItemsBlockSelect<T extends boolean = true> {
+  steps?:
+    | T
+    | {
+        icon?: T;
+        iconColour?: T;
+        heading?: T;
+        subtitle?: T;
+        content?: T;
         id?: T;
       };
   sectionLayout?:
