@@ -252,6 +252,7 @@ export interface Page {
         | GlossaryBlock
         | PurchaseAnAddressBlock
         | StepsItemsBlock
+        | ComparePackageTableBlock
         | BuyServiceBlock
         | ServiceContentBlock
         | OurAddressBlock
@@ -2448,6 +2449,185 @@ export interface StepsItemsBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'stepsItems';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ComparePackageTableBlock".
+ */
+export interface ComparePackageTableBlock {
+  heading: string;
+  /**
+   * Shown beside the heading when the table has one or two packages.
+   */
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Sits under the heading in the first column. Only rendered with three packages.
+   */
+  sameDay?: {
+    heading?: string | null;
+    body?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+  };
+  /**
+   * One, two or three. The header, footer and feature rows each lay out differently for each count.
+   */
+  packages: {
+    name: string;
+    /**
+     * Matches the values in a feature row's "Included in".
+     */
+    slug: string;
+    price: string;
+    priceNote?: string | null;
+    ribbonText?: string | null;
+    /**
+     * Desktop only, and only with three packages.
+     */
+    whosItFor?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    /**
+     * Mobile card only.
+     */
+    shortDescription?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    buyLink: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+    };
+    readMoreLink?: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label?: string | null;
+    };
+    id?: string | null;
+  }[];
+  products: {
+    name: string;
+    tooltip?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    /**
+     * Package slugs that include this feature. Anything not listed renders a dash.
+     */
+    includedIn?: string[] | null;
+    id?: string | null;
+  }[];
+  /**
+   * Floor under the mobile card description so the Buy Now buttons line up across a swipe. AUTO on single-package tables.
+   */
+  mobileCardHeight: 'auto' | 'tall' | 'taller';
+  footnote?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'comparePackageTable';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -5377,6 +5557,7 @@ export interface PagesSelect<T extends boolean = true> {
         glossary?: T | GlossaryBlockSelect<T>;
         purchaseAnAddress?: T | PurchaseAnAddressBlockSelect<T>;
         stepsItems?: T | StepsItemsBlockSelect<T>;
+        comparePackageTable?: T | ComparePackageTableBlockSelect<T>;
         buyService?: T | BuyServiceBlockSelect<T>;
         serviceContent?: T | ServiceContentBlockSelect<T>;
         ourAddress?: T | OurAddressBlockSelect<T>;
@@ -6395,6 +6576,69 @@ export interface StepsItemsBlockSelect<T extends boolean = true> {
         content?: T;
         id?: T;
       };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ComparePackageTableBlock_select".
+ */
+export interface ComparePackageTableBlockSelect<T extends boolean = true> {
+  heading?: T;
+  content?: T;
+  sameDay?:
+    | T
+    | {
+        heading?: T;
+        body?: T;
+      };
+  packages?:
+    | T
+    | {
+        name?: T;
+        slug?: T;
+        price?: T;
+        priceNote?: T;
+        ribbonText?: T;
+        whosItFor?: T;
+        shortDescription?: T;
+        buyLink?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        readMoreLink?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  products?:
+    | T
+    | {
+        name?: T;
+        tooltip?: T;
+        includedIn?: T;
+        id?: T;
+      };
+  mobileCardHeight?: T;
+  footnote?: T;
   sectionLayout?:
     | T
     | {

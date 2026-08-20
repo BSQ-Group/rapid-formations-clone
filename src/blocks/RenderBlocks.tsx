@@ -7,6 +7,7 @@ import { ServiceAdsBlock } from '@/blocks/ServiceAds/Component'
 import { GlossaryBlock } from '@/blocks/Glossary/Component'
 import { PurchaseAnAddressBlock } from '@/blocks/PurchaseAnAddress/Component'
 import { StepsItemsBlock } from '@/blocks/StepsItems/Component'
+import { ComparePackageTableBlockComponent } from '@/blocks/ComparePackageTable/Component'
 import { BuyServiceBlock } from '@/blocks/BuyService/Component'
 import { ServiceContentBlock } from '@/blocks/ServiceContent/Component'
 import { OurAddressBlock } from '@/blocks/OurAddress/Component'
@@ -96,6 +97,7 @@ const blockComponents = {
   glossary: GlossaryBlock,
   purchaseAnAddress: PurchaseAnAddressBlock,
   stepsItems: StepsItemsBlock,
+  comparePackageTable: ComparePackageTableBlockComponent,
   buyService: BuyServiceBlock,
   serviceContent: ServiceContentBlock,
   ourAddress: OurAddressBlock,
