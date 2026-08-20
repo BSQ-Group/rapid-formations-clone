@@ -246,6 +246,7 @@ export interface Page {
         | BCorpCertificationBlock
         | BankingPartnersBlock
         | ChooseCompanyStructureBlock
+        | ComparePackagesNavBlock
         | OurLatestBlogsBlock
         | AdditionalServicesBlock
         | ServiceAdsBlock
@@ -2096,6 +2097,44 @@ export interface ChooseCompanyStructureBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'chooseCompanyStructure';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ComparePackagesNavBlock".
+ */
+export interface ComparePackagesNavBlock {
+  /**
+   * The tab whose link matches the current page is highlighted automatically; there is no active flag to keep in sync.
+   */
+  tabs: {
+    link: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+    };
+    id?: string | null;
+  }[];
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'comparePackagesNav';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -5371,6 +5410,7 @@ export interface PagesSelect<T extends boolean = true> {
         bCorpCertification?: T | BCorpCertificationBlockSelect<T>;
         bankingPartners?: T | BankingPartnersBlockSelect<T>;
         chooseCompanyStructure?: T | ChooseCompanyStructureBlockSelect<T>;
+        comparePackagesNav?: T | ComparePackagesNavBlockSelect<T>;
         ourLatestBlogs?: T | OurLatestBlogsBlockSelect<T>;
         additionalServices?: T | AdditionalServicesBlockSelect<T>;
         serviceAds?: T | ServiceAdsBlockSelect<T>;
@@ -6204,6 +6244,35 @@ export interface ChooseCompanyStructureBlockSelect<T extends boolean = true> {
         title?: T;
         body?: T;
         image?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ComparePackagesNavBlock_select".
+ */
+export interface ComparePackagesNavBlockSelect<T extends boolean = true> {
+  tabs?:
+    | T
+    | {
         link?:
           | T
           | {
