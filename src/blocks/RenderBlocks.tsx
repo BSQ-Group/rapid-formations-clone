@@ -63,6 +63,7 @@ import { TestimonialBannerBlock } from '@/blocks/TestimonialBanner/Component'
 import { HowItWorksBlock } from '@/blocks/HowItWorks/Component'
 import { LegalSidenavBlock } from '@/blocks/LegalSidenav/Component'
 import { LegalContentBlock } from '@/blocks/LegalContent/Component'
+import { ContactUsBlockComponent } from '@/blocks/ContactUs/Component'
 import { ComparePackagesHeaderBlock } from '@/blocks/ComparePackagesHeader/Component'
 import { PromoCardBlock } from '@/blocks/PromoCard/Component'
 import { PromoTier3Block } from '@/blocks/PromoTier3/Component'
@@ -157,6 +158,7 @@ const blockComponents = {
   howItWorks: HowItWorksBlock,
   legalSidenav: LegalSidenavBlock,
   legalContent: LegalContentBlock,
+  contactUs: ContactUsBlockComponent,
   comparePackagesHeader: ComparePackagesHeaderBlock,
   promoCard: PromoCardBlock,
   promoTier3: PromoTier3Block,

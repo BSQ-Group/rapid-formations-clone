@@ -63,6 +63,7 @@ import { TestimonialBanner } from '../../blocks/TestimonialBanner/config'
 import { HowItWorks } from '../../blocks/HowItWorks/config'
 import { LegalSidenav } from '../../blocks/LegalSidenav/config'
 import { LegalContent } from '../../blocks/LegalContent/config'
+import { ContactUs } from '@/blocks/ContactUs/config'
 import { ComparePackagesHeader } from '../../blocks/ComparePackagesHeader/config'
 import { PromoCard } from '../../blocks/PromoCard/config'
 import { PromoTier3 } from '../../blocks/PromoTier3/config'
@@ -223,6 +224,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 HowItWorks,
                 LegalSidenav,
                 LegalContent,
+                ContactUs,
                 ComparePackagesHeader,
                 PromoCard,
                 PromoTier3,

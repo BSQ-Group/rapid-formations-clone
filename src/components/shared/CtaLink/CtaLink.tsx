@@ -4,6 +4,18 @@ import Link from 'next/link'
 import { cn } from '@/utilities/ui'
 import { ctaLinkStyles as s } from './CtaLink.styles'
 
+export const ctaLinkClasses = ({
+  size = 'lg',
+  tone = 'cyan',
+  block = false,
+  className,
+}: {
+  size?: keyof typeof s.size
+  tone?: keyof typeof s.tone
+  block?: boolean
+  className?: string
+} = {}) => cn(s.base, s.tone[tone], s.size[size], block && s.block, className)
+
 export type CtaLinkProps = {
   href: string
   label: string
@@ -31,7 +43,7 @@ export const CtaLink: React.FC<CtaLinkProps> = ({
     href={href}
     target={newTab ? '_blank' : undefined}
     rel={rel ?? (newTab ? 'noopener noreferrer' : undefined)}
-    className={cn(s.base, s.tone[tone], s.size[size], block && s.block, className)}
+    className={ctaLinkClasses({ size, tone, block, className })}
   >
     {icon ? (
       <>

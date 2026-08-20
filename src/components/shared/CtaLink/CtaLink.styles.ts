@@ -3,6 +3,8 @@ export const ctaLinkStyles = {
 
   tone: {
     cyan: 'border-[var(--surface-brand-cyan)] bg-[var(--surface-brand-cyan)] hover:border-[var(--surface-brand-cyan-hover)] hover:bg-[var(--surface-brand-cyan-hover)]',
+    cyanLift:
+      'border-[var(--surface-brand-cyan)] bg-[var(--surface-brand-cyan)] hover:border-[var(--surface-brand-cyan-lift)] hover:bg-[var(--surface-brand-cyan-lift)]',
     success:
       'border-[var(--surface-cta-success)] bg-[var(--surface-cta-success)] hover:border-[var(--surface-cta-success-hover)] hover:bg-[var(--surface-cta-success-hover)]',
   },

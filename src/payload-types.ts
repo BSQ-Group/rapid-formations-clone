@@ -278,6 +278,7 @@ export interface Page {
         | HowItWorksBlock
         | LegalSidenavBlock
         | LegalContentBlock
+        | ContactUsBlock
         | ComparePackagesHeaderBlock
         | PromoCardBlock
         | PromoTier3Block
@@ -3676,6 +3677,68 @@ export interface LegalContentBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactUsBlock".
+ */
+export interface ContactUsBlock {
+  sections: {
+    heading: string;
+    body: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    buttons?:
+      | {
+          /**
+           * Live chat opens the HubSpot conversations widget. It does nothing on pages where that widget is not loaded.
+           */
+          action: 'link' | 'liveChat';
+          icon?: ('none' | 'phone') | null;
+          chatLabel?: string | null;
+          cta?: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label?: string | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
+    id?: string | null;
+  }[];
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contactUs';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ComparePackagesHeaderBlock".
  */
 export interface ComparePackagesHeaderBlock {
@@ -5632,6 +5695,7 @@ export interface PagesSelect<T extends boolean = true> {
         howItWorks?: T | HowItWorksBlockSelect<T>;
         legalSidenav?: T | LegalSidenavBlockSelect<T>;
         legalContent?: T | LegalContentBlockSelect<T>;
+        contactUs?: T | ContactUsBlockSelect<T>;
         comparePackagesHeader?: T | ComparePackagesHeaderBlockSelect<T>;
         promoCard?: T | PromoCardBlockSelect<T>;
         promoTier3?: T | PromoTier3BlockSelect<T>;
@@ -7329,6 +7393,45 @@ export interface LegalContentBlockSelect<T extends boolean = true> {
           | {
               heading?: T;
               body?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactUsBlock_select".
+ */
+export interface ContactUsBlockSelect<T extends boolean = true> {
+  sections?:
+    | T
+    | {
+        heading?: T;
+        body?: T;
+        buttons?:
+          | T
+          | {
+              action?: T;
+              icon?: T;
+              chatLabel?: T;
+              cta?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
               id?: T;
             };
         id?: T;
