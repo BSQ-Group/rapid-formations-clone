@@ -11,6 +11,7 @@ export type CtaLinkProps = {
   size?: keyof typeof s.size
   tone?: keyof typeof s.tone
   block?: boolean
+  icon?: React.ReactNode
   className?: string
 }
 
@@ -21,6 +22,7 @@ export const CtaLink: React.FC<CtaLinkProps> = ({
   size = 'lg',
   tone = 'cyan',
   block = false,
+  icon,
   className,
 }) => (
   <Link
@@ -29,7 +31,14 @@ export const CtaLink: React.FC<CtaLinkProps> = ({
     rel={newTab ? 'noopener noreferrer' : undefined}
     className={cn(s.base, s.tone[tone], s.size[size], block && s.block, className)}
   >
-    {label}
+    {icon ? (
+      <>
+        <span className={s.icon}>{icon}</span>
+        <span>{label}</span>
+      </>
+    ) : (
+      label
+    )}
   </Link>
 )
 

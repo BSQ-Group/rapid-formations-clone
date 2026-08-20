@@ -365,6 +365,7 @@
     --surface-promo-blue-green: linear-gradient(51deg, rgb(62 173 207) 0%, rgb(171 233 205) 100%);
     --surface-promo-blue-purple: linear-gradient(51deg, rgb(40 132 184) 0%, rgb(209 186 210) 100%);
     --surface-promo-pink-purple: linear-gradient(315deg, rgb(249 197 209) 0%, rgb(151 149 239) 74%);
+    --surface-ad-banner: linear-gradient(248deg, rgb(95 47 168) 0%, rgb(13 8 69) 100%);
     --text-brand-cyan: rgb(0 177 227);
     --shadow-tile-raised:
       0 13px 27px -5px rgb(50 50 93 / 0.1), 0 8px 16px -8px rgb(0 0 0 / 0.1),
@@ -432,6 +433,8 @@
     --button-promo-blue-purple-hover: rgb(56 77 110);
     --button-promo-pink-purple-idle: rgb(188 103 197);
     --button-promo-pink-purple-hover: rgb(180 85 190);
+    --button-ad-banner-idle: rgb(26 13 84);
+    --button-ad-banner-hover: rgb(92 46 165);
 
     /* Icon */
     --icon-default: rgb(255 255 255);
