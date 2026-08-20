@@ -44,6 +44,7 @@ import { OurLatestBlogsBlock } from '@/blocks/OurLatestBlogs/Component'
 import { TrustPilotBannerBlock } from '@/blocks/TrustPilotBanner/Component'
 import { PackagesHeroBlock } from '@/blocks/PackagesHero/Component'
 import { WhatsIncludedBlock } from '@/blocks/WhatsIncluded/Component'
+import { SiteMapBlockComponent } from '@/blocks/SiteMap/Component'
 import { SearchCTABlock } from '@/blocks/SearchCTA/Component'
 import { AboutThisServiceBlock } from '@/blocks/AboutThisService/Component'
 import { OtherWaysToBuyBlock } from '@/blocks/OtherWaysToBuy/Component'
@@ -133,6 +134,7 @@ const blockComponents = {
   trustpilotBanner: TrustPilotBannerBlock,
   packagesHero: PackagesHeroBlock,
   whatsIncluded: WhatsIncludedBlock,
+  siteMap: SiteMapBlockComponent,
   packagesCTA: SearchCTABlock,
   aboutThisService: AboutThisServiceBlock,
   otherWaysToBuy: OtherWaysToBuyBlock,
