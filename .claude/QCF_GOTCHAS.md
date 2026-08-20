@@ -533,3 +533,20 @@ Each entry has four parts:
   # node -e "...lastCard.getBoundingClientRect().bottom vs container.getBoundingClientRect().bottom"
   ```
 - **Fix:** Pass `gap: true` to `sectionLayoutField` and default it to the value the source Section contributes (`s` for the standard 75px), then set it on the CMS document — the schema change alone does nothing to pages already authored. For the collapse, give the block's list container `flex flex-col`, which contains the margins exactly as the source's flex Section does and leaves inter-item spacing untouched. A hit from the grep is not automatically a bug: a block that is always the only section on its page, or whose source section has no following sibling, has no gap to reproduce. Note the port is still ~20px short at the bottom of **every** page — that is the source's global `Wrapper--wrapper__content` `padding-bottom`, not a per-block defect, and it should not be absorbed into a block's gap to make one page measure right.
+
+## `CtaLink`'s `[overflow-wrap:anywhere]` lets a short button label break mid-word where the source keeps it on one line
+
+- **When it bites:** You put a `CtaLink` in a flex row beside body copy, the way most source cards do — content on the left, button on the right. At wide and narrow viewports it looks right, and at one or two widths in between the label silently breaks in half ("Ord / er") and the button doubles in height. `ctaLinkStyles.base` carries `[overflow-wrap:anywhere]`, which drops the anchor's min-content width to a single character, so the flex item shrinks past the word instead of flooring at it. The source's equivalent button has no such rule: its min-content is the whole unbreakable word, which is what stops the row from squeezing it. Nothing about the class list looks wrong, and it is invisible at the two viewports people usually check — caught in `RenewalItems` only by measuring the anchor's box at five widths, where it read `85x69` against the source's `89x44` at 1024 and `78x69` at 470 while 768 and 1440 both matched.
+- **Detect:**
+  ```bash
+  # CtaLink used inside a flex row that can shrink — every hit needs the width check below:
+  grep -rl "CtaLink" src/blocks/*/*.tsx | while read -r f; do
+    grep -q "flex-row\|min-\[470px\]:flex-row\|md:flex-row" "$(dirname "$f")"/*.styles.ts 2>/dev/null && echo "check: $f"
+  done
+  ```
+  ```bash
+  # Confirm against the render — sweep widths, not just 390 and 1440. The anchor's height
+  # must not change between breakpoints:
+  # node -e "...a.getBoundingClientRect() at 390, 470, 768, 1024, 1440"
+  ```
+- **Fix:** Pass `[overflow-wrap:normal]` on the instance's `className` — it restores the word as the min-content floor, exactly like the source, while still letting a genuinely long multi-word label wrap between words. Do **not** reach for `whitespace-nowrap` (a long label then overflows its card instead of wrapping) and do **not** strip `[overflow-wrap:anywhere]` from `ctaLinkStyles.base` — it is there so an unbroken URL or email in a CTA cannot burst the button, which is the case the Storybook `UnbrokenToken` story covers.
