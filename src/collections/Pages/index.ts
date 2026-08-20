@@ -21,6 +21,7 @@ import { FourSteps } from '../../blocks/FourSteps/config'
 import { AdBanner } from '../../blocks/AdBanner/config'
 import { PackageGrid } from '../../blocks/PackageGrid/config'
 import { PackageInclusions } from '../../blocks/PackageInclusions/config'
+import { RecommendedPackages } from '../../blocks/RecommendedPackages/config'
 import { UniqueSellingPoints } from '../../blocks/UniqueSellingPoints/config'
 import { WhyChooseUs } from '../../blocks/WhyChooseUs/config'
 import { WhyUseAgent } from '../../blocks/WhyUseAgent/config'
@@ -175,6 +176,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 AdBanner,
                 PackageGrid,
                 PackageInclusions,
+                RecommendedPackages,
                 UniqueSellingPoints,
                 WhyChooseUs,
                 BCorpCertification,
