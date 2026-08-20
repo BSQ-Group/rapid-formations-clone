@@ -348,6 +348,8 @@
     --scrim-caption-grey: rgb(125 125 125 / 0.3);
     --shadow-banner-title:
       0 2px 2px rgb(255 255 255 / 0.3), 0 10px 10px rgb(0 0 0 / 0.3), 0 3px 3px rgb(0 0 0 / 0.8);
+    --shadow-pulse-cyan: rgb(204 244 255 / 0.8);
+    --shadow-pulse-cyan-fade: rgb(204 244 255 / 0);
 
     --surface-brand-cyan: rgb(0 177 227);
     --surface-brand-cyan-hover: rgb(0 156 200);
@@ -834,5 +836,19 @@ button {
     p {
       @apply mt-3;
     }
+  }
+}
+
+@keyframes same-day-pulse {
+  0% {
+    box-shadow: 0 0 0 0 var(--shadow-pulse-cyan);
+  }
+
+  70% {
+    box-shadow: 0 0 0 1rem var(--shadow-pulse-cyan-fade);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 var(--shadow-pulse-cyan-fade);
   }
 }

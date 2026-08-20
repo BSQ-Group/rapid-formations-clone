@@ -32,6 +32,7 @@ import { OrderStepsBlock } from '@/blocks/OrderSteps/Component'
 import { OurOfficesBlockComponent } from '@/blocks/OurOffices/Component'
 import { FourStepsBlock } from '@/blocks/FourSteps/Component'
 import { AdBannerBlock } from '@/blocks/AdBanner/Component'
+import { SameDayIncorporationBlockComponent } from '@/blocks/SameDayIncorporation/Component'
 import { PackageGridBlock } from '@/blocks/PackageGrid/Component'
 import { PackageInclusionsBlock } from '@/blocks/PackageInclusions/Component'
 import { RecommendedPackagesBlock } from '@/blocks/RecommendedPackages/Component'
@@ -122,6 +123,7 @@ const blockComponents = {
   ourOffices: OurOfficesBlockComponent,
   fourSteps: FourStepsBlock,
   adBanner: AdBannerBlock,
+  sameDayIncorporation: SameDayIncorporationBlockComponent,
   packageGrid: PackageGridBlock,
   packageInclusions: PackageInclusionsBlock,
   recommendedPackages: RecommendedPackagesBlock,

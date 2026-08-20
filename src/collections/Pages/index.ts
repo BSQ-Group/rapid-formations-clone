@@ -22,6 +22,7 @@ import { OrderSteps } from '@/blocks/OrderSteps/config'
 import { OurOffices } from '@/blocks/OurOffices/config'
 import { FourSteps } from '../../blocks/FourSteps/config'
 import { AdBanner } from '../../blocks/AdBanner/config'
+import { SameDayIncorporation } from '@/blocks/SameDayIncorporation/config'
 import { PackageGrid } from '../../blocks/PackageGrid/config'
 import { PackageInclusions } from '../../blocks/PackageInclusions/config'
 import { RecommendedPackages } from '../../blocks/RecommendedPackages/config'
@@ -180,6 +181,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 OurOffices,
                 FourSteps,
                 AdBanner,
+                SameDayIncorporation,
                 PackageGrid,
                 PackageInclusions,
                 RecommendedPackages,
