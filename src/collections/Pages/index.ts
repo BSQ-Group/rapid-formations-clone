@@ -18,6 +18,7 @@ import { Support } from '../../blocks/Support/config'
 import { Testimonials } from '../../blocks/Testimonials/config'
 import { TestimonialQuote } from '@/blocks/TestimonialQuote/config'
 import { OrderSteps } from '@/blocks/OrderSteps/config'
+import { OurOffices } from '@/blocks/OurOffices/config'
 import { FourSteps } from '../../blocks/FourSteps/config'
 import { AdBanner } from '../../blocks/AdBanner/config'
 import { PackageGrid } from '../../blocks/PackageGrid/config'
@@ -174,6 +175,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 Testimonials,
                 TestimonialQuote,
                 OrderSteps,
+                OurOffices,
                 FourSteps,
                 AdBanner,
                 PackageGrid,

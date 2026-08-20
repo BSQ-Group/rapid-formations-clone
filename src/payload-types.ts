@@ -235,6 +235,7 @@ export interface Page {
         | TestimonialsBlock
         | TestimonialQuoteBlock
         | OrderStepsBlock
+        | OurOfficesBlock
         | FourStepsBlock
         | AdBannerBlock
         | PackageGridBlock
@@ -1417,6 +1418,54 @@ export interface OrderStepsBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'orderSteps';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "OurOfficesBlock".
+ */
+export interface OurOfficesBlock {
+  /**
+   * Sits above the cards with a rule under it, e.g. "Our London Office".
+   */
+  heading: string;
+  offices: {
+    image: string | Media;
+    /**
+     * Which part of the photo stays in frame when it is cropped, as a percentage from the left. 50 is centred.
+     */
+    focalX?: number | null;
+    /**
+     * One line per row. Line breaks are preserved.
+     */
+    address: string;
+    mapLink: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+    };
+    id?: string | null;
+  }[];
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'ourOffices';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -5311,6 +5360,7 @@ export interface PagesSelect<T extends boolean = true> {
         testimonials?: T | TestimonialsBlockSelect<T>;
         testimonialQuote?: T | TestimonialQuoteBlockSelect<T>;
         orderSteps?: T | OrderStepsBlockSelect<T>;
+        ourOffices?: T | OurOfficesBlockSelect<T>;
         fourSteps?: T | FourStepsBlockSelect<T>;
         adBanner?: T | AdBannerBlockSelect<T>;
         packageGrid?: T | PackageGridBlockSelect<T>;
@@ -5800,6 +5850,39 @@ export interface TestimonialQuoteBlockSelect<T extends boolean = true> {
  */
 export interface OrderStepsBlockSelect<T extends boolean = true> {
   currentStep?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "OurOfficesBlock_select".
+ */
+export interface OurOfficesBlockSelect<T extends boolean = true> {
+  heading?: T;
+  offices?:
+    | T
+    | {
+        image?: T;
+        focalX?: T;
+        address?: T;
+        mapLink?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
   sectionLayout?:
     | T
     | {
