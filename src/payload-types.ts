@@ -238,6 +238,7 @@ export interface Page {
         | AdBannerBlock
         | PackageGridBlock
         | PackageInclusionsBlock
+        | RecommendedPackagesBlock
         | UniqueSellingPointsBlock
         | WhyChooseUsBlock
         | BCorpCertificationBlock
@@ -1689,6 +1690,85 @@ export interface PackageInclusionsBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'packageInclusions';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RecommendedPackagesBlock".
+ */
+export interface RecommendedPackagesBlock {
+  heading: string;
+  subheading?: string | null;
+  /**
+   * One card each, in a row of three above 1023px. At exactly two the pair is pushed to the outer edges of the grid, which is how the source lays two out.
+   */
+  packages: {
+    name: string;
+    /**
+     * Matches an entry in the Prices global, e.g. "all-inclusive".
+     */
+    priceSlug?: string | null;
+    /**
+     * Small line under the price, e.g. "+ £100 Companies House Fee".
+     */
+    priceNote?: string | null;
+    recommendedLabel?: string | null;
+    /**
+     * A bold line naming who the package suits, then the selling points as a list. List items get a chevron marker.
+     */
+    content: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    /**
+     * Optional corner ribbon, e.g. "Best value". Rendered uppercase, and only above 1023px.
+     */
+    ribbonText?: string | null;
+    /**
+     * Used by both the package name and the button below the card, as the source does.
+     */
+    cta: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+    };
+    id?: string | null;
+  }[];
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, S 75px, M 50/75/110, L 70/140.
+     */
+    gap?: ('inherit' | 'xs' | 'sm' | 's' | 'm' | 'l') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'recommendedPackages';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -5212,6 +5292,7 @@ export interface PagesSelect<T extends boolean = true> {
         adBanner?: T | AdBannerBlockSelect<T>;
         packageGrid?: T | PackageGridBlockSelect<T>;
         packageInclusions?: T | PackageInclusionsBlockSelect<T>;
+        recommendedPackages?: T | RecommendedPackagesBlockSelect<T>;
         uniqueSellingPoints?: T | UniqueSellingPointsBlockSelect<T>;
         whyChooseUs?: T | WhyChooseUsBlockSelect<T>;
         bCorpCertification?: T | BCorpCertificationBlockSelect<T>;
@@ -5834,6 +5915,44 @@ export interface PackageInclusionsBlockSelect<T extends boolean = true> {
         reference?: T;
         url?: T;
         label?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+        gap?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RecommendedPackagesBlock_select".
+ */
+export interface RecommendedPackagesBlockSelect<T extends boolean = true> {
+  heading?: T;
+  subheading?: T;
+  packages?:
+    | T
+    | {
+        name?: T;
+        priceSlug?: T;
+        priceNote?: T;
+        recommendedLabel?: T;
+        content?: T;
+        ribbonText?: T;
+        cta?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
       };
   sectionLayout?:
     | T

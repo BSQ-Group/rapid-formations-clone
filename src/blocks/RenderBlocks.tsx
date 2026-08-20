@@ -31,6 +31,7 @@ import { FourStepsBlock } from '@/blocks/FourSteps/Component'
 import { AdBannerBlock } from '@/blocks/AdBanner/Component'
 import { PackageGridBlock } from '@/blocks/PackageGrid/Component'
 import { PackageInclusionsBlock } from '@/blocks/PackageInclusions/Component'
+import { RecommendedPackagesBlock } from '@/blocks/RecommendedPackages/Component'
 import { UniqueSellingPointsBlock } from '@/blocks/UniqueSellingPoints/Component'
 import { WhyChooseUsBlock } from '@/blocks/WhyChooseUs/Component'
 import { WhyUseAgentBlock } from '@/blocks/WhyUseAgent/Component'
@@ -117,6 +118,7 @@ const blockComponents = {
   adBanner: AdBannerBlock,
   packageGrid: PackageGridBlock,
   packageInclusions: PackageInclusionsBlock,
+  recommendedPackages: RecommendedPackagesBlock,
   uniqueSellingPoints: UniqueSellingPointsBlock,
   whyChooseUs: WhyChooseUsBlock,
   whyUseAgent: WhyUseAgentBlock,
