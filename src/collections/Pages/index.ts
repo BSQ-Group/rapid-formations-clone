@@ -28,6 +28,7 @@ import { BankingPartners } from '../../blocks/BankingPartners/config'
 import { BCorpCertification } from '../../blocks/BCorpCertification/config'
 import { AdditionalServices } from '../../blocks/AdditionalServices/config'
 import { ServiceAds } from '../../blocks/ServiceAds/config'
+import { Glossary } from '../../blocks/Glossary/config'
 import { PurchaseAnAddress } from '../../blocks/PurchaseAnAddress/config'
 import { StepsItems } from '../../blocks/StepsItems/config'
 import { BuyService } from '../../blocks/BuyService/config'
@@ -182,6 +183,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 OurLatestBlogs,
                 AdditionalServices,
                 ServiceAds,
+                Glossary,
                 PurchaseAnAddress,
                 StepsItems,
                 BuyService,
