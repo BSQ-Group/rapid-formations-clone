@@ -234,6 +234,7 @@ export interface Page {
         | SupportBlock
         | TestimonialsBlock
         | TestimonialQuoteBlock
+        | OrderStepsBlock
         | FourStepsBlock
         | PackageGridBlock
         | UniqueSellingPointsBlock
@@ -1390,6 +1391,27 @@ export interface TestimonialQuoteBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'testimonialQuote';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "OrderStepsBlock".
+ */
+export interface OrderStepsBlock {
+  /**
+   * 1 Choose Company Name, 2 Select Package, 3 Checkout & Pay, 4 Enter Company Details.
+   */
+  currentStep: number;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'orderSteps';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4953,6 +4975,7 @@ export interface PagesSelect<T extends boolean = true> {
         support?: T | SupportBlockSelect<T>;
         testimonials?: T | TestimonialsBlockSelect<T>;
         testimonialQuote?: T | TestimonialQuoteBlockSelect<T>;
+        orderSteps?: T | OrderStepsBlockSelect<T>;
         fourSteps?: T | FourStepsBlockSelect<T>;
         packageGrid?: T | PackageGridBlockSelect<T>;
         uniqueSellingPoints?: T | UniqueSellingPointsBlockSelect<T>;
@@ -5421,6 +5444,22 @@ export interface TestimonialsBlockSelect<T extends boolean = true> {
  * via the `definition` "TestimonialQuoteBlock_select".
  */
 export interface TestimonialQuoteBlockSelect<T extends boolean = true> {
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "OrderStepsBlock_select".
+ */
+export interface OrderStepsBlockSelect<T extends boolean = true> {
+  currentStep?: T;
   sectionLayout?:
     | T
     | {
