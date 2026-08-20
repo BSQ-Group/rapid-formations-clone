@@ -235,6 +235,7 @@ export interface Page {
         | TestimonialsBlock
         | TestimonialQuoteBlock
         | FourStepsBlock
+        | AdBannerBlock
         | PackageGridBlock
         | PackageInclusionsBlock
         | UniqueSellingPointsBlock
@@ -1438,6 +1439,61 @@ export interface FourStepsBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'fourSteps';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AdBannerBlock".
+ */
+export interface AdBannerBlock {
+  heading: string;
+  body: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * Rendered with a leading phone icon. The source uses a tel: link, e.g. "tel:+442078719990" labelled "020 7871 9990".
+   */
+  cta: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+  };
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, S 75px, M 50/75/110, L 70/140.
+     */
+    gap?: ('inherit' | 'xs' | 'sm' | 's' | 'm' | 'l') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'adBanner';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -5095,6 +5151,7 @@ export interface PagesSelect<T extends boolean = true> {
         testimonials?: T | TestimonialsBlockSelect<T>;
         testimonialQuote?: T | TestimonialQuoteBlockSelect<T>;
         fourSteps?: T | FourStepsBlockSelect<T>;
+        adBanner?: T | AdBannerBlockSelect<T>;
         packageGrid?: T | PackageGridBlockSelect<T>;
         packageInclusions?: T | PackageInclusionsBlockSelect<T>;
         uniqueSellingPoints?: T | UniqueSellingPointsBlockSelect<T>;
@@ -5597,6 +5654,33 @@ export interface FourStepsBlockSelect<T extends boolean = true> {
         reference?: T;
         url?: T;
         label?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AdBannerBlock_select".
+ */
+export interface AdBannerBlockSelect<T extends boolean = true> {
+  heading?: T;
+  body?: T;
+  cta?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+        gap?: T;
       };
   id?: T;
   blockName?: T;

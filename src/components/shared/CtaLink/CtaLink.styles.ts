@@ -13,4 +13,6 @@ export const ctaLinkStyles = {
   },
 
   block: 'w-full',
+
+  icon: 'flex items-center',
 } as const
