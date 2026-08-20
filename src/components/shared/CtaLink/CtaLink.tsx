@@ -8,6 +8,7 @@ export type CtaLinkProps = {
   href: string
   label: string
   newTab?: boolean | null
+  rel?: string
   size?: keyof typeof s.size
   tone?: keyof typeof s.tone
   block?: boolean
@@ -19,6 +20,7 @@ export const CtaLink: React.FC<CtaLinkProps> = ({
   href,
   label,
   newTab,
+  rel,
   size = 'lg',
   tone = 'cyan',
   block = false,
@@ -28,7 +30,7 @@ export const CtaLink: React.FC<CtaLinkProps> = ({
   <Link
     href={href}
     target={newTab ? '_blank' : undefined}
-    rel={newTab ? 'noopener noreferrer' : undefined}
+    rel={rel ?? (newTab ? 'noopener noreferrer' : undefined)}
     className={cn(s.base, s.tone[tone], s.size[size], block && s.block, className)}
   >
     {icon ? (
