@@ -118,3 +118,19 @@ over ~90%, dispatch **one** lane or nothing at all.
 **Next action (post-19:00 BST reset):** re-dispatch the same five lanes (T4/T6/T7/T1/T8) — either by
 relaying the idle Console workers or by re-spawning against the existing worktrees. Held queue is
 unchanged: T9 next-free-slot, T10 behind T6, T2←T1, T3←T2, T5←T4, T11 out of Mode X scope.
+
+### Resume plan (USER directive: fewer lanes on resume)
+
+Armed a one-shot in-session wake-up for **19:07 BST** (job `322640e0`) that will:
+1. **Check the quota FIRST** — if still near the ceiling, dispatch one lane or nothing, and report.
+2. Resume **three lanes only** — the 🔺 priority set **T4 / T6 / T7**. T1, T8, T9, T10 stay in
+   backlog this round; T2←T1, T3←T2, T5←T4 remain dep-blocked; T11 stays out of Mode X scope.
+3. **Prefer relay over re-spawn** — the idle W workers (T4 `06f94dc4`, T6 `48329f54`, T7 `fbecc67e`)
+   hold 86–105k tokens of orientation already paid for; re-spawn only a session that has died, using
+   the saved lane prompts in the session scratchpad.
+4. Set each task `running` via the rails with the real owner-session id, then push task state.
+5. Run the normal round loop + 20-min heartbeat watchdog. Mode X still **never merges**.
+
+⛔ **The wake-up is SESSION-ONLY** — it lives in this control session's memory and dies with it. If
+this session is closed before 19:07, nothing self-resumes (the documented plain-session limitation);
+the operator must relaunch Mode X manually, and the task set + this log carry everything needed.
