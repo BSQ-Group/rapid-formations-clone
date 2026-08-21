@@ -23,6 +23,7 @@ export const ComparePackagesNav: Block = {
       fields: [link({ appearances: false })],
     },
     sectionLayoutField({
+      gap: true,
       defaults: { background: 'light', paddingTop: 'none', paddingBottom: 'none' },
     }),
   ],

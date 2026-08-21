@@ -24,6 +24,7 @@ export const OrderSteps: Block = {
       },
     },
     sectionLayoutField({
+      gap: true,
       defaults: { background: 'light', paddingTop: 'none', paddingBottom: 'none' },
     }),
   ],

@@ -8,6 +8,7 @@ import { GlossaryBlock } from '@/blocks/Glossary/Component'
 import { PurchaseAnAddressBlock } from '@/blocks/PurchaseAnAddress/Component'
 import { StepsItemsBlock } from '@/blocks/StepsItems/Component'
 import { ComparePackageTableBlockComponent } from '@/blocks/ComparePackageTable/Component'
+import { ComparePackagesHero } from '@/components/shared/ComparePackagesHero'
 import { BuyServiceBlock } from '@/blocks/BuyService/Component'
 import { ServiceContentBlock } from '@/blocks/ServiceContent/Component'
 import { OurAddressBlock } from '@/blocks/OurAddress/Component'
@@ -105,6 +106,7 @@ const blockComponents = {
   purchaseAnAddress: PurchaseAnAddressBlock,
   stepsItems: StepsItemsBlock,
   comparePackageTable: ComparePackageTableBlockComponent,
+  comparePackagesHero: ComparePackagesHero,
   buyService: BuyServiceBlock,
   serviceContent: ServiceContentBlock,
   ourAddress: OurAddressBlock,

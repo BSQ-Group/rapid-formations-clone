@@ -35,6 +35,7 @@ export const ReviewRatings: Block = {
       },
     }),
     sectionLayoutField({
+      gap: true,
       defaults: { background: 'light', paddingTop: 'none', paddingBottom: 'none' },
     }),
   ],

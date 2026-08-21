@@ -92,7 +92,7 @@ export const Glossary: Block = {
     },
     sectionLayoutField({
       gap: true,
-      defaults: { background: 'light', paddingTop: 'none', paddingBottom: 'none', gap: 'm' },
+      defaults: { background: 'light', paddingTop: 'none', paddingBottom: 'none', gap: 'section' },
     }),
   ],
 }

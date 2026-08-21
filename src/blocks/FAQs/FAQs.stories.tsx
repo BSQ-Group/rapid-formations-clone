@@ -177,7 +177,7 @@ const sectionLayout = {
   background: 'light',
   paddingTop: 'none',
   paddingBottom: 'none',
-  gap: 'm',
+  gap: 'section',
 } as const
 
 const defaultArgs: FAQsBlockProps = {

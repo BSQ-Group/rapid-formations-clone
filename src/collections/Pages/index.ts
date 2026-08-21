@@ -37,6 +37,7 @@ import { Glossary } from '../../blocks/Glossary/config'
 import { PurchaseAnAddress } from '../../blocks/PurchaseAnAddress/config'
 import { StepsItems } from '../../blocks/StepsItems/config'
 import { ComparePackageTable } from '@/blocks/ComparePackageTable/config'
+import { ComparePackagesHero } from '@/components/shared/ComparePackagesHero/config'
 import { BuyService } from '../../blocks/BuyService/config'
 import { ServiceContent } from '../../blocks/ServiceContent/config'
 import { OurAddress } from '../../blocks/OurAddress/config'
@@ -204,6 +205,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 PurchaseAnAddress,
                 StepsItems,
                 ComparePackageTable,
+                ComparePackagesHero,
                 BuyService,
                 ServiceContent,
                 OurAddress,
