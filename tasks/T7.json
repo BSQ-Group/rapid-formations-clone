@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-6995 · Header top-bar BSQ + B-Corp logos not clickable + missing target=_blank",
+  "body": "**Linear:** [CORE-6995](https://linear.app/bsq-group/issue/CORE-6995/rf-shared-header-top-bar-bsq-b-corp-logos-not-clickable-links-covered) · state `In Progress` · priority P2\n\n## Ticket (verbatim from Linear)\n\n**Page:** `/` (homepage) — **shared header** top utility bar, so affects every page\n**Component:** Header top-right cluster — \"Part of **bsq group**\" logo + **Certified B-Corp** badge\n**Breakpoints:** Wide desktop (the cluster only renders at large widths — visible at 1800; hidden by 1440). Applies wherever it renders.\n\n## Issue\n\nBoth logos are wrapped in anchors in the DOM, but on the clone **the links can't be clicked** — the `<header>` wrapper is painted over them, so a click at the centre of each logo lands on the header, not the link. On live the same click lands on the linked image and navigates. The clone also drops `target=\"_blank\"` / `rel=\"noopener noreferrer\"`, so even once clickable it would open in the same tab instead of a new one.\n\nRendered sizes match live (BSQ 110→112px, B-Corp 45×76→44×74px — sub-perceptible), so this is a **link / stacking** defect, not a size one.\n\n## Expected (Live) vs Actual (Clone)\n\n| Element | Expected (Live) | Actual (Clone) |\n| -- | -- | -- |\n| BSQ logo — top hit element | image inside its own `<a>` (clickable) | `<header>` intercepts (link unreachable) |\n| B-Corp badge — top hit element | image inside its own `<a>` (clickable) | `<header>` intercepts (link unreachable) |\n| BSQ link | `bsqgroup.co.uk` · `target=\"_blank\"` · `rel=\"noopener noreferrer\"` | `bsqgroup.co.uk` · **no target** · **no rel** |\n| B-Corp link | `bcorporation.net/.../bsq-group/` · `target=\"_blank\"` · `rel` | same href · **no target** · **no rel** |\n\n*Diagnostic:* `document.elementFromPoint(centre of each logo)` *→ Live returns* `IMG` *(inside the anchor); Clone returns* `HEADER`*.*\n\n## Steps to replicate\n\n1. Open the clone homepage at a wide desktop width (≈1800px) so the top-right \"Part of bsq group / Certified B\" cluster shows.\n2. Click the BSQ logo, then the B-Corp badge → nothing happens.\n3. On live, the same clicks open [bsqgroup.co.uk](<http://bsqgroup.co.uk>) / the B-Corp profile **in a new tab**.\n\n## Definition of Done\n\n* Both top-bar logos are clickable — the anchor is the top hit-target (not the header), at all desktop widths where the cluster renders.\n* BSQ logo → `https://www.bsqgroup.co.uk/`, B-Corp badge → `https://www.bcorporation.net/en-us/find-a-b-corp/company/bsq-group/`, both `target=\"_blank\"` + `rel=\"noopener noreferrer\"`, matching live.\n* No regression to the RF header logo (already correct) or top-bar layout.\n\n## Evidence\n\nCluster renders identically (size/position); the defect is that the clone's copies aren't clickable. Live vs Clone top bar @1800:\n\n| Live (links work, new tab) | Clone (links covered by header) |\n| -- | -- |\n|  |  |\n\n---\n### Routing note (Planning)\n`rapid-formations-clone` has **no clone engine** — no `walk-dom-cdp.ts` / `emit-block.ts` /\n`verify-clone.ts`, and zero `*Clone` blocks. Every block here is hand-authored, so the\nengine-first rule has nothing to diagnose into: this is a **direct fix in the block that\nhas the defect**. That is why the task is tagged `bug` — it is NOT a fidelity loophole.\n\n**Ship path:** Mode X — `clone-pull-request-create` with per-breakpoint PROD-vs-clone\nscreenshot proof, land `awaiting-user`, **the USER merges the PR**. Never merge to main.\nLive source of truth: `https://www.rapidformations.co.uk` · clone:\n`https://rapid-formations-clone.vercel.app`. ⛔ HEADED browser only for any visual check.",
+  "acceptanceCriteria": [
+    "Both top-bar logos are clickable — the anchor is the top hit-target, not the `<header>`, at all desktop widths where the cluster renders (visible at 1800, hidden by 1440). Verify with `document.elementFromPoint` at each logo centre: must return the `IMG`/anchor, not `HEADER`.",
+    "BSQ logo → `https://www.bsqgroup.co.uk/`, B-Corp badge → `https://www.bcorporation.net/en-us/find-a-b-corp/company/bsq-group/`, both with `target=\"_blank\"` + `rel=\"noopener noreferrer\"`, matching live.",
+    "No regression to the RF header logo (already correct) or to top-bar layout — rendered sizes stay as-is (BSQ ~112px, B-Corp ~44×74)."
+  ],
+  "status": "backlog",
+  "track": "clone",
+  "tags": [
+    "bug",
+    "priority",
+    "parallel"
+  ],
+  "priority": "high",
+  "effort": "S",
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-08-21T15:30:40.435Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-08-21T15:30:40.435Z",
+  "startedAt": null,
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-08-21T15:30:40.435Z",
+      "by": "planning"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": null,
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "id": "T7",
+  "num": 7
+}

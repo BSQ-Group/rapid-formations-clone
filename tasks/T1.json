@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-7009 · \"How we are rated\" review stars render larger/heavier than live",
+  "body": "**Linear:** [CORE-7009](https://linear.app/bsq-group/issue/CORE-7009/rf-shared-how-we-are-rated-review-stars-render-largerheavier-than-live) · state `In Progress` · priority P4\n\n## Ticket (verbatim from Linear)\n\n**Scope:** SHARED — the *How we are rated* reviews widget (Trustpilot + Google star ratings). The widget is reused sitewide (e.g. homepage) — full list of pages confirmed so far under **Impacted pages** below; QA to extend as tested.\n**Live:** [https://www.rapidformations.co.uk/faqs/](<https://www.rapidformations.co.uk/faqs/>) · **Test:** [https://rapid-formations-clone.vercel.app/faqs](<https://rapid-formations-clone.vercel.app/faqs>)\n**Breakpoints:** all (star sizing is breakpoint-independent — seen at 360 and 1800).\n\n## Impacted pages (24 confirmed)\n\n`/faqs/`, `/faqs/directors/`, `/faqs/shares-and-shareholders/`, `/faqs/limited-by-guarantee/`, `/faqs/limited-liability-partnerships/`, `/faqs/company-records-and-registers/`, `/faqs/pscs/`, `/faqs/directors-service-address/`, `/faqs/vat/`, `/faqs/company-names/`, `/faqs/company-secretary/`, `/faqs/self-assessment/`, `/faqs/the-formation-process/`, `/business-telephone/`, `/company-dissolution/`, `/company-name-change/`, `/confirmation-statement-service/`, `/director-appointment-resignation/`, `/dormant-company-accounts/`, `/ico-registration/`, `/issue-of-shares/`, `/psc-filing/`, `/transfer-of-shares/`, `/vat-registration/`\n\n**Issue** — The Trustpilot and Google rating **stars render larger / heavier** on the clone than on live, and sit more tightly packed, so the whole star row reads bigger and darker.\n\n### What's wrong\n\n* Each star's box measures **25×25 on both** sites and the fill colour matches (Trustpilot green `rgb(94,178,124)`), so it's not a box-size or colour difference.\n* The difference is the **star icon itself**: clone uses SVG `viewBox=\"0 0 25 24\"`, live uses `viewBox=\"0 0 51 48\"`. The clone glyph fills more of its 25×25 box → the visible star is chunkier and the 5-star row is tighter, reading as larger and heavier (this is what looks like a \"darker\" rating row — the rating *text* below measures identical: weight 400, `rgb(89,89,89)`).\n* Applies to **both** the Trustpilot and Google star groups.\n\n### Where to locate in the clone repo\n\n| Grep anchor | Element | Change |\n| -- | -- | -- |\n| Reviews / \"How we are rated\" star rating component | star `<svg>` (`viewBox 0 0 25 24`) | Match live's star icon size/proportion (live viewBox `0 0 51 48`) so stars render the same visual size/weight |\n\n### Definition of Done\n\n- [ ] Trustpilot + Google review stars render at live's visual size/weight (not larger/chunkier).\n- [ ] Verified on `/faqs/`, `/faqs/directors/`, `/faqs/shares-and-shareholders/` (and any other page using the widget).\n- [ ] Star fill colours + rating text unchanged (already match).\n- [ ] No layout regression to the widget.\n\n### Evidence\n\n**Trustpilot stars zoomed (4×) — Live vs Clone** (clone stars bigger + tighter):\n\n| Live | Clone |\n| -- | -- |\n|  |  |\n\n**Full widget @1800 — Live vs Clone:**\n\n| Live | Clone |\n| -- | -- |\n|  |  |\n\nConfirmed the same way on every page listed under **Impacted pages**: live renders **10 star SVG nodes with 3 distinct glyph signatures** (full / partial / empty); the clone renders **20 SVG nodes with 1 signature**, and a 4× zoom of the Trustpilot row shows the clone's stars visibly wider with the gaps between them closed up. Star fill colour and the rating text below match on both.\n\n---\n### Routing note (Planning)\n`rapid-formations-clone` has **no clone engine** — no `walk-dom-cdp.ts` / `emit-block.ts` /\n`verify-clone.ts`, and zero `*Clone` blocks. Every block here is hand-authored, so the\nengine-first rule has nothing to diagnose into: this is a **direct fix in the block that\nhas the defect**. That is why the task is tagged `bug` — it is NOT a fidelity loophole.\n\n**Ship path:** Mode X — `clone-pull-request-create` with per-breakpoint PROD-vs-clone\nscreenshot proof, land `awaiting-user`, **the USER merges the PR**. Never merge to main.\nLive source of truth: `https://www.rapidformations.co.uk` · clone:\n`https://rapid-formations-clone.vercel.app`. ⛔ HEADED browser only for any visual check.",
+  "acceptanceCriteria": [
+    "Trustpilot + Google review stars render at live's visual size/weight (not larger/chunkier) — clone star SVG matches live's glyph proportion (live viewBox `0 0 51 48`, clone currently `0 0 25 24`).",
+    "Verified on `/faqs/`, `/faqs/directors/`, `/faqs/shares-and-shareholders/` (and any other page using the widget).",
+    "Star fill colours + rating text unchanged (already match live: Trustpilot green `rgb(94,178,124)`, text weight 400 `rgb(89,89,89)`).",
+    "No layout regression to the widget at 360 / 768 / 1024 / 1800."
+  ],
+  "status": "backlog",
+  "track": "clone",
+  "tags": [
+    "bug",
+    "parallel"
+  ],
+  "priority": "normal",
+  "effort": "S",
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-08-21T15:30:40.428Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-08-21T15:30:40.428Z",
+  "startedAt": null,
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-08-21T15:30:40.428Z",
+      "by": "planning"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": null,
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "id": "T1",
+  "num": 1
+}

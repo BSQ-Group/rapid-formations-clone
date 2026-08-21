@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-7027 · Review-card Trustpilot/Google logos served below display size",
+  "body": "**Linear:** [CORE-7027](https://linear.app/bsq-group/issue/CORE-7027/rf-shared-review-card-trustpilotgoogle-logos-served-below-display-size) · state `In Progress` · priority P4\n\n## Ticket (verbatim from Linear)\n\n## Impacted pages (35 — same widget as [CORE-7026](https://linear.app/bsq-group/issue/CORE-7026/rf-shared-trustpilot-and-google-review-cards-missing-hover-state))\n\n**FAQ pages (24):** `/faqs` · `/faqs/after-company-formation` · `/faqs/annual-accounts` · `/faqs/basics` · `/faqs/company-meetings-and-resolutions` · `/faqs/company-names` · `/faqs/company-records-and-registers` · `/faqs/company-secretary` · `/faqs/confirmation-statement` · `/faqs/corporation-tax` · `/faqs/directors` · `/faqs/directors-service-address` · `/faqs/limited-by-guarantee` · `/faqs/limited-by-shares` · `/faqs/limited-liability-partnerships` · `/faqs/paye-and-payroll` · `/faqs/paying-yourself-through-limited-company` · `/faqs/pscs` · `/faqs/registered-office` · `/faqs/sail-address` · `/faqs/self-assessment` · `/faqs/shares-and-shareholders` · `/faqs/the-formation-process` · `/faqs/vat`\n\n**Service pages (11):** `/business-telephone/` · `/company-dissolution/` · `/company-name-change/` · `/confirmation-statement-service/` · `/director-appointment-resignation/` · `/dormant-company-accounts/` · `/ico-registration/` · `/issue-of-shares/` · `/psc-filing/` · `/transfer-of-shares/` · `/vat-registration/`\n\nMeasured directly on `/faqs/company-names`, `/faqs/company-meetings-and-resolutions`, `/faqs/limited-by-shares`, `/faqs/after-company-formation`, `/faqs/company-secretary`, `/faqs/self-assessment`, `/faqs/the-formation-process` and all 11 service pages — byte-identical masters and ratios everywhere; the remaining FAQ pages use the same shared component.\n\n**Component:** \"How we are rated\" reviews widget — the Trustpilot and Google **logo images** inside the cards\n**Breakpoints:** All (360 / 768 / 1024 / 1800) — the logo renders at 200×50 at every width, so the shortfall is identical at all four\n\n---\n\n## Issue\n\nThe clone serves the review-card logos from masters **smaller than the size they are displayed at**, so the browser upscales them and they render soft/fuzzy. Live serves each logo at or above its display size.\n\n## Expected (Live) vs Actual (Clone)\n\n| Logo | Rendered at | Live master | Clone master | Result |\n| -- | -- | -- | -- | -- |\n| Trustpilot | 200×50 | **200×50** (1:1) | **156×39** | Clone upscales **1.28×** — visibly soft |\n| Google | 200×50 | **400×135** (2×, retina-crisp) | **200×67** | Clone has no retina headroom; softer than live on high-DPR screens |\n\nThe card box, logo box (200×50), star row and rating text are unchanged — this is purely the master image resolution.\n\n## Definition of Done\n\n* Trustpilot logo served at **≥ 200×50**, and not upscaled from a smaller master.\n* Google logo served at live's **2× equivalent (400×135)** so it stays crisp on high-DPR screens.\n* Applies to the widget on **every** page listed above, not just the examples shown.\n* Logo rendered box stays 200×50 — no change to logo size or position.\n* Star row, rating text, review count and card spacing remain unchanged.\n* No regression to the widget layout at any breakpoint.\n\n## Related\n\n* Same widget as [CORE-7009](https://linear.app/bsq-group/issue/CORE-7009/rf-shared-how-we-are-rated-review-stars-render-largerheavier-than-live) (star glyph renders larger/heavier) and [CORE-7026](https://linear.app/bsq-group/issue/CORE-7026/rf-shared-trustpilot-and-google-review-cards-missing-hover-state) (cards missing hover state) — separate defects in the same component.\n* Same class of issue as [CORE-7013](https://linear.app/bsq-group/issue/CORE-7013/rf-shared-faq-banner-image-low-resolution-pixelated) (FAQ banner low-resolution) but a different asset, so tracked separately.\n\n## Evidence\n\n**Trustpilot logo at 4× zoom — the clearest view of the difference.** Live's letter edges and star are crisp (200×50 master at 200×50); the clone's are soft because a 156×39 master is stretched to 200×50.\n\n| Live | Clone |\n| -- | -- |\n|  |  |\n\nWhole widget in context (heading + cards + neighbours), Live vs Clone at each breakpoint.\n\n**Mobile @360** *(card sits in a carousel at this width, so the shot is whole-section scope)*\n\n| Live | Clone |\n| -- | -- |\n|  |  |\n\n**Tablet @768**\n\n| Live | Clone |\n| -- | -- |\n|  |  |\n\n**Desktop @1024**\n\n| Live | Clone |\n| -- | -- |\n|  |  |\n\n**Desktop @1800**\n\n| Live | Clone |\n| -- | -- |\n|  |  |\n\nMeasured with Playwright (`naturalWidth`/`naturalHeight` vs rendered box) at all four breakpoints on both sites; the logo renders 200×50 at every width, so the shortfall does not vary by breakpoint.\n\nRatios confirmed identical across every page listed under **Impacted pages**:\n\n| Logo | Display box | Live natural | Clone natural |\n| -- | -- | -- | -- |\n| Trustpilot | 200×50 | 200×50 (1.0×) | **156×39 (0.78× — upscaled)** |\n| Google | 200×50 | 400×135 (2.0×) | **200×67 (1.0×)** |\n\n---\n### Planning note\nThird defect in the same \"How we are rated\" widget — serialized behind the other two on file-conflict grounds. Likely a CMS/media fix (re-upload masters at ≥ display size) rather than a code change; confirm which before editing code.\n\n---\n### Routing note (Planning)\n`rapid-formations-clone` has **no clone engine** — no `walk-dom-cdp.ts` / `emit-block.ts` /\n`verify-clone.ts`, and zero `*Clone` blocks. Every block here is hand-authored, so the\nengine-first rule has nothing to diagnose into: this is a **direct fix in the block that\nhas the defect**. That is why the task is tagged `bug` — it is NOT a fidelity loophole.\n\n**Ship path:** Mode X — `clone-pull-request-create` with per-breakpoint PROD-vs-clone\nscreenshot proof, land `awaiting-user`, **the USER merges the PR**. Never merge to main.\nLive source of truth: `https://www.rapidformations.co.uk` · clone:\n`https://rapid-formations-clone.vercel.app`. ⛔ HEADED browser only for any visual check.",
+  "acceptanceCriteria": [
+    "Trustpilot logo served at ≥ 200×50 and not upscaled from a smaller master (currently 156×39 → 1.28× upscale).",
+    "Google logo served at live's 2× equivalent (400×135) so it stays crisp on high-DPR screens (currently 200×67).",
+    "Applies to the widget on every page listed in the ticket (35), not just the examples shown.",
+    "Logo rendered box stays 200×50 — no change to logo size or position.",
+    "Star row, rating text, review count, card spacing and widget layout unchanged at every breakpoint."
+  ],
+  "status": "backlog",
+  "track": "clone",
+  "tags": [
+    "bug"
+  ],
+  "priority": "normal",
+  "effort": "S",
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [
+    "T2"
+  ],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-08-21T15:30:40.430Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-08-21T15:30:40.430Z",
+  "startedAt": null,
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-08-21T15:30:40.430Z",
+      "by": "planning"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": null,
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "id": "T3",
+  "num": 3
+}

@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-7119 · SHARED: bold body text too light (#595959 vs live #313131)",
+  "body": "**Linear:** [CORE-7119](https://linear.app/bsq-group/issue/CORE-7119/rf-shared-bold-body-text-too-light-595959-vs-live-313131) · state `In Progress` · priority P3\n\n## Ticket (verbatim from Linear)\n\n**Component/area:** body rich-text bold run — `.payload-richtext strong` / `b`\n**Breakpoints:** 360 / 768 / 1024 / 1800 — all four\n**Live:** [https://www.rapidformations.co.uk/id-requirements/](<https://www.rapidformations.co.uk/id-requirements/>) · **Test:** [https://rapid-formations-clone.vercel.app/id-requirements](<https://rapid-formations-clone.vercel.app/id-requirements>)\n\n### Issue\n\nLive darkens bold runs inside body rich text (e.g. a \"Note:\" lead-in) to `#313131`, distinguishing them from the surrounding `#595959` paragraph text. On the clone, bold runs inside body copy simply inherit the paragraph colour, so they only differ by weight and read flatter than live. This is a shared body rich-text styling defect (`.payload-richtext strong`/`b`), not a content issue — the token itself already exists and renders correctly elsewhere on the clone.\n\n### Impacted pages\n\n**Confirmed affected:**\n\n| Page | Bold run(s) | Live | Clone |\n| -- | -- | -- | -- |\n| `/id-requirements/` | \"Note:\" | `#313131` | `#595959` |\n| `/director-appointment-resignation/` | \"Please note:\" | `#313131` | `#595959` |\n| `/whistleblowing-grievance-mechanism-policy/` | 7 list lead-ins | `#313131` | `#595959` |\n| `/vat-registration/` | \"Buy Now\" | `#313131` | `#595959` |\n| `/additional-services/business-address/` | \"Buy Now\" | `#313131` | `#595959` |\n| `/additional-services/london-registered-office/` | \"Buy Now\" | `#313131` | `#595959` |\n| `/additional-services/service-address/` | \"Buy Now\" | `#313131` | `#595959` |\n| `/business-telephone/` | \"Improve your corporate image\" | `#313131` | `#595959` |\n| `/terms-and-conditions/` | 338 clause references | `#313131` | `#363636` (wrong value applied, not missing) |\n\n**Confirmed unaffected** (bold already renders `#313131` correctly, do not regress): `/ico-registration/` (4 bold runs, feature-list style), and the \"Enhance your corporate image...\" bold run on `/business-telephone/`. Review-figure bold (\"4.8\"/\"4.9\") is `#595959` on both sites and is correct as-is.\n\n**Also checked, no bold present / not applicable:** `/transfer-of-shares/`, `/company-dissolution/`, `/issue-of-shares/`, `/confirmation-statement-service/`, `/company-name-change/`, `/dormant-company-accounts/`, `/psc-filing/`.\n\nMany RF pages aren't built on the clone yet, so this list may grow as those go live — not claiming sitewide beyond what's confirmed above.\n\n### Expected vs actual\n\n|  | Expected (Live) | Actual (Clone) |\n| -- | -- | -- |\n| bold run `color` | `#313131` | `#595959` (`#363636` on `/terms-and-conditions/`) |\n| paragraph `color` | `#595959` | `#595959` |\n| `font-weight` / size / line-height | 700 / 20px / 30px | match — identical to live |\n\nColour is the only mismatch; weight, size, and line-height already match on all four breakpoints.\n\n### Scope / implementation constraint\n\n* Fix must target the body rich-text bold selector specifically — not a global `<strong>`/`<b>` rule.\n* Do not apply to bold inside headings: live keeps bold inside `<h2>`/`<h3>` at `#595959` (see `/cookies-policy/`, [CORE-7120](<https://linear.app/bsq-group/issue/CORE-7120>)) — a blanket darken-all-bold rule would break that.\n* Do not regress bold contexts that already match live: `/ico-registration/` feature-list bold, the correct bold run on `/business-telephone/`, and the `#595959` review-figure bold.\n* Must not affect body inline links, buttons, or header/footer bold text, which have their own colours.\n\n### Definition of Done\n\n- [ ] Bold runs inside body rich text render `#313131` at 360 / 768 / 1024 / 1800.\n- [ ] Surrounding paragraph text stays `#595959`.\n- [ ] Fixed on the shared body rich-text style, verified on `/id-requirements/`, `/director-appointment-resignation/`, `/whistleblowing-grievance-mechanism-policy/`, `/vat-registration/`, `/business-telephone/`, and `/terms-and-conditions/` (currently `#363636`, must also end up `#313131`).\n- [ ] No regression to bold inside headings, or to already-correct bold contexts (`/ico-registration/`, review-figure bold, the correct run on `/business-telephone/`).\n- [ ] No change to bold weight/size/line-height and no layout/wrapping shift.\n\n### Evidence\n\nLive-vs-clone screenshots (Note: lead-in + section context, all four breakpoints, plus the whistleblowing/T&Cs examples) are attached to this ticket.\n\n---\n### Routing note (Planning)\n`rapid-formations-clone` has **no clone engine** — no `walk-dom-cdp.ts` / `emit-block.ts` /\n`verify-clone.ts`, and zero `*Clone` blocks. Every block here is hand-authored, so the\nengine-first rule has nothing to diagnose into: this is a **direct fix in the block that\nhas the defect**. That is why the task is tagged `bug` — it is NOT a fidelity loophole.\n\n**Ship path:** Mode X — `clone-pull-request-create` with per-breakpoint PROD-vs-clone\nscreenshot proof, land `awaiting-user`, **the USER merges the PR**. Never merge to main.\nLive source of truth: `https://www.rapidformations.co.uk` · clone:\n`https://rapid-formations-clone.vercel.app`. ⛔ HEADED browser only for any visual check.",
+  "acceptanceCriteria": [
+    "Bold runs inside body rich text render `#313131` at 360 / 768 / 1024 / 1800, via the shared `.payload-richtext strong`/`b` style — not a global `<strong>`/`<b>` rule.",
+    "Surrounding paragraph text stays `#595959`; bold weight/size/line-height unchanged and no layout/wrapping shift.",
+    "Verified on `/id-requirements/`, `/director-appointment-resignation/`, `/whistleblowing-grievance-mechanism-policy/`, `/vat-registration/`, `/business-telephone/` and `/terms-and-conditions/` (currently `#363636`, must also end up `#313131`).",
+    "No regression to bold inside headings — live keeps bold in `<h2>`/`<h3>` at `#595959` (see CORE-7120) — so a blanket darken-all-bold rule is not acceptable.",
+    "No regression to already-correct bold contexts: `/ico-registration/` feature-list bold, the correct run on `/business-telephone/`, and the `#595959` review-figure bold."
+  ],
+  "status": "backlog",
+  "track": "clone",
+  "tags": [
+    "bug",
+    "priority",
+    "parallel"
+  ],
+  "priority": "high",
+  "effort": "M",
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-08-21T15:30:40.431Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-08-21T15:30:40.431Z",
+  "startedAt": null,
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-08-21T15:30:40.431Z",
+      "by": "planning"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": null,
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "id": "T4",
+  "num": 4
+}

@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-7120 · /cookies-policy/ headings darker than live (#363636 vs #595959)",
+  "body": "**Linear:** [CORE-7120](https://linear.app/bsq-group/issue/CORE-7120/rf-cookies-policy-headings-darker-than-live-363636-vs-595959) · state `In Progress` · priority P3\n\n## Ticket (verbatim from Linear)\n\n**Page:** `/cookies-policy/`\n**Live:** [https://www.rapidformations.co.uk/cookies-policy/](<https://www.rapidformations.co.uk/cookies-policy/>) · **Test:** [https://rapid-formations-clone.vercel.app/cookies-policy](<https://rapid-formations-clone.vercel.app/cookies-policy>)\n**Component/area:** body rich-text section headings — every `<h2>` / `<h3>` on this page has its whole text wrapped in bold in the CMS content\n**Breakpoints:** 360 / 768 / 1024 / 1800 — all four\n\n**Issue** — all eight section headings on this page render darker on the clone than on live. On live the bold wrapper carries `#595959` and that overrides the heading colour, so the headings render `#595959`. On the clone the bold wrapper has no colour, so the heading colour `#363636` shows through.\n\n### What's wrong\n\n|  | Expected (Live) | Actual (Clone) |\n| -- | -- | -- |\n| rendered heading `color` | `#595959` (`rgb(89, 89, 89)`) | `#363636` (`rgb(54, 54, 54)`) |\n| `<h2>` / `<h3>` element `color` | `#363636` (`rgb(54, 54, 54)`) | `#363636` (`rgb(54, 54, 54)`) |\n| `font-size` — h2 / h3 | 26px / 22px | 26px / 22px |\n| `font-weight` on the bold wrapper | 700 | 700 |\n\nSizes and weight match — colour is the only difference, and it is the same at all four breakpoints. Confirmed two ways: computed `color`, and the painted glyph pixels (`rgb(89, 89, 89)` on live, `rgb(54, 54, 54)` on the clone, with the same glyph pixel count on both, so the text and size are identical).\n\n**All eight headings affected:**\n\n| Heading | Level |\n| -- | -- |\n| Definition of \"cookie\" | h2 |\n| Do I have to agree to the use of cookies? | h2 |\n| Which cookies are used on our website? | h2 |\n| A. Essential Cookies | h3 |\n| B. Functionality Cookies | h3 |\n| C. Analytical/Performance Cookies | h3 |\n| D. Targeting Cookies | h3 |\n| I have further questions, who can I contact? | h2 |\n\n### Steps to navigate\n\n1. Go to `/cookies-policy/` at 1800px on both sites.\n2. Compare the **Definition of \"cookie\"** heading with the paragraph underneath it.\n3. **Live:** heading and body text are the same grey. · **Clone:** the heading is darker than the body text.\n\n### Definition of Done\n\n- [ ] All eight headings render `#595959`, matching live, at 360 / 768 / 1024 / 1800.\n- [ ] The bold wrapper's colour overrides the heading colour, as it does on live — the `<h2>` / `<h3>` colour itself does not need to change.\n- [ ] Heading size, weight and line wrapping are unchanged, and the spacing above and below each heading does not move.\n- [ ] Body copy, lists and the cookie tables underneath are untouched — they already match live at `#595959`.\n\n### Evidence\n\nThe **Definition of \"cookie\"** heading with the paragraph below it, both sites headless at `deviceScaleFactor: 1`.\n\n**1800px**\n\n| Live | Clone |\n| -- | -- |\n|  |  |\n\n**360px**\n\n| Live | Clone |\n| -- | -- |\n|  |  |\n\nThe tell is the heading against the line beneath it: level on live, heading darker than the body text on the clone. The colour values above are the reliable check — 26px against `#595959` vs `#363636` is a small step on screen.\n\n---\n### Planning note\nSerialized behind CORE-7119: both change body rich-text bold colour handling and they are semantically coupled — 7119 must darken body bold to #313131 WITHOUT darkening heading bold, which is exactly what this task asserts. Same selector family = file conflict, so never concurrent.\n\n---\n### Routing note (Planning)\n`rapid-formations-clone` has **no clone engine** — no `walk-dom-cdp.ts` / `emit-block.ts` /\n`verify-clone.ts`, and zero `*Clone` blocks. Every block here is hand-authored, so the\nengine-first rule has nothing to diagnose into: this is a **direct fix in the block that\nhas the defect**. That is why the task is tagged `bug` — it is NOT a fidelity loophole.\n\n**Ship path:** Mode X — `clone-pull-request-create` with per-breakpoint PROD-vs-clone\nscreenshot proof, land `awaiting-user`, **the USER merges the PR**. Never merge to main.\nLive source of truth: `https://www.rapidformations.co.uk` · clone:\n`https://rapid-formations-clone.vercel.app`. ⛔ HEADED browser only for any visual check.",
+  "acceptanceCriteria": [
+    "All eight `<h2>`/`<h3>` section headings on `/cookies-policy/` render `#595959`, matching live, at 360 / 768 / 1024 / 1800.",
+    "The bold wrapper's colour overrides the heading colour, as it does on live — the `<h2>`/`<h3>` colour itself does not need to change.",
+    "Heading size, weight and line wrapping are unchanged, and the spacing above and below each heading does not move.",
+    "Body copy, lists and the cookie tables underneath are untouched — they already match live at `#595959`."
+  ],
+  "status": "backlog",
+  "track": "clone",
+  "tags": [
+    "bug",
+    "priority"
+  ],
+  "priority": "high",
+  "effort": "S",
+  "machine": "LOCAL",
+  "slug": "cookies-policy",
+  "blocks": [],
+  "deps": [
+    "T4"
+  ],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-08-21T15:30:40.433Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-08-21T15:30:40.433Z",
+  "startedAt": null,
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-08-21T15:30:40.433Z",
+      "by": "planning"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": null,
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "id": "T5",
+  "num": 5
+}

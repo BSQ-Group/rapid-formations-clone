@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-7018 · FAQ accordion question headings are <h3> on clone (live is <h4>)",
+  "body": "**Linear:** [CORE-7018](https://linear.app/bsq-group/issue/CORE-7018/rf-shared-faq-accordion-question-headings-are-h3-on-clone-live-is-h4) · state `In Progress` · priority P4\n\n## Ticket (verbatim from Linear)\n\n**Scope:** SHARED — the FAQ accordion. It is the shared accordion component, so it applies to every FAQ topic page and to the RF service pages that reuse the same accordion — full list under **Impacted pages** below. *(Directly verified on* `/faqs/limited-by-guarantee/` *and* `/faqs/directors/`*; the* `/faqs/` *hub uses a different template — no Q&A accordion — and is not affected.)*\n**Live:** [https://www.rapidformations.co.uk/faqs/limited-by-guarantee/](<https://www.rapidformations.co.uk/faqs/limited-by-guarantee/>) · **Test:** [https://rapid-formations-clone.vercel.app/faqs/limited-by-guarantee/](<https://rapid-formations-clone.vercel.app/faqs/limited-by-guarantee/>)\n**Component/area:** FAQ accordion — question heading element\n**Breakpoints:** All (heading-level difference is breakpoint-invariant)\n\n## Impacted pages (36)\n\n**FAQ topic pages (23):** `/faqs/after-company-formation/`, `/faqs/annual-accounts/`, `/faqs/basics/`, `/faqs/company-meetings-and-resolutions/`, `/faqs/company-names/`, `/faqs/company-records-and-registers/`, `/faqs/company-secretary/`, `/faqs/confirmation-statement/`, `/faqs/corporation-tax/`, `/faqs/directors/`, `/faqs/directors-service-address/`, `/faqs/limited-by-guarantee/`, `/faqs/limited-by-shares/`, `/faqs/limited-liability-partnerships/`, `/faqs/paye-and-payroll/`, `/faqs/paying-yourself-through-limited-company/`, `/faqs/pscs/`, `/faqs/registered-office/`, `/faqs/sail-address/`, `/faqs/self-assessment/`, `/faqs/shares-and-shareholders/`, `/faqs/the-formation-process/`, `/faqs/vat/`\n\n**Service pages (14):** `/additional-services/business-address/`, `/additional-services/london-registered-office/`, `/additional-services/service-address/`, `/business-telephone/`, `/company-dissolution/`, `/company-name-change/`, `/confirmation-statement-service/`, `/director-appointment-resignation/`, `/dormant-company-accounts/`, `/ico-registration/`, `/issue-of-shares/`, `/psc-filing/`, `/transfer-of-shares/`, `/vat-registration/`\n\n## Issue\n\nEvery FAQ question heading (e.g. *\"What is a company limited by guarantee?\"*) renders as an `<h3>` on the clone; live renders it as an `<h4>`. The visible text renders identically — same size, weight, colour — so there is **no visual difference**; the heading **level** is wrong.\n\n## Expected (Live) vs Actual (Clone)\n\n|  | Tag | Rendered size | Weight | Colour |\n| -- | -- | -- | -- | -- |\n| **Live** | `h4` | 24px / lh 32.4 | 400 | rgb(54,54,54) |\n| **Clone** | `h3` (visible text in a child `span`, 24px) | 24px / lh 32.4 | 400 | rgb(54,54,54) |\n\nSame rendered type; the clone just uses the wrong element (`<h3>` instead of `<h4>`). This is the same class of defect as the CTA-band heading ([CORE-7007](https://linear.app/bsq-group/issue/CORE-7007/rf-shared-faq-cta-band-heading-is-an-h2-on-clone-live-is-h3)), for the accordion questions.\n\n## Definition of Done\n\n- [ ] FAQ accordion question headings are `<h4>` on the clone (matches live), styling unchanged.\n- [ ] Applied via the shared FAQ accordion so it covers every FAQ topic page (verify on ≥1 other FAQ page).\n- [ ] No visual regression (size/weight/colour/line-height unchanged).\n\n## Related\n\n* Same heading-level class as [CORE-7007](https://linear.app/bsq-group/issue/CORE-7007/rf-shared-faq-cta-band-heading-is-an-h2-on-clone-live-is-h3) (CTA band heading H2→H3) — separate element/component.\n\n## Evidence\n\nRenders identically — the difference is the element tag (see table above). FAQ question list, Live (`h4`) vs Clone (`h3`) @1800:\n\n| Live (`h4`) | Clone (`h3`) |\n| -- | -- |\n|  |  |\n\nConfirmed across every page listed under **Impacted pages** above — heading level only, no visual difference: the rendered text measures 24px / 32.4px / weight 400 / `rgb(54,54,54)` on both sites at 360, 768, 1024 and 1800. (Note for whoever measures this: on the clone the `<h3>` itself carries no type styling, so reading the heading element rather than its leaf reports a misleading 16px/24px white.)\n\n---\n### Planning note\nSame heading-level defect class as CORE-7007 (CTA band H2→H3) but a different element/component, so tracked separately. Measuring gotcha from the ticket: on the clone the `<h3>` itself carries no type styling, so reading the heading element rather than its leaf `span` reports a misleading 16px/24px white.\n\n---\n### Routing note (Planning)\n`rapid-formations-clone` has **no clone engine** — no `walk-dom-cdp.ts` / `emit-block.ts` /\n`verify-clone.ts`, and zero `*Clone` blocks. Every block here is hand-authored, so the\nengine-first rule has nothing to diagnose into: this is a **direct fix in the block that\nhas the defect**. That is why the task is tagged `bug` — it is NOT a fidelity loophole.\n\n**Ship path:** Mode X — `clone-pull-request-create` with per-breakpoint PROD-vs-clone\nscreenshot proof, land `awaiting-user`, **the USER merges the PR**. Never merge to main.\nLive source of truth: `https://www.rapidformations.co.uk` · clone:\n`https://rapid-formations-clone.vercel.app`. ⛔ HEADED browser only for any visual check.",
+  "acceptanceCriteria": [
+    "FAQ accordion question headings render as `<h4>` on the clone (matching live), styling unchanged.",
+    "Applied via the shared FAQ accordion so it covers all 36 impacted pages (23 FAQ topic + 14 service pages); verified on ≥2 of them.",
+    "No visual regression — rendered text stays 24px / lh 32.4 / weight 400 / `rgb(54,54,54)` at 360 / 768 / 1024 / 1800."
+  ],
+  "status": "backlog",
+  "track": "clone",
+  "tags": [
+    "bug",
+    "parallel"
+  ],
+  "priority": "normal",
+  "effort": "S",
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-08-21T15:30:40.435Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-08-21T15:30:40.435Z",
+  "startedAt": null,
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-08-21T15:30:40.435Z",
+      "by": "planning"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": null,
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "id": "T8",
+  "num": 8
+}

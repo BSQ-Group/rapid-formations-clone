@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-7000 · \"BEST VALUE\" ribbon missing drop-shadow (1024/1800)",
+  "body": "**Linear:** [CORE-7000](https://linear.app/bsq-group/issue/CORE-7000/rf-shared-best-value-ribbon-missing-drop-shadow-on-clone-10241800) · state `In Progress` · priority P4\n\n## Ticket (verbatim from Linear)\n\n**Page:** `/` (homepage)\n**Component:** Formation Packages — \"All Inclusive\" card, diagonal **\"BEST VALUE\"** corner ribbon\n**Breakpoints:** **1024 & 1800** (the ribbon only renders as a diagonal corner banner at these widths; at 360 & 768 there is no ribbon on either site — N/A)\n\n## Issue\n\nOn live, the diagonal BEST VALUE ribbon casts a soft **drop-shadow** onto the card beneath it. On the clone the ribbon is **flat** — no shadow.\n\n## Expected (Live) vs Actual (Clone)\n\n|  | Expected (Live) | Actual (Clone) |\n| -- | -- | -- |\n| Ribbon `box-shadow` | `rgba(0,0,0,0.1) 0px 5px 10px 0px` | `none` |\n\n*(ribbon colour, size, angle and text all match — only the shadow is missing)*\n\n## Definition of Done\n\n* BEST VALUE ribbon carries `box-shadow: rgba(0,0,0,0.1) 0 5px 10px` (or a visually matching shadow) at **1024 & 1800**, matching live.\n\n## Evidence\n\nRibbon corner, Live vs Clone (live casts a soft drop-shadow onto the card; clone is flat):\n\n| Breakpoint | Live | Clone |\n| -- | -- | -- |\n| **1024** |  |  |\n| **1800** |  |  |\n\n*(360 & 768 omitted — no diagonal ribbon renders on either site at those widths.)*\n\n---\n### Routing note (Planning)\n`rapid-formations-clone` has **no clone engine** — no `walk-dom-cdp.ts` / `emit-block.ts` /\n`verify-clone.ts`, and zero `*Clone` blocks. Every block here is hand-authored, so the\nengine-first rule has nothing to diagnose into: this is a **direct fix in the block that\nhas the defect**. That is why the task is tagged `bug` — it is NOT a fidelity loophole.\n\n**Ship path:** Mode X — `clone-pull-request-create` with per-breakpoint PROD-vs-clone\nscreenshot proof, land `awaiting-user`, **the USER merges the PR**. Never merge to main.\nLive source of truth: `https://www.rapidformations.co.uk` · clone:\n`https://rapid-formations-clone.vercel.app`. ⛔ HEADED browser only for any visual check.",
+  "acceptanceCriteria": [
+    "BEST VALUE ribbon carries `box-shadow: rgba(0,0,0,0.1) 0 5px 10px 0` (or a visually matching shadow) at 1024 and 1800, matching live (clone currently `none`).",
+    "Ribbon colour, size, angle and text are unchanged — they already match live.",
+    "No ribbon is introduced at 360 or 768, where neither site renders the diagonal corner banner.",
+    "PR carries PROD-vs-clone screenshot proof of the ribbon corner at 1024 and 1800."
+  ],
+  "status": "backlog",
+  "track": "clone",
+  "tags": [
+    "bug",
+    "parallel"
+  ],
+  "priority": "normal",
+  "effort": "S",
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-08-21T15:30:40.437Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-08-21T15:30:40.437Z",
+  "startedAt": null,
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-08-21T15:30:40.437Z",
+      "by": "planning"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": null,
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "id": "T10",
+  "num": 10
+}

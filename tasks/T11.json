@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "SPIKE \u2014 is the homepage \"Helpful guides\" blog feed dynamic or curated?",
+  "body": "**Linear:** [CORE-6966](https://linear.app/bsq-group/issue/CORE-6966/rf-helpful-guides-blog-shows-different-posts-to-live-confirm-dynamic) \u00b7 state `In Progress` \u00b7 priority P4\n\n## Ticket (verbatim from Linear)\n\n**Page:** `/`\n**Live:** [https://www.rapidformations.co.uk/](<https://www.rapidformations.co.uk/>)  \u00b7  **Test:** [https://rapid-formations-clone.vercel.app/](<https://rapid-formations-clone.vercel.app/>)\n**Component/area:** \"Helpful guides, advice and business tips from our team\" (blog cards)\n**Breakpoints:** all\n\n**Issue** \u2014 The three blog posts shown on the clone differ from Live.\n\n### What's wrong\n\n* **Live:** \"What is company registration?\" / \"Why expertise matters in company formation\" / \"Can I run multiple businesses under one limited company?\"\n* **Clone:** \"Issuing shares 101\u2026\" / \"15 Out of office email templates\u2026\" / \"Small business networking\u2026\"\n* The \"Read Post\" links are each correctly wired to their own post (verified \u2014 not all pointing to one post).\n\n### Decision needed (before any dev work)\n\n* Is this section a **dynamic feed** (pulls the latest posts from WordPress)? If so it will naturally show newer posts than the current Live snapshot and **will never match Live** \u2014 that's expected, and this can be closed as by-design.\n* Or is it **curated / hard-coded**? If so, decide whether the chosen posts should match Live.\n\n### Evidence\n\n| Live | Clone |\n| -- | -- |\n|  |  |\n\n### Definition of Done\n\n- [ ] Feed behaviour confirmed (dynamic-latest vs curated).\n- [ ] If dynamic: documented as by-design, no code change. If curated: posts aligned with the agreed set.\n\n---\n### Planning note\nAllocated as a SPIKE, not an implementation task: the ticket's own Definition of Done is \"feed behaviour confirmed\", i.e. the question must be answered before any dev work. The \"Read Post\" links are already verified correctly wired, so there is no known defect beyond the post selection.\n\n---\n### Routing note (Planning)\n`rapid-formations-clone` has **no clone engine** \u2014 no `walk-dom-cdp.ts` / `emit-block.ts` /\n`verify-clone.ts`, and zero `*Clone` blocks. Every block here is hand-authored, so the\nengine-first rule has nothing to diagnose into: this is a **direct fix in the block that\nhas the defect**. That is why the task is tagged `bug` \u2014 it is NOT a fidelity loophole.\n\n**Ship path:** Mode X \u2014 `clone-pull-request-create` with per-breakpoint PROD-vs-clone\nscreenshot proof, land `awaiting-user`, **the USER merges the PR**. Never merge to main.\nLive source of truth: `https://www.rapidformations.co.uk` \u00b7 clone:\n`https://rapid-formations-clone.vercel.app`. \u26d4 HEADED browser only for any visual check.",
+  "acceptanceCriteria": [
+    "Report at `reports/T11-spike.md` states definitively whether the homepage \"Helpful guides\" section pulls posts dynamically (latest-N from the CMS) or from a curated/hard-coded set, citing the block config + query in the repo.",
+    "If dynamic: the report says so and recommends closing CORE-6966 as by-design (clone will never match a live snapshot) \u2014 NO code change in this task.",
+    "If curated: the report names the exact field/content that selects the three posts and what changing it involves, so an implementation task can be scoped.",
+    "NO source changes and NO merge in this task \u2014 report only."
+  ],
+  "status": "backlog",
+  "track": "spike",
+  "tags": [
+    "spike",
+    "parallel"
+  ],
+  "priority": "normal",
+  "effort": "S",
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-08-21T15:30:40.438Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-08-21T15:30:40.438Z",
+  "startedAt": null,
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-08-21T15:30:40.438Z",
+      "by": "planning"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": null,
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "id": "T11",
+  "num": 11
+}
