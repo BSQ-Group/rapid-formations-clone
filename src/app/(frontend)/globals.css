@@ -376,6 +376,7 @@
     --surface-promo-blue-purple: linear-gradient(51deg, rgb(40 132 184) 0%, rgb(209 186 210) 100%);
     --surface-promo-pink-purple: linear-gradient(315deg, rgb(249 197 209) 0%, rgb(151 149 239) 74%);
     --surface-ad-banner: linear-gradient(248deg, rgb(95 47 168) 0%, rgb(13 8 69) 100%);
+    --surface-compare-packages-card: rgb(226 244 255);
     --text-brand-cyan: rgb(0 177 227);
     --shadow-tile-raised:
       0 13px 27px -5px rgb(50 50 93 / 0.1), 0 8px 16px -8px rgb(0 0 0 / 0.1),
