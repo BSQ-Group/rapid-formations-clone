@@ -35,6 +35,12 @@ export const FAQs: Block = {
       },
     },
     {
+      name: 'subtitle',
+      type: 'textarea',
+      label: 'Subtitle',
+      admin: { description: 'Sits under the heading. Leave empty to show nothing.' },
+    },
+    {
       name: 'faqs',
       type: 'array',
       label: 'FAQ Items',

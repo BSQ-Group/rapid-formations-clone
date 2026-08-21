@@ -19,10 +19,11 @@ export type BuyNowButton = {
   variant: 'success' | 'secondary'
 }
 
-export const BuyNowView: React.FC<{ price?: string | null; buttons?: BuyNowButton[] }> = ({
-  price,
-  buttons = [],
-}) => {
+export const BuyNowView: React.FC<{
+  price?: string | null
+  priceSuffix?: string | null
+  buttons?: BuyNowButton[]
+}> = ({ price, priceSuffix, buttons = [] }) => {
   if (!price && !buttons.length) return null
 
   return (
@@ -32,6 +33,7 @@ export const BuyNowView: React.FC<{ price?: string | null; buttons?: BuyNowButto
           <div className={s.prices}>
             <Text textStyle="span" text={`£${price}`} className={s.price} />
           </div>
+          {priceSuffix && <Text textStyle="span" text={priceSuffix} className={s.priceSuffix} />}
         </div>
       )}
       {buttons.length > 0 && (
@@ -72,5 +74,5 @@ export const BuyNow: React.FC<{ buyNow?: BuyNowValue | null }> = async ({ buyNow
     toButton(buyNow?.secondaryCta as LinkData | undefined, 'secondary'),
   ].filter(Boolean) as BuyNowButton[]
 
-  return <BuyNowView price={price} buttons={buttons} />
+  return <BuyNowView price={price} priceSuffix={buyNow?.priceSuffix} buttons={buttons} />
 }

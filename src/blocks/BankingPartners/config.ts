@@ -98,16 +98,19 @@ export const BankingPartners: Block = {
     },
     link({
       appearances: false,
+      optional: true,
       overrides: {
         name: 'cta',
         label: 'Call to Action',
         admin: {
-          description: 'Optional CTA below the grid (e.g. "Learn More").',
+          description:
+            'Optional CTA below the grid (e.g. "Learn More"). The package pages show none.',
         },
       },
     }),
     sectionLayoutField({
-      defaults: { background: 'inverse', paddingTop: 'none', paddingBottom: 'none' },
+      gap: true,
+      defaults: { background: 'inverse', paddingTop: 'none', paddingBottom: 'none', gap: 'l' },
     }),
   ],
 }

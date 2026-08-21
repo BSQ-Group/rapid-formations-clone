@@ -30,6 +30,7 @@ export const TextContent: Block = {
       options: [
         { label: 'Standard', value: 'standard' },
         { label: 'Page sections (site baseline headings, 21px H3)', value: 'pageSections' },
+        { label: 'Package copy (24px H2, 18px H3, numbered footnote)', value: 'packageCopy' },
         { label: 'Policy (lettered lists, wider section spacing)', value: 'policy' },
         { label: 'Numbered clauses (1., 3.1., 3.1.1.)', value: 'numbered' },
         { label: 'Terms (clause numbering typed into the text)', value: 'terms' },

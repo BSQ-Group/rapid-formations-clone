@@ -31,6 +31,7 @@ export const sectionWrapperStyles = {
     sm: 'mb-[30px]',
     s50: 'mb-[50px]',
     s: 'mb-[75px]',
+    s100: 'mb-[100px]',
     m: 'mb-[50px] min-[1023px]:mb-[75px] min-[1590px]:mb-[110px]',
     l: 'mb-[70px] md:mb-[140px]',
   } satisfies Record<SectionGap, string>,

@@ -1,5 +1,5 @@
 export const customerQuoteStyles = {
-  section: 'font-legacy-condensed w-full mb-[70px] md:mb-[140px]',
+  section: 'font-legacy-condensed w-full',
 
   panel:
     'flex w-full flex-col-reverse overflow-hidden rounded-xl border border-transparent bg-[var(--surface-brand-cyan-wash)] px-3 py-8 md:grid md:grid-cols-[1.5fr_1fr] md:gap-8 min-[1200px]:p-8',
