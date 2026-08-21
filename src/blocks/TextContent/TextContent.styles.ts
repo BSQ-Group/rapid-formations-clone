@@ -74,7 +74,7 @@ const numbered = {
 const terms = {
   spacing: '[&_p]:!mb-4',
 
-  emphasis: '[&_strong]:mr-2 [&_strong]:text-[var(--text-on-light-base)]',
+  emphasis: '[&_strong]:mr-2',
 
   headings:
     '[&_h2]:!my-8 [&_h2]:text-[36px] [&_h2]:leading-[44.46px] [&_h3]:!mt-0 [&_h3]:!mb-6 [&_h3]:text-[28px] [&_h3]:leading-[34.58px]',
