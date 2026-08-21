@@ -552,3 +552,19 @@ Each entry has four parts:
   # node -e "...a.getBoundingClientRect() at 390, 470, 768, 1024, 1440"
   ```
 - **Fix:** Pass `[overflow-wrap:normal]` on the instance's `className` — it restores the word as the min-content floor, exactly like the source, while still letting a genuinely long multi-word label wrap between words. Do **not** reach for `whitespace-nowrap` (a long label then overflows its card instead of wrapping) and do **not** strip `[overflow-wrap:anywhere]` from `ctaLinkStyles.base` — it is there so an unbroken URL or email in a CTA cannot burst the button, which is the case the Storybook `UnbrokenToken` story covers.
+
+## A Payload media upload can write a perfect database record and never store the file
+
+- **When it bites:** A populate script uploads several images in one run. Payload returns a document for each, with the right `filename`, `mimeType`, `filesize` and — because sharp really did read the buffer — the correct `width`/`height`. The script prints four successes. Three of the files were never written to Vercel Blob. `/api/media/file/<name>` then 404s, `next/image` answers **400 "The requested resource isn't a valid image"**, and the page still renders because the banner band is a fixed `h-[300px]`: same height, same headings, same document height, just a blank white strip where the photo should be. Hit on the four help-centre pages — the first upload of the run landed, the other three did not, with no error thrown and no clue in the returned document.
+- **Detect:**
+  ```bash
+  # Every media file referenced by a page must actually serve. Run after any populate:
+  for f in $(node -e '…print each layout image filename…'); do
+    printf "%s -> " "$f"; curl -sk -o /dev/null -w "%{http_code}\n" "https://localhost:3000/api/media/file/$f"
+  done
+  ```
+  ```bash
+  # Or ask the blob store directly — the database is not the authority on this:
+  # bun -e "import {list} from '@vercel/blob'; …list({limit:1000})… compare pathnames"
+  ```
+- **Fix:** Re-`put` the missing files straight to the blob store at the exact pathname Payload serves (`filename`, no prefix, `addRandomSuffix: false, allowOverwrite: true`) and confirm with `head()` that the stored size equals the source size — the media document already holds the right metadata, so the IDs and every page reference stay valid. `payload.update` with a fresh `file` on the same filename does **not** reliably re-trigger the write; going to the blob API directly does. Better still, assert inside the populate script: after each upload, fetch the served URL and fail loudly if it is not 200 with a non-zero body. **A geometry-and-headings comparison cannot catch this** — the band keeps its height whether or not the image loads, so a screenshot is the only signal, and only if you look at it.

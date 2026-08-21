@@ -1401,6 +1401,10 @@ export interface OnlineAdminPortalBlock {
     background: 'light' | 'dark' | 'inverse';
     paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
     paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, S50 50px, S 75px, M 50/75/110, L 70/140.
+     */
+    gap?: ('inherit' | 'xs' | 'sm' | 's50' | 's' | 'm' | 'l') | null;
   };
   id?: string | null;
   blockName?: string | null;
@@ -2487,6 +2491,10 @@ export interface GlossaryBlock {
     background: 'light' | 'dark' | 'inverse';
     paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
     paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, S50 50px, S 75px, M 50/75/110, L 70/140.
+     */
+    gap?: ('inherit' | 'xs' | 'sm' | 's50' | 's' | 'm' | 'l') | null;
   };
   id?: string | null;
   blockName?: string | null;
@@ -2590,6 +2598,10 @@ export interface StepsItemsBlock {
     background: 'light' | 'dark' | 'inverse';
     paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
     paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, S50 50px, S 75px, M 50/75/110, L 70/140.
+     */
+    gap?: ('inherit' | 'xs' | 'sm' | 's50' | 's' | 'm' | 'l') | null;
   };
   id?: string | null;
   blockName?: string | null;
@@ -5171,6 +5183,10 @@ export interface PageTitleBlock {
    */
   title?: string | null;
   /**
+   * Untick when a banner above already carries the H1 — the heading then renders as an H2 subtitle at the source line height.
+   */
+  isPageTitle?: boolean | null;
+  /**
    * Adds the "FAQs Quick Navigation" dropdown beside the heading, listing every FAQ topic. Used on the FAQ topic pages.
    */
   showFaqQuickNav?: boolean | null;
@@ -6225,6 +6241,7 @@ export interface OnlineAdminPortalBlockSelect<T extends boolean = true> {
         background?: T;
         paddingTop?: T;
         paddingBottom?: T;
+        gap?: T;
       };
   id?: T;
   blockName?: T;
@@ -6815,6 +6832,7 @@ export interface GlossaryBlockSelect<T extends boolean = true> {
         background?: T;
         paddingTop?: T;
         paddingBottom?: T;
+        gap?: T;
       };
   id?: T;
   blockName?: T;
@@ -6874,6 +6892,7 @@ export interface StepsItemsBlockSelect<T extends boolean = true> {
         background?: T;
         paddingTop?: T;
         paddingBottom?: T;
+        gap?: T;
       };
   id?: T;
   blockName?: T;
@@ -8413,6 +8432,7 @@ export interface WhyUseAgentBlockSelect<T extends boolean = true> {
  */
 export interface PageTitleBlockSelect<T extends boolean = true> {
   title?: T;
+  isPageTitle?: T;
   showFaqQuickNav?: T;
   buyNow?:
     | T

@@ -231,6 +231,7 @@ export const RenderBlocks: React.FC<{
               <PageTitle
                 key={index}
                 title={block.title?.trim() || pageTitle?.trim()}
+                isPageTitle={block.isPageTitle}
                 sectionLayout={block.sectionLayout}
                 aside={
                   block.showFaqQuickNav || block.buyNow ? (
