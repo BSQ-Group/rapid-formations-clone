@@ -14,6 +14,13 @@ import {
 } from '@payloadcms/richtext-lexical/react'
 
 import { CodeBlock, CodeBlockProps } from '@/blocks/Code/Component'
+import { EligibleCountriesDialog } from '@/components/shared/EligibleCountriesDialog'
+import { LiveChatButton } from '@/blocks/ContactUs/LiveChatButton'
+import {
+  ELIGIBLE_COUNTRIES_HREF,
+  LIVE_CHAT_HREF,
+  type EligibleCountries,
+} from '@/utilities/shortcodes'
 
 import type {
   BannerBlock as BannerBlockProps,
@@ -37,6 +44,23 @@ const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   return relationTo === 'posts' ? `/posts/${slug}` : `/${slug}`
 }
 
+const inlineTrigger =
+  'inline cursor-pointer border-none bg-transparent p-0 font-[inherit] [font-size:inherit] [line-height:inherit] text-[var(--text-brand-cyan)]'
+
+const linkConverters = LinkJSXConverter({ internalDocToHref })
+
+type LinkConverter = (args: { node: SerializedLinkNode }) => React.ReactNode
+
+const convertLink = linkConverters.link as LinkConverter | undefined
+
+const sentinelLinks: Record<string, (label: string, payload?: unknown) => React.ReactNode> = {
+  [LIVE_CHAT_HREF]: (label) => <LiveChatButton label={label} className={inlineTrigger} />,
+  [ELIGIBLE_COUNTRIES_HREF]: (label, payload) => {
+    const { lastUpdated, countries } = (payload ?? { countries: [] }) as EligibleCountries
+    return <EligibleCountriesDialog label={label} lastUpdated={lastUpdated} countries={countries} />
+  },
+}
+
 const INDENT_STEP_PX = 16
 
 const indentStyle = (node: { indent?: number }) => {
@@ -48,7 +72,15 @@ const buildConverters =
   (listItemIcon?: React.ReactNode): JSXConvertersFunction<NodeTypes> =>
   ({ defaultConverters }) => ({
     ...defaultConverters,
-    ...LinkJSXConverter({ internalDocToHref }),
+    ...linkConverters,
+    link: (args) => {
+      const sentinel = sentinelLinks[args.node.fields?.url ?? '']
+      if (!sentinel) return convertLink?.(args as { node: SerializedLinkNode })
+      return sentinel(
+        args.node.children.map((child) => (child as { text?: string }).text ?? '').join(''),
+        (args.node.fields as { payload?: unknown }).payload,
+      )
+    },
     listitem: ({ node, nodesToJSX }) => {
       const children = nodesToJSX({ nodes: node.children })
       if (!listItemIcon) return <li>{children}</li>

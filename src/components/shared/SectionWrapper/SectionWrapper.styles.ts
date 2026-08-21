@@ -1,4 +1,23 @@
-import type { SectionBackground, SectionGap, SectionSpacing } from '@/fields/sectionLayout'
+import type {
+  LegacySectionGap,
+  SectionBackground,
+  SectionGap,
+  SectionSpacing,
+} from '@/fields/sectionLayout'
+
+const flatGap = {
+  xs: 'mb-[25px]',
+  sm: 'mb-[30px]',
+  md: 'mb-10',
+  lg: 'mb-[50px]',
+  xl: 'mb-[75px]',
+  '2xl': 'mb-[100px]',
+}
+
+const responsiveGap = {
+  section: 'mb-[50px] min-[1023px]:mb-[75px] min-[1590px]:mb-[110px]',
+  sectionLarge: 'mb-[70px] md:mb-[140px]',
+}
 
 export const sectionWrapperStyles = {
   base: 'w-full',
@@ -27,12 +46,13 @@ export const sectionWrapperStyles = {
   } satisfies Record<SectionSpacing, string>,
   gap: {
     inherit: '',
-    xs: 'mb-[25px]',
-    sm: 'mb-[30px]',
-    s50: 'mb-[50px]',
-    s: 'mb-[75px]',
-    s100: 'mb-[100px]',
-    m: 'mb-[50px] min-[1023px]:mb-[75px] min-[1590px]:mb-[110px]',
-    l: 'mb-[70px] md:mb-[140px]',
-  } satisfies Record<SectionGap, string>,
+    ...flatGap,
+    ...responsiveGap,
+    s40: flatGap.md,
+    s50: flatGap.lg,
+    s: flatGap.xl,
+    s100: flatGap['2xl'],
+    m: responsiveGap.section,
+    l: responsiveGap.sectionLarge,
+  } satisfies Record<SectionGap | LegacySectionGap, string>,
 } as const

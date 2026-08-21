@@ -5,8 +5,21 @@ import deepMerge from '@/utilities/deepMerge'
 export const SECTION_BACKGROUND_VALUES = ['light', 'dark', 'inverse'] as const
 export const SECTION_SPACING_VALUES = ['none', 'xs', 's', 'm', 'l', 'xl', 'xxl'] as const
 
-export const SECTION_GAP_VALUES = ['inherit', 'xs', 'sm', 's50', 's', 's100', 'm', 'l'] as const
+export const SECTION_GAP_VALUES = [
+  'inherit',
+  'xs',
+  'sm',
+  'md',
+  'lg',
+  'xl',
+  '2xl',
+  'section',
+  'sectionLarge',
+] as const
+
+export const LEGACY_SECTION_GAP_VALUES = ['s40', 's50', 's', 's100', 'm', 'l'] as const
 export type SectionGap = (typeof SECTION_GAP_VALUES)[number]
+export type LegacySectionGap = (typeof LEGACY_SECTION_GAP_VALUES)[number]
 
 export type SectionBackground = (typeof SECTION_BACKGROUND_VALUES)[number]
 export type SectionSpacing = (typeof SECTION_SPACING_VALUES)[number]
@@ -42,7 +55,7 @@ const gapField = (defaultValue: SectionGap = 'inherit'): Field => ({
   options: [...SECTION_GAP_VALUES],
   admin: {
     description:
-      "Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, S50 50px, S 75px, S100 100px, M 50/75/110, L 70/140.",
+      "Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, MD 40px, LG 50px, XL 75px, 2XL 100px; SECTION 50/75/110 and SECTIONLARGE 70/140 follow the source Section margin responsively.",
   },
 })
 

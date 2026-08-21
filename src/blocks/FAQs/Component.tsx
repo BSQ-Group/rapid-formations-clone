@@ -21,7 +21,7 @@ export const FAQsBlock: React.FC<FAQsBlockProps> = ({
 
   const isPage = variant === 'page'
   const gap = sectionLayout?.gap
-  const resolvedGap = !gap || gap === 'inherit' ? (isPage ? 'm' : 'l') : gap
+  const resolvedGap = !gap || gap === 'inherit' ? (isPage ? 'section' : 'sectionLarge') : gap
 
   return (
     <SectionWrapper

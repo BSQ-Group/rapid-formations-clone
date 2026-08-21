@@ -28,6 +28,7 @@ export const SameDayIncorporation: Block = {
       required: true,
     },
     sectionLayoutField({
+      gap: true,
       defaults: { background: 'light', paddingTop: 'none', paddingBottom: 'none' },
     }),
   ],

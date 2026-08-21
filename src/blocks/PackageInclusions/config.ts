@@ -100,7 +100,7 @@ export const PackageInclusions: Block = {
     }),
     sectionLayoutField({
       gap: true,
-      defaults: { background: 'light', paddingTop: 'none', paddingBottom: 'none', gap: 's' },
+      defaults: { background: 'light', paddingTop: 'none', paddingBottom: 'none', gap: 'xl' },
     }),
   ],
 }

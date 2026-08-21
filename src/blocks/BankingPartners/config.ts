@@ -110,7 +110,7 @@ export const BankingPartners: Block = {
     }),
     sectionLayoutField({
       gap: true,
-      defaults: { background: 'inverse', paddingTop: 'none', paddingBottom: 'none', gap: 'l' },
+      defaults: { background: 'inverse', paddingTop: 'none', paddingBottom: 'none', gap: 'sectionLarge' },
     }),
   ],
 }

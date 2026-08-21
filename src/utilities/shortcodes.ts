@@ -1,6 +1,11 @@
 export const TELEPHONE_NUMBER = '020 7871 9990'
 export const TELEPHONE_HREF = 'tel:+442078719990'
 
+export const LIVE_CHAT_HREF = '#live-chat'
+export const ELIGIBLE_COUNTRIES_HREF = '#eligible-countries'
+
+const NON_BREAKING_SPACE = '\u00a0'
+
 const SHORTCODE = /\[\[\s*([a-z][a-z-]*)((?:\s+[a-z-]+="[^"]*")*)\s*\]\]/g
 const ATTRIBUTE = /([a-z-]+)="([^"]*)"/g
 
@@ -25,17 +30,56 @@ const textLike = (source: TextNode, text: string): TextNode => ({
   text,
 })
 
-const telephoneLink = (source: TextNode) => ({
+const customLink = (source: TextNode, url: string, text: string, payload?: unknown) => ({
   type: 'link',
-  children: [textLike(source, TELEPHONE_NUMBER)],
+  children: [textLike(source, text)],
   direction: 'ltr',
-  fields: { linkType: 'custom', newTab: false, url: TELEPHONE_HREF },
+  fields: { linkType: 'custom', newTab: false, url, payload },
   format: '',
   indent: 0,
   version: 3,
 })
 
-const expand = (node: TextNode, prices: Map<string, string>): unknown[] => {
+const telephoneLink = (source: TextNode) => customLink(source, TELEPHONE_HREF, TELEPHONE_NUMBER)
+
+type Attributes = Record<string, string>
+
+export type EligibleCountries = { lastUpdated?: string | null; countries: string[] }
+
+export type ShortcodeData = { prices: Map<string, string>; eligibleCountries: EligibleCountries }
+
+const priceOf = (attributes: Attributes, { prices }: ShortcodeData) => {
+  const value = prices.get(attributes.slug ?? '')
+  return value === undefined ? null : `£${value}`
+}
+
+type NodeContext = { node: TextNode; attributes: Attributes; data: ShortcodeData }
+
+type Shortcode = {
+  node: (context: NodeContext) => unknown
+  text?: (attributes: Attributes, data: ShortcodeData) => string | null
+}
+
+const shortcodes: Record<string, Shortcode> = {
+  telephone: { node: ({ node }) => telephoneLink(node), text: () => TELEPHONE_NUMBER },
+  space: { node: () => NON_BREAKING_SPACE, text: () => NON_BREAKING_SPACE },
+  price: { node: ({ attributes, data }) => priceOf(attributes, data), text: priceOf },
+  'live-chat': {
+    node: ({ node, attributes }) =>
+      customLink(node, LIVE_CHAT_HREF, attributes.text || 'live chat'),
+  },
+  eligiblecountries: {
+    node: ({ node, attributes, data }) =>
+      customLink(
+        node,
+        ELIGIBLE_COUNTRIES_HREF,
+        attributes.text || 'Find out if your country is eligible',
+        data.eligibleCountries,
+      ),
+  },
+}
+
+const expand = (node: TextNode, data: ShortcodeData): unknown[] => {
   const out: unknown[] = []
   let cursor = 0
 
@@ -43,13 +87,7 @@ const expand = (node: TextNode, prices: Map<string, string>): unknown[] => {
     const [raw, identifier, rawAttributes] = match
     const attributes = parseAttributes(rawAttributes ?? '')
 
-    let replacement: unknown = null
-    if (identifier === 'telephone') {
-      replacement = telephoneLink(node)
-    } else if (identifier === 'price') {
-      const value = prices.get(attributes.slug ?? '')
-      if (value !== undefined) replacement = `£${value}`
-    }
+    const replacement = shortcodes[identifier]?.node({ node, attributes, data }) ?? null
 
     if (replacement === null) continue
 
@@ -90,27 +128,23 @@ const isShortcodeText = (value: unknown): value is TextNode =>
   typeof (value as TextNode).text === 'string' &&
   (value as TextNode).text.includes('[[')
 
-const expandString = (text: string, prices: Map<string, string>): string =>
+const expandString = (text: string, data: ShortcodeData): string =>
   text.replace(
     new RegExp(SHORTCODE.source, 'g'),
-    (raw, identifier: string, rawAttributes: string) => {
-      if (identifier === 'telephone') return TELEPHONE_NUMBER
-      if (identifier === 'price') {
-        const value = prices.get(parseAttributes(rawAttributes ?? '').slug ?? '')
-        if (value !== undefined) return `£${value}`
-      }
-      return raw
-    },
+    (raw, identifier: string, rawAttributes: string) =>
+      shortcodes[identifier]?.text?.(parseAttributes(rawAttributes ?? ''), data) ?? raw,
   )
 
 /**
- * Replaces [[telephone]] and [[price slug="..."]] anywhere in a Payload document
- * with the nodes they stand for, leaving every other shortcode untouched.
+ * Replaces [[telephone]], [[price slug="..."]], [[space]], [[live-chat]] and
+ * [[eligiblecountries]] anywhere in a Payload document with the nodes they stand
+ * for, leaving every other shortcode untouched. The last two become links on a
+ * sentinel href that RichText swaps for the interactive component.
  */
-export const resolveShortcodes = <T>(value: T, prices: Map<string, string>): T => {
+export const resolveShortcodes = <T>(value: T, data: ShortcodeData): T => {
   if (Array.isArray(value)) {
     return value.flatMap((item) =>
-      isShortcodeText(item) ? expand(item, prices) : [resolveShortcodes(item, prices)],
+      isShortcodeText(item) ? expand(item, data) : [resolveShortcodes(item, data)],
     ) as T
   }
 
@@ -122,11 +156,11 @@ export const resolveShortcodes = <T>(value: T, prices: Map<string, string>): T =
     )
     if (!worthWalking) return value
     return Object.fromEntries(
-      entries.map(([key, item]) => [key, resolveShortcodes(item, prices)]),
+      entries.map(([key, item]) => [key, resolveShortcodes(item, data)]),
     ) as T
   }
 
-  if (typeof value === 'string' && value.includes('[[')) return expandString(value, prices) as T
+  if (typeof value === 'string' && value.includes('[[')) return expandString(value, data) as T
 
   return value
 }

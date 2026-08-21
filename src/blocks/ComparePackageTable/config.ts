@@ -129,6 +129,7 @@ export const ComparePackageTable: Block = {
       editor: defaultLexical,
     },
     sectionLayoutField({
+      gap: true,
       defaults: { background: 'light', paddingTop: 'none', paddingBottom: 'none' },
     }),
   ],
