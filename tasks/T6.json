@@ -10,7 +10,7 @@
     "Where a modal opens, styling matches live: red ✕ (#e74c3c) and light grey border (clone currently grey ✕, no border).",
     "Mobile (360) keeps working for both triggers; hover/focus/active states checked; no visual regressions."
   ],
-  "status": "backlog",
+  "status": "running",
   "track": "clone",
   "tags": [
     "bug",
@@ -24,18 +24,28 @@
   "blocks": [],
   "deps": [],
   "multiBlockApproved": false,
-  "owner": null,
+  "owner": {
+    "sessionId": "lane-T6",
+    "mode": "W",
+    "branch": "fix/core-6962-package-bank-popups",
+    "worktree": "/Users/eugeniucozac/bsqgroup/rf-t6"
+  },
   "supersededBy": null,
   "createdAt": "2026-08-21T15:30:40.434Z",
   "createdBy": "planning",
-  "updatedAt": "2026-08-21T15:30:40.434Z",
-  "startedAt": null,
+  "updatedAt": "2026-08-21T15:53:25.912Z",
+  "startedAt": "2026-08-21T15:53:25.912Z",
   "completedAt": null,
   "statusHistory": [
     {
       "status": "backlog",
       "at": "2026-08-21T15:30:40.434Z",
       "by": "planning"
+    },
+    {
+      "status": "running",
+      "at": "2026-08-21T15:53:25.912Z",
+      "by": "control-modeX"
     }
   ],
   "qa": null,

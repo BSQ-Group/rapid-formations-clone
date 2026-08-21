@@ -9,7 +9,7 @@
     "Star fill colours + rating text unchanged (already match live: Trustpilot green `rgb(94,178,124)`, text weight 400 `rgb(89,89,89)`).",
     "No layout regression to the widget at 360 / 768 / 1024 / 1800."
   ],
-  "status": "backlog",
+  "status": "running",
   "track": "clone",
   "tags": [
     "bug",
@@ -22,18 +22,28 @@
   "blocks": [],
   "deps": [],
   "multiBlockApproved": false,
-  "owner": null,
+  "owner": {
+    "sessionId": "lane-T1",
+    "mode": "W",
+    "branch": "fix/core-7009-review-star-size",
+    "worktree": "/Users/eugeniucozac/bsqgroup/rf-t1"
+  },
   "supersededBy": null,
   "createdAt": "2026-08-21T15:30:40.428Z",
   "createdBy": "planning",
-  "updatedAt": "2026-08-21T15:30:40.428Z",
-  "startedAt": null,
+  "updatedAt": "2026-08-21T15:53:25.943Z",
+  "startedAt": "2026-08-21T15:53:25.943Z",
   "completedAt": null,
   "statusHistory": [
     {
       "status": "backlog",
       "at": "2026-08-21T15:30:40.428Z",
       "by": "planning"
+    },
+    {
+      "status": "running",
+      "at": "2026-08-21T15:53:25.943Z",
+      "by": "control-modeX"
     }
   ],
   "qa": null,

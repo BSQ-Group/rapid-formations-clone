@@ -8,7 +8,7 @@
     "Applied via the shared FAQ accordion so it covers all 36 impacted pages (23 FAQ topic + 14 service pages); verified on ≥2 of them.",
     "No visual regression — rendered text stays 24px / lh 32.4 / weight 400 / `rgb(54,54,54)` at 360 / 768 / 1024 / 1800."
   ],
-  "status": "backlog",
+  "status": "running",
   "track": "clone",
   "tags": [
     "bug",
@@ -21,18 +21,28 @@
   "blocks": [],
   "deps": [],
   "multiBlockApproved": false,
-  "owner": null,
+  "owner": {
+    "sessionId": "lane-T8",
+    "mode": "W",
+    "branch": "fix/core-7018-faq-heading-level",
+    "worktree": "/Users/eugeniucozac/bsqgroup/rf-t8"
+  },
   "supersededBy": null,
   "createdAt": "2026-08-21T15:30:40.435Z",
   "createdBy": "planning",
-  "updatedAt": "2026-08-21T15:30:40.435Z",
-  "startedAt": null,
+  "updatedAt": "2026-08-21T15:53:25.959Z",
+  "startedAt": "2026-08-21T15:53:25.959Z",
   "completedAt": null,
   "statusHistory": [
     {
       "status": "backlog",
       "at": "2026-08-21T15:30:40.435Z",
       "by": "planning"
+    },
+    {
+      "status": "running",
+      "at": "2026-08-21T15:53:25.959Z",
+      "by": "control-modeX"
     }
   ],
   "qa": null,

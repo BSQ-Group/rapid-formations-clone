@@ -10,7 +10,7 @@
     "No regression to bold inside headings — live keeps bold in `<h2>`/`<h3>` at `#595959` (see CORE-7120) — so a blanket darken-all-bold rule is not acceptable.",
     "No regression to already-correct bold contexts: `/ico-registration/` feature-list bold, the correct run on `/business-telephone/`, and the `#595959` review-figure bold."
   ],
-  "status": "backlog",
+  "status": "running",
   "track": "clone",
   "tags": [
     "bug",
@@ -24,18 +24,28 @@
   "blocks": [],
   "deps": [],
   "multiBlockApproved": false,
-  "owner": null,
+  "owner": {
+    "sessionId": "lane-T4",
+    "mode": "W",
+    "branch": "fix/core-7119-bold-body-text",
+    "worktree": "/Users/eugeniucozac/bsqgroup/rf-t4"
+  },
   "supersededBy": null,
   "createdAt": "2026-08-21T15:30:40.431Z",
   "createdBy": "planning",
-  "updatedAt": "2026-08-21T15:30:40.431Z",
-  "startedAt": null,
+  "updatedAt": "2026-08-21T15:53:25.890Z",
+  "startedAt": "2026-08-21T15:53:25.890Z",
   "completedAt": null,
   "statusHistory": [
     {
       "status": "backlog",
       "at": "2026-08-21T15:30:40.431Z",
       "by": "planning"
+    },
+    {
+      "status": "running",
+      "at": "2026-08-21T15:53:25.890Z",
+      "by": "control-modeX"
     }
   ],
   "qa": null,

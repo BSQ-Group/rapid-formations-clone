@@ -42,3 +42,42 @@ fidelity loophole; it is the absence of an engine.
   the *class* of tickets already allocated here — notably CORE-6965 ("SITEWIDE: content
   images served under-resolution") which likely subsumes T9/T3 and CORE-7133. Needs a
   class-collapse decision at allocation time rather than 46 parallel tasks.
+
+## 2026-08-21 — Mode X (Automation · Bug-Fixing) · model Sonnet 4.6
+
+Session start: control mode **X**, model **Sonnet 4.6**. Skills clone 0 commits behind origin/main.
+Machine role `local-integrator`; Console UP on :3999 → all lanes spawned as Console `W · Worker`
+sessions (never Agent subagents). Mode X **never merges** — every task ships as a USER-merged PR.
+
+Task set at start: T1–T11 all `backlog` (11 tasks, allocated by the Mode C bootstrap).
+Eligible = backlog + deps satisfied + tagged `bug`. Out of scope this mode: **T11** (`spike`, not `bug`).
+Dep-blocked: T2←T1, T3←T2, T5←T4.
+
+**Round 1 — 5 lanes dispatched (= the ≤5 parallel-lane cap), priority order ‼️/🔺 first:**
+
+| Lane | Task | Pri | Area (ownership) | Branch | Port | Worker session |
+|---|---|---|---|---|---|---|
+| L1 | T4 CORE-7119 | 🔺 | shared richtext `strong`/`b` colour | `fix/core-7119-bold-body-text` | 3001 | 06f94dc4 |
+| L2 | T6 CORE-6962 | 🔺 | pkg ⓘ + bank-partner popups/modal | `fix/core-6962-package-bank-popups` | 3002 | 48329f54 |
+| L3 | T7 CORE-6995 | 🔺 | Header top-bar logo links/stacking | `fix/core-6995-topbar-logo-links` | 3003 | fbecc67e |
+| L4 | T1 CORE-7009 | — | reviews widget star sizing (unblocks T2→T3) | `fix/core-7009-review-star-size` | 3004 | 4c5b43c6 |
+| L5 | T8 CORE-7018 | — | FAQ accordion heading level h3→h4 | `fix/core-7018-faq-heading-level` | 3005 | c99cfc6c |
+
+**Held (file-conflict / deps / scope), next-eligible in this order:**
+- **T9** CORE-7013 (FAQ banner resolution) — fully disjoint, first into the next free slot.
+- **T10** CORE-7000 (BEST VALUE ribbon shadow) — same packages block as T6 → serialized behind L2.
+- **T2** ← T1, **T3** ← T2 (same reviews widget), **T5** ← T4 (same richtext layer).
+- **T11** — `spike`, out of Mode X scope; needs Planning/user, not a bug lane.
+
+**Repo adaptations recorded (this repo lacks the 1stformations pipeline `scripts/`):**
+- No `scripts/setup-worktree.sh` → worktrees created by hand (`git worktree add` + symlinked
+  `node_modules` + copied `.env`) at `../rf-t{1,4,6,7,8}`.
+- No `scripts/gen-field11-from-heartbeat.ts` → lanes derive field 11 mechanically from their own
+  HH:MM:SS HEARTBEAT spans; estimating is explicitly forbidden in the prompt.
+- No `scripts/check-task-complete.sh` → the enforced gate is `clone-task-qa-permission-to-finish`
+  plus the state-machine's `submit-pr` rail.
+- Step 2f coord gate IS satisfiable: `qa-coord-live.ts` exists in `clone-live-page-to-payload`.
+  Breakpoints are Erin's **360/768/1024/1800** (not 390/768/1440/1800) per the acceptance criteria.
+- `clone-pull-request-create` doc hardcodes 1stformations/QCF URLs → prompts override the LIVE
+  source of truth to `https://www.rapidformations.co.uk/<slug>`.
+- No `.claude/qa-bg-waivers.json` in this repo — lanes run the coord gate without it.
