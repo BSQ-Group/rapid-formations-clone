@@ -27,7 +27,10 @@
     "ci:migrate": "cross-env NODE_OPTIONS=--no-deprecation payload migrate && bun run build",
     "db:restore": "dotenv -e .env -- bash dbRestore.sh",
     "dev:qcf": "dotenv -e .env.qcf -- bun run dev",
-    "dev:rf": "dotenv -e .env.rf -- bun run dev"
+    "dev:rf": "dotenv -e .env.rf -- bun run dev",
+    "tasks": "cross-env NODE_OPTIONS=--no-deprecation bun ~/.claude/skills/task-orchestration/scripts/tasks-cli.ts --repo .",
+    "proposals": "cross-env NODE_OPTIONS=--no-deprecation bun ~/.claude/skills/task-orchestration/scripts/proposals-cli.ts --repo .",
+    "console": "CONSOLE_REPO_ROOT=$PWD bun run --cwd $(dirname $(readlink -f ~/.claude/skills/clone-control-center))/clone-control-center/console dev"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "6.1.2",

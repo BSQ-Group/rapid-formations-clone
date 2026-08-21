@@ -1,0 +1,183 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://rapid-formations-clone/tasks/schema.json",
+  "title": "Task",
+  "description": "One clone-pipeline record. Persisted as tasks/T####.json (a task) or tasks/proposals/P####.json (a proposal — same shape, kind='proposal'). The single source of truth that replaced the OUTSTANDING-TASKS.md row and the proposed-tasks.md buffer. TS mirror: scripts/lib/tasks.ts (clone) + clone-control-center/console/lib/task.ts (Console). `kind` and `parent` are optional for back-compat with pre-proposal task files (they read as kind='task', parent=null).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion", "id", "num", "title", "body", "acceptanceCriteria",
+    "status", "track", "tags", "priority", "effort", "machine",
+    "slug", "blocks", "deps", "multiBlockApproved",
+    "owner", "supersededBy",
+    "createdAt", "createdBy", "updatedAt", "startedAt", "completedAt", "statusHistory",
+    "qa", "ready", "livecheck", "needsManual", "report", "pr", "merge",
+    "rejections", "proposalSource"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "id": { "type": "string", "pattern": "^[TP]\\d+$" },
+    "num": { "type": "integer", "minimum": 1 },
+    "kind": { "type": "string", "enum": ["task", "proposal"] },
+
+    "title": { "type": "string" },
+    "body": { "type": "string" },
+    "acceptanceCriteria": { "type": "array", "items": { "type": "string" } },
+
+    "status": {
+      "type": "string",
+      "enum": ["backlog", "running", "ready", "awaiting-user", "needs-manual", "done", "landed", "void", "icebox", "recurring", "deferred"]
+    },
+    "track": {
+      "type": "string",
+      "enum": ["clone", "console", "engine", "tooling", "process", "spike", "planning"]
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["repeat", "spike", "engine", "critical", "priority", "parallel", "console", "bug"] },
+      "uniqueItems": true
+    },
+    "priority": { "type": "string", "enum": ["critical", "high", "normal", "deferred-lowest"] },
+    "effort": { "type": ["string", "null"] },
+    "machine": { "type": "string", "enum": ["LOCAL", "REMOTE"] },
+
+    "slug": { "type": ["string", "null"] },
+    "blocks": { "type": "array", "items": { "type": "string" } },
+    "deps": { "type": "array", "items": { "type": "string", "pattern": "^T\\d+$" } },
+    "multiBlockApproved": { "type": "boolean" },
+
+    "owner": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["sessionId", "mode", "branch", "worktree"],
+      "properties": {
+        "sessionId": { "type": "string" },
+        "mode": { "type": "string" },
+        "branch": { "type": ["string", "null"] },
+        "worktree": { "type": ["string", "null"] }
+      }
+    },
+    "supersededBy": { "type": ["string", "null"], "pattern": "^T\\d+$" },
+
+    "createdAt": { "type": "string" },
+    "createdBy": { "type": "string" },
+    "updatedAt": { "type": "string" },
+    "startedAt": { "type": ["string", "null"] },
+    "completedAt": { "type": ["string", "null"] },
+    "statusHistory": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["status", "at", "by"],
+        "properties": {
+          "status": { "type": "string" },
+          "at": { "type": "string" },
+          "by": { "type": "string" },
+          "note": { "type": "string" }
+        }
+      }
+    },
+
+    "qa": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["verdict", "at", "verifier", "unmet", "path"],
+      "properties": {
+        "verdict": { "type": "string", "enum": ["APPROVE", "REJECT"] },
+        "at": { "type": "string" },
+        "verifier": { "type": "string" },
+        "unmet": { "type": "array", "items": { "type": "string" } },
+        "path": { "type": "string" }
+      }
+    },
+    "ready": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["at", "sha", "branch", "lenient4bp", "ship"],
+      "properties": {
+        "at": { "type": "string" },
+        "sha": { "type": "string" },
+        "branch": { "type": "string" },
+        "lenient4bp": { "type": "array", "items": { "type": "number" } },
+        "ship": { "type": "string" }
+      }
+    },
+    "livecheck": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["at", "pass", "paths"],
+      "properties": {
+        "at": { "type": "string" },
+        "pass": { "type": "boolean" },
+        "paths": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "needsManual": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["at", "reason", "path"],
+      "properties": {
+        "at": { "type": "string" },
+        "reason": { "type": "string" },
+        "path": { "type": "string" }
+      }
+    },
+    "report": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["round", "path"],
+      "properties": {
+        "round": { "type": "integer" },
+        "path": { "type": "string" }
+      }
+    },
+    "userVerified": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["at", "by"],
+      "properties": {
+        "at": { "type": "string" },
+        "by": { "type": "string" }
+      }
+    },
+    "pr": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["url", "number", "state"],
+      "properties": {
+        "url": { "type": "string" },
+        "number": { "type": "integer" },
+        "state": { "type": "string" }
+      }
+    },
+    "merge": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["ref", "sha", "at"],
+      "properties": {
+        "ref": { "type": "string" },
+        "sha": { "type": "string" },
+        "at": { "type": "string" }
+      }
+    },
+
+    "rejections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["at", "by", "reason", "delivery"],
+        "properties": {
+          "at": { "type": "string" },
+          "by": { "type": "string" },
+          "reason": { "type": "string" },
+          "delivery": { "type": "string", "enum": ["relayed", "redispatched", "none"] }
+        }
+      }
+    },
+
+    "proposalSource": { "type": ["string", "null"] },
+    "parent": { "type": ["string", "null"], "pattern": "^T\\d+$" }
+  }
+}
