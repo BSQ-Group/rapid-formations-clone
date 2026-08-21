@@ -6,7 +6,8 @@ export const landingHeroStyles = {
 
   overlay: 'absolute inset-0 pointer-events-none bg-[var(--scrim-hero)] md:bg-transparent',
 
-  accreditations: 'hidden min-[1590px]:flex flex-col items-end gap-4 absolute top-4 right-4 z-10',
+  accreditations:
+    'hidden min-[1590px]:flex flex-col items-end gap-4 absolute top-4 right-4 z-[1001]',
   accreditationItem: 'flex flex-row items-center gap-2',
   accreditationLabel: 'max-w-xs break-words text-right text-[var(--text-strong)]',
   accreditationLogoSm: 'w-11 h-auto',

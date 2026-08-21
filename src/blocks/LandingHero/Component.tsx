@@ -53,6 +53,7 @@ export const LandingHeroBlock: React.FC<LandingHeroBlockProps> = ({
             if (!logo || typeof logo !== 'object' || !logo.url) return null
 
             const href = accreditation.link ? getLinkHref(accreditation.link as LinkData) : null
+            const isExternal = Boolean(href && /^https?:\/\//.test(href))
             const logoClassName =
               accreditation.size === 'lg' ? s.accreditationLogoLg : s.accreditationLogoSm
 
@@ -79,9 +80,7 @@ export const LandingHeroBlock: React.FC<LandingHeroBlockProps> = ({
                 {href && href !== '#' ? (
                   <Link
                     href={href}
-                    {...(accreditation.link?.newTab
-                      ? { target: '_blank', rel: 'noopener noreferrer' }
-                      : {})}
+                    {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                   >
                     {logoImage}
                   </Link>
