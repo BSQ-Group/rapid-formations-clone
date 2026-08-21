@@ -1,14 +1,17 @@
 {
   "schemaVersion": 1,
   "kind": "proposal",
-  "title": "task-console · T4 · action:escalate-decision",
-  "body": "**[task-console 2026-08-21 16:24Z · T4 · action:escalate-decision]** DECISION ESCALATION for T4 (USER via task-console): the lane parked on \"❓DECISION: director-appointment-resignation bold is in FAQs answerText, owned by T8 — filing proposal, not touching\". Planning: turn this into an explicit task/decision row with options, or fold the answer into the T4 row note. _(source: USER click in the task console — self-contained per the full-proposal-in rule; Planning: dedup vs the tasks, promote/reject.)_",
+  "title": "CORE-7119 follow-up: FAQ answer bold (\"Please note:\") on /director-appointment-resignation/ still #595959 — needs FAQs.styles.ts answerText fix, owned by T8",
+  "body": "**Parent:** T4 (CORE-7119 — SHARED: bold body text too light)\n\n## Problem\n\nT4's acceptance criteria require `/director-appointment-resignation/` to render its bold \"Please note:\" run at `#313131` (matching live). T4's ownership lane explicitly excludes \"the FAQ accordion (T8)\" as a hard boundary, so T4 could not make this specific change.\n\n## Evidence\n\nLive-rendered HTML on the clone dev server (`https://localhost:3001/director-appointment-resignation/`) shows the page's ONLY bold run is:\n\n```html\n<div class=\"payload-richtext max-w-none pt-4 pb-8 text-[22px] leading-[33px] font-normal text-[var(--text-on-light-muted)] [&_p]:mb-4 [&_p:last-child]:mb-0 [&_ul]:ml-4 [&_ol]:ml-4 [&_a]:text-[var(--surface-brand-cyan)] [&_a]:no-underline\">\n  ...<p><strong>Please note:</strong> All details will be publicly visible...</p>\n</div>\n```\n\nThat exact class string is `faqsStyles.answerText` in `src/blocks/FAQs/FAQs.styles.ts:13` — i.e. this bold run is inside an FAQ answer, not the TextContent/BuyServiceCard body-richtext components T4 fixed. T4 fixed the SAME underlying defect in `src/blocks/TextContent/TextContent.styles.ts` (added an `emphasis` key to `richTextShell`, and fixed the `terms` variant's wrong `--text-on-light-base` override) and `src/components/shared/BuyServiceCard/BuyServiceCard.styles.ts` (added the same `emphasis` rule to `body`), verified live at #313131 on id-requirements, whistleblowing, vat-registration, business-telephone, and terms-and-conditions.\n\n## Exactly what to do\n\nIn `src/blocks/FAQs/FAQs.styles.ts`, line 13 (`answerText`), append the same two-part rule T4 used elsewhere:\n\n```ts\nanswerText:\n  'max-w-none pt-4 pb-8 text-[22px] leading-[33px] font-normal text-[var(--text-on-light-muted)] [&_p]:mb-4 [&_p:last-child]:mb-0 [&_ul]:ml-4 [&_ol]:ml-4 [&_a]:text-[var(--surface-brand-cyan)] [&_a]:no-underline [&_:is(strong,b)]:text-[var(--text-on-light-strong)] [&_:is(h1,h2,h3,h4,h5,h6)_:is(strong,b)]:!text-[color:inherit]',\n```\n\nThis reuses the existing `--text-on-light-strong` CSS variable (`#313131`, already defined in `src/app/(frontend)/globals.css`) — no new variable needed. The heading-exclusion half is a no-op if FAQ answers never contain headings, but keeps the rule consistent/safe if they ever do.\n\n## Verify\n\nReload `https://localhost:3001/director-appointment-resignation/` and confirm `<strong>Please note:</strong>` renders `#313131` (pixel-sample or DevTools computed style), surrounding paragraph text stays `#595959`, and no other FAQ answer bold (site-wide) regresses in a way that conflicts with T8's FAQ accordion work.\n",
   "acceptanceCriteria": [],
   "status": "backlog",
   "track": "clone",
-  "tags": [],
-  "priority": "normal",
-  "effort": null,
+  "tags": [
+    "bug",
+    "follow-up"
+  ],
+  "priority": "medium",
+  "effort": "S",
   "machine": "LOCAL",
   "slug": null,
   "blocks": [],
@@ -16,15 +19,15 @@
   "multiBlockApproved": false,
   "owner": null,
   "supersededBy": null,
-  "createdAt": "2026-08-21T16:24:55.196Z",
+  "createdAt": "2026-08-21T16:25:16.334Z",
   "createdBy": "claude",
-  "updatedAt": "2026-08-21T16:24:55.196Z",
+  "updatedAt": "2026-08-21T16:25:16.334Z",
   "startedAt": null,
   "completedAt": null,
   "statusHistory": [
     {
       "status": "backlog",
-      "at": "2026-08-21T16:24:55.196Z",
+      "at": "2026-08-21T16:25:16.334Z",
       "by": "claude"
     }
   ],
