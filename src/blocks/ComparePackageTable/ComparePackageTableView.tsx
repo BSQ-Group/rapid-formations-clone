@@ -12,6 +12,7 @@ export const ComparePackageTableView: React.FC<{
 }> = ({ data, cardHeight }) => (
   <>
     <DesktopGrid data={data} />
+    <MobileCarousel data={data} cardHeight={cardHeight} />
     {data.footnote && (
       <div className={s.footnote}>
         <RichText
@@ -22,6 +23,5 @@ export const ComparePackageTableView: React.FC<{
         />
       </div>
     )}
-    <MobileCarousel data={data} cardHeight={cardHeight} />
   </>
 )

@@ -568,3 +568,18 @@ Each entry has four parts:
   # bun -e "import {list} from '@vercel/blob'; …list({limit:1000})… compare pathnames"
   ```
 - **Fix:** Re-`put` the missing files straight to the blob store at the exact pathname Payload serves (`filename`, no prefix, `addRandomSuffix: false, allowOverwrite: true`) and confirm with `head()` that the stored size equals the source size — the media document already holds the right metadata, so the IDs and every page reference stay valid. `payload.update` with a fresh `file` on the same filename does **not** reliably re-trigger the write; going to the blob API directly does. Better still, assert inside the populate script: after each upload, fetch the served URL and fail loudly if it is not 200 with a non-zero body. **A geometry-and-headings comparison cannot catch this** — the band keeps its height whether or not the image loads, so a screenshot is the only signal, and only if you look at it.
+
+## The source component on disk is stale, so DOM order read from it can be wrong where the live site differs
+
+- **When it bites:** A ported block puts two sibling regions in the order the local Gatsby component declares them, because that file is the obvious place to read the structure from. The deployed site has since been changed and renders them the other way round. It stays invisible at desktop when one of the two is `display: none` there, and only shows at the breakpoint where the hidden one becomes visible. Hit on `ComparePackageTable`: `ComparePackageTable.tsx` on disk renders grid → footnote → mobile, so the port did too, and at 1440 that is correct because the mobile block is hidden. At 390 the desktop grid is hidden instead, and the live site puts the footnote *after* the cards — the port put "Please note:" above them. Every desktop check passed; the page shipped wrong at mobile. The same staleness had already been established for *copy* (name-check verdicts), but the lesson was not carried across to *structure*.
+- **Detect:**
+  ```bash
+  # Compare visible heading ORDER, not just the set, at every breakpoint. Y position is
+  # the authority — DOM order lies whenever anything is display:none or reordered.
+  # For each of source and port, at 390 / 768 / 1024 / 1440:
+  #   [...document.querySelectorAll('h1,h2,h3,h4')]
+  #     .filter(h => h.getClientRects().length)          // NOT getComputedStyle(h).display
+  #     .map(h => `${h.innerText.slice(0,24)}@${Math.round(h.getBoundingClientRect().top + scrollY)}`)
+  # A mismatch count that is higher at one breakpoint than the others is this bug.
+  ```
+- **Fix:** Take render order from the **live DOM at the breakpoint in question**, never from the local component file — the checkout is behind the deployment. Where two regions swap by breakpoint and each is hidden at the other, ordering them so the visible one always comes second is usually enough; no CSS `order` is needed. Note `getComputedStyle(el).display` does **not** report an ancestor's `display: none`, so a visibility filter written that way silently counts hidden nodes and hides the very mismatch you are looking for — use `getClientRects().length`.
