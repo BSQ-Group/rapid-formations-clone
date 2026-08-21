@@ -12,7 +12,15 @@ export const titleBannerStyles = {
 
   imageSection: 'font-legacy-condensed w-full',
 
-  imageFrame: 'mx-auto w-full bg-[var(--surface-banner-backdrop)]',
+  backdrop: {
+    none: '',
+    dark: 'bg-[var(--surface-banner-backdrop)]',
+    mist: 'bg-[var(--surface-banner-backdrop-mist)]',
+  },
 
-  bannerImage: 'block h-auto max-h-[260px] w-full object-cover',
+  imageFrame: 'mx-auto w-full',
+
+  bannerImage: 'block h-auto w-full object-cover',
+
+  bannerImageCapped: 'max-h-[260px]',
 } as const

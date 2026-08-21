@@ -34,6 +34,31 @@ export const TitleBanner: Block = {
       },
     },
     {
+      name: 'backdrop',
+      type: 'select',
+      label: 'Backdrop behind the image',
+      defaultValue: 'none',
+      options: [
+        { label: 'None', value: 'none' },
+        { label: 'Dark slate', value: 'dark' },
+        { label: 'Mist grey', value: 'mist' },
+      ],
+      admin: {
+        condition: (_, siblingData) => siblingData?.variant !== 'titleBackground',
+        description: 'Fills the full-width band either side of the image above 1170px.',
+      },
+    },
+    {
+      name: 'naturalHeight',
+      type: 'checkbox',
+      label: 'Let the image run to its natural height',
+      defaultValue: false,
+      admin: {
+        condition: (_, siblingData) => siblingData?.variant !== 'titleBackground',
+        description: 'Unticked the band is cropped to 260px tall.',
+      },
+    },
+    {
       name: 'image',
       type: 'upload',
       relationTo: 'media',

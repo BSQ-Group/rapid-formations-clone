@@ -5,9 +5,17 @@ import type { Media as MediaType, TitleBannerBlock as TitleBannerProps } from '@
 import { Container } from '@/components/shared/Container/Container'
 import { Media } from '@/components/Media'
 import Text from '@/components/shared/Text'
+import { cn } from '@/utilities/ui'
 import { titleBannerStyles as s } from './TitleBanner.styles'
 
-export const TitleBanner: React.FC<TitleBannerProps> = ({ title, image, isPageTitle, variant }) => {
+export const TitleBanner: React.FC<TitleBannerProps> = ({
+  title,
+  image,
+  isPageTitle,
+  variant,
+  backdrop,
+  naturalHeight,
+}) => {
   const heading = title?.trim()
 
   if (!image) return null
@@ -21,14 +29,14 @@ export const TitleBanner: React.FC<TitleBannerProps> = ({ title, image, isPageTi
           resource={image}
           priority
           htmlElement={null}
-          imgClassName={s.bannerImage}
+          imgClassName={cn(s.bannerImage, !naturalHeight && s.bannerImageCapped)}
           size={`(min-width: ${frameWidth}px) ${frameWidth}px, 100vw`}
         />
       </div>
     )
 
     return (
-      <section className={s.imageSection}>
+      <section className={cn(s.imageSection, s.backdrop[backdrop ?? 'none'] ?? s.backdrop.none)}>
         {variant === 'imageBleed' ? media : <Container>{media}</Container>}
       </section>
     )

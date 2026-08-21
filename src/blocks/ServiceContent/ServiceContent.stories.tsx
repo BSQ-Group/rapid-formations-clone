@@ -81,13 +81,13 @@ const Layout: React.FC<{ sections: Section[]; split?: boolean }> = ({ sections, 
   const right = split ? sections.filter((x) => x.position === 'right') : []
   return (
     <div className={cn(s.root, split && s.split)}>
-      <div className={s.column}>
+      <div className={cn(s.column, s.columnFlush)}>
         {left.map((x, i) => (
           <ServiceContentSection key={i} section={x} />
         ))}
       </div>
       {split && right.length > 0 && (
-        <div className={s.column}>
+        <div className={cn(s.column, s.columnFlush)}>
           {right.map((x, i) => (
             <ServiceContentSection key={i} section={x} />
           ))}

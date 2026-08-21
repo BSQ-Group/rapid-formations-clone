@@ -15,6 +15,14 @@ const image = {
   updatedAt: '',
 } as any
 
+const wideImage = {
+  ...image,
+  url: 'https://placehold.co/3800x1200/8a7a5f/ffffff?text=+',
+  width: 3800,
+  height: 1200,
+  alt: 'Group of professional business people.',
+} as any
+
 const meta: Meta<typeof TitleBanner> = {
   component: TitleBanner,
   title: 'Base Components/TitleBanner',
@@ -48,6 +56,27 @@ export const TwoLines: Story = {
 export const PhotoOnly: Story = {
   name: 'No title — photo band only',
   args: { blockType: 'titleBanner', image, isPageTitle: true },
+}
+
+export const NaturalHeightOnMist: Story = {
+  name: 'Image bleed — natural height on a mist backdrop',
+  args: {
+    blockType: 'titleBanner',
+    variant: 'imageBleed',
+    backdrop: 'mist',
+    naturalHeight: true,
+    image: wideImage,
+  },
+}
+
+export const CappedOnMist: Story = {
+  name: 'Image bleed — cropped to 260px on a mist backdrop',
+  args: {
+    blockType: 'titleBanner',
+    variant: 'imageBleed',
+    backdrop: 'mist',
+    image: wideImage,
+  },
 }
 
 export const NotThePageHeading: Story = {
