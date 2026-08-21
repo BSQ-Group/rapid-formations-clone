@@ -134,3 +134,26 @@ Armed a one-shot in-session wake-up for **19:07 BST** (job `322640e0`) that will
 ⛔ **The wake-up is SESSION-ONLY** — it lives in this control session's memory and dies with it. If
 this session is closed before 19:07, nothing self-resumes (the documented plain-session limitation);
 the operator must relaunch Mode X manually, and the task set + this log carry everything needed.
+
+### Round 1 RESUMED 17:07 BST — reduced to 3 lanes (USER: different account, fresh quota)
+
+The blocker was account-level, not time-based: the session moved to a **different account**, so the
+19:00 reset was moot. Resumed early and cancelled the 19:07 wake-up (`322640e0`).
+
+All five Console `W` workers survived the ~70-minute idle with contexts intact (86–112k tokens), so
+every resumed lane went the **relay** route — no re-spawn, no re-paid orientation. T4 was relayed
+first as the lead lane and confirmed `running` (no rejection) before T6/T7 followed.
+
+| Lane | Task | Session | Delivery | Status |
+|---|---|---|---|---|
+| L1 | T4 CORE-7119 | 06f94dc4 | relayed | running |
+| L2 | T6 CORE-6962 | 48329f54 | relayed | running |
+| L3 | T7 CORE-6995 | fbecc67e | relayed | running |
+
+**Held back this round (USER directive — fewer lanes so a partly-recovered quota isn't spent at once):**
+T1 (`4c5b43c6`) and T8 (`c99cfc6c`) stay **idle with context preserved** and their tasks in `backlog`
+— they can be relayed into the next free slot without re-spawning. T9/T10 unchanged in the held queue;
+T2←T1, T3←T2, T5←T4 dep-blocked; T11 out of Mode X scope.
+
+Watchdog armed (`bg8dfwbkn`): polls every 120s for new 🚧BLOCKED/❓DECISION lines, a lane turn ending,
+HEARTBEAT staleness >20 min, and any task reaching `awaiting-user`/`needs-manual`.
