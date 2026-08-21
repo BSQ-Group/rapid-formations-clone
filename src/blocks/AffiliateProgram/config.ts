@@ -30,6 +30,7 @@ export const AffiliateProgram: Block = {
       },
     }),
     sectionLayoutField({
+      gap: true,
       defaults: { background: 'light', paddingTop: 'none', paddingBottom: 'none' },
     }),
   ],

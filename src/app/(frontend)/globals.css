@@ -332,6 +332,7 @@
     --border-on-light-tile: rgb(215 215 215);
     --surface-brand-orange: rgb(249 128 0);
     --surface-banner-backdrop: rgb(38 50 56);
+    --surface-banner-backdrop-mist: rgb(229 231 235);
     --tooltip-surface: rgb(255 255 255);
     --tooltip-text-title: var(--text-on-light-base);
     --tooltip-text-body: var(--text-on-light-muted);

@@ -40,6 +40,17 @@ export const ServiceContent: Block = {
       },
     },
     {
+      name: 'rightColumnLeadGap',
+      type: 'checkbox',
+      label: 'Space above the right column',
+      defaultValue: false,
+      admin: {
+        condition: (_, siblingData) => siblingData?.columns !== 'one',
+        description:
+          'Keeps the 32px the source leaves above the right column heading from 1023px up, for pages whose right column has no buy card.',
+      },
+    },
+    {
       name: 'sections',
       type: 'array',
       label: 'Sections',

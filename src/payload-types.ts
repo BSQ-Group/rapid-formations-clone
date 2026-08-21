@@ -969,9 +969,9 @@ export interface FAQsBlock {
     paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
     paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
     /**
-     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, S 75px, M 50/75/110, L 70/140.
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, S50 50px, S 75px, M 50/75/110, L 70/140.
      */
-    gap?: ('inherit' | 'xs' | 'sm' | 's' | 'm' | 'l') | null;
+    gap?: ('inherit' | 'xs' | 'sm' | 's50' | 's' | 'm' | 'l') | null;
   };
   id?: string | null;
   blockName?: string | null;
@@ -1531,9 +1531,9 @@ export interface OurOfficesBlock {
     paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
     paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
     /**
-     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, S 75px, M 50/75/110, L 70/140.
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, S50 50px, S 75px, M 50/75/110, L 70/140.
      */
-    gap?: ('inherit' | 'xs' | 'sm' | 's' | 'm' | 'l') | null;
+    gap?: ('inherit' | 'xs' | 'sm' | 's50' | 's' | 'm' | 'l') | null;
   };
   id?: string | null;
   blockName?: string | null;
@@ -1632,9 +1632,9 @@ export interface AdBannerBlock {
     paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
     paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
     /**
-     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, S 75px, M 50/75/110, L 70/140.
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, S50 50px, S 75px, M 50/75/110, L 70/140.
      */
-    gap?: ('inherit' | 'xs' | 'sm' | 's' | 'm' | 'l') | null;
+    gap?: ('inherit' | 'xs' | 'sm' | 's50' | 's' | 'm' | 'l') | null;
   };
   id?: string | null;
   blockName?: string | null;
@@ -1862,9 +1862,9 @@ export interface PackageInclusionsBlock {
     paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
     paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
     /**
-     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, S 75px, M 50/75/110, L 70/140.
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, S50 50px, S 75px, M 50/75/110, L 70/140.
      */
-    gap?: ('inherit' | 'xs' | 'sm' | 's' | 'm' | 'l') | null;
+    gap?: ('inherit' | 'xs' | 'sm' | 's50' | 's' | 'm' | 'l') | null;
   };
   id?: string | null;
   blockName?: string | null;
@@ -1941,9 +1941,9 @@ export interface RecommendedPackagesBlock {
     paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
     paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
     /**
-     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, S 75px, M 50/75/110, L 70/140.
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, S50 50px, S 75px, M 50/75/110, L 70/140.
      */
-    gap?: ('inherit' | 'xs' | 'sm' | 's' | 'm' | 'l') | null;
+    gap?: ('inherit' | 'xs' | 'sm' | 's50' | 's' | 'm' | 'l') | null;
   };
   id?: string | null;
   blockName?: string | null;
@@ -2693,6 +2693,10 @@ export interface ServiceContentBlock {
    */
   cardSpacing: 'standard' | 'compact';
   /**
+   * Keeps the 32px the source leaves above the right column heading from 1023px up, for pages whose right column has no buy card.
+   */
+  rightColumnLeadGap?: boolean | null;
+  /**
    * Rendered in this order, down the left column then the right.
    */
   sections?:
@@ -2733,9 +2737,9 @@ export interface ServiceContentBlock {
     paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
     paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
     /**
-     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, S 75px, M 50/75/110, L 70/140.
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, S50 50px, S 75px, M 50/75/110, L 70/140.
      */
-    gap?: ('inherit' | 'xs' | 'sm' | 's' | 'm' | 'l') | null;
+    gap?: ('inherit' | 'xs' | 'sm' | 's50' | 's' | 'm' | 'l') | null;
   };
   id?: string | null;
   blockName?: string | null;
@@ -3033,9 +3037,9 @@ export interface SiteMapBlock {
     paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
     paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
     /**
-     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, S 75px, M 50/75/110, L 70/140.
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, S50 50px, S 75px, M 50/75/110, L 70/140.
      */
-    gap?: ('inherit' | 'xs' | 'sm' | 's' | 'm' | 'l') | null;
+    gap?: ('inherit' | 'xs' | 'sm' | 's50' | 's' | 'm' | 'l') | null;
   };
   id?: string | null;
   blockName?: string | null;
@@ -3092,9 +3096,9 @@ export interface RenewalItemsBlock {
     paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
     paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
     /**
-     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, S 75px, M 50/75/110, L 70/140.
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, S50 50px, S 75px, M 50/75/110, L 70/140.
      */
-    gap?: ('inherit' | 'xs' | 'sm' | 's' | 'm' | 'l') | null;
+    gap?: ('inherit' | 'xs' | 'sm' | 's50' | 's' | 'm' | 'l') | null;
   };
   id?: string | null;
   blockName?: string | null;
@@ -3457,6 +3461,10 @@ export interface AffiliateProgramBlock {
     background: 'light' | 'dark' | 'inverse';
     paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
     paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, S50 50px, S 75px, M 50/75/110, L 70/140.
+     */
+    gap?: ('inherit' | 'xs' | 'sm' | 's50' | 's' | 'm' | 'l') | null;
   };
   id?: string | null;
   blockName?: string | null;
@@ -3801,9 +3809,9 @@ export interface ContactUsBlock {
     paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
     paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
     /**
-     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, S 75px, M 50/75/110, L 70/140.
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, S50 50px, S 75px, M 50/75/110, L 70/140.
      */
-    gap?: ('inherit' | 'xs' | 'sm' | 's' | 'm' | 'l') | null;
+    gap?: ('inherit' | 'xs' | 'sm' | 's50' | 's' | 'm' | 'l') | null;
   };
   id?: string | null;
   blockName?: string | null;
@@ -5258,9 +5266,9 @@ export interface TextContentBlock {
     paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
     paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
     /**
-     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, S 75px, M 50/75/110, L 70/140.
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, S50 50px, S 75px, M 50/75/110, L 70/140.
      */
-    gap?: ('inherit' | 'xs' | 'sm' | 's' | 'm' | 'l') | null;
+    gap?: ('inherit' | 'xs' | 'sm' | 's50' | 's' | 'm' | 'l') | null;
   };
   id?: string | null;
   blockName?: string | null;
@@ -5279,6 +5287,14 @@ export interface TitleBannerBlock {
    * Line breaks are preserved. Leave blank for a photo-only band with no text over it.
    */
   title?: string | null;
+  /**
+   * Fills the full-width band either side of the image above 1170px.
+   */
+  backdrop?: ('none' | 'dark' | 'mist') | null;
+  /**
+   * Unticked the band is cropped to 260px tall.
+   */
+  naturalHeight?: boolean | null;
   /**
    * Cropped to a 300px-tall full-bleed band, centred.
    */
@@ -6885,6 +6901,7 @@ export interface BuyServiceBlockSelect<T extends boolean = true> {
 export interface ServiceContentBlockSelect<T extends boolean = true> {
   columns?: T;
   cardSpacing?: T;
+  rightColumnLeadGap?: T;
   sections?:
     | T
     | {
@@ -7346,6 +7363,7 @@ export interface AffiliateProgramBlockSelect<T extends boolean = true> {
         background?: T;
         paddingTop?: T;
         paddingBottom?: T;
+        gap?: T;
       };
   id?: T;
   blockName?: T;
@@ -8454,6 +8472,8 @@ export interface TextContentBlockSelect<T extends boolean = true> {
 export interface TitleBannerBlockSelect<T extends boolean = true> {
   variant?: T;
   title?: T;
+  backdrop?: T;
+  naturalHeight?: T;
   image?: T;
   isPageTitle?: T;
   id?: T;
