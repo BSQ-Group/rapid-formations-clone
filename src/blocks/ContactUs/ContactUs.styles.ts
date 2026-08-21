@@ -1,6 +1,7 @@
 export const contactUsStyles = {
   section:
     'font-legacy-condensed w-full bg-[var(--surface-canvas)] text-[18px] leading-[27px] text-[var(--text-on-light-base)]',
+  list: 'flex flex-col',
   block: 'mb-12',
   titleWrap: 'mb-8',
   heading:

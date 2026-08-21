@@ -28,7 +28,7 @@ export type ContactUsSection = {
 }
 
 export const ContactUsView: React.FC<{ sections: ContactUsSection[] }> = ({ sections }) => (
-  <div>
+  <div className={s.list}>
     {sections.map((section) => (
       <div key={section.id} className={s.block}>
         <div className={s.titleWrap}>
