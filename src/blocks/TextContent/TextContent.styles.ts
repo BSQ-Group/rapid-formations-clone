@@ -29,6 +29,16 @@ const pageSections = {
     '[&_h2]:!mb-2 [&_h2]:text-[36px] [&_h2]:leading-[44.46px] [&_h3]:!mt-0 [&_h3]:!mb-2 [&_h3]:text-[21px] [&_h3]:leading-[25.935px]',
 }
 
+const packageCopy = {
+  lists:
+    '[&_ol]:!mb-0 [&_ol]:!pl-[15px] [&_ol]:list-decimal [&_ol>li]:!mb-[5px] [&_ol>li]:!pl-2 [&_ol>li:last-child]:!mb-0',
+
+  spacing: '[&_p]:!mb-4 [&>p:last-child]:!mb-4',
+
+  headings:
+    '[&_h2]:!mb-2 [&_h2]:text-[24px] [&_h2]:leading-[29.64px] [&_h3]:!mt-0 [&_h3]:!mb-2 [&_h3]:text-[18px] [&_h3]:leading-[22.23px]',
+}
+
 const policy = {
   lists: bulletLists,
 
@@ -103,4 +113,12 @@ const cookies = {
   code: '[&_code]:[font-family:inherit]',
 }
 
-export const variantStyles = { standard, pageSections, policy, numbered, terms, cookies }
+export const variantStyles = {
+  standard,
+  pageSections,
+  packageCopy,
+  policy,
+  numbered,
+  terms,
+  cookies,
+}

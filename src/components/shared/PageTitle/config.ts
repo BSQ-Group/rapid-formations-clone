@@ -50,6 +50,12 @@ export const PageTitle: Block = {
       },
       fields: [
         {
+          name: 'priceSuffix',
+          type: 'text',
+          label: 'Price suffix',
+          admin: { description: 'Renders under the price, e.g. "+ £100 Companies House fee".' },
+        },
+        {
           name: 'priceSlug',
           type: 'text',
           label: 'Price slug',

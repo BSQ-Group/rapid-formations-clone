@@ -48,7 +48,8 @@ export const CustomerQuote: Block = {
       },
     },
     sectionLayoutField({
-      defaults: { background: 'inverse', paddingTop: 'none', paddingBottom: 'none' },
+      gap: true,
+      defaults: { background: 'inverse', paddingTop: 'none', paddingBottom: 'none', gap: 'l' },
     }),
   ],
 }
