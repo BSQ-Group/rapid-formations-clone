@@ -42,6 +42,7 @@ export const TitleBanner: Block = {
         { label: 'None', value: 'none' },
         { label: 'Dark slate', value: 'dark' },
         { label: 'Mist grey', value: 'mist' },
+        { label: 'Pale grey', value: 'pale' },
       ],
       admin: {
         condition: (_, siblingData) => siblingData?.variant !== 'titleBackground',
