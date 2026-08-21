@@ -25,7 +25,7 @@ export const nameCheckStyles = {
   resultDescription: 'text-center text-[24px] leading-normal text-[var(--text-on-light-muted)]',
 
   ctaRow: 'mb-[30px] flex w-full flex-col items-center',
-  cta: 'inline-flex min-h-[65px] min-w-[25%] items-center justify-center text-center rounded px-[21px] py-[15.75px] text-[21px] font-semibold text-[rgb(var(--white))] bg-[var(--surface-cta-success)] hover:bg-[var(--surface-cta-success-hover)]',
+  cta: 'inline-flex min-h-[65px] min-w-[25%] items-center justify-center text-center rounded border border-solid border-[var(--surface-cta-success)] px-[21px] py-[15.75px] text-[21px] font-semibold text-[rgb(var(--white))] bg-[var(--surface-cta-success)] hover:border-[var(--surface-cta-success-hover)] hover:bg-[var(--surface-cta-success-hover)]',
   searchAgain:
     'mt-[5px] block min-w-[25%] cursor-pointer border border-transparent px-[18px] py-[13.5px] text-[18px] font-bold underline text-[var(--text-on-light-muted)] hover:opacity-80',
 

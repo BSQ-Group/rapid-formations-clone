@@ -73,7 +73,7 @@ export default async function Page({ params: paramsPromise }: Args) {
       )}
       {hasBanner && <TrustPilotBannerBlock {...(firstBlock as TrustPilotBannerBlockType)} />}
       <Header onDark={Boolean(isHeaderOnDark)} />
-      <main>
+      <main className="min-[1023px]:pb-5">
         <PayloadRedirects disableNotFound url={url} />
         {draft && <LivePreviewListener />}
         <RenderHero {...hero} />

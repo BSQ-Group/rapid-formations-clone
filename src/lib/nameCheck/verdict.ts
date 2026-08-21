@@ -34,7 +34,8 @@ export function describe(verdict: NameCheckVerdict, fallbackName: string): NameC
     return {
       name,
       available: true,
-      description: 'Congratulations! This company name is available.',
+      description:
+        "Congratulations! Your company name is available. Let's get your business started.",
     }
   }
 
@@ -59,7 +60,7 @@ export function describe(verdict: NameCheckVerdict, fallbackName: string): NameC
       name,
       available: false,
       description:
-        'Unfortunately, this name is not available for registration. Please select another.',
+        "Sorry, that name's taken - but don't let that stop you. Try a small variation or a new idea below.",
     }
   }
 
