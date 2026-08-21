@@ -8,7 +8,7 @@
     "BSQ logo → `https://www.bsqgroup.co.uk/`, B-Corp badge → `https://www.bcorporation.net/en-us/find-a-b-corp/company/bsq-group/`, both with `target=\"_blank\"` + `rel=\"noopener noreferrer\"`, matching live.",
     "No regression to the RF header logo (already correct) or to top-bar layout — rendered sizes stay as-is (BSQ ~112px, B-Corp ~44×74)."
   ],
-  "status": "backlog",
+  "status": "running",
   "track": "clone",
   "tags": [
     "bug",
@@ -22,12 +22,17 @@
   "blocks": [],
   "deps": [],
   "multiBlockApproved": false,
-  "owner": null,
+  "owner": {
+    "sessionId": "fbecc67e-12bd-4845-8a2e-0777f6adb7e5",
+    "mode": "W",
+    "branch": "fix/core-6995-topbar-logo-links",
+    "worktree": "/Users/eugeniucozac/bsqgroup/rf-t7"
+  },
   "supersededBy": null,
   "createdAt": "2026-08-21T15:30:40.435Z",
   "createdBy": "planning",
-  "updatedAt": "2026-08-21T16:01:27.324Z",
-  "startedAt": null,
+  "updatedAt": "2026-08-21T16:08:55.928Z",
+  "startedAt": "2026-08-21T16:08:55.928Z",
   "completedAt": null,
   "statusHistory": [
     {
@@ -45,6 +50,11 @@
       "at": "2026-08-21T16:01:27.324Z",
       "by": "control-modeX",
       "note": "restart from scratch: lane rejected at spawn by the account 5h usage limit (utilization 0.99 -> rejected, org overage disabled); no work committed; worktree + branch preserved for re-dispatch after the 19:00 BST reset"
+    },
+    {
+      "status": "running",
+      "at": "2026-08-21T16:08:55.928Z",
+      "by": "control-modeX"
     }
   ],
   "qa": null,
