@@ -81,7 +81,8 @@ export const ContactUs: Block = {
       ],
     },
     sectionLayoutField({
-      defaults: { background: 'light', paddingTop: 'none', paddingBottom: 'none' },
+      gap: true,
+      defaults: { background: 'light', paddingTop: 'none', paddingBottom: 'none', gap: 'm' },
     }),
   ],
 }

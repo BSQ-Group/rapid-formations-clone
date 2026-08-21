@@ -12,8 +12,7 @@ export const titleBannerStyles = {
 
   imageSection: 'font-legacy-condensed w-full',
 
-  imageFrame:
-    'mx-auto w-full max-w-[1170px] bg-[var(--surface-banner-backdrop)]',
+  imageFrame: 'mx-auto w-full bg-[var(--surface-banner-backdrop)]',
 
   bannerImage: 'block h-auto max-h-[260px] w-full object-cover',
 } as const
