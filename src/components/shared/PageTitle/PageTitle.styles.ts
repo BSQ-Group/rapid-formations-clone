@@ -11,6 +11,8 @@ export const pageTitleStyles = {
 
   heading: 'block text-[38px] font-semibold leading-[1.15] text-[var(--text-on-light-base)]',
 
+  headingSub: 'leading-[1.235]',
+
   pricesWrap: 'mr-[6.4px] flex flex-col md:items-end',
 
   prices: 'flex flex-row',

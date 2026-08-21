@@ -37,5 +37,5 @@ export const glossaryStyles = {
 
   listIcon: 'mt-1.5 h-4 w-4',
 
-  adWrap: 'flex justify-center',
+  adWrap: 'flex flex-col justify-center',
 } as const

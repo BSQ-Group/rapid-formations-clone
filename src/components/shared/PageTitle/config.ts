@@ -21,6 +21,16 @@ export const PageTitle: Block = {
       },
     },
     {
+      name: 'isPageTitle',
+      type: 'checkbox',
+      label: 'Render as the page H1',
+      defaultValue: true,
+      admin: {
+        description:
+          'Untick when a banner above already carries the H1 — the heading then renders as an H2 subtitle at the source line height.',
+      },
+    },
+    {
       name: 'showFaqQuickNav',
       type: 'checkbox',
       label: 'Show FAQs quick navigation',
