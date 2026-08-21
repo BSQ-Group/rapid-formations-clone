@@ -10,7 +10,7 @@
     "Where a modal opens, styling matches live: red ✕ (#e74c3c) and light grey border (clone currently grey ✕, no border).",
     "Mobile (360) keeps working for both triggers; hover/focus/active states checked; no visual regressions."
   ],
-  "status": "running",
+  "status": "backlog",
   "track": "clone",
   "tags": [
     "bug",
@@ -24,17 +24,12 @@
   "blocks": [],
   "deps": [],
   "multiBlockApproved": false,
-  "owner": {
-    "sessionId": "lane-T6",
-    "mode": "W",
-    "branch": "fix/core-6962-package-bank-popups",
-    "worktree": "/Users/eugeniucozac/bsqgroup/rf-t6"
-  },
+  "owner": null,
   "supersededBy": null,
   "createdAt": "2026-08-21T15:30:40.434Z",
   "createdBy": "planning",
-  "updatedAt": "2026-08-21T15:53:25.912Z",
-  "startedAt": "2026-08-21T15:53:25.912Z",
+  "updatedAt": "2026-08-21T16:01:27.304Z",
+  "startedAt": null,
   "completedAt": null,
   "statusHistory": [
     {
@@ -46,6 +41,12 @@
       "status": "running",
       "at": "2026-08-21T15:53:25.912Z",
       "by": "control-modeX"
+    },
+    {
+      "status": "backlog",
+      "at": "2026-08-21T16:01:27.304Z",
+      "by": "control-modeX",
+      "note": "restart from scratch: lane rejected at spawn by the account 5h usage limit (utilization 0.99 -> rejected, org overage disabled); no work committed; worktree + branch preserved for re-dispatch after the 19:00 BST reset"
     }
   ],
   "qa": null,

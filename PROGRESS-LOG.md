@@ -81,3 +81,40 @@ Dep-blocked: T2←T1, T3←T2, T5←T4.
 - `clone-pull-request-create` doc hardcodes 1stformations/QCF URLs → prompts override the LIVE
   source of truth to `https://www.rapidformations.co.uk/<slug>`.
 - No `.claude/qa-bg-waivers.json` in this repo — lanes run the coord gate without it.
+
+### Round 1 ABORTED — account 5-hour usage limit (16:54 BST)
+
+All five lanes were **rejected at spawn** by the account quota, not stalled. Console session events
+show `rate_limit_event` → `five_hour` utilization **0.99 → rejected**
+(`overageStatus: rejected`, `overageDisabledReason: org_level_disabled`), then
+`"You've hit your session limit · resets 7pm (Europe/London)"`. Each lane ran 37–54s, got through
+repo orientation, and died mid-first-turn.
+
+| Lane | Turn | Cost | Work committed |
+|---|---|---|---|
+| T4 | 0.4s | $1.56 | none |
+| T6 | 52s | $0.94 | none |
+| T7 | 37s | $0.76 | none |
+| T1 | 54s | $0.82 | none |
+| T8 | 43s | $0.79 | 1 uncommitted edit — `src/components/shared/Collapsible/Collapsible.tsx` (left in the worktree) |
+
+Total burn ~**$4.87** for zero delivered work.
+
+**Wind-down applied:** 5 × `CONTROL … WATCHDOG` heartbeat lines appended; all five tasks re-queued
+`running → backlog` via `restart-from-scratch` with the reason recorded. Worktrees and branches at
+`../rf-t{1,4,6,7,8}` are **preserved** for re-dispatch. The five Console `W` sessions are `idle`
+(not exited), holding 86–105k tokens of repo orientation each — if they survive to the reset they can
+be relayed instead of re-spawned, saving that re-read.
+
+**Lesson (for the next control session — this is the durable fix, not a prompt tweak):**
+⛔ **Check the account quota BEFORE dispatching a fan-out.** The Budget wind-down rule in
+`mode-b-automation.md` says stop dispatching near ~93% — this session dispatched at **99%** because it
+never checked. The in-session signal exists and is cheap to read: a `rate_limit_event` with
+`status: allowed_warning` + `utilization` appears in the Console session event stream, and `/usage`
+shows it directly. A five-lane fan-out is the *most* expensive thing this mode does; it is the worst
+possible thing to start on a nearly-spent quota. Next session: read the quota first, and if it is
+over ~90%, dispatch **one** lane or nothing at all.
+
+**Next action (post-19:00 BST reset):** re-dispatch the same five lanes (T4/T6/T7/T1/T8) — either by
+relaying the idle Console workers or by re-spawning against the existing worktrees. Held queue is
+unchanged: T9 next-free-slot, T10 behind T6, T2←T1, T3←T2, T5←T4, T11 out of Mode X scope.
