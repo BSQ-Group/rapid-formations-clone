@@ -126,21 +126,46 @@ export function InfoTooltip({
     )
   }
 
+  // Radix's Trigger closes an open tooltip via its OWN composed onPointerDown
+  // (when context.open) and unconditionally via its composed onClick — both run
+  // synchronously as part of the click, before any async outside-dismiss logic.
+  // Live keeps the tooltip open through a click while still hovering it (only
+  // the pointer leaving closes it), so suppress both: calling preventDefault in
+  // our own handler (which mergeProps/composeEventHandlers run first) skips
+  // Radix's composed handler, which only fires when the event isn't already
+  // defaultPrevented.
   const handlePointerDown = (e: React.PointerEvent<HTMLButtonElement>) => {
+    console.log('[DEBUG] handlePointerDown pointerType=', e.pointerType)
     if (e.pointerType === 'touch') {
       e.preventDefault()
       setOpen((prev) => !prev)
+      return
     }
+    e.preventDefault()
+    console.log('[DEBUG] handlePointerDown after preventDefault, defaultPrevented=', e.defaultPrevented, 'nativeDefaultPrevented=', e.nativeEvent.defaultPrevented)
+  }
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    console.log('[DEBUG] handleClick before preventDefault, defaultPrevented=', e.defaultPrevented)
+    e.preventDefault()
+    console.log('[DEBUG] handleClick after preventDefault, defaultPrevented=', e.defaultPrevented, 'nativeDefaultPrevented=', e.nativeEvent.defaultPrevented)
   }
 
   return (
-    <Tooltip open={open} onOpenChange={setOpen}>
+    <Tooltip
+      open={open}
+      onOpenChange={(v) => {
+        console.log('[DEBUG] onOpenChange', v, new Error().stack)
+        setOpen(v)
+      }}
+    >
       <TooltipPrimitive.Trigger asChild>
         <button
           type="button"
           aria-label={triggerLabel}
           aria-expanded={open}
           onPointerDown={handlePointerDown}
+          onClick={handleClick}
           style={triggerStyle}
           className={triggerClassName}
         >

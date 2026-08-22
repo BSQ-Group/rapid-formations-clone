@@ -11,14 +11,14 @@ export const infoTooltipStyles = {
 
   overlay: 'fixed inset-0 z-50 bg-black/60',
   dialog:
-    'portal-legacy-condensed fixed inset-0 z-50 m-auto flex h-fit max-h-[calc(100svh-2rem)] w-[calc(100%-2rem)] max-w-sm flex-col rounded-2xl bg-[var(--tooltip-surface)] shadow-xl animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95',
+    'portal-legacy-condensed fixed inset-0 z-50 m-auto flex h-fit max-h-[calc(100svh-2rem)] w-[calc(100%-2rem)] max-w-sm flex-col rounded-2xl border border-[var(--border-subtle)] bg-[var(--tooltip-surface)] shadow-xl animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95',
   dialogSrDescription: 'sr-only',
   dialogHeader: 'flex-shrink-0 px-6 pb-3 pt-6',
   dialogHeaderRow: 'flex items-start gap-3',
   dialogTitle:
     'min-w-0 flex-1 text-[21.6px] font-semibold leading-[21.6px] text-[var(--tooltip-text-title)] [overflow-wrap:anywhere]',
   dialogClose:
-    'flex-shrink-0 text-[var(--tooltip-text-body)] hover:text-[var(--tooltip-text-title)]',
+    'flex-shrink-0 text-[var(--icon-map-marker)] hover:opacity-80',
   dialogBody: 'overflow-y-auto px-6 pb-6',
 
   tooltipContent:
