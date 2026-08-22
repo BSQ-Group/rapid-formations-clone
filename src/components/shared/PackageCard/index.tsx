@@ -123,7 +123,12 @@ export function PackageCard({
                 textStyle={ts.benefit}
                 className={cn(s.benefitText, dark ? s.benefitTextDark : s.benefitTextLight)}
               />
-              <InfoTooltip title={item.infoText} content={item.tooltipText} dark={dark} />
+              <InfoTooltip
+                title={item.infoText}
+                content={item.tooltipText}
+                dark={dark}
+                desktopMinWidth={769}
+              />
             </li>
           ))}
         </ul>
