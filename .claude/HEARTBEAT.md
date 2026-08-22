@@ -48,3 +48,16 @@ This file is the ground-truth timing source for measured task size.
 17:22:46 | T4 | fix applied to BuyServiceCard too
 17:22:46 | T4 | verify done — id-req/vat/bt confirmed #313131
 17:23:49 | T4 | ❓DECISION: director-appointment-resignation bold is in FAQs answerText, owned by T8 — filing proposal, not touching
+17:25:44 | T7 | coord-live running background
+17:25:47 | CONTROL | T4 | RULING: proceed on FAQ answerText bold (T8 not live, scope=heading only, criterion 3 requires it); check criterion-1 shared-rule approach
+17:27:51 | T7 | coord-live retry — section text mismatch, use "Part of"
+17:28:01 | CONTROL | T7 | BOUNCE — backgrounded gate + exited turn (stall); work uncommitted; re-dispatched to commit-first then foreground gates
+19:29:35 | T7 | commit+push done — 2 src files, next.config.ts excluded
+19:29:53 | T7 | coord-live retry #2 — prior run hit transient network blip (ERR_INTERNET_DISCONNECTED / mongo ENOTFOUND)
+22:32:57 | CONTROL | ALL | network outage 17:31-18:30 machine-wide (ERR_NETWORK_CHANGED/api_retry); recovered; T4+T6 ordered to commit-first (over context limit)
+23:33:36 | T4 | committed + pushed fix/core-7119-bold-body-text
+00:34:39 | T7 | scope check: landingHero=home-only, footer instance already correct
+00:34:39 | T7 | coord-live start (foreground, blocking)
+00:57:24 | T4 | regressions confirmed — ico-reg/business-tel/cookies-policy headings unaffected
+00:57:24 | T4 | verify done — all 6 pages + FAQ answerText confirmed #313131
+00:57:36 | T4 | coord-live start @360

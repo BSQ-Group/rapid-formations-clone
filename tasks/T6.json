@@ -10,14 +10,14 @@
     "Where a modal opens, styling matches live: red ✕ (#e74c3c) and light grey border (clone currently grey ✕, no border).",
     "Mobile (360) keeps working for both triggers; hover/focus/active states checked; no visual regressions."
   ],
-  "status": "running",
+  "status": "deferred",
   "track": "clone",
   "tags": [
     "bug",
     "priority",
     "parallel"
   ],
-  "priority": "high",
+  "priority": "deferred-lowest",
   "effort": "M",
   "machine": "LOCAL",
   "slug": null,
@@ -33,7 +33,7 @@
   "supersededBy": null,
   "createdAt": "2026-08-21T15:30:40.434Z",
   "createdBy": "planning",
-  "updatedAt": "2026-08-21T16:08:55.909Z",
+  "updatedAt": "2026-08-22T05:12:56.655Z",
   "startedAt": "2026-08-21T16:08:55.909Z",
   "completedAt": null,
   "statusHistory": [
@@ -57,6 +57,12 @@
       "status": "running",
       "at": "2026-08-21T16:08:55.909Z",
       "by": "control-modeX"
+    },
+    {
+      "status": "deferred",
+      "at": "2026-08-22T05:12:56.655Z",
+      "by": "control-modeX",
+      "note": "deferred to lowest"
     }
   ],
   "qa": null,

@@ -8,14 +8,14 @@
     "BSQ logo → `https://www.bsqgroup.co.uk/`, B-Corp badge → `https://www.bcorporation.net/en-us/find-a-b-corp/company/bsq-group/`, both with `target=\"_blank\"` + `rel=\"noopener noreferrer\"`, matching live.",
     "No regression to the RF header logo (already correct) or to top-bar layout — rendered sizes stay as-is (BSQ ~112px, B-Corp ~44×74)."
   ],
-  "status": "running",
+  "status": "deferred",
   "track": "clone",
   "tags": [
     "bug",
     "priority",
     "parallel"
   ],
-  "priority": "high",
+  "priority": "deferred-lowest",
   "effort": "S",
   "machine": "LOCAL",
   "slug": null,
@@ -31,7 +31,7 @@
   "supersededBy": null,
   "createdAt": "2026-08-21T15:30:40.435Z",
   "createdBy": "planning",
-  "updatedAt": "2026-08-21T16:08:55.928Z",
+  "updatedAt": "2026-08-22T05:12:56.674Z",
   "startedAt": "2026-08-21T16:08:55.928Z",
   "completedAt": null,
   "statusHistory": [
@@ -55,6 +55,12 @@
       "status": "running",
       "at": "2026-08-21T16:08:55.928Z",
       "by": "control-modeX"
+    },
+    {
+      "status": "deferred",
+      "at": "2026-08-22T05:12:56.673Z",
+      "by": "control-modeX",
+      "note": "deferred to lowest"
     }
   ],
   "qa": null,

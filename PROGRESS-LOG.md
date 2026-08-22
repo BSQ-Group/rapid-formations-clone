@@ -157,3 +157,39 @@ T2←T1, T3←T2, T5←T4 dep-blocked; T11 out of Mode X scope.
 
 Watchdog armed (`bg8dfwbkn`): polls every 120s for new 🚧BLOCKED/❓DECISION lines, a lane turn ending,
 HEARTBEAT staleness >20 min, and any task reaching `awaiting-user`/`needs-manual`.
+
+### Round 1 CLOSED 05:11 (2026-08-22) — 3 branches pushed, 0 PRs, lanes context-exhausted
+
+**Outcome: the fixes exist and are pushed; none reached a gate or a PR.** After ~12h wall-clock and
+**$38.53**, every lane ran past its context window and stopped. Sessions stopped; tasks `deferred`
+with their branch SHAs so a fresh lane can finish cheaply.
+
+| Task | Branch @ SHA | Fix landed | Outstanding |
+|---|---|---|---|
+| T4 | `fix/core-7119-bold-body-text@ff0bb84` | shared `.payload-richtext strong` rule in `globals.css` | coord-live, QA, PR |
+| T6 | `fix/core-6962-package-bank-popups@826fb25` | InfoTooltip ×2 + PackageCard (**control rescue commit**) | headed-browser confirm of live desktop click, coord-live, QA, PR |
+| T7 | `fix/core-6995-topbar-logo-links@c4447af` | LandingHero top-bar anchors | **shared-scope question unanswered**, coord-live, QA, PR |
+
+**What actually went wrong — three distinct causes, only one of them the lanes' fault:**
+
+1. **Dispatched at 99% quota** (control error, ~$4.87). Fixed forward: check quota before any fan-out.
+2. **Machine-wide network outage 17:31–18:30** — `ERR_NETWORK_CHANGED`, `EADDRNOTAVAIL`, mongo
+   `ENOTFOUND`, API retry to attempt 7/10, then repeated "Connection closed mid-response" for hours.
+   Environmental. Cost most of the wall-clock and forced repeated gate retries.
+3. **Context exhaustion — the structural failure.** Lanes ended at 268k / 256k / 197k against a 200k
+   limit. The Mode X worker contract is simply too heavy for one context: read the full ticket, repro
+   at 4 breakpoints, fix, verify across many shared pages, run a whole-block coord sweep at 4
+   breakpoints, run an inline QA subagent, then open a screenshot PR. Screenshot-heavy verification
+   burns context fastest, and the gates come LAST — so a lane reliably dies before shipping.
+
+**⛔ LESSON — split the worker contract in two (durable fix, not a prompt tweak).**
+A single lane should FIX and PUSH only, then stop. Gating + PR belongs to a SECOND, fresh lane that
+starts with a clean context and reads the branch diff. Evidence: all three lanes produced correct-looking
+fixes well inside their budget (T7 by 17:18, ~25 min) and then spent 10+ hours failing to get through
+the gates. The gate work is cheap from a clean context and impossible from a spent one.
+
+**Also observed:** worker HEARTBEAT timestamps ran +1h against `date` on this machine, so field-11
+timings from this round are not trustworthy. Worth pinning the clock source before the next round.
+
+**Next action:** three fresh short-lived lanes, one per pushed branch — run coord-live + QA + PR only.
+No re-fixing. T7's lane must first answer whether the top-bar cluster renders outside LandingHero.

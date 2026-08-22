@@ -10,14 +10,14 @@
     "No regression to bold inside headings — live keeps bold in `<h2>`/`<h3>` at `#595959` (see CORE-7120) — so a blanket darken-all-bold rule is not acceptable.",
     "No regression to already-correct bold contexts: `/ico-registration/` feature-list bold, the correct run on `/business-telephone/`, and the `#595959` review-figure bold."
   ],
-  "status": "running",
+  "status": "deferred",
   "track": "clone",
   "tags": [
     "bug",
     "priority",
     "parallel"
   ],
-  "priority": "high",
+  "priority": "deferred-lowest",
   "effort": "M",
   "machine": "LOCAL",
   "slug": null,
@@ -33,7 +33,7 @@
   "supersededBy": null,
   "createdAt": "2026-08-21T15:30:40.431Z",
   "createdBy": "planning",
-  "updatedAt": "2026-08-21T16:08:25.834Z",
+  "updatedAt": "2026-08-22T05:12:56.637Z",
   "startedAt": "2026-08-21T16:08:25.834Z",
   "completedAt": null,
   "statusHistory": [
@@ -57,6 +57,12 @@
       "status": "running",
       "at": "2026-08-21T16:08:25.834Z",
       "by": "control-modeX"
+    },
+    {
+      "status": "deferred",
+      "at": "2026-08-22T05:12:56.637Z",
+      "by": "control-modeX",
+      "note": "deferred to lowest"
     }
   ],
   "qa": null,
