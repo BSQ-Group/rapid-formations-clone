@@ -13,7 +13,7 @@ export const richTextShell = {
   headings:
     '[&_h2]:!mt-0 [&_h2]:!mb-4 [&_h2]:text-[28.8px] [&_h2]:font-normal [&_h2]:leading-[43.2px] [&_h2]:text-[var(--text-on-light-base)] [&_h3]:!mt-4 [&_h3]:!mb-3 [&_h3]:text-[20.8px] [&_h3]:font-normal [&_h3]:leading-[31.2px] [&_h3]:text-[var(--text-on-light-base)]',
 
-  links: '[&_a]:!text-[var(--text-on-light-link-hover)] [&_a:hover]:!no-underline',
+  links: '[&_a]:!text-[var(--text-on-light-link-hover)] [&_a:hover]:!underline',
 } as const
 
 const standard = {
