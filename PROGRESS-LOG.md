@@ -274,3 +274,41 @@ rail and a deliberate waiver policy is needed. Evidence:
 T1 gate (#91) — all three are "fix already pushed, produce evidence + update the existing PR", the
 same shape T4 just completed successfully. Then T9 (incomplete fix, no branch), then T6/T7 (T7 still
 owes the shared-header scope answer). T2/T3 unblock when T1 merges; T5 when T4 merges.
+
+## 2026-08-24 10:25 — RESOLVED: why the coord-live gate cannot pass, and the fix
+
+**The blocking policy question is answered, with evidence.** Ran the same section-scoped
+`qa-coord-live` three ways on T1's block ("How we are rated", `/faqs`, vp 1024):
+
+| Run | prod-url | clone-url | overall | matched/missing/extra | mislocated/size |
+|---|---|---|---|---|---|
+| A — fix vs LIVE | rapidformations.co.uk | `:3004` (fix) | **FAIL** | 82 / 61 / 58 | 2 / 2 |
+| B — baseline vs LIVE | rapidformations.co.uk | `:3010` (clean main) | **FAIL** | 82 / 61 / 58 | 2 / 2 |
+| C — fix vs BASELINE | `:3010` (clean main) | `:3004` (fix) | **PASS** | 140 / 0 / 0 | 0 / 0 |
+
+**A and B are byte-identical.** `gateSection` resolved correctly in every run (`'3579'` — NOT null,
+so scoping was never the problem). The FAIL is 100% pre-existing drift between this hand-authored
+port and live; the fix contributes nothing to it. This confirms the T1 lane's 10:00 heartbeat claim
+("coord-live FAIL is pre-existing baseline") — now backed by artifacts, not assertion.
+
+**Conclusion:** gating a `bug` fix against LIVE cannot work on this repo. The clone is a hand-authored
+port, not a DOM-passthrough clone, so it legitimately differs from live in ~60 nodes per section.
+The gate as specified (Step 2f, `submit-pr` rail) assumes a passthrough clone and is therefore
+unsatisfiable here — for EVERY bug task, not just this one.
+
+**Recommended fix — run the gate DIFFERENTIALLY (run C):** point `--prod-url` at the clean
+`origin/main` baseline (`:3010`) instead of live. This preserves exactly what Step 2f exists to catch
+— "a fix that shifts a sibling or injects a duplicate must FAIL" (OPTIMIZER-2026-07-10) — while not
+failing on drift the fix did not cause. Run C proves T1's fix touches 140/140 nodes with zero
+positional, size, missing or extra change: a clean no-regression proof.
+
+Evidence JSONs: session scratchpad `coord-evidence/{coord-fix,coord-base,coord-diff}.json`;
+T1's differential artifact committed at `rf-t1/reports/T1-coord-live.json`.
+
+⚠️ USER DECISION NEEDED: adopt the differential gate as policy for `bug` tasks on this repo (and
+update the brief/skill accordingly), or waive the coord gate for these tickets. Until decided, tasks
+stay `running` — control will NOT flip them to `awaiting-user`, because that rail asserts a gate that
+did not pass.
+
+**Lane status:** T1 ($8.06) and T4 ($8.70) both terminated on `You've hit your weekly limit · resets
+8am (Europe/London)`. T8 idle. No further lane work is possible until that resets.
