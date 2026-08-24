@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-7024 · FAQ Quick Navigation label is not an <h4> heading on clone (live is <h4>)",
+  "body": "**Linear:** [CORE-7024](https://linear.app/bsq-group/issue/CORE-7024)\n\n## Verified 2026-08-24 — reproduces\n\nThe \"FAQs Quick Navigation\" dropdown label renders as a plain `<span>` inside the toggle\n`<button>` on the clone; live renders it as an `<h4>` in the same button. Rendered type is\nidentical on both (19px, weight 500) — only the element is wrong.\n\n| | Clone | Live |\n|---|---|---|\n| `/faqs/vat/` | `<span>` in `<button>` | `<h4>` in `<button>` |\n| `/faqs/directors/` | `<span>` in `<button>` | `<h4>` in `<button>` |\n\nThird instance of the same heading-level defect class:\n- CORE-7018 — FAQ accordion questions `<h3>` → `<h4>` (PR #89, merged)\n- CORE-7007 — closing CTA band `<h2>` → `<h3>` (PR #102, merged)\n- CORE-7024 — this one\n\n## Location\n\n`src/components/shared/FaqQuickNav/index.tsx` — the `<Text>` inside the toggle button has no\n`as` prop, so it defaults to a `<span>`. Add `as=\"h4\"`.\n\nThe `/faqs/` hub has no Quick Navigation dropdown and is unaffected.",
+  "acceptanceCriteria": [
+    "The \"FAQs Quick Navigation\" label renders as `<h4>` on the clone, inside the same toggle `<button>`, matching live.",
+    "Rendered type unchanged — 19px, weight 500, same colour, same position.",
+    "The dropdown still opens and closes on click, and `aria-expanded` still toggles on the button.",
+    "Verified on at least two FAQ topic pages at 360 / 768 / 1024 / 1800; the `/faqs/` hub (no dropdown) is unaffected."
+  ],
+  "status": "running",
+  "track": "clone",
+  "tags": [
+    "bug",
+    "parallel"
+  ],
+  "priority": "normal",
+  "effort": "S",
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-08-24T15:15:01.670Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-08-24T15:17:55.561Z",
+  "startedAt": "2026-08-24T15:17:55.561Z",
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-08-24T15:15:01.670Z",
+      "by": "planning"
+    },
+    {
+      "status": "running",
+      "at": "2026-08-24T15:17:55.561Z",
+      "by": "modex"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": null,
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "id": "T14",
+  "num": 14
+}
