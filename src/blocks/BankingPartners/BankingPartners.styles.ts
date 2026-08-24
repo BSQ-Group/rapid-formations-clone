@@ -13,7 +13,7 @@ export const bankingPartnersStyles = {
 
   tileWrap: 'flex min-w-0',
 
-  tile: 'flex h-full w-full min-w-0 flex-col items-start overflow-hidden rounded-[15px] bg-auto bg-repeat p-5 text-left shadow-[0_2px_7px_1px_rgba(0,0,0,0.2)] [background-blend-mode:overlay] [background-position:50%_-250px] min-[470px]:p-[30px]',
+  tile: 'flex h-full w-full min-w-0 flex-col items-start overflow-hidden rounded-[15px] bg-auto bg-repeat p-5 text-left shadow-[0_2px_7px_1px_rgba(0,0,0,0.2)] [background-blend-mode:overlay] min-[470px]:p-[30px]',
 
   logoTile:
     'mb-2.5 flex size-[58px] shrink-0 items-center justify-center overflow-hidden rounded-[10px] bg-[rgb(var(--white))]',

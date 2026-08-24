@@ -5,6 +5,7 @@ import Link from 'next/link'
 import type { LandingHeroBlock as LandingHeroBlockProps, Media as MediaType } from '@/payload-types'
 
 import Text from '@/components/shared/Text'
+import { bankPatternPosition } from '@/utilities/bankPattern'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
 import { getLinkHref, type LinkData } from '@/utilities/links'
 import { landingHeroStyles as s } from './LandingHero.styles'
@@ -237,7 +238,7 @@ export const LandingHeroBlock: React.FC<LandingHeroBlockProps> = ({
                     const style: React.CSSProperties = { backgroundColor: bank.brandColour }
                     if (pattern && typeof pattern === 'object' && pattern.url) {
                       style.backgroundImage = `url(${getMediaUrl(pattern.url)})`
-                      style.backgroundPosition = `${25 + ((index * 37) % 55)}% ${-(110 + ((index * 71) % 280))}px`
+                      style.backgroundPosition = bankPatternPosition(index)
                     }
 
                     const tile = (
