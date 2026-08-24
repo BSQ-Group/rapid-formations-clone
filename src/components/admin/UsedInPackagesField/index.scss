@@ -1,0 +1,22 @@
+.used-in-packages {
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  &__table th,
+  &__table td {
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--theme-elevation-100);
+  }
+
+  &__table th {
+    font-weight: 600;
+    color: var(--theme-elevation-500);
+  }
+
+  &__empty {
+    color: var(--theme-elevation-500);
+  }
+}
