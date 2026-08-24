@@ -21,7 +21,7 @@ export const ClosingCTA: React.FC<ClosingCTAProps> = ({
     <SectionWrapper {...sectionLayout} className={s.section}>
       <Container>
         <div className={s.wrapper}>
-          <Text as="h2" textStyle="span" text={heading} className={s.heading} />
+          <Text as="h3" textStyle="span" text={heading} className={s.heading} />
           {description && (
             <Text as="p" textStyle="span" text={description} className={s.description} />
           )}
