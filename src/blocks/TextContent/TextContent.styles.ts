@@ -69,6 +69,8 @@ const policy = {
 
 const numbered = {
   counters: 'rf-numbered-clauses',
+
+  headings: '[&_h2]:text-[36px] [&_h2]:leading-[44.46px]',
 }
 
 const terms = {
