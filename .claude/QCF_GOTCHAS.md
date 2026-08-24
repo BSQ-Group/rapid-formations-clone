@@ -583,3 +583,20 @@ Each entry has four parts:
   # A mismatch count that is higher at one breakpoint than the others is this bug.
   ```
 - **Fix:** Take render order from the **live DOM at the breakpoint in question**, never from the local component file — the checkout is behind the deployment. Where two regions swap by breakpoint and each is hidden at the other, ordering them so the visible one always comes second is usually enough; no CSS `order` is needed. Note `getComputedStyle(el).display` does **not** report an ancestor's `display: none`, so a visibility filter written that way silently counts hidden nodes and hides the very mismatch you are looking for — use `getClientRects().length`.
+
+## Text colour mapped to the nearest existing theme token instead of the source's exact value
+
+- **When it bites:** A ported block needs a grey. The theme already has five `--text-on-light-*` tokens, one is within a few RGB points, so it gets used and the block looks right in isolation. Nothing downstream ever compares the two numbers: heading order matches, document height matches, font-size / line-height / weight / x-position all match, and a screenshot at any realistic scale cannot resolve the difference. Hit twice on the same three package pages. `PackageInclusions` item titles were put on `--text-on-light-heading` rgb(75 75 75) — a real token, `$color-gray-75`, correct for `StepsItems` — where the source hardcodes `#505050` = rgb(80 80 80); Δ5 is invisible in a crop and only a computed-style read finds it. Worse, the `FAQs` subheading was put on `--text-on-light-base` rgb(54 54 54), which is `$color-font-headline`; the source subheading inherits `$color-font` rgb(89 89 89), the site's default *body* colour. That one is visible, and it shipped on every page carrying an FAQs block.
+- **Detect:**
+  ```bash
+  # Compare COMPUTED COLOUR per element, not just size/weight/position. For each element,
+  # on source and port, at 1440:
+  #   const c = getComputedStyle(el)
+  #   `${c.fontSize}/${c.lineHeight} w${c.fontWeight} ${c.color}`
+  # Any delta at all is a finding — do not eyeball it, and do not accept "close enough".
+  ```
+  ```bash
+  # And check the SOURCE stylesheet for a literal, which never becomes a token by itself:
+  grep -rn -iE '#[0-9a-f]{6}' <source-repo>/src/components/**/<Section>.scss
+  ```
+- **Fix:** Read the source's own value and mint an exact token — `theme-foundation` owns `.theme-<brand>` in `globals.css`, and a Δ above the audit's ±3 tolerance is two real design decisions, not one. Never overwrite the neighbouring token to make a block fit: `--text-on-light-heading` was right for its other caller, so the new value went in beside it as `--text-on-light-title`. Where the source sets no colour at all, the element inherits the page default (`$color-font` here, rgb(89 89 89) = `--text-on-light-muted`) — inheriting body colour is the common case, so reaching for the headline token is the reflex to distrust.
