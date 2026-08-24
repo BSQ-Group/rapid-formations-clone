@@ -40,6 +40,7 @@ export const FAQsBlock: React.FC<FAQsBlockProps> = ({
         )}
         <div className={isPage ? s.pagePanel : s.panel}>
           <Collapsible
+            headingAs="h4"
             className={isPage ? s.pageList : s.list}
             items={faqs.map((item, index) => ({
               id: item.id,
