@@ -9,7 +9,7 @@
     "No ribbon is introduced at 360 or 768, where neither site renders the diagonal corner banner.",
     "PR carries PROD-vs-clone screenshot proof of the ribbon corner at 1024 and 1800."
   ],
-  "status": "backlog",
+  "status": "running",
   "track": "clone",
   "tags": [
     "bug",
@@ -22,18 +22,28 @@
   "blocks": [],
   "deps": [],
   "multiBlockApproved": false,
-  "owner": null,
+  "owner": {
+    "sessionId": "pending",
+    "mode": "W",
+    "branch": "fix/core-7000-best-value-ribbon-shadow",
+    "worktree": "/Users/eugeniucozac/bsqgroup/rf-t10"
+  },
   "supersededBy": null,
   "createdAt": "2026-08-21T15:30:40.437Z",
   "createdBy": "planning",
-  "updatedAt": "2026-08-21T15:30:40.437Z",
-  "startedAt": null,
+  "updatedAt": "2026-08-24T08:11:57.892Z",
+  "startedAt": "2026-08-24T08:11:57.892Z",
   "completedAt": null,
   "statusHistory": [
     {
       "status": "backlog",
       "at": "2026-08-21T15:30:40.437Z",
       "by": "planning"
+    },
+    {
+      "status": "running",
+      "at": "2026-08-24T08:11:57.892Z",
+      "by": "control-modeX"
     }
   ],
   "qa": null,

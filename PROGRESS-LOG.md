@@ -193,3 +193,40 @@ timings from this round are not trustworthy. Worth pinning the clock source befo
 
 **Next action:** three fresh short-lived lanes, one per pushed branch — run coord-live + QA + PR only.
 No re-fixing. T7's lane must first answer whether the top-bar cluster renders outside LandingHero.
+
+## 2026-08-24 — Round 2 (USER: "lets do T1, T8, T9, T10")
+
+**Split contract applied** — the durable fix from round 1's post-mortem, now in force:
+a lane **FIXES and PUSHES, then STOPS**. Gates (`coord-live`, QA-permission) + PR belong to a
+SECOND, fresh lane reading only the branch diff. Round 1 proved the all-in-one contract cannot fit
+one 200k context: three lanes died at 250k+ after 12h having shipped nothing, while the fixes
+themselves took ~30 min each.
+
+**Lane 0 (gate-and-PR, in flight):** T4 `ecc71059` — rebased onto main, PR **#87** open, running
+coord-live. PR body must be rebuilt to the USER's #84 format (`| Viewport | Source | Port |` tables,
+Vercel-Blob-hosted images) at 360/768/1024/1800. ⚠️ The standard `upload-screenshots.mjs` rejects 360
+and 1024 (its CANONICAL_WIDTH whitelist is 390/768/1440/1800), so the lane uploads via the
+`@vercel/blob` SDK directly.
+
+**Round 2 lanes — FIX-AND-PUSH ONLY (4, file-disjoint):**
+
+| Lane | Task | Area | Branch | Port | Session |
+|---|---|---|---|---|---|
+| L1 | T1 CORE-7009 | reviews widget star size | `fix/core-7009-review-star-size` | 3004 | 0c93684a |
+| L2 | T8 CORE-7018 | FAQ accordion h3→h4 | `fix/core-7018-faq-heading-level` | 3005 | 6036662b |
+| L3 | T9 CORE-7013 | FAQ banner asset resolution | `fix/core-7013-faq-banner-resolution` | 3006 | d64b5d96 |
+| L4 | T10 CORE-7000 | BEST VALUE ribbon shadow | `fix/core-7000-best-value-ribbon-shadow` | 3007 | d0c565fe |
+
+Cross-lane hazards written into the prompts: T1 must stay off T2/T3's hover + logo-asset work;
+T8 and T9 share the FAQ pages but own different files; **T10 must stay off PackageCard/InfoTooltip
+because T6's unmerged `826fb25` already touches them.** Stale rf-t1/rf-t8 worktrees were rebased onto
+`d9eff39` and their round-1 stray edits stashed.
+
+Each lane must hand the gate lane a **stable `--section` text anchor** in its report — the round-1
+`gateSection: null` failure (whole-page compare, 183 missing/200 extra) is the trap this avoids.
+
+**Still deferred, awaiting gate lanes:** T6 `826fb25` (needs headed-browser confirm of live desktop
+click first), T7 `c4447af` (**shared-scope question still unanswered** — diff is all LandingHero but
+the ticket describes a shared header; may need re-fixing, not just gating).
+**Open policy risk:** whether `qa-coord-live --section` can scope at all on this hand-authored port.
+T4 answers it. If it cannot, no `bug` task can pass the submit-pr rail and we need a policy decision.

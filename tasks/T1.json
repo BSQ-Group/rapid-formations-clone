@@ -9,7 +9,7 @@
     "Star fill colours + rating text unchanged (already match live: Trustpilot green `rgb(94,178,124)`, text weight 400 `rgb(89,89,89)`).",
     "No layout regression to the widget at 360 / 768 / 1024 / 1800."
   ],
-  "status": "backlog",
+  "status": "running",
   "track": "clone",
   "tags": [
     "bug",
@@ -22,12 +22,17 @@
   "blocks": [],
   "deps": [],
   "multiBlockApproved": false,
-  "owner": null,
+  "owner": {
+    "sessionId": "pending",
+    "mode": "W",
+    "branch": "fix/core-7009-review-star-size",
+    "worktree": "/Users/eugeniucozac/bsqgroup/rf-t1"
+  },
   "supersededBy": null,
   "createdAt": "2026-08-21T15:30:40.428Z",
   "createdBy": "planning",
-  "updatedAt": "2026-08-21T16:01:27.343Z",
-  "startedAt": null,
+  "updatedAt": "2026-08-24T08:11:57.819Z",
+  "startedAt": "2026-08-24T08:11:57.819Z",
   "completedAt": null,
   "statusHistory": [
     {
@@ -45,6 +50,11 @@
       "at": "2026-08-21T16:01:27.343Z",
       "by": "control-modeX",
       "note": "restart from scratch: lane rejected at spawn by the account 5h usage limit (utilization 0.99 -> rejected, org overage disabled); no work committed; worktree + branch preserved for re-dispatch after the 19:00 BST reset"
+    },
+    {
+      "status": "running",
+      "at": "2026-08-24T08:11:57.819Z",
+      "by": "control-modeX"
     }
   ],
   "qa": null,

@@ -9,7 +9,7 @@
     "Crop, scale and object-position stay as they are (they already match live: `object-fit: cover`, same box) — resolution is the only change.",
     "Verified crisp against live at 360 / 768 / 1024 / 1800 on the worst case (`/faqs/shares-and-shareholders/`, currently a 356×76 master displayed at 1170×250, ~3.3× upscale)."
   ],
-  "status": "backlog",
+  "status": "running",
   "track": "clone",
   "tags": [
     "bug",
@@ -22,18 +22,28 @@
   "blocks": [],
   "deps": [],
   "multiBlockApproved": false,
-  "owner": null,
+  "owner": {
+    "sessionId": "pending",
+    "mode": "W",
+    "branch": "fix/core-7013-faq-banner-resolution",
+    "worktree": "/Users/eugeniucozac/bsqgroup/rf-t9"
+  },
   "supersededBy": null,
   "createdAt": "2026-08-21T15:30:40.436Z",
   "createdBy": "planning",
-  "updatedAt": "2026-08-21T15:30:40.436Z",
-  "startedAt": null,
+  "updatedAt": "2026-08-24T08:11:57.868Z",
+  "startedAt": "2026-08-24T08:11:57.868Z",
   "completedAt": null,
   "statusHistory": [
     {
       "status": "backlog",
       "at": "2026-08-21T15:30:40.436Z",
       "by": "planning"
+    },
+    {
+      "status": "running",
+      "at": "2026-08-24T08:11:57.868Z",
+      "by": "control-modeX"
     }
   ],
   "qa": null,
