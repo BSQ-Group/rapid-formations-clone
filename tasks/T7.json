@@ -8,7 +8,7 @@
     "BSQ logo → `https://www.bsqgroup.co.uk/`, B-Corp badge → `https://www.bcorporation.net/en-us/find-a-b-corp/company/bsq-group/`, both with `target=\"_blank\"` + `rel=\"noopener noreferrer\"`, matching live.",
     "No regression to the RF header logo (already correct) or to top-bar layout — rendered sizes stay as-is (BSQ ~112px, B-Corp ~44×74)."
   ],
-  "status": "deferred",
+  "status": "done",
   "track": "clone",
   "tags": [
     "bug",
@@ -22,18 +22,13 @@
   "blocks": [],
   "deps": [],
   "multiBlockApproved": false,
-  "owner": {
-    "sessionId": "fbecc67e-12bd-4845-8a2e-0777f6adb7e5",
-    "mode": "W",
-    "branch": "fix/core-6995-topbar-logo-links",
-    "worktree": "/Users/eugeniucozac/bsqgroup/rf-t7"
-  },
+  "owner": null,
   "supersededBy": null,
   "createdAt": "2026-08-21T15:30:40.435Z",
   "createdBy": "planning",
-  "updatedAt": "2026-08-22T05:12:56.674Z",
+  "updatedAt": "2026-08-24T15:10:11.225Z",
   "startedAt": "2026-08-21T16:08:55.928Z",
-  "completedAt": null,
+  "completedAt": "2026-08-24T15:10:11.224Z",
   "statusHistory": [
     {
       "status": "backlog",
@@ -61,16 +56,41 @@
       "at": "2026-08-22T05:12:56.673Z",
       "by": "control-modeX",
       "note": "deferred to lowest"
+    },
+    {
+      "status": "running",
+      "at": "2026-08-24T12:23:06.683Z",
+      "by": "planning"
+    },
+    {
+      "status": "ready",
+      "at": "2026-08-24T15:10:11.204Z",
+      "by": "modex"
+    },
+    {
+      "status": "done",
+      "at": "2026-08-24T15:10:11.224Z",
+      "by": "modex"
     }
   ],
   "qa": null,
-  "ready": null,
+  "ready": {
+    "at": "2026-08-24T15:10:11.204Z",
+    "sha": "",
+    "branch": "",
+    "lenient4bp": [],
+    "ship": ""
+  },
   "livecheck": null,
   "needsManual": null,
   "userVerified": null,
   "report": null,
   "pr": null,
-  "merge": null,
+  "merge": {
+    "ref": "main",
+    "sha": "dcfcb0c84d",
+    "at": "2026-08-24T15:10:11.224Z"
+  },
   "rejections": [],
   "proposalSource": null,
   "parent": null,

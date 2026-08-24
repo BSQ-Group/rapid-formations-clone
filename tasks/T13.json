@@ -9,7 +9,7 @@
     "Verified on both a FAQ page (`/faqs/vat/`) and a service page (`/vat-registration/`), since the component is shared.",
     "No other heading level on those pages changes — `<h1>` page title and the \"How we are rated\" `<h2>` stay as they are."
   ],
-  "status": "backlog",
+  "status": "done",
   "track": "clone",
   "tags": [
     "bug",
@@ -26,24 +26,49 @@
   "supersededBy": null,
   "createdAt": "2026-08-24T14:01:20.785Z",
   "createdBy": "planning",
-  "updatedAt": "2026-08-24T14:01:20.785Z",
-  "startedAt": null,
-  "completedAt": null,
+  "updatedAt": "2026-08-24T15:10:11.184Z",
+  "startedAt": "2026-08-24T14:04:50.125Z",
+  "completedAt": "2026-08-24T15:10:11.184Z",
   "statusHistory": [
     {
       "status": "backlog",
       "at": "2026-08-24T14:01:20.785Z",
       "by": "planning"
+    },
+    {
+      "status": "running",
+      "at": "2026-08-24T14:04:50.125Z",
+      "by": "modex"
+    },
+    {
+      "status": "ready",
+      "at": "2026-08-24T15:09:55.201Z",
+      "by": "modex"
+    },
+    {
+      "status": "done",
+      "at": "2026-08-24T15:10:11.184Z",
+      "by": "modex"
     }
   ],
   "qa": null,
-  "ready": null,
+  "ready": {
+    "at": "2026-08-24T15:09:55.201Z",
+    "sha": "",
+    "branch": "",
+    "lenient4bp": [],
+    "ship": ""
+  },
   "livecheck": null,
   "needsManual": null,
   "userVerified": null,
   "report": null,
   "pr": null,
-  "merge": null,
+  "merge": {
+    "ref": "main",
+    "sha": "f02169ac12",
+    "at": "2026-08-24T15:10:11.184Z"
+  },
   "rejections": [],
   "proposalSource": null,
   "parent": null,

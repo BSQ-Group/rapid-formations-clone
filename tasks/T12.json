@@ -2,15 +2,15 @@
   "schemaVersion": 1,
   "kind": "task",
   "title": "CORE-7120 follow-up: package-page \"Please note:\" footnote headings are #363636, live is #313131",
-  "body": "**Pre-existing defect, surfaced by T5's (CORE-7120) gate-lane regression sweep \u2014 NOT caused by it.**\n\n## Problem\nOn three package pages the \"Please note:\" footnote is marked up as `<h3><strong>Please note: </strong></h3>`\nand renders `#363636` on the clone, where live renders `#313131`.\n\n| Page | Live | Clone (origin/main) |\n|---|---|---|\n| `/package/all-inclusive-package/` | `rgb(49,49,49)` | `rgb(54,54,54)` |\n| `/package/privacy-package/` | `rgb(49,49,49)` | `rgb(54,54,54)` |\n| `/package/basic-package/` | `rgb(49,49,49)` | `rgb(54,54,54)` |\n\n## Why it is its own task\nLive does NOT use one global rule for \"bold inside a heading\" \u2014 it resolves per component by CSS\nspecificity. `/cookies-policy/` headings sit in a page-generic wrapper and resolve to `#595959`;\nthese package footnotes sit in a page-specific footnote wrapper and resolve to `#313131`. On the\nclone BOTH render through the same block, same RichText component, same CSS class \u2014 **nothing\ndistinguishes them**, so a single shared selector cannot express both. T5 was therefore scoped to\n`/cookies-policy/` only; fixing these three needs a distinguishing class/selector (or a scoped\ncomponent change), which is a schema/markup change beyond CORE-7120.\n\n## Likely approach\nIntroduce a distinguishing class for the footnote-styled-as-heading pattern (or scope the package\nblock's own styles), so cookies-policy keeps `#595959` while these footnotes take `#313131`.\n\u26d4 Do NOT solve it by widening the shared `.payload-richtext:not(.prose) :is(h1..h6) strong, b` rule \u2014\nthat is exactly what regressed these pages.\n\n## Evidence\nGate-lane report: `lane-reports/T5-2.md` (measured Source/Before/After per page at 1024).\n\n**ACCEPTANCE CRITERIA**\n- The \"Please note:\" footnote heading renders `rgb(49,49,49)` on all three package pages, matching live, at 360/768/1024/1800.\n- `/cookies-policy/` headings still render `rgb(89,89,89)` \u2014 no regression to T5's shipped fix.\n- Body bold elsewhere still renders `rgb(49,49,49)` (T4/CORE-7119) and heading elements' own colour is unchanged.\n- A regression sweep over every page whose richtext contains bold-in-heading confirms no other page moved further from live.",
+  "body": "**Pre-existing defect, surfaced by T5's (CORE-7120) gate-lane regression sweep — NOT caused by it.**\n\n## Problem\nOn three package pages the \"Please note:\" footnote is marked up as `<h3><strong>Please note: </strong></h3>`\nand renders `#363636` on the clone, where live renders `#313131`.\n\n| Page | Live | Clone (origin/main) |\n|---|---|---|\n| `/package/all-inclusive-package/` | `rgb(49,49,49)` | `rgb(54,54,54)` |\n| `/package/privacy-package/` | `rgb(49,49,49)` | `rgb(54,54,54)` |\n| `/package/basic-package/` | `rgb(49,49,49)` | `rgb(54,54,54)` |\n\n## Why it is its own task\nLive does NOT use one global rule for \"bold inside a heading\" — it resolves per component by CSS\nspecificity. `/cookies-policy/` headings sit in a page-generic wrapper and resolve to `#595959`;\nthese package footnotes sit in a page-specific footnote wrapper and resolve to `#313131`. On the\nclone BOTH render through the same block, same RichText component, same CSS class — **nothing\ndistinguishes them**, so a single shared selector cannot express both. T5 was therefore scoped to\n`/cookies-policy/` only; fixing these three needs a distinguishing class/selector (or a scoped\ncomponent change), which is a schema/markup change beyond CORE-7120.\n\n## Likely approach\nIntroduce a distinguishing class for the footnote-styled-as-heading pattern (or scope the package\nblock's own styles), so cookies-policy keeps `#595959` while these footnotes take `#313131`.\n⛔ Do NOT solve it by widening the shared `.payload-richtext:not(.prose) :is(h1..h6) strong, b` rule —\nthat is exactly what regressed these pages.\n\n## Evidence\nGate-lane report: `lane-reports/T5-2.md` (measured Source/Before/After per page at 1024).\n\n**ACCEPTANCE CRITERIA**\n- The \"Please note:\" footnote heading renders `rgb(49,49,49)` on all three package pages, matching live, at 360/768/1024/1800.\n- `/cookies-policy/` headings still render `rgb(89,89,89)` — no regression to T5's shipped fix.\n- Body bold elsewhere still renders `rgb(49,49,49)` (T4/CORE-7119) and heading elements' own colour is unchanged.\n- A regression sweep over every page whose richtext contains bold-in-heading confirms no other page moved further from live.",
   "acceptanceCriteria": [
     "The \"Please note:\" footnote heading bold run renders `rgb(49,49,49)` on /all-inclusive-package/, /privacy-package/ and /basic-package/, matching live.",
     "Applies at all four breakpoints (360 / 768 / 1024 / 1800).",
-    "\u26d4 /cookies-policy/ headings are UNCHANGED at `rgb(89,89,89)` \u2014 T5 (PR #95, merged) set those deliberately and must not regress.",
-    "Body-copy bold outside headings is unchanged at `rgb(49,49,49)` (T4, merged) \u2014 verify on /id-requirements/.",
+    "⛔ /cookies-policy/ headings are UNCHANGED at `rgb(89,89,89)` — T5 (PR #95, merged) set those deliberately and must not regress.",
+    "Body-copy bold outside headings is unchanged at `rgb(49,49,49)` (T4, merged) — verify on /id-requirements/.",
     "No change to font-size, font-weight, spacing or layout on any affected page."
   ],
-  "status": "running",
+  "status": "done",
   "track": "clone",
   "tags": [
     "bug"
@@ -26,9 +26,9 @@
   "supersededBy": null,
   "createdAt": "2026-08-24T10:37:33.113Z",
   "createdBy": "control-modeX",
-  "updatedAt": "2026-08-24T11:37:02.745Z",
+  "updatedAt": "2026-08-24T15:10:11.264Z",
   "startedAt": "2026-08-24T11:37:02.745Z",
-  "completedAt": null,
+  "completedAt": "2026-08-24T15:10:11.264Z",
   "statusHistory": [
     {
       "status": "backlog",
@@ -39,16 +39,36 @@
       "status": "running",
       "at": "2026-08-24T11:37:02.745Z",
       "by": "control"
+    },
+    {
+      "status": "ready",
+      "at": "2026-08-24T15:10:11.244Z",
+      "by": "modex"
+    },
+    {
+      "status": "done",
+      "at": "2026-08-24T15:10:11.264Z",
+      "by": "modex"
     }
   ],
   "qa": null,
-  "ready": null,
+  "ready": {
+    "at": "2026-08-24T15:10:11.244Z",
+    "sha": "",
+    "branch": "",
+    "lenient4bp": [],
+    "ship": ""
+  },
   "livecheck": null,
   "needsManual": null,
   "userVerified": null,
   "report": null,
   "pr": null,
-  "merge": null,
+  "merge": {
+    "ref": "main",
+    "sha": "fce7cd0af5",
+    "at": "2026-08-24T15:10:11.263Z"
+  },
   "rejections": [],
   "proposalSource": null,
   "parent": "T5",
