@@ -61,3 +61,21 @@ This file is the ground-truth timing source for measured task size.
 00:57:24 | T4 | regressions confirmed — ico-reg/business-tel/cookies-policy headings unaffected
 00:57:24 | T4 | verify done — all 6 pages + FAQ answerText confirmed #313131
 00:57:36 | T4 | coord-live start @360
+09:03:07 | T4 | starting gate-and-PR lane | model: sonnet
+09:03:46 | T4 | starting coord-live gate
+09:12:01 | T8 | starting fix — reading task file | model: sonnet
+09:12:04 | T9 | model: sonnet | START read task
+09:12:05 | T1 | model: sonnet | START reading task, dev-gate check
+09:12:06 | T10 | model: sonnet | START read task file
+09:12:39 | T10 | dev server down attempting restart
+09:12:57 | T8 | dev server down — restarting once
+09:13:36 | T1 | dev server blocked env symlink bug
+09:14:36 | T8 | dev server blocked — turbopack symlink env issue, verifying via typecheck
+09:15:31 | T1 | fix pushed — ready for gate lane
+09:15:59 | T8 | fix pushed — ready for gate lane
+09:16:17 | T9 | dev server up, checking banner image
+09:16:28 | T10 | fix applied badge shadow
+09:19:38 | T4 | coord-live gate cannot pass, investigating why
+09:22:09 | T10 | committed pushed writing report
+09:22:45 | T10 | fix pushed — ready for gate lane
+09:31:30 | T8 | gate-lane starting rebase-done | model: sonnet
