@@ -33,5 +33,5 @@ export const packageGridCardStyles = {
   badgeClip:
     'hidden min-[1023px]:block pointer-events-none absolute -top-2.5 -right-2.5 size-[150px] overflow-hidden',
   badge:
-    'absolute top-[30px] left-[-25px] right-[-50px] rotate-45 bg-[var(--surface-brand-cyan)] px-2.5 py-[7px] text-center uppercase text-[18px] leading-[27px] font-normal text-[var(--text-strong)] line-clamp-1 break-words',
+    'absolute top-[30px] left-[-25px] right-[-50px] rotate-45 bg-[var(--surface-brand-cyan)] px-2.5 py-[7px] text-center uppercase text-[18px] leading-[27px] font-normal text-[var(--text-strong)] line-clamp-1 break-words shadow-[0_5px_10px_rgb(0_0_0/0.1)]',
 } as const
