@@ -12,7 +12,7 @@ export const packageInclusionsStyles = {
 
   icon: 'mt-[5.6px] size-8 text-[var(--surface-cta-success)]',
 
-  title: 'mb-1 block text-[21px] font-bold leading-[1.35] text-[var(--text-on-light-heading)]',
+  title: 'mb-1 block text-[21px] font-bold leading-[1.35] text-[var(--text-on-light-title)]',
 
   content:
     'block text-xl leading-normal text-[var(--text-on-light-muted)] [&_p]:!mb-4 [&_ul]:!mb-[15px] [&_ul]:list-disc [&_li]:!mb-[5px] [&_li:last-child]:!mb-0 [&_a]:text-[var(--text-brand-cyan)] [&_a]:no-underline [&_a:hover]:underline min-[1023px]:[&_p]:!mb-0 min-[1023px]:[&_p]:pr-[55px]',
