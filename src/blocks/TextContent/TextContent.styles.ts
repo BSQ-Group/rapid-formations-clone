@@ -36,7 +36,7 @@ const packageCopy = {
   spacing: '[&_p]:!mb-4 [&>p:last-child]:!mb-4',
 
   headings:
-    '[&_h2]:!mb-2 [&_h2]:text-[24px] [&_h2]:leading-[29.64px] [&_h3]:!mt-0 [&_h3]:!mb-2 [&_h3]:text-[18px] [&_h3]:leading-[22.23px]',
+    '[&_h2]:!mb-2 [&_h2]:text-[24px] [&_h2]:leading-[29.64px] [&_h3]:!mt-0 [&_h3]:!mb-2 [&_h3]:text-[18px] [&_h3]:leading-[22.23px] [&_h3_strong]:!text-[color:var(--text-on-light-strong)] [&_h3_b]:!text-[color:var(--text-on-light-strong)]',
 }
 
 const policy = {
