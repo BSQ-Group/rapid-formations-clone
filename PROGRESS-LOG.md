@@ -312,3 +312,42 @@ did not pass.
 
 **Lane status:** T1 ($8.06) and T4 ($8.70) both terminated on `You've hit your weekly limit · resets
 8am (Europe/London)`. T8 idle. No further lane work is possible until that resets.
+
+## 2026-08-24 — Round 2 CLOSED: 4 of 4 dispatched fixes merged
+
+| Task | Fix | PR | Merged |
+|---|---|---|---|
+| T4 CORE-7119 | shared `.payload-richtext strong/b` rule in globals.css | #87 | ✅ |
+| T8 CORE-7018 | `headingAs="h4"` on the shared FAQs block | #89 | ✅ |
+| T10 CORE-7000 | ribbon `shadow-[0_5px_10px_rgb(0_0_0/0.1)]` | #90 | ✅ |
+| T1 CORE-7009 | star `viewBox` 25×24 → 51×48 + live path | #91 | ✅ |
+
+Every PR shipped as a SINGLE source file with Source/Before/After evidence in the body — no
+`reports/`, no `.claude/` (USER directive; both were stripped and the lane briefs must stop
+instructing workers to commit reports on the branch).
+
+**Newly eligible:** **T5** 🔺 (unblocked by T4 — same shared rich-text layer, should be small) and
+**T2** (unblocked by T1 — the reviews widget). T3 stays blocked behind T2 (same widget).
+
+**What worked — keep doing:**
+- **The split contract.** Fix-and-push lanes finished at 82–85k context; the all-in-one lanes that
+  also gated + PR'd died at 250k+. Fix lanes are cheap, gate/PR lanes are the expensive half.
+- **Real `node_modules` per worktree.** The symlink was fatal to Turbopack and cost two lanes.
+- **A clean `origin/main` baseline worktree on :3010** for "Before" captures — the main checkout is
+  routinely on a USER branch and is NEVER a valid baseline.
+
+**What cost the most — fix before the next round:**
+1. **Lanes backgrounding a gate then ending the turn to "wait for a notification."** Hit T7, T1 and
+   T4. An Agent result only returns to a caller that BLOCKS on it. Costs ~15 min + $5 each time.
+2. **Control committing to whatever branch the main checkout happened to be on.** Polluted PR #88
+   with a HEARTBEAT commit and put two control commits on a user branch. ⛔ ALL control commits must
+   go through the dedicated `rf-ctl` worktree pinned to main — never the main checkout.
+3. **Instructing lanes to commit `reports/<T>-1.md` on the branch** — guarantees the PR carries a
+   report the USER then has to ask to have removed. Reports belong outside the PR.
+
+**Coord-gate policy — still the USER's call, now with 4 waivers on record.** All four merged tasks
+carry an explicit `--coord-gate-waived` reason. T1's is the strongest form (a differential PASS:
+140/140, zero drift vs the clean baseline); the others record that gating vs LIVE is unsatisfiable
+here. Four ad-hoc waivers is the point at which the policy should be settled rather than repeated:
+adopt the differential gate (`--prod-url` = the `:3010` baseline) as standard for `bug` tasks on this
+repo, or formally exempt them.

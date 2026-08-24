@@ -22,18 +22,13 @@
   "blocks": [],
   "deps": [],
   "multiBlockApproved": false,
-  "owner": {
-    "sessionId": "pending",
-    "mode": "W",
-    "branch": "fix/core-7009-review-star-size",
-    "worktree": "/Users/eugeniucozac/bsqgroup/rf-t1"
-  },
+  "owner": null,
   "supersededBy": null,
   "createdAt": "2026-08-21T15:30:40.428Z",
   "createdBy": "planning",
-  "updatedAt": "2026-08-24T09:42:56.668Z",
+  "updatedAt": "2026-08-24T09:42:35.994Z",
   "startedAt": "2026-08-24T08:41:57.001Z",
-  "completedAt": "2026-08-24T09:42:56.668Z",
+  "completedAt": "2026-08-24T09:42:35.994Z",
   "statusHistory": [
     {
       "status": "backlog",
@@ -75,26 +70,26 @@
     },
     {
       "status": "done",
-      "at": "2026-08-24T09:42:56.668Z",
-      "by": "USER (task-console)",
-      "note": "operator sign-off (force-done) via task-console"
+      "at": "2026-08-24T09:42:35.994Z",
+      "by": "control-modeX"
     }
   ],
   "qa": null,
   "ready": null,
   "livecheck": null,
   "needsManual": null,
-  "userVerified": {
-    "at": "2026-08-24T09:42:56.668Z",
-    "by": "USER (task-console)"
-  },
+  "userVerified": null,
   "report": null,
   "pr": {
     "url": "https://github.com/BSQ-Group/rapid-formations-clone/pull/91",
     "number": 91,
     "state": "OPEN"
   },
-  "merge": null,
+  "merge": {
+    "ref": "main",
+    "sha": "3b4d96fac0cc819404502876a196f0521ec148fe",
+    "at": "2026-08-24T09:42:35.994Z"
+  },
   "rejections": [],
   "proposalSource": null,
   "parent": null,
