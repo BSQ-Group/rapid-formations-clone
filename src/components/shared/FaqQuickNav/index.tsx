@@ -65,6 +65,7 @@ export const FaqQuickNav: React.FC<FaqQuickNavProps> = ({
         className={cn(s.button, isOpen && s.buttonOpen)}
       >
         <Text
+          as="h4"
           textStyle="span"
           text={title}
           className={cn(s.title, isOpen && s.titleOpen)}
