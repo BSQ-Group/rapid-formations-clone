@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-7142 · SITEWIDE: missing theme-color meta — mobile browser chrome not branded",
+  "body": "**Linear:** [CORE-7142](https://linear.app/bsq-group/issue/CORE-7142)\n\n## Verified 2026-08-24 — reproduces\n\nLive sets `<meta name=\"theme-color\" content=\"#00b1e3\">`; the clone emits none, so mobile\nbrowser chrome renders unbranded.\n\n| | theme-color |\n|---|---|\n| Live `rapidformations.co.uk` | `#00b1e3` |\n| Clone (prod) | **none** — 0 occurrences in the served HTML |\n\n## Must be brand-scoped, not global\n\nThis repo serves three brands (`src/lib/brand.ts`: 1st Formations, Quality Company\nFormations, Rapid Formations) off one codebase, and a hardcoded value would leak across\nall of them. Checked each brand's live site before choosing:\n\n| Brand | Live theme-color | Source |\n|---|---|---|\n| Rapid Formations | `#00b1e3` | fetched, present |\n| Quality Company Formations | **none** | fetched HTTP 200, 405KB, 0 occurrences — genuinely absent |\n| 1st Formations | unknown | HTTP 403, Cloudflare-blocked |\n\nSo `themeColor` is an OPTIONAL field on `DomainConfig`, set only for Rapid Formations.\nQCF correctly inherits nothing (matching its live site) and 1F stays absent rather than\nguessing a value.\n\n`#00b1e3` is the brand cyan already in the theme (`--surface-brand-cyan: rgb(0 177 227)`).",
+  "acceptanceCriteria": [
+    "The clone emits `<meta name=\"theme-color\" content=\"#00b1e3\">` on every page when the brand is Rapid Formations, matching live.",
+    "The value is brand-scoped — QCF and 1st Formations do NOT inherit it, since QCF's live site sets no theme-color.",
+    "No other head metadata changes (openGraph, twitter, metadataBase untouched).",
+    "Typecheck and production build both pass."
+  ],
+  "status": "running",
+  "track": "clone",
+  "tags": [
+    "bug",
+    "parallel"
+  ],
+  "priority": "normal",
+  "effort": "S",
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-08-24T15:24:31.941Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-08-24T15:25:01.693Z",
+  "startedAt": "2026-08-24T15:25:01.693Z",
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-08-24T15:24:31.941Z",
+      "by": "planning"
+    },
+    {
+      "status": "running",
+      "at": "2026-08-24T15:25:01.693Z",
+      "by": "modex"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": null,
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "id": "T15",
+  "num": 15
+}
