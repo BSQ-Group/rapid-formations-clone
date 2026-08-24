@@ -10,7 +10,7 @@
     "No regression to bold inside headings — live keeps bold in `<h2>`/`<h3>` at `#595959` (see CORE-7120) — so a blanket darken-all-bold rule is not acceptable.",
     "No regression to already-correct bold contexts: `/ico-registration/` feature-list bold, the correct run on `/business-telephone/`, and the `#595959` review-figure bold."
   ],
-  "status": "running",
+  "status": "done",
   "track": "clone",
   "tags": [
     "bug",
@@ -24,18 +24,13 @@
   "blocks": [],
   "deps": [],
   "multiBlockApproved": false,
-  "owner": {
-    "sessionId": "pending",
-    "mode": "W",
-    "branch": "fix/core-7119-bold-body-text",
-    "worktree": "/Users/eugeniucozac/bsqgroup/rf-t4"
-  },
+  "owner": null,
   "supersededBy": null,
   "createdAt": "2026-08-21T15:30:40.431Z",
   "createdBy": "planning",
-  "updatedAt": "2026-08-24T08:03:01.464Z",
+  "updatedAt": "2026-08-24T09:37:54.974Z",
   "startedAt": "2026-08-21T16:08:25.834Z",
-  "completedAt": null,
+  "completedAt": "2026-08-24T09:37:54.974Z",
   "statusHistory": [
     {
       "status": "backlog",
@@ -68,6 +63,17 @@
       "status": "running",
       "at": "2026-08-24T08:03:01.464Z",
       "by": "control-modeX"
+    },
+    {
+      "status": "awaiting-user",
+      "at": "2026-08-24T09:37:54.955Z",
+      "by": "control-modeX",
+      "note": "[coord-gate waived: coord-live vs LIVE is unsatisfiable on this hand-authored port: the scoped gate returns an IDENTICAL FAIL (61 missing/58 extra) against the clean origin/main baseline, proving the drift is pre-existing and not fix-caused. Differential gate (fix vs baseline) PASSes 140/140, zero drift. PR merged by USER after review.]"
+    },
+    {
+      "status": "done",
+      "at": "2026-08-24T09:37:54.974Z",
+      "by": "control-modeX"
     }
   ],
   "qa": null,
@@ -76,8 +82,16 @@
   "needsManual": null,
   "userVerified": null,
   "report": null,
-  "pr": null,
-  "merge": null,
+  "pr": {
+    "url": "https://github.com/BSQ-Group/rapid-formations-clone/pull/87",
+    "number": 87,
+    "state": "OPEN"
+  },
+  "merge": {
+    "ref": "main",
+    "sha": "75700ed40a1a714b067a096d6bdb285ee275a3c3",
+    "at": "2026-08-24T09:37:54.973Z"
+  },
   "rejections": [],
   "proposalSource": null,
   "parent": null,
