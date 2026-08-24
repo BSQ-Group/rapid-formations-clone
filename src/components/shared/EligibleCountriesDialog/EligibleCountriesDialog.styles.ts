@@ -1,6 +1,4 @@
 export const styles = {
-  trigger:
-    'inline-flex cursor-pointer border-none bg-transparent p-0 font-[inherit] text-[17px] font-normal leading-normal text-[var(--text-on-light-muted)]',
   content:
     'font-legacy-condensed max-h-[750px] w-full max-w-[720px] overflow-hidden pt-12 pb-8 pl-8 pr-0 sm:max-w-[720px]',
   updated: 'block text-[18px] font-bold leading-normal text-[var(--text-on-light-strong)]',

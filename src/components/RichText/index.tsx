@@ -57,7 +57,14 @@ const sentinelLinks: Record<string, (label: string, payload?: unknown) => React.
   [LIVE_CHAT_HREF]: (label) => <LiveChatButton label={label} className={inlineTrigger} />,
   [ELIGIBLE_COUNTRIES_HREF]: (label, payload) => {
     const { lastUpdated, countries } = (payload ?? { countries: [] }) as EligibleCountries
-    return <EligibleCountriesDialog label={label} lastUpdated={lastUpdated} countries={countries} />
+    return (
+      <EligibleCountriesDialog
+        label={label}
+        lastUpdated={lastUpdated}
+        countries={countries}
+        className={inlineTrigger}
+      />
+    )
   },
 }
 

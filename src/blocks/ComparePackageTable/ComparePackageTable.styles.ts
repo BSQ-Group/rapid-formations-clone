@@ -76,11 +76,11 @@ export const comparePackageTableStyles = {
   ribbon:
     'absolute -top-[21px] -right-[21px] block size-[150px] overflow-hidden md:hidden min-[1023px]:-right-[0.3rem] min-[1023px]:-top-[6px] min-[1023px]:block min-[1023px]:size-[8.7rem] min-[1200px]:right-0 min-[1200px]:-top-[2px] min-[1200px]:size-[150px]',
   ribbonLabel:
-    'absolute -left-[0.5rem] top-8 block w-[225px] rotate-45 bg-[var(--surface-brand-cyan)] px-2.5 py-[7px] text-center uppercase text-white shadow-[0_5px_10px_rgb(0_0_0/0.1)] [text-shadow:0_1px_1px_rgb(0_0_0/0.2)] min-[1023px]:left-8 min-[1023px]:top-4 min-[1023px]:w-40 min-[1023px]:p-0 min-[1023px]:text-[0.8rem] min-[1200px]:left-[2.4rem] min-[1200px]:top-[1.2rem] min-[1200px]:text-base',
+    'absolute -left-[0.5rem] top-8 block w-[225px] rotate-45 bg-[var(--surface-brand-cyan)] px-2.5 py-[7px] text-center text-[18px] uppercase leading-[1.5] text-white shadow-[0_5px_10px_rgb(0_0_0/0.1)] [text-shadow:0_1px_1px_rgb(0_0_0/0.2)] min-[1023px]:left-8 min-[1023px]:top-4 min-[1023px]:w-40 min-[1023px]:p-0 min-[1023px]:text-[0.8rem] min-[1200px]:left-[2.4rem] min-[1200px]:top-[1.2rem] min-[1200px]:text-base',
 
-  footnote: 'border-t-0 bg-white pt-4 text-left md:rounded-b md:p-[15px] md:pt-6',
+  footnote: 'mt-6 border-t-0 bg-white text-left md:mt-8',
   footnoteBody:
-    'block text-[var(--text-on-light-muted)] [&_h3]:!mt-0 [&_h3]:!mb-2 [&_h3]:text-[28px] [&_h3]:font-normal [&_h3]:leading-[1.235] [&_h3]:text-[var(--text-on-light-base)] [&_p]:!mb-4 [&_p]:text-[20px] [&_p]:leading-normal [&_ol]:list-decimal [&_ol]:pl-5 [&_ul]:list-disc [&_ul]:pl-5 [&_li]:!mb-0 [&_li]:text-[20px] [&_li]:leading-normal [&_a]:text-[var(--text-brand-cyan)] [&_a]:no-underline [&_a:hover]:underline',
+    'block text-[var(--text-on-light-muted)] [&_h3]:!mt-0 [&_h3]:!mb-2 [&_h3]:text-[26px] [&_h3]:font-normal [&_h3]:leading-[1.235] md:[&_h3]:text-[28px] [&_h3]:text-[var(--text-on-light-base)] [&_p]:!mb-4 [&_p]:text-[20px] [&_p]:leading-normal [&_ol]:list-decimal [&_ol]:pl-[15px] [&_ol_li]:pl-2 [&_ul]:list-disc [&_ul]:pl-5 [&_li]:!mb-0 [&_li]:text-[20px] [&_li]:leading-normal [&_strong]:text-[var(--text-on-light-strong)] [&_a]:text-[var(--text-brand-cyan)] [&_a]:no-underline [&_a:hover]:underline',
 
   mobile: 'block md:hidden',
   carousel:
@@ -93,7 +93,7 @@ export const comparePackageTableStyles = {
   mobileHeader: 'rounded-lg bg-[var(--surface-compare-packages-card)] p-6',
   mobileName: 'mb-[5px] mt-0 block text-[24px] font-bold leading-9 text-[var(--text-brand-cyan)]',
   mobileDescription:
-    'mb-4 flow-root text-left text-base text-[var(--text-on-light-muted)] [&_h4]:!mb-0 [&_h4]:text-base [&_h4]:leading-[1.35] [&_p]:!mb-2 [&_p]:text-base [&_ul]:!mb-4 [&_ul]:pl-4 [&_ul]:text-base [&_li]:!mb-2 [&_li]:text-base [&_li]:leading-[1.25] [&_li::marker]:text-xs [&_a]:text-[var(--text-brand-cyan)] [&_a]:no-underline [&_a:hover]:underline',
+    'mb-4 flow-root text-left text-base text-[var(--text-on-light-muted)] [&_h4]:!mb-0 [&_h4]:text-base [&_h4]:leading-[1.35] [&_h4]:text-[var(--text-on-light-base)] [&_strong]:text-[var(--text-on-light-strong)] [&_p]:!mb-2 [&_p]:text-base [&_ul]:!mb-4 [&_ul]:pl-4 [&_ul]:text-base [&_li]:!mb-2 [&_li]:text-base [&_li]:leading-[1.25] [&_li::marker]:text-xs [&_a]:text-[var(--text-brand-cyan)] [&_a]:no-underline [&_a:hover]:underline',
   mobileDescriptionTall: 'min-h-[255px] min-[470px]:min-h-[220px]',
   mobileDescriptionTaller: 'min-h-[315px] min-[470px]:min-h-[270px]',
   mobileProducts: 'mt-4 mb-0 block list-none p-0',
