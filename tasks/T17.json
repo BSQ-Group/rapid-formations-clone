@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-6998 · SHARED: banking cards all show the same crop of the background pattern",
+  "body": "**Linear:** [CORE-6998](https://linear.app/bsq-group/issue/CORE-6998)\n\n## Verified 2026-08-24 — reproduces\n\nThe pattern IMAGE is correct (same 766x766 asset, byte-equivalent to live's, only re-encoded).\nWhat diverges is the crop: it is drawn at natural size behind a ~263x171 tile, so each tile\nshows one small window onto it — and the clone showed **the identical window on every tile**.\n\n| | live | clone (before) |\n|---|---|---|\n| `background-position` per tile | different on all 8 | `50% -250px` on all 8 |\n\nMeasured headed at 1440 on `/package/all-inclusive-package/` vs `/all-inclusive-package`.\n\n## Live's rule, from live's own bundle\n\nBoth live components — the homepage hero strip (`HeroBankCards`) and the partners grid\n(`BankAdsGrid`) — compute it identically:\n\n```js\nbackgroundPosition: Math.floor(80 * Math.random()) + 10 + \"% -\" + (Math.floor(291 * Math.random()) + 100) + \"px\"\n```\n\nso x in 10–89%, y in -100 to -390px. Confirmed against 48 sampled tiles (observed 13–85% /\n-106 to -384px) and by reading the minified source in\n`component---src-pages-index-tsx-*.js` and `9b5230922323ba2d94d220d73c79e7fd4119a418-*.js`.\n\n## Fix\n\nOne shared helper, `src/utilities/bankPattern.ts`, used by BOTH blocks — which is what\n\"SHARED\" means here. It keeps live's exact ranges but derives the offset from the tile index\ninstead of `Math.random()`: these are server components, so a random offset would be frozen\nby the route cache anyway (no per-load variety to gain) while making every build render\ndifferently and adding needless visual-QA churn. Multipliers are coprime with their moduli\n(37/80, 101/291) so neighbouring tiles land far apart.\n\n`LandingHero` was already varying its tiles, but over a narrower band than live\n(x 25–79% vs live's 10–89%); it now uses the same helper, and its ad-hoc inline formula is gone.\n",
+  "acceptanceCriteria": [
+    "Every banking-partner tile shows its own crop of the pattern — no two tiles identical, matching live.",
+    "Offsets stay inside live's ranges: x 10–89%, y -100 to -390px.",
+    "The homepage hero bank strip uses the same helper and the same ranges.",
+    "Pattern image, brand colours, blend mode, size and repeat are unchanged."
+  ],
+  "status": "running",
+  "track": "clone",
+  "tags": [
+    "bug",
+    "parallel"
+  ],
+  "priority": "normal",
+  "effort": "S",
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-08-24T15:57:55.852Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-08-24T16:00:22.675Z",
+  "startedAt": "2026-08-24T16:00:22.675Z",
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-08-24T15:57:55.852Z",
+      "by": "planning"
+    },
+    {
+      "status": "running",
+      "at": "2026-08-24T16:00:22.675Z",
+      "by": "modex"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": {
+    "url": "https://github.com/BSQ-Group/rapid-formations-clone/pull/106",
+    "number": 106
+  },
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "id": "T17",
+  "num": 17
+}
