@@ -14,7 +14,7 @@ const text = (value: string): LexicalNode => ({
   detail: 0,
 })
 
-const heading = (tag: 'h3' | 'h4', value: string): LexicalNode => ({
+const heading = (tag: 'h2' | 'h3' | 'h4', value: string): LexicalNode => ({
   type: 'heading',
   tag,
   format: '',
@@ -131,5 +131,39 @@ export const NumberedClauses: Story = {
   args: {
     ...defaultArgs,
     variant: 'numbered',
+  },
+}
+
+// Mirrors the /whistleblowing-grievance-mechanism-policy/ page: the `numbered`
+// variant embeds a second policy whose title is a top-level H2. That H2 must
+// render at 36px / 44.46px (matching live and /terms-and-conditions/), not the
+// 28.8px shell default. Regression guard for CORE-7158.
+const numberedWithTitleBody = {
+  root: {
+    type: 'root',
+    format: '',
+    indent: 0,
+    version: 1,
+    direction: 'ltr',
+    children: [
+      heading('h2', 'External Grievance/Complaints Mechanism Policy'),
+      paragraph(
+        'This policy sets out the mechanism by which external parties can raise a grievance or complaint.',
+      ),
+      heading('h3', '1. Purpose'),
+      paragraph(
+        'The purpose of this policy is to provide a clear and accessible route for external complaints.',
+      ),
+      heading('h3', '2. Scope'),
+      paragraph('This policy applies to all external grievances and complaints.'),
+    ],
+  },
+}
+
+export const NumberedWithPolicyTitle: Story = {
+  args: {
+    ...defaultArgs,
+    variant: 'numbered',
+    body: numberedWithTitleBody as TextContentBlockProps['body'],
   },
 }
