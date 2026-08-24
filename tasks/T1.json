@@ -9,7 +9,7 @@
     "Star fill colours + rating text unchanged (already match live: Trustpilot green `rgb(94,178,124)`, text weight 400 `rgb(89,89,89)`).",
     "No layout regression to the widget at 360 / 768 / 1024 / 1800."
   ],
-  "status": "awaiting-user",
+  "status": "done",
   "track": "clone",
   "tags": [
     "bug",
@@ -31,9 +31,9 @@
   "supersededBy": null,
   "createdAt": "2026-08-21T15:30:40.428Z",
   "createdBy": "planning",
-  "updatedAt": "2026-08-24T09:39:40.385Z",
+  "updatedAt": "2026-08-24T09:42:56.668Z",
   "startedAt": "2026-08-24T08:41:57.001Z",
-  "completedAt": null,
+  "completedAt": "2026-08-24T09:42:56.668Z",
   "statusHistory": [
     {
       "status": "backlog",
@@ -72,13 +72,22 @@
       "at": "2026-08-24T09:39:40.385Z",
       "by": "control-modeX",
       "note": "[coord-gate waived: Differential coord gate PASSES: fix (:3004) vs clean origin/main baseline (:3010) = 140/140 matched, 0 missing/extra/mislocated, 0 size drift -> the fix introduces no regression. The gate vs LIVE is unsatisfiable on this hand-authored port (identical FAIL on the clean baseline: 61 missing/58 extra, pre-existing drift). Artifact: reports/T1-coord-live.json. Lane terminated on the weekly usage limit before the QA-permission leg; PR carries Source/Before/After evidence + viewBox proof.]"
+    },
+    {
+      "status": "done",
+      "at": "2026-08-24T09:42:56.668Z",
+      "by": "USER (task-console)",
+      "note": "operator sign-off (force-done) via task-console"
     }
   ],
   "qa": null,
   "ready": null,
   "livecheck": null,
   "needsManual": null,
-  "userVerified": null,
+  "userVerified": {
+    "at": "2026-08-24T09:42:56.668Z",
+    "by": "USER (task-console)"
+  },
   "report": null,
   "pr": {
     "url": "https://github.com/BSQ-Group/rapid-formations-clone/pull/91",
