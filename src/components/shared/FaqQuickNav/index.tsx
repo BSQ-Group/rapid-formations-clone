@@ -54,7 +54,7 @@ export const FaqQuickNav: React.FC<FaqQuickNavProps> = ({
 
   if (!topics.length) return null
 
-  const items = [{ title: homeLabel, url: homeUrl, isHome: true }, ...topics]
+  const items = [{ title: homeLabel, url: homeUrl }, ...topics]
 
   return (
     <div ref={rootRef} className={cn(s.root, className)}>
@@ -74,10 +74,7 @@ export const FaqQuickNav: React.FC<FaqQuickNavProps> = ({
       <ul className={cn(s.list, isOpen ? s.listOpen : s.listClosed)}>
         {items.map((item) => (
           <li key={item.url} className={s.item}>
-            <Link
-              href={item.url}
-              className={cn(s.link, 'isHome' in item && item.isHome && s.linkHome)}
-            >
+            <Link href={item.url} className={s.link}>
               {item.title}
             </Link>
           </li>
