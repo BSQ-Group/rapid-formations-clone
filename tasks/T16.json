@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-7113 · SHARED: body inline links don't underline on hover",
+  "body": "**Linear:** [CORE-7113](https://linear.app/bsq-group/issue/CORE-7113)\n\n## Verified 2026-08-24 — reproduces\n\nBody rich-text inline links underline on hover on live; on the clone they do not. Measured\nwith a real mouse hover on the SAME two links on the SAME page, identical selector:\n\n| Link (`/id-requirements`) | Live | Clone |\n|---|---|---|\n| \"Privacy Policy\" | none → **underline** | none → none |\n| \"Terms and Conditions\" | none → **underline** | none → none |\n\nRoot cause: `src/blocks/TextContent/TextContent.styles.ts` `richTextShell.links` explicitly\nset `[&_a:hover]:!no-underline` — the clone was actively suppressing the underline.\n\n## Scope boundary — accordion answers must NOT change\n\nThe FAQ/accordion answer rich text (`src/blocks/FAQs/FAQs.styles.ts`, via the shared\n`Collapsible`) has its own `[&_a]:no-underline` with no hover rule. That is CORRECT:\nlive's accordion-answer link (\"London Service Address\" on\n`/director-appointment-resignation/`) also does **not** underline on hover (rest=none,\nhover=none, verified headed on live).\n\nSo \"SHARED\" here means the body rich-text shell only. Changing `FAQs.styles.ts` too would\nintroduce a divergence from live, not fix one.",
+  "acceptanceCriteria": [
+    "Body rich-text inline links underline on hover on the clone, matching live (rest `none` → hover `underline`).",
+    "Resting state is unchanged — no underline at rest, link colour unchanged.",
+    "FAQ/accordion answer links are NOT changed: they stay without a hover underline, matching live.",
+    "Verified with a real mouse hover at 360 and 1800 on at least two pages."
+  ],
+  "status": "running",
+  "track": "clone",
+  "tags": [
+    "bug",
+    "parallel"
+  ],
+  "priority": "normal",
+  "effort": "S",
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-08-24T15:34:43.226Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-08-24T15:35:19.961Z",
+  "startedAt": "2026-08-24T15:35:19.961Z",
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-08-24T15:34:43.226Z",
+      "by": "planning"
+    },
+    {
+      "status": "running",
+      "at": "2026-08-24T15:35:19.961Z",
+      "by": "modex"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": null,
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "id": "T16",
+  "num": 16
+}
