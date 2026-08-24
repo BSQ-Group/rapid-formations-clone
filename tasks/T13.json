@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-7007 · SITEWIDE: FAQ/service CTA band heading is <h2> on clone (live is <h3>)",
+  "body": "**Linear:** [CORE-7007](https://linear.app/bsq-group/issue/CORE-7007/rf-sitewide-faq-cta-band-heading-is-an-h2-on-clone-live-is-h3)\n\n## Verified 2026-08-24 — reproduces\n\nThe \"Register your company today\" closing CTA band renders `<h2>` on the clone where live\nrenders `<h3>`. Rendered type is identical on both (32px, weight 700) — only the element\ntag differs. Same defect class as CORE-7018 (FAQ accordion `<h3>` → `<h4>`, shipped as a\none-line change in PR #89).\n\n| Page | Clone | Live |\n|---|---|---|\n| `/faqs/vat/` | `<h2>` | `<h3>` |\n| `/vat-registration/` | `<h2>` | `<h3>` |\n\n**SITEWIDE claim verified, not assumed:** live uses `<h3>` on both a FAQ page and a service\npage, and the clone uses `<h2>` on both — so a single shared-component change is correct here.\nThis is NOT the CORE-7119/7120 situation where live deliberately differs by context and a\nblanket rule would regress a sibling.\n\n## Location\n\n`src/components/shared/ClosingCTA/index.tsx` — `<Text as=\"h2\" …>` → `as=\"h3\"`.\n\nConfirmed this component and not the similar `RegisterCtaPanel` by matching the rendered DOM\nclass against the styles files: the band carries\n`mb-2 block text-[32px] font-bold leading-[1.235] text-[var(--surface-brand-cyan)]`, which is\n`ClosingCTA.styles.ts` verbatim. `RegisterCtaPanel` is 36px / weight 400 and is a different band.",
+  "acceptanceCriteria": [
+    "The closing CTA band heading (\"Register your company today\") renders `<h3>` on the clone, matching live.",
+    "Rendered type is unchanged — 32px, weight 700, same colour, same position and spacing.",
+    "Verified on both a FAQ page (`/faqs/vat/`) and a service page (`/vat-registration/`), since the component is shared.",
+    "No other heading level on those pages changes — `<h1>` page title and the \"How we are rated\" `<h2>` stay as they are."
+  ],
+  "status": "backlog",
+  "track": "clone",
+  "tags": [
+    "bug",
+    "parallel"
+  ],
+  "priority": "normal",
+  "effort": "S",
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-08-24T14:01:20.785Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-08-24T14:01:20.785Z",
+  "startedAt": null,
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-08-24T14:01:20.785Z",
+      "by": "planning"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": null,
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "id": "T13",
+  "num": 13
+}
