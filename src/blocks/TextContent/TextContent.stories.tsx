@@ -134,10 +134,6 @@ export const NumberedClauses: Story = {
   },
 }
 
-// Mirrors the /whistleblowing-grievance-mechanism-policy/ page: the `numbered`
-// variant embeds a second policy whose title is a top-level H2. That H2 must
-// render at 36px / 44.46px (matching live and /terms-and-conditions/), not the
-// 28.8px shell default. Regression guard for CORE-7158.
 const numberedWithTitleBody = {
   root: {
     type: 'root',

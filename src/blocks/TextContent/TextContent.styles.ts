@@ -70,10 +70,6 @@ const policy = {
 const numbered = {
   counters: 'rf-numbered-clauses',
 
-  // Match live: the embedded policy title H2 is 36px/44.46px (same as the
-  // top-level policy H2 on /terms-and-conditions/), not the 28.8px shell
-  // default. Only size + line-height are overridden — the shell's margins,
-  // weight, colour, and the 20.8px numbered-clause H3 headings are unchanged.
   headings: '[&_h2]:text-[36px] [&_h2]:leading-[44.46px]',
 }
 
