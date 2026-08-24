@@ -30,8 +30,8 @@
   "supersededBy": null,
   "createdAt": "2026-08-21T15:30:40.435Z",
   "createdBy": "planning",
-  "updatedAt": "2026-08-24T08:11:57.843Z",
-  "startedAt": "2026-08-24T08:11:57.843Z",
+  "updatedAt": "2026-08-24T08:31:07.133Z",
+  "startedAt": "2026-08-24T08:31:07.133Z",
   "completedAt": null,
   "statusHistory": [
     {
@@ -53,6 +53,17 @@
     {
       "status": "running",
       "at": "2026-08-24T08:11:57.843Z",
+      "by": "control-modeX"
+    },
+    {
+      "status": "backlog",
+      "at": "2026-08-24T08:29:30.335Z",
+      "by": "control-modeX",
+      "note": "restart from scratch: fix pushed e1fa909; lane died w/ Console; needs GATE+PR lane, not a re-fix"
+    },
+    {
+      "status": "running",
+      "at": "2026-08-24T08:31:07.133Z",
       "by": "control-modeX"
     }
   ],

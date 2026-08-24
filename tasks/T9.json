@@ -9,7 +9,7 @@
     "Crop, scale and object-position stay as they are (they already match live: `object-fit: cover`, same box) — resolution is the only change.",
     "Verified crisp against live at 360 / 768 / 1024 / 1800 on the worst case (`/faqs/shares-and-shareholders/`, currently a 356×76 master displayed at 1170×250, ~3.3× upscale)."
   ],
-  "status": "running",
+  "status": "backlog",
   "track": "clone",
   "tags": [
     "bug",
@@ -22,17 +22,12 @@
   "blocks": [],
   "deps": [],
   "multiBlockApproved": false,
-  "owner": {
-    "sessionId": "pending",
-    "mode": "W",
-    "branch": "fix/core-7013-faq-banner-resolution",
-    "worktree": "/Users/eugeniucozac/bsqgroup/rf-t9"
-  },
+  "owner": null,
   "supersededBy": null,
   "createdAt": "2026-08-21T15:30:40.436Z",
   "createdBy": "planning",
-  "updatedAt": "2026-08-24T08:11:57.868Z",
-  "startedAt": "2026-08-24T08:11:57.868Z",
+  "updatedAt": "2026-08-24T08:29:30.364Z",
+  "startedAt": null,
   "completedAt": null,
   "statusHistory": [
     {
@@ -44,6 +39,12 @@
       "status": "running",
       "at": "2026-08-24T08:11:57.868Z",
       "by": "control-modeX"
+    },
+    {
+      "status": "backlog",
+      "at": "2026-08-24T08:29:30.364Z",
+      "by": "control-modeX",
+      "note": "restart from scratch: INCOMPLETE — no branch pushed; needs a full fix lane"
     }
   ],
   "qa": null,

@@ -230,3 +230,47 @@ click first), T7 `c4447af` (**shared-scope question still unanswered** — diff 
 the ticket describes a shared header; may need re-fixing, not just gating).
 **Open policy risk:** whether `qa-coord-live --section` can scope at all on this hand-authored port.
 T4 answers it. If it cannot, no `bug` task can pass the submit-pr rail and we need a policy decision.
+
+## 2026-08-24 09:44 — HARD STOP: monthly spend limit
+
+Lanes T4 and T8 both terminated with `You've hit your monthly spend limit · raise it at
+claude.ai/settings/usage`. This is an account-level ceiling — no prompt, retry or re-dispatch works
+around it. Raise the limit (or wait for the monthly reset) before any further lane runs.
+
+**Nothing is lost. All four fix branches are pushed and in sync with origin:**
+
+| Task | Branch | SHA | PR | PR body |
+|---|---|---|---|---|
+| T4 | `fix/core-7119-bold-body-text` | `90e8cc3` | **#87** | ✅ COMPLETE — Source/Before/After images, prose summary |
+| T8 | `fix/core-7018-faq-heading-level` | `902c61f` | #89 | ❌ empty (lane died before writing it) |
+| T1 | `fix/core-7009-review-star-size` | `04c09e8` | #91 | ❌ empty (lane died mid coord-gate) |
+| T10 | `fix/core-7000-best-value-ribbon-shadow` | `4840106` | #90 | ❌ empty (no gate lane ever ran) |
+
+**#87 is the reference implementation** of the format the USER asked for (PR #88 style): prose
+summary + `### <defect — from → to>` + Source/Before/After table, images on Vercel Blob, tight crop
+on the changed element.
+
+**Reusable tooling rescued from rf-t4** (saves every later lane rewriting it) — copied to the session
+scratchpad `reusable/`:
+- `upload-blob.mjs` — @vercel/blob `put()` with the repo `.env` token; bypasses
+  `upload-screenshots.mjs`, whose CANONICAL_WIDTH whitelist (390/768/1440/1800) rejects our 360/1024.
+- `capture-region.mjs` — tight element-region capture (the thing that makes a colour diff legible).
+- `T4-pr-body-example.md` — the working body that produced #87.
+
+**Infrastructure fixed this session (persists):** all worktrees now have REAL `node_modules` (the
+symlink was fatal to Turbopack: `Symlink [project]/node_modules is invalid`), and a clean baseline
+worktree `rf-before` @ `origin/main` serves the "Before" surface on **:3010**. ⛔ The main checkout is
+on the USER's branch `fix/package-page-text-colours` (PR #88) — it is NOT a valid baseline; never
+capture "before" from :3000.
+
+**Unresolved policy question (blocks nothing yet, will block shipping):** whether `qa-coord-live`
+can be `--section`-scoped on this hand-authored port. T4 logged "coord-live gate cannot pass,
+investigating why" at 09:19; an earlier unscoped run returned `gateSection: null` and compared the
+whole homepage (183 missing / 200 extra). If it cannot scope, no `bug` task can pass the `submit-pr`
+rail and a deliberate waiver policy is needed. Evidence:
+`rf-t7/reports/T7-coord-live-FAILED-unscoped.json`.
+
+**Resume order when budget allows (3 lanes max, USER directive):** T8 gate (#89) · T10 gate (#90) ·
+T1 gate (#91) — all three are "fix already pushed, produce evidence + update the existing PR", the
+same shape T4 just completed successfully. Then T9 (incomplete fix, no branch), then T6/T7 (T7 still
+owes the shared-header scope answer). T2/T3 unblock when T1 merges; T5 when T4 merges.
