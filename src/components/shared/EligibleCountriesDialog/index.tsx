@@ -10,9 +10,10 @@ export const EligibleCountriesDialog: React.FC<{
   label: string
   lastUpdated?: string | null
   countries: string[]
-}> = ({ label, lastUpdated, countries }) => (
+  className?: string
+}> = ({ label, lastUpdated, countries, className }) => (
   <Dialog>
-    <DialogTrigger className={styles.trigger}>{label}</DialogTrigger>
+    <DialogTrigger className={className}>{label}</DialogTrigger>
     <DialogContent className={styles.content}>
       {lastUpdated && (
         <Text
