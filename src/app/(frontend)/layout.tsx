@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 
 import { cn } from '@/utilities/ui'
 import { Inter, Work_Sans, Encode_Sans } from 'next/font/google'
@@ -31,7 +31,7 @@ import Script from 'next/script'
 import { Footer } from '@/Footer/Component'
 import { Providers } from '@/providers'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
-import { getBrand } from '@/lib/brand'
+import { getBrand, getDomainConfig } from '@/lib/brand'
 import { draftMode } from 'next/headers'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 
@@ -76,6 +76,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </body>
     </html>
   )
+}
+
+export const viewport: Viewport = {
+  ...(getDomainConfig(getBrand()).themeColor
+    ? { themeColor: getDomainConfig(getBrand()).themeColor }
+    : {}),
 }
 
 export const metadata: Metadata = {

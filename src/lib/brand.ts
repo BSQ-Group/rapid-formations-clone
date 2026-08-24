@@ -23,6 +23,12 @@ export interface DomainConfig {
   siteName: string
   tenantId: string
   blogUrl?: string
+  /**
+   * Brand colour for the `theme-color` meta (mobile browser chrome). Optional:
+   * only brands whose live site sets one get one — QCF's live site has no
+   * theme-color meta, so it must not inherit RF's.
+   */
+  themeColor?: string
 }
 
 export const domainsConfigMap: Record<Brand, DomainConfig> = {
@@ -46,6 +52,7 @@ export const domainsConfigMap: Record<Brand, DomainConfig> = {
     siteName: 'Rapid Formations',
     tenantId: 'rapid-90xzd',
     blogUrl: 'https://www.rapidformationsblog.co.uk',
+    themeColor: '#00b1e3',
   },
 }
 
