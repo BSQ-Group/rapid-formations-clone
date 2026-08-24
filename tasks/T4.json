@@ -80,7 +80,10 @@
   "ready": null,
   "livecheck": null,
   "needsManual": null,
-  "userVerified": null,
+  "userVerified": {
+    "at": "2026-08-24T09:40:43.199Z",
+    "by": "USER (task-console)"
+  },
   "report": null,
   "pr": {
     "url": "https://github.com/BSQ-Group/rapid-formations-clone/pull/87",
