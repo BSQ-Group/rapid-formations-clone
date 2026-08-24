@@ -9,7 +9,7 @@
     "Heading size, weight and line wrapping are unchanged, and the spacing above and below each heading does not move.",
     "Body copy, lists and the cookie tables underneath are untouched — they already match live at `#595959`."
   ],
-  "status": "backlog",
+  "status": "awaiting-user",
   "track": "clone",
   "tags": [
     "bug",
@@ -24,18 +24,33 @@
     "T4"
   ],
   "multiBlockApproved": false,
-  "owner": null,
+  "owner": {
+    "sessionId": "pending",
+    "mode": "W",
+    "branch": "fix/core-7120-cookies-policy-headings",
+    "worktree": "/Users/eugeniucozac/bsqgroup/rf-t5"
+  },
   "supersededBy": null,
   "createdAt": "2026-08-21T15:30:40.433Z",
   "createdBy": "planning",
-  "updatedAt": "2026-08-21T15:30:40.433Z",
-  "startedAt": null,
+  "updatedAt": "2026-08-24T10:58:52.455Z",
+  "startedAt": "2026-08-24T09:46:40.894Z",
   "completedAt": null,
   "statusHistory": [
     {
       "status": "backlog",
       "at": "2026-08-21T15:30:40.433Z",
       "by": "planning"
+    },
+    {
+      "status": "running",
+      "at": "2026-08-24T09:46:40.894Z",
+      "by": "control-modeX"
+    },
+    {
+      "status": "awaiting-user",
+      "at": "2026-08-24T10:58:52.455Z",
+      "by": "script"
     }
   ],
   "qa": null,
@@ -44,7 +59,11 @@
   "needsManual": null,
   "userVerified": null,
   "report": null,
-  "pr": null,
+  "pr": {
+    "url": "https://github.com/BSQ-Group/rapid-formations-clone/pull/95",
+    "number": 95,
+    "state": "OPEN"
+  },
   "merge": null,
   "rejections": [],
   "proposalSource": null,
