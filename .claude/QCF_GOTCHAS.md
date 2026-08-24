@@ -583,3 +583,47 @@ Each entry has four parts:
   # A mismatch count that is higher at one breakpoint than the others is this bug.
   ```
 - **Fix:** Take render order from the **live DOM at the breakpoint in question**, never from the local component file — the checkout is behind the deployment. Where two regions swap by breakpoint and each is hidden at the other, ordering them so the visible one always comes second is usually enough; no CSS `order` is needed. Note `getComputedStyle(el).display` does **not** report an ancestor's `display: none`, so a visibility filter written that way silently counts hidden nodes and hides the very mismatch you are looking for — use `getClientRects().length`.
+
+## Gating a fix against the LIVE site — this clone is a hand-authored port, not a DOM passthrough
+
+- **When it bites:** Any `bug`/fidelity task that runs `qa-coord-live` (or any coordinate/node diff) with `--prod-url` pointed at `rapidformations.co.uk`. It returns `overall: FAIL` with dozens of missing/extra nodes **no matter what your fix does**, because this repo is hand-authored from the source rather than emitted from its DOM — it legitimately differs from live by ~60 nodes in a single section. Lanes then either burn a cycle "investigating why the gate cannot pass", or waive the gate to get moving, and a routine waiver stops meaning anything (four accumulated in one day). Measured on the "How we are rated" block at 1024: fix-vs-live FAIL 61 missing/58 extra — and clean-`origin/main`-vs-live returns the **identical** 61/58, proving none of it is fix-caused.
+- **Detect:**
+  ```bash
+  # Run the SAME section-scoped gate twice: once for your branch, once for a clean origin/main
+  # baseline. If the two FAILs are identical, the drift is pre-existing and the gate is telling
+  # you nothing about your fix.
+  bun ~/.claude/skills/clone-live-page-to-payload/scripts/qa-coord-live.ts \
+    --prod-url https://www.rapidformations.co.uk/<page>/ \
+    --clone-url https://localhost:<your-port>/<page> --clone-dev \
+    --viewports 1024 --section "<stable text in your block>" --out /tmp/a.json
+  # ...then the same with --clone-url pointing at the clean baseline server.
+  # Also ALWAYS assert gateSection is non-null — a null one silently compared the WHOLE page.
+  ```
+- **Fix:** Gate **differentially**: point `--prod-url` at a clean `origin/main` baseline server (a detached worktree pinned to `origin/main`, e.g. on :3010) and `--clone-url` at your branch. That answers the question the gate actually exists for — "did my fix shift a sibling or inject a duplicate?" — and it passes cleanly when the fix is good (measured: 140/140 matched, 0 missing/extra/mislocated, 0 size drift). Keep live as the source of truth for *what the fix should be*, never as the gate baseline. Record the differential result as the gate artifact.
+
+## `/faqs/<topic>/` routes exist on live but NOT on this clone
+
+- **When it bites:** A ticket names an FAQ topic page (e.g. `/faqs/limited-by-guarantee/`) as the page to verify on. On the clone that URL **404s** — only the `faqs` hub slug exists in the pages collection. A lane following the ticket literally concludes its fix "didn't apply", or worse reports a page as broken. The shared FAQs block itself is fine: it renders on **~59 other clone pages** under different slugs (`guarantee`, `llp`, `non-residents`, `basic-package`, …), and those slugs mostly **404 on live** — the two sites do not share a URL structure for this content.
+- **Detect:**
+  ```bash
+  # Before trusting a ticket's URL, confirm it exists on BOTH sides:
+  curl -s  -o /dev/null -w '%{http_code}\n' https://www.rapidformations.co.uk/<slug>/
+  curl -sk -o /dev/null -w '%{http_code}\n' https://localhost:<port>/<slug>
+  # Find clone pages that actually render the block you changed:
+  curl -sk "https://localhost:<port>/api/pages?limit=200&depth=0" \
+    | python3 -c "import json,sys;[print(p['slug']) for p in json.load(sys.stdin)['docs'] if any('faqs'==b.get('blockType') for b in (p.get('layout') or []))]"
+  ```
+- **Fix:** Verify shared-block changes on a clone page that actually renders the block, and **say in the PR/report which URL you used and why it differs from the ticket's**. Do not silently substitute a page. If a ticket's acceptance criteria depend on a page the clone does not have, that criterion cannot be met as written — flag it rather than declaring the task done.
+
+## FAQ accordion typography differs by host page — live's FAQ-page treatment does not exist on the clone
+
+- **When it bites:** A ticket specifies the FAQ question heading as `24px / lh 32.4 / w400 / rgb(54,54,54)` (live's FAQ-topic-page treatment) and asks you to confirm "no typography regression". On the clone's ported pages the same shared block renders questions at **16px / lh 24 / w400 / white** — a dark FAQ variant used on product/service pages. Nothing is broken; there is simply no 24px-dark instance on the clone to compare against, because the FAQ topic pages were never ported (see the gotcha above). A lane that does not know this either "fixes" the typography (introducing a real regression) or reports a false failure.
+- **Detect:**
+  ```bash
+  # Print tag + computed style for every question-shaped heading, on clone and live:
+  #   [...document.querySelectorAll('h3,h4')].filter(n => n.textContent.trim().endsWith('?'))
+  #     .map(n => { const c = getComputedStyle(n)
+  #                 return `${n.tagName} ${c.fontSize}/${c.lineHeight} w${c.fontWeight} ${c.color}` })
+  # Two different treatments across pages is EXPECTED, not a defect.
+  ```
+- **Fix:** Verify the property the ticket is actually about (e.g. the heading *tag* for a semantic fix) and prove **no change** to the typography that is present, by diffing the same page before and after your fix. Do not chase live's value onto a page that never had it. State the gap explicitly in the PR so a reviewer is not left wondering.
