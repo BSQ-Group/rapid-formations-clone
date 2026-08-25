@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-7041 · SHARED: FAQ question text column 16px narrow — VERIFIED, does not reproduce",
+  "body": "**Linear:** [CORE-7041](https://linear.app/bsq-group/issue/CORE-7041)\n\n## Verdict: does NOT reproduce — no code change\n\nFull measurements: `reports/T19-verification.md`.\n\nThe clone's FAQ trigger row is identical to live to the pixel at 1920/1440/1280/1200/1100/1023/992/900, and all 18 questions on `/faqs/directors` render at the same width and line count at 1440/768/360. Both FAQ container variants (`panel` with `px-[63px]`, and `pagePanel`) were covered across 5 page templates. The answer column matches too (1170x99 @1440, 949x99 @1024).\n\nOnly difference found anywhere: a 1px left offset at 1024 — sub-pixel rounding, not 16px.\n\nRecommend closing the ticket as not reproducible; if the reporter still sees it, we need the exact page URL and viewport.",
+  "acceptanceCriteria": [
+    "Measure the FAQ question column on live vs clone across breakpoints in a headed browser.",
+    "Cover both FAQ container variants (service/package pages and FAQ topic pages).",
+    "Either fix a real 16px inset, or record a reproducible-with/not-reproducible verdict with numbers."
+  ],
+  "status": "backlog",
+  "track": "clone",
+  "tags": [
+    "bug",
+    "parallel"
+  ],
+  "priority": "normal",
+  "effort": "S",
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-08-25T09:09:40.634Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-08-25T09:09:40.634Z",
+  "startedAt": null,
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-08-25T09:09:40.634Z",
+      "by": "planning"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": null,
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "id": "T19",
+  "num": 19
+}
