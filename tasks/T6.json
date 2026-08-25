@@ -10,7 +10,7 @@
     "Where a modal opens, styling matches live: red ✕ (#e74c3c) and light grey border (clone currently grey ✕, no border).",
     "Mobile (360) keeps working for both triggers; hover/focus/active states checked; no visual regressions."
   ],
-  "status": "running",
+  "status": "done",
   "track": "clone",
   "tags": [
     "bug",
@@ -24,18 +24,13 @@
   "blocks": [],
   "deps": [],
   "multiBlockApproved": false,
-  "owner": {
-    "sessionId": "48329f54-879b-4974-b249-320f78ee1e89",
-    "mode": "W",
-    "branch": "fix/core-6962-package-bank-popups",
-    "worktree": "/Users/eugeniucozac/bsqgroup/rf-t6"
-  },
+  "owner": null,
   "supersededBy": null,
   "createdAt": "2026-08-21T15:30:40.434Z",
   "createdBy": "planning",
-  "updatedAt": "2026-08-25T08:33:09.473Z",
+  "updatedAt": "2026-08-25T09:14:38.321Z",
   "startedAt": "2026-08-21T16:08:55.909Z",
-  "completedAt": null,
+  "completedAt": "2026-08-25T09:14:38.321Z",
   "statusHistory": [
     {
       "status": "backlog",
@@ -68,10 +63,26 @@
       "status": "running",
       "at": "2026-08-25T08:33:09.473Z",
       "by": "modex"
+    },
+    {
+      "status": "ready",
+      "at": "2026-08-25T09:14:38.299Z",
+      "by": "modex"
+    },
+    {
+      "status": "done",
+      "at": "2026-08-25T09:14:38.321Z",
+      "by": "mode-h"
     }
   ],
   "qa": null,
-  "ready": null,
+  "ready": {
+    "at": "2026-08-25T09:14:38.299Z",
+    "sha": "",
+    "branch": "",
+    "lenient4bp": [],
+    "ship": ""
+  },
   "livecheck": null,
   "needsManual": null,
   "userVerified": null,
@@ -80,7 +91,11 @@
     "url": "https://github.com/BSQ-Group/rapid-formations-clone/pull/98",
     "number": 98
   },
-  "merge": null,
+  "merge": {
+    "ref": "https://github.com/BSQ-Group/rapid-formations-clone/pull/98",
+    "sha": "eef2bae220b18815006745c1a868adbefbe756f3",
+    "at": "2026-08-25T09:14:38.320Z"
+  },
   "rejections": [],
   "proposalSource": null,
   "parent": null,
