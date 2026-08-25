@@ -1,5 +1,6 @@
 import type { Block } from 'payload'
 
+import { defaultLexical } from '@/fields/defaultLexical'
 import { link } from '@/fields/link'
 
 export const PackageGrid: Block = {
@@ -94,12 +95,22 @@ export const PackageGrid: Block = {
               label: 'Tooltip Heading',
             },
             {
-              name: 'tooltip',
-              type: 'textarea',
+              name: 'tooltipContent',
+              type: 'richText',
+              editor: defaultLexical,
               label: 'Tooltip',
               admin: {
                 description:
-                  'Optional — makes the info disc an interactive tooltip. Blank lines separate paragraphs.',
+                  'Optional — makes the info disc an interactive tooltip. Supports bold and bullet lists.',
+              },
+            },
+            {
+              name: 'tooltip',
+              type: 'textarea',
+              label: 'Tooltip (legacy plain text)',
+              admin: {
+                description:
+                  'Deprecated — used only when Tooltip is empty. Blank lines separate paragraphs; no formatting.',
               },
             },
           ],

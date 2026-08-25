@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { faCircleInfo } from '@fortawesome/pro-solid-svg-icons/faCircleInfo'
+import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 
 import Text from '@/components/shared/Text'
 import { FaIcon } from '@/components/shared/FaIcon'
@@ -11,6 +12,7 @@ import { packageGridCardStyles as s } from './PackageGridCard.styles'
 export interface PackageGridCardHighlight {
   id?: string | null
   text: string
+  tooltipContent?: DefaultTypedEditorState | null
   tooltip?: string | null
   tooltipTitle?: string | null
 }
@@ -82,10 +84,11 @@ export const PackageGridCard: React.FC<PackageGridCardProps> = ({
           <ul className={s.highlightsList}>
             {highlights.map((item, i) => (
               <li key={item.id ?? i} className={s.highlightItem}>
-                {item.tooltip ? (
+                {item.tooltipContent || item.tooltip ? (
                   <InfoTooltip
                     title={item.tooltipTitle}
-                    text={item.tooltip}
+                    content={item.tooltipContent}
+                    text={item.tooltipContent ? null : item.tooltip}
                     icon={<FaIcon icon={faCircleInfo} className={s.highlightIcon} />}
                     triggerClassName={s.highlightTrigger}
                   />
