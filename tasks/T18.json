@@ -9,7 +9,7 @@
     "Verified on / and on a package page at 1800 / 1440 / 1200 / 768 / 360.",
     "Asset mismatch (clone poster is 300x300 and a tighter crop; live is 400x400) recorded as a separate CMS follow-up, NOT fixed here."
   ],
-  "status": "running",
+  "status": "done",
   "track": "clone",
   "tags": [
     "bug",
@@ -26,9 +26,9 @@
   "supersededBy": null,
   "createdAt": "2026-08-25T08:58:01.189Z",
   "createdBy": "planning",
-  "updatedAt": "2026-08-25T08:58:34.072Z",
+  "updatedAt": "2026-08-25T09:11:43.294Z",
   "startedAt": "2026-08-25T08:58:34.072Z",
-  "completedAt": null,
+  "completedAt": "2026-08-25T09:11:43.294Z",
   "statusHistory": [
     {
       "status": "backlog",
@@ -39,10 +39,26 @@
       "status": "running",
       "at": "2026-08-25T08:58:34.072Z",
       "by": "modex"
+    },
+    {
+      "status": "ready",
+      "at": "2026-08-25T09:11:43.275Z",
+      "by": "modex"
+    },
+    {
+      "status": "done",
+      "at": "2026-08-25T09:11:43.294Z",
+      "by": "mode-h"
     }
   ],
   "qa": null,
-  "ready": null,
+  "ready": {
+    "at": "2026-08-25T09:11:43.275Z",
+    "sha": "",
+    "branch": "",
+    "lenient4bp": [],
+    "ship": ""
+  },
   "livecheck": null,
   "needsManual": null,
   "userVerified": null,
@@ -51,7 +67,11 @@
     "url": "https://github.com/BSQ-Group/rapid-formations-clone/pull/107",
     "number": 107
   },
-  "merge": null,
+  "merge": {
+    "ref": "https://github.com/BSQ-Group/rapid-formations-clone/pull/107",
+    "sha": "da57bad7aa94b0f871b4a4856c96306b6d5527c2",
+    "at": "2026-08-25T09:11:43.294Z"
+  },
   "rejections": [],
   "proposalSource": null,
   "parent": null,
