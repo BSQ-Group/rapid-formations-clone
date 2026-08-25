@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-7132 · SHARED: reviews carousel inactive dot renders flat grey, not live's translucent #333",
+  "body": "**Linear:** [CORE-7132](https://linear.app/bsq-group/issue/CORE-7132)\n\n## Verified 2026-08-25 — reproduces\n\nLive's inactive carousel dot is **`#333` at 25% opacity** — a translucent dark dot. The clone\nused a flat, fully opaque grey token. Measured headed at 360 on `/` (dots only render once a\ntrack overflows, so they are a mobile-width control):\n\n| | live | clone (before) |\n|---|---|---|\n| inactive dot | `rgb(51,51,51)` · **opacity 0.25** | `rgb(199,199,199)` · **opacity 1** |\n| active dot | `rgb(0,177,227)` · opacity 1 | `rgb(0,177,227)` · opacity 1 ✅ |\n| size / margin | 10px / 10px | 10px / 10px ✅ |\n| radius | 30px | 9999px — both fully round ✅ |\n\nLive's rule, from its own stylesheet:\n\n```css\n.Carousel--carousel__dotgroup button        { background:#333; opacity:.25; ... }\n.Carousel--carousel__dotgroup button[disabled] { background:#00b1e3; opacity:1 }\n```\n\nEverything except the inactive tone already matched, including all four dot groups at the\nsame scroll positions.\n\n## Why it is worth fixing, given the colours are close\n\nComposited over white, live's dot resolves to `rgb(204,204,204)` against the clone's\n`rgb(199,199,199)` — 5/255, near the threshold of perception. **The real difference is the\ncompositing model:** live's dot is translucent and picks up whatever sits behind it, the\nclone's is opaque and never does. On any non-white section the two diverge visibly, and the\nclone would need a second hard-coded grey per background to keep up.\n\nMatching live's `#333 / 25%` makes the dot correct on every backdrop by construction.\n\n## After\n\nAll four dot groups on `/` at 360, on the production build of this branch:\n\n| | value |\n|---|---|\n| inactive | `rgb(51,51,51)` · **opacity 0.25** — exact match with live |\n| active | `rgb(0,177,227)` · opacity 1 — unchanged |\n\n![before/after](https://60cfqkpecvp2z01z.public.blob.vercel-storage.com/pr-screenshots/core-7132/dots-before-after.png)\n\n**BEFORE** = `rapid-formations-clone.vercel.app` (`main`) · **AFTER** = local production build of this branch. Dots shown at 3x.\n\n> The Vercel preview could not be used: it is SSO-walled and returns `<title>Login – Vercel</title>` with **HTTP 200**, so an automated screenshot of it captures a login page rather than the app.\n\n## Scope\n\n`SnapCarousel` is shared by `ReviewRatings`, `UniqueSellingPoints`, `WhyChooseUs`,\n`FourSteps` and `ChooseCompanyStructure` — one change covers every dot on the site, which is\nwhat the ticket's SHARED tag asks for.\n\n`opacity-100` is added to `dotActive` so the active dot is unaffected by the new base\nopacity; verified it still renders fully opaque cyan.\n\n## Checks\n\n- `bun run ts` clean · `bun run build` green\n- all 4 dot groups on `/` measured before and after at 360\n",
+  "acceptanceCriteria": [
+    "Inactive dot renders rgb(51,51,51) at opacity 0.25, matching live exactly.",
+    "Active dot stays rgb(0,177,227) at full opacity.",
+    "Size, margin and roundness unchanged (10px / 10px / fully round).",
+    "Applies to every SnapCarousel user, not just the reviews track."
+  ],
+  "status": "running",
+  "track": "clone",
+  "tags": [
+    "bug",
+    "parallel"
+  ],
+  "priority": "normal",
+  "effort": "S",
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-08-25T09:29:44.038Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-08-25T09:29:44.094Z",
+  "startedAt": "2026-08-25T09:29:44.094Z",
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-08-25T09:29:44.038Z",
+      "by": "planning"
+    },
+    {
+      "status": "running",
+      "at": "2026-08-25T09:29:44.094Z",
+      "by": "modex"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": {
+    "url": "https://github.com/BSQ-Group/rapid-formations-clone/pull/108",
+    "number": 108
+  },
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "id": "T20",
+  "num": 20
+}
