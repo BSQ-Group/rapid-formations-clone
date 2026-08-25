@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-6994 · SITEWIDE: button hover colours — blue lift + search darken",
+  "body": "**Linear:** [CORE-6994](https://linear.app/bsq-group/issue/CORE-6994)\n\n## Half the ticket is right; the other half has the wrong premise\n\n| Ticket claim | Verdict |\n|---|---|\n| \"all blue buttons\" hover wrong | **TRUE** — every cyan button hovers `rgb(0,156,200)` (darker) on the clone; live goes `rgb(23,204,255)` (lighter). 5/5 pages, both viewports. |\n| \"search green\" | **FALSE as stated.** The search button is green at rest and green on hover on **both** sites — never a wrong hue. The real defect is direction: live *darkens* to `rgb(0,131,88)`, the clone *lightens* to `rgb(0,208,139)`. |\n| implied: green buttons generally wrong | **FALSE — already correct.** Buy Now, Register Now, Get Started, Create an account all hover `rgb(0,208,139)` on both sites. `--surface-cta-success-hover` deliberately untouched. |\n\n## The decisive evidence\n\n`#009cc8` — the value behind `--surface-brand-cyan-hover` — occurs **zero times** in live's 300 KB stylesheet:\n\n```\n#009cc8    0 occurrences\n#17ccff    2 occurrences   <- live's .Button--btnSecondary:hover\n#008358    2 occurrences   <- live's .Namecheck--namecheck__button:hover/:focus/:active\n#00d08b    8 occurrences\n```\n\nSo that token was invented. The correct value already sat two lines below it as\n`--surface-brand-cyan-lift: rgb(23 204 255)`.\n\n**The control that proves the fix value:** the two blue buttons on `/contact-us/` already\nmatched live before this PR, because those call sites passed `tone=\"cyanLift\"`. That made\n`cyan` and `cyanLift` two names for what should always have been one thing, so `cyanLift` is\nremoved and its two call sites moved to `cyan`.\n\n## Verified — same page, same selectors, real mouse hover\n\n| button (`/` @1440) | live hover | after |\n|---|---|---|\n| **Search** | `0,131,88` | **`0,131,88`** ✅ |\n| **Compare Packages** | `23,204,255` | **`23,204,255`** ✅ |\n| **Our Customer Reviews** | `23,204,255` | **`23,204,255`** ✅ |\n| **Our Non-Resident Packages** | `23,204,255` | **`23,204,255`** ✅ |\n| Buy Now | `0,208,139` | `0,208,139` ✅ unchanged |\n| Get Started | `0,208,139` | `0,208,139` ✅ unchanged |\n| Learn More | `0,208,139` | `0,208,139` ✅ unchanged |\n| Register Now | `0,208,139` | `0,208,139` ✅ unchanged |\n\nThe green rows are the do-not-regress set: they matched before and still match.\n\n## The search button needed a new token\n\nLive has a dedicated override that darkens only the name-check control\n(`.Namecheck--namecheck__button:hover/:focus/:active { background-color:#008358 }`), and no\ntoken for `rgb(0 131 88)` existed. Reusing `--surface-cta-success-hover` for it would have\nbroken the four green buttons above, so `--surface-cta-search-hover` is minted and applied to\nthe two copies of that control (`NameCheck`, and `LandingHero`'s hero copy) across\nhover/focus/active, matching live's selector list.\n\n## Deliberately NOT in this PR\n\nThe investigation turned up three further divergences outside the ticket's scope. Each is a\nseparate defect and I have left them alone rather than widen this PR:\n\n1. `/compare-packages/` Buy Now and Read More have **no hover state at all** — `ComparePackageTable.styles.ts:50` and `:52` contain no `hover:` class.\n2. Home package-grid Read More: hover grey `rgb(245,245,245)` vs live `rgb(242,242,242)`, and rest border `rgb(218,218,218)` vs live `#ccc` — `PackageGridCard.styles.ts:31`.\n3. `hover:bg` without `hover:border` on two green CTAs, so the 1px ring does not move with the fill — visible on **Register Now** in the table above (border stays `0,182,122` where live moves to `0,208,139`). `FourSteps.styles.ts:35`.\n\nAlso noted, not colour-related: the clone's search button has `border-width: 0` where live has\n`1px`, so its box is 2px smaller in each axis. And the name-check **retry/error** button could\nnot be measured without a failing submission — live uses a flat `rgb(200,127,10)` there against\nthe clone's `opacity-90`, likely a further divergence.\n\n## Safety\n\n`grep` confirms `--surface-brand-cyan-hover` had exactly four references — the declaration plus\nthe three consumers patched here — so deleting it leaves nothing dangling. Every other consumer\nof `--surface-cta-success-hover` (`FourSteps`, `ui/button`, `PackageGridCard`, `CtaLink.success`,\nand NameCheck's post-result CTA, which live keeps at `#00d08b`) is untouched.\n\n## Checks\n\n- `bun run ts` clean · `bun run build` green\n- hover measured with a real `mouse.move` and `:hover` asserted true on every row, live vs after\n",
+  "acceptanceCriteria": [
+    "Cyan buttons hover to rgb(23,204,255) sitewide, matching live.",
+    "Name-check search button darkens to rgb(0,131,88) on hover/focus/active, matching live.",
+    "Green CTAs still hover to rgb(0,208,139) — no regression.",
+    "Three out-of-scope divergences (compare-packages no hover, package-grid Read More greys, missing hover:border) filed separately."
+  ],
+  "status": "running",
+  "track": "clone",
+  "tags": [
+    "bug",
+    "parallel"
+  ],
+  "priority": "normal",
+  "effort": "M",
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-08-25T10:22:09.043Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-08-25T10:22:09.109Z",
+  "startedAt": "2026-08-25T10:22:09.109Z",
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-08-25T10:22:09.043Z",
+      "by": "planning"
+    },
+    {
+      "status": "running",
+      "at": "2026-08-25T10:22:09.109Z",
+      "by": "modex"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": {
+    "url": "https://github.com/BSQ-Group/rapid-formations-clone/pull/111",
+    "number": 111
+  },
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "id": "T23",
+  "num": 23
+}
