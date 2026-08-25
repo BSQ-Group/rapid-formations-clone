@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
   "kind": "task",
-  "title": "CORE-6969 \u00b7 homepage case-study video renders doubled captions",
-  "body": "**Linear:** [CORE-6969](https://linear.app/bsq-group/issue/CORE-6969) \u00b7 **PR** #117\n\nPremise confirmed. The MP4 already carries **burned-in subtitles**; the clone marked the auto-generated\nVTT track `default`, so the browser drew it on top of them \u2014 two caption lines at once.\n\nThe spelling gives it away: the burned-in subtitle reads **\"Chilli\"**, the auto-generated VTT reads\n**\"Chili\"**, and in the clone both are on screen simultaneously.\n\nMeasured off the `<video>`'s live `textTracks` at t = 14.36s, same file, same 1170x658 box:\n\n| | `<track default>` | `textTrack.mode` | active cues |\n|---|---|---|---|\n| live | absent | `disabled` | none |\n| clone before | **present** | **`showing`** | `[\"Chalk and Chili is a content production\"]` |\n| clone after | absent | `disabled` | none |\n\nLive and clone reference the **same** `.vtt` and `.mp4` URLs \u2014 the only difference was `default`.\nThe VTT was also checked for duplicated cues as an alternative cause: 34 cues, none duplicated.\n\n## The change\n\n`AutoplayVideo.tsx:62` \u2014 dropped the `default` attribute. The track is kept, exactly as live keeps it,\nso captions stay selectable from the player's own menu; this only stops them being force-enabled on load.\n\n`srcLang`/`label` deliberately retained: live has neither, but they only name the track in that menu,\nhave no visual effect, and are not what caused the defect. Removing them would be a small a11y\nregression for no fidelity gain.\n\n## Scope\n\n`AutoplayVideo` has exactly one consumer passing captions \u2014 the `CaseStudyVideo` block\n(`CaseStudyVideo/Component.tsx:39`). It is the only `<track>` on the site; live's\n`/company-formation-packages/` and `/about-us/` carry none.",
+  "title": "CORE-6969 · homepage case-study video renders doubled captions",
+  "body": "**Linear:** [CORE-6969](https://linear.app/bsq-group/issue/CORE-6969) · **PR** #117\n\nPremise confirmed. The MP4 already carries **burned-in subtitles**; the clone marked the auto-generated\nVTT track `default`, so the browser drew it on top of them — two caption lines at once.\n\nThe spelling gives it away: the burned-in subtitle reads **\"Chilli\"**, the auto-generated VTT reads\n**\"Chili\"**, and in the clone both are on screen simultaneously.\n\nMeasured off the `<video>`'s live `textTracks` at t = 14.36s, same file, same 1170x658 box:\n\n| | `<track default>` | `textTrack.mode` | active cues |\n|---|---|---|---|\n| live | absent | `disabled` | none |\n| clone before | **present** | **`showing`** | `[\"Chalk and Chili is a content production\"]` |\n| clone after | absent | `disabled` | none |\n\nLive and clone reference the **same** `.vtt` and `.mp4` URLs — the only difference was `default`.\nThe VTT was also checked for duplicated cues as an alternative cause: 34 cues, none duplicated.\n\n## The change\n\n`AutoplayVideo.tsx:62` — dropped the `default` attribute. The track is kept, exactly as live keeps it,\nso captions stay selectable from the player's own menu; this only stops them being force-enabled on load.\n\n`srcLang`/`label` deliberately retained: live has neither, but they only name the track in that menu,\nhave no visual effect, and are not what caused the defect. Removing them would be a small a11y\nregression for no fidelity gain.\n\n## Scope\n\n`AutoplayVideo` has exactly one consumer passing captions — the `CaseStudyVideo` block\n(`CaseStudyVideo/Component.tsx:39`). It is the only `<track>` on the site; live's\n`/company-formation-packages/` and `/about-us/` carry none.",
   "acceptanceCriteria": [
-    "Only one caption line renders \u2014 the video's burned-in subtitle, as on live.",
+    "Only one caption line renders — the video's burned-in subtitle, as on live.",
     "textTrack.mode is disabled on load, matching live.",
     "Captions remain selectable from the player controls.",
-    "No other block regressed \u2014 CaseStudyVideo is the only consumer."
+    "No other block regressed — CaseStudyVideo is the only consumer."
   ],
-  "status": "running",
+  "status": "done",
   "track": "clone",
   "tags": [
     "bug",
@@ -26,9 +26,9 @@
   "supersededBy": null,
   "createdAt": "2026-08-25T13:29:15.094465Z",
   "createdBy": "planning",
-  "updatedAt": "2026-08-25T13:29:15.094465Z",
+  "updatedAt": "2026-08-25T14:50:22.225Z",
   "startedAt": "2026-08-25T13:29:15.094465Z",
-  "completedAt": null,
+  "completedAt": "2026-08-25T14:50:22.225Z",
   "statusHistory": [
     {
       "status": "backlog",
@@ -39,6 +39,16 @@
       "status": "running",
       "at": "2026-08-25T13:29:15.094465Z",
       "by": "modex"
+    },
+    {
+      "status": "awaiting-user",
+      "at": "2026-08-25T14:50:22.208314Z",
+      "by": "mode-h"
+    },
+    {
+      "status": "done",
+      "at": "2026-08-25T14:50:22.225Z",
+      "by": "mode-h"
     }
   ],
   "qa": null,
@@ -51,7 +61,11 @@
     "url": "https://github.com/BSQ-Group/rapid-formations-clone/pull/117",
     "number": 117
   },
-  "merge": null,
+  "merge": {
+    "ref": "https://github.com/BSQ-Group/rapid-formations-clone/pull/117",
+    "sha": "ea114e49fc2e0e8c3ff7908a8e2f85739c2aa233",
+    "at": "2026-08-25T14:50:22.224Z"
+  },
   "rejections": [],
   "proposalSource": null,
   "parent": null,

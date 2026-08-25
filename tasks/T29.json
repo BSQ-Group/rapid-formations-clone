@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
   "kind": "task",
-  "title": "CORE-6961 \u00b7 homepage in-page CTAs jump + write #hash instead of smooth-scrolling",
-  "body": "**Linear:** [CORE-6961](https://linear.app/bsq-group/issue/CORE-6961) \u00b7 **PR** #116\n\nPremise confirmed on both sites, and the clone was worse than stated: **three of the four CTAs pointed at\na fragment that does not exist**.\n\n## Scope: homepage only\n\nAll 104 pages in `pages-sitemap.xml` plus `/` crawled and grepped for `href=\"#`. Same-page hash anchors\nappear on the homepage only, 4 of them, across FOUR different rendering paths (`CMSLink`, raw `next/link`,\n`CtaLink` x2), all fed from CMS `link.url` via `getLinkHref`:\n\n| Block | href | target existed? |\n|---|---|---|\n| `LandingHero` \"View Pricing\" | `#package-grid` | yes |\n| `FourSteps` \"Register Now\" | `#home-top` | **no** |\n| `RequiredInformation` \"Register Now\" | `#home-top` | **no** |\n| `WhyUseAgent` \"Get Started\" | `#home-top` | **no** |\n\n## What live does\n\nRenders these as `<button type=\"button\">`, not anchors, and scrolls in JS. From the Gatsby bundle\n`app-eddaff2414d36fd20d96.js` module 82618: `n.scrollIntoView({ behavior: \"smooth\", block: t })`.\nNo `pushState`, no hash write. Across all five live CTAs `location.hash` is `\"\"` immediately after the\nclick and 2.8s later, and `history.length` never changes.\n\n## Before \u2192 after\n\n| | live | before | after |\n|---|---|---|---|\n| scroll | animated ~1.3-1.5s | **instant** (<50ms) | **animated** |\n| `location.hash` | `\"\"` | `#home-top` / `#package-grid` | **`\"\"`** |\n| history entries | none (2\u21922) | +1 per click | **none (2\u21922)** |\n| `#home-top` target | exists | **missing** | **exists** |\n\nDistinct scroll samples over 1.5s went from 1-2 (i.e. already finished before the first 50ms sample)\nto 12-30.\n\n## The change\n\nOne delegated listener mounted once in the root layout (`SmoothHashScroll`), plus `id=\"home-top\"` on\n`<body>` \u2014 live carries the same id on its top-level wrapper at absTop 0. Patching the four call sites\nwould leave every future CMS-authored fragment broken.\n\n**It must be registered in the CAPTURE phase.** The first build used a normal bubble-phase listener and\nmeasuring it showed it changed **nothing** \u2014 hash still written, still instant. `next/link` handles the\nclick on the anchor via React's root-container listener, which runs before a bubble-phase listener on\n`document`, so the router had already pushed and `preventDefault` was too late.\n\nLeft alone: modifier/middle clicks, `target` other than `_self`, `download`, cross-page fragments like\n`/contact-us#ourOffices`, and already-`defaultPrevented` events.\n\n## Regression checks (production build)\n\ndeep link `/#package-grid` \u2192 y=1108 \u2705 \u00b7 `/#home-top` \u2192 y=0 \u2705 \u00b7 `prefers-reduced-motion` \u2192 instant,\n1 distinct sample \u2705 \u00b7 navigate away + Back \u2192 URL clean, history not inflated \u2705 \u00b7 cross-page anchor\nuntouched \u2705\n\n## Deliberate divergence\n\nLive leaves `document.activeElement` as `BODY`. This focuses the destination (adding `tabindex=\"-1\"`\nonly if absent), which is the a11y-correct behaviour for a skip-to-section control.\n\n## Not changed\n\nLive has `scroll-padding-top: auto`, the clone `163px` (`globals.css:17`), so `#package-grid` lands at\n1108 vs live's 1291. That is a deliberate site-wide rule also relied on by `LegalSidenav`, and\n`scrollIntoView({block:'start'})` honours it natively. Out of scope.",
+  "title": "CORE-6961 · homepage in-page CTAs jump + write #hash instead of smooth-scrolling",
+  "body": "**Linear:** [CORE-6961](https://linear.app/bsq-group/issue/CORE-6961) · **PR** #116\n\nPremise confirmed on both sites, and the clone was worse than stated: **three of the four CTAs pointed at\na fragment that does not exist**.\n\n## Scope: homepage only\n\nAll 104 pages in `pages-sitemap.xml` plus `/` crawled and grepped for `href=\"#`. Same-page hash anchors\nappear on the homepage only, 4 of them, across FOUR different rendering paths (`CMSLink`, raw `next/link`,\n`CtaLink` x2), all fed from CMS `link.url` via `getLinkHref`:\n\n| Block | href | target existed? |\n|---|---|---|\n| `LandingHero` \"View Pricing\" | `#package-grid` | yes |\n| `FourSteps` \"Register Now\" | `#home-top` | **no** |\n| `RequiredInformation` \"Register Now\" | `#home-top` | **no** |\n| `WhyUseAgent` \"Get Started\" | `#home-top` | **no** |\n\n## What live does\n\nRenders these as `<button type=\"button\">`, not anchors, and scrolls in JS. From the Gatsby bundle\n`app-eddaff2414d36fd20d96.js` module 82618: `n.scrollIntoView({ behavior: \"smooth\", block: t })`.\nNo `pushState`, no hash write. Across all five live CTAs `location.hash` is `\"\"` immediately after the\nclick and 2.8s later, and `history.length` never changes.\n\n## Before → after\n\n| | live | before | after |\n|---|---|---|---|\n| scroll | animated ~1.3-1.5s | **instant** (<50ms) | **animated** |\n| `location.hash` | `\"\"` | `#home-top` / `#package-grid` | **`\"\"`** |\n| history entries | none (2→2) | +1 per click | **none (2→2)** |\n| `#home-top` target | exists | **missing** | **exists** |\n\nDistinct scroll samples over 1.5s went from 1-2 (i.e. already finished before the first 50ms sample)\nto 12-30.\n\n## The change\n\nOne delegated listener mounted once in the root layout (`SmoothHashScroll`), plus `id=\"home-top\"` on\n`<body>` — live carries the same id on its top-level wrapper at absTop 0. Patching the four call sites\nwould leave every future CMS-authored fragment broken.\n\n**It must be registered in the CAPTURE phase.** The first build used a normal bubble-phase listener and\nmeasuring it showed it changed **nothing** — hash still written, still instant. `next/link` handles the\nclick on the anchor via React's root-container listener, which runs before a bubble-phase listener on\n`document`, so the router had already pushed and `preventDefault` was too late.\n\nLeft alone: modifier/middle clicks, `target` other than `_self`, `download`, cross-page fragments like\n`/contact-us#ourOffices`, and already-`defaultPrevented` events.\n\n## Regression checks (production build)\n\ndeep link `/#package-grid` → y=1108 ✅ · `/#home-top` → y=0 ✅ · `prefers-reduced-motion` → instant,\n1 distinct sample ✅ · navigate away + Back → URL clean, history not inflated ✅ · cross-page anchor\nuntouched ✅\n\n## Deliberate divergence\n\nLive leaves `document.activeElement` as `BODY`. This focuses the destination (adding `tabindex=\"-1\"`\nonly if absent), which is the a11y-correct behaviour for a skip-to-section control.\n\n## Not changed\n\nLive has `scroll-padding-top: auto`, the clone `163px` (`globals.css:17`), so `#package-grid` lands at\n1108 vs live's 1291. That is a deliberate site-wide rule also relied on by `LegalSidenav`, and\n`scrollIntoView({block:'start'})` honours it natively. Out of scope.",
   "acceptanceCriteria": [
     "In-page CTAs scroll smoothly instead of jumping.",
     "location.hash stays empty and no history entry is pushed, matching live.",
-    "#home-top resolves \u2014 the three dead fragments now have a target.",
+    "#home-top resolves — the three dead fragments now have a target.",
     "Deep links, reduced motion, Back/Forward and cross-page anchors all unregressed."
   ],
-  "status": "running",
+  "status": "done",
   "track": "clone",
   "tags": [
     "bug",
@@ -26,9 +26,9 @@
   "supersededBy": null,
   "createdAt": "2026-08-25T13:29:15.094465Z",
   "createdBy": "planning",
-  "updatedAt": "2026-08-25T13:29:15.094465Z",
+  "updatedAt": "2026-08-25T14:50:21.821Z",
   "startedAt": "2026-08-25T13:29:15.094465Z",
-  "completedAt": null,
+  "completedAt": "2026-08-25T14:50:21.821Z",
   "statusHistory": [
     {
       "status": "backlog",
@@ -39,6 +39,16 @@
       "status": "running",
       "at": "2026-08-25T13:29:15.094465Z",
       "by": "modex"
+    },
+    {
+      "status": "awaiting-user",
+      "at": "2026-08-25T14:50:21.806836Z",
+      "by": "mode-h"
+    },
+    {
+      "status": "done",
+      "at": "2026-08-25T14:50:21.821Z",
+      "by": "mode-h"
     }
   ],
   "qa": null,
@@ -51,7 +61,11 @@
     "url": "https://github.com/BSQ-Group/rapid-formations-clone/pull/116",
     "number": 116
   },
-  "merge": null,
+  "merge": {
+    "ref": "https://github.com/BSQ-Group/rapid-formations-clone/pull/116",
+    "sha": "12952d4f7ca901b3647308fd37fe3b9a4c30d1c8",
+    "at": "2026-08-25T14:50:21.821Z"
+  },
   "rejections": [],
   "proposalSource": null,
   "parent": null,

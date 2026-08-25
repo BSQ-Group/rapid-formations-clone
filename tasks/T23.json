@@ -9,7 +9,7 @@
     "Green CTAs still hover to rgb(0,208,139) — no regression.",
     "Three out-of-scope divergences (compare-packages no hover, package-grid Read More greys, missing hover:border) filed separately."
   ],
-  "status": "running",
+  "status": "done",
   "track": "clone",
   "tags": [
     "bug",
@@ -26,9 +26,9 @@
   "supersededBy": null,
   "createdAt": "2026-08-25T10:22:09.043Z",
   "createdBy": "planning",
-  "updatedAt": "2026-08-25T10:22:09.109Z",
+  "updatedAt": "2026-08-25T14:50:21.429Z",
   "startedAt": "2026-08-25T10:22:09.109Z",
-  "completedAt": null,
+  "completedAt": "2026-08-25T14:50:21.428Z",
   "statusHistory": [
     {
       "status": "backlog",
@@ -39,6 +39,16 @@
       "status": "running",
       "at": "2026-08-25T10:22:09.109Z",
       "by": "modex"
+    },
+    {
+      "status": "awaiting-user",
+      "at": "2026-08-25T14:50:21.410117Z",
+      "by": "mode-h"
+    },
+    {
+      "status": "done",
+      "at": "2026-08-25T14:50:21.428Z",
+      "by": "mode-h"
     }
   ],
   "qa": null,
@@ -51,7 +61,11 @@
     "url": "https://github.com/BSQ-Group/rapid-formations-clone/pull/111",
     "number": 111
   },
-  "merge": null,
+  "merge": {
+    "ref": "https://github.com/BSQ-Group/rapid-formations-clone/pull/111",
+    "sha": "d65f862c46fac0c4e5a514f9c8d3639dcdc53164",
+    "at": "2026-08-25T14:50:21.428Z"
+  },
   "rejections": [],
   "proposalSource": null,
   "parent": null,
