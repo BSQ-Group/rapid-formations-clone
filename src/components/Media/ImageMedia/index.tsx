@@ -17,6 +17,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
   const {
     alt: altFromProps,
     fill,
+    height: heightFromProps,
     pictureClassName,
     imgClassName,
     priority,
@@ -24,18 +25,19 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
     size: sizeFromProps,
     src: srcFromProps,
     loading: loadingFromProps,
+    width: widthFromProps,
   } = props
 
-  let width: number | undefined
-  let height: number | undefined
+  let width: number | undefined = widthFromProps
+  let height: number | undefined = heightFromProps
   let alt = altFromProps
   let src: StaticImageData | string = srcFromProps || ''
 
   if (!src && resource && typeof resource === 'object') {
     const { alt: altFromResource, height: fullHeight, url, width: fullWidth } = resource
 
-    width = fullWidth!
-    height = fullHeight!
+    width = widthFromProps ?? fullWidth!
+    height = heightFromProps ?? fullHeight!
     alt = altFromResource || ''
 
     const cacheTag = resource.updatedAt
@@ -45,7 +47,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
 
   const loading = loadingFromProps || (!priority ? 'lazy' : undefined)
 
-  const sizes = sizeFromProps ?? '100vw'
+  const sizes = sizeFromProps ?? (widthFromProps ? undefined : '100vw')
 
   return (
     <picture className={cn(pictureClassName)}>
