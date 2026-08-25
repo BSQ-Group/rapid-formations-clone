@@ -2,9 +2,7 @@ export const ctaLinkStyles = {
   base: 'inline-flex items-center justify-center rounded border text-center font-semibold text-[rgb(var(--white))] transition-colors duration-150 [overflow-wrap:anywhere]',
 
   tone: {
-    cyan: 'border-[var(--surface-brand-cyan)] bg-[var(--surface-brand-cyan)] hover:border-[var(--surface-brand-cyan-hover)] hover:bg-[var(--surface-brand-cyan-hover)]',
-    cyanLift:
-      'border-[var(--surface-brand-cyan)] bg-[var(--surface-brand-cyan)] hover:border-[var(--surface-brand-cyan-lift)] hover:bg-[var(--surface-brand-cyan-lift)]',
+    cyan: 'border-[var(--surface-brand-cyan)] bg-[var(--surface-brand-cyan)] hover:border-[var(--surface-brand-cyan-lift)] hover:bg-[var(--surface-brand-cyan-lift)]',
     success:
       'border-[var(--surface-cta-success)] bg-[var(--surface-cta-success)] hover:border-[var(--surface-cta-success-hover)] hover:bg-[var(--surface-cta-success-hover)]',
   },

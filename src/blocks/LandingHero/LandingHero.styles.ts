@@ -48,7 +48,7 @@ export const landingHeroStyles = {
   searchInput:
     'flex-1 min-w-0 min-h-[59.5px] rounded-[6px] border border-[var(--surface-canvas-inverse)] bg-[var(--surface-canvas-inverse)] px-[21px] py-[15.75px] text-[21px] leading-[normal] text-[var(--text-on-light-muted)] outline-none placeholder:text-center placeholder:text-[var(--text-on-light-subtle)] md:min-h-0 md:rounded-r-none md:border-r-0 md:placeholder:text-left',
   searchButton:
-    'flex-shrink-0 rounded-[6px] md:rounded-l-none h-[65px] px-6 md:px-10 md:min-w-[25%] bg-[var(--surface-cta-success)] hover:bg-[var(--surface-cta-success-hover)] text-[var(--text-strong)] font-semibold text-[21px] leading-[31.5px]',
+    'flex-shrink-0 rounded-[6px] md:rounded-l-none h-[65px] px-6 md:px-10 md:min-w-[25%] bg-[var(--surface-cta-success)] hover:bg-[var(--surface-cta-search-hover)] focus:bg-[var(--surface-cta-search-hover)] active:bg-[var(--surface-cta-search-hover)] text-[var(--text-strong)] font-semibold text-[21px] leading-[31.5px]',
   searchButtonIcon: 'text-[var(--icon-default)]',
 
   pricingLinkWrap: 'min-w-0 leading-[27px] [&>*]:align-top',

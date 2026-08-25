@@ -307,6 +307,7 @@
     --surface-table-header: rgb(235 235 235);
     --surface-cta-success: rgb(0 182 122);
     --surface-cta-success-hover: rgb(0 208 139);
+    --surface-cta-search-hover: rgb(0 131 88);
     --icon-success: rgb(46 204 113);
     --surface-review-card: rgb(0 0 0 / 0.35);
     --border-review-card: rgb(255 255 255 / 0.65);
@@ -357,7 +358,6 @@
     --shadow-pulse-cyan-fade: rgb(204 244 255 / 0);
 
     --surface-brand-cyan: rgb(0 177 227);
-    --surface-brand-cyan-hover: rgb(0 156 200);
     --surface-brand-cyan-light: rgb(101 205 255);
     --surface-brand-cyan-lift: rgb(23 204 255);
     --surface-brand-cyan-wash: rgb(242 250 252);

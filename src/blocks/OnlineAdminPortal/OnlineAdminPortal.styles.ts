@@ -34,5 +34,5 @@ export const onlineAdminPortalStyles = {
   cta: 'mt-auto',
 
   ctaBlue:
-    '[--button-promo-idle:var(--surface-brand-cyan)] [--button-promo-hover:var(--surface-brand-cyan-hover)]',
+    '[--button-promo-idle:var(--surface-brand-cyan)] [--button-promo-hover:var(--surface-brand-cyan-lift)]',
 } as const

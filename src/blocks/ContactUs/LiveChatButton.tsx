@@ -17,7 +17,7 @@ export const LiveChatButton: React.FC<{ label: string; className?: string }> = (
   <button
     type="button"
     onClick={() => window.HubSpotConversations?.widget?.open?.()}
-    className={ctaLinkClasses({ size: 'md', tone: 'cyanLift', className })}
+    className={ctaLinkClasses({ size: 'md', tone: 'cyan', className })}
   >
     {label}
   </button>

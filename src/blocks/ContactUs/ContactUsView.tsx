@@ -49,7 +49,7 @@ export const ContactUsView: React.FC<{ sections: ContactUsSection[] }> = ({ sect
                   rel={button.rel}
                   icon={button.phoneIcon ? <FaIcon icon={faPhone} className={s.icon} /> : undefined}
                   size="md"
-                  tone="cyanLift"
+                  tone="cyan"
                   className={s.button}
                 />
               ),
