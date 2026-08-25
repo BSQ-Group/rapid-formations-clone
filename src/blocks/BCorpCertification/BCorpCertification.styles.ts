@@ -1,5 +1,5 @@
 export const bCorpCertificationStyles = {
-  section: 'w-full',
+  section: 'w-full pb-[40px] min-[1023px]:pt-[20px] min-[1023px]:pb-[20px]',
 
   banner:
     'font-legacy-condensed relative flex w-full flex-col-reverse items-end justify-start gap-8 p-6 min-h-[500px] mb-[70px] md:flex-row md:justify-between md:gap-0 md:p-12 md:min-h-screen md:mb-[140px]',
