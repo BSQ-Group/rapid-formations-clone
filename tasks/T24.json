@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-7011 · SHARED: FAQ quick-nav — 16px missing BELOW the first item (title says top)",
+  "body": "**Linear:** [CORE-7011](https://linear.app/bsq-group/issue/CORE-7011)\n\n## The ticket title is wrong — and the real defect is next door\n\nThe first item is **not** missing top spacing. Top spacing matches live exactly:\n\n| top gap (panel top → first item top) | live | clone |\n|---|---|---|\n| `/faqs/directors` and `/faqs/basics` @ 1440 / 1024 / 768 / 360 | **11px** | **11px** — MATCH |\n\n11px = 10px panel `padding-top` + 1px border, identical on both. First `<li>` `margin-top: 0`,\nfirst `<a>` `padding-top: 8px` — same on both. **The stated premise does not reproduce at any width\non any page.**\n\nWhat is actually missing is **16px BELOW** the first item, which on live separates the \"FAQ Homepage\"\nlink from the topic list:\n\n| | live | clone (before) | delta |\n|---|---|---|---|\n| first item height | **62px** | 46px | **−16** |\n| every other item | 46px | 46px | MATCH |\n| gap between item boxes | 0px | 0px | MATCH |\n\nSo the first item is special only in its own height, and the spacing lives *inside* the box — there\nis no inter-item margin anywhere on either site. Constant at 1440 / 1024 / 768 / 360, two pages, with\na third spot-checked.\n\n## Mechanism\n\nLive wraps the first label in `<p class=\"PageTitle--pageTitle__dropdownTitle…\">` carrying\n`margin-bottom: 16px`, which makes that one anchor 62px tall. The clone renders a bare text node, so\nit collapses to the standard 46px.\n\nReproduced as `padding-bottom` on the first anchor rather than a margin: 8px + 16px = 24px (`pb-6`).\nPadding cannot collapse, and it keeps the spacing inside the anchor exactly where live has it. `py-2`\nis split into `pt-2 pb-2` so the `pb-6` override does not depend on Tailwind's shorthand ordering.\n\n## After\n\n| viewport | first item h | other items | panel height | live panel |\n|---|---|---|---|---|\n| 1440 | **62** ✅ | 46 ✅ | **1172** ✅ | 1172 |\n| 1024 | **62** ✅ | 46 ✅ | **1172** ✅ | 1172 |\n| 768 | **62** ✅ | 46 ✅ | 1172 | 1192 — see below |\n| 360 | **62** ✅ | 46 ✅ | 1292 | 1312 — see below |\n\nTop gap stays 11px at all four widths, unchanged.\n\n## Two further findings, deliberately not fixed here\n\n**(a) A separate 20px, below the LAST item, under 1023px.** Live gives `li:last-child`\n`margin-bottom: 20px` under a max-width query (boundary probed: 20px at 1000, 0px at 1023 — it sits\non the repo's existing `min-[1023px]:` breakpoint); the clone has 0 at every width. That is the whole\nof the remaining panel-height gap at 768 and 360 in the table above — different item, different\nbreakpoint, its own ticket.\n\n**(b) The first label's colour looks like a regression.** Live paints \"FAQ Homepage\" `rgb(0,0,0)` —\nset on that inner `<p>`, not on the `<a>` (live's `<a>` is `rgb(89,89,89)` like every other item).\nThe clone paints `rgb(89,89,89)`. Commit `7c82c26` removed a `linkHome: 'text-[rgb(var(--black))]'`\non the grounds that live is grey, which reads as having measured the `<a>` rather than the `<p>` that\nactually paints the text. Verified black on live at 8 widths. If confirmed it rides on the same\n`linkHome` hook this PR reintroduces — but it is a colour change on a different ticket, so I have left\nit out.\n\n## Checks\n\n- `bun run ts` clean · `bun run build` green\n- measured with the dropdown opened by a real click, all queries scoped inside the opened panel\n",
+  "acceptanceCriteria": [
+    "First quick-nav item is 62px tall, matching live; every other item stays 46px.",
+    "Top gap stays 11px — it already matched live and must not move.",
+    "Holds at 1440 / 1024 / 768 / 360 on at least two FAQ topic pages.",
+    "Two secondary findings (20px under the last item below 1023px; first-label colour) filed separately."
+  ],
+  "status": "running",
+  "track": "clone",
+  "tags": [
+    "bug",
+    "parallel"
+  ],
+  "priority": "normal",
+  "effort": "S",
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-08-25T10:51:49.885Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-08-25T10:51:49.948Z",
+  "startedAt": "2026-08-25T10:51:49.948Z",
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-08-25T10:51:49.885Z",
+      "by": "planning"
+    },
+    {
+      "status": "running",
+      "at": "2026-08-25T10:51:49.948Z",
+      "by": "modex"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": {
+    "url": "https://github.com/BSQ-Group/rapid-formations-clone/pull/112",
+    "number": 112
+  },
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "id": "T24",
+  "num": 24
+}
