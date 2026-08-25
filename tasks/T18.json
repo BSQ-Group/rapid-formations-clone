@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-6993 · SHARED: customer-quote card crops the poster tighter than live",
+  "body": "**Linear:** [CORE-6993](https://linear.app/bsq-group/issue/CORE-6993)\n\n## Verified 2026-08-25 — reproduces on 8 pages\n\nThe customer-quote video card. Live builds the poster as a **1:1 aspect box**\n(`<div style=\"width:100%;padding-bottom:100%\">`) with `object-position: center`. The clone\nhardcoded `h-[300px] w-[325px]` and `object-top`, so the same photo is scaled up to cover a\n325x300 box and anchored to the top — visibly tighter, with the bottom cut off.\n\n| viewport | live | clone (before) |\n|---|---|---|\n| 1800 / 1440 / 1200 / 768 / 360 | 323x323 · `50% 50%` | 323x298 · `50% 0%` |\n\nLive is a fixed square at every breakpoint, not fluid — measured headed on both.\n\n## Scope: shared, 8 pages\n\n`/`, `/all-inclusive-package`, `/privacy-package`, `/basic-package`, `/compare-packages`,\n`/non-residents`, `/llp`, `/guarantee`.\n\nCross-checked on `/all-inclusive-package` (a different, non-square photo, 750x642):\n323x298 · `50% 0%` before, 323x323 · `50% 50%` after — matching live's 323x323 there too.\n\n## After\n\n| viewport | after |\n|---|---|\n| 1800 / 1440 / 1200 / 768 / 360 | **323x323 · `50% 50%`** — exact match with live |\n\n![before/after](https://60cfqkpecvp2z01z.public.blob.vercel-storage.com/pr-screenshots/core-6993/quote-card-before-after.png)\n\n**BEFORE** = `rapid-formations-clone.vercel.app` (`main`) · **AFTER** = local production build of this branch.\n\n> The Vercel preview could not be used: it is SSO-walled and returns `<title>Login – Vercel</title>` with **HTTP 200**, so an automated screenshot of it captures a login page rather than the app.\n\n## What this does NOT fix — the asset itself\n\nLook at the three panels: AFTER is square and uncropped, but still framed tighter than LIVE.\nThat part is not CSS. The uploaded media differs:\n\n| | live | clone |\n|---|---|---|\n| source | `ed13f342-….webp` **400x400** | `john-warbuton.webp` **300x300** |\n\nThe clone's file is a tighter crop of the same photograph, and at 300px it is also **smaller\nthan the 323px box it renders into** (upscaled). No stylesheet change can recover live's\nframing — the media needs re-uploading from the original. Filing that separately; the\nundersized-source half likely belongs with CORE-6965's image-resolution class.\n\nThis PR is the geometry half: the card is now square and centred, which is correct\nindependently of which file sits in it.\n\n## Checks\n\n- `bun run ts` clean · `bun run build` green\n- verified at 1800 / 1440 / 1200 / 768 / 360 on `/` and on `/all-inclusive-package`\n",
+  "acceptanceCriteria": [
+    "The quote card is a 325px square at every breakpoint, matching live (323x323 inside the transparent border).",
+    "object-position is centre, not top — matching live.",
+    "Verified on / and on a package page at 1800 / 1440 / 1200 / 768 / 360.",
+    "Asset mismatch (clone poster is 300x300 and a tighter crop; live is 400x400) recorded as a separate CMS follow-up, NOT fixed here."
+  ],
+  "status": "running",
+  "track": "clone",
+  "tags": [
+    "bug",
+    "parallel"
+  ],
+  "priority": "normal",
+  "effort": "S",
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-08-25T08:58:01.189Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-08-25T08:58:34.072Z",
+  "startedAt": "2026-08-25T08:58:34.072Z",
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-08-25T08:58:01.189Z",
+      "by": "planning"
+    },
+    {
+      "status": "running",
+      "at": "2026-08-25T08:58:34.072Z",
+      "by": "modex"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": {
+    "url": "https://github.com/BSQ-Group/rapid-formations-clone/pull/107",
+    "number": 107
+  },
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "id": "T18",
+  "num": 18
+}
