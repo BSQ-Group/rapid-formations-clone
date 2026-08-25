@@ -98,8 +98,29 @@ case for it here is aesthetic tidiness against a real regression risk. Not worth
 3. If the base declaration is still wanted for tidiness, treat it as a deliberate typography decision with
    its own review — including which fallback chain is preferred — not as a bug fix.
 
-## One unrelated observation, logged not fixed
+## Correction: the 305-vs-320 observation was an artefact
 
-At 360, the shared homepage `<h2>` has a box width of **305px on live vs 320px on the clone** — a 15px
-container-width difference, with identical font metrics. That is horizontal padding, not typography, and
-belongs to whichever ticket owns mobile gutters.
+An earlier draft of this report logged "at 360 the shared `<h2>` box is 305px on live vs 320px on the
+clone" as a container-width difference. **That was wrong.** My live probes ran **headed** and my clone
+probes **headless**; headed Chrome paints a classic 15px scrollbar that reduces content width, headless
+uses overlay scrollbars and does not. Every live-vs-clone width comparison was off by one scrollbar.
+
+Proven by holding the page and viewport fixed and varying only the browser mode (measured on the FAQ
+quick-nav panel, `/faqs/directors` @360):
+
+| | panel width |
+|---|---|
+| live **headed** | 305 |
+| live **headless** | **320** |
+| clone **headless** | 320 |
+| clone **headed** | **305** |
+
+With modes matched the two sites agree exactly, so there is **no** container-width or gutter defect.
+
+This does not affect any conclusion above. Every font verdict rests on fixed-pixel values — computed
+`font-family`, `font-size`, `line-height`, `font-weight`, `color` — and on character counts, all of which
+read identically in either mode. Only widths and quantities derived from widths were contaminated.
+
+**Method note for future work on this repo: run both sites in the SAME browser mode.** Headless works for
+live too, Cookiebot included. A sibling investigation (CORE-7112) hit the same trap and described it as
+faking "a 15px content-width gap below 1023 and a 7.5px left-offset at 1440".
