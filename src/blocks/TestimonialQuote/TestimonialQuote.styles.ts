@@ -11,7 +11,7 @@ export const testimonialQuoteStyles = {
   icon: 'inline-block h-[31px] w-[27px] align-baseline',
 
   comment:
-    'mb-8 text-[21px] font-normal text-[var(--text-on-light-muted)] min-[1023px]:text-[28px] min-[1023px]:font-light',
+    'mb-8 text-[21px] font-normal text-[var(--text-on-light-quote)] min-[1023px]:text-[28px] min-[1023px]:font-light',
 
   author:
     'relative mb-[5px] text-[21px] text-[var(--text-on-light-muted)] before:mr-[15px] before:inline-block before:h-px before:w-[50px] before:align-middle before:bg-[var(--border-brand-cyan)] before:content-[""] after:ml-[15px] after:inline-block after:h-px after:w-[50px] after:align-middle after:bg-[var(--border-brand-cyan)] after:content-[""] min-[470px]:before:w-[90px] min-[470px]:after:w-[90px] md:before:w-[125px] md:after:w-[125px]',
