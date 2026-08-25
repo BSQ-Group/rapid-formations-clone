@@ -9,7 +9,6 @@ import { InfoTooltip } from '@/components/shared/InfoTooltip'
 import { Media } from '@/components/Media'
 import { SectionWrapper } from '@/components/shared/SectionWrapper/SectionWrapper'
 import Text from '@/components/shared/Text'
-import { bankPatternPosition } from '@/utilities/bankPattern'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
 import { getLinkHref, type LinkData } from '@/utilities/links'
 import { bankingPartnersStyles as s } from './BankingPartners.styles'
@@ -42,7 +41,7 @@ export const BankingPartnersBlock: React.FC<BankingPartnersBlockProps> = ({
             const style: React.CSSProperties = { backgroundColor: bank.brandColour }
             if (patternUrl) {
               style.backgroundImage = `url(${patternUrl})`
-              style.backgroundPosition = bankPatternPosition(index)
+              style.backgroundPosition = `${10 + ((index * 37) % 80)}% -${100 + ((index * 101) % 291)}px`
             }
             const face = (
               <>
