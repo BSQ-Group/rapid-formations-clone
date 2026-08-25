@@ -1,5 +1,5 @@
 export const reviewStatCardStyles = {
-  card: 'flex h-full flex-col pb-[5px] text-center no-underline',
+  card: 'flex h-full flex-col pb-[5px] text-center no-underline hover:bg-[var(--surface-review-card-hover)]',
 
   logoWrap: 'm-auto flex min-h-[90px] items-center justify-center',
 
