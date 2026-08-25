@@ -7,6 +7,6 @@ export const snapCarouselStyles = {
   arrowIcon: 'h-10 w-auto',
 
   dots: 'mt-2.5 flex items-center justify-center',
-  dot: 'm-2.5 size-2.5 shrink-0 rounded-full bg-[var(--icon-on-light-faint)] transition-colors',
-  dotActive: 'bg-[var(--surface-brand-cyan)]',
+  dot: 'm-2.5 size-2.5 shrink-0 rounded-full bg-[#333] opacity-25 transition-[background-color,opacity]',
+  dotActive: 'bg-[var(--surface-brand-cyan)] opacity-100',
 } as const
