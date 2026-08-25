@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-6965 \u00b7 SITEWIDE image resolution \u2014 VERIFIED, not a code defect",
+  "body": "**Linear:** [CORE-6965](https://linear.app/bsq-group/issue/CORE-6965)\n\n**Premise wrong. No code fix exists \u2014 no PR opened.**\n\n223 raster images across 11 pages measured at `deviceScaleFactor: 2`, live vs a local production build.\nMetric: effective DPR = `naturalWidth / rendered CSS width`.\n\n## The decisive number\n\n**0 of 86 under-resolution images were next/image under-requesting.** Every one was already served at its\nfull master width. There is no component/`sizes` bucket anywhere on the site.\n\n## \"SITEWIDE\" is not accurate\n\n137/223 images are already >=1.9x. Of the 86 below, **62 are byte-for-byte identically soft on live**\n(same file, same box). Live is not a uniformly-2x site either \u2014 49 of its 203 images are under 1.5x.\n\n**Only 17 instances / 9 unique assets are genuine regressions**, and all are CMS media, not code:\n- **8 bank logos** \u2014 clone master 64x64, live **116x116** (the clone imported the wrong variant at seed)\n- **`john-warbuton.webp`** \u2014 clone **400x400**, live **800x800**\n\n## Corrections to prior notes\n\n- The CORE-6993 follow-up recorded `john-warbuton.webp` as 300x300. It is **400x400** \u2014 already partially\n  bumped \u2014 but live is 800x800, so still half-res. It belongs under this ticket.\n- The `no-vw sizes` mechanism inherited from CORE-7133 is **refuted as a resolution cause**: next/image\n  clamps candidates to master width and never upscales, and a `w`-descriptor srcset's fallback `src` is\n  the *largest* candidate. Measured: `sizes=\"200px\"` (the exact trap) resolves to `&w=640` and returns\n  the full 200x50 master. It makes the browser request **more**, never less \u2014 a byte-waste defect that\n  belongs to CORE-7133 and would not change one delivered pixel.\n\n## Also ruled out\n\nCompression: clone serves AVIF where live serves WebP/JPEG at a mean byte ratio ~1.0. Clone pages are\nalready 1.5-4x lighter than live, because live ships unresized originals (one at DPR 9.7 \u2014 a 3251x2486\nphoto in a 338x300 box). Rows where live looks \"sharper\" are live waste, not clone defects.\n\n## Flagged, deliberately not fixed\n\nThe site's genuinely worst images are 23 FAQ topic cards at **DPR 0.49-0.84** (280x165 masters in a 573px\nbox) \u2014 but **live serves the identical files**. Fixing them would make the clone exceed live, so this is\nan upstream content issue, not a clone-fidelity defect.\n\n## Recommended disposition\n\nClose as not-a-code-defect and re-scope to a **CMS media task** for the 9 assets (live source URLs to\nre-harvest are in the agent's FINDINGS.md).",
+  "acceptanceCriteria": [
+    "Ticket closed or re-scoped off SITEWIDE \u2014 it is not a code defect.",
+    "CMS media task raised for the 9 assets (8 bank logos 64->116, john-warbuton 400->800).",
+    "no-vw sizes byte-waste folded into CORE-7133 as a payload fix, not a resolution one.",
+    "FAQ topic-card softness recorded as an upstream content issue, not a clone defect."
+  ],
+  "status": "backlog",
+  "track": "clone",
+  "tags": [
+    "bug"
+  ],
+  "priority": "normal",
+  "effort": "M",
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-08-25T13:29:15.094465Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-08-25T13:29:15.094465Z",
+  "startedAt": null,
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-08-25T13:29:15.094465Z",
+      "by": "planning"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": null,
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "id": "T31",
+  "num": 31
+}
