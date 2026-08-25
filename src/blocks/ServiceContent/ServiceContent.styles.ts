@@ -5,7 +5,7 @@ export const serviceContentStyles = {
 
   split: 'min-[1023px]:grid min-[1023px]:grid-cols-2 min-[1023px]:gap-[30px]',
 
-  column: 'max-[1022px]:[&>aside+div_h3]:!mt-0',
+  column: 'max-[1023px]:[&>aside+div_h3]:!mt-0',
 
   columnFlush: '[&>div:first-child_h3]:!mt-0',
 
@@ -13,11 +13,11 @@ export const serviceContentStyles = {
 
   item: 'mb-[30px] min-[1023px]:last:mb-0',
 
-  cardsLead: 'flex flex-col min-[1023px]:hidden',
-  cardsAside: 'hidden min-[1023px]:flex min-[1023px]:flex-col',
-  cardsTrail: 'hidden min-[1023px]:flex min-[1023px]:flex-col',
+  cardsLead: 'flex flex-col lg:hidden',
+  cardsAside: 'hidden lg:flex lg:flex-col',
+  cardsTrail: 'hidden lg:flex lg:flex-col',
 
-  columnDesktopOnly: 'hidden min-[1023px]:block',
+  columnDesktopOnly: 'hidden lg:block',
 
   card: 'mb-8 last:mb-14',
 
