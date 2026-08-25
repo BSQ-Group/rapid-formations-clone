@@ -39,7 +39,10 @@ export const BankingPartnersBlock: React.FC<BankingPartnersBlockProps> = ({
         <ul className={s.grid}>
           {banks?.map((bank, index) => {
             const style: React.CSSProperties = { backgroundColor: bank.brandColour }
-            if (patternUrl) style.backgroundImage = `url(${patternUrl})`
+            if (patternUrl) {
+              style.backgroundImage = `url(${patternUrl})`
+              style.backgroundPosition = `${10 + ((index * 37) % 80)}% -${100 + ((index * 101) % 291)}px`
+            }
             const face = (
               <>
                 {bank.logo && (

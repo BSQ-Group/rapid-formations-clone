@@ -237,7 +237,7 @@ export const LandingHeroBlock: React.FC<LandingHeroBlockProps> = ({
                     const style: React.CSSProperties = { backgroundColor: bank.brandColour }
                     if (pattern && typeof pattern === 'object' && pattern.url) {
                       style.backgroundImage = `url(${getMediaUrl(pattern.url)})`
-                      style.backgroundPosition = `${25 + ((index * 37) % 55)}% ${-(110 + ((index * 71) % 280))}px`
+                      style.backgroundPosition = `${10 + ((index * 37) % 80)}% -${100 + ((index * 101) % 291)}px`
                     }
 
                     const tile = (
