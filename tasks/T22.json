@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-7039 · SHARED: FAQ answer last item missing bottom spacing when open",
+  "body": "**Linear:** [CORE-7039](https://linear.app/bsq-group/issue/CORE-7039)\n\n## Verified 2026-08-25 — reproduces, but only in one of the two FAQ contexts\n\nThe clone strips the bottom padding from the **last** open FAQ answer. Measured by opening\neach accordion with a real click and reading the answer element's computed padding:\n\n| context | item | live | clone (before) |\n|---|---|---|---|\n| **FAQ topic page** | first | pt 16 / pb 32 | pt 16 / pb 32 ✅ |\n| | penultimate | pt 16 / pb 32 | pt 16 / pb 32 ✅ |\n| | **last** | pt 16 / **pb 32** | pt 16 / **pb 0** ❌ |\n| **service / package page** | last | pt 16 / **pb 0** | pt 16 / **pb 0** ✅ |\n\nCross-checked on two page pairs each: `/faqs/directors`, `/faqs/vat` (topic) and\n`/vat-registration`, `/all-inclusive-package` (service/package).\n\n## Why the fix is a condition, not a deletion\n\n`FAQs/Component.tsx` applied `answerTextLast: 'pb-0'` to the last item **in every context**.\n\nThat rule is not wrong — it is right for the service and package pages, where live also\ncollapses the last answer's bottom padding to 0. It is only wrong on the FAQ topic pages,\nwhere live keeps the full 32px on every item including the last.\n\nThe block already distinguishes the two via `isPage` (it picks `pageSection`/`pagePanel`/\n`pageList` vs `section`/`panel`/`list`), so the fix reuses that same switch:\n\n```diff\n- className={cn(s.answerText, index === faqs.length - 1 && s.answerTextLast)}\n+ className={cn(\n+   s.answerText,\n+   !isPage && index === faqs.length - 1 && s.answerTextLast,\n+ )}\n```\n\nDeleting `answerTextLast` outright would have fixed the ticket and silently broken the\nservice and package pages.\n\n## After\n\n| page | context | last item | expected |\n|---|---|---|---|\n| `/faqs/directors` @1440 and @768 | topic | **pb 32** ✅ | 32 (live) |\n| `/faqs/vat` @1440 | topic | **pb 32** ✅ | 32 (live) |\n| `/vat-registration` @1440 | service | pb 0 ✅ unchanged | 0 (live) |\n| `/all-inclusive-package` @1440 | package | pb 0 ✅ unchanged | 0 (live) |\n\n## Checks\n\n- `bun run ts` clean · `bun run build` green\n- accordions opened with real clicks, one at a time, and measured inside the opened item\n  (measuring the page-wide selector instead returns whichever answer is last in the DOM and\n  reports the same numbers for every item — that trap cost me a first pass)\n",
+  "acceptanceCriteria": [
+    "On FAQ topic pages the last open answer keeps pb 32px, matching live.",
+    "On service and package pages the last open answer stays pb 0 — live does collapse it there.",
+    "Verified by opening accordions with real clicks at 1440 and 768 on two page pairs per context."
+  ],
+  "status": "running",
+  "track": "clone",
+  "tags": [
+    "bug",
+    "parallel"
+  ],
+  "priority": "normal",
+  "effort": "S",
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-08-25T10:04:13.522Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-08-25T10:04:13.691Z",
+  "startedAt": "2026-08-25T10:04:13.690Z",
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-08-25T10:04:13.522Z",
+      "by": "planning"
+    },
+    {
+      "status": "running",
+      "at": "2026-08-25T10:04:13.690Z",
+      "by": "modex"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": {
+    "url": "https://github.com/BSQ-Group/rapid-formations-clone/pull/110",
+    "number": 110
+  },
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "id": "T22",
+  "num": 22
+}
