@@ -12,6 +12,8 @@ export const titleBannerStyles = {
 
   imageSection: 'font-legacy-condensed w-full',
 
+  imageSectionContained: 'pb-[15px]',
+
   backdrop: {
     none: '',
     dark: 'bg-[var(--surface-banner-backdrop)]',
