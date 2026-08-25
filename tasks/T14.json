@@ -9,7 +9,7 @@
     "The dropdown still opens and closes on click, and `aria-expanded` still toggles on the button.",
     "Verified on at least two FAQ topic pages at 360 / 768 / 1024 / 1800; the `/faqs/` hub (no dropdown) is unaffected."
   ],
-  "status": "running",
+  "status": "done",
   "track": "clone",
   "tags": [
     "bug",
@@ -26,9 +26,9 @@
   "supersededBy": null,
   "createdAt": "2026-08-24T15:15:01.670Z",
   "createdBy": "planning",
-  "updatedAt": "2026-08-24T15:17:55.561Z",
+  "updatedAt": "2026-08-25T08:01:47.438Z",
   "startedAt": "2026-08-24T15:17:55.561Z",
-  "completedAt": null,
+  "completedAt": "2026-08-25T08:01:47.438Z",
   "statusHistory": [
     {
       "status": "backlog",
@@ -39,16 +39,39 @@
       "status": "running",
       "at": "2026-08-24T15:17:55.561Z",
       "by": "modex"
+    },
+    {
+      "status": "ready",
+      "at": "2026-08-25T08:01:38.934Z",
+      "by": "modex"
+    },
+    {
+      "status": "done",
+      "at": "2026-08-25T08:01:47.438Z",
+      "by": "mode-h"
     }
   ],
   "qa": null,
-  "ready": null,
+  "ready": {
+    "at": "2026-08-25T08:01:38.933Z",
+    "sha": "",
+    "branch": "",
+    "lenient4bp": [],
+    "ship": ""
+  },
   "livecheck": null,
   "needsManual": null,
   "userVerified": null,
   "report": null,
-  "pr": null,
-  "merge": null,
+  "pr": {
+    "url": "https://github.com/BSQ-Group/rapid-formations-clone/pull/103",
+    "number": 103
+  },
+  "merge": {
+    "ref": "https://github.com/BSQ-Group/rapid-formations-clone/pull/103",
+    "sha": "2be5e0fa775109eab73e59b1774208eb94b9b504",
+    "at": "2026-08-25T08:01:47.438Z"
+  },
   "rejections": [],
   "proposalSource": null,
   "parent": null,
