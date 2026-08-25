@@ -50,7 +50,10 @@ export const FAQsBlock: React.FC<FAQsBlockProps> = ({
                   data={item.description}
                   enableGutter={false}
                   enableProse={false}
-                  className={cn(s.answerText, index === faqs.length - 1 && s.answerTextLast)}
+                  className={cn(
+                    s.answerText,
+                    !isPage && index === faqs.length - 1 && s.answerTextLast,
+                  )}
                 />
               ),
             }))}
