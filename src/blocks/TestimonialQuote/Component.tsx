@@ -6,7 +6,7 @@ import type { TestimonialQuoteBlock as TestimonialQuoteBlockProps } from '@/payl
 
 import { Container } from '@/components/shared/Container/Container'
 import { SectionWrapper } from '@/components/shared/SectionWrapper/SectionWrapper'
-import { TestimonialQuoteCard } from './TestimonialQuoteCard'
+import { TestimonialQuoteRotator } from './TestimonialQuoteRotator'
 import { testimonialQuoteStyles as s } from './TestimonialQuote.styles'
 
 const pick = (seed: string, length: number) => {
@@ -22,16 +22,16 @@ export const TestimonialQuoteBlock: React.FC<TestimonialQuoteBlockProps> = async
   const payload = await getPayload({ config: configPromise })
   const { items } = await payload.findGlobal({ slug: 'testimonialPool' })
 
-  const pool = (items ?? []).filter((item) => item.quote && item.customerName)
+  const pool = (items ?? [])
+    .filter((item) => item.quote && item.customerName)
+    .map(({ quote, customerName }) => ({ quote, customerName }))
 
   if (!pool.length) return null
-
-  const chosen = pool[pick(id ?? '', pool.length)]
 
   return (
     <SectionWrapper {...sectionLayout} className={s.section}>
       <Container>
-        <TestimonialQuoteCard quote={chosen.quote} customerName={chosen.customerName} />
+        <TestimonialQuoteRotator pool={pool} initialIndex={pick(id ?? '', pool.length)} />
       </Container>
     </SectionWrapper>
   )
