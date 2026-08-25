@@ -8,7 +8,7 @@
     "On service and package pages the last open answer stays pb 0 — live does collapse it there.",
     "Verified by opening accordions with real clicks at 1440 and 768 on two page pairs per context."
   ],
-  "status": "running",
+  "status": "done",
   "track": "clone",
   "tags": [
     "bug",
@@ -25,9 +25,9 @@
   "supersededBy": null,
   "createdAt": "2026-08-25T10:04:13.522Z",
   "createdBy": "planning",
-  "updatedAt": "2026-08-25T10:04:13.691Z",
+  "updatedAt": "2026-08-25T13:11:14.819Z",
   "startedAt": "2026-08-25T10:04:13.690Z",
-  "completedAt": null,
+  "completedAt": "2026-08-25T13:11:14.819Z",
   "statusHistory": [
     {
       "status": "backlog",
@@ -38,6 +38,16 @@
       "status": "running",
       "at": "2026-08-25T10:04:13.690Z",
       "by": "modex"
+    },
+    {
+      "status": "awaiting-user",
+      "at": "2026-08-25T13:11:14.408955Z",
+      "by": "mode-h"
+    },
+    {
+      "status": "done",
+      "at": "2026-08-25T13:11:14.819Z",
+      "by": "mode-h"
     }
   ],
   "qa": null,
@@ -50,7 +60,11 @@
     "url": "https://github.com/BSQ-Group/rapid-formations-clone/pull/110",
     "number": 110
   },
-  "merge": null,
+  "merge": {
+    "ref": "https://github.com/BSQ-Group/rapid-formations-clone/pull/110",
+    "sha": "8e770d1fe60e04070333aef15c42ce6e8f792a50",
+    "at": "2026-08-25T13:11:14.819Z"
+  },
   "rejections": [],
   "proposalSource": null,
   "parent": null,
