@@ -30,6 +30,7 @@ const encodeSans = Encode_Sans({
 import Script from 'next/script'
 import { Footer } from '@/Footer/Component'
 import { Providers } from '@/providers'
+import { SmoothHashScroll } from '@/components/shared/SmoothHashScroll'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { getBrand } from '@/lib/brand'
 import { draftMode } from 'next/headers'
@@ -67,7 +68,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           strategy="beforeInteractive"
         />
       </head>
-      <body>
+      <body id="home-top">
+        <SmoothHashScroll />
         <Providers>
           {children}
           <Footer />
