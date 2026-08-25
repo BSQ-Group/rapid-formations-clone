@@ -1,6 +1,53 @@
 import type { Meta, StoryObj } from '@storybook/react'
+import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 
 import { PackageGridCard, type PackageGridCardHighlight } from './index'
+
+const txt = (text: string, format = 0) => ({
+  type: 'text',
+  detail: 0,
+  format,
+  mode: 'normal',
+  style: '',
+  text,
+  version: 1,
+})
+
+const para = (...children: ReturnType<typeof txt>[]) => ({
+  type: 'paragraph',
+  format: '',
+  indent: 0,
+  version: 1,
+  direction: 'ltr',
+  textFormat: 0,
+  textStyle: '',
+  children,
+})
+
+const bullets = (items: string[]) => ({
+  type: 'list',
+  listType: 'bullet',
+  tag: 'ul',
+  start: 1,
+  format: '',
+  indent: 0,
+  version: 1,
+  direction: 'ltr',
+  children: items.map((item, i) => ({
+    type: 'listitem',
+    value: i + 1,
+    format: '',
+    indent: 0,
+    version: 1,
+    direction: 'ltr',
+    children: [txt(item)],
+  })),
+})
+
+const doc = (...children: object[]) =>
+  ({
+    root: { type: 'root', format: '', indent: 0, version: 1, direction: 'ltr', children },
+  }) as unknown as DefaultTypedEditorState
 
 const highlights = (extra: string[] = []): PackageGridCardHighlight[] =>
   [
@@ -78,6 +125,55 @@ export const WithTooltips: Story = {
         text: 'Filing of the First Confirmation Statement',
         tooltipTitle: 'Confirmation statement',
         tooltip: 'We file your first confirmation statement, worth £34, at no extra cost.',
+      },
+    ],
+  },
+}
+
+export const WithRichTextTooltips: Story = {
+  args: {
+    highlights: [
+      {
+        id: 'r0',
+        text: 'Full Set of Company Documents',
+        tooltipTitle: 'Full Set of Company Documents',
+        tooltipContent: doc(
+          para(
+            txt(
+              'Emailed to you upon company registration and stored in your Online Client Portal:',
+            ),
+          ),
+          bullets([
+            'Certificate of Incorporation',
+            'Memorandum and Articles of Association',
+            'Share Certificate(s)',
+            'Company Registers',
+            'WebFiling Authentication Code',
+          ]),
+        ),
+      },
+      {
+        id: 'r1',
+        text: 'Free Business Bank Account',
+        tooltipTitle: 'Free Business Bank Account',
+        tooltipContent: doc(
+          para(txt('Choose from 8 banking solutions including Barclays and Lloyds.')),
+          para(
+            txt('Non-UK residents:', 1),
+            txt(' A Wise business account is included in our Non-Residents Packages.'),
+          ),
+          para(
+            txt('Please note:', 1),
+            txt(' This is a referral service only. All accounts are subject to provider approval.'),
+          ),
+        ),
+      },
+      {
+        id: 'r2',
+        text: 'Filing of the First Confirmation Statement',
+        tooltipTitle: 'Filing of the First Confirmation Statement',
+        tooltip:
+          'Legacy plain-text tooltips keep rendering unchanged until they are moved to the rich-text field.',
       },
     ],
   },

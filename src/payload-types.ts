@@ -1757,7 +1757,25 @@ export interface PackageGridBlock {
               text: string;
               tooltipTitle?: string | null;
               /**
-               * Optional — makes the info disc an interactive tooltip. Blank lines separate paragraphs.
+               * Optional — makes the info disc an interactive tooltip. Supports bold and bullet lists.
+               */
+              tooltipContent?: {
+                root: {
+                  type: string;
+                  children: {
+                    type: any;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
+                [k: string]: unknown;
+              } | null;
+              /**
+               * Deprecated — used only when Tooltip is empty. Blank lines separate paragraphs; no formatting.
                */
               tooltip?: string | null;
               id?: string | null;
@@ -6800,6 +6818,7 @@ export interface PackageGridBlockSelect<T extends boolean = true> {
           | {
               text?: T;
               tooltipTitle?: T;
+              tooltipContent?: T;
               tooltip?: T;
               id?: T;
             };
