@@ -78,10 +78,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   )
 }
 
+const brandThemeColor = getDomainConfig(getBrand()).themeColor
+
 export const viewport: Viewport = {
-  ...(getDomainConfig(getBrand()).themeColor
-    ? { themeColor: getDomainConfig(getBrand()).themeColor }
-    : {}),
+  ...(brandThemeColor ? { themeColor: brandThemeColor } : {}),
 }
 
 export const metadata: Metadata = {
