@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "Hero \u2192 first content section gap is 45px looser than live (17 pages) \u2014 found via CORE-7130",
+  "body": "Surfaced by the CORE-7130 sweep, unrelated to that ticket and in the **opposite direction**. Not yet\nfiled in Linear \u2014 needs a ticket.\n\n**17 pages.** Hero (`PageTitle`) -> first content section:\n\n- clone gap is **+45px looser** (+40px at 360)\n- clone hero box is **22px shorter** (2px at 768, 40.7px at 360)\n\nCause: the clone moves the hero's bottom spacing from *inside* the section to a *margin below* it.\nNet downward drift approx **+23px desktop, +43px at 768, ~0 at 360**.\n\nIt reads as correct on casual inspection because the shift is uniform \u2014 every downstream gap still\nmeasures right, so it never presents as a gap defect. That is also why no existing ticket has caught it.\n\nNeeds its own investigation before any fix: confirm the 17 pages, decide whether the spacing belongs\ninside the hero section (matching live) or below it, and check whether the hero height difference is the\nsame root cause or a second defect.",
+  "acceptanceCriteria": [
+    "Linear ticket raised for the hero \u2192 first-content-section drift.",
+    "17 affected pages confirmed and listed.",
+    "Decision on whether hero bottom spacing moves back inside the section.",
+    "Hero height difference (22px desktop / 40.7px at 360) resolved or split into its own ticket."
+  ],
+  "status": "backlog",
+  "track": "clone",
+  "tags": [
+    "bug"
+  ],
+  "priority": "normal",
+  "effort": "M",
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-08-25T13:35:13.349001Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-08-25T13:35:13.349001Z",
+  "startedAt": null,
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-08-25T13:35:13.349001Z",
+      "by": "planning"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": null,
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "id": "T34",
+  "num": 34
+}

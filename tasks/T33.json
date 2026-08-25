@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-7130 \u00b7 service-box \u2192 FAQ gap \u2014 VERIFIED, not reproducible at any width",
+  "body": "**Linear:** [CORE-7130](https://linear.app/bsq-group/issue/CORE-7130)\n\n**Premise not reproducible. No code written, no PR.**\n\n`scanclone.mjs` enumerated the real universe across all 56 mapped clone pages: **22 pages** have an FAQ\nsection with a section directly above it. Every one measured live-vs-clone at\n**1800 / 1700 / 1590 / 1440 / 1024 / 768 / 360** \u2014 154 structural + 154 painted readings.\n\n**Max |delta| = 0.01px, everywhere.** Not 30px, not in either direction, and not in the 1441-1799 band\n(sampled at 1700).\n\nAll three possible readings of \"service box\" are covered and all match: ServiceAds ad tiles (12 pages,\n50px), PurchaseAnAddress tiles (3 pages, 110/75/50), and the BuyServiceCard price box\n(`/business-telephone`, 86.00px on both).\n\n## Why they match, with sources\n\n- Live `styles.0034670079b7ea5097e0.css`: `.Section--section { margin-bottom: 3.125rem }`,\n  `@media(min-width:1023px){ 4.6875rem }`, `@media(min-width:1590px){ 6.875rem }` = **50 / 75 / 110**.\n- Clone `SectionWrapper.styles.ts:18`: `mb-[50px] min-[1023px]:mb-[75px] min-[1590px]:mb-[110px]`.\n\nValue-for-value and breakpoint-for-breakpoint identical.\n\n## A blocking bug in the first pass \u2014 why this looked promising\n\nThe earlier sweep built live URLs as `pathArg + '/'`, so 9 of the 22 pages were fetched at the wrong\npath and hit **404 pages** (`/basic-package/` instead of `/package/basic-package/`,\n`/business-address/` instead of `/additional-services/business-address/`, `/llp/` instead of\n`/compare-packages/llp/`). Those recorded `sections=1`, and the diff step then bailed on\n\"SECTION COUNT DIFFERS\" and printed nothing \u2014 a silent hole covering exactly the package /\nadditional-services / compare-packages families. Re-swept correctly against a sitemap-derived map.\n\n## CORE-7002's wrapper-padding mechanism: checked and ruled out here\n\nFull ancestor chains recorded on 4 pages x 6 widths. On live the service-box section and the FAQ section\nare siblings **inside the same** `div.Wrapper--wrapper__content`, so its `padding: 20px 0` sits outside\nthe pair and contributes nothing between them. The clone already mirrors that padding on `<main>`\n(`min-[1023px]:pb-5`). `sameParent === true` and `prev.nextElementSibling === FAQ` on both sites at\nevery width.\n\n## Latent difference logged, currently inert\n\nLive's FAQ `<section>` is `flex/column`; the clone's is `display:block`. A future `mt-*` on the FAQ\nheader would collapse out on the clone but not on live. Painted gap == structural gap on both today, so\nit does not bite yet.\n\n## Disposition\n\nClose as not-reproducible, or bounce back for a specific page + viewport + screenshot. \"SHARED\" is not\nsupportable \u2014 all 22 shared surfaces with this boundary match. Note the gap below any section is\nCMS-editable per block (`sectionLayout.gap` -> `SectionWrapper`), so even a genuine single-page\ndiscrepancy would be Payload data, not code.",
+  "acceptanceCriteria": [
+    "Ticket closed as not-reproducible, or reopened with a specific page + viewport + screenshot.",
+    "If reopened, note the value is CMS data (sectionLayout.gap), not code.",
+    "Latent flex-vs-block difference on the FAQ section recorded for future reference."
+  ],
+  "status": "backlog",
+  "track": "clone",
+  "tags": [
+    "bug"
+  ],
+  "priority": "normal",
+  "effort": "M",
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-08-25T13:35:13.349001Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-08-25T13:35:13.349001Z",
+  "startedAt": null,
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-08-25T13:35:13.349001Z",
+      "by": "planning"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": null,
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "id": "T33",
+  "num": 33
+}
