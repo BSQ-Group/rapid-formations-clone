@@ -9,7 +9,7 @@
     "Size, margin and roundness unchanged (10px / 10px / fully round).",
     "Applies to every SnapCarousel user, not just the reviews track."
   ],
-  "status": "running",
+  "status": "done",
   "track": "clone",
   "tags": [
     "bug",
@@ -26,9 +26,9 @@
   "supersededBy": null,
   "createdAt": "2026-08-25T09:29:44.038Z",
   "createdBy": "planning",
-  "updatedAt": "2026-08-25T09:29:44.094Z",
+  "updatedAt": "2026-08-25T13:05:25.194Z",
   "startedAt": "2026-08-25T09:29:44.094Z",
-  "completedAt": null,
+  "completedAt": "2026-08-25T13:05:25.194Z",
   "statusHistory": [
     {
       "status": "backlog",
@@ -39,6 +39,16 @@
       "status": "running",
       "at": "2026-08-25T09:29:44.094Z",
       "by": "modex"
+    },
+    {
+      "status": "awaiting-user",
+      "at": "2026-08-25T13:05:18.787363Z",
+      "by": "mode-h"
+    },
+    {
+      "status": "done",
+      "at": "2026-08-25T13:05:25.194Z",
+      "by": "mode-h"
     }
   ],
   "qa": null,
@@ -51,7 +61,11 @@
     "url": "https://github.com/BSQ-Group/rapid-formations-clone/pull/108",
     "number": 108
   },
-  "merge": null,
+  "merge": {
+    "ref": "https://github.com/BSQ-Group/rapid-formations-clone/pull/108",
+    "sha": "d26aecc37f7a91268966de5a816ebf8ec1659898",
+    "at": "2026-08-25T13:05:25.194Z"
+  },
   "rejections": [],
   "proposalSource": null,
   "parent": null,
