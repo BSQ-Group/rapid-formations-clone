@@ -21,12 +21,12 @@ export const customerQuoteStyles = {
   imageCol:
     'flex h-full items-center justify-center self-center justify-self-center min-[1200px]:p-6',
 
-  imageWrap: 'relative h-[300px] w-[325px] overflow-hidden rounded-xl border border-transparent',
+  imageWrap: 'relative size-[325px] overflow-hidden rounded-xl border border-transparent',
 
-  image: 'object-cover object-top',
+  image: 'object-cover object-center',
 
   posterButton:
-    'block h-[300px] w-[325px] overflow-hidden rounded-xl border border-transparent focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[var(--surface-brand-cyan)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--surface-brand-cyan-wash)]',
+    'block size-[325px] overflow-hidden rounded-xl border border-transparent focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[var(--surface-brand-cyan)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--surface-brand-cyan-wash)]',
 
   posterMedia: 'absolute inset-0 transition-opacity duration-150 group-hover:opacity-80',
 
