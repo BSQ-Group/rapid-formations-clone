@@ -23,11 +23,6 @@ export interface DomainConfig {
   siteName: string
   tenantId: string
   blogUrl?: string
-  /**
-   * Brand colour for the `theme-color` meta (mobile browser chrome). Optional:
-   * only brands whose live site sets one get one — QCF's live site has no
-   * theme-color meta, so it must not inherit RF's.
-   */
   themeColor?: string
 }
 
