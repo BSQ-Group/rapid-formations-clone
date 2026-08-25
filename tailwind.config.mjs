@@ -226,6 +226,9 @@ export default {
           to: { height: '0' },
         },
       },
+      transitionDuration: {
+        350: '350ms',
+      },
       screens: {
         xs: '480px',
         sm: '640px',
