@@ -73,9 +73,9 @@ export const FaqQuickNav: React.FC<FaqQuickNavProps> = ({
       </button>
 
       <ul className={cn(s.list, isOpen ? s.listOpen : s.listClosed)}>
-        {items.map((item) => (
+        {items.map((item, index) => (
           <li key={item.url} className={s.item}>
-            <Link href={item.url} className={s.link}>
+            <Link href={item.url} className={cn(s.link, index === 0 && s.linkHome)}>
               {item.title}
             </Link>
           </li>

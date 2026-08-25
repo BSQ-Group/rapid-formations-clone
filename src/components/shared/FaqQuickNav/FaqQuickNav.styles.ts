@@ -14,5 +14,6 @@ export const faqQuickNavStyles = {
   listClosed: 'hidden',
 
   item: 'mx-1 block',
-  link: 'block py-2 pl-2 pr-5 text-[20px] font-normal leading-[30px] text-[var(--text-on-light-muted)] no-underline hover:text-[var(--text-on-light-link-hover-orange)] hover:underline',
+  link: 'block pt-2 pb-2 pl-2 pr-5 text-[20px] font-normal leading-[30px] text-[var(--text-on-light-muted)] no-underline hover:text-[var(--text-on-light-link-hover-orange)] hover:underline',
+  linkHome: 'pb-6',
 } as const
