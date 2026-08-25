@@ -59,7 +59,7 @@ export function AutoplayVideo({
         onPlay={() => setStoppedByViewer(false)}
       >
         {captionsUrl && (
-          <track kind="captions" src={captionsUrl} srcLang="en" label="English" default />
+          <track kind="captions" src={captionsUrl} srcLang="en" label="English" />
         )}
         <source src={src} type="video/mp4" />
       </video>
