@@ -9,7 +9,7 @@
     "The homepage hero bank strip uses the same helper and the same ranges.",
     "Pattern image, brand colours, blend mode, size and repeat are unchanged."
   ],
-  "status": "running",
+  "status": "done",
   "track": "clone",
   "tags": [
     "bug",
@@ -26,9 +26,9 @@
   "supersededBy": null,
   "createdAt": "2026-08-24T15:57:55.852Z",
   "createdBy": "planning",
-  "updatedAt": "2026-08-24T16:00:22.675Z",
+  "updatedAt": "2026-08-25T08:55:43.335Z",
   "startedAt": "2026-08-24T16:00:22.675Z",
-  "completedAt": null,
+  "completedAt": "2026-08-25T08:55:43.335Z",
   "statusHistory": [
     {
       "status": "backlog",
@@ -39,10 +39,26 @@
       "status": "running",
       "at": "2026-08-24T16:00:22.675Z",
       "by": "modex"
+    },
+    {
+      "status": "ready",
+      "at": "2026-08-25T08:55:43.316Z",
+      "by": "modex"
+    },
+    {
+      "status": "done",
+      "at": "2026-08-25T08:55:43.335Z",
+      "by": "mode-h"
     }
   ],
   "qa": null,
-  "ready": null,
+  "ready": {
+    "at": "2026-08-25T08:55:43.316Z",
+    "sha": "",
+    "branch": "",
+    "lenient4bp": [],
+    "ship": ""
+  },
   "livecheck": null,
   "needsManual": null,
   "userVerified": null,
@@ -51,7 +67,11 @@
     "url": "https://github.com/BSQ-Group/rapid-formations-clone/pull/106",
     "number": 106
   },
-  "merge": null,
+  "merge": {
+    "ref": "https://github.com/BSQ-Group/rapid-formations-clone/pull/106",
+    "sha": "b3766f3206ddbb4bc44b20976fd2ba25201fe845",
+    "at": "2026-08-25T08:55:43.335Z"
+  },
   "rejections": [],
   "proposalSource": null,
   "parent": null,

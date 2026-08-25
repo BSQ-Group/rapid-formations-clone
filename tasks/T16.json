@@ -9,7 +9,7 @@
     "FAQ/accordion answer links are NOT changed: they stay without a hover underline, matching live.",
     "Verified with a real mouse hover at 360 and 1800 on at least two pages."
   ],
-  "status": "running",
+  "status": "done",
   "track": "clone",
   "tags": [
     "bug",
@@ -26,9 +26,9 @@
   "supersededBy": null,
   "createdAt": "2026-08-24T15:34:43.226Z",
   "createdBy": "planning",
-  "updatedAt": "2026-08-24T15:35:19.961Z",
+  "updatedAt": "2026-08-25T08:55:43.296Z",
   "startedAt": "2026-08-24T15:35:19.961Z",
-  "completedAt": null,
+  "completedAt": "2026-08-25T08:55:43.296Z",
   "statusHistory": [
     {
       "status": "backlog",
@@ -39,16 +39,39 @@
       "status": "running",
       "at": "2026-08-24T15:35:19.961Z",
       "by": "modex"
+    },
+    {
+      "status": "ready",
+      "at": "2026-08-25T08:55:43.276Z",
+      "by": "modex"
+    },
+    {
+      "status": "done",
+      "at": "2026-08-25T08:55:43.296Z",
+      "by": "mode-h"
     }
   ],
   "qa": null,
-  "ready": null,
+  "ready": {
+    "at": "2026-08-25T08:55:43.276Z",
+    "sha": "",
+    "branch": "",
+    "lenient4bp": [],
+    "ship": ""
+  },
   "livecheck": null,
   "needsManual": null,
   "userVerified": null,
   "report": null,
-  "pr": null,
-  "merge": null,
+  "pr": {
+    "url": "https://github.com/BSQ-Group/rapid-formations-clone/pull/105",
+    "number": 105
+  },
+  "merge": {
+    "ref": "https://github.com/BSQ-Group/rapid-formations-clone/pull/105",
+    "sha": "2921269e44d1b36f1e5b0c20ee3c570d2adce0d3",
+    "at": "2026-08-25T08:55:43.296Z"
+  },
   "rejections": [],
   "proposalSource": null,
   "parent": null,
