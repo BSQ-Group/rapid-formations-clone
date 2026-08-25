@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useSyncExternalStore } from 'react'
+import { useRef, useState, useSyncExternalStore } from 'react'
 import * as TooltipPrimitive from '@radix-ui/react-tooltip'
 import * as DialogPrimitive from '@radix-ui/react-dialog'
 import { DialogDescription } from '@/components/ui/dialog'
@@ -53,10 +53,11 @@ export function InfoTooltip({
   triggerLabel = 'More information',
   triggerStyle,
   side = 'right',
-  desktopMinWidth = 768,
+  desktopMinWidth = 769,
   triggerClassName: triggerClassNameProp,
 }: InfoTooltipProps) {
   const [open, setOpen] = useState(false)
+  const pointerOverTrigger = useRef(false)
   const isDesktop = useIsDesktop(desktopMinWidth)
 
   if (!title && !content && !text) return null
@@ -136,7 +137,13 @@ export function InfoTooltip({
   }
 
   return (
-    <Tooltip open={open} onOpenChange={setOpen}>
+    <Tooltip
+      open={open}
+      onOpenChange={(next) => {
+        if (!next && pointerOverTrigger.current) return
+        setOpen(next)
+      }}
+    >
       <TooltipPrimitive.Trigger asChild>
         <button
           type="button"
@@ -144,6 +151,14 @@ export function InfoTooltip({
           aria-expanded={open}
           onPointerDown={handlePointerDown}
           onClick={handleClick}
+          onPointerEnter={(e) => {
+            if (e.pointerType !== 'touch') pointerOverTrigger.current = true
+          }}
+          onPointerLeave={(e) => {
+            if (e.pointerType === 'touch') return
+            pointerOverTrigger.current = false
+            setOpen(false)
+          }}
           style={triggerStyle}
           className={triggerClassName}
         >
