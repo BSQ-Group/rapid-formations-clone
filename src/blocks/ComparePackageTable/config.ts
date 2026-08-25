@@ -1,7 +1,6 @@
 import type { Block } from 'payload'
 
 import { defaultLexical } from '@/fields/defaultLexical'
-import { link } from '@/fields/link'
 import { sectionLayoutField } from '@/fields/sectionLayout'
 
 export const ComparePackageTable: Block = {
@@ -44,66 +43,20 @@ export const ComparePackageTable: Block = {
       minRows: 1,
       maxRows: 3,
       required: true,
+      labels: { singular: 'Package column', plural: 'Package columns' },
       admin: {
         description:
-          'One, two or three. The header, footer and feature rows each lay out differently for each count.',
+          'One, two or three packages to compare, left to right. Select existing packages — their price, features, ribbon and buy links all come from the Packages collection. The header, footer and feature rows each lay out differently for each count.',
       },
       fields: [
         {
-          type: 'row',
-          fields: [
-            { name: 'name', type: 'text', required: true, admin: { width: '50%' } },
-            {
-              name: 'slug',
-              type: 'text',
-              required: true,
-              admin: {
-                width: '50%',
-                description: 'Matches the values in a feature row\'s "Included in".',
-              },
-            },
-          ],
-        },
-        {
-          type: 'row',
-          fields: [
-            { name: 'price', type: 'text', required: true, admin: { width: '33%' } },
-            { name: 'priceNote', type: 'text', admin: { width: '33%' } },
-            { name: 'ribbonText', type: 'text', admin: { width: '33%' } },
-          ],
-        },
-        {
-          name: 'whosItFor',
-          type: 'richText',
-          editor: defaultLexical,
-          admin: { description: 'Desktop only, and only with three packages.' },
-        },
-        {
-          name: 'shortDescription',
-          type: 'richText',
-          editor: defaultLexical,
-          admin: { description: 'Mobile card only.' },
-        },
-        link({ appearances: false, overrides: { name: 'buyLink' } }),
-        link({ appearances: false, optional: true, overrides: { name: 'readMoreLink' } }),
-      ],
-    },
-    {
-      name: 'products',
-      type: 'array',
-      minRows: 1,
-      required: true,
-      labels: { singular: 'Feature', plural: 'Features' },
-      fields: [
-        { name: 'name', type: 'text', required: true },
-        { name: 'tooltip', type: 'richText', editor: defaultLexical },
-        {
-          name: 'includedIn',
-          type: 'text',
-          hasMany: true,
+          name: 'package',
+          type: 'relationship',
+          relationTo: 'packages',
+          required: true,
+          label: 'Package',
           admin: {
-            description:
-              'Package slugs that include this feature. Anything not listed renders a dash.',
+            allowCreate: false,
           },
         },
       ],

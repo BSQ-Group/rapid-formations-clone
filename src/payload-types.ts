@@ -72,6 +72,8 @@ export interface Config {
     media: Media;
     categories: Category;
     users: User;
+    packages: Package;
+    products: Product;
     serviceAds: ServiceAd;
     buyServices: BuyService;
     redirects: Redirect;
@@ -86,6 +88,9 @@ export interface Config {
     'payload-migrations': PayloadMigration;
   };
   collectionsJoins: {
+    products: {
+      usedIn: 'packages';
+    };
     'payload-folders': {
       documentsAndFolders: 'payload-folders' | 'media';
     };
@@ -96,6 +101,8 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    packages: PackagesSelect<false> | PackagesSelect<true>;
+    products: ProductsSelect<false> | ProductsSelect<true>;
     serviceAds: ServiceAdsSelect<false> | ServiceAdsSelect<true>;
     buyServices: BuyServicesSelect<false> | BuyServicesSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
@@ -2677,106 +2684,10 @@ export interface ComparePackageTableBlock {
     } | null;
   };
   /**
-   * One, two or three. The header, footer and feature rows each lay out differently for each count.
+   * One, two or three packages to compare, left to right. Select existing packages — their price, features, ribbon and buy links all come from the Packages collection. The header, footer and feature rows each lay out differently for each count.
    */
   packages: {
-    name: string;
-    /**
-     * Matches the values in a feature row's "Included in".
-     */
-    slug: string;
-    price: string;
-    priceNote?: string | null;
-    ribbonText?: string | null;
-    /**
-     * Desktop only, and only with three packages.
-     */
-    whosItFor?: {
-      root: {
-        type: string;
-        children: {
-          type: any;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    } | null;
-    /**
-     * Mobile card only.
-     */
-    shortDescription?: {
-      root: {
-        type: string;
-        children: {
-          type: any;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    } | null;
-    buyLink: {
-      type?: ('reference' | 'custom') | null;
-      newTab?: boolean | null;
-      reference?:
-        | ({
-            relationTo: 'pages';
-            value: string | Page;
-          } | null)
-        | ({
-            relationTo: 'posts';
-            value: string | Post;
-          } | null);
-      url?: string | null;
-      label: string;
-    };
-    readMoreLink?: {
-      type?: ('reference' | 'custom') | null;
-      newTab?: boolean | null;
-      reference?:
-        | ({
-            relationTo: 'pages';
-            value: string | Page;
-          } | null)
-        | ({
-            relationTo: 'posts';
-            value: string | Post;
-          } | null);
-      url?: string | null;
-      label?: string | null;
-    };
-    id?: string | null;
-  }[];
-  products: {
-    name: string;
-    tooltip?: {
-      root: {
-        type: string;
-        children: {
-          type: any;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    } | null;
-    /**
-     * Package slugs that include this feature. Anything not listed renders a dash.
-     */
-    includedIn?: string[] | null;
+    package: string | Package;
     id?: string | null;
   }[];
   /**
@@ -2813,6 +2724,175 @@ export interface ComparePackageTableBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'comparePackageTable';
+}
+/**
+ * Company formation packages. A price, name or feature list lives here once and every compare-packages page that shows it reads from this record.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "packages".
+ */
+export interface Package {
+  id: string;
+  /**
+   * As shown to customers, e.g. "All Inclusive Package".
+   */
+  name: string;
+  /**
+   * Which compare-packages page the package belongs to.
+   */
+  packageType:
+    | 'limited-by-shares'
+    | 'non-residents'
+    | 'limited-liability-partnership'
+    | 'limited-by-guarantee'
+    | 'other';
+  /**
+   * Low to high, within a company type. Also sets left-to-right column order in the grid.
+   */
+  order: number;
+  /**
+   * As shown, e.g. "£2.99".
+   */
+  price: string;
+  /**
+   * The line under the price, e.g. "+ £100 Companies House Fee". Leave blank if none.
+   */
+  priceNote?: string | null;
+  /**
+   * Optional ribbon/badge on the column, e.g. "Most Popular". Leave blank for none.
+   */
+  ribbonText?: string | null;
+  /**
+   * Desktop only, and only on the three-package compare grid.
+   */
+  whosItFor?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Mobile card only.
+   */
+  shortDescription?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Features shown in this package’s grid, in display order (drag to reorder). Use “Add product” to select an existing product — the same product can be shared across packages.
+   */
+  products?:
+    | {
+        product: string | Product;
+        id?: string | null;
+      }[]
+    | null;
+  buyLink: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+  };
+  readMoreLink?: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label?: string | null;
+  };
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * A single feature row shown in the compare-package grids. Edit a name or tooltip here once and every package that includes it updates. Products are a pure catalogue — they are selected from a Package, and know nothing about which packages use them.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products".
+ */
+export interface Product {
+  id: string;
+  /**
+   * The feature name shown on the website, e.g. "Registered Office Service".
+   */
+  name: string;
+  /**
+   * Shown in admin lists and the “Add product” picker so you can pick the right one. Defaults to the name; when two products share a name, add a short qualifier. Never shown on the website.
+   */
+  displayName?: string | null;
+  /**
+   * The info-circle popup shown next to this product in the grid. Leave blank for no tooltip.
+   */
+  tooltip?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Editor-only, never shown on the website. Explains why this record exists — e.g. it shares a name with another product but has different copy, and which packages use it.
+   */
+  notes?: string | null;
+  /**
+   * Read-only. The packages that currently include this product, kept in sync automatically.
+   */
+  usedIn?: {
+    docs?: (string | Package)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -5908,6 +5988,14 @@ export interface PayloadLockedDocument {
         value: string | User;
       } | null)
     | ({
+        relationTo: 'packages';
+        value: string | Package;
+      } | null)
+    | ({
+        relationTo: 'products';
+        value: string | Product;
+      } | null)
+    | ({
         relationTo: 'serviceAds';
         value: string | ServiceAd;
       } | null)
@@ -7182,39 +7270,7 @@ export interface ComparePackageTableBlockSelect<T extends boolean = true> {
   packages?:
     | T
     | {
-        name?: T;
-        slug?: T;
-        price?: T;
-        priceNote?: T;
-        ribbonText?: T;
-        whosItFor?: T;
-        shortDescription?: T;
-        buyLink?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-            };
-        readMoreLink?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-            };
-        id?: T;
-      };
-  products?:
-    | T
-    | {
-        name?: T;
-        tooltip?: T;
-        includedIn?: T;
+        package?: T;
         id?: T;
       };
   mobileCardHeight?: T;
@@ -9098,6 +9154,61 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "packages_select".
+ */
+export interface PackagesSelect<T extends boolean = true> {
+  name?: T;
+  packageType?: T;
+  order?: T;
+  price?: T;
+  priceNote?: T;
+  ribbonText?: T;
+  whosItFor?: T;
+  shortDescription?: T;
+  products?:
+    | T
+    | {
+        product?: T;
+        id?: T;
+      };
+  buyLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
+  readMoreLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
+  generateSlug?: T;
+  slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products_select".
+ */
+export interface ProductsSelect<T extends boolean = true> {
+  name?: T;
+  displayName?: T;
+  tooltip?: T;
+  notes?: T;
+  usedIn?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
