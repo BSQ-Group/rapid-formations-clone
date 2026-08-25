@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-6999 \u00b7 SHARED: final-content\u2192footer gap \u2014 VERIFIED, premise wrong, needs re-scope",
+  "body": "**Linear:** [CORE-6999](https://linear.app/bsq-group/issue/CORE-6999)\n\n**Verification report:** `reports/T25-CORE-6999-verification.md`\n\n## The premise is materially wrong \u2014 no code was written\n\nNot 20px, not tighter at most widths, and **not SHARED**. It affects **8 legal/policy pages out of 92**.\nMetric: last section's *content-box* bottom \u2192 `footer.top`, measured live vs a local production build.\n\n| 1800 | 1590 | 1440 | 1024 | 768 | 360 |\n|---|---|---|---|---|---|\n| 130/116 = **-14** | 130/100 = **-30** | 95/100 = +5 | 95/100 = +5 | 50/64 = +14 | 50/56 = +6 |\n\nBelow 1440 the clone is **looser**, not tighter. The headline \"~20px\" reproduces on exactly one page\n(`/privacy-policy` @1800), and 8 of those 22px come from a separate `<ol>` margin defect.\n\n**Worse than first reported:** the 1590-1799 band is **-30px**, not -14 \u2014 confirmed at 1590, 1600,\n1680 and 1728 (the default logical width of a 16\" MacBook Pro). The clone's `--section-spacing-l`\nsteps up at 1800 while live's rhythm steps at 1023 and 1590.\n\n8 control pages measured at 48/48 cells: **0px difference**.\n\n## The correct value is proved, but is not reachable from code\n\nSwapping the trailing section's `pb-[var(--section-spacing-l)]` for `responsiveGap.section`\n(`pb-0 mb-[50px] min-[1023px]:mb-[75px] min-[1590px]:mb-[110px]`) at runtime gives **48/48 exact\nmatches** to live. But that value lives entirely in **CMS data**: all 8 documents explicitly store\n`{\"paddingBottom\":\"l\",\"gap\":\"inherit\"}`. Editing `TextContent/config.ts` moves zero pixels \u2014 Payload\napplies a config default only at document creation. There is no git-tracked data route either (no\n`src/migrations/`, no `payload migrate` in CI, and the `/next/seed` route no longer exists).\n\nEvery code path that *would* move pixels regresses a shared component \u2014 e.g. a `gap:'inherit' -> 'section'`\nrender fallback would also fire on `renewals` block 2/7, which currently matches live at 0px.\n\n## Recommended disposition\n\n1. **Re-title off SHARED** \u2192 8 of 92 pages; -30 @1590-1799, -14 @>=1800, +5/+14/+6 below.\n2. **Convert to a CMS content edit**: on each of the 8 pages, on the **last** (`textContent`) block only,\n   set Padding bottom `L -> None` and Gap `Inherit -> Section`. Leave the 9 mid-page instances alone.\n3. **Separate code task** for the latent default (`TextContent/config.ts:44-47`, `LegacyContent/config.ts:87`)\n   \u2014 prevention only, moves no pixels today.\n4. Separate tickets: the `<ol>` `!mb-0` defect, and FAQs-as-trailing-section on `/compare-packages`\n   (+30\u2026+90, opposite sign).\n\nData change deliberately NOT applied: `MONGODB_URI` is one shared Atlas cluster used by every worktree\nand by the deploy, and this is shared content needing a human's go-ahead.",
+  "acceptanceCriteria": [
+    "Ticket re-scoped in Linear off SHARED to the 8 legal/policy pages.",
+    "CMS edit applied to the last textContent block on those 8 pages only (paddingBottom L->None, gap Inherit->Section).",
+    "Mid-page textContent instances left untouched \u2014 verified no regression on the 8 control pages.",
+    "Follow-up tickets filed: config default, <ol> margin, FAQs-as-trailing-section."
+  ],
+  "status": "backlog",
+  "track": "clone",
+  "tags": [
+    "bug"
+  ],
+  "priority": "normal",
+  "effort": "M",
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-08-25T11:51:23.594570Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-08-25T11:51:23.594570Z",
+  "startedAt": null,
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-08-25T11:51:23.594570Z",
+      "by": "planning"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": null,
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "id": "T25",
+  "num": 25
+}

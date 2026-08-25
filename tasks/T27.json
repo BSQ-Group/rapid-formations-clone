@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-7143 \u00b7 SHARED: testimonial quote text too light \u2014 #595959 vs live #555555",
+  "body": "**Linear:** [CORE-7143](https://linear.app/bsq-group/issue/CORE-7143) \u00b7 **PR** #114\n\nPremise verified. **Correct.** Source-of-truth page `/company-dissolution` @1440, Cookiebot accepted and\nfixed/sticky `z-index > 10` overlays stripped.\n\n| element | live | clone before |\n|---|---|---|\n| **quote body** (`p.Testimonials--testimonial__comment`) | **`rgb(85, 85, 85)`** | `rgb(89, 89, 89)` |\n| author | `rgb(89, 89, 89)` | matches |\n| brand | `rgb(89, 89, 89)` | matches |\n| wrapper div | `rgb(54, 54, 54)` | \u2014 the wrapper trap, not the quote colour |\n\nCorroborated breakpoint-independently in the live stylesheet: `.Testimonials--testimonial__comment{color:#555}`\nis declared once, unconditionally, and is the **only** `color:#555` in the entire 301 KB bundle. The\nauthor/brand rules declare no colour and inherit `#595959`.\n\n## The change\n\n`TestimonialQuote.styles.ts:14` pointed `comment` at `--text-on-light-muted` (`rgb(89 89 89)`). No token\nheld `rgb(85 85 85)`. Added `--text-on-light-quote: rgb(85 85 85)` and re-pointed only the `comment` class.\n\n**The shared token's value was NOT changed** \u2014 it has **88** consumer sites across `src/`. Precedent for a\none-off token exists in the same block (`--text-on-light-title`, 1 consumer).\n\n## After\n\n1440 and 390 both compute `rgb(85, 85, 85)`, with font-size/weight/line-height already matching live.\nRegression probe on the same rendered page confirms an unrelated `--text-on-light-muted` consumer still\ncomputes `rgb(89,89,89)`; `--text-on-light-quote` has exactly one consumer.\n\nNo screenshots: a 4-unit grey delta does not survive a screenshot \u2014 the computed values are the evidence.",
+  "acceptanceCriteria": [
+    "Quote body computes rgb(85, 85, 85) on a production build, matching live.",
+    "Author, brand and icon colours unchanged.",
+    "--text-on-light-muted value untouched; its 88 other consumers unaffected.",
+    "Merges cleanly with the CORE-7121 branch (Component.tsx not touched)."
+  ],
+  "status": "running",
+  "track": "clone",
+  "tags": [
+    "bug",
+    "parallel"
+  ],
+  "priority": "normal",
+  "effort": "S",
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-08-25T11:51:23.594570Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-08-25T11:51:23.594570Z",
+  "startedAt": "2026-08-25T11:51:23.594570Z",
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-08-25T11:51:23.594570Z",
+      "by": "planning"
+    },
+    {
+      "status": "running",
+      "at": "2026-08-25T11:51:23.594570Z",
+      "by": "modex"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": {
+    "url": "https://github.com/BSQ-Group/rapid-formations-clone/pull/114",
+    "number": 114
+  },
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "id": "T27",
+  "num": 27
+}

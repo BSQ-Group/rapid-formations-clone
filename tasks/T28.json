@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-7002 \u00b7 B-Corp banner gap \u2014 real, but homepage-only and 40px below 1023",
+  "body": "**Linear:** [CORE-7002](https://linear.app/bsq-group/issue/CORE-7002) \u00b7 **PR** #115\n\nPremise confirmed; **two things in the ticket are wrong.**\n\n## Not SHARED \u2014 homepage only\n\nAll **104** pages from the clone's sitemap were fetched and grepped: the block renders on exactly **one**, `/`.\nLive agrees \u2014 other live pages contain `bcorpBanner` once, but that occurrence is the CSS rule in the shared\ninlined stylesheet, not markup. The homepage has 8 occurrences; `/blog/` has 0. **Suggest re-titling to Homepage.**\n\n## Below 1023px it is 40px, not 20\n\nBanner bottom edge \u2192 top of the next painted text:\n\n| width | live | clone before | delta | after |\n|---|---|---|---|---|\n| 360 / 500 / 767 | 110 | 70 | **-40** | **110** |\n| 768 / 1000 / 1022 | 180 | 140 | **-40** | **180** |\n| 1023 / 1024 / 1440 / 1590 / 1800 | 160 | 140 | -20 | **160** |\n\nThe gap **above** the banner was also wrong, which the ticket does not mention \u2014 same 20px, at >=1023 only\n(live 160 vs clone 140; 70 and 140 already matched below that). Fixed too.\n\n## Cause\n\nThe banner's own margin was never at fault: live `margin-bottom` is 70px below 768 and 140px at >=768,\nwhich `mb-[70px] md:mb-[140px]` already matches exactly, breakpoint included.\n\nThe missing pixels are live's **page-body wrapper**. Live renders the banner as a direct child of\n`Layouts--app`, *outside* the wrapper, so `div.Wrapper--wrapper__content`'s own padding lands either side:\n`padding-top: 40px` (<1023) / `20px` (>=1023), `padding-bottom: 20px` (>=1023 only). Live's totals are the\nsum: 70+40=110, 140+40=180, 140+20=160. The clone has no wrapper split \u2014 every section is a plain sibling \u2014\nso that padding had nowhere to come from.\n\nBreakpoints verified by sweeping live at 17 widths (360/500/600/700/760/**767/768**/800/900/1000/**1022/1023**/1024/1100/1440/1590/1800):\nmargin switches at **768** (Tailwind `md:`), wrapper padding at **1023** (the repo's `min-[1023px]` convention).\nNo new breakpoint introduced.\n\n## The change\n\nOne line in `BCorpCertification.styles.ts`:\n`section: 'w-full'` -> `section: 'w-full pb-[40px] min-[1023px]:pt-[20px] min-[1023px]:pb-[20px]'`\n\n**Padding, not margin, deliberately.** `margin-bottom` would collapse with the banner's own `mb` to\n`max(140, 40) = 140`; `margin-top` would collapse with the previous section's `mb-[140px]` to `max(140, 20) = 140`.\nPadding never collapses, so it is additive \u2014 which is what live sums to. (This repo already shipped one\nno-op `mb-[15px]` fix for exactly this reason.)\n\n`SectionWrapper` composes with `cn()` = `twMerge(clsx())` and `className` is last, so these override the CMS\n`paddingBottom: 'none'` -> `pb-0` cleanly rather than racing it on class order.\n\n**No colour change:** the gap band is `rgb(255,255,255)` on live, and `--surface-canvas-inverse` is\n`rgb(255 255 255)` for RF, verified by hit-testing the gap midpoint on both sites.",
+  "acceptanceCriteria": [
+    "Gap below the banner is 110 / 180 / 160 at the same widths live is.",
+    "Gap above the banner is 160 at >=1023, matching live; unchanged below.",
+    "Breakpoints land on 768 and 1023, the repo's existing conventions.",
+    "Ticket re-scoped off SHARED to homepage-only in Linear."
+  ],
+  "status": "running",
+  "track": "clone",
+  "tags": [
+    "bug",
+    "parallel"
+  ],
+  "priority": "normal",
+  "effort": "S",
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-08-25T11:51:23.594570Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-08-25T11:51:23.594570Z",
+  "startedAt": "2026-08-25T11:51:23.594570Z",
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-08-25T11:51:23.594570Z",
+      "by": "planning"
+    },
+    {
+      "status": "running",
+      "at": "2026-08-25T11:51:23.594570Z",
+      "by": "modex"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": {
+    "url": "https://github.com/BSQ-Group/rapid-formations-clone/pull/115",
+    "number": 115
+  },
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "id": "T28",
+  "num": 28
+}

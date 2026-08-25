@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-7121 \u00b7 SHARED: testimonial quote fixed per page \u2014 live rotates per load",
+  "body": "**Linear:** [CORE-7121](https://linear.app/bsq-group/issue/CORE-7121) \u00b7 **PR** #113\n\nPremise verified before any code. **Correct.**\n\nLive `/company-name-change/`: 6 cold-cache loads \u2192 **5 distinct quotes**; `/renewals/` \u2192 4 distinct of 6.\nTwo facts pinned it down:\n\n- **Client-side, not server-side.** 8 curls of the same URL returned *byte-identical* HTML (450,550 bytes,\n  always David Reid) while the rendered DOM showed four other people. The swap happens at hydration.\n- **Per-load random, not a carousel.** The value at +6s equalled the value at hydration in every load;\n  no controls, no auto-advance.\n\nMechanism, decompiled from the shipped Gatsby chunk (module 63231):\n`e[Math.floor(Math.random() * e.length)].node` \u2014 inline in the render body. Live ships all 9 testimonials\nto every client via static query `3724112457` \u2014 the same 9 the clone holds in `testimonialPool`.\n\nClone used `pool[pick(id, pool.length)]` \u2014 a hash of the Payload block id, so fixed per page forever.\n\n## The change\n\nServer component passes the whole pool plus the existing deterministic index to a new client component\n`TestimonialQuoteRotator.tsx`, which swaps to a per-load random index via `useSyncExternalStore`.\n`getServerSnapshot` returns the deterministic index so SSR stays cacheable and hydration matches exactly;\n`Math.random()` runs once at module scope, never during render.\n\nThree rejected approaches: server-side `Math.random()` (baked into the cached RSC payload);\n`Math.random()` in a client render body (React 19 hydration mismatch \u2014 live gets away with it on React 17);\n`useState` + `setState` in `useEffect` (worked, but the repo's ESLint rejects `react-hooks/set-state-in-effect`).\n\n## Evidence\n\nScreenshots in the PR: live rotating across 4 loads; clone before showing the same quote 3\u00d7 (the three\nelement PNGs are byte-identical, 61,259 bytes each); clone after rotating across 4, on a production build.\n\n**Known divergence, documented not hidden:** the seed is per hard page load, so a client-side soft-nav\nbetween two block-carrying pages keeps the same quote where live would re-pick.\n\n**Separate bug found:** clone slugs `business-address`, `service-address`, `london-registered-office`\n404 on live at that path \u2014 live nests them under `/additional-services/<slug>/`. Not touched.",
+  "acceptanceCriteria": [
+    "Testimonial quote differs across cold-cache page loads, as live does.",
+    "Server HTML stays deterministic so the route remains cacheable.",
+    "Zero hydration console errors on a production build.",
+    "No markup, layout or style change to the block."
+  ],
+  "status": "running",
+  "track": "clone",
+  "tags": [
+    "bug",
+    "parallel"
+  ],
+  "priority": "normal",
+  "effort": "M",
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-08-25T11:51:23.594570Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-08-25T11:51:23.594570Z",
+  "startedAt": "2026-08-25T11:51:23.594570Z",
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-08-25T11:51:23.594570Z",
+      "by": "planning"
+    },
+    {
+      "status": "running",
+      "at": "2026-08-25T11:51:23.594570Z",
+      "by": "modex"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": {
+    "url": "https://github.com/BSQ-Group/rapid-formations-clone/pull/113",
+    "number": 113
+  },
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "id": "T26",
+  "num": 26
+}
