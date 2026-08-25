@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-7133 \u00b7 Google review logo oversized fallback src \u2014 markup-only, zero pixel change",
+  "body": "**Linear:** [CORE-7133](https://linear.app/bsq-group/issue/CORE-7133) \u00b7 **PR** #118\n\nThe filed symptom is **real in the markup but does not reproduce at runtime.** All three open hypotheses\nsettled empirically on `/director-appointment-resignation`.\n\n## H1 \u2014 which candidate is actually fetched\n\n| | DPR 1 | DPR 2 |\n|---|---|---|\n| live | `1x` 400x135 webp, 9,710 B | `2x` 800x270, 20,190 B |\n| clone | `w=256` 256x87 avif, 9,547 B | `w=640` 640x216, 22,207 B |\n\nBoth sane at both DPRs. No resolution defect: effective DPR 1.74 at DPR 1, 4.32 at DPR 2.\n\n## H2 \u2014 is the `w=3840` fallback ever fetched? **No**\n\nZero requests for it across four instrumented runs (before/after x DPR 1/2). Chrome ignores `src`\nentirely when `srcset` + `sizes` are present.\n\n## H3 \u2014 `object-contain` vs `cover`? **The earlier note was wrong**\n\nLive's computed `object-fit` is **`contain`**, not `cover` \u2014 both sides letterbox identically into\n200x50. Painted logo: live 148.15x50 vs clone 147.13x50 at DPR 1 (1.02px, from the optimiser rounding\n86.5 -> 87), and an **exact** match at DPR 2. `object-contain` left alone.\n\nClone master is **2000x676, identical to live's** \u2014 not a wrong-variant media task. No MongoDB write.\n\n## What is actually wrong\n\n`size=\"200px\"` has no `vw` unit, so Next's `getWidths()` returns `{ widths: allSizes, kind: 'w' }` and\n`generateImgAttrs()` sets `src` to the largest candidate \u2014 `w=3840`, served as the untouched 2000x676\nmaster (30,192 B). Only Google is affected; every other logo has a small master (Trustpilot's `w=3840`\nreturns 1,880 B).\n\nFault: `ReviewStatCard/index.tsx:46`, enabled by `Media/ImageMedia/index.tsx:50` having no way to accept\na render width.\n\n## The fix, and its honest value\n\n3 files, ~10 lines, purely additive: `ImageMedia` accepts `width`/`height` and omits `sizes` when given\none; `ReviewStatCard` passes `width={200} height={68}`. That moves it onto the `x`-descriptor path\n(`256 1x, 640 2x`), matching live's shape. `width`/`height` did not exist on `Props` before, so\nTypeScript guarantees no other call site is affected \u2014 `ReviewStatCard` is the only caller.\n\n**After-measurement: zero pixel change.** Logo screenshots byte-identical before vs after at both DPRs\n(md5 match; PIL diff 0 differing pixels, empty bbox). Same bytes fetched.\nsrcset 15 -> 2 entries; `/_next/image` URLs per page 62 -> 36; fallback `src` 2000px -> 640px.\n\n**It is not a payload fix either.** The byte-waste theory assumed the oversized fallback is fetched; it\nnever is. Image bytes identical. HTML: 246,866 -> 243,744 B raw, but gzip had already collapsed the\nnear-identical srcset strings \u2014 **34,584 -> 34,431 B gzipped = 153 bytes.**\n\n## Disposition\n\nVerified and zero-risk, but buys no pixels and 153 gzipped bytes. Legitimate to merge as markup\ncorrectness, equally legitimate to close as not worth the churn. Should not be prioritised over the\nboard's real fidelity defects.",
+  "acceptanceCriteria": [
+    "Fallback src is a sane candidate rather than the 2000x676 master.",
+    "Zero pixel change \u2014 logo renders byte-identically at DPR 1 and DPR 2.",
+    "No other ImageMedia call site affected (enforced by the type system).",
+    "Decision recorded on whether the markup tidy is worth merging at all."
+  ],
+  "status": "running",
+  "track": "clone",
+  "tags": [
+    "bug",
+    "parallel"
+  ],
+  "priority": "low",
+  "effort": "S",
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-08-25T13:32:08.073680Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-08-25T13:32:08.073680Z",
+  "startedAt": "2026-08-25T13:32:08.073680Z",
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-08-25T13:32:08.073680Z",
+      "by": "planning"
+    },
+    {
+      "status": "running",
+      "at": "2026-08-25T13:32:08.073680Z",
+      "by": "modex"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": {
+    "url": "https://github.com/BSQ-Group/rapid-formations-clone/pull/118",
+    "number": 118
+  },
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "id": "T32",
+  "num": 32
+}
