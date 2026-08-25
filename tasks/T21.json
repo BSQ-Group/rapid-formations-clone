@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-7010 · SHARED: FAQ topic pages banner/first-FAQ gap smaller than live",
+  "body": "**Linear:** [CORE-7010](https://linear.app/bsq-group/issue/CORE-7010)\n\n## Verified 2026-08-25 — reproduces on all 22 FAQ topic pages\n\n| | live | clone (before) |\n|---|---|---|\n| banner bottom → first FAQ top | **35px** | **20px** |\n\nConstant at 1800 / 1440 / 1024 / 768 on both sites, so it is a fixed inset, not a responsive drift.\n\n## Where live's 35px comes from\n\nTraced both ancestor chains. Live composes it from two separate boxes:\n\n```\nSECTION (banner)   margin-bottom: 15px     <- the clone has 0\nSECTION (FAQ)\n  DIV (items)      margin-top: 20px        <- the clone already matches (mt-5)\n                                    total = 35px\n```\n\nThe clone's `TitleBanner` image variant renders a bare `<section>` with no spacing at all, so\nonly the list's own 20px survives.\n\n## Why `pb`, not `mb`\n\nMy first attempt added `mb-[15px]` and the gap **did not move** — still 20px, with the class\ncorrectly applied. Adjacent-sibling margin collapsing: the FAQ list's `mt-5` propagates out to\nits section, and collapsing against the banner's 15px takes `max(15, 20) = 20`.\n\nLive does not collapse because its `Section` is `display:flex; flex-direction:column`, and flex\ncontainers do not collapse margins with their children.\n\nRather than convert the FAQ section to flex (a layout change with a much wider blast radius),\nthe banner contributes its 15px as **padding**, which never collapses. Same rendered result,\nno restructuring:\n\n```diff\n- imageSection: 'font-legacy-condensed w-full',\n+ imageSection: 'font-legacy-condensed w-full',\n+ imageSectionContained: 'pb-[15px]',\n```\n\n## Scoped to `imageContained` only\n\n`TitleBanner`'s image variants are used by exactly 23 pages: the 22 FAQ topic pages\n(`imageContained`) and `/contact-us` (`imageBleed`).\n\nThat distinction matters, because live's spacing here is **per-page CMS data**, not a component\nconstant — live's banner section carries an inline `margin-bottom`, and it is `15px` on the FAQ\npages but `30px` on `/contact-us`. Hard-coding 15px on the shared `imageSection` would therefore\nhave applied a wrong value to `/contact-us`.\n\nGating on `variant === 'imageContained'` hits the FAQ pages exactly and leaves `/contact-us`\nuntouched — verified: its banner section renders without the new class.\n\n## After\n\n| viewport | 1800 | 1440 | 1024 | 768 |\n|---|---|---|---|---|\n| gap | **35** | **35** | **35** | **35** |\n\nSecond page cross-checked: `/faqs/vat` — live 35, after 35.\n\n![before/after](https://60cfqkpecvp2z01z.public.blob.vercel-storage.com/pr-screenshots/core-7010/gap-before-after.png)\n\n**BEFORE** = `rapid-formations-clone.vercel.app` (`main`) · **AFTER** = local production build of this branch.\n\n> The Vercel preview could not be used: it is SSO-walled and returns `<title>Login – Vercel</title>` with **HTTP 200**, so an automated screenshot of it captures a login page rather than the app.\n\n## Follow-up worth filing separately\n\n`/contact-us` has the same class of defect in the other direction: live gives its banner a 30px\nbottom margin, the clone gives it 0. Out of scope for this ticket, and it needs the `imageBleed`\npath, so I have not touched it.\n\n## Checks\n\n- `bun run ts` clean · `bun run build` green\n- gap measured on two FAQ topic pages across four viewports\n- `/contact-us` confirmed unchanged\n",
+  "acceptanceCriteria": [
+    "Banner bottom to first FAQ top measures 35px on FAQ topic pages, matching live.",
+    "Holds at 1800 / 1440 / 1024 / 768 on at least two FAQ topic pages.",
+    "/contact-us (imageBleed variant) is unchanged — live uses 30px there, not 15px.",
+    "No margin-collapsing regression: the value must actually render, not just appear in the class list."
+  ],
+  "status": "running",
+  "track": "clone",
+  "tags": [
+    "bug",
+    "parallel"
+  ],
+  "priority": "normal",
+  "effort": "S",
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-08-25T09:43:54.173Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-08-25T09:43:54.229Z",
+  "startedAt": "2026-08-25T09:43:54.228Z",
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-08-25T09:43:54.173Z",
+      "by": "planning"
+    },
+    {
+      "status": "running",
+      "at": "2026-08-25T09:43:54.228Z",
+      "by": "modex"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": {
+    "url": "https://github.com/BSQ-Group/rapid-formations-clone/pull/109",
+    "number": 109
+  },
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "id": "T21",
+  "num": 21
+}
