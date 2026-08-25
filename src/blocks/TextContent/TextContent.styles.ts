@@ -1,5 +1,7 @@
-const bulletLists =
-  '[&_ul]:!mt-2 [&_ul]:!mb-2 [&_ul]:!pl-10 [&_ul]:list-disc [&_li]:!mb-2.5 [&_li]:!pl-2.5 [&_li:has(>ol)]:!mb-0 [&_li:has(>ol)]:!pl-0 [&_ol]:!mt-2 [&_ol]:!mb-0 [&_ol]:!pl-[15px] [&_li_ol]:!pl-8 [&_ol>li]:!my-0 [&_li_ol>li]:!my-2.5 [&_ol>li]:!pb-2.5 [&_ol>li:first-child]:!mt-0 [&_ol>li]:list-[lower-latin]'
+const bulletListsBase =
+  '[&_ul]:!mt-2 [&_ul]:!mb-2 [&_ul]:!pl-10 [&_ul]:list-disc [&_li]:!mb-2.5 [&_li]:!pl-2.5 [&_li:has(>ol)]:!mb-0 [&_li:has(>ol)]:!pl-0 [&_ol]:!mt-2 [&_ol]:!mb-0 [&_ol]:!pl-[15px] [&_li_ol]:!pl-8 [&_ol>li]:!my-0 [&_li_ol>li]:!my-2.5 [&_ol>li]:!pb-2.5 [&_ol>li:first-child]:!mt-0'
+
+const bulletLists = `${bulletListsBase} [&_ol>li]:list-[lower-latin]`
 
 export const textContentStyles = {
   section: 'font-legacy-condensed w-full bg-[var(--surface-canvas)]',
@@ -21,7 +23,7 @@ const standard = {
 }
 
 const pageSections = {
-  lists: bulletLists,
+  lists: `${bulletListsBase} [&_ol>li]:list-decimal [&_ul_li]:!mb-0 [&_ul_li]:!pl-0`,
 
   spacing: '[&_p]:!mb-4',
 
