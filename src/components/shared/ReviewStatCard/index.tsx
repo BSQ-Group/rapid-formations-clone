@@ -43,7 +43,8 @@ export const ReviewStatCard: React.FC<ReviewStatCardProps> = ({
             alt={`Logo for ${provider}.`}
             htmlElement={null}
             imgClassName={s.logo}
-            size="200px"
+            width={200}
+            height={68}
           />
         </span>
       )}
