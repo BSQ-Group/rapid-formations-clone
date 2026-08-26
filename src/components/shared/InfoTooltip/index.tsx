@@ -58,7 +58,28 @@ export function InfoTooltip({
 }: InfoTooltipProps) {
   const [open, setOpen] = useState(false)
   const pointerOverTrigger = useRef(false)
+  const triggerButtonRef = useRef<HTMLButtonElement>(null)
+  const [effectiveSide, setEffectiveSide] = useState<InfoTooltipProps['side']>(side)
   const isDesktop = useIsDesktop(desktopMinWidth)
+
+  // CORE-7146: Radix flips left<->right but never switches axis, so a wide
+  // (max 550px) tooltip on a right-hand card in the 769-1023px band clips off
+  // the viewport. Match live's collision fallback: when a horizontal `side`
+  // can fit on neither edge, open above instead.
+  const resolveSide = () => {
+    const el = triggerButtonRef.current
+    if (!el || (side !== 'left' && side !== 'right')) {
+      setEffectiveSide(side)
+      return
+    }
+    const rect = el.getBoundingClientRect()
+    const TOOLTIP_MAX_WIDTH = 550
+    const GUTTER = 20 // sideOffset + collisionPadding headroom
+    const roomLeft = rect.left - GUTTER
+    const roomRight = window.innerWidth - rect.right - GUTTER
+    const fitsHorizontally = roomLeft >= TOOLTIP_MAX_WIDTH || roomRight >= TOOLTIP_MAX_WIDTH
+    setEffectiveSide(fitsHorizontally ? side : 'top')
+  }
 
   if (!title && !content && !text) return null
 
@@ -141,11 +162,13 @@ export function InfoTooltip({
       open={open}
       onOpenChange={(next) => {
         if (!next && pointerOverTrigger.current) return
+        if (next) resolveSide()
         setOpen(next)
       }}
     >
       <TooltipPrimitive.Trigger asChild>
         <button
+          ref={triggerButtonRef}
           type="button"
           aria-label={triggerLabel}
           aria-expanded={open}
@@ -167,7 +190,7 @@ export function InfoTooltip({
       </TooltipPrimitive.Trigger>
       <TooltipPrimitive.Portal>
         <TooltipPrimitive.Content
-          side={side}
+          side={effectiveSide}
           align="center"
           sideOffset={8}
           collisionPadding={12}
