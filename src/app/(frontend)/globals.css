@@ -305,6 +305,11 @@
     --text-namecheck-error: rgb(238 61 66);
     --surface-cta-retry: rgb(243 156 18);
     --surface-table-header: rgb(235 235 235);
+    --surface-browser-chrome: rgb(230 230 230);
+    --surface-browser-dot-red: rgb(255 95 87);
+    --surface-browser-dot-amber: rgb(254 188 46);
+    --surface-browser-dot-green: rgb(40 200 64);
+    --shadow-browser-window: 0 8px 24px rgb(0 0 0 / 0.15);
     --surface-cta-success: rgb(0 182 122);
     --surface-cta-success-hover: rgb(0 208 139);
     --surface-cta-search-hover: rgb(0 131 88);

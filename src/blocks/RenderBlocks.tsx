@@ -64,6 +64,7 @@ import { RegisteredOfficeAddressBlock } from '@/blocks/RegisteredOfficeAddress/C
 import { ServicesTestimonialBlock } from '@/blocks/ServicesTestimonial/Component'
 import { TestimonialBannerBlock } from '@/blocks/TestimonialBanner/Component'
 import { HowItWorksBlock } from '@/blocks/HowItWorks/Component'
+import { HowItWorksScreensBlockComponent } from '@/blocks/HowItWorksScreens/Component'
 import { LegalSidenavBlock } from '@/blocks/LegalSidenav/Component'
 import { LegalContentBlock } from '@/blocks/LegalContent/Component'
 import { ContactUsBlockComponent } from '@/blocks/ContactUs/Component'
@@ -162,6 +163,7 @@ const blockComponents = {
   servicesTestimonial: ServicesTestimonialBlock,
   testimonialBanner: TestimonialBannerBlock,
   howItWorks: HowItWorksBlock,
+  howItWorksScreens: HowItWorksScreensBlockComponent,
   legalSidenav: LegalSidenavBlock,
   legalContent: LegalContentBlock,
   contactUs: ContactUsBlockComponent,
