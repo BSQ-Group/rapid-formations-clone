@@ -342,6 +342,7 @@
     --border-on-light: rgb(218 218 218);
     --border-on-light-strong: rgb(204 204 204);
     --border-on-light-tile: rgb(215 215 215);
+    --border-on-light-select: rgb(5 120 165);
     --surface-brand-orange: rgb(249 128 0);
     --surface-banner-backdrop: rgb(38 50 56);
     --surface-banner-backdrop-mist: rgb(229 231 235);
@@ -355,6 +356,8 @@
     --surface-on-light-tile: rgb(241 241 241);
     --surface-on-light-hover: rgb(0 0 0 / 0.03);
     --surface-on-light-wash-blue: rgb(241 245 255);
+    --surface-on-light-inverse: rgb(0 0 0);
+    --surface-on-light-inverse-hover: rgb(51 51 51);
     --icon-on-light-faint: rgb(199 199 199);
     --icon-step-complete: rgb(27 193 113);
     --icon-map-marker: rgb(231 76 60);

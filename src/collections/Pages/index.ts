@@ -42,6 +42,7 @@ import { BuyService } from '../../blocks/BuyService/config'
 import { ServiceContent } from '../../blocks/ServiceContent/config'
 import { ServicesBenefits } from '../../blocks/ServicesBenefits/config'
 import { ServicePriceBanner } from '../../blocks/ServicePriceBanner/config'
+import { VideoLibrary } from '../../blocks/VideoLibrary/config'
 import { OurAddress } from '../../blocks/OurAddress/config'
 import { CallOutCTA } from '../../blocks/CallOutCTA/config'
 import { ChooseCompanyStructure } from '../../blocks/ChooseCompanyStructure/config'
@@ -215,6 +216,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 ServiceContent,
                 ServicesBenefits,
                 ServicePriceBanner,
+                VideoLibrary,
                 OurAddress,
                 CallOutCTA,
                 TrustPilotBanner,

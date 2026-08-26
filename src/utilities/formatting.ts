@@ -17,7 +17,9 @@ export const curlyToEm = (str: string) => {
 }
 
 export const stripHtml = (html: string): string =>
-  decodeEntities(html.replace(/<[^>]*>/g, '')).replace(/\s+/g, ' ').trim()
+  decodeEntities(html.replace(/<[^>]*>/g, ''))
+    .replace(/\s+/g, ' ')
+    .trim()
 
 export const readingTime = (html: string): string => {
   const words = stripHtml(html).split(' ').filter(Boolean).length
@@ -70,6 +72,30 @@ export const formatDateShortMonth = (dateString?: string | null) => {
     day: 'numeric',
     year: 'numeric',
   })
+}
+
+export const formatDateLongUTC = (dateString?: string | null) => {
+  if (!dateString) return ''
+  const date = new Date(dateString)
+  if (Number.isNaN(date.getTime())) return ''
+  return date.toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'UTC',
+  })
+}
+
+export const formatIsoDuration = (duration?: string | null): string => {
+  const match = duration && /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/.exec(duration.trim())
+  if (!match) return '0 mins'
+
+  const hours = Number(match[1] ?? 0)
+  const minutes = Number(match[2] ?? 0)
+  const seconds = Number(match[3] ?? 0)
+  const total = Math.round(hours * 60 + minutes + seconds / 60)
+
+  return total === 1 ? '1 min' : `${total} mins`
 }
 
 export const formatDateShortMonthGB = (dateString?: string | null) => {
