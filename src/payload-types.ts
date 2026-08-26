@@ -798,6 +798,10 @@ export interface Form {
             name: string;
             label?: string | null;
             width?: number | null;
+            /**
+             * Hint text shown inside the field while it is empty.
+             */
+            placeholder?: string | null;
             required?: boolean | null;
             id?: string | null;
             blockName?: string | null;
@@ -828,6 +832,10 @@ export interface Form {
             label?: string | null;
             width?: number | null;
             defaultValue?: number | null;
+            /**
+             * Hint text shown inside the field while it is empty.
+             */
+            placeholder?: string | null;
             required?: boolean | null;
             id?: string | null;
             blockName?: string | null;
@@ -865,6 +873,10 @@ export interface Form {
             label?: string | null;
             width?: number | null;
             defaultValue?: string | null;
+            /**
+             * Hint text shown inside the field while it is empty.
+             */
+            placeholder?: string | null;
             required?: boolean | null;
             id?: string | null;
             blockName?: string | null;
@@ -875,6 +887,10 @@ export interface Form {
             label?: string | null;
             width?: number | null;
             defaultValue?: string | null;
+            /**
+             * Hint text shown inside the field while it is empty.
+             */
+            placeholder?: string | null;
             required?: boolean | null;
             id?: string | null;
             blockName?: string | null;
@@ -3026,6 +3042,19 @@ export interface ServiceContentBlock {
         id?: string | null;
       }[]
     | null;
+  /**
+   * A bordered panel holding a form. Two columns puts it at the top of the right column, above everything on mobile; one column puts it after the copy.
+   */
+  formPanel?: {
+    /**
+     * Sits above the form, e.g. "Switch to email delivery".
+     */
+    heading?: string | null;
+    /**
+     * Leave empty to hide the panel.
+     */
+    form?: (string | null) | Form;
+  };
   /**
    * Priced cards rendered inside the content. Two columns puts them at the top of the right column, above everything on mobile; one column puts them after the copy.
    */
@@ -5861,6 +5890,18 @@ export interface TitleBannerBlock {
    */
   title?: string | null;
   /**
+   * Sits under the title. Line breaks are preserved.
+   */
+  subtitle?: string | null;
+  /**
+   * Optional cyan pill under the subtitle, e.g. "Only 50p per letter".
+   */
+  badge?: string | null;
+  /**
+   * The source shows banner text only above 768px on pages that have no mobile title. Leave off to show it at every width.
+   */
+  hideTextOnMobile?: boolean | null;
+  /**
    * Fills the full-width band either side of the image above 1170px.
    */
   backdrop?: ('none' | 'dark' | 'mist' | 'pale') | null;
@@ -7539,6 +7580,12 @@ export interface ServiceContentBlockSelect<T extends boolean = true> {
         iconColour?: T;
         content?: T;
         id?: T;
+      };
+  formPanel?:
+    | T
+    | {
+        heading?: T;
+        form?: T;
       };
   buyServices?: T;
   sectionLayout?:
@@ -9246,6 +9293,9 @@ export interface TextContentBlockSelect<T extends boolean = true> {
 export interface TitleBannerBlockSelect<T extends boolean = true> {
   variant?: T;
   title?: T;
+  subtitle?: T;
+  badge?: T;
+  hideTextOnMobile?: T;
   backdrop?: T;
   naturalHeight?: T;
   image?: T;
@@ -9662,6 +9712,7 @@ export interface FormsSelect<T extends boolean = true> {
               name?: T;
               label?: T;
               width?: T;
+              placeholder?: T;
               required?: T;
               id?: T;
               blockName?: T;
@@ -9680,6 +9731,7 @@ export interface FormsSelect<T extends boolean = true> {
               label?: T;
               width?: T;
               defaultValue?: T;
+              placeholder?: T;
               required?: T;
               id?: T;
               blockName?: T;
@@ -9720,6 +9772,7 @@ export interface FormsSelect<T extends boolean = true> {
               label?: T;
               width?: T;
               defaultValue?: T;
+              placeholder?: T;
               required?: T;
               id?: T;
               blockName?: T;
@@ -9731,6 +9784,7 @@ export interface FormsSelect<T extends boolean = true> {
               label?: T;
               width?: T;
               defaultValue?: T;
+              placeholder?: T;
               required?: T;
               id?: T;
               blockName?: T;

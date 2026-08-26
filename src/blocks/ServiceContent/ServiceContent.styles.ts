@@ -26,6 +26,12 @@ export const serviceContentStyles = {
   cardMobile:
     'mb-8 last:mb-14 !border-0 !border-b !border-solid !border-[color:var(--border-on-light)]',
 
+  formPanel:
+    'border border-solid border-[color:var(--border-on-light-tile)] bg-[var(--surface-on-light-canvas)] p-5 [&_form]:mt-[18px]',
+
+  formPanelHeading:
+    'mb-2 block text-[24px] leading-[32.4px] font-normal text-[var(--text-on-light-base)]',
+
   content:
     'block text-xl leading-normal text-[var(--text-on-light-muted)] [&_h3]:!mt-8 [&_h3]:!mb-5 [&_h3]:text-[23px] [&_h3]:leading-[1.235] [&_h3]:font-normal [&_h3]:text-[var(--text-on-light-base)] [&_h4]:!mt-[27.2px] [&_h4]:!mb-[17.6px] [&_h4]:text-[20.8px] [&_h4]:leading-[1.35] [&_h4]:font-normal [&_h4]:text-[var(--text-on-light-base)] [&_p]:!mb-4 [&_ul]:!mb-4 [&_ol]:!mb-4 [&_p:last-child]:!mb-0 [&_li]:!mb-0 [&_ol]:!pl-[15px] [&_ol>li]:pl-2 [&_blockquote]:my-[18px] [&_blockquote]:mr-10 [&_blockquote]:ml-5 [&_blockquote_p]:!mb-0 [&_strong]:text-[var(--text-on-light-strong)]',
 

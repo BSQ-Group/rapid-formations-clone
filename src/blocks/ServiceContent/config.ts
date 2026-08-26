@@ -117,6 +117,30 @@ export const ServiceContent: Block = {
       ],
     },
     {
+      name: 'formPanel',
+      type: 'group',
+      label: 'Form panel',
+      admin: {
+        description:
+          'A bordered panel holding a form. Two columns puts it at the top of the right column, above everything on mobile; one column puts it after the copy.',
+      },
+      fields: [
+        {
+          name: 'heading',
+          type: 'text',
+          label: 'Panel heading',
+          admin: { description: 'Sits above the form, e.g. "Switch to email delivery".' },
+        },
+        {
+          name: 'form',
+          type: 'relationship',
+          relationTo: 'forms',
+          label: 'Form',
+          admin: { description: 'Leave empty to hide the panel.' },
+        },
+      ],
+    },
+    {
       name: 'buyServices',
       type: 'relationship',
       relationTo: 'buyServices',

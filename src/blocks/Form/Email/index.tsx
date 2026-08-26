@@ -11,24 +11,24 @@ import { Width } from '../Width'
 export const Email: React.FC<
   EmailField & {
     errors: Partial<FieldErrorsImpl>
+    placeholder?: string
     register: UseFormRegister<FieldValues>
   }
-> = ({ name, defaultValue, errors, label, register, required, width }) => {
+> = ({ name, defaultValue, errors, label, placeholder, register, required, width }) => {
   return (
     <Width width={width}>
-      <Label htmlFor={name}>
+      <Label htmlFor={name} variant="onLight">
         {label}
-        {required && (
-          <span className="required">
-            * <span className="sr-only">(required)</span>
-          </span>
-        )}
+        {label && ':'}
       </Label>
       <Input
+        aria-required={required || undefined}
         defaultValue={defaultValue}
         id={name}
+        placeholder={placeholder || undefined}
         type="text"
         {...register(name, { pattern: /^\S[^\s@]*@\S+$/, required })}
+        variant="onLight"
       />
       {errors[name] && <Error name={name} />}
     </Width>

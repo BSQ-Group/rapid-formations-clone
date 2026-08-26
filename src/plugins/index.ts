@@ -3,7 +3,7 @@ import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { searchPlugin } from '@payloadcms/plugin-search'
-import { Plugin } from 'payload'
+import { Block, Field, Plugin } from 'payload'
 import { revalidateRedirects } from '@/hooks/revalidateRedirects'
 import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types'
 import { FixedToolbarFeature, HeadingFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
@@ -23,6 +23,27 @@ const generateURL: GenerateURL<Post | Page> = ({ doc }) => {
   const url = getServerSideURL()
 
   return doc?.slug ? `${url}/${doc.slug}` : url
+}
+
+const PLACEHOLDER_FIELD_TYPES = ['text', 'email', 'number', 'textarea']
+
+const withPlaceholder = (block: Block): Block => {
+  if (!PLACEHOLDER_FIELD_TYPES.includes(block.slug)) return block
+  if (block.fields.some((field) => 'name' in field && field.name === 'placeholder')) return block
+
+  const placeholder: Field = {
+    name: 'placeholder',
+    type: 'text',
+    label: 'Placeholder',
+    admin: { description: 'Hint text shown inside the field while it is empty.' },
+  }
+  const requiredIndex = block.fields.findIndex(
+    (field) => 'name' in field && field.name === 'required',
+  )
+  const fields = [...block.fields]
+  fields.splice(requiredIndex === -1 ? fields.length : requiredIndex, 0, placeholder)
+
+  return { ...block, fields }
 }
 
 export const plugins: Plugin[] = [
@@ -63,6 +84,9 @@ export const plugins: Plugin[] = [
     formOverrides: {
       fields: ({ defaultFields }) => {
         return defaultFields.map((field) => {
+          if ('name' in field && field.name === 'fields' && field.type === 'blocks') {
+            return { ...field, blocks: field.blocks.map(withPlaceholder) }
+          }
           if ('name' in field && field.name === 'confirmationMessage') {
             return {
               ...field,

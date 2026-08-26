@@ -10,6 +10,9 @@ import { titleBannerStyles as s } from './TitleBanner.styles'
 
 export const TitleBanner: React.FC<TitleBannerProps> = ({
   title,
+  subtitle,
+  badge,
+  hideTextOnMobile,
   image,
   isPageTitle,
   variant,
@@ -58,16 +61,26 @@ export const TitleBanner: React.FC<TitleBannerProps> = ({
         imgClassName={s.image}
         size="100vw"
       />
-      {heading && (
-        <div className={s.flex}>
+      {(heading || subtitle?.trim() || badge?.trim()) && (
+        <div className={cn(s.flex, hideTextOnMobile && s.textOnDesktopOnly)}>
           <Container>
             <div className={s.content}>
-              <Text
-                as={isPageTitle === false ? 'p' : 'h1'}
-                textStyle="span"
-                text={heading}
-                className={s.title}
-              />
+              {heading && (
+                <Text
+                  as={isPageTitle === false ? 'p' : 'h1'}
+                  textStyle="span"
+                  text={heading}
+                  className={s.title}
+                />
+              )}
+              {subtitle?.trim() && (
+                <Text as="p" textStyle="span" text={subtitle} className={s.subtitle} />
+              )}
+              {badge?.trim() && (
+                <p className={s.badgeWrap}>
+                  <span className={s.badge}>{badge}</span>
+                </p>
+              )}
             </div>
           </Container>
         </div>
