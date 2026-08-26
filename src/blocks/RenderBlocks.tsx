@@ -11,6 +11,7 @@ import { ComparePackageTableBlockComponent } from '@/blocks/ComparePackageTable/
 import { ComparePackagesHero } from '@/components/shared/ComparePackagesHero'
 import { BuyServiceBlock } from '@/blocks/BuyService/Component'
 import { ServiceContentBlock } from '@/blocks/ServiceContent/Component'
+import { ServicesBenefitsBlockComponent } from '@/blocks/ServicesBenefits/Component'
 import { OurAddressBlock } from '@/blocks/OurAddress/Component'
 import { CallOutCTABlock } from '@/blocks/CallOutCTA/Component'
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
@@ -109,6 +110,7 @@ const blockComponents = {
   comparePackagesHero: ComparePackagesHero,
   buyService: BuyServiceBlock,
   serviceContent: ServiceContentBlock,
+  servicesBenefits: ServicesBenefitsBlockComponent,
   ourAddress: OurAddressBlock,
   callOutCTA: CallOutCTABlock,
   archive: ArchiveBlock,
