@@ -593,7 +593,10 @@
   }
 
   html {
-    @apply w-full min-h-screen text-[16px];
+    /* CORE-7006: clamp horizontal overflow at the root to match live
+       (live computes html { overflow-x: hidden }; the clone left it visible,
+       so the page could be panned ~7px sideways at 360). */
+    @apply w-full min-h-screen text-[16px] overflow-x-hidden;
   }
 
   html,
