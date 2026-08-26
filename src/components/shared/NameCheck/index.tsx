@@ -28,7 +28,7 @@ export type NameCheckProps = {
   footerSlot?: React.ReactNode
   availableCta?: React.ReactNode
   checkoutPath?: string | null
-  resultHeadingLevel?: 'h1' | 'h2'
+  resultHeadingLevel?: 'h1' | 'h2' | 'h3'
   className?: string
 }
 
@@ -66,7 +66,7 @@ export const NameCheck: React.FC<NameCheckProps> = ({
   const { customToast } = useCustomToast()
 
   const onLight = variant === 'package'
-  const headingLevel = resultHeadingLevel ?? (variant === 'hero' ? 'h1' : 'h2')
+  const headingLevel = resultHeadingLevel ?? (variant === 'hero' ? 'h3' : 'h2')
   const isLoading = result.status === 'loading'
   const label = placeholder || 'Find your perfect company name'
 
@@ -147,7 +147,7 @@ export const NameCheck: React.FC<NameCheckProps> = ({
 
   return (
     <div className={cn(s.root, onLight && s.rootPackage, className)}>
-      <div className={s.result}>
+      <div className={cn(s.result, !onLight && s.resultHero)}>
         <Image
           src={`/images/namecheck/${icon}.png`}
           alt={`Icon for ${isAvailable ? 'green' : isError ? 'error' : 'red'} status.`}
@@ -166,9 +166,14 @@ export const NameCheck: React.FC<NameCheckProps> = ({
               : isError
                 ? s.resultNameError
                 : s.resultNameUnavailable,
+            !onLight && s.resultNameHero,
           )}
         />
-        <Text textStyle="span" text={result.description} className={s.resultDescription} />
+        <Text
+          textStyle="span"
+          text={result.description}
+          className={cn(s.resultDescription, !onLight && s.resultDescriptionHero)}
+        />
       </div>
 
       {isAvailable ? (
@@ -179,7 +184,11 @@ export const NameCheck: React.FC<NameCheckProps> = ({
                 Continue
               </a>
             ) : null)}
-          <button type="button" onClick={handleReset} className={s.searchAgain}>
+          <button
+            type="button"
+            onClick={handleReset}
+            className={cn(s.searchAgain, !onLight && s.searchAgainHero)}
+          >
             Or search again
           </button>
         </div>

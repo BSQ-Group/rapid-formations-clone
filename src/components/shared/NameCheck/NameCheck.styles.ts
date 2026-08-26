@@ -16,6 +16,11 @@ export const nameCheckStyles = {
   buttonIcon: 'text-[var(--icon-default)]',
 
   result: 'mx-auto my-8 flex w-full max-w-[670px] flex-col text-center',
+  resultHero: 'rounded-[4px] bg-[rgb(0_0_0/0.3)] p-5',
+  resultNameHero:
+    'text-[32px] font-normal leading-[39.52px] md:text-[32px] md:leading-[39.52px] text-[rgb(var(--white))]',
+  resultDescriptionHero: 'text-[22px] text-[rgb(var(--white))]',
+  searchAgainHero: 'text-[rgb(var(--white))]',
   resultIcon: 'mx-auto mb-[15px] h-10 w-10',
   resultName:
     'mb-2 text-center text-[28px] font-semibold leading-[1.235] md:text-[36px] [overflow-wrap:anywhere]',
