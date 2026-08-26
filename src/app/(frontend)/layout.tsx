@@ -32,7 +32,7 @@ import { Footer } from '@/Footer/Component'
 import { Providers } from '@/providers'
 import { SmoothHashScroll } from '@/components/shared/SmoothHashScroll'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
-import { getBrand } from '@/lib/brand'
+import { getBrand, getDomainConfig } from '@/lib/brand'
 import { draftMode } from 'next/headers'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 
@@ -45,6 +45,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const { isEnabled } = await draftMode()
   const brand = getBrand()
   const themeClass = `theme-${brand}`
+  const { cookiebotId } = getDomainConfig(brand)
 
   return (
     <html
@@ -61,12 +62,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <link rel="stylesheet" href={`https://use.typekit.net/${adobeFontProjectId}.css`} />
           </>
         )}
-        <Script
-          id="Cookiebot"
-          src="https://consent.cookiebot.com/uc.js"
-          data-cbid="04695da6-ca51-46fe-923e-144ccc7854e1"
-          strategy="beforeInteractive"
-        />
+        {cookiebotId && (
+          <Script
+            id="Cookiebot"
+            src="https://consent.cookiebot.com/uc.js"
+            data-cbid={cookiebotId}
+            strategy="beforeInteractive"
+          />
+        )}
       </head>
       <body id="home-top">
         <SmoothHashScroll />
