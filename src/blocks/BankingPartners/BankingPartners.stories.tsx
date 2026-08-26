@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { BankingPartnersBlock } from './Component'
-import type { BankingPartnersBlock as BankingPartnersBlockProps, Media } from '@/payload-types'
+import { BankingPartnersView, type BankingPartnersViewProps } from './BankingPartnersView'
+import type { BusinessBankAccount, Media } from '@/payload-types'
 
-type Bank = NonNullable<BankingPartnersBlockProps['banks']>[number]
+type Bank = NonNullable<BusinessBankAccount['banks']>[number]
 
 const mediaStub = (id: string, url: string, alt: string, width: number, height: number): Media => ({
   id,
@@ -356,8 +356,7 @@ const LONG_SUBHEADING =
 
 const LONG_CTA_LABEL = 'Compare every free business bank account we offer'
 
-const defaultArgs: BankingPartnersBlockProps = {
-  blockType: 'bankingPartners',
+const defaultArgs: BankingPartnersViewProps = {
   heading: 'Our business banking partners',
   subheading:
     'We’ve partnered with leading financial providers to offer your new company a free business bank account.',
@@ -373,8 +372,8 @@ const defaultArgs: BankingPartnersBlockProps = {
   sectionLayout: { background: 'inverse', paddingTop: 'none', paddingBottom: 'none' },
 }
 
-const meta: Meta<typeof BankingPartnersBlock> = {
-  component: BankingPartnersBlock,
+const meta: Meta<typeof BankingPartnersView> = {
+  component: BankingPartnersView,
   title: 'Blocks/BankingPartners',
   parameters: {
     layout: 'fullscreen',
@@ -389,7 +388,7 @@ const meta: Meta<typeof BankingPartnersBlock> = {
 }
 
 export default meta
-type Story = StoryObj<typeof BankingPartnersBlock>
+type Story = StoryObj<typeof BankingPartnersView>
 
 export const Default: Story = {
   args: defaultArgs,
@@ -401,7 +400,7 @@ export const ShortCopy: Story = {
     heading: 'Our banking partners',
     subheading: 'Free business banking.',
     banks: [SHORT_INFO_BANK, ...BANKS.slice(1)],
-    cta: { ...defaultArgs.cta, label: 'Learn' } as BankingPartnersBlockProps['cta'],
+    cta: { ...defaultArgs.cta, label: 'Learn' } as BusinessBankAccount['cta'],
   },
 }
 
@@ -411,7 +410,7 @@ export const LongCopy: Story = {
     heading: LONG_HEADING,
     subheading: LONG_SUBHEADING,
     banks: [LONG_NAME_BANK, ...BANKS.slice(1)],
-    cta: { ...defaultArgs.cta, label: LONG_CTA_LABEL } as BankingPartnersBlockProps['cta'],
+    cta: { ...defaultArgs.cta, label: LONG_CTA_LABEL } as BusinessBankAccount['cta'],
   },
 }
 
@@ -422,7 +421,7 @@ export const NarrowColumnLongCopy: Story = {
     heading: LONG_HEADING,
     subheading: LONG_SUBHEADING,
     banks: [LONG_NAME_BANK, ...BANKS.slice(1)],
-    cta: { ...defaultArgs.cta, label: LONG_CTA_LABEL } as BankingPartnersBlockProps['cta'],
+    cta: { ...defaultArgs.cta, label: LONG_CTA_LABEL } as BusinessBankAccount['cta'],
   },
 }
 
@@ -432,7 +431,7 @@ export const UnbrokenTokens: Story = {
     heading: `Compare accounts at ${BANKING_URL}`,
     subheading: `Questions go to business.banking.partnerships@rapidformations-worldwide-group.co.uk or read ${BANKING_URL}`,
     banks: [TOKEN_BANK, ...BANKS.slice(1)],
-    cta: { ...defaultArgs.cta, label: BANKING_URL } as BankingPartnersBlockProps['cta'],
+    cta: { ...defaultArgs.cta, label: BANKING_URL } as BusinessBankAccount['cta'],
   },
 }
 
@@ -443,7 +442,7 @@ export const UnbrokenTokensNarrow: Story = {
     heading: `Compare accounts at ${BANKING_URL}`,
     subheading: `Questions go to business.banking.partnerships@rapidformations-worldwide-group.co.uk or read ${BANKING_URL}`,
     banks: [TOKEN_BANK, ...BANKS.slice(1)],
-    cta: { ...defaultArgs.cta, label: BANKING_URL } as BankingPartnersBlockProps['cta'],
+    cta: { ...defaultArgs.cta, label: BANKING_URL } as BusinessBankAccount['cta'],
   },
 }
 
@@ -501,7 +500,7 @@ export const NoSubheadingNoCta: Story = {
   args: {
     ...defaultArgs,
     subheading: null,
-    cta: null as unknown as BankingPartnersBlockProps['cta'],
+    cta: null as unknown as BusinessBankAccount['cta'],
   },
 }
 
