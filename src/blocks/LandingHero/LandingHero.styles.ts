@@ -13,8 +13,11 @@ export const landingHeroStyles = {
   accreditationLogoSm: 'w-11 h-auto',
   accreditationLogoLg: 'w-28 h-auto',
 
+  // CORE-6959: cap the hero container at 1184px on large desktops too (was
+  // widening to 1456px at `wide`/1800, oversizing the review + bank cards and
+  // the search→laptop gap). Live stays at 1184px past 1200px.
   container:
-    'w-full mx-auto px-2 min-[576px]:max-w-[560px] md:max-w-[752px] min-[992px]:max-w-[976px] min-[1200px]:max-w-[1184px] wide:max-w-[1456px]',
+    'w-full mx-auto px-2 min-[576px]:max-w-[560px] md:max-w-[752px] min-[992px]:max-w-[976px] min-[1200px]:max-w-[1184px]',
   row: 'flex flex-row flex-wrap -mx-2',
   col: 'w-full px-2',
   colMain: 'w-full px-2 flex flex-col min-[1200px]:w-7/12',
