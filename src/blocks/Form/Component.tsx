@@ -14,6 +14,7 @@ import { getClientSideURL } from '@/utilities/getURL'
 export type FormBlockType = {
   blockName?: string
   blockType?: 'formBlock'
+  bare?: boolean
   enableIntro: boolean
   form: FormType
   introContent?: DefaultTypedEditorState
@@ -25,6 +26,7 @@ export const FormBlock: React.FC<
   } & FormBlockType
 > = (props) => {
   const {
+    bare,
     enableIntro,
     form: formFromProps,
     form: { id: formID, confirmationMessage, confirmationType, redirect, submitButtonLabel } = {},
@@ -113,11 +115,11 @@ export const FormBlock: React.FC<
   )
 
   return (
-    <div className="container lg:max-w-[48rem]">
+    <div className={bare ? undefined : 'container lg:max-w-[48rem]'}>
       {enableIntro && introContent && !hasSubmitted && (
         <RichText className="mb-8 lg:mb-12" data={introContent} enableGutter={false} />
       )}
-      <div className="p-4 lg:p-6 border border-border rounded-[0.8rem]">
+      <div className={bare ? undefined : 'p-4 lg:p-6 border border-border rounded-[0.8rem]'}>
         <FormProvider {...formMethods}>
           {!isLoading && hasSubmitted && confirmationType === 'message' && (
             <RichText data={confirmationMessage} />
@@ -149,9 +151,11 @@ export const FormBlock: React.FC<
                     return null
                   })}
               </div>
-              <Button form={formID} type="submit" variant="primary">
-                {submitButtonLabel}
-              </Button>
+              <div className="w-full md:w-[200px]">
+                <Button form={formID} type="submit" variant="success" size="lg" className="w-full">
+                  {submitButtonLabel}
+                </Button>
+              </div>
             </form>
           )}
         </FormProvider>

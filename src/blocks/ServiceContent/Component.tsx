@@ -42,6 +42,7 @@ export const ServiceContentBlock: React.FC<ServiceContentBlockProps> = ({
         <Text as="h4" textStyle="span" text={formPanel.heading} className={s.formPanelHeading} />
       )}
       <FormBlock
+        bare
         enableIntro={false}
         form={panelForm as React.ComponentProps<typeof FormBlock>['form']}
       />

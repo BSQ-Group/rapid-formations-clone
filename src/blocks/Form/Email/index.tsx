@@ -16,7 +16,7 @@ export const Email: React.FC<
 > = ({ name, defaultValue, errors, label, register, required, width }) => {
   return (
     <Width width={width}>
-      <Label htmlFor={name}>
+      <Label htmlFor={name} variant="onLight">
         {label}
         {required && (
           <span className="required">
@@ -29,6 +29,7 @@ export const Email: React.FC<
         id={name}
         type="text"
         {...register(name, { pattern: /^\S[^\s@]*@\S+$/, required })}
+        variant="onLight"
       />
       {errors[name] && <Error name={name} />}
     </Width>

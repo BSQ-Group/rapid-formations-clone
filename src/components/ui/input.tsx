@@ -1,22 +1,33 @@
 import * as React from 'react'
+import { cva, type VariantProps } from 'class-variance-authority'
 
 import { cn } from '@/utilities/ui'
 
-const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<'input'>>(
-  ({ className, type, ...props }, ref) => {
-    return (
-      <input
-        type={type}
-        className={cn(
-          'flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-white placeholder:text-[var(--text-placeholder)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
-          className,
-        )}
-        ref={ref}
-        {...props}
-      />
-    )
+const inputVariants = cva(
+  'flex w-full transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50',
+  {
+    variants: {
+      variant: {
+        default:
+          'h-9 rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm placeholder:text-[var(--text-placeholder)] md:text-sm',
+        onLight:
+          'h-[41px] rounded-none border border-solid border-[color:var(--border-on-light)] bg-[var(--surface-canvas)] p-2 text-lg text-[var(--text-on-light-base)] placeholder:text-[var(--text-on-light-subtle)]',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+    },
   },
 )
+
+const Input = React.forwardRef<
+  HTMLInputElement,
+  React.ComponentProps<'input'> & VariantProps<typeof inputVariants>
+>(({ className, type, variant, ...props }, ref) => {
+  return (
+    <input type={type} className={cn(inputVariants({ variant }), className)} ref={ref} {...props} />
+  )
+})
 Input.displayName = 'Input'
 
-export { Input }
+export { Input, inputVariants }
