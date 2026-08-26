@@ -8,7 +8,7 @@ import { getPayload } from 'payload'
 import React from 'react'
 import { notFound } from 'next/navigation'
 import { Header } from '@/Header/Component'
-import { getBrand, getDomainConfig } from '@/lib/brand'
+import { getDomainConfig } from '@/lib/brand'
 
 export const revalidate = 600
 
@@ -64,7 +64,7 @@ export default async function Page({ params: paramsPromise }: Args) {
 
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
   const { pageNumber } = await paramsPromise
-  const { siteName } = getDomainConfig(getBrand())
+  const { siteName } = getDomainConfig()
   return {
     title: `${siteName} Posts Page ${pageNumber || ''}`,
   }

@@ -7,7 +7,7 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
 import { Header } from '@/Header/Component'
-import { getBrand, getDomainConfig } from '@/lib/brand'
+import { getDomainConfig } from '@/lib/brand'
 
 export const dynamic = 'force-static'
 export const revalidate = 600
@@ -57,7 +57,7 @@ export default async function Page() {
 }
 
 export function generateMetadata(): Metadata {
-  const { siteName } = getDomainConfig(getBrand())
+  const { siteName } = getDomainConfig()
   return {
     title: `${siteName} Posts`,
   }

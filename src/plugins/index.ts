@@ -11,11 +11,11 @@ import { searchFields } from '@/search/fieldOverrides'
 import { beforeSyncWithSearch } from '@/search/beforeSync'
 
 import { Page, Post } from '@/payload-types'
-import { getBrand, getDomainConfig } from '@/lib/brand'
+import { getDomainConfig } from '@/lib/brand'
 import { getServerSideURL } from '@/utilities/getURL'
 
 const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
-  const { siteName } = getDomainConfig(getBrand())
+  const { siteName } = getDomainConfig()
   return doc?.title ? `${doc.title} | ${siteName}` : siteName
 }
 

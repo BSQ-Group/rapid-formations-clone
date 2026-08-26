@@ -27,7 +27,7 @@ import Text from '@/components/shared/Text'
 import { cn } from '@/utilities/ui'
 import { useToken } from '@/state/auth'
 import { firebaseSignOut } from '@/lib/firebase'
-import { getBrand, getDomainConfig, getLogoPath, Brand } from '@/lib/brand'
+import { getDomainConfig, getLogoPath } from '@/lib/brand'
 import { headerStyles as s } from './Header.styles'
 
 const LoginModal = dynamic(
@@ -45,11 +45,7 @@ const GoogleOneTapProvider = dynamic(
 
 const DESKTOP_NAV_QUERY = '(min-width: 1200px)'
 
-const LOGO_INTRINSIC: Record<Brand, { width: number; height: number }> = {
-  [Brand.RapidFormations]: { width: 560, height: 56 },
-  [Brand.QualityCompanyFormations]: { width: 44, height: 44 },
-  [Brand.FirstFormations]: { width: 44, height: 44 },
-}
+const LOGO_INTRINSIC = { width: 560, height: 56 }
 
 type NavItem = NonNullable<Header['navItems']>[number]
 type CMSLinkValue = Omit<NavItem['link'], 'label'>
@@ -84,9 +80,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, onDark = false
   const loginLink = data?.loginLink
   const pathname = usePathname()
 
-  const brand = getBrand()
-  const domain = getDomainConfig(brand)
-  const logoSize = LOGO_INTRINSIC[brand] ?? LOGO_INTRINSIC[Brand.RapidFormations]
+  const domain = getDomainConfig()
+  const logoSize = LOGO_INTRINSIC
 
   const [loginModalOpen, setLoginModalOpen] = useState(false)
   const [loginError, setLoginError] = useState<string | null>(null)
@@ -195,7 +190,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, onDark = false
             <div className={s.logoCell}>
               <Link href="/" className={s.logoLink} onClick={closeEverything}>
                 <img
-                  src={getLogoPath(domain, onDark)}
+                  src={getLogoPath(onDark)}
                   alt={domain.alt}
                   width={logoSize.width}
                   height={logoSize.height}

@@ -8,7 +8,7 @@ import { CtaLink } from '@/components/shared/CtaLink'
 import { Media } from '@/components/Media'
 import { SectionWrapper } from '@/components/shared/SectionWrapper/SectionWrapper'
 import Text from '@/components/shared/Text'
-import { getBrand, getDomainConfig } from '@/lib/brand'
+import { getDomainConfig } from '@/lib/brand'
 import { stripHtml } from '@/utilities/formatting'
 import { getLinkHref, type LinkData } from '@/utilities/links'
 import { ourLatestBlogsStyles as s } from './OurLatestBlogs.styles'
@@ -40,7 +40,7 @@ type FeedCard = {
 const POST_COUNT = 3
 
 async function fetchBlogPosts(): Promise<WpPost[] | null> {
-  const { blogUrl } = getDomainConfig(getBrand())
+  const { blogUrl } = getDomainConfig()
   if (!blogUrl) return null
 
   try {

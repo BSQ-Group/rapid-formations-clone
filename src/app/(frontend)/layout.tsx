@@ -31,7 +31,7 @@ import Script from 'next/script'
 import { Footer } from '@/Footer/Component'
 import { Providers } from '@/providers'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
-import { getBrand, getDomainConfig } from '@/lib/brand'
+import { getDomainConfig, THEME_CLASS } from '@/lib/brand'
 import { draftMode } from 'next/headers'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 
@@ -42,8 +42,7 @@ const adobeFontProjectId = process.env.NEXT_PUBLIC_ADOBE_FONT_PROJECT_ID
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
-  const brand = getBrand()
-  const themeClass = `theme-${brand}`
+  const themeClass = THEME_CLASS
 
   return (
     <html
@@ -78,10 +77,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   )
 }
 
-const brandThemeColor = getDomainConfig(getBrand()).themeColor
 
 export const viewport: Viewport = {
-  ...(brandThemeColor ? { themeColor: brandThemeColor } : {}),
+  themeColor: getDomainConfig().themeColor,
 }
 
 export const metadata: Metadata = {

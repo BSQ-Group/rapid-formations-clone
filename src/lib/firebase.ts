@@ -5,7 +5,7 @@ import { identify, reset } from '@/lib/analytics'
 import Cookies from 'js-cookie'
 import type { Auth } from 'firebase/auth'
 import { getFirebaseConfig } from './config'
-import { getBrand, getDomainConfig } from './brand'
+import { getDomainConfig } from './brand'
 
 export const CROSS_ORIGIN_AUTO_LOGOUT = 'CROSS_ORIGIN_AUTO_LOGOUT'
 
@@ -28,10 +28,9 @@ export async function getAuth(): Promise<FirebaseAuthBundle> {
       import('firebase/auth'),
     ])
 
-    const brand = getBrand()
     const app = initializeApp(getFirebaseConfig())
     const authInstance = firebaseAuth.getAuth(app)
-    authInstance.tenantId = getDomainConfig(brand).tenantId
+    authInstance.tenantId = getDomainConfig().tenantId
 
     authInstance.onAuthStateChanged(() => {
       authStateAvailable = true
