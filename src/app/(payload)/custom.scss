@@ -1,0 +1,24 @@
+/*
+ * CORE-7160 — align the rich-text editor's list markers with the front end.
+ *
+ * The Lexical editor theme styles nested ordered lists by depth
+ * (A. / a. / I. / i. via `.LexicalEditorTheme__ol2..ol5`), but the front end
+ * (`.payload-richtext`) renders every ordered level as `decimal` and every
+ * bullet level as `disc`. That mismatch means an author building a numbered or
+ * bulleted list sees different markers while editing than the page renders.
+ *
+ * Match the front-end defaults so what the author sees matches what ships.
+ * (The `.rf-numbered-clauses` legal-clause variant renders counter-based
+ * "1.1.1"/lettered markers on the front end; the editor is variant-agnostic and
+ * intentionally shows the base list style — see CORE-7160.)
+ */
+.LexicalEditorTheme__ol2,
+.LexicalEditorTheme__ol3,
+.LexicalEditorTheme__ol4,
+.LexicalEditorTheme__ol5 {
+  list-style-type: decimal;
+}
+
+.LexicalEditorTheme__ul {
+  list-style-type: disc;
+}
