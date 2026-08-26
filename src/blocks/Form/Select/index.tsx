@@ -25,11 +25,7 @@ export const Select: React.FC<
     <Width width={width}>
       <Label htmlFor={name}>
         {label}
-        {required && (
-          <span className="required">
-            * <span className="sr-only">(required)</span>
-          </span>
-        )}
+        {label && ':'}
       </Label>
       <Controller
         control={control}
@@ -40,7 +36,7 @@ export const Select: React.FC<
 
           return (
             <SelectComponent onValueChange={(val) => onChange(val)} value={controlledValue?.value}>
-              <SelectTrigger className="w-full" id={name}>
+              <SelectTrigger aria-required={required || undefined} className="w-full" id={name}>
                 <SelectValue placeholder={placeholder || label} />
               </SelectTrigger>
               <SelectContent>

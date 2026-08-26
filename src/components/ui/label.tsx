@@ -8,7 +8,7 @@ const labelVariants = cva('font-medium peer-disabled:cursor-not-allowed peer-dis
   variants: {
     variant: {
       default: 'text-[var(--text-strong)] text-sm leading-none',
-      onLight: 'mb-[5px] block text-lg leading-[27px] text-[var(--text-on-light-base)]',
+      onLight: 'mb-[5px] block text-lg font-normal leading-[27px] text-[var(--text-on-light-base)]',
     },
   },
   defaultVariants: {

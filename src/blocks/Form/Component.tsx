@@ -127,7 +127,7 @@ export const FormBlock: React.FC<
           {isLoading && !hasSubmitted && <p>Loading, please wait...</p>}
           {error && <div>{`${error.status || '500'}: ${error.message || ''}`}</div>}
           {!hasSubmitted && (
-            <form id={formID} onSubmit={handleSubmit(onSubmit)}>
+            <form className="grid" id={formID} onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-4 last:mb-0">
                 {formFromProps &&
                   formFromProps.fields &&
@@ -136,7 +136,7 @@ export const FormBlock: React.FC<
                     const Field: React.FC<any> = fields?.[field.blockType as keyof typeof fields]
                     if (Field) {
                       return (
-                        <div className="mb-6 last:mb-0" key={index}>
+                        <div className="mb-4 last:mb-0" key={index}>
                           <Field
                             form={formFromProps}
                             {...field}
@@ -151,8 +151,14 @@ export const FormBlock: React.FC<
                     return null
                   })}
               </div>
-              <div className="w-full md:w-[200px]">
-                <Button form={formID} type="submit" variant="success" size="lg" className="w-full">
+              <div className="w-full md:mt-2.5 md:w-[200px]">
+                <Button
+                  form={formID}
+                  type="submit"
+                  variant="success"
+                  size="form"
+                  className="w-full"
+                >
                   {submitButtonLabel}
                 </Button>
               </div>

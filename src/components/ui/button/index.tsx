@@ -34,6 +34,7 @@ const buttonVariants = cva(
         lg: 'h-[46px] px-4 py-2 text-base font-bold',
         icon: 'h-10 w-10 [&_svg]:size-6',
         promo: 'h-auto px-6 py-2 text-[17px] leading-[25.5px] font-semibold',
+        form: 'h-[52px] rounded-sm px-[30px] py-2.5 text-xl leading-[30px] font-semibold',
       },
     },
     compoundVariants: [

@@ -19,13 +19,10 @@ export const Text: React.FC<
     <Width width={width}>
       <Label htmlFor={name} variant="onLight">
         {label}
-        {required && (
-          <span className="required">
-            * <span className="sr-only">(required)</span>
-          </span>
-        )}
+        {label && ':'}
       </Label>
       <Input
+        aria-required={required || undefined}
         defaultValue={defaultValue}
         id={name}
         placeholder={placeholder || undefined}

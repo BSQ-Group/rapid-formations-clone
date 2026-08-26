@@ -11,7 +11,7 @@ const inputVariants = cva(
         default:
           'h-9 rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm placeholder:text-[var(--text-placeholder)] md:text-sm',
         onLight:
-          'h-[41px] rounded-none border border-solid border-[color:var(--border-on-light)] bg-[var(--surface-canvas)] p-2 text-lg text-[var(--text-on-light-base)] placeholder:text-[var(--text-on-light-placeholder)]',
+          'h-[41px] rounded-none border border-solid border-[color:var(--border-on-light-strong)] bg-[var(--surface-canvas)] p-2 text-lg leading-[normal] text-[var(--text-on-light-muted)] placeholder:text-[var(--text-on-light-placeholder)]',
       },
     },
     defaultVariants: {

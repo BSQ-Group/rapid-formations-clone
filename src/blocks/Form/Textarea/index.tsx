@@ -20,13 +20,10 @@ export const Textarea: React.FC<
     <Width width={width}>
       <Label htmlFor={name} variant="onLight">
         {label}
-        {required && (
-          <span className="required">
-            * <span className="sr-only">(required)</span>
-          </span>
-        )}
+        {label && ':'}
       </Label>
       <TextAreaComponent
+        aria-required={required || undefined}
         defaultValue={defaultValue}
         id={name}
         placeholder={placeholder || undefined}
