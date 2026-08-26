@@ -269,6 +269,7 @@ export interface Page {
         | BuyServiceBlock
         | ServiceContentBlock
         | ServicesBenefitsBlock
+        | ServicePriceBannerBlock
         | OurAddressBlock
         | CallOutCTABlock
         | TrustPilotBannerBlock
@@ -3091,6 +3092,73 @@ export interface ServicesBenefitsBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'servicesBenefits';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicePriceBannerBlock".
+ */
+export interface ServicePriceBannerBlock {
+  /**
+   * The page H1. Line breaks are preserved.
+   */
+  heading: string;
+  /**
+   * One line under the heading.
+   */
+  subheading?: string | null;
+  /**
+   * Digits only, e.g. 149.99. The £ is added.
+   */
+  price: string;
+  /**
+   * Smaller text beside it, e.g. "per year".
+   */
+  priceSuffix?: string | null;
+  /**
+   * Full width below 768px, sized to its label above.
+   */
+  cta: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+  };
+  /**
+   * Sits at the right, capped at 300px wide. Hidden below 1023px.
+   */
+  image?: (string | null) | Media;
+  /**
+   * A five-star card over the bottom-left of the image. Leave empty to hide it.
+   */
+  quote?: string | null;
+  /**
+   * The source stores a free colour here; this repo uses theme tokens instead.
+   */
+  background: 'navy' | 'inverse' | 'cyan';
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, MD 40px, LG 50px, XL 75px, 2XL 100px; SECTION 50/75/110 and SECTIONLARGE 70/140 follow the source Section margin responsively.
+     */
+    gap?: ('inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'section' | 'sectionLarge') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'servicePriceBanner';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6217,6 +6285,7 @@ export interface PagesSelect<T extends boolean = true> {
         buyService?: T | BuyServiceBlockSelect<T>;
         serviceContent?: T | ServiceContentBlockSelect<T>;
         servicesBenefits?: T | ServicesBenefitsBlockSelect<T>;
+        servicePriceBanner?: T | ServicePriceBannerBlockSelect<T>;
         ourAddress?: T | OurAddressBlockSelect<T>;
         callOutCTA?: T | CallOutCTABlockSelect<T>;
         trustpilotBanner?: T | TrustPilotBannerBlockSelect<T>;
@@ -7429,6 +7498,38 @@ export interface ServicesBenefitsBlockSelect<T extends boolean = true> {
         id?: T;
       };
   image?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+        gap?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicePriceBannerBlock_select".
+ */
+export interface ServicePriceBannerBlockSelect<T extends boolean = true> {
+  heading?: T;
+  subheading?: T;
+  price?: T;
+  priceSuffix?: T;
+  cta?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
+  image?: T;
+  quote?: T;
+  background?: T;
   sectionLayout?:
     | T
     | {
