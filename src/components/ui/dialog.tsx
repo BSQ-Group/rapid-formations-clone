@@ -31,10 +31,14 @@ DialogOverlay.displayName = DialogPrimitive.Overlay.displayName
 
 const DialogContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
->(({ className, children, 'aria-describedby': ariaDescribedby, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & {
+    // Optionally restyle the backdrop per-usage (e.g. a transparent overlay so
+    // the page behind stays undimmed). Defaults to the standard dark overlay.
+    overlayClassName?: string
+  }
+>(({ className, children, overlayClassName, 'aria-describedby': ariaDescribedby, ...props }, ref) => (
   <DialogPortal>
-    <DialogOverlay />
+    <DialogOverlay className={overlayClassName} />
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
