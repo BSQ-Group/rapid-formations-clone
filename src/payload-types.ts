@@ -268,6 +268,7 @@ export interface Page {
         | ComparePackagesHeroBlock
         | BuyServiceBlock
         | ServiceContentBlock
+        | ServicesBenefitsBlock
         | OurAddressBlock
         | CallOutCTABlock
         | TrustPilotBannerBlock
@@ -3040,6 +3041,54 @@ export interface ServiceContentBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'serviceContent';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesBenefitsBlock".
+ */
+export interface ServicesBenefitsBlock {
+  /**
+   * Centred above the two columns. Line breaks are preserved.
+   */
+  heading: string;
+  /**
+   * Optional line under the heading.
+   */
+  subheading?: string | null;
+  /**
+   * Stacked in the left column from 768px up, above the image below that.
+   */
+  benefits: {
+    /**
+     * Add a new one by importing it in the block’s icons.ts; the list here follows.
+     */
+    icon: 'businessTime' | 'fileCircleCheck' | 'headset' | 'calendarCheck';
+    title: string;
+    /**
+     * Line breaks are preserved.
+     */
+    body: string;
+    id?: string | null;
+  }[];
+  /**
+   * Fills the right column, and sits under the list below 768px.
+   */
+  image?: (string | null) | Media;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, MD 40px, LG 50px, XL 75px, 2XL 100px; SECTION 50/75/110 and SECTIONLARGE 70/140 follow the source Section margin responsively.
+     */
+    gap?: ('inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'section' | 'sectionLarge') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'servicesBenefits';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6088,6 +6137,7 @@ export interface PagesSelect<T extends boolean = true> {
         comparePackagesHero?: T | ComparePackagesHeroBlockSelect<T>;
         buyService?: T | BuyServiceBlockSelect<T>;
         serviceContent?: T | ServiceContentBlockSelect<T>;
+        servicesBenefits?: T | ServicesBenefitsBlockSelect<T>;
         ourAddress?: T | OurAddressBlockSelect<T>;
         callOutCTA?: T | CallOutCTABlockSelect<T>;
         trustpilotBanner?: T | TrustPilotBannerBlockSelect<T>;
@@ -7271,6 +7321,33 @@ export interface ServiceContentBlockSelect<T extends boolean = true> {
         id?: T;
       };
   buyServices?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+        gap?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesBenefitsBlock_select".
+ */
+export interface ServicesBenefitsBlockSelect<T extends boolean = true> {
+  heading?: T;
+  subheading?: T;
+  benefits?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        body?: T;
+        id?: T;
+      };
+  image?: T;
   sectionLayout?:
     | T
     | {
