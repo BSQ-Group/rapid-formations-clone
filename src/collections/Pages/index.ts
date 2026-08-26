@@ -65,6 +65,7 @@ import { RegisteredOfficeAddress } from '../../blocks/RegisteredOfficeAddress/co
 import { ServicesTestimonial } from '../../blocks/ServicesTestimonial/config'
 import { TestimonialBanner } from '../../blocks/TestimonialBanner/config'
 import { HowItWorks } from '../../blocks/HowItWorks/config'
+import { HowItWorksScreens } from '../../blocks/HowItWorksScreens/config'
 import { LegalSidenav } from '../../blocks/LegalSidenav/config'
 import { LegalContent } from '../../blocks/LegalContent/config'
 import { ContactUs } from '@/blocks/ContactUs/config'
@@ -231,6 +232,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 ServicesTestimonial,
                 TestimonialBanner,
                 HowItWorks,
+                HowItWorksScreens,
                 LegalSidenav,
                 LegalContent,
                 ContactUs,

@@ -289,6 +289,7 @@ export interface Page {
         | ServicesTestimonialBlock
         | TestimonialBannerBlock
         | HowItWorksBlock
+        | HowItWorksScreensBlock
         | LegalSidenavBlock
         | LegalContentBlock
         | ContactUsBlock
@@ -3998,6 +3999,43 @@ export interface HowItWorksBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HowItWorksScreensBlock".
+ */
+export interface HowItWorksScreensBlock {
+  heading: string;
+  /**
+   * Unticked the screenshot sits on its own with rounded corners and no title bar.
+   */
+  chrome?: boolean | null;
+  /**
+   * One column each from 768px up, stacked below that. Three is the number both source pages use.
+   */
+  screens: {
+    image: string | Media;
+    /**
+     * Centred under the screen. Line breaks are preserved.
+     */
+    caption: string;
+    id?: string | null;
+  }[];
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, MD 40px, LG 50px, XL 75px, 2XL 100px; SECTION 50/75/110 and SECTIONLARGE 70/140 follow the source Section margin responsively.
+     */
+    gap?: ('inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'section' | 'sectionLarge') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'howItWorksScreens';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "LegalSidenavBlock".
  */
 export interface LegalSidenavBlock {
@@ -6199,6 +6237,7 @@ export interface PagesSelect<T extends boolean = true> {
         servicesTestimonial?: T | ServicesTestimonialBlockSelect<T>;
         testimonialBanner?: T | TestimonialBannerBlockSelect<T>;
         howItWorks?: T | HowItWorksBlockSelect<T>;
+        howItWorksScreens?: T | HowItWorksScreensBlockSelect<T>;
         legalSidenav?: T | LegalSidenavBlockSelect<T>;
         legalContent?: T | LegalContentBlockSelect<T>;
         contactUs?: T | ContactUsBlockSelect<T>;
@@ -7966,6 +8005,31 @@ export interface HowItWorksBlockSelect<T extends boolean = true> {
         background?: T;
         paddingTop?: T;
         paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HowItWorksScreensBlock_select".
+ */
+export interface HowItWorksScreensBlockSelect<T extends boolean = true> {
+  heading?: T;
+  chrome?: T;
+  screens?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
+        id?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+        gap?: T;
       };
   id?: T;
   blockName?: T;

@@ -173,6 +173,7 @@ export default {
         '2xl': 'var(--shadow-2xl)',
         'tile-raised': 'var(--shadow-tile-raised)',
         'tile-raised-hover': 'var(--shadow-tile-raised-hover)',
+        'browser-window': 'var(--shadow-browser-window)',
       },
       borderRadius: {
         lg: 'var(--radius)',
