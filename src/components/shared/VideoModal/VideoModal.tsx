@@ -64,6 +64,7 @@ export const VideoModal: React.FC<VideoModalProps> = ({
         <DialogContent
           ref={contentRef}
           tabIndex={-1}
+          overlayClassName={s.overlay}
           className={cn(s.dialogContent, contentClassName)}
           aria-describedby={undefined}
           onOpenAutoFocus={(event) => {
