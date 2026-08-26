@@ -12,6 +12,7 @@ import { ComparePackagesHero } from '@/components/shared/ComparePackagesHero'
 import { BuyServiceBlock } from '@/blocks/BuyService/Component'
 import { ServiceContentBlock } from '@/blocks/ServiceContent/Component'
 import { ServicesBenefitsBlockComponent } from '@/blocks/ServicesBenefits/Component'
+import { ServicePriceBannerBlockComponent } from '@/blocks/ServicePriceBanner/Component'
 import { OurAddressBlock } from '@/blocks/OurAddress/Component'
 import { CallOutCTABlock } from '@/blocks/CallOutCTA/Component'
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
@@ -114,6 +115,7 @@ const blockComponents = {
   buyService: BuyServiceBlock,
   serviceContent: ServiceContentBlock,
   servicesBenefits: ServicesBenefitsBlockComponent,
+  servicePriceBanner: ServicePriceBannerBlockComponent,
   ourAddress: OurAddressBlock,
   callOutCTA: CallOutCTABlock,
   archive: ArchiveBlock,

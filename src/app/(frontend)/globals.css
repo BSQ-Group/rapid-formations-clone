@@ -310,6 +310,8 @@
     --surface-browser-dot-amber: rgb(254 188 46);
     --surface-browser-dot-green: rgb(40 200 64);
     --shadow-browser-window: 0 8px 24px rgb(0 0 0 / 0.15);
+    --surface-banner-navy: rgb(25 42 131);
+    --icon-trustpilot-star: rgb(0 127 78);
     --surface-cta-success: rgb(0 182 122);
     --surface-cta-success-hover: rgb(0 208 139);
     --surface-cta-search-hover: rgb(0 131 88);
