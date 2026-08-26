@@ -309,6 +309,7 @@ export interface Page {
         | HeroServicesBannerBlock
         | ServiceCardsBlock
         | ServiceInclusionsGridBlock
+        | ServiceExplainerBlock
         | HowItWorksListBlock
         | ServiceTextBlock
         | NoteBlock
@@ -5101,6 +5102,74 @@ export interface ServiceInclusionsGridBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServiceExplainerBlock".
+ */
+export interface ServiceExplainerBlock {
+  /**
+   * Centred at the top of the navy band. Line breaks are preserved.
+   */
+  heading: string;
+  /**
+   * Optional centred line under the heading.
+   */
+  subheading?: string | null;
+  /**
+   * Player embed URL (Vimeo/YouTube) or a direct .mp4 file URL. An embed URL opens in an iframe, a file URL in a native player. Leave blank and the still renders on its own, with no play button and nothing to click.
+   */
+  videoUrl?: string | null;
+  /**
+   * Landscape. It is the whole clickable target, so set the alt text on the media item — that is what a screen reader announces.
+   */
+  videoStill?: (string | null) | Media;
+  /**
+   * Names the video to screen readers and in the player frame. Falls back to the heading when blank.
+   */
+  videoTitle?: string | null;
+  /**
+   * Left column below the video from 768px up, above the text below that.
+   */
+  image?: (string | null) | Media;
+  /**
+   * Heading of the text column beside the image.
+   */
+  contentTitle?: string | null;
+  /**
+   * Line breaks are preserved.
+   */
+  contentBody?: string | null;
+  cta: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+  };
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, MD 40px, LG 50px, XL 75px, 2XL 100px; SECTION 50/75/110 and SECTIONLARGE 70/140 follow the source Section margin responsively.
+     */
+    gap?: ('inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'section' | 'sectionLarge') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'serviceExplainer';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "HowItWorksListBlock".
  */
 export interface HowItWorksListBlock {
@@ -6219,6 +6288,7 @@ export interface PagesSelect<T extends boolean = true> {
         heroServicesBanner?: T | HeroServicesBannerBlockSelect<T>;
         serviceCards?: T | ServiceCardsBlockSelect<T>;
         serviceInclusionsGrid?: T | ServiceInclusionsGridBlockSelect<T>;
+        serviceExplainer?: T | ServiceExplainerBlockSelect<T>;
         howItWorksList?: T | HowItWorksListBlockSelect<T>;
         serviceText?: T | ServiceTextBlockSelect<T>;
         note?: T | NoteBlockSelect<T>;
@@ -8629,6 +8699,39 @@ export interface ServiceInclusionsGridBlockSelect<T extends boolean = true> {
         title?: T;
         description?: T;
         id?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+        gap?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServiceExplainerBlock_select".
+ */
+export interface ServiceExplainerBlockSelect<T extends boolean = true> {
+  heading?: T;
+  subheading?: T;
+  videoUrl?: T;
+  videoStill?: T;
+  videoTitle?: T;
+  image?: T;
+  contentTitle?: T;
+  contentBody?: T;
+  cta?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
       };
   sectionLayout?:
     | T

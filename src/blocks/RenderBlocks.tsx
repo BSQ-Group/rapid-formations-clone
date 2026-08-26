@@ -85,6 +85,7 @@ import { ContentWithExtendedPricingCardBlock } from '@/blocks/ContentWithExtende
 import { HeroServicesBannerBlock } from '@/blocks/HeroServicesBanner/Component'
 import { ServiceCardsBlock } from '@/blocks/ServiceCards/Component'
 import { ServiceInclusionsGridBlockComponent } from '@/blocks/ServiceInclusionsGrid/Component'
+import { ServiceExplainerBlockComponent } from '@/blocks/ServiceExplainer/Component'
 import { HowItWorksListBlock } from '@/blocks/HowItWorksList/Component'
 import { ServiceTextBlock } from '@/blocks/ServiceText/Component'
 import { NoteBlock } from '@/blocks/Note/Component'
@@ -185,6 +186,7 @@ const blockComponents = {
   heroServicesBanner: HeroServicesBannerBlock,
   serviceCards: ServiceCardsBlock,
   serviceInclusionsGrid: ServiceInclusionsGridBlockComponent,
+  serviceExplainer: ServiceExplainerBlockComponent,
   howItWorksList: HowItWorksListBlock,
   serviceText: ServiceTextBlock,
   note: NoteBlock,
