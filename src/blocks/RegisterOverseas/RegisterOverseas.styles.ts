@@ -16,7 +16,10 @@ export const registerOverseasStyles = {
 
   body: 'text-[20px] font-normal leading-[30px] text-[var(--text-on-light-muted)] [&_p]:mb-4 [&_a]:text-[var(--surface-brand-cyan)] [&_a]:no-underline hover:[&_a]:underline',
 
-  ctaWrap: 'mt-6 flex items-center justify-center md:mt-12',
+  // CORE-6960: left-align the CTA with the card text (was centred at 1024/1800)
+  // and tighten the gap above it to match live (~17px; the body's last <p>
+  // supplies its own mb-4). Was `mt-6 ... md:mt-12` which over-spaced 768+.
+  ctaWrap: 'mt-1 flex items-center justify-start',
 
   imageWrap: 'md:relative',
 
