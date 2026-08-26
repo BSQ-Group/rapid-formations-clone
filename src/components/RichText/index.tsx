@@ -90,6 +90,15 @@ const buildConverters =
     },
     listitem: ({ node, nodesToJSX }) => {
       const children = nodesToJSX({ nodes: node.children })
+      const isNestedListWrapper =
+        node.children.length > 0 && node.children.every((child) => child.type === 'list')
+      if (isNestedListWrapper) {
+        return (
+          <li className="nestedListItem" style={{ listStyleType: 'none' }}>
+            {children}
+          </li>
+        )
+      }
       if (!listItemIcon) return <li>{children}</li>
       return (
         <li>
