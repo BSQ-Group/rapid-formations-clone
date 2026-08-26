@@ -13,6 +13,7 @@ import { BuyServiceBlock } from '@/blocks/BuyService/Component'
 import { ServiceContentBlock } from '@/blocks/ServiceContent/Component'
 import { ServicesBenefitsBlockComponent } from '@/blocks/ServicesBenefits/Component'
 import { ServicePriceBannerBlockComponent } from '@/blocks/ServicePriceBanner/Component'
+import { VideoLibraryBlockComponent } from '@/blocks/VideoLibrary/Component'
 import { OurAddressBlock } from '@/blocks/OurAddress/Component'
 import { CallOutCTABlock } from '@/blocks/CallOutCTA/Component'
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
@@ -116,6 +117,7 @@ const blockComponents = {
   serviceContent: ServiceContentBlock,
   servicesBenefits: ServicesBenefitsBlockComponent,
   servicePriceBanner: ServicePriceBannerBlockComponent,
+  videoLibrary: VideoLibraryBlockComponent,
   ourAddress: OurAddressBlock,
   callOutCTA: CallOutCTABlock,
   archive: ArchiveBlock,

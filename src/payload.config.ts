@@ -16,6 +16,7 @@ import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { ServiceAdsCollection } from './collections/ServiceAds'
 import { BuyServicesCollection } from './collections/BuyServices'
+import { VideosCollection } from './collections/Videos'
 import { BusinessBankAccountsGlobal } from './globals/BusinessBankAccounts/config'
 import { EligibleCountriesGlobal } from './globals/EligibleCountries/config'
 import { FaqTopicsGlobal } from './globals/FaqTopics/config'
@@ -92,6 +93,7 @@ export default buildConfig({
     Products,
     ServiceAdsCollection,
     BuyServicesCollection,
+    VideosCollection,
   ],
   cors: [getServerSideURL()].filter(Boolean),
   plugins: [
