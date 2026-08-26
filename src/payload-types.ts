@@ -3086,6 +3086,19 @@ export interface ServiceContentBlock {
       }[]
     | null;
   /**
+   * A bordered panel holding a form. Two columns puts it at the top of the right column, above everything on mobile; one column puts it after the copy.
+   */
+  formPanel?: {
+    /**
+     * Sits above the form, e.g. "Switch to email delivery".
+     */
+    heading?: string | null;
+    /**
+     * Leave empty to hide the panel.
+     */
+    form?: (string | null) | Form;
+  };
+  /**
    * Priced cards rendered inside the content. Two columns puts them at the top of the right column, above everything on mobile; one column puts them after the copy.
    */
   buyServices?: (string | BuyService)[] | null;
@@ -7355,6 +7368,12 @@ export interface ServiceContentBlockSelect<T extends boolean = true> {
         iconColour?: T;
         content?: T;
         id?: T;
+      };
+  formPanel?:
+    | T
+    | {
+        heading?: T;
+        form?: T;
       };
   buyServices?: T;
   sectionLayout?:
