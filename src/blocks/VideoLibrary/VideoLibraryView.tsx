@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import { faClock } from '@fortawesome/pro-regular-svg-icons/faClock'
 
 import { Container } from '@/components/shared/Container/Container'
@@ -29,30 +29,42 @@ const easeInOutCubic = (progress: number): number =>
   progress < 0.5 ? 4 * progress ** 3 : 1 - (-2 * progress + 2) ** 3 / 2
 
 export const VideoLibraryView: React.FC<{ categories: LibraryCategory[] }> = ({ categories }) => {
-  const sectionRefs = useRef<Record<string, HTMLElement | null>>({})
+  const sectionRefs = useRef(new Map<string, HTMLElement>())
+  const frameRef = useRef<number | null>(null)
 
   const scrollToCategory = useCallback((category: string) => {
-    const element = sectionRefs.current[category]
+    const element = sectionRefs.current.get(category)
     if (!element) return
 
+    if (frameRef.current !== null) cancelAnimationFrame(frameRef.current)
+
+    const startPosition = window.scrollY
+    const target = element.getBoundingClientRect().top + startPosition - HEADER_OFFSET
+
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      window.scrollTo(0, element.offsetTop - HEADER_OFFSET)
+      window.scrollTo(0, target)
       return
     }
 
-    const startPosition = window.scrollY
-    const distance = element.offsetTop - HEADER_OFFSET - startPosition
+    const distance = target - startPosition
     let start: number | null = null
 
     const step = (currentTime: number) => {
-      if (start === null) start = currentTime
+      start ??= currentTime
       const progress = Math.min((currentTime - start) / SCROLL_DURATION, 1)
       window.scrollTo(0, startPosition + distance * easeInOutCubic(progress))
-      if (progress < 1) requestAnimationFrame(step)
+      frameRef.current = progress < 1 ? requestAnimationFrame(step) : null
     }
 
-    requestAnimationFrame(step)
+    frameRef.current = requestAnimationFrame(step)
   }, [])
+
+  useEffect(
+    () => () => {
+      if (frameRef.current !== null) cancelAnimationFrame(frameRef.current)
+    },
+    [],
+  )
 
   if (!categories.length) return null
 
@@ -99,7 +111,9 @@ export const VideoLibraryView: React.FC<{ categories: LibraryCategory[] }> = ({ 
           <section
             key={category.name}
             ref={(element) => {
-              sectionRefs.current[category.name] = element
+              const refs = sectionRefs.current
+              if (element) refs.set(category.name, element)
+              else refs.delete(category.name)
             }}
             className={s.categorySection}
           >

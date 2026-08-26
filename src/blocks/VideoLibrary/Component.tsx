@@ -5,7 +5,7 @@ import { getPayload } from 'payload'
 import type { VideoLibraryBlock as VideoLibraryBlockProps } from '@/payload-types'
 
 import { SectionWrapper } from '@/components/shared/SectionWrapper/SectionWrapper'
-import { formatDuration, formatPublishedDate } from './videoFormat'
+import { formatDateLongUTC, formatIsoDuration } from '@/utilities/formatting'
 import { VideoLibraryView, type LibraryCategory } from './VideoLibraryView'
 import { videoLibraryStyles as s } from './VideoLibrary.styles'
 
@@ -17,31 +17,42 @@ export const VideoLibraryBlockComponent: React.FC<VideoLibraryBlockProps> = asyn
     collection: 'videos',
     limit: 500,
     depth: 0,
-    sort: '-publishedDate',
+    sort: 'id',
   })
 
   if (!docs.length) return null
 
-  const byCategory = new Map<string, { order: number; videos: LibraryCategory['videos'] }>()
+  const byCategory = new Map<string, { order: number; docs: typeof docs }>()
 
-  docs.forEach((video, index) => {
-    const name = video.category?.trim()
-    if (!name || !video.vimeoId || !video.title) return
+  for (const [index, video] of docs.entries()) {
+    const name = video.category.trim()
+    if (!name) continue
 
-    const group = byCategory.get(name) ?? { order: video.categoryOrder ?? index, videos: [] }
-    group.videos.push({
-      id: String(video.id),
-      vimeoId: video.vimeoId,
-      title: video.title,
-      duration: formatDuration(video.duration),
-      publishedDate: formatPublishedDate(video.publishedDate),
-    })
-    byCategory.set(name, group)
-  })
+    let group = byCategory.get(name)
+    if (!group) {
+      group = { order: video.categoryOrder ?? index, docs: [] }
+      byCategory.set(name, group)
+    } else if (video.categoryOrder != null) {
+      group.order = Math.min(group.order, video.categoryOrder)
+    }
+
+    group.docs.push(video)
+  }
 
   const categories: LibraryCategory[] = [...byCategory.entries()]
     .sort(([, a], [, b]) => a.order - b.order)
-    .map(([name, group]) => ({ name, videos: group.videos }))
+    .map(([name, group]) => ({
+      name,
+      videos: group.docs
+        .sort((a, b) => (b.publishedDate ?? '').localeCompare(a.publishedDate ?? ''))
+        .map((video) => ({
+          id: video.id,
+          vimeoId: video.vimeoId,
+          title: video.title,
+          duration: formatIsoDuration(video.duration),
+          publishedDate: formatDateLongUTC(video.publishedDate),
+        })),
+    }))
 
   if (!categories.length) return null
 
