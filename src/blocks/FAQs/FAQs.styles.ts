@@ -1,5 +1,6 @@
 export const faqsStyles = {
-  subheading: 'block text-[24px] font-normal leading-[32.4px] text-[var(--text-on-light-muted)]',
+  subheading:
+    'mb-2 block text-[24px] font-normal leading-[32.4px] text-[var(--text-on-light-muted)]',
   section: 'font-legacy-condensed w-full bg-[var(--surface-canvas)]',
 
   header: 'mb-8 w-full flow-root text-center',

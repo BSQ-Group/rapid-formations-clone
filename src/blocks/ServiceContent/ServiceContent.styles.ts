@@ -27,7 +27,7 @@ export const serviceContentStyles = {
     'mb-8 last:mb-14 !border-0 !border-b !border-solid !border-[color:var(--border-on-light)]',
 
   formPanel:
-    'mb-[30px] border border-solid border-[color:var(--border-on-light-tile)] bg-[var(--surface-on-light-canvas)] p-5 min-[1023px]:last:mb-0',
+    'border border-solid border-[color:var(--border-on-light-tile)] bg-[var(--surface-on-light-canvas)] p-5 [&_form]:mt-[18px]',
 
   formPanelHeading:
     'mb-2 block text-[24px] leading-[32.4px] font-normal text-[var(--text-on-light-base)]',

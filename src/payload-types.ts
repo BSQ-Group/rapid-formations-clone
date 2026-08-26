@@ -5673,6 +5673,18 @@ export interface TitleBannerBlock {
    */
   title?: string | null;
   /**
+   * Sits under the title. Line breaks are preserved.
+   */
+  subtitle?: string | null;
+  /**
+   * Optional cyan pill under the subtitle, e.g. "Only 50p per letter".
+   */
+  badge?: string | null;
+  /**
+   * The source shows banner text only above 768px on pages that have no mobile title. Leave off to show it at every width.
+   */
+  hideTextOnMobile?: boolean | null;
+  /**
    * Fills the full-width band either side of the image above 1170px.
    */
   backdrop?: ('none' | 'dark' | 'mist' | 'pale') | null;
@@ -8939,6 +8951,9 @@ export interface TextContentBlockSelect<T extends boolean = true> {
 export interface TitleBannerBlockSelect<T extends boolean = true> {
   variant?: T;
   title?: T;
+  subtitle?: T;
+  badge?: T;
+  hideTextOnMobile?: T;
   backdrop?: T;
   naturalHeight?: T;
   image?: T;

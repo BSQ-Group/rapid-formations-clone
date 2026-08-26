@@ -10,6 +10,16 @@ export const titleBannerStyles = {
   title:
     'mb-2 block whitespace-pre-line text-[40px] font-normal leading-[1.15] text-[rgb(var(--white))] [text-shadow:var(--shadow-banner-title)]',
 
+  subtitle:
+    'mb-2 block whitespace-pre-line text-2xl font-normal leading-[1.235] text-[rgb(var(--white))]',
+
+  badgeWrap: 'mb-4 block',
+
+  badge:
+    'inline-block rounded bg-[var(--border-brand-cyan)] px-2.5 py-[3px] text-[21px] font-normal leading-[31.5px] text-[rgb(var(--white))]',
+
+  textOnDesktopOnly: 'hidden min-[769px]:flex',
+
   imageSection: 'font-legacy-condensed w-full',
 
   imageSectionContained: 'pb-[15px]',

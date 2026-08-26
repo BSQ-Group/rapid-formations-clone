@@ -34,6 +34,35 @@ export const TitleBanner: Block = {
       },
     },
     {
+      name: 'subtitle',
+      type: 'textarea',
+      label: 'Subtitle',
+      admin: {
+        condition: (_, siblingData) => siblingData?.variant === 'titleBackground',
+        description: 'Sits under the title. Line breaks are preserved.',
+      },
+    },
+    {
+      name: 'badge',
+      type: 'text',
+      label: 'Badge',
+      admin: {
+        condition: (_, siblingData) => siblingData?.variant === 'titleBackground',
+        description: 'Optional cyan pill under the subtitle, e.g. "Only 50p per letter".',
+      },
+    },
+    {
+      name: 'hideTextOnMobile',
+      type: 'checkbox',
+      label: 'Hide the text at 768px and below',
+      defaultValue: false,
+      admin: {
+        condition: (_, siblingData) => siblingData?.variant === 'titleBackground',
+        description:
+          'The source shows banner text only above 768px on pages that have no mobile title. Leave off to show it at every width.',
+      },
+    },
+    {
       name: 'backdrop',
       type: 'select',
       label: 'Backdrop behind the image',
