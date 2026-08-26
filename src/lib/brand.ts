@@ -23,6 +23,7 @@ export interface DomainConfig {
   siteName: string
   tenantId: string
   blogUrl?: string
+  cookiebotId?: string
 }
 
 export const domainsConfigMap: Record<Brand, DomainConfig> = {
@@ -38,6 +39,7 @@ export const domainsConfigMap: Record<Brand, DomainConfig> = {
     siteName: 'Quality Company Formations',
     tenantId: 'quality-company-7a0c3',
     blogUrl: 'https://www.qualityformationsblog.co.uk',
+    cookiebotId: '04695da6-ca51-46fe-923e-144ccc7854e1',
   },
   [Brand.RapidFormations]: {
     alt: 'Rapid Formations Ltd Logo',
@@ -46,6 +48,7 @@ export const domainsConfigMap: Record<Brand, DomainConfig> = {
     siteName: 'Rapid Formations',
     tenantId: 'rapid-90xzd',
     blogUrl: 'https://www.rapidformationsblog.co.uk',
+    cookiebotId: '752140c3-4ecf-4ff7-b95d-bb2bcbe83eb0',
   },
 }
 
