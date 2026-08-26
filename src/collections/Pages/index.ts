@@ -96,6 +96,7 @@ import { ContentWithExtendedPricingCard } from '../../blocks/ContentWithExtended
 import { HeroServicesBanner } from '../../blocks/HeroServicesBanner/config'
 import { ServiceCards } from '../../blocks/ServiceCards/config'
 import { ServiceInclusionsGrid } from '../../blocks/ServiceInclusionsGrid/config'
+import { ServiceExplainer } from '../../blocks/ServiceExplainer/config'
 import { HowItWorksList } from '../../blocks/HowItWorksList/config'
 import { ServiceText } from '../../blocks/ServiceText/config'
 import { Note } from '../../blocks/Note/config'
@@ -253,6 +254,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 HeroServicesBanner,
                 ServiceCards,
                 ServiceInclusionsGrid,
+                ServiceExplainer,
                 HowItWorksList,
                 ServiceText,
                 Note,
