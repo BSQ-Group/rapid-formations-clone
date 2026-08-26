@@ -2124,70 +2124,6 @@ export interface BCorpCertificationBlock {
  */
 export interface BankingPartnersBlock {
   /**
-   * Centred heading above the partner grid. Newlines are preserved, so a deliberate line break can be typed in.
-   */
-  heading: string;
-  /**
-   * Optional line under the heading. Leave blank and the spacing above the grid stays the same.
-   */
-  subheading?: string | null;
-  /**
-   * Repeating texture tiled behind every partner tile and blended over its brand colour. One image is shared by all tiles.
-   */
-  backgroundPattern?: (string | null) | Media;
-  banks: {
-    name: string;
-    /**
-     * Rendered at 58x58 inside a white rounded tile.
-     */
-    logo: string | Media;
-    /**
-     * CSS colour for the tile background, e.g. #4DAFEA. This is per-partner brand data, so it is stored as content rather than a theme token.
-     */
-    brandColour: string;
-    /**
-     * Bold first line of the hover tooltip (desktop) and tap modal (mobile), e.g. "Barclays business bank account". Leave blank and the tile is not interactive.
-     */
-    infoTitle?: string | null;
-    /**
-     * Body of the hover tooltip (desktop) and tap modal (mobile). Leave blank and the tile is not interactive.
-     */
-    description?: {
-      root: {
-        type: string;
-        children: {
-          type: any;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    } | null;
-    id?: string | null;
-  }[];
-  /**
-   * Optional CTA below the grid (e.g. "Learn More"). The package pages show none.
-   */
-  cta?: {
-    type?: ('reference' | 'custom') | null;
-    newTab?: boolean | null;
-    reference?:
-      | ({
-          relationTo: 'pages';
-          value: string | Page;
-        } | null)
-      | ({
-          relationTo: 'posts';
-          value: string | Post;
-        } | null);
-    url?: string | null;
-    label?: string | null;
-  };
-  /**
    * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
    */
   sectionLayout: {
@@ -6995,28 +6931,6 @@ export interface BCorpCertificationBlockSelect<T extends boolean = true> {
  * via the `definition` "BankingPartnersBlock_select".
  */
 export interface BankingPartnersBlockSelect<T extends boolean = true> {
-  heading?: T;
-  subheading?: T;
-  backgroundPattern?: T;
-  banks?:
-    | T
-    | {
-        name?: T;
-        logo?: T;
-        brandColour?: T;
-        infoTitle?: T;
-        description?: T;
-        id?: T;
-      };
-  cta?:
-    | T
-    | {
-        type?: T;
-        newTab?: T;
-        reference?: T;
-        url?: T;
-        label?: T;
-      };
   sectionLayout?:
     | T
     | {
@@ -9869,16 +9783,80 @@ export interface Footer {
  */
 export interface BusinessBankAccount {
   id: string;
+  /**
+   * Section heading shown above the partner grid on every block that uses this global.
+   */
   heading: string;
+  /**
+   * Optional line under the heading.
+   */
+  subheading?: string | null;
+  /**
+   * Repeating texture tiled behind every partner tile and blended over its brand colour. One image is shared by all tiles.
+   */
+  backgroundPattern?: (string | null) | Media;
   banks?:
     | {
         name: string;
-        cardImage: string | Media;
+        /**
+         * Rendered at 58x58 inside a white rounded tile.
+         */
         logo: string | Media;
+        /**
+         * CSS colour for the tile background, e.g. #4DAFEA. Per-partner brand data, stored as content rather than a theme token. Used by the partner-grid presentation.
+         */
+        brandColour?: string | null;
+        /**
+         * Bold first line of the hover tooltip (desktop) and tap modal (mobile). Leave blank and the tile is not interactive.
+         */
+        infoTitle?: string | null;
+        /**
+         * Body of the hover tooltip (desktop) and tap modal (mobile). Leave blank and the tile is not interactive.
+         */
+        description?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        /**
+         * Used by the card/carousel presentation only. Optional.
+         */
+        cardImage?: (string | null) | Media;
+        /**
+         * Used by the card/carousel presentation only. Optional.
+         */
         subtext?: string | null;
         id?: string | null;
       }[]
     | null;
+  /**
+   * Optional CTA below the grid (e.g. "Learn More").
+   */
+  cta?: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label?: string | null;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -10264,14 +10242,28 @@ export interface FooterSelect<T extends boolean = true> {
  */
 export interface BusinessBankAccountsSelect<T extends boolean = true> {
   heading?: T;
+  subheading?: T;
+  backgroundPattern?: T;
   banks?:
     | T
     | {
         name?: T;
-        cardImage?: T;
         logo?: T;
+        brandColour?: T;
+        infoTitle?: T;
+        description?: T;
+        cardImage?: T;
         subtext?: T;
         id?: T;
+      };
+  cta?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
       };
   updatedAt?: T;
   createdAt?: T;
