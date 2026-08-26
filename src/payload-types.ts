@@ -308,6 +308,7 @@ export interface Page {
         | ContentWithExtendedPricingCardBlock
         | HeroServicesBannerBlock
         | ServiceCardsBlock
+        | ServiceInclusionsGridBlock
         | HowItWorksListBlock
         | ServiceTextBlock
         | NoteBlock
@@ -5060,6 +5061,46 @@ export interface ServiceCardsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServiceInclusionsGridBlock".
+ */
+export interface ServiceInclusionsGridBlock {
+  /**
+   * Centred above the grid. Line breaks are preserved.
+   */
+  heading: string;
+  /**
+   * One bordered card each, in this order. Three per row from 768px up, stacked below that.
+   */
+  items: {
+    /**
+     * Rendered at 80×80. Its alt text comes from the media item.
+     */
+    icon: string | Media;
+    title: string;
+    /**
+     * Line breaks are preserved.
+     */
+    description: string;
+    id?: string | null;
+  }[];
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, MD 40px, LG 50px, XL 75px, 2XL 100px; SECTION 50/75/110 and SECTIONLARGE 70/140 follow the source Section margin responsively.
+     */
+    gap?: ('inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'section' | 'sectionLarge') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'serviceInclusionsGrid';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "HowItWorksListBlock".
  */
 export interface HowItWorksListBlock {
@@ -6177,6 +6218,7 @@ export interface PagesSelect<T extends boolean = true> {
         contentWithExtendedPricingCard?: T | ContentWithExtendedPricingCardBlockSelect<T>;
         heroServicesBanner?: T | HeroServicesBannerBlockSelect<T>;
         serviceCards?: T | ServiceCardsBlockSelect<T>;
+        serviceInclusionsGrid?: T | ServiceInclusionsGridBlockSelect<T>;
         howItWorksList?: T | HowItWorksListBlockSelect<T>;
         serviceText?: T | ServiceTextBlockSelect<T>;
         note?: T | NoteBlockSelect<T>;
@@ -8570,6 +8612,31 @@ export interface ServiceCardsBlockSelect<T extends boolean = true> {
         background?: T;
         paddingTop?: T;
         paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServiceInclusionsGridBlock_select".
+ */
+export interface ServiceInclusionsGridBlockSelect<T extends boolean = true> {
+  heading?: T;
+  items?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+        gap?: T;
       };
   id?: T;
   blockName?: T;
