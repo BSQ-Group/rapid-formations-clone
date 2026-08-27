@@ -1,6 +1,14 @@
-import type { Block } from 'payload'
+import type { Block, TextField, Validate } from 'payload'
 
 import { sectionLayoutField } from '@/fields/sectionLayout'
+
+const requiredWithoutHeading: Validate<string, unknown, { heading?: string | null }, TextField> = (
+  value,
+  { siblingData },
+) =>
+  value?.trim() || siblingData.heading?.trim()
+    ? true
+    : 'With no heading this is the only name the video has — enter one.'
 
 export const FormationVideo: Block = {
   slug: 'formationVideo',
@@ -10,10 +18,9 @@ export const FormationVideo: Block = {
     {
       name: 'heading',
       type: 'text',
-      required: true,
       admin: {
         description:
-          'Centred heading above the video still. Newlines are preserved, so a deliberate line break can be typed in.',
+          'Centred heading above the video still. Newlines are preserved, so a deliberate line break can be typed in. Leave blank for a bare still with nothing above it.',
       },
     },
     {
@@ -21,6 +28,16 @@ export const FormationVideo: Block = {
       type: 'text',
       admin: {
         description: 'Optional centred line under the heading. Leave blank to drop it entirely.',
+      },
+    },
+    {
+      name: 'videoTitle',
+      type: 'text',
+      label: 'Video title',
+      validate: requiredWithoutHeading,
+      admin: {
+        description:
+          'Names the video for screen readers — it labels the play button and titles the dialog. Leave blank to use the heading. Required when there is no heading, because nothing else names the video.',
       },
     },
     {
@@ -48,6 +65,20 @@ export const FormationVideo: Block = {
       },
     },
     {
+      name: 'stillWidth',
+      type: 'select',
+      label: 'Still width',
+      defaultValue: 'capped',
+      options: [
+        { label: 'Capped — full width, but never wider than 640px from 1023px', value: 'capped' },
+        { label: 'Inset — 85% of the container from 768px, with rounded corners', value: 'inset' },
+      ],
+      admin: {
+        description:
+          'Capped is the home page treatment. Inset matches the standalone video the service pages drop between sections — it stays full width on mobile and pulls in to 85% from 768px.',
+      },
+    },
+    {
       name: 'showPlayIcon',
       type: 'checkbox',
       label: 'Overlay a play icon',
@@ -58,6 +89,7 @@ export const FormationVideo: Block = {
       },
     },
     sectionLayoutField({
+      gap: true,
       defaults: { background: 'inverse', paddingTop: 'none', paddingBottom: 'none' },
     }),
   ],
