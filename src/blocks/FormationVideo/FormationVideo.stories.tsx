@@ -64,6 +64,8 @@ const defaultArgs: FormationVideoBlockProps = {
   subheading: 'Find out how to form a limited company in our 6 minute video.',
   image: landscapeStill,
   videoUrl: VIMEO_URL,
+  videoTitle: null,
+  stillWidth: 'capped',
   showPlayIcon: false,
   sectionLayout: { background: 'inverse', paddingTop: 'none', paddingBottom: 'none' },
 }
@@ -113,11 +115,51 @@ export const OptionalsAbsent: Story = {
   args: { ...defaultArgs, subheading: null, showPlayIcon: null },
 }
 
+export const BareStill: Story = {
+  args: {
+    ...defaultArgs,
+    heading: null,
+    subheading: null,
+    videoTitle: 'Hassle-Free Compliance Service Explained',
+    stillWidth: 'inset',
+    showPlayIcon: true,
+    sectionLayout: {
+      background: 'light',
+      paddingTop: 'none',
+      paddingBottom: 'none',
+      gap: 'section',
+    },
+  },
+}
+
+export const BareStillNarrow: Story = {
+  ...narrowViewport,
+  args: {
+    ...defaultArgs,
+    heading: null,
+    subheading: null,
+    videoTitle: GERMAN_TOKEN,
+    stillWidth: 'inset',
+    showPlayIcon: true,
+    sectionLayout: {
+      background: 'light',
+      paddingTop: 'none',
+      paddingBottom: 'none',
+      gap: 'section',
+    },
+  },
+}
+
+export const SubheadingOnly: Story = {
+  args: { ...defaultArgs, heading: null, videoTitle: 'Watch the video' },
+}
+
 export const UnbrokenTokens: Story = {
   args: {
     ...defaultArgs,
     heading: GERMAN_TOKEN,
     subheading: `${EMAIL_TOKEN} ${URL_TOKEN}`,
+    videoTitle: URL_TOKEN,
   },
 }
 
@@ -132,6 +174,10 @@ export const UnbrokenTokensNarrow: Story = {
 
 export const PortraitImage: Story = {
   args: { ...defaultArgs, image: portraitStill },
+}
+
+export const InsetStill: Story = {
+  args: { ...defaultArgs, stillWidth: 'inset', showPlayIcon: true },
 }
 
 export const ImageAbsent: Story = {

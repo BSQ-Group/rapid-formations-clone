@@ -1,5 +1,5 @@
 export const videoLibraryStyles = {
-  section: 'font-legacy-condensed w-full bg-[var(--surface-canvas)]',
+  section: 'font-legacy-condensed w-full bg-[var(--surface-canvas)] pt-10 min-[1023px]:pt-5',
 
   nav: 'my-8 md:my-12',
 
@@ -7,7 +7,7 @@ export const videoLibraryStyles = {
   navDesktop: 'hidden md:block',
 
   dropdown:
-    'w-full cursor-pointer appearance-none rounded-lg border-2 border-solid border-[color:var(--border-on-light-select)] bg-[var(--surface-canvas)] py-3 pr-10 pl-4 text-lg text-[var(--text-on-light-base)] focus:border-[color:var(--border-on-light-select)] focus:outline-none',
+    'w-full cursor-pointer appearance-none rounded-lg border-2 border-solid border-[color:var(--border-on-light-select)] bg-[var(--surface-canvas)] py-3 pr-10 pl-4 text-lg leading-[normal] text-[var(--text-on-light-muted)] focus:border-[color:var(--border-on-light-select)] focus:outline-none',
 
   buttonGrid: 'mx-auto grid max-w-[1200px] grid-cols-4 gap-4',
 
