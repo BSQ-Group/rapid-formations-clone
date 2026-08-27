@@ -1,13 +1,14 @@
-import type { Block, TextFieldSingleValidation } from 'payload'
+import type { Block, TextField, Validate } from 'payload'
 
 import { sectionLayoutField } from '@/fields/sectionLayout'
 
-const requiredWithoutHeading: TextFieldSingleValidation = (value, { siblingData }) => {
-  const heading = (siblingData as { heading?: string | null } | undefined)?.heading
-  if (typeof value === 'string' && value.trim()) return true
-  if (typeof heading === 'string' && heading.trim()) return true
-  return 'With no heading this is the only name the video has — enter one.'
-}
+const requiredWithoutHeading: Validate<string, unknown, { heading?: string | null }, TextField> = (
+  value,
+  { siblingData },
+) =>
+  value?.trim() || siblingData.heading?.trim()
+    ? true
+    : 'With no heading this is the only name the video has — enter one.'
 
 export const FormationVideo: Block = {
   slug: 'formationVideo',
