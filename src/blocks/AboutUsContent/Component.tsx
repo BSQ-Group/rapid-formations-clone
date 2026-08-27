@@ -39,6 +39,12 @@ const ItemContent: React.FC<{ item: Item; layout: Layout }> = ({ item, layout })
     <RichText data={item.body} enableGutter={false} className={s.body} />
   ) : null
 
+  const size = isImageRows
+    ? s.imageSizesRow
+    : item.width === 'full'
+      ? s.imageSizesFull
+      : s.imageSizesHalf
+
   const media =
     item.image && typeof item.image === 'object' ? (
       <Media
@@ -46,7 +52,7 @@ const ItemContent: React.FC<{ item: Item; layout: Layout }> = ({ item, layout })
         htmlElement={null}
         pictureClassName={s.imagePicture}
         imgClassName={cn(s.image, isImageRows && s.imageFlush)}
-        size={s.imageSizes}
+        size={size}
         loading="lazy"
       />
     ) : null
@@ -55,7 +61,7 @@ const ItemContent: React.FC<{ item: Item; layout: Layout }> = ({ item, layout })
     return (
       <>
         {media}
-        <div>
+        <div className={media ? undefined : s.copyFullRow}>
           {heading}
           {body}
         </div>
@@ -88,8 +94,7 @@ export const AboutUsContentBlock: React.FC<AboutUsContentBlockProps> = ({
               key={item.id}
               className={cn(
                 s.item[layout],
-                layout === 'twoColumn' && item.width !== 'full' && s.itemHalf,
-                item.width === 'full' && s.itemFull,
+                layout === 'twoColumn' && (item.width === 'full' ? s.itemFull : s.itemHalf),
                 item.panel && s.panel,
               )}
             >

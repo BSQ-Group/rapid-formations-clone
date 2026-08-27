@@ -1,7 +1,9 @@
-import type { Block } from 'payload'
+import type { Block, Condition } from 'payload'
 
 import { defaultLexical } from '@/fields/defaultLexical'
 import { sectionLayoutField } from '@/fields/sectionLayout'
+
+const twoColumnOnly: Condition = (_, __, { blockData }) => blockData?.variant === 'twoColumn'
 
 export const AboutUsContent: Block = {
   slug: 'aboutUsContent',
@@ -50,6 +52,7 @@ export const AboutUsContent: Block = {
                 { label: 'Right', value: 'right' },
               ],
               admin: {
+                condition: twoColumnOnly,
                 width: '50%',
                 description:
                   'Left and Right are labels for the author — the grid places items in order. Only Full changes the layout.',
@@ -61,6 +64,7 @@ export const AboutUsContent: Block = {
               label: 'Render as a bordered panel',
               defaultValue: false,
               admin: {
+                condition: twoColumnOnly,
                 width: '50%',
                 description:
                   'The white box with a shadow used by Join Our Team. A panel uses the icon groups below instead of the body.',
@@ -73,7 +77,8 @@ export const AboutUsContent: Block = {
           type: 'text',
           admin: {
             condition: (_, siblingData) => !siblingData?.panel,
-            description: 'Rendered as an h3 above the image.',
+            description:
+              'Rendered as an h3 — above the image in two column, beside it in image rows.',
           },
         },
         {
@@ -123,7 +128,7 @@ export const AboutUsContent: Block = {
     },
     sectionLayoutField({
       gap: true,
-      defaults: { background: 'light', paddingTop: 'none', paddingBottom: 'none', gap: 'section' },
+      defaults: { background: 'dark', paddingTop: 'none', paddingBottom: 'none', gap: 'section' },
     }),
   ],
 }

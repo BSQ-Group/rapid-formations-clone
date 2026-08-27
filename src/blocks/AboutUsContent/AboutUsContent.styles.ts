@@ -1,5 +1,5 @@
 export const aboutUsContentStyles = {
-  section: 'font-legacy-condensed w-full bg-[var(--surface-canvas)]',
+  section: 'font-legacy-condensed w-full',
 
   wrapperPad: 'pt-10 min-[1023px]:py-5',
 
@@ -26,9 +26,15 @@ export const aboutUsContentStyles = {
 
   imageFlush: 'mb-0',
 
+  copyFullRow: 'md:col-span-2',
+
   imagePicture: 'block w-full',
 
-  imageSizes: '(min-width: 768px) 480px, 100vw',
+  imageSizesRow: '(min-width: 1230px) 285px, (min-width: 768px) 25vw, 100vw',
+
+  imageSizesHalf: '(min-width: 1230px) 570px, (min-width: 768px) 48vw, 100vw',
+
+  imageSizesFull: '(min-width: 1230px) 1170px, (min-width: 768px) 96vw, 100vw',
 
   body: 'block text-xl leading-[30px] text-[var(--text-on-light-muted)] [&_a]:!text-[var(--text-on-light-link-hover)] [&_a:hover]:!underline [&_p]:!mb-4 [&>p:last-child]:!mb-0',
 
