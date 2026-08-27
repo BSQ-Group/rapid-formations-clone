@@ -89,6 +89,7 @@ import { HeroServicesBannerBlock } from '@/blocks/HeroServicesBanner/Component'
 import { ServiceCardsBlock } from '@/blocks/ServiceCards/Component'
 import { ServiceInclusionsGridBlockComponent } from '@/blocks/ServiceInclusionsGrid/Component'
 import { ServiceExplainerBlockComponent } from '@/blocks/ServiceExplainer/Component'
+import { CompanyAddressGuideTableBlockComponent } from '@/blocks/CompanyAddressGuideTable/Component'
 import { HowItWorksListBlock } from '@/blocks/HowItWorksList/Component'
 import { ServiceTextBlock } from '@/blocks/ServiceText/Component'
 import { NoteBlock } from '@/blocks/Note/Component'
@@ -193,6 +194,7 @@ const blockComponents = {
   serviceCards: ServiceCardsBlock,
   serviceInclusionsGrid: ServiceInclusionsGridBlockComponent,
   serviceExplainer: ServiceExplainerBlockComponent,
+  companyAddressGuideTable: CompanyAddressGuideTableBlockComponent,
   howItWorksList: HowItWorksListBlock,
   serviceText: ServiceTextBlock,
   note: NoteBlock,

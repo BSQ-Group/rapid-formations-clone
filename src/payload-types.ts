@@ -315,6 +315,7 @@ export interface Page {
         | ServiceCardsBlock
         | ServiceInclusionsGridBlock
         | ServiceExplainerBlock
+        | CompanyAddressGuideTableBlock
         | HowItWorksListBlock
         | ServiceTextBlock
         | NoteBlock
@@ -5325,6 +5326,126 @@ export interface ServiceExplainerBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CompanyAddressGuideTableBlock".
+ */
+export interface CompanyAddressGuideTableBlock {
+  /**
+   * One heading, one four-column table and one footnote each, in this order. Every table compares the same three address types.
+   */
+  tables: {
+    heading: string;
+    /**
+     * Centred above each of the three address columns. Line breaks are preserved.
+     */
+    columnHeadings: {
+      registeredOffice: string;
+      serviceAddress: string;
+      businessAddress: string;
+    };
+    /**
+     * The question runs down the first column; the three answers fill the rest. Superscript markers tie an answer to the footnote below.
+     */
+    rows: {
+      question: {
+        root: {
+          type: string;
+          children: {
+            type: any;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      };
+      registeredOffice: {
+        root: {
+          type: string;
+          children: {
+            type: any;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      };
+      serviceAddress: {
+        root: {
+          type: string;
+          children: {
+            type: any;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      };
+      businessAddress: {
+        root: {
+          type: string;
+          children: {
+            type: any;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      };
+      id?: string | null;
+    }[];
+    /**
+     * Numbered notes on a tinted panel under the table. Leave empty to show nothing.
+     */
+    footnote?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    id?: string | null;
+  }[];
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, MD 40px, LG 50px, XL 75px, 2XL 100px; SECTION 50/75/110 and SECTIONLARGE 70/140 follow the source Section margin responsively.
+     */
+    gap?: ('inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'section' | 'sectionLarge') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'companyAddressGuideTable';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "HowItWorksListBlock".
  */
 export interface HowItWorksListBlock {
@@ -6495,6 +6616,7 @@ export interface PagesSelect<T extends boolean = true> {
         serviceCards?: T | ServiceCardsBlockSelect<T>;
         serviceInclusionsGrid?: T | ServiceInclusionsGridBlockSelect<T>;
         serviceExplainer?: T | ServiceExplainerBlockSelect<T>;
+        companyAddressGuideTable?: T | CompanyAddressGuideTableBlockSelect<T>;
         howItWorksList?: T | HowItWorksListBlockSelect<T>;
         serviceText?: T | ServiceTextBlockSelect<T>;
         note?: T | NoteBlockSelect<T>;
@@ -9016,6 +9138,45 @@ export interface ServiceExplainerBlockSelect<T extends boolean = true> {
         reference?: T;
         url?: T;
         label?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+        gap?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CompanyAddressGuideTableBlock_select".
+ */
+export interface CompanyAddressGuideTableBlockSelect<T extends boolean = true> {
+  tables?:
+    | T
+    | {
+        heading?: T;
+        columnHeadings?:
+          | T
+          | {
+              registeredOffice?: T;
+              serviceAddress?: T;
+              businessAddress?: T;
+            };
+        rows?:
+          | T
+          | {
+              question?: T;
+              registeredOffice?: T;
+              serviceAddress?: T;
+              businessAddress?: T;
+              id?: T;
+            };
+        footnote?: T;
+        id?: T;
       };
   sectionLayout?:
     | T
