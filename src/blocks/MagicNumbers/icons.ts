@@ -21,8 +21,6 @@ export const MAGIC_NUMBER_ICONS = {
   thumbsUp: { label: 'Thumbs up', icon: faThumbsUp },
 } satisfies Record<string, { label: string; icon: IconDefinition }>
 
-export type MagicNumberIcon = keyof typeof MAGIC_NUMBER_ICONS
-
 export const MAGIC_NUMBER_ICON_OPTIONS = Object.entries(MAGIC_NUMBER_ICONS).map(
   ([value, { label }]) => ({ label, value }),
 )

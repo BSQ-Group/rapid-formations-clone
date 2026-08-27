@@ -25,9 +25,9 @@ export const MagicNumbersBlock: React.FC<MagicNumbersBlockProps> = ({
         <Text as="h2" textStyle="span" text={heading} className={s.heading} />
         {subheading && <Text as="p" textStyle="span" text={subheading} className={s.subheading} />}
         <div className={s.items}>
-          {items.map((item) => (
+          {items.map((item, index) => (
             <div
-              key={item.id}
+              key={item.id ?? index}
               className={s.item}
               style={{
                 left: px(item.placement?.left),
@@ -36,20 +36,22 @@ export const MagicNumbersBlock: React.FC<MagicNumbersBlockProps> = ({
               }}
             >
               <span className={s.icon} style={{ backgroundColor: item.colour }}>
-                <FaIcon icon={MAGIC_NUMBER_ICONS[item.icon].icon} className={s.glyph} />
+                {MAGIC_NUMBER_ICONS[item.icon] && (
+                  <FaIcon icon={MAGIC_NUMBER_ICONS[item.icon].icon} className={s.glyph} />
+                )}
               </span>
-              <span className={s.content}>
+              <div className={s.content}>
                 <Text as="h3" textStyle="span" text={item.heading} className={s.itemHeading} />
                 {item.body && (
                   <Text as="p" textStyle="span" text={item.body} className={s.itemBody} />
                 )}
-              </span>
+              </div>
             </div>
           ))}
           <div className={s.dividers}>
-            {items.map((item) => (
+            {items.map((item, index) => (
               <div
-                key={`connector-${item.id}`}
+                key={`connector-${item.id ?? index}`}
                 className={s.divider}
                 style={{ width: `${item.connector?.width ?? 0}%` }}
               >

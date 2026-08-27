@@ -30,7 +30,7 @@ export const magicNumbersStyles = {
 
   dividers: 'hidden min-[1590px]:flex min-[1590px]:flex-row',
 
-  divider: 'relative h-[10px]',
+  divider: 'relative h-[10px] shrink-0',
 
   dividerLine: 'absolute w-px',
 } as const

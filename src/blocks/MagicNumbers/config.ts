@@ -1,8 +1,63 @@
-import type { Block } from 'payload'
+import type { ArrayFieldValidation, Block, NumberFieldSingleValidation } from 'payload'
 
 import { hexColourField } from '@/fields/hexColour'
 import { sectionLayoutField } from '@/fields/sectionLayout'
 import { MAGIC_NUMBER_ICON_OPTIONS } from './icons'
+
+const CONNECTOR_BASIS = 1170
+const ICON_CENTRE = 25
+const DRIFT_TOLERANCE = 6
+
+type ConnectorRow = {
+  placement?: { left?: number | null } | null
+  connector?: {
+    width?: number | null
+    side?: 'left' | 'right' | null
+    inset?: number | null
+  } | null
+}
+
+const connectorsTrackTheirIcons: ArrayFieldValidation = (value) => {
+  if (!Array.isArray(value) || value.length === 0) return true
+
+  const rows = value as ConnectorRow[]
+
+  const total = rows.reduce((sum, row) => sum + (row.connector?.width ?? 0), 0)
+  if (Math.abs(total - 100) > 0.01) {
+    return `Connector widths are shares of one row, so they have to add up to 100% — these add up to ${total}%.`
+  }
+
+  const drifted: string[] = []
+  let cursor = 0
+
+  rows.forEach((row, index) => {
+    const width = row.connector?.width ?? 0
+    const inset = row.connector?.inset ?? 0
+    const start = (cursor / 100) * CONNECTOR_BASIS
+    const span = (width / 100) * CONNECTOR_BASIS
+    const line = row.connector?.side === 'right' ? start + span - inset : start + inset
+    const icon = (row.placement?.left ?? 0) + ICON_CENTRE
+
+    if (Math.abs(line - icon) > DRIFT_TOLERANCE) {
+      drifted.push(`row ${index + 1} (line ${Math.round(line)}px, icon ${Math.round(icon)}px)`)
+    }
+
+    cursor += width
+  })
+
+  return drifted.length === 0
+    ? true
+    : `A connector no longer hangs under its icon: ${drifted.join(', ')}. Widths are measured in order from the left, so reordering, adding or deleting a row shifts every line after it while the items stay put.`
+}
+
+const oneVerticalEdge: NumberFieldSingleValidation = (value, { siblingData }) => {
+  const hasBottom = typeof value === 'number'
+  const hasTop = typeof (siblingData as { top?: unknown } | undefined)?.top === 'number'
+  if (hasTop && hasBottom) {
+    return 'Set Top or Bottom, not both. With both, CSS solves for height instead of position and the item pins to Top.'
+  }
+  return hasTop || hasBottom ? true : 'Set either Top or Bottom.'
+}
 
 export const MagicNumbers: Block = {
   slug: 'magicNumbers',
@@ -21,6 +76,7 @@ export const MagicNumbers: Block = {
       type: 'array',
       label: 'Numbers',
       minRows: 1,
+      validate: connectorsTrackTheirIcons,
       admin: {
         initCollapsed: true,
         description:
@@ -70,7 +126,12 @@ export const MagicNumbers: Block = {
               fields: [
                 { name: 'left', type: 'number', required: true, admin: { width: '34%' } },
                 { name: 'top', type: 'number', admin: { width: '33%' } },
-                { name: 'bottom', type: 'number', admin: { width: '33%' } },
+                {
+                  name: 'bottom',
+                  type: 'number',
+                  validate: oneVerticalEdge,
+                  admin: { width: '33%' },
+                },
               ],
             },
           ],
