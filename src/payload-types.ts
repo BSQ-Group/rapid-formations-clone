@@ -274,6 +274,7 @@ export interface Page {
         | ServicePriceBannerBlock
         | VideoLibraryBlock
         | OurAddressBlock
+        | AboutUsContentBlock
         | CallOutCTABlock
         | TrustPilotBannerBlock
         | PackagesHeroBlock
@@ -3263,6 +3264,89 @@ export interface OurAddressBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'ourAddress';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutUsContentBlock".
+ */
+export interface AboutUsContentBlock {
+  /**
+   * Image rows is the opening About Us tab. Every other tab uses two column.
+   */
+  variant: 'twoColumn' | 'imageRows';
+  items?:
+    | {
+        /**
+         * Left and Right are labels for the author — the grid places items in order. Only Full changes the layout.
+         */
+        width: 'full' | 'left' | 'right';
+        /**
+         * The white box with a shadow used by Join Our Team. A panel uses the icon groups below instead of the body.
+         */
+        panel?: boolean | null;
+        /**
+         * Rendered as an h3 above the image.
+         */
+        title?: string | null;
+        image?: (string | null) | Media;
+        body?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        /**
+         * Each group is an icon, a heading on the same line, and its copy.
+         */
+        panelGroups?:
+          | {
+              icon: 'user' | 'heart';
+              heading: string;
+              body?: {
+                root: {
+                  type: string;
+                  children: {
+                    type: any;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
+                [k: string]: unknown;
+              } | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, MD 40px, LG 50px, XL 75px, 2XL 100px; SECTION 50/75/110 and SECTIONLARGE 70/140 follow the source Section margin responsively.
+     */
+    gap?: ('inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'section' | 'sectionLarge') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'aboutUsContent';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6454,6 +6538,7 @@ export interface PagesSelect<T extends boolean = true> {
         servicePriceBanner?: T | ServicePriceBannerBlockSelect<T>;
         videoLibrary?: T | VideoLibraryBlockSelect<T>;
         ourAddress?: T | OurAddressBlockSelect<T>;
+        aboutUsContent?: T | AboutUsContentBlockSelect<T>;
         callOutCTA?: T | CallOutCTABlockSelect<T>;
         trustpilotBanner?: T | TrustPilotBannerBlockSelect<T>;
         packagesHero?: T | PackagesHeroBlockSelect<T>;
@@ -7757,6 +7842,41 @@ export interface OurAddressBlockSelect<T extends boolean = true> {
         background?: T;
         paddingTop?: T;
         paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutUsContentBlock_select".
+ */
+export interface AboutUsContentBlockSelect<T extends boolean = true> {
+  variant?: T;
+  items?:
+    | T
+    | {
+        width?: T;
+        panel?: T;
+        title?: T;
+        image?: T;
+        body?: T;
+        panelGroups?:
+          | T
+          | {
+              icon?: T;
+              heading?: T;
+              body?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+        gap?: T;
       };
   id?: T;
   blockName?: T;
