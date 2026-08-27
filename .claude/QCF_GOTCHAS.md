@@ -627,14 +627,3 @@ Each entry has four parts:
   # Two different treatments across pages is EXPECTED, not a defect.
   ```
 - **Fix:** Verify the property the ticket is actually about (e.g. the heading *tag* for a semantic fix) and prove **no change** to the typography that is present, by diffing the same page before and after your fix. Do not chase live's value onto a page that never had it. State the gap explicitly in the PR so a reviewer is not left wondering.
-
-## `[role="tab"]` on a live source page is contaminated by the Cookiebot dialog
-
-- **When it bites:** Measuring or screenshotting a tabbed source section (About Us, Review Centre) by clicking `document.querySelectorAll('[role="tab"]')[n]`. The Cookiebot consent dialog renders **its own tablist** — `Consent`, `Details`, `[#IABV2SETTINGS#]`, `About` — and it comes **first in the DOM**. Every index is therefore off by four, and the failure is silent: the click lands on a real element, the page does change, and the panel you measure is a real panel. It just isn't the one you asked for. Cost a full verification round on `AboutUsContent`, where "Our Story" measured as the About Us tab and "Join Our Team" measured as Our Story.
-- **Detect:**
-  ```bash
-  # Print the tablist with indices before trusting any of them:
-  #   [...document.querySelectorAll('[role="tab"]')].map((t, i) => i + ':' + t.textContent.trim())
-  # Four leading consent entries = this bug.
-  ```
-- **Fix:** Click by **label**, never by index — `[...document.querySelectorAll('[role="tab"]')].find(n => n.textContent.trim() === 'Our Story')` — and assert `aria-selected` afterwards. Hide the consent and chat overlays with an injected stylesheet first (`#CybotCookiebotDialog, [id*="cookiebot" i], iframe[title*="chat" i] { display: none !important }`) so they cannot intercept the click; injecting CSS records no consent. Note that `[role="tab"][aria-selected="true"]` also matches the consent dialog's own selected tab, so read **all** matches, not `querySelector`.
