@@ -1,11 +1,8 @@
-import type { Block, TextFieldSingleValidation } from 'payload'
+import type { Block } from 'payload'
 
+import { hexColourField } from '@/fields/hexColour'
 import { sectionLayoutField } from '@/fields/sectionLayout'
 import { MAGIC_NUMBER_ICON_OPTIONS } from './icons'
-
-const HEX = /^#[0-9a-fA-F]{6}$/
-const isHex: TextFieldSingleValidation = (value) =>
-  typeof value === 'string' && HEX.test(value) ? true : 'Enter a six-digit hex colour, e.g. #00BCED'
 
 export const MagicNumbers: Block = {
   slug: 'magicNumbers',
@@ -27,7 +24,7 @@ export const MagicNumbers: Block = {
       admin: {
         initCollapsed: true,
         description:
-          'A stacked list below 768px and a 2-up grid from there. From 1280px they are placed by hand at the offsets below, with the connector lines drawn between them.',
+          'A stacked list below 768px and a 2-up grid from there. From 1590px they are placed by hand at the offsets below, with the connector lines drawn between them.',
       },
       fields: [
         {
@@ -45,18 +42,12 @@ export const MagicNumbers: Block = {
                   'Add a new one by importing it in the block’s icons.ts; the list here follows.',
               },
             },
-            {
-              name: 'colour',
-              type: 'text',
-              label: 'Colour',
-              required: true,
-              maxLength: 7,
-              validate: isHex,
+            hexColourField({
               admin: {
                 width: '50%',
                 description: 'Fills the icon circle and its connector line.',
               },
-            },
+            }),
           ],
         },
         { name: 'heading', type: 'text', required: true },
@@ -68,10 +59,10 @@ export const MagicNumbers: Block = {
         {
           name: 'placement',
           type: 'group',
-          label: 'Placement from 1280px',
+          label: 'Placement from 1590px',
           admin: {
             description:
-              'Ignored below 1280px, where the items are a plain grid. Set either Top or Bottom, not both.',
+              'Ignored below 1590px, where the items are a plain grid. Set either Top or Bottom, not both.',
           },
           fields: [
             {
@@ -90,7 +81,7 @@ export const MagicNumbers: Block = {
           label: 'Connector line',
           admin: {
             description:
-              'The vertical rule under the row of items, drawn in the colour above. Also 1280px and up only.',
+              'The vertical rule under the row of items, drawn in the colour above. Also 1590px and up only.',
           },
           fields: [
             {
