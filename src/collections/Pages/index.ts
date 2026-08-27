@@ -44,6 +44,7 @@ import { ServicesBenefits } from '../../blocks/ServicesBenefits/config'
 import { ServicePriceBanner } from '../../blocks/ServicePriceBanner/config'
 import { VideoLibrary } from '../../blocks/VideoLibrary/config'
 import { OurAddress } from '../../blocks/OurAddress/config'
+import { BusinessBankingTable } from '../../blocks/BusinessBankingTable/config'
 import { CallOutCTA } from '../../blocks/CallOutCTA/config'
 import { ChooseCompanyStructure } from '../../blocks/ChooseCompanyStructure/config'
 import { ComparePackagesNav } from '@/blocks/ComparePackagesNav/config'
@@ -176,6 +177,7 @@ export const Pages: CollectionConfig<'pages'> = {
               name: 'layout',
               type: 'blocks',
               blocks: [
+                BusinessBankingTable,
                 CallToAction,
                 Content,
                 MediaBlock,
