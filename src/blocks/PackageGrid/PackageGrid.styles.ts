@@ -15,7 +15,7 @@ export const packageGridStyles = {
   compareButton:
     'inline-flex w-full md:w-auto items-center justify-center rounded-md min-h-[54.5px] px-8 py-3 border border-[var(--surface-brand-cyan)] bg-[var(--surface-brand-cyan)] hover:border-[var(--surface-brand-cyan-lift)] hover:bg-[var(--surface-brand-cyan-lift)] text-center text-[19px] leading-[28.5px] font-semibold text-[var(--text-strong)] [overflow-wrap:anywhere]',
   contactNote:
-    'mt-8 w-full break-words text-[20px] leading-[27px] md:text-[24px] md:leading-[32.4px] font-normal text-[var(--text-on-light-base)] [&_em]:not-italic [&_em]:text-[var(--surface-brand-cyan)]',
+    'mt-8 w-full break-words text-[20px] leading-[27px] md:text-[24px] md:leading-[32.4px] font-normal text-[var(--text-on-light-base)] [&_em]:not-italic [&_em]:text-[var(--surface-brand-cyan)] [&_a]:text-[var(--surface-brand-cyan)] [&_a]:hover:text-[var(--surface-brand-cyan-lift)]',
   footerNote:
     'mt-2.5 w-full break-words text-[20px] leading-[30px] font-normal text-[var(--text-on-light-muted)]',
 } as const
