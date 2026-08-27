@@ -25,8 +25,7 @@ export const AboutUsContent: Block = {
         },
       ],
       admin: {
-        description:
-          'Image rows is the opening About Us tab. Every other tab uses two column.',
+        description: 'Image rows is the opening About Us tab. Every other tab uses two column.',
       },
     },
     {

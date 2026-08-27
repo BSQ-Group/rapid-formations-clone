@@ -19,6 +19,7 @@ import { CallOutCTABlock } from '@/blocks/CallOutCTA/Component'
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { BusinessBankAccountsBlock } from '@/blocks/BusinessBankAccounts/Component'
 import { AboutUsContentBlock } from '@/blocks/AboutUsContent/Component'
+import { MagicNumbersBlock } from '@/blocks/MagicNumbers/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { CaseStudyVideoBlock } from '@/blocks/CaseStudyVideo/Component'
 import { CaseStudyMosaicBlock } from '@/blocks/CaseStudyMosaic/Component'
@@ -127,6 +128,7 @@ const blockComponents = {
   caseStudyMosaic: CaseStudyMosaicBlock,
   content: ContentBlock,
   aboutUsContent: AboutUsContentBlock,
+  magicNumbers: MagicNumbersBlock,
   cta: CallToActionBlock,
   faqs: FAQsBlock,
   formBlock: FormBlock,

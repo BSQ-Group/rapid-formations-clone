@@ -43,12 +43,7 @@ export const AboutUsContentBlock: React.FC<AboutUsContentBlockProps> = ({
             ) : null
 
             const heading = item.title ? (
-              <Text
-                as="h3"
-                textStyle="span"
-                text={item.title}
-                className={cn(s.title, isImageRows && s.titleFlush)}
-              />
+              <Text as="h3" textStyle="span" text={item.title} className={s.title} />
             ) : null
 
             return (
@@ -64,7 +59,12 @@ export const AboutUsContentBlock: React.FC<AboutUsContentBlockProps> = ({
                   (item.panelGroups ?? []).map((group) => (
                     <div key={group.id} className={s.panelGroup}>
                       <FaIcon icon={icons[group.icon ?? 'user']} className={s.panelIcon} />
-                      <Text as="h3" textStyle="span" text={group.heading} className={s.panelHeading} />
+                      <Text
+                        as="h3"
+                        textStyle="span"
+                        text={group.heading}
+                        className={s.panelHeading}
+                      />
                       {group.body && (
                         <RichText data={group.body} enableGutter={false} className={s.panelBody} />
                       )}
