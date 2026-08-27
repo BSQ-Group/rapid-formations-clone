@@ -277,6 +277,7 @@ export interface Page {
         | VideoLibraryBlock
         | OurAddressBlock
         | AboutUsContentBlock
+        | AboutUsTabsBlock
         | CallOutCTABlock
         | TrustPilotBannerBlock
         | PackagesHeroBlock
@@ -3512,7 +3513,7 @@ export interface AboutUsContentBlock {
          */
         panel?: boolean | null;
         /**
-         * Rendered as an h3 above the image.
+         * Rendered as an h3 — above the image in two column, beside it in image rows.
          */
         title?: string | null;
         image?: (string | null) | Media;
@@ -3574,6 +3575,107 @@ export interface AboutUsContentBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'aboutUsContent';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutUsTabsBlock".
+ */
+export interface AboutUsTabsBlock {
+  /**
+   * One tab each, in this order. The heading above the tab strip is the selected tab’s title.
+   */
+  tabs?:
+    | {
+        /**
+         * The word on the tab itself.
+         */
+        label: string;
+        /**
+         * The heading shown above the tabs.
+         */
+        title: string;
+        /**
+         * Tick on one tab when this block supplies the page heading — the heading then renders as an h1 whichever tab is open, so the page always has exactly one. Leave every tab unticked when the page h1 comes from elsewhere; the heading renders as an h2.
+         */
+        isPageTitle?: boolean | null;
+        /**
+         * Rendered in order inside this tab’s panel. Meet The Team and Staff Reviews join this list once those blocks exist.
+         */
+        content?: (AboutUsContentBlock | MagicNumbersBlock | OurOfficesBlock | RegisterCtaPanelBlock)[] | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, MD 40px, LG 50px, XL 75px, 2XL 100px; SECTION 50/75/110 and SECTIONLARGE 70/140 follow the source Section margin responsively.
+     */
+    gap?: ('inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'section' | 'sectionLarge') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'aboutUsTabs';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RegisterCtaPanelBlock".
+ */
+export interface RegisterCtaPanelBlock {
+  /**
+   * Line breaks are preserved as written.
+   */
+  heading: string;
+  description: string;
+  /**
+   * Text after the phone link. Usually just a full stop.
+   */
+  descriptionSuffix?: string | null;
+  phone: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+  };
+  cta: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+  };
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'registerCtaPanel';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -5847,62 +5949,6 @@ export interface NoteBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "RegisterCtaPanelBlock".
- */
-export interface RegisterCtaPanelBlock {
-  /**
-   * Line breaks are preserved as written.
-   */
-  heading: string;
-  description: string;
-  /**
-   * Text after the phone link. Usually just a full stop.
-   */
-  descriptionSuffix?: string | null;
-  phone: {
-    type?: ('reference' | 'custom') | null;
-    newTab?: boolean | null;
-    reference?:
-      | ({
-          relationTo: 'pages';
-          value: string | Page;
-        } | null)
-      | ({
-          relationTo: 'posts';
-          value: string | Post;
-        } | null);
-    url?: string | null;
-    label: string;
-  };
-  cta: {
-    type?: ('reference' | 'custom') | null;
-    newTab?: boolean | null;
-    reference?:
-      | ({
-          relationTo: 'pages';
-          value: string | Page;
-        } | null)
-      | ({
-          relationTo: 'posts';
-          value: string | Post;
-        } | null);
-    url?: string | null;
-    label: string;
-  };
-  /**
-   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
-   */
-  sectionLayout: {
-    background: 'light' | 'dark' | 'inverse';
-    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
-    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'registerCtaPanel';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "RegisterOverseasBlock".
  */
 export interface RegisterOverseasBlock {
@@ -6926,6 +6972,7 @@ export interface PagesSelect<T extends boolean = true> {
         videoLibrary?: T | VideoLibraryBlockSelect<T>;
         ourAddress?: T | OurAddressBlockSelect<T>;
         aboutUsContent?: T | AboutUsContentBlockSelect<T>;
+        aboutUsTabs?: T | AboutUsTabsBlockSelect<T>;
         callOutCTA?: T | CallOutCTABlockSelect<T>;
         trustpilotBanner?: T | TrustPilotBannerBlockSelect<T>;
         packagesHero?: T | PackagesHeroBlockSelect<T>;
@@ -8383,6 +8430,74 @@ export interface AboutUsContentBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutUsTabsBlock_select".
+ */
+export interface AboutUsTabsBlockSelect<T extends boolean = true> {
+  tabs?:
+    | T
+    | {
+        label?: T;
+        title?: T;
+        isPageTitle?: T;
+        content?:
+          | T
+          | {
+              aboutUsContent?: T | AboutUsContentBlockSelect<T>;
+              magicNumbers?: T | MagicNumbersBlockSelect<T>;
+              ourOffices?: T | OurOfficesBlockSelect<T>;
+              registerCtaPanel?: T | RegisterCtaPanelBlockSelect<T>;
+            };
+        id?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+        gap?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RegisterCtaPanelBlock_select".
+ */
+export interface RegisterCtaPanelBlockSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  descriptionSuffix?: T;
+  phone?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
+  cta?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "CallOutCTABlock_select".
  */
 export interface CallOutCTABlockSelect<T extends boolean = true> {
@@ -9748,42 +9863,6 @@ export interface NoteBlockSelect<T extends boolean = true> {
   heading?: T;
   headingLevel?: T;
   body?: T;
-  sectionLayout?:
-    | T
-    | {
-        background?: T;
-        paddingTop?: T;
-        paddingBottom?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "RegisterCtaPanelBlock_select".
- */
-export interface RegisterCtaPanelBlockSelect<T extends boolean = true> {
-  heading?: T;
-  description?: T;
-  descriptionSuffix?: T;
-  phone?:
-    | T
-    | {
-        type?: T;
-        newTab?: T;
-        reference?: T;
-        url?: T;
-        label?: T;
-      };
-  cta?:
-    | T
-    | {
-        type?: T;
-        newTab?: T;
-        reference?: T;
-        url?: T;
-        label?: T;
-      };
   sectionLayout?:
     | T
     | {

@@ -48,6 +48,7 @@ import { VideoLibrary } from '../../blocks/VideoLibrary/config'
 import { OurAddress } from '../../blocks/OurAddress/config'
 import { BusinessBankingTable } from '../../blocks/BusinessBankingTable/config'
 import { AboutUsContent } from '../../blocks/AboutUsContent/config'
+import { AboutUsTabs } from '../../blocks/AboutUsTabs/config'
 import { CallOutCTA } from '../../blocks/CallOutCTA/config'
 import { ChooseCompanyStructure } from '../../blocks/ChooseCompanyStructure/config'
 import { ComparePackagesNav } from '@/blocks/ComparePackagesNav/config'
@@ -227,6 +228,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 VideoLibrary,
                 OurAddress,
                 AboutUsContent,
+                AboutUsTabs,
                 CallOutCTA,
                 TrustPilotBanner,
                 PackagesHero,
