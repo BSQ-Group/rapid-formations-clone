@@ -30,7 +30,6 @@ const PanelGroup: React.FC<{ group: Group }> = ({ group }) => (
 
 const ItemContent: React.FC<{ item: Item; layout: Layout }> = ({ item, layout }) => {
   const isImageRows = layout === 'imageRows'
-  const still = item.image && typeof item.image === 'object' ? item.image : null
 
   const heading = item.title ? (
     <Text as="h3" textStyle="span" text={item.title} className={s.title} />
@@ -40,16 +39,17 @@ const ItemContent: React.FC<{ item: Item; layout: Layout }> = ({ item, layout })
     <RichText data={item.body} enableGutter={false} className={s.body} />
   ) : null
 
-  const media = still ? (
-    <Media
-      resource={still}
-      htmlElement={null}
-      pictureClassName={s.imagePicture}
-      imgClassName={cn(s.image, isImageRows && s.imageFlush)}
-      size={s.imageSizes}
-      loading="lazy"
-    />
-  ) : null
+  const media =
+    item.image && typeof item.image === 'object' ? (
+      <Media
+        resource={item.image}
+        htmlElement={null}
+        pictureClassName={s.imagePicture}
+        imgClassName={cn(s.image, isImageRows && s.imageFlush)}
+        size={s.imageSizes}
+        loading="lazy"
+      />
+    ) : null
 
   if (isImageRows) {
     return (
