@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import type { AboutUsContentBlock as AboutUsContentBlockProps, Media } from '@/payload-types'
+import type { Media } from '@/payload-types'
 import { AboutUsContentBlock } from './Component'
 
 const image = (seed: string, width: number, height: number): Media => ({
@@ -22,7 +22,11 @@ const narrowViewport = {
   parameters: {
     viewport: {
       options: {
-        mobile390: { name: 'Mobile 390', styles: { width: '390px', height: '1400px' }, type: 'mobile' },
+        mobile390: {
+          name: 'Mobile 390',
+          styles: { width: '390px', height: '1400px' },
+          type: 'mobile',
+        },
       },
     },
   },
@@ -50,7 +54,9 @@ const rich = (texts: string[], list?: string[]) =>
           direction: 'ltr' as const,
           textFormat: 0,
           textStyle: '',
-          children: [{ type: 'text', text, format: 0, style: '', mode: 'normal', detail: 0, version: 1 }],
+          children: [
+            { type: 'text', text, format: 0, style: '', mode: 'normal', detail: 0, version: 1 },
+          ],
         })),
         ...(list
           ? [
@@ -70,7 +76,17 @@ const rich = (texts: string[], list?: string[]) =>
                   indent: 0,
                   version: 1,
                   direction: 'ltr' as const,
-                  children: [{ type: 'text', text, format: 0, style: '', mode: 'normal', detail: 0, version: 1 }],
+                  children: [
+                    {
+                      type: 'text',
+                      text,
+                      format: 0,
+                      style: '',
+                      mode: 'normal',
+                      detail: 0,
+                      version: 1,
+                    },
+                  ],
                 })),
               },
             ]
@@ -101,15 +117,36 @@ const meta: Meta<typeof AboutUsContentBlock> = {
 export default meta
 type Story = StoryObj<typeof AboutUsContentBlock>
 
-const layout = { background: 'light', paddingTop: 'none', paddingBottom: 'none', gap: 'section' } as const
+const layout = {
+  background: 'light',
+  paddingTop: 'none',
+  paddingBottom: 'none',
+  gap: 'section',
+} as const
 
 export const ImageRows: Story = {
   args: {
     blockType: 'aboutUsContent',
     variant: 'imageRows',
     items: [
-      { id: 'i1', width: 'full', panel: false, title: 'Our Mission', image: landscape, body: LONG, panelGroups: [] },
-      { id: 'i2', width: 'full', panel: false, title: 'Our Services', image: landscape, body: LONG, panelGroups: [] },
+      {
+        id: 'i1',
+        width: 'full',
+        panel: false,
+        title: 'Our Mission',
+        image: landscape,
+        body: LONG,
+        panelGroups: [],
+      },
+      {
+        id: 'i2',
+        width: 'full',
+        panel: false,
+        title: 'Our Services',
+        image: landscape,
+        body: LONG,
+        panelGroups: [],
+      },
     ],
     sectionLayout: layout,
   },
@@ -122,9 +159,33 @@ export const TwoColumn: Story = {
     blockType: 'aboutUsContent',
     variant: 'twoColumn',
     items: [
-      { id: 'i1', width: 'full', panel: false, title: 'Rapid Formations has expanded by leaps and bounds', image: null, body: LONG, panelGroups: [] },
-      { id: 'i2', width: 'left', panel: false, title: 'Where it all began', image: landscape, body: LONG, panelGroups: [] },
-      { id: 'i3', width: 'right', panel: false, title: 'Leading the pack', image: landscape, body: LONG, panelGroups: [] },
+      {
+        id: 'i1',
+        width: 'full',
+        panel: false,
+        title: 'Rapid Formations has expanded by leaps and bounds',
+        image: null,
+        body: LONG,
+        panelGroups: [],
+      },
+      {
+        id: 'i2',
+        width: 'left',
+        panel: false,
+        title: 'Where it all began',
+        image: landscape,
+        body: LONG,
+        panelGroups: [],
+      },
+      {
+        id: 'i3',
+        width: 'right',
+        panel: false,
+        title: 'Leading the pack',
+        image: landscape,
+        body: LONG,
+        panelGroups: [],
+      },
     ],
     sectionLayout: layout,
   },
@@ -137,7 +198,15 @@ export const WithPanel: Story = {
     blockType: 'aboutUsContent',
     variant: 'twoColumn',
     items: [
-      { id: 'i1', width: 'left', panel: false, title: 'Customer Service Team', image: landscape, body: LONG, panelGroups: [] },
+      {
+        id: 'i1',
+        width: 'left',
+        panel: false,
+        title: 'Customer Service Team',
+        image: landscape,
+        body: LONG,
+        panelGroups: [],
+      },
       {
         id: 'i2',
         width: 'right',
@@ -146,8 +215,24 @@ export const WithPanel: Story = {
         image: null,
         body: null,
         panelGroups: [
-          { id: 'g1', icon: 'user', heading: 'The Role', body: rich([], ['Provide excellent telephone, live chat and email support', 'Develop a strong understanding of limited company procedures']) },
-          { id: 'g2', icon: 'heart', heading: 'Attributes we love', body: rich([], ['A positive attitude', 'A willingness to learn']) },
+          {
+            id: 'g1',
+            icon: 'user',
+            heading: 'The Role',
+            body: rich(
+              [],
+              [
+                'Provide excellent telephone, live chat and email support',
+                'Develop a strong understanding of limited company procedures',
+              ],
+            ),
+          },
+          {
+            id: 'g2',
+            icon: 'heart',
+            heading: 'Attributes we love',
+            body: rich([], ['A positive attitude', 'A willingness to learn']),
+          },
         ],
       },
     ],
@@ -161,7 +246,17 @@ export const ShortCopy: Story = {
   args: {
     blockType: 'aboutUsContent',
     variant: 'twoColumn',
-    items: [{ id: 'i1', width: 'left', panel: false, title: 'Us', image: landscape, body: SHORT, panelGroups: [] }],
+    items: [
+      {
+        id: 'i1',
+        width: 'left',
+        panel: false,
+        title: 'Us',
+        image: landscape,
+        body: SHORT,
+        panelGroups: [],
+      },
+    ],
     sectionLayout: layout,
   },
 }
@@ -171,7 +266,15 @@ export const UnbrokenTokens: Story = {
     blockType: 'aboutUsContent',
     variant: 'twoColumn',
     items: [
-      { id: 'i1', width: 'left', panel: false, title: GERMAN_TOKEN, image: landscape, body: rich([`${EMAIL_TOKEN} ${URL_TOKEN}`]), panelGroups: [] },
+      {
+        id: 'i1',
+        width: 'left',
+        panel: false,
+        title: GERMAN_TOKEN,
+        image: landscape,
+        body: rich([`${EMAIL_TOKEN} ${URL_TOKEN}`]),
+        panelGroups: [],
+      },
       {
         id: 'i2',
         width: 'right',
@@ -192,7 +295,17 @@ export const OptionalsAbsent: Story = {
   args: {
     blockType: 'aboutUsContent',
     variant: 'twoColumn',
-    items: [{ id: 'i1', width: 'left', panel: false, title: null, image: null, body: LONG, panelGroups: [] }],
+    items: [
+      {
+        id: 'i1',
+        width: 'left',
+        panel: false,
+        title: null,
+        image: null,
+        body: LONG,
+        panelGroups: [],
+      },
+    ],
     sectionLayout: layout,
   },
 }
@@ -201,7 +314,17 @@ export const ImageAbsent: Story = {
   args: {
     blockType: 'aboutUsContent',
     variant: 'imageRows',
-    items: [{ id: 'i1', width: 'full', panel: false, title: 'Our Mission', image: null, body: LONG, panelGroups: [] }],
+    items: [
+      {
+        id: 'i1',
+        width: 'full',
+        panel: false,
+        title: 'Our Mission',
+        image: null,
+        body: LONG,
+        panelGroups: [],
+      },
+    ],
     sectionLayout: layout,
   },
 }
@@ -210,7 +333,17 @@ export const PortraitImage: Story = {
   args: {
     blockType: 'aboutUsContent',
     variant: 'twoColumn',
-    items: [{ id: 'i1', width: 'left', panel: false, title: 'Tall photo', image: portrait, body: LONG, panelGroups: [] }],
+    items: [
+      {
+        id: 'i1',
+        width: 'left',
+        panel: false,
+        title: 'Tall photo',
+        image: portrait,
+        body: LONG,
+        panelGroups: [],
+      },
+    ],
     sectionLayout: layout,
   },
 }
@@ -220,11 +353,51 @@ export const PastNaturalRow: Story = {
     blockType: 'aboutUsContent',
     variant: 'twoColumn',
     items: [
-      { id: 'i1', width: 'left', panel: false, title: 'One', image: landscape, body: SHORT, panelGroups: [] },
-      { id: 'i2', width: 'right', panel: false, title: 'Two', image: landscape, body: SHORT, panelGroups: [] },
-      { id: 'i3', width: 'left', panel: false, title: 'Three', image: landscape, body: SHORT, panelGroups: [] },
-      { id: 'i4', width: 'right', panel: false, title: 'Four', image: landscape, body: SHORT, panelGroups: [] },
-      { id: 'i5', width: 'full', panel: false, title: 'Five spans both', image: landscape, body: SHORT, panelGroups: [] },
+      {
+        id: 'i1',
+        width: 'left',
+        panel: false,
+        title: 'One',
+        image: landscape,
+        body: SHORT,
+        panelGroups: [],
+      },
+      {
+        id: 'i2',
+        width: 'right',
+        panel: false,
+        title: 'Two',
+        image: landscape,
+        body: SHORT,
+        panelGroups: [],
+      },
+      {
+        id: 'i3',
+        width: 'left',
+        panel: false,
+        title: 'Three',
+        image: landscape,
+        body: SHORT,
+        panelGroups: [],
+      },
+      {
+        id: 'i4',
+        width: 'right',
+        panel: false,
+        title: 'Four',
+        image: landscape,
+        body: SHORT,
+        panelGroups: [],
+      },
+      {
+        id: 'i5',
+        width: 'full',
+        panel: false,
+        title: 'Five spans both',
+        image: landscape,
+        body: SHORT,
+        panelGroups: [],
+      },
     ],
     sectionLayout: layout,
   },

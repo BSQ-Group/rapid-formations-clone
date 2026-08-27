@@ -2,7 +2,6 @@ import React from 'react'
 
 import type { AboutUsTabsBlock as AboutUsTabsBlockProps, Page } from '@/payload-types'
 
-import { Container } from '@/components/shared/Container/Container'
 import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { SectionWrapper } from '@/components/shared/SectionWrapper/SectionWrapper'
 import { AboutUsTabsClient } from './AboutUsTabsClient'
@@ -22,9 +21,9 @@ export const AboutUsTabsBlock: React.FC<AboutUsTabsBlockProps> = ({ tabs, sectio
 
   return (
     <SectionWrapper {...sectionLayout} className={s.section}>
-      <Container className={s.wrapperPad}>
+      <div className={s.wrapperPad}>
         <AboutUsTabsClient tabs={prepared} />
-      </Container>
+      </div>
     </SectionWrapper>
   )
 }

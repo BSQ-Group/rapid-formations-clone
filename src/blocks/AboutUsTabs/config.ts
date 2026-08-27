@@ -1,10 +1,16 @@
-import type { Block } from 'payload'
+import type { ArrayFieldValidation, Block } from 'payload'
 
 import { sectionLayoutField } from '@/fields/sectionLayout'
 import { AboutUsContent } from '@/blocks/AboutUsContent/config'
 import { MagicNumbers } from '@/blocks/MagicNumbers/config'
 import { OurOffices } from '@/blocks/OurOffices/config'
 import { RegisterCtaPanel } from '@/blocks/RegisterCtaPanel/config'
+
+const atMostOnePageTitle: ArrayFieldValidation = (value) => {
+  if (!Array.isArray(value)) return true
+  const ticked = value.filter((row) => (row as { isPageTitle?: unknown }).isPageTitle).length
+  return ticked > 1 ? `Only one tab can carry the page h1 — ${ticked} tabs are ticked.` : true
+}
 
 export const AboutUsTabs: Block = {
   slug: 'aboutUsTabs',
@@ -16,6 +22,7 @@ export const AboutUsTabs: Block = {
       type: 'array',
       label: 'Tabs',
       minRows: 1,
+      validate: atMostOnePageTitle,
       admin: {
         initCollapsed: true,
         description:
@@ -46,7 +53,7 @@ export const AboutUsTabs: Block = {
           defaultValue: false,
           admin: {
             description:
-              'Tick on exactly one tab. Every other tab renders its title as an h2, so the page keeps a single h1.',
+              'Tick on one tab when this block supplies the page heading — the heading then renders as an h1 whichever tab is open, so the page always has exactly one. Leave every tab unticked when the page h1 comes from elsewhere; the heading renders as an h2.',
           },
         },
         {

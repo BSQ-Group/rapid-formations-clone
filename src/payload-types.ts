@@ -3361,7 +3361,7 @@ export interface AboutUsContentBlock {
          */
         panel?: boolean | null;
         /**
-         * Rendered as an h3 above the image.
+         * Rendered as an h3 — above the image in two column, beside it in image rows.
          */
         title?: string | null;
         image?: (string | null) | Media;
@@ -3443,7 +3443,7 @@ export interface AboutUsTabsBlock {
          */
         title: string;
         /**
-         * Tick on exactly one tab. Every other tab renders its title as an h2, so the page keeps a single h1.
+         * Tick on one tab when this block supplies the page heading — the heading then renders as an h1 whichever tab is open, so the page always has exactly one. Leave every tab unticked when the page h1 comes from elsewhere; the heading renders as an h2.
          */
         isPageTitle?: boolean | null;
         /**

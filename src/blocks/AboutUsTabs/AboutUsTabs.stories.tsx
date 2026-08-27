@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import type { AboutUsTabsBlock as AboutUsTabsBlockProps } from '@/payload-types'
 import { AboutUsTabsClient } from './AboutUsTabsClient'
 import { aboutUsTabsStyles as s } from './AboutUsTabs.styles'
 
