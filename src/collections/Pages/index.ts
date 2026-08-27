@@ -18,6 +18,7 @@ import { Support } from '../../blocks/Support/config'
 import { OnlineAdminPortal } from '../../blocks/OnlineAdminPortal/config'
 import { Testimonials } from '../../blocks/Testimonials/config'
 import { StaffReviews } from '@/blocks/StaffReviews/config'
+import { MeetTheTeam } from '@/blocks/MeetTheTeam/config'
 import { TestimonialQuote } from '@/blocks/TestimonialQuote/config'
 import { OrderSteps } from '@/blocks/OrderSteps/config'
 import { OurOffices } from '@/blocks/OurOffices/config'
@@ -197,6 +198,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 OnlineAdminPortal,
                 Testimonials,
                 StaffReviews,
+                MeetTheTeam,
                 TestimonialQuote,
                 OrderSteps,
                 MagicNumbers,

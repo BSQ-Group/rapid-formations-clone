@@ -1,0 +1,26 @@
+export const meetTheTeamStyles = {
+  section: 'font-legacy-condensed w-full bg-[var(--surface-canvas)]',
+  grid: 'grid w-full grid-cols-1 gap-5 md:grid-cols-2 min-[1023px]:grid-cols-4',
+  card: 'flex min-h-[200px] flex-col items-stretch bg-[rgb(var(--white))] text-left focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[var(--border-focus)]',
+  photo:
+    'flex flex-1 items-end justify-center overflow-hidden rounded-t-[5px] bg-[image:var(--surface-team-card-photo)] pt-2.5',
+  photoPicture: 'block w-[70%]',
+  photoImage: 'block h-auto w-full',
+  photoSizes: '(min-width: 1023px) 210px, (min-width: 768px) 250px, 70vw',
+  body: 'block rounded-b-[5px] bg-[image:var(--surface-team-card-body)] px-[15px] py-5 md:min-h-[125px]',
+  name: 'mb-[5px] block text-[21px] leading-[25.935px] font-normal text-[rgb(var(--white))]',
+  jobTitle: 'block text-xl leading-6 font-normal text-[rgb(var(--white))]',
+  dialog:
+    'font-legacy-condensed max-h-[calc(100vh-30px)] w-[calc(100vw-30px)] max-w-[703px] gap-0 overflow-hidden rounded-none border-[5px] border-solid border-[color:var(--border-on-light-strong)] bg-[rgb(var(--white))] p-[30px] sm:rounded-none',
+  dialogOverlay: 'bg-black/50',
+  dialogScroller: 'max-h-[calc(100vh-90px)] overflow-y-auto',
+  dialogPhoto: 'mx-auto flex w-1/2 flex-col',
+  dialogPhotoPicture: 'block w-full',
+  dialogPhotoImage: 'mb-[15px] block h-auto w-full object-cover',
+  dialogPhotoSizes: '(min-width: 640px) 320px, 45vw',
+  dialogContent: 'mt-2.5',
+  dialogName: 'block text-[21px] leading-[25.935px] font-normal text-[var(--text-on-light-base)]',
+  dialogJobTitle: 'block text-lg leading-[27px] text-[var(--text-on-light-base)]',
+  dialogList: 'm-0 list-none p-0 text-xl leading-[30px] text-[var(--text-on-light-muted)]',
+  dialogFactLabel: 'font-bold',
+} as const

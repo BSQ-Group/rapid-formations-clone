@@ -37,6 +37,7 @@ import { SupportBlock } from '@/blocks/Support/Component'
 import { OnlineAdminPortalBlock } from '@/blocks/OnlineAdminPortal/Component'
 import { TestimonialsBlock } from '@/blocks/Testimonials/Component'
 import { StaffReviewsBlockComponent } from '@/blocks/StaffReviews/Component'
+import { MeetTheTeamBlockComponent } from '@/blocks/MeetTheTeam/Component'
 import { TestimonialQuoteBlock } from '@/blocks/TestimonialQuote/Component'
 import { OrderStepsBlock } from '@/blocks/OrderSteps/Component'
 import { OurOfficesBlockComponent } from '@/blocks/OurOffices/Component'
@@ -148,6 +149,7 @@ const blockComponents = {
   onlineAdminPortal: OnlineAdminPortalBlock,
   testimonials: TestimonialsBlock,
   staffReviews: StaffReviewsBlockComponent,
+  meetTheTeam: MeetTheTeamBlockComponent,
   testimonialQuote: TestimonialQuoteBlock,
   orderSteps: OrderStepsBlock,
   ourOffices: OurOfficesBlockComponent,

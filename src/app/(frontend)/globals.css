@@ -394,6 +394,12 @@
     --surface-promo-blue-purple: linear-gradient(51deg, rgb(40 132 184) 0%, rgb(209 186 210) 100%);
     --surface-promo-pink-purple: linear-gradient(315deg, rgb(249 197 209) 0%, rgb(151 149 239) 74%);
     --surface-ad-banner: linear-gradient(248deg, rgb(95 47 168) 0%, rgb(13 8 69) 100%);
+    --surface-team-card-body: linear-gradient(315deg, rgb(91 100 103) 0%, rgb(139 147 154) 74%);
+    --surface-team-card-photo: linear-gradient(
+      90deg,
+      rgb(235 233 235) 1.5%,
+      rgb(241 239 241) 42.4%
+    );
     --surface-compare-packages-card: rgb(226 244 255);
     --text-brand-cyan: rgb(0 177 227);
     --shadow-tile-raised:
