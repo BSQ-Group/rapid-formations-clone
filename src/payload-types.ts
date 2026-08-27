@@ -76,6 +76,7 @@ export interface Config {
     products: Product;
     serviceAds: ServiceAd;
     buyServices: BuyService;
+    staff: Staff;
     videos: Video;
     redirects: Redirect;
     forms: Form;
@@ -106,6 +107,7 @@ export interface Config {
     products: ProductsSelect<false> | ProductsSelect<true>;
     serviceAds: ServiceAdsSelect<false> | ServiceAdsSelect<true>;
     buyServices: BuyServicesSelect<false> | BuyServicesSelect<true>;
+    staff: StaffSelect<false> | StaffSelect<true>;
     videos: VideosSelect<false> | VideosSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
@@ -245,6 +247,7 @@ export interface Page {
         | SupportBlock
         | OnlineAdminPortalBlock
         | TestimonialsBlock
+        | MeetTheTeamBlock
         | TestimonialQuoteBlock
         | OrderStepsBlock
         | OurOfficesBlock
@@ -1491,6 +1494,27 @@ export interface TestimonialsBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'testimonials';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MeetTheTeamBlock".
+ */
+export interface MeetTheTeamBlock {
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, MD 40px, LG 50px, XL 75px, 2XL 100px; SECTION 50/75/110 and SECTIONLARGE 70/140 follow the source Section margin responsively.
+     */
+    gap?: ('inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'section' | 'sectionLarge') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'meetTheTeam';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6058,6 +6082,43 @@ export interface NameCheckPackagesBlock {
   blockType: 'nameCheckPackages';
 }
 /**
+ * People shown by the Meet The Team block. Each card opens a dialog with the photo, the job title and the facts listed below it.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "staff".
+ */
+export interface Staff {
+  id: string;
+  /**
+   * Shown on the card and as the dialog heading.
+   */
+  fullName: string;
+  jobTitle: string;
+  /**
+   * Cut-out portrait on the pale panel. The source set is 370x320; anything wider than it is tall keeps the row heights even.
+   */
+  photo: string | Media;
+  /**
+   * One line each in the dialog, rendered as "Label: value". Leave empty and the dialog shows the photo, name and job title alone.
+   */
+  facts?:
+    | {
+        /**
+         * e.g. "Favourite Drink". Rendered in bold.
+         */
+        label: string;
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Lowest wins. Members without a number sort after those with one.
+   */
+  displayOrder?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Vimeo videos shown by the Video Library block, grouped by category. Thumbnails are derived from the Vimeo ID, so no image upload is needed.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6316,6 +6377,10 @@ export interface PayloadLockedDocument {
         value: string | BuyService;
       } | null)
     | ({
+        relationTo: 'staff';
+        value: string | Staff;
+      } | null)
+    | ({
         relationTo: 'videos';
         value: string | Video;
       } | null)
@@ -6425,6 +6490,7 @@ export interface PagesSelect<T extends boolean = true> {
         support?: T | SupportBlockSelect<T>;
         onlineAdminPortal?: T | OnlineAdminPortalBlockSelect<T>;
         testimonials?: T | TestimonialsBlockSelect<T>;
+        meetTheTeam?: T | MeetTheTeamBlockSelect<T>;
         testimonialQuote?: T | TestimonialQuoteBlockSelect<T>;
         orderSteps?: T | OrderStepsBlockSelect<T>;
         ourOffices?: T | OurOfficesBlockSelect<T>;
@@ -6943,6 +7009,22 @@ export interface TestimonialsBlockSelect<T extends boolean = true> {
         background?: T;
         paddingTop?: T;
         paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MeetTheTeamBlock_select".
+ */
+export interface MeetTheTeamBlockSelect<T extends boolean = true> {
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+        gap?: T;
       };
   id?: T;
   blockName?: T;
@@ -9729,6 +9811,25 @@ export interface BuyServicesSelect<T extends boolean = true> {
         url?: T;
         label?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "staff_select".
+ */
+export interface StaffSelect<T extends boolean = true> {
+  fullName?: T;
+  jobTitle?: T;
+  photo?: T;
+  facts?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        id?: T;
+      };
+  displayOrder?: T;
   updatedAt?: T;
   createdAt?: T;
 }
