@@ -1,13 +1,11 @@
 import type { Block, TextFieldSingleValidation } from 'payload'
 
 import { sectionLayoutField } from '@/fields/sectionLayout'
-import { magicNumberIconOptions } from './icons'
+import { MAGIC_NUMBER_ICON_OPTIONS } from './icons'
 
 const HEX = /^#[0-9a-fA-F]{6}$/
 const isHex: TextFieldSingleValidation = (value) =>
-  typeof value === 'string' && HEX.test(value)
-    ? true
-    : 'Enter a six-digit hex colour, e.g. #00BCED'
+  typeof value === 'string' && HEX.test(value) ? true : 'Enter a six-digit hex colour, e.g. #00BCED'
 
 export const MagicNumbers: Block = {
   slug: 'magicNumbers',
@@ -40,8 +38,12 @@ export const MagicNumbers: Block = {
               type: 'select',
               required: true,
               defaultValue: 'comments',
-              options: magicNumberIconOptions,
-              admin: { width: '50%' },
+              options: MAGIC_NUMBER_ICON_OPTIONS,
+              admin: {
+                width: '50%',
+                description:
+                  'Add a new one by importing it in the block’s icons.ts; the list here follows.',
+              },
             },
             {
               name: 'colour',

@@ -1547,6 +1547,9 @@ export interface MagicNumbersBlock {
    */
   numbers?:
     | {
+        /**
+         * Add a new one by importing it in the block’s icons.ts; the list here follows.
+         */
         icon:
           | 'comments'
           | 'mapMarker'
