@@ -5689,13 +5689,17 @@ export interface CaseStudyMosaicBlock {
  */
 export interface FormationVideoBlock {
   /**
-   * Centred heading above the video still. Newlines are preserved, so a deliberate line break can be typed in.
+   * Centred heading above the video still. Newlines are preserved, so a deliberate line break can be typed in. Leave blank for a bare still with nothing above it.
    */
-  heading: string;
+  heading?: string | null;
   /**
    * Optional centred line under the heading. Leave blank to drop it entirely.
    */
   subheading?: string | null;
+  /**
+   * Names the video for screen readers — it labels the play button and titles the dialog. Leave blank to use the heading. Required when there is no heading, because nothing else names the video.
+   */
+  videoTitle?: string | null;
   /**
    * Video still. Landscape, and it is the whole clickable target — set the alt text on the media item, because that is what a screen reader announces. With no still the section renders as heading and subheading only.
    */
@@ -5704,6 +5708,10 @@ export interface FormationVideoBlock {
    * Player embed URL (Vimeo/YouTube) or a direct .mp4 file URL. An embed URL opens in an iframe, a file URL in a native player.
    */
   videoUrl: string;
+  /**
+   * Capped is the home page treatment. Inset matches the standalone video the service pages drop between sections — it stays full width on mobile and pulls in to 85% from 768px.
+   */
+  stillWidth: 'capped' | 'inset';
   /**
    * Leave off when the still already has a play button in the artwork, which is the case on the home page. Turn it on for a still that does not.
    */
@@ -5715,6 +5723,10 @@ export interface FormationVideoBlock {
     background: 'light' | 'dark' | 'inverse';
     paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
     paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, MD 40px, LG 50px, XL 75px, 2XL 100px; SECTION 50/75/110 and SECTIONLARGE 70/140 follow the source Section margin responsively.
+     */
+    gap?: ('inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'section' | 'sectionLarge') | null;
   };
   id?: string | null;
   blockName?: string | null;
@@ -9251,8 +9263,10 @@ export interface CaseStudyMosaicBlockSelect<T extends boolean = true> {
 export interface FormationVideoBlockSelect<T extends boolean = true> {
   heading?: T;
   subheading?: T;
+  videoTitle?: T;
   image?: T;
   videoUrl?: T;
+  stillWidth?: T;
   showPlayIcon?: T;
   sectionLayout?:
     | T
@@ -9260,6 +9274,7 @@ export interface FormationVideoBlockSelect<T extends boolean = true> {
         background?: T;
         paddingTop?: T;
         paddingBottom?: T;
+        gap?: T;
       };
   id?: T;
   blockName?: T;
