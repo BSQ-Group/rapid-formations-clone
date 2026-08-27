@@ -22,7 +22,7 @@ type Group = NonNullable<Item['panelGroups']>[number]
 
 const PanelGroup: React.FC<{ group: Group }> = ({ group }) => (
   <div className={s.panelGroup}>
-    <FaIcon icon={icons[group.icon ?? 'user']} className={s.panelIcon} />
+    <FaIcon icon={icons[group.icon ?? 'user'] ?? icons.user} className={s.panelIcon} />
     <Text as="h3" textStyle="span" text={group.heading} className={s.panelHeading} />
     {group.body && <RichText data={group.body} enableGutter={false} className={s.panelBody} />}
   </div>
