@@ -245,6 +245,7 @@ export interface Page {
         | SupportBlock
         | OnlineAdminPortalBlock
         | TestimonialsBlock
+        | StaffReviewsBlock
         | TestimonialQuoteBlock
         | OrderStepsBlock
         | MagicNumbersBlock
@@ -1493,6 +1494,48 @@ export interface TestimonialsBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'testimonials';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StaffReviewsBlock".
+ */
+export interface StaffReviewsBlock {
+  /**
+   * Centred above the quotes. Leave empty to render the quotes alone.
+   */
+  title?: string | null;
+  /**
+   * Three across from 1023px, stacked below it. Any number works, but rows of three read best.
+   */
+  quotes?:
+    | {
+        /**
+         * No quotation marks — the tile draws its own.
+         */
+        quote: string;
+        person: string;
+        /**
+         * Rendered under the name as a citation.
+         */
+        role?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, MD 40px, LG 50px, XL 75px, 2XL 100px; SECTION 50/75/110 and SECTIONLARGE 70/140 follow the source Section margin responsively.
+     */
+    gap?: ('inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'section' | 'sectionLarge') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'staffReviews';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6539,6 +6582,7 @@ export interface PagesSelect<T extends boolean = true> {
         support?: T | SupportBlockSelect<T>;
         onlineAdminPortal?: T | OnlineAdminPortalBlockSelect<T>;
         testimonials?: T | TestimonialsBlockSelect<T>;
+        staffReviews?: T | StaffReviewsBlockSelect<T>;
         testimonialQuote?: T | TestimonialQuoteBlockSelect<T>;
         orderSteps?: T | OrderStepsBlockSelect<T>;
         magicNumbers?: T | MagicNumbersBlockSelect<T>;
@@ -7059,6 +7103,31 @@ export interface TestimonialsBlockSelect<T extends boolean = true> {
         background?: T;
         paddingTop?: T;
         paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StaffReviewsBlock_select".
+ */
+export interface StaffReviewsBlockSelect<T extends boolean = true> {
+  title?: T;
+  quotes?:
+    | T
+    | {
+        quote?: T;
+        person?: T;
+        role?: T;
+        id?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+        gap?: T;
       };
   id?: T;
   blockName?: T;
