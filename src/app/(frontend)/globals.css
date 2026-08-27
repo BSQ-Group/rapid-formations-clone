@@ -382,8 +382,8 @@
     --surface-icon-badge-cyan: rgb(62 195 233);
     --surface-review-card-hover: rgb(248 248 248);
     --surface-section-navy: rgb(18 28 47);
-    --surface-staff-quote: rgb(160 201 88);
-    --text-staff-quote-cite: rgb(0 0 0 / 0.55);
+    --surface-quote-card: rgb(160 201 88);
+    --text-quote-card-cite: rgb(0 0 0 / 0.55);
 
     --surface-promo-default: linear-gradient(
       51deg,
