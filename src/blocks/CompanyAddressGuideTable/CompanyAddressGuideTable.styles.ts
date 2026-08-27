@@ -13,7 +13,7 @@ export const companyAddressGuideTableStyles = {
 
   headerRow: 'bg-[var(--surface-on-light-canvas)] text-center',
 
-  cell: 'border-t border-r border-solid border-[color:var(--border-on-light)] p-2.5 text-[var(--text-on-light-base)] [&_a]:text-[var(--text-brand-cyan)] [&_a]:no-underline [&_ol]:m-0 [&_ol]:list-decimal [&_ol]:pl-5 [&_sup]:top-0 [&_sup]:align-super [&_sup]:text-[0.8333em] [&_sup]:leading-[1.5]',
+  cell: 'border-t border-r border-solid border-[color:var(--border-on-light)] p-2.5 text-[var(--text-on-light-base)] [&_a]:text-[var(--text-brand-cyan)] [&_a]:no-underline [&_ol]:!m-0 [&_ol]:list-decimal [&_ol]:pl-5 [&_sup]:top-0 [&_sup]:align-super [&_sup]:text-[0.8333em] [&_sup]:leading-[1.5]',
 
   questionCell: 'border-l border-solid text-left',
 
@@ -21,5 +21,5 @@ export const companyAddressGuideTableStyles = {
     'block break-words whitespace-pre-line text-2xl leading-[32.4px] font-normal tracking-normal text-[var(--text-on-light-base)] min-[1023px]:mx-auto min-[1023px]:max-w-[75%]',
 
   footnote:
-    'mb-[30px] bg-[var(--surface-on-light-canvas)] p-[15px] text-lg leading-[27px] text-[var(--text-on-light-base)] [&_a]:text-[var(--text-brand-cyan)] [&_a]:no-underline [&_li]:mb-2.5 [&_li:last-child]:mb-0 [&_ol]:m-0 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:text-xl [&_ol]:leading-[30px]',
+    'mb-[30px] bg-[var(--surface-on-light-canvas)] p-[15px] text-lg leading-[27px] text-[var(--text-on-light-base)] [&_a]:text-[var(--text-brand-cyan)] [&_a]:no-underline [&_li]:mb-2.5 [&_li:last-child]:mb-0 [&_ol]:!m-0 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:text-xl [&_ol]:leading-[30px] [&_sup]:top-0 [&_sup]:align-super [&_sup]:text-[0.8333em] [&_sup]:leading-[1.5]',
 } as const

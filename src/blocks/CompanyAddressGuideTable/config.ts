@@ -1,15 +1,16 @@
 import type { Block, Field } from 'payload'
 
-import {
-  FixedToolbarFeature,
-  SuperscriptFeature,
-  lexicalEditor,
-} from '@payloadcms/richtext-lexical'
+import { SuperscriptFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 
 import { sectionLayoutField } from '@/fields/sectionLayout'
 
+const NOT_IN_A_CELL = ['heading', 'experimental_table']
+
 const cellEditor = lexicalEditor({
-  features: ({ rootFeatures }) => [...rootFeatures, SuperscriptFeature(), FixedToolbarFeature()],
+  features: ({ rootFeatures }) => [
+    ...rootFeatures.filter((feature) => !NOT_IN_A_CELL.includes(feature.key)),
+    SuperscriptFeature(),
+  ],
 })
 
 const cell = (name: string, label: string): Field => ({

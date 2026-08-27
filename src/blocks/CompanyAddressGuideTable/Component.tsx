@@ -13,6 +13,13 @@ type Table = NonNullable<CompanyAddressGuideTableBlockProps['tables']>[number]
 type Row = NonNullable<Table['rows']>[number]
 type CellContent = Row['question']
 
+const hasText = (node: unknown): boolean => {
+  if (!node || typeof node !== 'object') return false
+  const candidate = node as { text?: unknown; children?: unknown[] }
+  if (typeof candidate.text === 'string' && candidate.text.trim() !== '') return true
+  return Array.isArray(candidate.children) && candidate.children.some(hasText)
+}
+
 const Cell: React.FC<{ content: CellContent; className?: string }> = ({ content, className }) => (
   <div role="cell" className={cn(s.cell, className)}>
     <RichText data={content} enableGutter={false} enableProse={false} />
@@ -39,9 +46,11 @@ export const CompanyAddressGuideTableBlockComponent: React.FC<
             <div key={table.id}>
               <Text as="h2" textStyle="span" text={table.heading} className={s.heading} />
               <div className={s.scroller} tabIndex={0} role="region" aria-label={table.heading}>
-                <div role="table" aria-label={table.heading} className={s.table}>
+                <div role="table" className={s.table}>
                   <div role="row" className={cn(s.row, s.headerRow)}>
-                    <div role="columnheader" className={cn(s.cell, s.questionCell)} />
+                    <div role="columnheader" className={cn(s.cell, s.questionCell)}>
+                      <span className="sr-only">Question</span>
+                    </div>
                     {columns.map((heading, index) => (
                       <div key={index} role="columnheader" className={s.cell}>
                         <Text textStyle="span" text={heading} className={s.columnHeading} />
@@ -58,7 +67,7 @@ export const CompanyAddressGuideTableBlockComponent: React.FC<
                   ))}
                 </div>
               </div>
-              {table.footnote && (
+              {table.footnote && hasText(table.footnote.root) && (
                 <div className={s.footnote}>
                   <RichText data={table.footnote} enableGutter={false} enableProse={false} />
                 </div>
