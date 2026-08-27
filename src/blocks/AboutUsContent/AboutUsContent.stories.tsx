@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import type { AboutUsContentBlock as AboutUsContentBlockProps, Media } from '@/payload-types'
+import type { Media } from '@/payload-types'
 import { AboutUsContentBlock } from './Component'
 
 const image = (seed: string, width: number, height: number): Media => ({
