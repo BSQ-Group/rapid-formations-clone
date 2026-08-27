@@ -89,6 +89,7 @@ import { RequiredInformation } from '../../blocks/RequiredInformation/config'
 import { PageTitle } from '../../components/shared/PageTitle/config'
 import { TextContent } from '../../blocks/TextContent/config'
 import { TitleBanner } from '../../components/shared/TitleBanner/config'
+import { ReviewCentreIntro } from '../../components/shared/ReviewCentreIntro/config'
 import { FaqTopic } from '../../blocks/FaqTopic/config'
 import { ReviewRatings } from '../../blocks/ReviewRatings/config'
 import { ClosingCTA } from '../../components/shared/ClosingCTA/config'
@@ -272,6 +273,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 PageTitle,
                 TextContent,
                 TitleBanner,
+                ReviewCentreIntro,
                 FaqTopic,
                 ReviewRatings,
                 ClosingCTA,

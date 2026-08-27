@@ -328,6 +328,7 @@ export interface Page {
         | PageTitleBlock
         | TextContentBlock
         | TitleBannerBlock
+        | ReviewCentreIntroBlock
         | FaqTopicBlock
         | ReviewRatingsBlock
         | ClosingCTABlock
@@ -5943,6 +5944,32 @@ export interface TitleBannerBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewCentreIntroBlock".
+ */
+export interface ReviewCentreIntroBlock {
+  /**
+   * Fills the band behind the text, cropped to centre. Its alt text comes from the media item.
+   */
+  image: string | Media;
+  title: string;
+  /**
+   * Untick when something above already carries the H1.
+   */
+  isPageTitle?: boolean | null;
+  /**
+   * Sits under the title. Line breaks are preserved.
+   */
+  subtitle?: string | null;
+  /**
+   * Runs at 85% of the content width so it wraps ahead of the title. Line breaks are preserved.
+   */
+  body?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'reviewCentreIntro';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "FaqTopicBlock".
  */
 export interface FaqTopicBlock {
@@ -6508,6 +6535,7 @@ export interface PagesSelect<T extends boolean = true> {
         pageTitle?: T | PageTitleBlockSelect<T>;
         textContent?: T | TextContentBlockSelect<T>;
         titleBanner?: T | TitleBannerBlockSelect<T>;
+        reviewCentreIntro?: T | ReviewCentreIntroBlockSelect<T>;
         faqTopic?: T | FaqTopicBlockSelect<T>;
         reviewRatings?: T | ReviewRatingsBlockSelect<T>;
         closingCTA?: T | ClosingCTABlockSelect<T>;
@@ -9372,6 +9400,19 @@ export interface TitleBannerBlockSelect<T extends boolean = true> {
   naturalHeight?: T;
   image?: T;
   isPageTitle?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewCentreIntroBlock_select".
+ */
+export interface ReviewCentreIntroBlockSelect<T extends boolean = true> {
+  image?: T;
+  title?: T;
+  isPageTitle?: T;
+  subtitle?: T;
+  body?: T;
   id?: T;
   blockName?: T;
 }
