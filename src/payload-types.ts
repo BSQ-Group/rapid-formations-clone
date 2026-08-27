@@ -1545,10 +1545,13 @@ export interface MagicNumbersBlock {
   heading: string;
   subheading?: string | null;
   /**
-   * A stacked list below 768px and a 2-up grid from there. From 1280px they are placed by hand at the offsets below, with the connector lines drawn between them.
+   * A stacked list below 768px and a 2-up grid from there. From 1590px they are placed by hand at the offsets below, with the connector lines drawn between them.
    */
   numbers?:
     | {
+        /**
+         * Add a new one by importing it in the block’s icons.ts; the list here follows.
+         */
         icon:
           | 'comments'
           | 'mapMarker'
@@ -1569,7 +1572,7 @@ export interface MagicNumbersBlock {
          */
         body?: string | null;
         /**
-         * Ignored below 1280px, where the items are a plain grid. Set either Top or Bottom, not both.
+         * Ignored below 1590px, where the items are a plain grid. Set either Top or Bottom, not both.
          */
         placement: {
           left: number;
@@ -1577,7 +1580,7 @@ export interface MagicNumbersBlock {
           bottom?: number | null;
         };
         /**
-         * The vertical rule under the row of items, drawn in the colour above. Also 1280px and up only.
+         * The vertical rule under the row of items, drawn in the colour above. Also 1590px and up only.
          */
         connector: {
           /**

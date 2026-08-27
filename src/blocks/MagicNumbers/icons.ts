@@ -9,30 +9,20 @@ import { faShieldAlt } from '@fortawesome/pro-solid-svg-icons/faShieldAlt'
 import { faThumbsUp } from '@fortawesome/pro-solid-svg-icons/faThumbsUp'
 import { faUniversity } from '@fortawesome/pro-solid-svg-icons/faUniversity'
 
-// The source resolves any FontAwesome name through a fifty-icon map. Only these
-// nine are used by this section, so the block imports exactly nine.
-export const magicNumberIcons = {
-  comments: faComments,
-  mapMarker: faMapMarker,
-  file: faFile,
-  graduationCap: faGraduationCap,
-  shield: faShieldAlt,
-  clock: faClock,
-  phone: faPhone,
-  university: faUniversity,
-  thumbsUp: faThumbsUp,
-} as const satisfies Record<string, IconDefinition>
+export const MAGIC_NUMBER_ICONS = {
+  comments: { label: 'Comments', icon: faComments },
+  mapMarker: { label: 'Map marker', icon: faMapMarker },
+  file: { label: 'File', icon: faFile },
+  graduationCap: { label: 'Graduation cap', icon: faGraduationCap },
+  shield: { label: 'Shield', icon: faShieldAlt },
+  clock: { label: 'Clock', icon: faClock },
+  phone: { label: 'Phone', icon: faPhone },
+  university: { label: 'University', icon: faUniversity },
+  thumbsUp: { label: 'Thumbs up', icon: faThumbsUp },
+} satisfies Record<string, { label: string; icon: IconDefinition }>
 
-export type MagicNumberIcon = keyof typeof magicNumberIcons
+export type MagicNumberIcon = keyof typeof MAGIC_NUMBER_ICONS
 
-export const magicNumberIconOptions = [
-  { label: 'Comments', value: 'comments' },
-  { label: 'Map marker', value: 'mapMarker' },
-  { label: 'File', value: 'file' },
-  { label: 'Graduation cap', value: 'graduationCap' },
-  { label: 'Shield', value: 'shield' },
-  { label: 'Clock', value: 'clock' },
-  { label: 'Phone', value: 'phone' },
-  { label: 'University', value: 'university' },
-  { label: 'Thumbs up', value: 'thumbsUp' },
-]
+export const MAGIC_NUMBER_ICON_OPTIONS = Object.entries(MAGIC_NUMBER_ICONS).map(
+  ([value, { label }]) => ({ label, value }),
+)

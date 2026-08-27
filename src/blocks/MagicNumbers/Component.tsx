@@ -6,7 +6,7 @@ import { Container } from '@/components/shared/Container/Container'
 import { FaIcon } from '@/components/shared/FaIcon'
 import { SectionWrapper } from '@/components/shared/SectionWrapper/SectionWrapper'
 import Text from '@/components/shared/Text'
-import { magicNumberIcons, type MagicNumberIcon } from './icons'
+import { MAGIC_NUMBER_ICONS } from './icons'
 import { magicNumbersStyles as s } from './MagicNumbers.styles'
 
 const px = (value?: number | null) => (typeof value === 'number' ? `${value}px` : undefined)
@@ -23,15 +23,12 @@ export const MagicNumbersBlock: React.FC<MagicNumbersBlockProps> = ({
     <SectionWrapper {...sectionLayout} className={s.section}>
       <Container className={s.wrapperPad}>
         <Text as="h2" textStyle="span" text={heading} className={s.heading} />
-        {subheading && (
-          <Text as="p" textStyle="span" text={subheading} className={s.subheading} />
-        )}
+        {subheading && <Text as="p" textStyle="span" text={subheading} className={s.subheading} />}
         <div className={s.items}>
           {items.map((item) => (
             <div
               key={item.id}
               className={s.item}
-              // Offsets are inert below 1280px, where the item is statically placed.
               style={{
                 left: px(item.placement?.left),
                 top: px(item.placement?.top),
@@ -39,10 +36,7 @@ export const MagicNumbersBlock: React.FC<MagicNumbersBlockProps> = ({
               }}
             >
               <span className={s.icon} style={{ backgroundColor: item.colour }}>
-                <FaIcon
-                  icon={magicNumberIcons[(item.icon ?? 'comments') as MagicNumberIcon]}
-                  className={s.glyph}
-                />
+                <FaIcon icon={MAGIC_NUMBER_ICONS[item.icon].icon} className={s.glyph} />
               </span>
               <span className={s.content}>
                 <Text as="h3" textStyle="span" text={item.heading} className={s.itemHeading} />
