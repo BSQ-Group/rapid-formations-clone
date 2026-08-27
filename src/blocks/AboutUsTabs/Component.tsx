@@ -13,15 +13,11 @@ export const AboutUsTabsBlock: React.FC<AboutUsTabsBlockProps> = ({ tabs, sectio
 
   if (!shown.length) return null
 
-  // Panels are rendered on the server and handed to the client component as
-  // nodes, so a tab switch costs no fetch and the copy is in the HTML.
   const prepared = shown.map((tab) => ({
     label: tab.label,
     title: tab.title,
     isPageTitle: Boolean(tab.isPageTitle),
-    panel: (
-      <RenderBlocks blocks={(tab.content ?? []) as NonNullable<Page['layout']>} />
-    ),
+    panel: <RenderBlocks blocks={(tab.content ?? []) as NonNullable<Page['layout']>} />,
   }))
 
   return (
