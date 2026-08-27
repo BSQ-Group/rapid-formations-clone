@@ -10,8 +10,10 @@ export const aboutUsContentStyles = {
 
   item: {
     imageRows: 'grid grid-cols-1 items-start gap-[15px] md:grid-cols-[1fr_3fr] md:gap-[30px]',
-    twoColumn: 'block pb-5',
+    twoColumn: 'block',
   },
+
+  itemHalf: 'pb-5',
 
   itemFull: 'md:col-start-1 md:col-end-[span_2]',
 
@@ -30,13 +32,13 @@ export const aboutUsContentStyles = {
 
   body: 'block text-xl leading-[30px] text-[var(--text-on-light-muted)] [&_a]:!text-[var(--text-on-light-link-hover)] [&_a:hover]:!underline [&_p]:!mb-4 [&>p:last-child]:!mb-0',
 
-  panelGroup: 'mb-5 last:mb-0',
+  panelGroup: 'mb-5 text-xl leading-[30px] last:mb-0',
 
   panelIcon: 'mr-2.5 inline-block h-6 w-6 align-middle text-[var(--border-brand-cyan)]',
 
   panelHeading:
-    'mb-2.5 inline align-middle text-[26px] leading-[32.11px] font-normal text-[var(--text-on-light-base)]',
+    'mb-2 inline align-middle text-[28px] leading-[34.58px] font-normal text-[var(--text-on-light-base)]',
 
   panelBody:
-    'block text-xl leading-[30px] text-[var(--text-on-light-muted)] [&_a]:!text-[var(--text-on-light-link-hover)] [&_a:hover]:!underline [&_p]:!mb-4 [&_ul]:!mb-5 [&_ul]:list-disc [&_ul]:pl-5 [&_ul:last-child]:!mb-0 [&>*:last-child]:!mb-0',
+    'block text-xl leading-[30px] text-[var(--text-on-light-muted)] [&_a]:!text-[var(--text-on-light-link-hover)] [&_a:hover]:!underline [&_p]:!mb-4 [&_ul]:!mb-0 [&_ul]:list-disc [&_ul]:pl-5',
 } as const

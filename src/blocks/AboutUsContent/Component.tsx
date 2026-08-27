@@ -51,6 +51,7 @@ export const AboutUsContentBlock: React.FC<AboutUsContentBlockProps> = ({
                 key={item.id}
                 className={cn(
                   s.item[layout],
+                  !isImageRows && item.width !== 'full' && s.itemHalf,
                   item.width === 'full' && s.itemFull,
                   item.panel && s.panel,
                 )}
