@@ -17,12 +17,14 @@ import { RegisterCompanySteps } from '../../blocks/RegisterCompanySteps/config'
 import { Support } from '../../blocks/Support/config'
 import { OnlineAdminPortal } from '../../blocks/OnlineAdminPortal/config'
 import { Testimonials } from '../../blocks/Testimonials/config'
+import { StaffReviews } from '@/blocks/StaffReviews/config'
 import { TestimonialQuote } from '@/blocks/TestimonialQuote/config'
 import { OrderSteps } from '@/blocks/OrderSteps/config'
 import { OurOffices } from '@/blocks/OurOffices/config'
 import { FourSteps } from '../../blocks/FourSteps/config'
 import { AdBanner } from '../../blocks/AdBanner/config'
 import { SameDayIncorporation } from '@/blocks/SameDayIncorporation/config'
+import { MagicNumbers } from '../../blocks/MagicNumbers/config'
 import { PackageGrid } from '../../blocks/PackageGrid/config'
 import { PackageInclusions } from '../../blocks/PackageInclusions/config'
 import { RecommendedPackages } from '../../blocks/RecommendedPackages/config'
@@ -90,6 +92,7 @@ import { RequiredInformation } from '../../blocks/RequiredInformation/config'
 import { PageTitle } from '../../components/shared/PageTitle/config'
 import { TextContent } from '../../blocks/TextContent/config'
 import { TitleBanner } from '../../components/shared/TitleBanner/config'
+import { ReviewCentreIntro } from '../../components/shared/ReviewCentreIntro/config'
 import { FaqTopic } from '../../blocks/FaqTopic/config'
 import { ReviewRatings } from '../../blocks/ReviewRatings/config'
 import { ClosingCTA } from '../../components/shared/ClosingCTA/config'
@@ -190,8 +193,10 @@ export const Pages: CollectionConfig<'pages'> = {
                 Support,
                 OnlineAdminPortal,
                 Testimonials,
+                StaffReviews,
                 TestimonialQuote,
                 OrderSteps,
+                MagicNumbers,
                 OurOffices,
                 FourSteps,
                 AdBanner,
@@ -274,6 +279,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 PageTitle,
                 TextContent,
                 TitleBanner,
+                ReviewCentreIntro,
                 FaqTopic,
                 ReviewRatings,
                 ClosingCTA,

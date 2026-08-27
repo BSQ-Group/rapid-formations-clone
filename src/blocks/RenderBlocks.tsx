@@ -19,6 +19,7 @@ import { CallOutCTABlock } from '@/blocks/CallOutCTA/Component'
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { BusinessBankAccountsBlock } from '@/blocks/BusinessBankAccounts/Component'
 import { AboutUsContentBlock } from '@/blocks/AboutUsContent/Component'
+import { MagicNumbersBlock } from '@/blocks/MagicNumbers/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { CaseStudyVideoBlock } from '@/blocks/CaseStudyVideo/Component'
 import { CaseStudyMosaicBlock } from '@/blocks/CaseStudyMosaic/Component'
@@ -33,6 +34,7 @@ import { RegisterCompanyStepsBlock } from '@/blocks/RegisterCompanySteps/Compone
 import { SupportBlock } from '@/blocks/Support/Component'
 import { OnlineAdminPortalBlock } from '@/blocks/OnlineAdminPortal/Component'
 import { TestimonialsBlock } from '@/blocks/Testimonials/Component'
+import { StaffReviewsBlockComponent } from '@/blocks/StaffReviews/Component'
 import { TestimonialQuoteBlock } from '@/blocks/TestimonialQuote/Component'
 import { OrderStepsBlock } from '@/blocks/OrderSteps/Component'
 import { OurOfficesBlockComponent } from '@/blocks/OurOffices/Component'
@@ -100,6 +102,7 @@ import { FaqQuickNavServer } from '@/components/shared/FaqQuickNav/Server'
 import { PageTitle } from '@/components/shared/PageTitle'
 import { BuyNow } from '@/components/shared/PageTitle/BuyNow'
 import { TitleBanner } from '@/components/shared/TitleBanner'
+import { ReviewCentreIntro } from '@/components/shared/ReviewCentreIntro'
 import { ClosingCTA } from '@/components/shared/ClosingCTA'
 import { NameCheckPackagesBlock } from '@/blocks/NameCheckPackages/Component'
 import { TextContentBlock } from '@/blocks/TextContent/Component'
@@ -127,6 +130,7 @@ const blockComponents = {
   caseStudyMosaic: CaseStudyMosaicBlock,
   content: ContentBlock,
   aboutUsContent: AboutUsContentBlock,
+  magicNumbers: MagicNumbersBlock,
   cta: CallToActionBlock,
   faqs: FAQsBlock,
   formBlock: FormBlock,
@@ -138,6 +142,7 @@ const blockComponents = {
   support: SupportBlock,
   onlineAdminPortal: OnlineAdminPortalBlock,
   testimonials: TestimonialsBlock,
+  staffReviews: StaffReviewsBlockComponent,
   testimonialQuote: TestimonialQuoteBlock,
   orderSteps: OrderStepsBlock,
   ourOffices: OurOfficesBlockComponent,
@@ -203,6 +208,7 @@ const blockComponents = {
   requiredInformation: RequiredInformationBlock,
   textContent: TextContentBlock,
   titleBanner: TitleBanner,
+  reviewCentreIntro: ReviewCentreIntro,
   faqTopic: FaqTopicBlock,
   reviewRatings: ReviewRatingsBlock,
   closingCTA: ClosingCTA,
