@@ -18,6 +18,7 @@ import { OurAddressBlock } from '@/blocks/OurAddress/Component'
 import { CallOutCTABlock } from '@/blocks/CallOutCTA/Component'
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { BusinessBankAccountsBlock } from '@/blocks/BusinessBankAccounts/Component'
+import { BusinessBankingTableBlock } from '@/blocks/BusinessBankingTable/Component'
 import { AboutUsContentBlock } from '@/blocks/AboutUsContent/Component'
 import { MagicNumbersBlock } from '@/blocks/MagicNumbers/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
@@ -130,6 +131,7 @@ const blockComponents = {
   caseStudyVideo: CaseStudyVideoBlock,
   caseStudyMosaic: CaseStudyMosaicBlock,
   content: ContentBlock,
+  businessBankingTable: BusinessBankingTableBlock,
   aboutUsContent: AboutUsContentBlock,
   magicNumbers: MagicNumbersBlock,
   cta: CallToActionBlock,

@@ -337,6 +337,7 @@ export interface Page {
         | ReviewRatingsBlock
         | ClosingCTABlock
         | NameCheckPackagesBlock
+        | BusinessBankingTableBlock
       )[]
     | null;
   meta?: {
@@ -605,6 +606,112 @@ export interface User {
     | null;
   password?: string | null;
   collection: 'users';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BusinessBankingTableBlock".
+ */
+export interface BusinessBankingTableBlock {
+  heading: string;
+  /**
+   * Sits between the heading and the table.
+   */
+  intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * The table always has these six columns. Rename them here; the order is fixed by the row fields below.
+   */
+  columnHeadings: {
+    bank: string;
+    type: string;
+    freeBankingPeriod: string;
+    overdraft: string;
+    accountingIntegration: string;
+    keyFeatures: string;
+  };
+  /**
+   * One row each, in this order.
+   */
+  rows?:
+    | {
+        /**
+         * Builds the logo alt text, e.g. "Barclays logo".
+         */
+        bankName: string;
+        /**
+         * Optional superscript after the logo, e.g. "1", tying it to a footnote.
+         */
+        footnoteMarker?: string | null;
+        /**
+         * Rendered at its natural size, capped at 75px wide.
+         */
+        logo: string | Media;
+        type: string;
+        /**
+         * Ticked shows a green check, unticked a grey cross.
+         */
+        overdraft?: boolean | null;
+        /**
+         * Line breaks are preserved.
+         */
+        freeBankingPeriod?: string | null;
+        /**
+         * Line breaks are preserved.
+         */
+        accountingIntegration?: string | null;
+        /**
+         * Line breaks are preserved.
+         */
+        keyFeatures?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Sits under the table — caveats and the numbered footnotes.
+   */
+  footnotes?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, MD 40px, LG 50px, XL 75px, 2XL 100px; SECTION 50/75/110 and SECTIONLARGE 70/140 follow the source Section margin responsively.
+     */
+    gap?: ('inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'section' | 'sectionLarge') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'businessBankingTable';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6879,6 +6986,7 @@ export interface PagesSelect<T extends boolean = true> {
         reviewRatings?: T | ReviewRatingsBlockSelect<T>;
         closingCTA?: T | ClosingCTABlockSelect<T>;
         nameCheckPackages?: T | NameCheckPackagesBlockSelect<T>;
+        businessBankingTable?: T | BusinessBankingTableBlockSelect<T>;
       };
   meta?:
     | T
@@ -6908,6 +7016,48 @@ export interface PagesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BusinessBankingTableBlock_select".
+ */
+export interface BusinessBankingTableBlockSelect<T extends boolean = true> {
+  heading?: T;
+  intro?: T;
+  columnHeadings?:
+    | T
+    | {
+        bank?: T;
+        type?: T;
+        freeBankingPeriod?: T;
+        overdraft?: T;
+        accountingIntegration?: T;
+        keyFeatures?: T;
+      };
+  rows?:
+    | T
+    | {
+        bankName?: T;
+        footnoteMarker?: T;
+        logo?: T;
+        type?: T;
+        overdraft?: T;
+        freeBankingPeriod?: T;
+        accountingIntegration?: T;
+        keyFeatures?: T;
+        id?: T;
+      };
+  footnotes?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+        gap?: T;
+      };
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

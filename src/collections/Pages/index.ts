@@ -46,6 +46,7 @@ import { ServicesBenefits } from '../../blocks/ServicesBenefits/config'
 import { ServicePriceBanner } from '../../blocks/ServicePriceBanner/config'
 import { VideoLibrary } from '../../blocks/VideoLibrary/config'
 import { OurAddress } from '../../blocks/OurAddress/config'
+import { BusinessBankingTable } from '../../blocks/BusinessBankingTable/config'
 import { AboutUsContent } from '../../blocks/AboutUsContent/config'
 import { CallOutCTA } from '../../blocks/CallOutCTA/config'
 import { ChooseCompanyStructure } from '../../blocks/ChooseCompanyStructure/config'
@@ -286,6 +287,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 ReviewRatings,
                 ClosingCTA,
                 NameCheckPackages,
+                BusinessBankingTable,
               ],
               admin: {
                 initCollapsed: true,
