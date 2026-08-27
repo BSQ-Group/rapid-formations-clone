@@ -16,6 +16,7 @@ export const MeetTheTeamBlockComponent: React.FC<MeetTheTeamBlockProps> = async 
   const payload = await getPayload({ config: configPromise })
   const { docs } = await payload.find({
     collection: 'staff',
+    sort: 'createdAt',
     depth: 1,
     pagination: false,
     limit: 0,

@@ -48,30 +48,42 @@ export const MemberCard: React.FC<MemberCardProps> = ({ fullName, jobTitle, phot
         </span>
       </DialogTrigger>
       <DialogContent className={s.dialog} overlayClassName={s.dialogOverlay}>
-        <div className={s.dialogPhoto}>
-          {image ? (
-            <Media
-              resource={image}
-              alt={`Profile of ${fullName}`}
-              htmlElement={null}
-              pictureClassName={s.dialogPhotoPicture}
-              imgClassName={s.dialogPhotoImage}
-              size={s.dialogPhotoSizes}
-            />
-          ) : null}
-        </div>
-        <div className={s.dialogContent}>
-          <DialogTitle className={s.dialogName}>{fullName}</DialogTitle>
-          <DialogDescription className={s.dialogJobTitle}>{jobTitle}</DialogDescription>
-          {rows.length ? (
-            <ul className={s.dialogList}>
-              {rows.map((fact) => (
-                <li key={fact.id ?? fact.label}>
-                  <b className={s.dialogFactLabel}>{fact.label}</b>: {fact.value}
-                </li>
-              ))}
-            </ul>
-          ) : null}
+        <div className={s.dialogScroller}>
+          <div className={s.dialogPhoto}>
+            {image ? (
+              <Media
+                resource={image}
+                alt={`Profile of ${fullName}`}
+                htmlElement={null}
+                pictureClassName={s.dialogPhotoPicture}
+                imgClassName={s.dialogPhotoImage}
+                size={s.dialogPhotoSizes}
+              />
+            ) : null}
+          </div>
+          <div className={s.dialogContent}>
+            <DialogTitle className={s.dialogName} asChild>
+              <Text as="h2" textStyle="span" text={fullName} />
+            </DialogTitle>
+            <DialogDescription className={s.dialogJobTitle} asChild>
+              <Text as="p" textStyle="span" text={jobTitle} />
+            </DialogDescription>
+            {rows.length ? (
+              <ul className={s.dialogList}>
+                {rows.map((fact) => (
+                  <li key={fact.id ?? fact.label}>
+                    <Text
+                      as="span"
+                      textStyle="span"
+                      text={fact.label}
+                      className={s.dialogFactLabel}
+                    />
+                    <Text as="span" textStyle="span" text={`: ${fact.value}`} />
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
         </div>
       </DialogContent>
     </Dialog>
