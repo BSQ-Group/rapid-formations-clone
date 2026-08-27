@@ -247,7 +247,6 @@ export interface Page {
         | TestimonialsBlock
         | TestimonialQuoteBlock
         | OrderStepsBlock
-        | MagicNumbersBlock
         | OurOfficesBlock
         | FourStepsBlock
         | AdBannerBlock
@@ -1535,77 +1534,6 @@ export interface OrderStepsBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'orderSteps';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MagicNumbersBlock".
- */
-export interface MagicNumbersBlock {
-  heading: string;
-  subheading?: string | null;
-  /**
-   * A stacked list below 768px and a 2-up grid from there. From 1280px they are placed by hand at the offsets below, with the connector lines drawn between them.
-   */
-  numbers?:
-    | {
-        icon:
-          | 'comments'
-          | 'mapMarker'
-          | 'file'
-          | 'graduationCap'
-          | 'shield'
-          | 'clock'
-          | 'phone'
-          | 'university'
-          | 'thumbsUp';
-        /**
-         * Fills the icon circle and its connector line.
-         */
-        colour: string;
-        heading: string;
-        /**
-         * Line breaks are preserved.
-         */
-        body?: string | null;
-        /**
-         * Ignored below 1280px, where the items are a plain grid. Set either Top or Bottom, not both.
-         */
-        placement: {
-          left: number;
-          top?: number | null;
-          bottom?: number | null;
-        };
-        /**
-         * The vertical rule under the row of items, drawn in the colour above. Also 1280px and up only.
-         */
-        connector: {
-          /**
-           * % of the row
-           */
-          width: number;
-          side: 'left' | 'right';
-          inset: number;
-          top: number;
-          height: number;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
-   */
-  sectionLayout: {
-    background: 'light' | 'dark' | 'inverse';
-    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
-    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
-    /**
-     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, MD 40px, LG 50px, XL 75px, 2XL 100px; SECTION 50/75/110 and SECTIONLARGE 70/140 follow the source Section margin responsively.
-     */
-    gap?: ('inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'section' | 'sectionLarge') | null;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'magicNumbers';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6583,7 +6511,6 @@ export interface PagesSelect<T extends boolean = true> {
         testimonials?: T | TestimonialsBlockSelect<T>;
         testimonialQuote?: T | TestimonialQuoteBlockSelect<T>;
         orderSteps?: T | OrderStepsBlockSelect<T>;
-        magicNumbers?: T | MagicNumbersBlockSelect<T>;
         ourOffices?: T | OurOfficesBlockSelect<T>;
         fourSteps?: T | FourStepsBlockSelect<T>;
         adBanner?: T | AdBannerBlockSelect<T>;
@@ -7126,49 +7053,6 @@ export interface TestimonialQuoteBlockSelect<T extends boolean = true> {
  */
 export interface OrderStepsBlockSelect<T extends boolean = true> {
   currentStep?: T;
-  sectionLayout?:
-    | T
-    | {
-        background?: T;
-        paddingTop?: T;
-        paddingBottom?: T;
-        gap?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MagicNumbersBlock_select".
- */
-export interface MagicNumbersBlockSelect<T extends boolean = true> {
-  heading?: T;
-  subheading?: T;
-  numbers?:
-    | T
-    | {
-        icon?: T;
-        colour?: T;
-        heading?: T;
-        body?: T;
-        placement?:
-          | T
-          | {
-              left?: T;
-              top?: T;
-              bottom?: T;
-            };
-        connector?:
-          | T
-          | {
-              width?: T;
-              side?: T;
-              inset?: T;
-              top?: T;
-              height?: T;
-            };
-        id?: T;
-      };
   sectionLayout?:
     | T
     | {
