@@ -99,6 +99,7 @@ import { FaqQuickNavServer } from '@/components/shared/FaqQuickNav/Server'
 import { PageTitle } from '@/components/shared/PageTitle'
 import { BuyNow } from '@/components/shared/PageTitle/BuyNow'
 import { TitleBanner } from '@/components/shared/TitleBanner'
+import { ReviewCentreIntro } from '@/components/shared/ReviewCentreIntro'
 import { ClosingCTA } from '@/components/shared/ClosingCTA'
 import { NameCheckPackagesBlock } from '@/blocks/NameCheckPackages/Component'
 import { TextContentBlock } from '@/blocks/TextContent/Component'
@@ -201,6 +202,7 @@ const blockComponents = {
   requiredInformation: RequiredInformationBlock,
   textContent: TextContentBlock,
   titleBanner: TitleBanner,
+  reviewCentreIntro: ReviewCentreIntro,
   faqTopic: FaqTopicBlock,
   reviewRatings: ReviewRatingsBlock,
   closingCTA: ClosingCTA,
