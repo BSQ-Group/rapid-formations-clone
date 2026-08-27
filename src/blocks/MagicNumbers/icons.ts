@@ -9,8 +9,6 @@ import { faShieldAlt } from '@fortawesome/pro-solid-svg-icons/faShieldAlt'
 import { faThumbsUp } from '@fortawesome/pro-solid-svg-icons/faThumbsUp'
 import { faUniversity } from '@fortawesome/pro-solid-svg-icons/faUniversity'
 
-// The source resolves any FontAwesome name through a fifty-icon map. Only these
-// nine are used by this section, so the block imports exactly nine.
 export const magicNumberIcons = {
   comments: faComments,
   mapMarker: faMapMarker,
