@@ -48,6 +48,14 @@ export const formatOfficerName = (
   return [name.title, name.firstname, name.middlename, name.surname].filter(Boolean).join(' ')
 }
 
+export const initialsOf = (name: string) =>
+  name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0].toUpperCase())
+    .join('')
+
 export const formatDateISO = (dateString?: string | null) => {
   if (!dateString) return ''
   const date = new Date(dateString)
@@ -178,4 +186,40 @@ export const formatTTL = (ttlSeconds?: number): string => {
   }
 
   return `${hours}h ${minutes}min ${formatSeconds(seconds)}`
+}
+
+const SECOND = 1000
+const MINUTE = 60 * SECOND
+const HOUR = 60 * MINUTE
+const DAY = 24 * HOUR
+const MONTH = 30 * DAY
+const YEAR = 365 * DAY
+
+export const relativeAge = (iso: string, now: number) => {
+  const elapsed = now - new Date(iso).getTime()
+
+  if (elapsed <= 0) return 'Just now'
+
+  const seconds = Math.round(elapsed / SECOND)
+  if (seconds <= 44) return 'a few seconds ago'
+
+  const minutes = Math.round(elapsed / MINUTE)
+  if (minutes <= 1) return 'a minute ago'
+  if (minutes <= 44) return `${minutes} minutes ago`
+
+  const hours = Math.round(elapsed / HOUR)
+  if (hours <= 1) return 'an hour ago'
+  if (hours <= 21) return `${hours} hours ago`
+
+  const days = Math.round(elapsed / DAY)
+  if (days <= 1) return 'a day ago'
+  if (days <= 25) return `${days} days ago`
+
+  const months = Math.round(elapsed / MONTH)
+  if (months <= 1) return 'a month ago'
+  if (months <= 10) return `${months} months ago`
+
+  const years = Math.round(elapsed / YEAR)
+  if (years <= 1) return 'a year ago'
+  return `${years} years ago`
 }

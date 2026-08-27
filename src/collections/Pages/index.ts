@@ -91,6 +91,7 @@ import { TextContent } from '../../blocks/TextContent/config'
 import { TitleBanner } from '../../components/shared/TitleBanner/config'
 import { FaqTopic } from '../../blocks/FaqTopic/config'
 import { ReviewRatings } from '../../blocks/ReviewRatings/config'
+import { ReviewCentreTabs } from '../../blocks/ReviewCentreTabs/config'
 import { ClosingCTA } from '../../components/shared/ClosingCTA/config'
 import { NameCheckPackages } from '@/blocks/NameCheckPackages/config'
 import { ContentWithPricingCard } from '../../blocks/ContentWithPricingCard/config'
@@ -274,6 +275,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 TitleBanner,
                 FaqTopic,
                 ReviewRatings,
+                ReviewCentreTabs,
                 ClosingCTA,
                 NameCheckPackages,
               ],
