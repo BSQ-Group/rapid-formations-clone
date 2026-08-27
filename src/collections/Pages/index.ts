@@ -17,6 +17,7 @@ import { RegisterCompanySteps } from '../../blocks/RegisterCompanySteps/config'
 import { Support } from '../../blocks/Support/config'
 import { OnlineAdminPortal } from '../../blocks/OnlineAdminPortal/config'
 import { Testimonials } from '../../blocks/Testimonials/config'
+import { StaffReviews } from '@/blocks/StaffReviews/config'
 import { TestimonialQuote } from '@/blocks/TestimonialQuote/config'
 import { OrderSteps } from '@/blocks/OrderSteps/config'
 import { OurOffices } from '@/blocks/OurOffices/config'
@@ -189,6 +190,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 Support,
                 OnlineAdminPortal,
                 Testimonials,
+                StaffReviews,
                 TestimonialQuote,
                 OrderSteps,
                 OurOffices,

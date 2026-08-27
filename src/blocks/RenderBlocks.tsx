@@ -32,6 +32,7 @@ import { RegisterCompanyStepsBlock } from '@/blocks/RegisterCompanySteps/Compone
 import { SupportBlock } from '@/blocks/Support/Component'
 import { OnlineAdminPortalBlock } from '@/blocks/OnlineAdminPortal/Component'
 import { TestimonialsBlock } from '@/blocks/Testimonials/Component'
+import { StaffReviewsBlockComponent } from '@/blocks/StaffReviews/Component'
 import { TestimonialQuoteBlock } from '@/blocks/TestimonialQuote/Component'
 import { OrderStepsBlock } from '@/blocks/OrderSteps/Component'
 import { OurOfficesBlockComponent } from '@/blocks/OurOffices/Component'
@@ -136,6 +137,7 @@ const blockComponents = {
   support: SupportBlock,
   onlineAdminPortal: OnlineAdminPortalBlock,
   testimonials: TestimonialsBlock,
+  staffReviews: StaffReviewsBlockComponent,
   testimonialQuote: TestimonialQuoteBlock,
   orderSteps: OrderStepsBlock,
   ourOffices: OurOfficesBlockComponent,
