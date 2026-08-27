@@ -1,6 +1,7 @@
 'use client'
 
-import React, { useId, useRef, useState } from 'react'
+import * as TabsPrimitive from '@radix-ui/react-tabs'
+import React, { useState } from 'react'
 
 import Text from '@/components/shared/Text'
 import { cn } from '@/utilities/ui'
@@ -15,66 +16,44 @@ export type AboutUsTab = {
 
 export const AboutUsTabsClient: React.FC<{ tabs: AboutUsTab[] }> = ({ tabs }) => {
   const [selected, setSelected] = useState(0)
-  const baseId = useId()
-  const refs = useRef<(HTMLButtonElement | null)[]>([])
+
+  if (!tabs.length) return null
 
   const active = tabs[selected] ?? tabs[0]
 
-  const move = (to: number) => {
-    const next = (to + tabs.length) % tabs.length
-    setSelected(next)
-    refs.current[next]?.focus()
-  }
-
-  const onKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === 'ArrowRight') move(selected + 1)
-    else if (event.key === 'ArrowLeft') move(selected - 1)
-    else if (event.key === 'Home') move(0)
-    else if (event.key === 'End') move(tabs.length - 1)
-    else return
-    event.preventDefault()
-  }
-
   return (
-    <>
+    <TabsPrimitive.Root
+      value={String(selected)}
+      onValueChange={(value) => setSelected(Number(value))}
+    >
       <Text
-        as={active?.isPageTitle ? 'h1' : 'h2'}
+        as={active.isPageTitle ? 'h1' : 'h2'}
         textStyle="span"
-        text={active?.title}
+        text={active.title}
         className={s.title}
       />
-      <div className={s.list} role="tablist" onKeyDown={onKeyDown}>
+      <TabsPrimitive.List className={s.list}>
         {tabs.map((tab, index) => (
-          <button
-            key={`${tab.label}-${index}`}
-            ref={(node) => {
-              refs.current[index] = node
-            }}
-            type="button"
-            role="tab"
-            id={`${baseId}-tab-${index}`}
-            aria-selected={index === selected}
-            aria-controls={`${baseId}-panel-${index}`}
-            tabIndex={index === selected ? 0 : -1}
+          <TabsPrimitive.Trigger
+            key={index}
+            value={String(index)}
             className={cn(s.tab, index === selected ? s.tabActive : s.tabIdle)}
-            onClick={() => setSelected(index)}
           >
             {tab.label}
-          </button>
+          </TabsPrimitive.Trigger>
         ))}
-      </div>
+      </TabsPrimitive.List>
       {tabs.map((tab, index) => (
-        <div
-          key={`${tab.label}-panel-${index}`}
-          role="tabpanel"
-          id={`${baseId}-panel-${index}`}
-          aria-labelledby={`${baseId}-tab-${index}`}
+        <TabsPrimitive.Content
+          key={index}
+          value={String(index)}
+          forceMount
           hidden={index !== selected}
           className={s.panel}
         >
           {tab.panel}
-        </div>
+        </TabsPrimitive.Content>
       ))}
-    </>
+    </TabsPrimitive.Root>
   )
 }
