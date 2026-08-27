@@ -177,7 +177,6 @@ export const Pages: CollectionConfig<'pages'> = {
               name: 'layout',
               type: 'blocks',
               blocks: [
-                BusinessBankingTable,
                 CallToAction,
                 Content,
                 MediaBlock,
@@ -278,6 +277,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 ReviewRatings,
                 ClosingCTA,
                 NameCheckPackages,
+                BusinessBankingTable,
               ],
               admin: {
                 initCollapsed: true,

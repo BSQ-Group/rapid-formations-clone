@@ -232,7 +232,6 @@ export interface Page {
   };
   layout?:
     | (
-        | BusinessBankingTableBlock
         | CallToActionBlock
         | ContentBlock
         | MediaBlock
@@ -333,6 +332,7 @@ export interface Page {
         | ReviewRatingsBlock
         | ClosingCTABlock
         | NameCheckPackagesBlock
+        | BusinessBankingTableBlock
       )[]
     | null;
   meta?: {
@@ -6519,7 +6519,6 @@ export interface PagesSelect<T extends boolean = true> {
   layout?:
     | T
     | {
-        businessBankingTable?: T | BusinessBankingTableBlockSelect<T>;
         cta?: T | CallToActionBlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
@@ -6620,6 +6619,7 @@ export interface PagesSelect<T extends boolean = true> {
         reviewRatings?: T | ReviewRatingsBlockSelect<T>;
         closingCTA?: T | ClosingCTABlockSelect<T>;
         nameCheckPackages?: T | NameCheckPackagesBlockSelect<T>;
+        businessBankingTable?: T | BusinessBankingTableBlockSelect<T>;
       };
   meta?:
     | T

@@ -11,6 +11,7 @@ import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
 import { SectionWrapper } from '@/components/shared/SectionWrapper/SectionWrapper'
 import Text from '@/components/shared/Text'
+import { cn } from '@/utilities/ui'
 import { businessBankingTableStyles as s } from './BusinessBankingTable.styles'
 
 type Bank = NonNullable<BusinessBankingTableBlockProps['rows']>[number]
@@ -18,19 +19,24 @@ type ColumnHeadings = BusinessBankingTableBlockProps['columnHeadings']
 
 const BankCell: React.FC<{ bank: Bank }> = ({ bank }) => (
   <div className={s.logoCell}>
-    {typeof bank.logo === 'object' && bank.logo !== null ? (
-      <Media
-        resource={bank.logo}
-        htmlElement={null}
-        pictureClassName={s.logoPicture}
-        imgClassName={s.logo}
-        size={s.logoSizes}
-        loading="lazy"
-      />
-    ) : (
-      bank.bankName
-    )}
-    {bank.footnoteMarker && <sup className={s.marker}>{bank.footnoteMarker}</sup>}
+    <span className={s.logoWrap}>
+      {typeof bank.logo === 'object' && bank.logo !== null ? (
+        <>
+          <Media
+            resource={bank.logo}
+            htmlElement={null}
+            pictureClassName={s.logoPicture}
+            imgClassName={s.logo}
+            size={s.logoSizes}
+            loading="lazy"
+          />
+          <span className="sr-only">{bank.bankName}</span>
+        </>
+      ) : (
+        bank.bankName
+      )}
+      {bank.footnoteMarker && <sup className={s.marker}>{bank.footnoteMarker}</sup>}
+    </span>
   </div>
 )
 
@@ -63,29 +69,37 @@ export const BusinessBankingTableBlock: React.FC<BusinessBankingTableBlockProps>
       <div className={s.inner}>
         <Text as="h2" textStyle="span" text={heading} className={s.heading} />
         {intro && <RichText data={intro} enableGutter={false} className={s.copy} />}
-        <div className={s.scroller} tabIndex={0}>
-          <table className={s.table}>
-            <thead>
-              <tr className={s.headRow}>
-                {columns.map(({ key }) => (
-                  <th key={key} scope="col" className={s.th}>
-                    {columnHeadings?.[key]}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {(rows ?? []).map((bank) => (
-                <tr key={bank.id} className={s.row}>
-                  {columns.map(({ key, cell }) => (
-                    <td key={key} className={s.td}>
-                      {cell(bank)}
-                    </td>
+        <div className={s.scrollShell}>
+          <div className={s.scroller} tabIndex={0} role="region" aria-label={heading}>
+            <table className={s.table}>
+              <thead>
+                <tr className={s.headRow}>
+                  {columns.map(({ key }) => (
+                    <th key={key} scope="col" className={s.th}>
+                      {columnHeadings?.[key]}
+                    </th>
                   ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {(rows ?? []).map((bank) => (
+                  <tr key={bank.id} className={s.row}>
+                    {columns.map(({ key, cell }) =>
+                      key === 'bank' ? (
+                        <th key={key} scope="row" className={cn(s.td, s.rowHeader)}>
+                          {cell(bank)}
+                        </th>
+                      ) : (
+                        <td key={key} className={s.td}>
+                          {cell(bank)}
+                        </td>
+                      ),
+                    )}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
         {footnotes && <RichText data={footnotes} enableGutter={false} className={s.copy} />}
       </div>
