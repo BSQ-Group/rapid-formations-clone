@@ -104,6 +104,7 @@ import { NameCheckPackagesBlock } from '@/blocks/NameCheckPackages/Component'
 import { TextContentBlock } from '@/blocks/TextContent/Component'
 import { FaqTopicBlock } from '@/blocks/FaqTopic/Component'
 import { ReviewRatingsBlock } from '@/blocks/ReviewRatings/Component'
+import { ReviewHighlightRowsBlockComponent } from '@/blocks/ReviewHighlightRows/Component'
 
 const blockComponents = {
   additionalServices: AdditionalServicesBlock,
@@ -203,6 +204,7 @@ const blockComponents = {
   titleBanner: TitleBanner,
   faqTopic: FaqTopicBlock,
   reviewRatings: ReviewRatingsBlock,
+  reviewHighlightRows: ReviewHighlightRowsBlockComponent,
   closingCTA: ClosingCTA,
   nameCheckPackages: NameCheckPackagesBlock,
 }

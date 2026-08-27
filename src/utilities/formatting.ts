@@ -48,6 +48,14 @@ export const formatOfficerName = (
   return [name.title, name.firstname, name.middlename, name.surname].filter(Boolean).join(' ')
 }
 
+export const initialsOf = (name: string) =>
+  name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0].toUpperCase())
+    .join('')
+
 export const formatDateISO = (dateString?: string | null) => {
   if (!dateString) return ''
   const date = new Date(dateString)

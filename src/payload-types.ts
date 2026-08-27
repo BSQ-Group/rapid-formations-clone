@@ -330,6 +330,7 @@ export interface Page {
         | TitleBannerBlock
         | FaqTopicBlock
         | ReviewRatingsBlock
+        | ReviewHighlightRowsBlock
         | ClosingCTABlock
         | NameCheckPackagesBlock
       )[]
@@ -6001,6 +6002,50 @@ export interface ReviewRatingsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewHighlightRowsBlock".
+ */
+export interface ReviewHighlightRowsBlock {
+  /**
+   * One full-width band each, alternating white and tinted backgrounds down the page. Below 768px the image stacks above the text whichever side it is set to.
+   */
+  rows: {
+    /**
+     * Rendered 400×400, cropped to fill. Alt text comes from the media item.
+     */
+    image: string | Media;
+    /**
+     * From 768px up. The source alternates it row by row.
+     */
+    imagePosition: 'right' | 'left';
+    /**
+     * Line breaks are preserved.
+     */
+    title: string;
+    /**
+     * Line breaks are preserved.
+     */
+    body: string;
+    quote: {
+      text: string;
+      /**
+       * Their initials fill the avatar circle.
+       */
+      authorName: string;
+      /**
+       * Avatar circle and author name. Per-row decoration, stored as content rather than a theme token — the source alternates two palettes.
+       */
+      accentColour: string;
+      backgroundColour: string;
+      borderColour: string;
+    };
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'reviewHighlightRows';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ClosingCTABlock".
  */
 export interface ClosingCTABlock {
@@ -6510,6 +6555,7 @@ export interface PagesSelect<T extends boolean = true> {
         titleBanner?: T | TitleBannerBlockSelect<T>;
         faqTopic?: T | FaqTopicBlockSelect<T>;
         reviewRatings?: T | ReviewRatingsBlockSelect<T>;
+        reviewHighlightRows?: T | ReviewHighlightRowsBlockSelect<T>;
         closingCTA?: T | ClosingCTABlockSelect<T>;
         nameCheckPackages?: T | NameCheckPackagesBlockSelect<T>;
       };
@@ -9413,6 +9459,32 @@ export interface ReviewRatingsBlockSelect<T extends boolean = true> {
         paddingTop?: T;
         paddingBottom?: T;
         gap?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewHighlightRowsBlock_select".
+ */
+export interface ReviewHighlightRowsBlockSelect<T extends boolean = true> {
+  rows?:
+    | T
+    | {
+        image?: T;
+        imagePosition?: T;
+        title?: T;
+        body?: T;
+        quote?:
+          | T
+          | {
+              text?: T;
+              authorName?: T;
+              accentColour?: T;
+              backgroundColour?: T;
+              borderColour?: T;
+            };
+        id?: T;
       };
   id?: T;
   blockName?: T;

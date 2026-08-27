@@ -26,7 +26,7 @@ const Star = ({ className }: { className?: string }) => (
 interface RatingStarsProps {
   score: string | number
   maxScore?: string | number
-  provider: string
+  provider?: string
   size?: RatingStarSize
   tone?: RatingStarTone
   className?: string
@@ -56,7 +56,9 @@ export const RatingStars: React.FC<RatingStarsProps> = ({
     <div
       className={cn(s.wrap, className)}
       role="img"
-      aria-label={`Rated ${value} out of ${max} on ${provider}`}
+      aria-label={
+        provider ? `Rated ${value} out of ${max} on ${provider}` : `Rated ${value} out of ${max}`
+      }
     >
       {row(s.starEmpty)}
       <div className={s.fill} style={{ width: `${pct}%` }}>
