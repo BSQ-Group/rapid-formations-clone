@@ -31,7 +31,6 @@ export const MagicNumbersBlock: React.FC<MagicNumbersBlockProps> = ({
             <div
               key={item.id}
               className={s.item}
-              // Offsets are inert below 1280px, where the item is statically placed.
               style={{
                 left: px(item.placement?.left),
                 top: px(item.placement?.top),
