@@ -5711,7 +5711,7 @@ export interface FormationVideoBlock {
   /**
    * Capped is the home page treatment. Inset matches the standalone video the service pages drop between sections — it stays full width on mobile and pulls in to 85% from 768px.
    */
-  stillWidth: 'capped' | 'inset';
+  stillWidth?: ('capped' | 'inset') | null;
   /**
    * Leave off when the still already has a play button in the artwork, which is the case on the home page. Turn it on for a still that does not.
    */

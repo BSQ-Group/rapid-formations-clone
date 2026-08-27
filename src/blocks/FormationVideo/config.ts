@@ -67,7 +67,9 @@ export const FormationVideo: Block = {
       name: 'stillWidth',
       type: 'select',
       label: 'Still width',
-      required: true,
+      // Deliberately not required: the two blocks that predate this field have no
+      // value for it, and a required select would refuse to save those pages until
+      // an editor set it. Absent reads as capped, which is what they already render.
       defaultValue: 'capped',
       options: [
         { label: 'Capped — full width, but never wider than 640px from 1023px', value: 'capped' },
