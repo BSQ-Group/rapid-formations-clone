@@ -9,9 +9,17 @@ export const magicNumbersStyles = {
   subheading:
     'mb-2 block text-center text-xl leading-[30px] font-normal text-[var(--text-on-light-muted)]',
 
+<<<<<<< HEAD
   items: 'grid w-full grid-cols-1 gap-[15px] md:grid-cols-2 xl:relative xl:block xl:py-[220px]',
 
   item: 'flex flex-row md:mx-auto md:w-[280px] md:odd:mr-0 md:odd:ml-auto xl:absolute xl:m-0',
+=======
+  items:
+    'grid w-full grid-cols-1 gap-[15px] md:grid-cols-2 min-[1590px]:relative min-[1590px]:block min-[1590px]:py-[220px]',
+
+  item:
+    'flex flex-row md:mx-auto md:w-[280px] md:odd:mr-0 md:odd:ml-auto min-[1590px]:absolute min-[1590px]:m-0',
+>>>>>>> origin/feat/magic-numbers
 
   icon:
     'mr-2.5 flex h-[50px] w-[50px] shrink-0 items-center justify-center rounded-full text-[rgb(var(--white))]',
@@ -21,12 +29,21 @@ export const magicNumbersStyles = {
   content: 'flex flex-col',
 
   itemHeading:
+<<<<<<< HEAD
     'm-0 block text-xl leading-[30px] font-bold text-[var(--text-on-light-base)]',
 
   itemBody:
     'm-0 block whitespace-pre-line text-lg leading-[27px] font-normal text-[var(--text-on-light-muted)]',
 
   dividers: 'hidden xl:flex xl:flex-row',
+=======
+    'm-0 block text-2xl leading-[32.4px] font-normal tracking-normal text-[var(--text-on-light-base)]',
+
+  itemBody:
+    'm-0 block whitespace-pre-line text-lg leading-[27px] font-normal text-[var(--text-on-light-base)]',
+
+  dividers: 'hidden min-[1590px]:flex min-[1590px]:flex-row',
+>>>>>>> origin/feat/magic-numbers
 
   divider: 'relative h-[10px]',
 

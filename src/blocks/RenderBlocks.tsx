@@ -18,7 +18,10 @@ import { OurAddressBlock } from '@/blocks/OurAddress/Component'
 import { CallOutCTABlock } from '@/blocks/CallOutCTA/Component'
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { BusinessBankAccountsBlock } from '@/blocks/BusinessBankAccounts/Component'
+<<<<<<< HEAD
 import { AboutUsContentBlock } from '@/blocks/AboutUsContent/Component'
+=======
+>>>>>>> origin/feat/magic-numbers
 import { MagicNumbersBlock } from '@/blocks/MagicNumbers/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { CaseStudyVideoBlock } from '@/blocks/CaseStudyVideo/Component'
