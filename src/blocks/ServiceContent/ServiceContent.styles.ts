@@ -13,6 +13,12 @@ export const serviceContentStyles = {
 
   item: 'mb-[30px] min-[1023px]:last:mb-0',
 
+  videoWrap: 'mt-8',
+  stillPicture: 'block w-full',
+  still: 'block h-auto w-full rounded-lg object-cover',
+  stillSizes: '(min-width: 1023px) 50vw, 100vw',
+  playIcon: 'h-16 w-12',
+
   cardsLead: 'flex flex-col lg:hidden',
   cardsAside: 'hidden lg:flex lg:flex-col',
   cardsTrail: 'hidden lg:flex lg:flex-col',
