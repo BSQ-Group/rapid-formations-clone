@@ -615,112 +615,6 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "BusinessBankingTableBlock".
- */
-export interface BusinessBankingTableBlock {
-  heading: string;
-  /**
-   * Sits between the heading and the table.
-   */
-  intro?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  /**
-   * The table always has these six columns. Rename them here; the order is fixed by the row fields below.
-   */
-  columnHeadings: {
-    bank: string;
-    type: string;
-    freeBankingPeriod: string;
-    overdraft: string;
-    accountingIntegration: string;
-    keyFeatures: string;
-  };
-  /**
-   * One row each, in this order.
-   */
-  rows?:
-    | {
-        /**
-         * Builds the logo alt text, e.g. "Barclays logo".
-         */
-        bankName: string;
-        /**
-         * Optional superscript after the logo, e.g. "1", tying it to a footnote.
-         */
-        footnoteMarker?: string | null;
-        /**
-         * Rendered at its natural size, capped at 75px wide.
-         */
-        logo: string | Media;
-        type: string;
-        /**
-         * Ticked shows a green check, unticked a grey cross.
-         */
-        overdraft?: boolean | null;
-        /**
-         * Line breaks are preserved.
-         */
-        freeBankingPeriod?: string | null;
-        /**
-         * Line breaks are preserved.
-         */
-        accountingIntegration?: string | null;
-        /**
-         * Line breaks are preserved.
-         */
-        keyFeatures?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Sits under the table — caveats and the numbered footnotes.
-   */
-  footnotes?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  /**
-   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
-   */
-  sectionLayout: {
-    background: 'light' | 'dark' | 'inverse';
-    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
-    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
-    /**
-     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, MD 40px, LG 50px, XL 75px, 2XL 100px; SECTION 50/75/110 and SECTIONLARGE 70/140 follow the source Section margin responsively.
-     */
-    gap?: ('inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'section' | 'sectionLarge') | null;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'businessBankingTable';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "CallToActionBlock".
  */
 export interface CallToActionBlock {
@@ -3297,6 +3191,18 @@ export interface ServiceContentBlock {
           };
           [k: string]: unknown;
         };
+        /**
+         * Optional. Player embed URL (Vimeo/YouTube) or a direct .mp4 file URL, shown under this section’s copy. Needs a still to render — without one, nothing appears.
+         */
+        videoUrl?: string | null;
+        /**
+         * Landscape. It is the whole clickable target, so set the alt text on the media item — that is what a screen reader announces.
+         */
+        videoStill?: (string | null) | Media;
+        /**
+         * Names the video to screen readers and in the player frame. Falls back to the section’s first heading when blank.
+         */
+        videoTitle?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -3533,7 +3439,7 @@ export interface AboutUsContentBlock {
         /**
          * Left and Right are labels for the author — the grid places items in order. Only Full changes the layout.
          */
-        width: 'full' | 'left' | 'right';
+        width?: ('full' | 'left' | 'right') | null;
         /**
          * The white box with a shadow used by Join Our Team. A panel uses the icon groups below instead of the body.
          */
@@ -6599,6 +6505,112 @@ export interface NameCheckPackagesBlock {
   blockType: 'nameCheckPackages';
 }
 /**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BusinessBankingTableBlock".
+ */
+export interface BusinessBankingTableBlock {
+  heading: string;
+  /**
+   * Sits between the heading and the table.
+   */
+  intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * The table always has these six columns. Rename them here; the order is fixed by the row fields below.
+   */
+  columnHeadings: {
+    bank: string;
+    type: string;
+    freeBankingPeriod: string;
+    overdraft: string;
+    accountingIntegration: string;
+    keyFeatures: string;
+  };
+  /**
+   * One row each, in this order.
+   */
+  rows?:
+    | {
+        /**
+         * Builds the logo alt text, e.g. "Barclays logo".
+         */
+        bankName: string;
+        /**
+         * Optional superscript after the logo, e.g. "1", tying it to a footnote.
+         */
+        footnoteMarker?: string | null;
+        /**
+         * Rendered at its natural size, capped at 75px wide.
+         */
+        logo: string | Media;
+        type: string;
+        /**
+         * Ticked shows a green check, unticked a grey cross.
+         */
+        overdraft?: boolean | null;
+        /**
+         * Line breaks are preserved.
+         */
+        freeBankingPeriod?: string | null;
+        /**
+         * Line breaks are preserved.
+         */
+        accountingIntegration?: string | null;
+        /**
+         * Line breaks are preserved.
+         */
+        keyFeatures?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Sits under the table — caveats and the numbered footnotes.
+   */
+  footnotes?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, MD 40px, LG 50px, XL 75px, 2XL 100px; SECTION 50/75/110 and SECTIONLARGE 70/140 follow the source Section margin responsively.
+     */
+    gap?: ('inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'section' | 'sectionLarge') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'businessBankingTable';
+}
+/**
  * People shown by the Meet The Team block. Each card opens a dialog with the photo, the job title and the facts listed below it.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -7131,48 +7143,6 @@ export interface PagesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "BusinessBankingTableBlock_select".
- */
-export interface BusinessBankingTableBlockSelect<T extends boolean = true> {
-  heading?: T;
-  intro?: T;
-  columnHeadings?:
-    | T
-    | {
-        bank?: T;
-        type?: T;
-        freeBankingPeriod?: T;
-        overdraft?: T;
-        accountingIntegration?: T;
-        keyFeatures?: T;
-      };
-  rows?:
-    | T
-    | {
-        bankName?: T;
-        footnoteMarker?: T;
-        logo?: T;
-        type?: T;
-        overdraft?: T;
-        freeBankingPeriod?: T;
-        accountingIntegration?: T;
-        keyFeatures?: T;
-        id?: T;
-      };
-  footnotes?: T;
-  sectionLayout?:
-    | T
-    | {
-        background?: T;
-        paddingTop?: T;
-        paddingBottom?: T;
-        gap?: T;
-      };
-  id?: T;
-  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -8352,6 +8322,9 @@ export interface ServiceContentBlockSelect<T extends boolean = true> {
         icon?: T;
         iconColour?: T;
         content?: T;
+        videoUrl?: T;
+        videoStill?: T;
+        videoTitle?: T;
         id?: T;
       };
   formPanel?:
@@ -10289,6 +10262,48 @@ export interface NameCheckPackagesBlockSelect<T extends boolean = true> {
   packageName?: T;
   checkoutPath?: T;
   searchPlaceholder?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BusinessBankingTableBlock_select".
+ */
+export interface BusinessBankingTableBlockSelect<T extends boolean = true> {
+  heading?: T;
+  intro?: T;
+  columnHeadings?:
+    | T
+    | {
+        bank?: T;
+        type?: T;
+        freeBankingPeriod?: T;
+        overdraft?: T;
+        accountingIntegration?: T;
+        keyFeatures?: T;
+      };
+  rows?:
+    | T
+    | {
+        bankName?: T;
+        footnoteMarker?: T;
+        logo?: T;
+        type?: T;
+        overdraft?: T;
+        freeBankingPeriod?: T;
+        accountingIntegration?: T;
+        keyFeatures?: T;
+        id?: T;
+      };
+  footnotes?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+        gap?: T;
+      };
   id?: T;
   blockName?: T;
 }
