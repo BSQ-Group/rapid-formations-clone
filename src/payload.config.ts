@@ -18,6 +18,7 @@ import { ServiceAdsCollection } from './collections/ServiceAds'
 import { StaffCollection } from './collections/Staff'
 import { BuyServicesCollection } from './collections/BuyServices'
 import { VideosCollection } from './collections/Videos'
+import { ReviewsCollection } from './collections/Reviews'
 import { BusinessBankAccountsGlobal } from './globals/BusinessBankAccounts/config'
 import { DocumentLibraryGlobal } from './globals/DocumentLibrary/config'
 import { EligibleCountriesGlobal } from './globals/EligibleCountries/config'
@@ -97,6 +98,7 @@ export default buildConfig({
     BuyServicesCollection,
     StaffCollection,
     VideosCollection,
+    ReviewsCollection,
   ],
   cors: [getServerSideURL()].filter(Boolean),
   plugins: [

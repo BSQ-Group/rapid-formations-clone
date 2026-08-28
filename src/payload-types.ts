@@ -78,6 +78,7 @@ export interface Config {
     buyServices: BuyService;
     staff: Staff;
     videos: Video;
+    reviews: Review;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -109,6 +110,7 @@ export interface Config {
     buyServices: BuyServicesSelect<false> | BuyServicesSelect<true>;
     staff: StaffSelect<false> | StaffSelect<true>;
     videos: VideosSelect<false> | VideosSelect<true>;
+    reviews: ReviewsSelect<false> | ReviewsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -342,6 +344,7 @@ export interface Page {
         | ReviewCentreIntroBlock
         | FaqTopicBlock
         | ReviewRatingsBlock
+        | ReviewCentreTabsBlock
         | ClosingCTABlock
         | NameCheckPackagesBlock
         | BusinessBankingTableBlock
@@ -6565,6 +6568,44 @@ export interface ReviewRatingsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewCentreTabsBlock".
+ */
+export interface ReviewCentreTabsBlock {
+  /**
+   * Rendered left to right, first tab selected by default. Each label becomes its own URL fragment, so /customer-reviews#trustpilot opens that tab.
+   */
+  tabs: {
+    label: string;
+    panel: 'ratings' | 'provider';
+    heading?: string | null;
+    /**
+     * Matches a platform in the Review Stats global and the Provider on each review, e.g. "Trustpilot".
+     */
+    provider?: string | null;
+    id?: string | null;
+  }[];
+  /**
+   * Sits above the review cards on every provider tab.
+   */
+  reviewsHeading?: string | null;
+  /**
+   * Newest first, taken from the Reviews collection.
+   */
+  reviewsPerProvider?: number | null;
+  /**
+   * The white button in the coloured banner.
+   */
+  readAllLabel?: string | null;
+  /**
+   * The coloured tile that closes the card grid.
+   */
+  readAllTileLabel?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'reviewCentreTabs';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ClosingCTABlock".
  */
 export interface ClosingCTABlock {
@@ -6793,6 +6834,38 @@ export interface Video {
    * Lowest wins when ordering the category sections. Videos sharing a category should share this number.
    */
   categoryOrder?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Individual customer reviews shown by the Review Centre Tabs block. Provider must match a platform name in the Review Stats global, e.g. "Trustpilot".
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "reviews".
+ */
+export interface Review {
+  id: string;
+  /**
+   * Their initials fill the avatar circle.
+   */
+  authorName: string;
+  /**
+   * Names a platform in Review Stats, e.g. "Trustpilot" or "Google". Case does not matter — it is saved using the spelling Review Stats uses. A name matching no platform is not shown on any tab.
+   */
+  provider: string;
+  /**
+   * Out of 5.
+   */
+  score: number;
+  /**
+   * Shown as a relative age, e.g. "4 months ago". Newest render first.
+   */
+  reviewDate: string;
+  providerKey?: string | null;
+  /**
+   * Truncated to the first 20 words behind a Read More toggle.
+   */
+  body: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -7031,6 +7104,10 @@ export interface PayloadLockedDocument {
         value: string | Video;
       } | null)
     | ({
+        relationTo: 'reviews';
+        value: string | Review;
+      } | null)
+    | ({
         relationTo: 'redirects';
         value: string | Redirect;
       } | null)
@@ -7229,6 +7306,7 @@ export interface PagesSelect<T extends boolean = true> {
         reviewCentreIntro?: T | ReviewCentreIntroBlockSelect<T>;
         faqTopic?: T | FaqTopicBlockSelect<T>;
         reviewRatings?: T | ReviewRatingsBlockSelect<T>;
+        reviewCentreTabs?: T | ReviewCentreTabsBlockSelect<T>;
         closingCTA?: T | ClosingCTABlockSelect<T>;
         nameCheckPackages?: T | NameCheckPackagesBlockSelect<T>;
         businessBankingTable?: T | BusinessBankingTableBlockSelect<T>;
@@ -10410,6 +10488,27 @@ export interface ReviewRatingsBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewCentreTabsBlock_select".
+ */
+export interface ReviewCentreTabsBlockSelect<T extends boolean = true> {
+  tabs?:
+    | T
+    | {
+        label?: T;
+        panel?: T;
+        heading?: T;
+        provider?: T;
+        id?: T;
+      };
+  reviewsHeading?: T;
+  reviewsPerProvider?: T;
+  readAllLabel?: T;
+  readAllTileLabel?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ClosingCTABlock_select".
  */
 export interface ClosingCTABlockSelect<T extends boolean = true> {
@@ -10795,6 +10894,20 @@ export interface VideosSelect<T extends boolean = true> {
   duration?: T;
   publishedDate?: T;
   categoryOrder?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "reviews_select".
+ */
+export interface ReviewsSelect<T extends boolean = true> {
+  authorName?: T;
+  provider?: T;
+  score?: T;
+  reviewDate?: T;
+  providerKey?: T;
+  body?: T;
   updatedAt?: T;
   createdAt?: T;
 }
