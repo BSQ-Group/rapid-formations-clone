@@ -34,6 +34,7 @@ export const ReviewsCollection: CollectionConfig = {
 
         const typed = data.provider.trim()
         data.provider = typed
+        data.providerKey = typed.toLowerCase()
         if (!typed) return data
 
         try {
@@ -91,6 +92,15 @@ export const ReviewsCollection: CollectionConfig = {
           },
         },
       ],
+    },
+    {
+      name: 'providerKey',
+      type: 'text',
+      index: true,
+      admin: { hidden: true },
+      // The block matches on this rather than on `provider`, so renaming a platform's
+      // casing in Review Stats cannot orphan the reviews already saved against it.
+      // Maintained by beforeValidate; never edited directly.
     },
     {
       name: 'body',

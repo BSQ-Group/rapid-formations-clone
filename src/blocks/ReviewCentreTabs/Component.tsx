@@ -42,10 +42,13 @@ export const ReviewCentreTabsBlockComponent: React.FC<ReviewCentreTabsBlockProps
 
   const perProvider = reviewsPerProvider ?? 5
 
-  // One query per provider, keyed on the platform's own spelling rather than the tab's
-  // free text. A single pooled query let whichever provider had the newest reviews eat
-  // the shared limit, so a quieter provider's panel came up short or empty, and its
-  // `in` filter matched case-sensitively while every comparison around it did not.
+  // One query per provider, matched on the normalised key the collection maintains.
+  // A single pooled query let whichever provider had the newest reviews eat the shared
+  // limit, so a quieter provider's panel came up short or empty. Matching on the key
+  // rather than the display spelling also means re-casing a platform in Review Stats
+  // does not orphan the reviews already saved against it — `like` cannot stand in here,
+  // it compiles to an unanchored case-insensitive regex, so "Google" would also drag in
+  // a review saved as "Google Business".
   const platformsWanted = [
     ...new Map(
       defined
@@ -61,7 +64,7 @@ export const ReviewCentreTabsBlockComponent: React.FC<ReviewCentreTabsBlockProps
       platformsWanted.map(async (platform) => {
         const { docs } = await payload.find({
           collection: 'reviews',
-          where: { provider: { equals: platform.provider } },
+          where: { providerKey: { equals: platform.provider.trim().toLowerCase() } },
           sort: ['-reviewDate', 'createdAt'],
           limit: perProvider,
           depth: 0,

@@ -6143,7 +6143,7 @@ export interface Review {
    */
   authorName: string;
   /**
-   * Matches a platform in Review Stats, e.g. "Trustpilot" or "Google".
+   * Names a platform in Review Stats, e.g. "Trustpilot" or "Google". Case does not matter — it is saved using the spelling Review Stats uses. A name matching no platform is not shown on any tab.
    */
   provider: string;
   /**
@@ -6154,6 +6154,7 @@ export interface Review {
    * Shown as a relative age, e.g. "4 months ago". Newest render first.
    */
   reviewDate: string;
+  providerKey?: string | null;
   /**
    * Truncated to the first 20 words behind a Read More toggle.
    */
@@ -9853,6 +9854,7 @@ export interface ReviewsSelect<T extends boolean = true> {
   provider?: T;
   score?: T;
   reviewDate?: T;
+  providerKey?: T;
   body?: T;
   updatedAt?: T;
   createdAt?: T;
