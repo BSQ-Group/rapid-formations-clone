@@ -7,16 +7,13 @@ import type {
   ReviewStat,
 } from '@/payload-types'
 
-import { Container } from '@/components/shared/Container/Container'
-import { ReviewRatingsTrack } from '@/blocks/ReviewRatings/ReviewRatingsTrack'
-import Text from '@/components/shared/Text'
 import { initialsOf, relativeAge } from '@/utilities/formatting'
 import { toKebabCase } from '@/utilities/toKebabCase'
 import { ProviderPanel } from './ProviderPanel'
+import { RatingsBanner } from './RatingsBanner'
 import type { ReviewCardProps } from './ReviewCard'
 import type { TabDefinition } from './ReviewCentreTabsClient'
 import { ReviewCentreTabsClient } from './ReviewCentreTabsClient'
-import { reviewCentreTabsStyles as s } from './ReviewCentreTabs.styles'
 
 type Platform = NonNullable<ReviewStat['platforms']>[number]
 
@@ -107,17 +104,7 @@ export const ReviewCentreTabsBlockComponent: React.FC<ReviewCentreTabsBlockProps
         {
           id: uniqueId(tab.label),
           label: tab.label,
-          content: (
-            <Container>
-              <Text
-                as="h2"
-                textStyle="span"
-                text={tab.heading ?? 'How we are rated'}
-                className={s.ratingsHeading}
-              />
-              <ReviewRatingsTrack platforms={shown} />
-            </Container>
-          ),
+          content: <RatingsBanner heading={tab.heading ?? 'How we are rated'} platforms={shown} />,
         },
       ]
     }

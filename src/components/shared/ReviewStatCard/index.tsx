@@ -6,6 +6,7 @@ import { Media } from '@/components/Media'
 import { RatingStars } from '@/components/shared/RatingStars'
 import type { RatingStarSize, RatingStarTone } from '@/components/shared/RatingStars'
 import Text from '@/components/shared/Text'
+import { oneDecimal } from '@/utilities/formatting'
 import { cn } from '@/utilities/ui'
 import { reviewStatCardStyles as s } from './ReviewStatCard.styles'
 
@@ -20,8 +21,6 @@ export type ReviewStatCardProps = {
   starSize?: RatingStarSize
   className?: string
 }
-
-const oneDecimal = (value: number) => (Number.isInteger(value) ? `${value}.0` : String(value))
 
 export const ReviewStatCard: React.FC<ReviewStatCardProps> = ({
   provider,
@@ -60,12 +59,7 @@ export const ReviewStatCard: React.FC<ReviewStatCardProps> = ({
         Rated <strong className={s.ratingScore}>{oneDecimal(score)}</strong> out of{' '}
         {oneDecimal(maxScore)}
       </Text>
-      <Text
-        as="p"
-        textStyle="span"
-        text={`${totalReviews} reviews`}
-        className={s.reviews}
-      />
+      <Text as="p" textStyle="span" text={`${totalReviews} reviews`} className={s.reviews} />
     </>
   )
 

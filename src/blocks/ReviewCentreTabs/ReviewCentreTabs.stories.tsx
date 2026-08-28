@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import type { ReviewStat } from '@/payload-types'
 
 import { ProviderPanel } from './ProviderPanel'
+import { RatingsBanner } from './RatingsBanner'
 import { ReviewCard, type ReviewCardProps } from './ReviewCard'
 import { ReviewCentreTabsClient, type TabDefinition } from './ReviewCentreTabsClient'
 
@@ -77,6 +78,12 @@ const panel = (platform: typeof trustpilot, items: ReviewCardProps[] = reviews):
   ),
 })
 
+const overview = (platforms: (typeof trustpilot)[]): TabDefinition => ({
+  id: 'overview',
+  label: 'Overview',
+  content: <RatingsBanner heading="How we are rated" platforms={platforms} />,
+})
+
 const meta: Meta<typeof ReviewCentreTabsClient> = {
   component: ReviewCentreTabsClient,
   title: 'Blocks/ReviewCentreTabs',
@@ -95,6 +102,37 @@ type Story = StoryObj<typeof ReviewCentreTabsClient>
 
 export const Default: Story = {
   args: { tabs: [panel(trustpilot), panel(google)] },
+}
+
+export const WithOverview: Story = {
+  name: 'Overview tab first',
+  args: { tabs: [overview([trustpilot, google]), panel(trustpilot), panel(google)] },
+}
+
+export const OverviewFullSet: Story = {
+  name: 'Overview with every platform',
+  args: {
+    tabs: [
+      overview([
+        trustpilot,
+        google,
+        { ...google, id: '3', provider: 'Facebook', starTone: 'facebook', score: 4.7 },
+        { ...google, id: '4', provider: 'Yell', starTone: 'yell', score: 5 },
+        { ...google, id: '5', provider: 'FreeIndex', starTone: 'freeindex', score: 4.6 },
+      ]),
+    ],
+  },
+}
+
+export const OverviewNarrow: Story = {
+  name: 'Overview on a narrow screen',
+  args: { tabs: [overview([trustpilot, google])] },
+  parameters: {
+    viewport: {
+      options: { narrow: { name: 'Narrow', styles: { width: '390px', height: '900px' } } },
+    },
+  },
+  globals: { viewport: { value: 'narrow' } },
 }
 
 export const OneTab: Story = {

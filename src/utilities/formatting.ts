@@ -49,6 +49,13 @@ export const formatOfficerName = (
 }
 
 /**
+ * Scores read as "4.8" and "5.0", never a bare "5" — the source pads a whole
+ * number so a platform sitting on a perfect score lines up with the rest.
+ */
+export const oneDecimal = (value: number) =>
+  Number.isInteger(value) ? `${value}.0` : String(value)
+
+/**
  * Autosave writes drafts with skipValidation, so a required field can still be
  * absent at render time — accept that rather than throwing on .split.
  */
