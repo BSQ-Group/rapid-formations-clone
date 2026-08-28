@@ -22,6 +22,17 @@ export const ReviewsCollection: CollectionConfig = {
     description:
       'Individual customer reviews shown by the Review Centre Tabs block. Provider must match a platform name in the Review Stats global, e.g. "Trustpilot".',
   },
+  hooks: {
+    // The block looks reviews up by an exact provider match, so stray whitespace
+    // would quietly drop a review out of its own tab.
+    beforeValidate: [
+      ({ data }) => {
+        if (typeof data?.provider === 'string') data.provider = data.provider.trim()
+        if (typeof data?.authorName === 'string') data.authorName = data.authorName.trim()
+        return data
+      },
+    ],
+  },
   fields: [
     {
       name: 'authorName',
@@ -40,7 +51,8 @@ export const ReviewsCollection: CollectionConfig = {
           required: true,
           admin: {
             width: '40%',
-            description: 'Matches a platform in Review Stats, e.g. "Trustpilot" or "Google".',
+            description:
+              'Must match a platform in Review Stats exactly, e.g. "Trustpilot" or "Google" — a review whose provider does not match is not shown on any tab.',
           },
         },
         {

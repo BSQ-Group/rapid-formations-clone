@@ -40,41 +40,51 @@ export const ReviewCentreTabsBlockComponent: React.FC<ReviewCentreTabsBlockProps
   const providerOf = (name?: string | null): Platform | undefined =>
     shown.find((platform) => platform.provider.toLowerCase() === (name ?? '').trim().toLowerCase())
 
-  const wanted = defined
-    .filter((tab) => tab.panel === 'provider')
-    .map((tab) => (tab.provider ?? '').trim())
-    .filter(Boolean)
-
   const perProvider = reviewsPerProvider ?? 5
 
-  const reviews = wanted.length
-    ? (
-        await payload.find({
+  // One query per provider, keyed on the platform's own spelling rather than the tab's
+  // free text. A single pooled query let whichever provider had the newest reviews eat
+  // the shared limit, so a quieter provider's panel came up short or empty, and its
+  // `in` filter matched case-sensitively while every comparison around it did not.
+  const platformsWanted = [
+    ...new Map(
+      defined
+        .filter((tab) => tab.panel === 'provider')
+        .map((tab) => providerOf(tab.provider))
+        .filter((platform): platform is Platform => Boolean(platform))
+        .map((platform) => [platform.provider, platform] as const),
+    ).values(),
+  ]
+
+  const byProvider = new Map(
+    await Promise.all(
+      platformsWanted.map(async (platform) => {
+        const { docs } = await payload.find({
           collection: 'reviews',
-          where: { provider: { in: wanted } },
+          where: { provider: { equals: platform.provider } },
           sort: ['-reviewDate', 'createdAt'],
-          limit: wanted.length * perProvider,
+          limit: perProvider,
           depth: 0,
         })
-      ).docs
-    : []
+        return [platform.provider, docs] as const
+      }),
+    ),
+  )
 
   const now = requestNow()
   const label = readAllLabel?.trim() || 'Read All Reviews'
   const tileLabel = readAllTileLabel?.trim() || 'Read all reviews'
 
   const cardsFor = (platform: Platform): ReviewCardProps[] =>
-    reviews
-      .filter((review) => review.provider.toLowerCase() === platform.provider.toLowerCase())
-      .slice(0, perProvider)
-      .map((review) => ({
-        authorName: review.authorName,
-        initials: initialsOf(review.authorName),
-        score: review.score,
-        age: relativeAge(review.reviewDate, now),
-        body: review.body,
-        provider: platform.provider,
-      }))
+    (byProvider.get(platform.provider) ?? []).map((review) => ({
+      id: String(review.id),
+      authorName: review.authorName,
+      initials: initialsOf(review.authorName),
+      score: review.score,
+      age: relativeAge(review.reviewDate, now),
+      body: review.body,
+      provider: platform.provider,
+    }))
 
   const built: TabDefinition[] = defined.flatMap((tab) => {
     const id = toKebabCase(tab.label)

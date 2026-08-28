@@ -42,7 +42,9 @@ const google: NonNullable<ReviewStat['platforms']>[number] = {
   url: 'https://www.google.com/',
 }
 
+let seq = 0
 const review = (over: Partial<ReviewCardProps> = {}): ReviewCardProps => ({
+  id: `review-${(seq += 1)}`,
   authorName: 'Harry Wilkinson',
   initials: 'HW',
   score: 5,

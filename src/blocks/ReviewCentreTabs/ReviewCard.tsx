@@ -9,6 +9,7 @@ import { reviewCentreTabsStyles as s } from './ReviewCentreTabs.styles'
 const EXCERPT_WORDS = 20
 
 export type ReviewCardProps = {
+  id: string
   authorName: string
   initials: string
   score: number
@@ -21,6 +22,7 @@ export type ReviewCardProps = {
 }
 
 export const ReviewCard: React.FC<ReviewCardProps> = ({
+  id,
   authorName,
   initials,
   score,
@@ -38,10 +40,14 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({
   return (
     <div className={s.card}>
       <div className={s.avatar}>
-        <span className={s.avatarText}>{initials}</span>
+        <Text textStyle="span" className={s.avatarText}>
+          {initials}
+        </Text>
       </div>
       <div>
-        <Text as="p" textStyle="span" text={authorName} className={s.cardName} />
+        <Text as="p" textStyle="span" className={s.cardName}>
+          {authorName}
+        </Text>
         <div className={s.cardMeta}>
           <RatingStars
             score={score}
@@ -52,11 +58,19 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({
           />
           <Text as="span" textStyle="span" text={age} className={s.cardDate} />
         </div>
-        <p className={s.cardBody} aria-expanded={expanded}>
+        {/* Children, not `text` — that path runs the copy through sanitizeHtml and
+            dangerouslySetInnerHTML, which is not where reviewer-authored text belongs. */}
+        <Text as="p" textStyle="span" id={`review-body-${id}`} className={s.cardBody}>
           {expanded || !truncates ? body : words.slice(0, EXCERPT_WORDS).join(' ')}
-        </p>
+        </Text>
         {truncates && (
-          <button type="button" onClick={() => setExpanded(!expanded)} className={s.cardToggle}>
+          <button
+            type="button"
+            onClick={() => setExpanded(!expanded)}
+            aria-expanded={expanded}
+            aria-controls={`review-body-${id}`}
+            className={s.cardToggle}
+          >
             {expanded ? readLessLabel : readMoreLabel}
           </button>
         )}

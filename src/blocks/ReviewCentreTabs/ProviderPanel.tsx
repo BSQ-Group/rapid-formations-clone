@@ -88,7 +88,7 @@ export const ProviderPanel: React.FC<ProviderPanelProps> = ({
           )}
           <div className={s.grid}>
             {reviews.map((review) => (
-              <div key={`${review.provider}-${review.authorName}-${review.age}`} className={s.cell}>
+              <div key={review.id} className={s.cell}>
                 <ReviewCard {...review} />
               </div>
             ))}

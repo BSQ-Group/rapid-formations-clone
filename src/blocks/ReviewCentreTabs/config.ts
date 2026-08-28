@@ -54,7 +54,15 @@ export const ReviewCentreTabs: Block = {
           admin: {
             condition: (_, siblingData) => siblingData?.panel === 'provider',
             description:
-              'Matches a platform in the Review Stats global and the Provider on each review, e.g. "Trustpilot".',
+              'Matches a platform in the Review Stats global and the Provider on each review, e.g. "Trustpilot". Spelling must match Review Stats; case does not matter.',
+          },
+          // A provider panel with no provider resolves to nothing and the tab drops out
+          // of the page silently, so refuse to save it rather than let it vanish.
+          validate: (value: string | null | undefined, options: unknown) => {
+            const { siblingData } = (options ?? {}) as { siblingData?: { panel?: string } }
+            if (siblingData?.panel !== 'provider') return true
+            if (value && value.trim()) return true
+            return 'Name the provider this tab shows, matching a platform in Review Stats.'
           },
         },
       ],
