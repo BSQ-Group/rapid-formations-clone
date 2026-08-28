@@ -26,4 +26,13 @@ export const servicesBenefitsStyles = {
     'mb-4 block whitespace-pre-line text-xl leading-[30px] font-normal text-[var(--text-on-light-muted)]',
 
   image: 'block h-auto w-full',
+
+  // The source drops the explainer under the two columns at 85% of the container,
+  // centred — wider than the right-hand image, narrower than the copy above it.
+  videoWrap: 'mt-14 md:mx-auto md:max-w-[85%]',
+  trigger: 'block w-full',
+  stillPicture: 'block w-full',
+  still: 'block h-auto w-full rounded-lg object-cover',
+  stillSizes: '(min-width: 768px) 72vw, 100vw',
+  playIcon: 'h-16 w-12',
 } as const

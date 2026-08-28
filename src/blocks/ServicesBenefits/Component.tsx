@@ -5,6 +5,7 @@ import type { ServicesBenefitsBlock as ServicesBenefitsBlockProps } from '@/payl
 import { Container } from '@/components/shared/Container/Container'
 import { FaIcon } from '@/components/shared/FaIcon'
 import { Media } from '@/components/Media'
+import { VideoModal } from '@/components/shared/VideoModal'
 import { SectionWrapper } from '@/components/shared/SectionWrapper/SectionWrapper'
 import Text from '@/components/shared/Text'
 import { BENEFIT_ICONS, type BenefitIcon } from './icons'
@@ -15,11 +16,25 @@ export const ServicesBenefitsBlockComponent: React.FC<ServicesBenefitsBlockProps
   subheading,
   benefits,
   image,
+  videoUrl,
+  videoStill,
+  videoTitle,
   sectionLayout,
 }) => {
   const items = benefits ?? []
 
   if (!items.length) return null
+
+  const still = videoStill ? (
+    <Media
+      resource={videoStill}
+      htmlElement={null}
+      pictureClassName={s.stillPicture}
+      imgClassName={s.still}
+      size={s.stillSizes}
+    />
+  ) : null
+  const label = videoTitle?.trim() || heading
 
   return (
     <SectionWrapper {...sectionLayout} className={s.section}>
@@ -58,6 +73,23 @@ export const ServicesBenefitsBlockComponent: React.FC<ServicesBenefitsBlockProps
             </div>
           )}
         </div>
+        {still && (
+          <div className={s.videoWrap}>
+            {videoUrl ? (
+              <VideoModal
+                videoUrl={videoUrl}
+                title={label}
+                triggerLabel={`Play video: ${label}`}
+                className={s.trigger}
+                playIconClassName={s.playIcon}
+              >
+                {still}
+              </VideoModal>
+            ) : (
+              still
+            )}
+          </div>
+        )}
       </Container>
     </SectionWrapper>
   )
