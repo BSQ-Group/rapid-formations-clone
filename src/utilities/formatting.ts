@@ -196,7 +196,12 @@ const MONTH = 30 * DAY
 const YEAR = 365 * DAY
 
 export const relativeAge = (iso: string, now: number) => {
-  const elapsed = now - new Date(iso).getTime()
+  const parsed = new Date(iso).getTime()
+  // Every bucket below compares with <=, and NaN fails all of them, so an unparseable
+  // date would fall through to the last branch and render "NaN years ago".
+  if (Number.isNaN(parsed)) return ''
+
+  const elapsed = now - parsed
 
   if (elapsed <= 0) return 'Just now'
 

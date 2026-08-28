@@ -13,12 +13,28 @@ export type TabDefinition = {
   content: React.ReactNode
 }
 
+// location.hash comes back percent-encoded, so a tab id carrying anything non-ASCII
+// never matches its own deep link. Mirrors SmoothHashScroll's guarded decode.
+const decodeHash = (hash: string) => {
+  const raw = hash.replace(/^#/, '')
+  try {
+    return decodeURIComponent(raw)
+  } catch {
+    return raw
+  }
+}
+
 const indexOfHash = (tabs: TabDefinition[], hash: string) =>
-  tabs.findIndex((tab) => tab.id === hash.replace(/^#/, '').toLowerCase())
+  tabs.findIndex((tab) => tab.id === decodeHash(hash).toLowerCase())
 
 export const ReviewCentreTabsClient: React.FC<{ tabs: TabDefinition[] }> = ({ tabs }) => {
   const [active, setActive] = useState(0)
   const [menuOpen, setMenuOpen] = useState(false)
+
+  // Live preview re-renders this component in place, so `tabs` can shrink under a
+  // selection made against the longer list. `active` is only bounded where it is set,
+  // so read every lookup through the clamp rather than the raw state.
+  const current = tabs.length ? Math.min(active, tabs.length - 1) : 0
 
   const syncToHash = useCallback(() => {
     const found = indexOfHash(tabs, window.location.hash)
@@ -39,14 +55,13 @@ export const ReviewCentreTabsClient: React.FC<{ tabs: TabDefinition[] }> = ({ ta
   const select = (index: number, { viaKeyboard = false } = {}) => {
     setActive(index)
     setMenuOpen(false)
-    // Arrowing along the row would otherwise stack one history entry per tab, so the
-    // back button walks the row instead of leaving the page.
+    // Arrowing along the row, or re-picking the tab already showing, would otherwise
+    // stack a history entry every time, so Back walks the row instead of leaving.
     const hash = `#${tabs[index].id}`
-    if (viaKeyboard) window.history.replaceState(null, '', hash)
-    else {
-      window.history.pushState(null, '', hash)
-      window.scrollTo({ top: 0 })
-    }
+    const repeat = index === current || window.location.hash === hash
+    if (viaKeyboard || repeat) window.history.replaceState(null, '', hash)
+    else window.history.pushState(null, '', hash)
+    if (!viaKeyboard) window.scrollTo({ top: 0 })
   }
 
   // Roving tabindex takes every inactive tab out of the tab order, so without arrow
@@ -64,7 +79,7 @@ export const ReviewCentreTabsClient: React.FC<{ tabs: TabDefinition[] }> = ({ ta
   return (
     <div className={s.section}>
       <div className={s.mobileNav}>
-        <div className={s.mobileActive}>{tabs[active].label}</div>
+        <div className={s.mobileActive}>{tabs[current].label}</div>
         <button
           type="button"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -85,8 +100,8 @@ export const ReviewCentreTabsClient: React.FC<{ tabs: TabDefinition[] }> = ({ ta
               ref={(node) => {
                 tabRefs.current[index] = node
               }}
-              tabIndex={index === active ? 0 : -1}
-              aria-selected={index === active}
+              tabIndex={index === current ? 0 : -1}
+              aria-selected={index === current}
               aria-controls={`panel-${tab.id}`}
               onClick={() => select(index)}
               onKeyDown={(event) => {
@@ -105,7 +120,7 @@ export const ReviewCentreTabsClient: React.FC<{ tabs: TabDefinition[] }> = ({ ta
                 event.preventDefault()
                 handler()
               }}
-              className={cn(s.item, index === active ? s.itemActive : s.itemIdle)}
+              className={cn(s.item, index === current ? s.itemActive : s.itemIdle)}
             >
               {tab.label}
             </li>
@@ -118,9 +133,9 @@ export const ReviewCentreTabsClient: React.FC<{ tabs: TabDefinition[] }> = ({ ta
           id={`panel-${tab.id}`}
           role="tabpanel"
           aria-labelledby={`tab-${tab.id}`}
-          hidden={index !== active}
+          hidden={index !== current}
         >
-          {index === active && tab.content}
+          {index === current && tab.content}
         </div>
       ))}
     </div>

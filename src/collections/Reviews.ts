@@ -23,12 +23,28 @@ export const ReviewsCollection: CollectionConfig = {
       'Individual customer reviews shown by the Review Centre Tabs block. Provider must match a platform name in the Review Stats global, e.g. "Trustpilot".',
   },
   hooks: {
-    // The block looks reviews up by an exact provider match, so stray whitespace
-    // would quietly drop a review out of its own tab.
+    // The block looks reviews up by an exact provider match, so anything the author
+    // types is snapped to the spelling Review Stats uses. Without this, "trustpilot"
+    // against a platform named "Trustpilot" saves clean and then shows on no tab at
+    // all, with nothing in the admin to say why.
     beforeValidate: [
-      ({ data }) => {
-        if (typeof data?.provider === 'string') data.provider = data.provider.trim()
+      async ({ data, req }) => {
         if (typeof data?.authorName === 'string') data.authorName = data.authorName.trim()
+        if (typeof data?.provider !== 'string') return data
+
+        const typed = data.provider.trim()
+        data.provider = typed
+        if (!typed) return data
+
+        try {
+          const { platforms } = await req.payload.findGlobal({ slug: 'reviewStats', depth: 0 })
+          const match = (platforms ?? []).find(
+            (platform) => platform.provider.toLowerCase() === typed.toLowerCase(),
+          )
+          if (match) data.provider = match.provider
+        } catch {
+          // Leave the trimmed value as typed; a mismatch is visible on the page.
+        }
         return data
       },
     ],
@@ -52,7 +68,7 @@ export const ReviewsCollection: CollectionConfig = {
           admin: {
             width: '40%',
             description:
-              'Must match a platform in Review Stats exactly, e.g. "Trustpilot" or "Google" — a review whose provider does not match is not shown on any tab.',
+              'Names a platform in Review Stats, e.g. "Trustpilot" or "Google". Case does not matter — it is saved using the spelling Review Stats uses. A name matching no platform is not shown on any tab.',
           },
         },
         {

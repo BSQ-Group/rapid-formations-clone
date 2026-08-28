@@ -86,14 +86,23 @@ export const ReviewCentreTabsBlockComponent: React.FC<ReviewCentreTabsBlockProps
       provider: platform.provider,
     }))
 
-  const built: TabDefinition[] = defined.flatMap((tab) => {
-    const id = toKebabCase(tab.label)
+  // Two tabs can carry the same label, and toKebabCase would hand both the same id —
+  // duplicate React keys, two elements answering to one DOM id, and a deep link that
+  // could only ever reach the first of the pair.
+  const taken = new Map<string, number>()
+  const uniqueId = (label: string) => {
+    const base = toKebabCase(label)
+    const seen = taken.get(base) ?? 0
+    taken.set(base, seen + 1)
+    return seen ? `${base}-${seen + 1}` : base
+  }
 
+  const built: TabDefinition[] = defined.flatMap((tab) => {
     if (tab.panel === 'ratings') {
       if (!shown.length) return []
       return [
         {
-          id,
+          id: uniqueId(tab.label),
           label: tab.label,
           content: (
             <Container>
@@ -115,7 +124,7 @@ export const ReviewCentreTabsBlockComponent: React.FC<ReviewCentreTabsBlockProps
 
     return [
       {
-        id,
+        id: uniqueId(tab.label),
         label: tab.label,
         content: (
           <ProviderPanel

@@ -44,7 +44,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({
           {initials}
         </Text>
       </div>
-      <div>
+      <div className={s.cardContent}>
         <Text as="p" textStyle="span" className={s.cardName}>
           {authorName}
         </Text>

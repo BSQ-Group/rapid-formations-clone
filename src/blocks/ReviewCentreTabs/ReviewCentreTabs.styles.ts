@@ -73,8 +73,12 @@ export const reviewCentreTabsStyles = {
 
   avatarText: 'font-bold text-[rgb(var(--white))]',
 
+  // A grid `auto` track floors at min-content, so one unbreakable token widens the
+  // track past the card and html{overflow-x:hidden} clips it with no scrollbar.
+  cardContent: 'min-w-0',
+
   cardName:
-    'mt-[13px] mb-2 block text-lg leading-[24.3px] font-normal text-[var(--text-on-light-base)] md:mt-[11px]',
+    'mt-[13px] mb-2 block break-words text-lg leading-[24.3px] font-normal text-[var(--text-on-light-base)] md:mt-[11px]',
 
   cardMeta: 'flex flex-col md:flex-row',
 
@@ -82,7 +86,7 @@ export const reviewCentreTabsStyles = {
 
   cardDate: 'ml-0 block text-lg leading-[27px] text-[var(--text-on-light-base)] md:ml-2.5',
 
-  cardBody: 'mb-4 block text-xl leading-[30px] text-[var(--text-on-light-muted)]',
+  cardBody: 'mb-4 block break-words text-xl leading-[30px] text-[var(--text-on-light-muted)]',
 
   cardToggle:
     'block cursor-pointer border-0 bg-transparent p-0 text-left text-lg leading-[27px] text-[var(--text-brand-cyan)]',
