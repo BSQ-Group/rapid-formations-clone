@@ -1,6 +1,7 @@
 import type { Block } from 'payload'
 
 import { hexColourField } from '@/fields/hexColour'
+import { sectionLayoutField } from '@/fields/sectionLayout'
 
 export const ReviewHighlightRows: Block = {
   slug: 'reviewHighlightRows',
@@ -10,6 +11,16 @@ export const ReviewHighlightRows: Block = {
     plural: 'Review Highlight Rows',
   },
   fields: [
+    {
+      name: 'startsTinted',
+      type: 'checkbox',
+      label: 'Start on the tinted background',
+      defaultValue: false,
+      admin: {
+        description:
+          'Tick when another band block sits above this one and ended on white, so the alternation continues rather than restarting.',
+      },
+    },
     {
       name: 'rows',
       type: 'array',
@@ -71,6 +82,19 @@ export const ReviewHighlightRows: Block = {
               required: true,
             },
             {
+              name: 'rating',
+              type: 'number',
+              label: 'Rating',
+              required: true,
+              defaultValue: 5,
+              min: 1,
+              max: 5,
+              admin: {
+                description:
+                  'Filled stars, and what a screen reader announces. The source shows five on every band.',
+              },
+            },
+            {
               name: 'authorName',
               type: 'text',
               label: 'Author',
@@ -108,5 +132,9 @@ export const ReviewHighlightRows: Block = {
         },
       ],
     },
+    sectionLayoutField({
+      gap: true,
+      defaults: { background: 'light', paddingTop: 'none', paddingBottom: 'none' },
+    }),
   ],
 }

@@ -6006,6 +6006,10 @@ export interface ReviewRatingsBlock {
  */
 export interface ReviewHighlightRowsBlock {
   /**
+   * Tick when another band block sits above this one and ended on white, so the alternation continues rather than restarting.
+   */
+  startsTinted?: boolean | null;
+  /**
    * One full-width band each, alternating white and tinted backgrounds down the page. Below 768px the image stacks above the text whichever side it is set to.
    */
   rows: {
@@ -6028,6 +6032,10 @@ export interface ReviewHighlightRowsBlock {
     quote: {
       text: string;
       /**
+       * Filled stars, and what a screen reader announces. The source shows five on every band.
+       */
+      rating: number;
+      /**
        * Their initials fill the avatar circle.
        */
       authorName: string;
@@ -6043,6 +6051,15 @@ export interface ReviewHighlightRowsBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'reviewHighlightRows';
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, MD 40px, LG 50px, XL 75px, 2XL 100px; SECTION 50/75/110 and SECTIONLARGE 70/140 follow the source Section margin responsively.
+     */
+    gap?: ('inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'section' | 'sectionLarge') | null;
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -9468,6 +9485,7 @@ export interface ReviewRatingsBlockSelect<T extends boolean = true> {
  * via the `definition` "ReviewHighlightRowsBlock_select".
  */
 export interface ReviewHighlightRowsBlockSelect<T extends boolean = true> {
+  startsTinted?: T;
   rows?:
     | T
     | {
@@ -9479,6 +9497,7 @@ export interface ReviewHighlightRowsBlockSelect<T extends boolean = true> {
           | T
           | {
               text?: T;
+              rating?: T;
               authorName?: T;
               accentColour?: T;
               backgroundColour?: T;
@@ -9488,6 +9507,14 @@ export interface ReviewHighlightRowsBlockSelect<T extends boolean = true> {
       };
   id?: T;
   blockName?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+        gap?: T;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

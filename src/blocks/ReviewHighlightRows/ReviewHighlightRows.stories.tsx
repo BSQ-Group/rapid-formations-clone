@@ -31,6 +31,7 @@ const rowOne: Row = {
   body: 'Customer service excellence is something we are passionate about, and that passion, hard work and dedication has been rewarded and recognised by the people that matter - our customers. Thank you.',
   quote: {
     ...blue,
+    rating: 5,
     text: 'Excellent service, meticulous attention to detail, expedited matters with alacrity and accuracy. All round very good service, thank you.',
     authorName: 'Geoffrey Connor',
   },
@@ -44,6 +45,7 @@ const rowTwo: Row = {
   body: 'Our friendly Customer Service Team are available 8:30am-5:30pm, Monday-Friday, to assist you. Whether you have a tentative initial enquiry or a question regarding your order - we are here to help.',
   quote: {
     ...orange,
+    rating: 5,
     text: 'Fantastic communication at every stage. Rapid Formations gave me the confidence on what I thought could be insurmountable. They are so efficient, all documents pertaining to my new have been received within the time frame they had indicated.',
     authorName: 'Alex Mudzikati',
   },
@@ -95,7 +97,7 @@ export const ShortCopy: Story = {
         ...rowOne,
         title: 'Rated well',
         body: 'Read them all.',
-        quote: { ...blue, text: 'Great job.', authorName: 'Jo' },
+        quote: { ...blue, rating: 5, text: 'Great job.', authorName: 'Jo' },
       },
     ],
   },
@@ -111,6 +113,7 @@ export const LongCopy: Story = {
         body: 'Customer service excellence is something we are passionate about, and that passion, hard work and dedication has been rewarded and recognised by the people that matter — our customers. Every review published on this page was written by somebody who incorporated a company through us, and every one of them is reproduced exactly as it was submitted, unedited and unfiltered, because we would rather you formed your own view than took ours.',
         quote: {
           ...blue,
+          rating: 5,
           text: 'Excellent service, meticulous attention to detail, expedited matters with alacrity and accuracy, and every question I raised over the course of a fortnight was answered the same working day, often within the hour. All round very good service, thank you.',
           authorName: 'Geoffrey Alexander Connor-Whitfield-Fotheringay',
         },
@@ -148,6 +151,7 @@ export const UnbrokenTokens: Story = {
         body: 'Kundenbewertungszentrumsübersichtsseitenüberschrift customer-reviews@rapidformations.co.uk',
         quote: {
           ...blue,
+          rating: 5,
           text: 'Unternehmensgründungsdienstleistungsbewertungsplattformvergleich',
           authorName: 'reviewer-with-a-very-long-handle@rapidformations.co.uk',
         },
@@ -164,4 +168,27 @@ export const Narrow: Story = {
     },
   },
   globals: { viewport: { value: 'narrow' } },
+}
+
+/** A genuine four-star review. Before `rating` existed every band claimed five. */
+export const FourStarRating: Story = {
+  args: {
+    rows: [{ ...rowOne, quote: { ...rowOne.quote, rating: 4 } }],
+  },
+}
+
+/**
+ * The quote group absent, which is what an autosaved draft looks like between
+ * adding a row and filling it in. This used to throw a server-component
+ * TypeError and 500 the whole page.
+ */
+export const QuoteAbsent: Story = {
+  args: {
+    rows: [{ ...rowOne, quote: undefined as unknown as Row['quote'] }],
+  },
+}
+
+/** Continues the alternation when another band block sits above and ended on white. */
+export const StartsTinted: Story = {
+  args: { startsTinted: true, rows: [rowOne, rowTwo] },
 }

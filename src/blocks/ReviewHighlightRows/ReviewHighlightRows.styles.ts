@@ -30,7 +30,9 @@ export const reviewHighlightRowsStyles = {
   quote:
     'mt-[50px] grid grid-cols-[75px_auto] rounded-lg border border-solid p-5 text-left shadow-tile-raised transition-shadow duration-200 ease-in-out',
 
-  quoteStars: 'h-[41px]',
+  // The source's 21px glyphs sit in a 41px text line box, i.e. centred. RatingStars'
+  // own wrapper is items-start, so without this the stars top-align and land ~10px high.
+  quoteStars: 'h-[41px] items-center',
 
   avatar: 'mr-[15px] flex h-[45px] w-[45px] items-center justify-center rounded-full',
 
