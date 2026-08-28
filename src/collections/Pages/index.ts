@@ -99,6 +99,7 @@ import { TitleBanner } from '../../components/shared/TitleBanner/config'
 import { ReviewCentreIntro } from '../../components/shared/ReviewCentreIntro/config'
 import { FaqTopic } from '../../blocks/FaqTopic/config'
 import { ReviewRatings } from '../../blocks/ReviewRatings/config'
+import { ReviewHighlightRows } from '../../blocks/ReviewHighlightRows/config'
 import { ReviewCentreTabs } from '../../blocks/ReviewCentreTabs/config'
 import { ClosingCTA } from '../../components/shared/ClosingCTA/config'
 import { NameCheckPackages } from '@/blocks/NameCheckPackages/config'
@@ -292,6 +293,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 ReviewCentreIntro,
                 FaqTopic,
                 ReviewRatings,
+                ReviewHighlightRows,
                 ReviewCentreTabs,
                 ClosingCTA,
                 NameCheckPackages,

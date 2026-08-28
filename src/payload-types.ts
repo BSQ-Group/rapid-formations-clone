@@ -344,6 +344,7 @@ export interface Page {
         | ReviewCentreIntroBlock
         | FaqTopicBlock
         | ReviewRatingsBlock
+        | ReviewHighlightRowsBlock
         | ReviewCentreTabsBlock
         | ClosingCTABlock
         | NameCheckPackagesBlock
@@ -6568,6 +6569,70 @@ export interface ReviewRatingsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewHighlightRowsBlock".
+ */
+export interface ReviewHighlightRowsBlock {
+  /**
+   * Tick when another band block sits above this one and ended on white, so the alternation continues rather than restarting.
+   */
+  startsTinted?: boolean | null;
+  /**
+   * One full-width band each, alternating white and tinted backgrounds down the page. Below 768px the image stacks above the text whichever side it is set to.
+   */
+  rows: {
+    /**
+     * Rendered 400×400, cropped to fill. Alt text comes from the media item.
+     */
+    image: string | Media;
+    /**
+     * From 768px up. The source alternates it row by row.
+     */
+    imagePosition: 'right' | 'left';
+    /**
+     * Line breaks are preserved.
+     */
+    title: string;
+    /**
+     * Line breaks are preserved.
+     */
+    body: string;
+    quote: {
+      text: string;
+      /**
+       * Filled stars, and what a screen reader announces. The source shows five on every band.
+       */
+      rating: number;
+      /**
+       * Their initials fill the avatar circle.
+       */
+      authorName: string;
+      /**
+       * Avatar circle and author name. Per-row decoration, stored as content rather than a theme token — the source alternates two palettes.
+       */
+      accentColour: string;
+      backgroundColour: string;
+      borderColour: string;
+    };
+    id?: string | null;
+  }[];
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, MD 40px, LG 50px, XL 75px, 2XL 100px; SECTION 50/75/110 and SECTIONLARGE 70/140 follow the source Section margin responsively.
+     */
+    gap?: ('inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'section' | 'sectionLarge') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'reviewHighlightRows';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ReviewCentreTabsBlock".
  */
 export interface ReviewCentreTabsBlock {
@@ -6579,7 +6644,7 @@ export interface ReviewCentreTabsBlock {
     panel: 'ratings' | 'provider';
     heading?: string | null;
     /**
-     * Matches a platform in the Review Stats global and the Provider on each review, e.g. "Trustpilot".
+     * Matches a platform in the Review Stats global and the Provider on each review, e.g. "Trustpilot". Spelling must match Review Stats; case does not matter.
      */
     provider?: string | null;
     id?: string | null;
@@ -7306,6 +7371,7 @@ export interface PagesSelect<T extends boolean = true> {
         reviewCentreIntro?: T | ReviewCentreIntroBlockSelect<T>;
         faqTopic?: T | FaqTopicBlockSelect<T>;
         reviewRatings?: T | ReviewRatingsBlockSelect<T>;
+        reviewHighlightRows?: T | ReviewHighlightRowsBlockSelect<T>;
         reviewCentreTabs?: T | ReviewCentreTabsBlockSelect<T>;
         closingCTA?: T | ClosingCTABlockSelect<T>;
         nameCheckPackages?: T | NameCheckPackagesBlockSelect<T>;
@@ -10474,6 +10540,42 @@ export interface ReviewRatingsBlockSelect<T extends boolean = true> {
         reference?: T;
         url?: T;
         label?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+        gap?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewHighlightRowsBlock_select".
+ */
+export interface ReviewHighlightRowsBlockSelect<T extends boolean = true> {
+  startsTinted?: T;
+  rows?:
+    | T
+    | {
+        image?: T;
+        imagePosition?: T;
+        title?: T;
+        body?: T;
+        quote?:
+          | T
+          | {
+              text?: T;
+              rating?: T;
+              authorName?: T;
+              accentColour?: T;
+              backgroundColour?: T;
+              borderColour?: T;
+            };
+        id?: T;
       };
   sectionLayout?:
     | T

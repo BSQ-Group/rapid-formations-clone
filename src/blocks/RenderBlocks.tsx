@@ -113,6 +113,7 @@ import { NameCheckPackagesBlock } from '@/blocks/NameCheckPackages/Component'
 import { TextContentBlock } from '@/blocks/TextContent/Component'
 import { FaqTopicBlock } from '@/blocks/FaqTopic/Component'
 import { ReviewRatingsBlock } from '@/blocks/ReviewRatings/Component'
+import { ReviewHighlightRowsBlockComponent } from '@/blocks/ReviewHighlightRows/Component'
 import { ReviewCentreTabsBlockComponent } from '@/blocks/ReviewCentreTabs/Component'
 
 const blockComponents = {
@@ -222,6 +223,7 @@ const blockComponents = {
   reviewCentreIntro: ReviewCentreIntro,
   faqTopic: FaqTopicBlock,
   reviewRatings: ReviewRatingsBlock,
+  reviewHighlightRows: ReviewHighlightRowsBlockComponent,
   reviewCentreTabs: ReviewCentreTabsBlockComponent,
   closingCTA: ClosingCTA,
   nameCheckPackages: NameCheckPackagesBlock,
