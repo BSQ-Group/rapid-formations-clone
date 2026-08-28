@@ -3,6 +3,7 @@ export const TELEPHONE_HREF = 'tel:+442078719990'
 
 export const LIVE_CHAT_HREF = '#live-chat'
 export const ELIGIBLE_COUNTRIES_HREF = '#eligible-countries'
+export const DOCUMENT_LIBRARY_HREF = '#document-library'
 
 const NON_BREAKING_SPACE = '\u00a0'
 
@@ -46,7 +47,15 @@ type Attributes = Record<string, string>
 
 export type EligibleCountries = { lastUpdated?: string | null; countries: string[] }
 
-export type ShortcodeData = { prices: Map<string, string>; eligibleCountries: EligibleCountries }
+export type DocumentGroup = { title: string; documents: string[] }
+export type DocumentSection = { title: string; groups: DocumentGroup[] }
+export type DocumentList = { sections: DocumentSection[] }
+
+export type ShortcodeData = {
+  prices: Map<string, string>
+  eligibleCountries: EligibleCountries
+  documentLibrary: DocumentList
+}
 
 const priceOf = (attributes: Attributes, { prices }: ShortcodeData) => {
   const value = prices.get(attributes.slug ?? '')
@@ -76,6 +85,10 @@ const shortcodes: Record<string, Shortcode> = {
         attributes.text || 'Find out if your country is eligible',
         data.eligibleCountries,
       ),
+  },
+  'documents-list': {
+    node: ({ node, attributes, data }) =>
+      customLink(node, DOCUMENT_LIBRARY_HREF, attributes.text || 'here', data.documentLibrary),
   },
 }
 
@@ -136,10 +149,11 @@ const expandString = (text: string, data: ShortcodeData): string =>
   )
 
 /**
- * Replaces [[telephone]], [[price slug="..."]], [[space]], [[live-chat]] and
- * [[eligiblecountries]] anywhere in a Payload document with the nodes they stand
- * for, leaving every other shortcode untouched. The last two become links on a
- * sentinel href that RichText swaps for the interactive component.
+ * Replaces [[telephone]], [[price slug="..."]], [[space]], [[live-chat]],
+ * [[eligiblecountries]] and [[documents-list]] anywhere in a Payload document
+ * with the nodes they stand for, leaving every other shortcode untouched. The
+ * last three become links on a sentinel href that RichText swaps for the
+ * interactive component.
  */
 export const resolveShortcodes = <T>(value: T, data: ShortcodeData): T => {
   if (Array.isArray(value)) {

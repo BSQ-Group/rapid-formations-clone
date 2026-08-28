@@ -10,6 +10,7 @@ import { StepsItemsBlock } from '@/blocks/StepsItems/Component'
 import { ComparePackageTableBlockComponent } from '@/blocks/ComparePackageTable/Component'
 import { ComparePackagesHero } from '@/components/shared/ComparePackagesHero'
 import { BuyServiceBlock } from '@/blocks/BuyService/Component'
+import { ScholarshipProgrammeBlock } from '@/blocks/ScholarshipProgramme/Component'
 import { ServiceContentBlock } from '@/blocks/ServiceContent/Component'
 import { ServicesBenefitsBlockComponent } from '@/blocks/ServicesBenefits/Component'
 import { ServicePriceBannerBlockComponent } from '@/blocks/ServicePriceBanner/Component'
@@ -18,6 +19,10 @@ import { OurAddressBlock } from '@/blocks/OurAddress/Component'
 import { CallOutCTABlock } from '@/blocks/CallOutCTA/Component'
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { BusinessBankAccountsBlock } from '@/blocks/BusinessBankAccounts/Component'
+import { BusinessBankingTableBlock } from '@/blocks/BusinessBankingTable/Component'
+import { AboutUsContentBlock } from '@/blocks/AboutUsContent/Component'
+import { AboutUsTabsBlock } from '@/blocks/AboutUsTabs/Component'
+import { MagicNumbersBlock } from '@/blocks/MagicNumbers/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { CaseStudyVideoBlock } from '@/blocks/CaseStudyVideo/Component'
 import { CaseStudyMosaicBlock } from '@/blocks/CaseStudyMosaic/Component'
@@ -32,6 +37,8 @@ import { RegisterCompanyStepsBlock } from '@/blocks/RegisterCompanySteps/Compone
 import { SupportBlock } from '@/blocks/Support/Component'
 import { OnlineAdminPortalBlock } from '@/blocks/OnlineAdminPortal/Component'
 import { TestimonialsBlock } from '@/blocks/Testimonials/Component'
+import { StaffReviewsBlockComponent } from '@/blocks/StaffReviews/Component'
+import { MeetTheTeamBlockComponent } from '@/blocks/MeetTheTeam/Component'
 import { TestimonialQuoteBlock } from '@/blocks/TestimonialQuote/Component'
 import { OrderStepsBlock } from '@/blocks/OrderSteps/Component'
 import { OurOfficesBlockComponent } from '@/blocks/OurOffices/Component'
@@ -89,6 +96,7 @@ import { HeroServicesBannerBlock } from '@/blocks/HeroServicesBanner/Component'
 import { ServiceCardsBlock } from '@/blocks/ServiceCards/Component'
 import { ServiceInclusionsGridBlockComponent } from '@/blocks/ServiceInclusionsGrid/Component'
 import { ServiceExplainerBlockComponent } from '@/blocks/ServiceExplainer/Component'
+import { CompanyAddressGuideTableBlockComponent } from '@/blocks/CompanyAddressGuideTable/Component'
 import { HowItWorksListBlock } from '@/blocks/HowItWorksList/Component'
 import { ServiceTextBlock } from '@/blocks/ServiceText/Component'
 import { NoteBlock } from '@/blocks/Note/Component'
@@ -99,12 +107,14 @@ import { FaqQuickNavServer } from '@/components/shared/FaqQuickNav/Server'
 import { PageTitle } from '@/components/shared/PageTitle'
 import { BuyNow } from '@/components/shared/PageTitle/BuyNow'
 import { TitleBanner } from '@/components/shared/TitleBanner'
+import { ReviewCentreIntro } from '@/components/shared/ReviewCentreIntro'
 import { ClosingCTA } from '@/components/shared/ClosingCTA'
 import { NameCheckPackagesBlock } from '@/blocks/NameCheckPackages/Component'
 import { TextContentBlock } from '@/blocks/TextContent/Component'
 import { FaqTopicBlock } from '@/blocks/FaqTopic/Component'
 import { ReviewRatingsBlock } from '@/blocks/ReviewRatings/Component'
 import { ReviewHighlightRowsBlockComponent } from '@/blocks/ReviewHighlightRows/Component'
+import { ReviewCentreTabsBlockComponent } from '@/blocks/ReviewCentreTabs/Component'
 
 const blockComponents = {
   additionalServices: AdditionalServicesBlock,
@@ -115,6 +125,7 @@ const blockComponents = {
   comparePackageTable: ComparePackageTableBlockComponent,
   comparePackagesHero: ComparePackagesHero,
   buyService: BuyServiceBlock,
+  scholarshipProgramme: ScholarshipProgrammeBlock,
   serviceContent: ServiceContentBlock,
   servicesBenefits: ServicesBenefitsBlockComponent,
   servicePriceBanner: ServicePriceBannerBlockComponent,
@@ -126,6 +137,10 @@ const blockComponents = {
   caseStudyVideo: CaseStudyVideoBlock,
   caseStudyMosaic: CaseStudyMosaicBlock,
   content: ContentBlock,
+  businessBankingTable: BusinessBankingTableBlock,
+  aboutUsContent: AboutUsContentBlock,
+  aboutUsTabs: AboutUsTabsBlock,
+  magicNumbers: MagicNumbersBlock,
   cta: CallToActionBlock,
   faqs: FAQsBlock,
   formBlock: FormBlock,
@@ -137,6 +152,8 @@ const blockComponents = {
   support: SupportBlock,
   onlineAdminPortal: OnlineAdminPortalBlock,
   testimonials: TestimonialsBlock,
+  staffReviews: StaffReviewsBlockComponent,
+  meetTheTeam: MeetTheTeamBlockComponent,
   testimonialQuote: TestimonialQuoteBlock,
   orderSteps: OrderStepsBlock,
   ourOffices: OurOfficesBlockComponent,
@@ -194,6 +211,7 @@ const blockComponents = {
   serviceCards: ServiceCardsBlock,
   serviceInclusionsGrid: ServiceInclusionsGridBlockComponent,
   serviceExplainer: ServiceExplainerBlockComponent,
+  companyAddressGuideTable: CompanyAddressGuideTableBlockComponent,
   howItWorksList: HowItWorksListBlock,
   serviceText: ServiceTextBlock,
   note: NoteBlock,
@@ -202,9 +220,11 @@ const blockComponents = {
   requiredInformation: RequiredInformationBlock,
   textContent: TextContentBlock,
   titleBanner: TitleBanner,
+  reviewCentreIntro: ReviewCentreIntro,
   faqTopic: FaqTopicBlock,
   reviewRatings: ReviewRatingsBlock,
   reviewHighlightRows: ReviewHighlightRowsBlockComponent,
+  reviewCentreTabs: ReviewCentreTabsBlockComponent,
   closingCTA: ClosingCTA,
   nameCheckPackages: NameCheckPackagesBlock,
 }

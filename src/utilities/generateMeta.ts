@@ -29,7 +29,8 @@ export const generateMeta = async (args: {
 
   const { siteName } = getDomainConfig(getBrand())
   const noindex = doc?.meta && 'noindex' in doc.meta ? Boolean(doc.meta.noindex) : false
-  const title = doc?.meta?.title ? `${doc.meta.title} | ${siteName}` : siteName
+  const metaTitle = doc?.meta?.title || doc?.title
+  const title = metaTitle ? `${metaTitle} | ${siteName}` : siteName
   const slug = Array.isArray(doc?.slug) ? doc?.slug.join('/') : doc?.slug
   const path = !slug || slug === 'home' ? '/' : `/${slug}`
 

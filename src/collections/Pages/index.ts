@@ -17,12 +17,15 @@ import { RegisterCompanySteps } from '../../blocks/RegisterCompanySteps/config'
 import { Support } from '../../blocks/Support/config'
 import { OnlineAdminPortal } from '../../blocks/OnlineAdminPortal/config'
 import { Testimonials } from '../../blocks/Testimonials/config'
+import { StaffReviews } from '@/blocks/StaffReviews/config'
+import { MeetTheTeam } from '@/blocks/MeetTheTeam/config'
 import { TestimonialQuote } from '@/blocks/TestimonialQuote/config'
 import { OrderSteps } from '@/blocks/OrderSteps/config'
 import { OurOffices } from '@/blocks/OurOffices/config'
 import { FourSteps } from '../../blocks/FourSteps/config'
 import { AdBanner } from '../../blocks/AdBanner/config'
 import { SameDayIncorporation } from '@/blocks/SameDayIncorporation/config'
+import { MagicNumbers } from '../../blocks/MagicNumbers/config'
 import { PackageGrid } from '../../blocks/PackageGrid/config'
 import { PackageInclusions } from '../../blocks/PackageInclusions/config'
 import { RecommendedPackages } from '../../blocks/RecommendedPackages/config'
@@ -39,11 +42,15 @@ import { StepsItems } from '../../blocks/StepsItems/config'
 import { ComparePackageTable } from '@/blocks/ComparePackageTable/config'
 import { ComparePackagesHero } from '@/components/shared/ComparePackagesHero/config'
 import { BuyService } from '../../blocks/BuyService/config'
+import { ScholarshipProgramme } from '../../blocks/ScholarshipProgramme/config'
 import { ServiceContent } from '../../blocks/ServiceContent/config'
 import { ServicesBenefits } from '../../blocks/ServicesBenefits/config'
 import { ServicePriceBanner } from '../../blocks/ServicePriceBanner/config'
 import { VideoLibrary } from '../../blocks/VideoLibrary/config'
 import { OurAddress } from '../../blocks/OurAddress/config'
+import { BusinessBankingTable } from '../../blocks/BusinessBankingTable/config'
+import { AboutUsContent } from '../../blocks/AboutUsContent/config'
+import { AboutUsTabs } from '../../blocks/AboutUsTabs/config'
 import { CallOutCTA } from '../../blocks/CallOutCTA/config'
 import { ChooseCompanyStructure } from '../../blocks/ChooseCompanyStructure/config'
 import { ComparePackagesNav } from '@/blocks/ComparePackagesNav/config'
@@ -89,9 +96,11 @@ import { RequiredInformation } from '../../blocks/RequiredInformation/config'
 import { PageTitle } from '../../components/shared/PageTitle/config'
 import { TextContent } from '../../blocks/TextContent/config'
 import { TitleBanner } from '../../components/shared/TitleBanner/config'
+import { ReviewCentreIntro } from '../../components/shared/ReviewCentreIntro/config'
 import { FaqTopic } from '../../blocks/FaqTopic/config'
 import { ReviewRatings } from '../../blocks/ReviewRatings/config'
 import { ReviewHighlightRows } from '../../blocks/ReviewHighlightRows/config'
+import { ReviewCentreTabs } from '../../blocks/ReviewCentreTabs/config'
 import { ClosingCTA } from '../../components/shared/ClosingCTA/config'
 import { NameCheckPackages } from '@/blocks/NameCheckPackages/config'
 import { ContentWithPricingCard } from '../../blocks/ContentWithPricingCard/config'
@@ -100,6 +109,7 @@ import { HeroServicesBanner } from '../../blocks/HeroServicesBanner/config'
 import { ServiceCards } from '../../blocks/ServiceCards/config'
 import { ServiceInclusionsGrid } from '../../blocks/ServiceInclusionsGrid/config'
 import { ServiceExplainer } from '../../blocks/ServiceExplainer/config'
+import { CompanyAddressGuideTable } from '../../blocks/CompanyAddressGuideTable/config'
 import { HowItWorksList } from '../../blocks/HowItWorksList/config'
 import { ServiceText } from '../../blocks/ServiceText/config'
 import { Note } from '../../blocks/Note/config'
@@ -190,8 +200,11 @@ export const Pages: CollectionConfig<'pages'> = {
                 Support,
                 OnlineAdminPortal,
                 Testimonials,
+                StaffReviews,
+                MeetTheTeam,
                 TestimonialQuote,
                 OrderSteps,
+                MagicNumbers,
                 OurOffices,
                 FourSteps,
                 AdBanner,
@@ -214,11 +227,14 @@ export const Pages: CollectionConfig<'pages'> = {
                 ComparePackageTable,
                 ComparePackagesHero,
                 BuyService,
+                ScholarshipProgramme,
                 ServiceContent,
                 ServicesBenefits,
                 ServicePriceBanner,
                 VideoLibrary,
                 OurAddress,
+                AboutUsContent,
+                AboutUsTabs,
                 CallOutCTA,
                 TrustPilotBanner,
                 PackagesHero,
@@ -260,6 +276,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 ServiceCards,
                 ServiceInclusionsGrid,
                 ServiceExplainer,
+                CompanyAddressGuideTable,
                 HowItWorksList,
                 ServiceText,
                 Note,
@@ -273,11 +290,14 @@ export const Pages: CollectionConfig<'pages'> = {
                 PageTitle,
                 TextContent,
                 TitleBanner,
+                ReviewCentreIntro,
                 FaqTopic,
                 ReviewRatings,
                 ReviewHighlightRows,
+                ReviewCentreTabs,
                 ClosingCTA,
                 NameCheckPackages,
+                BusinessBankingTable,
               ],
               admin: {
                 initCollapsed: true,

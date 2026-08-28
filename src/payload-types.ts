@@ -76,7 +76,9 @@ export interface Config {
     products: Product;
     serviceAds: ServiceAd;
     buyServices: BuyService;
+    staff: Staff;
     videos: Video;
+    reviews: Review;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -106,7 +108,9 @@ export interface Config {
     products: ProductsSelect<false> | ProductsSelect<true>;
     serviceAds: ServiceAdsSelect<false> | ServiceAdsSelect<true>;
     buyServices: BuyServicesSelect<false> | BuyServicesSelect<true>;
+    staff: StaffSelect<false> | StaffSelect<true>;
     videos: VideosSelect<false> | VideosSelect<true>;
+    reviews: ReviewsSelect<false> | ReviewsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -126,6 +130,7 @@ export interface Config {
     header: Header;
     footer: Footer;
     businessBankAccounts: BusinessBankAccount;
+    'document-library': DocumentLibrary;
     'eligible-countries': EligibleCountry;
     faqTopics: FaqTopic;
     legalSidenav: LegalSidenav;
@@ -138,6 +143,7 @@ export interface Config {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     businessBankAccounts: BusinessBankAccountsSelect<false> | BusinessBankAccountsSelect<true>;
+    'document-library': DocumentLibrarySelect<false> | DocumentLibrarySelect<true>;
     'eligible-countries': EligibleCountriesSelect<false> | EligibleCountriesSelect<true>;
     faqTopics: FaqTopicsSelect<false> | FaqTopicsSelect<true>;
     legalSidenav: LegalSidenavSelect<false> | LegalSidenavSelect<true>;
@@ -245,8 +251,11 @@ export interface Page {
         | SupportBlock
         | OnlineAdminPortalBlock
         | TestimonialsBlock
+        | StaffReviewsBlock
+        | MeetTheTeamBlock
         | TestimonialQuoteBlock
         | OrderStepsBlock
+        | MagicNumbersBlock
         | OurOfficesBlock
         | FourStepsBlock
         | AdBannerBlock
@@ -269,11 +278,14 @@ export interface Page {
         | ComparePackageTableBlock
         | ComparePackagesHeroBlock
         | BuyServiceBlock
+        | ScholarshipProgrammeBlock
         | ServiceContentBlock
         | ServicesBenefitsBlock
         | ServicePriceBannerBlock
         | VideoLibraryBlock
         | OurAddressBlock
+        | AboutUsContentBlock
+        | AboutUsTabsBlock
         | CallOutCTABlock
         | TrustPilotBannerBlock
         | PackagesHeroBlock
@@ -315,6 +327,7 @@ export interface Page {
         | ServiceCardsBlock
         | ServiceInclusionsGridBlock
         | ServiceExplainerBlock
+        | CompanyAddressGuideTableBlock
         | HowItWorksListBlock
         | ServiceTextBlock
         | NoteBlock
@@ -328,11 +341,14 @@ export interface Page {
         | PageTitleBlock
         | TextContentBlock
         | TitleBannerBlock
+        | ReviewCentreIntroBlock
         | FaqTopicBlock
         | ReviewRatingsBlock
         | ReviewHighlightRowsBlock
+        | ReviewCentreTabsBlock
         | ClosingCTABlock
         | NameCheckPackagesBlock
+        | BusinessBankingTableBlock
       )[]
     | null;
   meta?: {
@@ -1495,6 +1511,69 @@ export interface TestimonialsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StaffReviewsBlock".
+ */
+export interface StaffReviewsBlock {
+  /**
+   * Centred above the quotes. Leave empty to render the quotes alone.
+   */
+  title?: string | null;
+  /**
+   * Three across from 1023px, stacked below it. Any number works, but rows of three read best.
+   */
+  quotes?:
+    | {
+        /**
+         * No quotation marks — the tile draws its own.
+         */
+        quote: string;
+        person: string;
+        /**
+         * Rendered under the name as a citation.
+         */
+        role?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, MD 40px, LG 50px, XL 75px, 2XL 100px; SECTION 50/75/110 and SECTIONLARGE 70/140 follow the source Section margin responsively.
+     */
+    gap?: ('inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'section' | 'sectionLarge') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'staffReviews';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MeetTheTeamBlock".
+ */
+export interface MeetTheTeamBlock {
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, MD 40px, LG 50px, XL 75px, 2XL 100px; SECTION 50/75/110 and SECTIONLARGE 70/140 follow the source Section margin responsively.
+     */
+    gap?: ('inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'section' | 'sectionLarge') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'meetTheTeam';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TestimonialQuoteBlock".
  */
 export interface TestimonialQuoteBlock {
@@ -1534,6 +1613,80 @@ export interface OrderStepsBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'orderSteps';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MagicNumbersBlock".
+ */
+export interface MagicNumbersBlock {
+  heading: string;
+  subheading?: string | null;
+  /**
+   * A stacked list below 768px and a 2-up grid from there. From 1590px they are placed by hand at the offsets below, with the connector lines drawn between them.
+   */
+  numbers?:
+    | {
+        /**
+         * Add a new one by importing it in the block’s icons.ts; the list here follows.
+         */
+        icon:
+          | 'comments'
+          | 'mapMarker'
+          | 'file'
+          | 'graduationCap'
+          | 'shield'
+          | 'clock'
+          | 'phone'
+          | 'university'
+          | 'thumbsUp';
+        /**
+         * Fills the icon circle and its connector line.
+         */
+        colour: string;
+        heading: string;
+        /**
+         * Line breaks are preserved.
+         */
+        body?: string | null;
+        /**
+         * Ignored below 1590px, where the items are a plain grid. Set either Top or Bottom, not both.
+         */
+        placement: {
+          left: number;
+          top?: number | null;
+          bottom?: number | null;
+        };
+        /**
+         * The vertical rule under the row of items, drawn in the colour above. Also 1590px and up only.
+         */
+        connector: {
+          /**
+           * % of the row
+           */
+          width: number;
+          side: 'left' | 'right';
+          inset: number;
+          top: number;
+          height: number;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, MD 40px, LG 50px, XL 75px, 2XL 100px; SECTION 50/75/110 and SECTIONLARGE 70/140 follow the source Section margin responsively.
+     */
+    gap?: ('inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'section' | 'sectionLarge') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'magicNumbers';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3002,6 +3155,122 @@ export interface BuyService {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ScholarshipProgrammeBlock".
+ */
+export interface ScholarshipProgrammeBlock {
+  /**
+   * Page heading. Wraps on its own — line breaks typed here are not preserved.
+   */
+  title: string;
+  /**
+   * Untick when a banner above already carries the H1 — the heading then renders as an H2.
+   */
+  isPageTitle?: boolean | null;
+  /**
+   * Body copy above the winners card. Headings, lists and links.
+   */
+  intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Sits between the copy and the winners card, e.g. a mailto: link.
+   */
+  applyCta: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+  };
+  winnersHeading?: string | null;
+  /**
+   * Grouped by year automatically, newest first. Adding a new year needs no code change.
+   */
+  winners?:
+    | {
+        year: string;
+        name: string;
+        courseName?: string | null;
+        university?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * The narrow right-hand rail. A two-column grid below 768px, then a single stacked column.
+   */
+  sidebarPartners?: {
+    heading?: string | null;
+    universities?:
+      | {
+          /**
+           * Used to build the logo alt text, e.g. "University of Leeds logo".
+           */
+          name: string;
+          /**
+           * Rendered at its natural size, capped at 160px wide.
+           */
+          logo: string | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  /**
+   * Sits under the winners card in the main column. Two columns, three from 470px, five from 1023px.
+   */
+  inlinePartners?: {
+    heading?: string | null;
+    universities?:
+      | {
+          /**
+           * Used to build the logo alt text, e.g. "University of Leeds logo".
+           */
+          name: string;
+          /**
+           * Rendered at its natural size, capped at 160px wide.
+           */
+          logo: string | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, MD 40px, LG 50px, XL 75px, 2XL 100px; SECTION 50/75/110 and SECTIONLARGE 70/140 follow the source Section margin responsively.
+     */
+    gap?: ('inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'section' | 'sectionLarge') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'scholarshipProgramme';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ServiceContentBlock".
  */
 export interface ServiceContentBlock {
@@ -3043,6 +3312,18 @@ export interface ServiceContentBlock {
           };
           [k: string]: unknown;
         };
+        /**
+         * Optional. Player embed URL (Vimeo/YouTube) or a direct .mp4 file URL, shown under this section’s copy. Needs a still to render — without one, nothing appears.
+         */
+        videoUrl?: string | null;
+        /**
+         * Landscape. It is the whole clickable target, so set the alt text on the media item — that is what a screen reader announces.
+         */
+        videoStill?: (string | null) | Media;
+        /**
+         * Names the video to screen readers and in the player frame. Falls back to the section’s first heading when blank.
+         */
+        videoTitle?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -3264,6 +3545,190 @@ export interface OurAddressBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'ourAddress';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutUsContentBlock".
+ */
+export interface AboutUsContentBlock {
+  /**
+   * Image rows is the opening About Us tab. Every other tab uses two column.
+   */
+  variant: 'twoColumn' | 'imageRows';
+  items?:
+    | {
+        /**
+         * Left and Right are labels for the author — the grid places items in order. Only Full changes the layout.
+         */
+        width?: ('full' | 'left' | 'right') | null;
+        /**
+         * The white box with a shadow used by Join Our Team. A panel uses the icon groups below instead of the body.
+         */
+        panel?: boolean | null;
+        /**
+         * Rendered as an h3 — above the image in two column, beside it in image rows.
+         */
+        title?: string | null;
+        image?: (string | null) | Media;
+        body?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        /**
+         * Each group is an icon, a heading on the same line, and its copy.
+         */
+        panelGroups?:
+          | {
+              icon: 'user' | 'heart';
+              heading: string;
+              body?: {
+                root: {
+                  type: string;
+                  children: {
+                    type: any;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
+                [k: string]: unknown;
+              } | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, MD 40px, LG 50px, XL 75px, 2XL 100px; SECTION 50/75/110 and SECTIONLARGE 70/140 follow the source Section margin responsively.
+     */
+    gap?: ('inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'section' | 'sectionLarge') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'aboutUsContent';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutUsTabsBlock".
+ */
+export interface AboutUsTabsBlock {
+  /**
+   * One tab each, in this order. The heading above the tab strip is the selected tab’s title.
+   */
+  tabs?:
+    | {
+        /**
+         * The word on the tab itself.
+         */
+        label: string;
+        /**
+         * The heading shown above the tabs.
+         */
+        title: string;
+        /**
+         * Tick on one tab when this block supplies the page heading — the heading then renders as an h1 whichever tab is open, so the page always has exactly one. Leave every tab unticked when the page h1 comes from elsewhere; the heading renders as an h2.
+         */
+        isPageTitle?: boolean | null;
+        /**
+         * Rendered in order inside this tab’s panel. Meet The Team and Staff Reviews join this list once those blocks exist.
+         */
+        content?: (AboutUsContentBlock | MagicNumbersBlock | OurOfficesBlock | RegisterCtaPanelBlock)[] | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, MD 40px, LG 50px, XL 75px, 2XL 100px; SECTION 50/75/110 and SECTIONLARGE 70/140 follow the source Section margin responsively.
+     */
+    gap?: ('inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'section' | 'sectionLarge') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'aboutUsTabs';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RegisterCtaPanelBlock".
+ */
+export interface RegisterCtaPanelBlock {
+  /**
+   * Line breaks are preserved as written.
+   */
+  heading: string;
+  description: string;
+  /**
+   * Text after the phone link. Usually just a full stop.
+   */
+  descriptionSuffix?: string | null;
+  phone: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+  };
+  cta: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+  };
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'registerCtaPanel';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -5326,6 +5791,126 @@ export interface ServiceExplainerBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CompanyAddressGuideTableBlock".
+ */
+export interface CompanyAddressGuideTableBlock {
+  /**
+   * One heading, one four-column table and one footnote each, in this order. Every table compares the same three address types.
+   */
+  tables: {
+    heading: string;
+    /**
+     * Centred above each of the three address columns. Line breaks are preserved.
+     */
+    columnHeadings: {
+      registeredOffice: string;
+      serviceAddress: string;
+      businessAddress: string;
+    };
+    /**
+     * The question runs down the first column; the three answers fill the rest. Superscript markers tie an answer to the footnote below.
+     */
+    rows: {
+      question: {
+        root: {
+          type: string;
+          children: {
+            type: any;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      };
+      registeredOffice: {
+        root: {
+          type: string;
+          children: {
+            type: any;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      };
+      serviceAddress: {
+        root: {
+          type: string;
+          children: {
+            type: any;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      };
+      businessAddress: {
+        root: {
+          type: string;
+          children: {
+            type: any;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      };
+      id?: string | null;
+    }[];
+    /**
+     * Numbered notes on a tinted panel under the table. Leave empty to show nothing.
+     */
+    footnote?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    id?: string | null;
+  }[];
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, MD 40px, LG 50px, XL 75px, 2XL 100px; SECTION 50/75/110 and SECTIONLARGE 70/140 follow the source Section margin responsively.
+     */
+    gap?: ('inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'section' | 'sectionLarge') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'companyAddressGuideTable';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "HowItWorksListBlock".
  */
 export interface HowItWorksListBlock {
@@ -5414,62 +5999,6 @@ export interface NoteBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'note';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "RegisterCtaPanelBlock".
- */
-export interface RegisterCtaPanelBlock {
-  /**
-   * Line breaks are preserved as written.
-   */
-  heading: string;
-  description: string;
-  /**
-   * Text after the phone link. Usually just a full stop.
-   */
-  descriptionSuffix?: string | null;
-  phone: {
-    type?: ('reference' | 'custom') | null;
-    newTab?: boolean | null;
-    reference?:
-      | ({
-          relationTo: 'pages';
-          value: string | Page;
-        } | null)
-      | ({
-          relationTo: 'posts';
-          value: string | Post;
-        } | null);
-    url?: string | null;
-    label: string;
-  };
-  cta: {
-    type?: ('reference' | 'custom') | null;
-    newTab?: boolean | null;
-    reference?:
-      | ({
-          relationTo: 'pages';
-          value: string | Page;
-        } | null)
-      | ({
-          relationTo: 'posts';
-          value: string | Post;
-        } | null);
-    url?: string | null;
-    label: string;
-  };
-  /**
-   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
-   */
-  sectionLayout: {
-    background: 'light' | 'dark' | 'inverse';
-    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
-    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'registerCtaPanel';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -5690,13 +6219,17 @@ export interface CaseStudyMosaicBlock {
  */
 export interface FormationVideoBlock {
   /**
-   * Centred heading above the video still. Newlines are preserved, so a deliberate line break can be typed in.
+   * Centred heading above the video still. Newlines are preserved, so a deliberate line break can be typed in. Leave blank for a bare still with nothing above it.
    */
-  heading: string;
+  heading?: string | null;
   /**
    * Optional centred line under the heading. Leave blank to drop it entirely.
    */
   subheading?: string | null;
+  /**
+   * Names the video for screen readers — it labels the play button and titles the dialog. Leave blank to use the heading. Required when there is no heading, because nothing else names the video.
+   */
+  videoTitle?: string | null;
   /**
    * Video still. Landscape, and it is the whole clickable target — set the alt text on the media item, because that is what a screen reader announces. With no still the section renders as heading and subheading only.
    */
@@ -5705,6 +6238,10 @@ export interface FormationVideoBlock {
    * Player embed URL (Vimeo/YouTube) or a direct .mp4 file URL. An embed URL opens in an iframe, a file URL in a native player.
    */
   videoUrl: string;
+  /**
+   * Capped is the home page treatment. Inset matches the standalone video the service pages drop between sections — it stays full width on mobile and pulls in to 85% from 768px.
+   */
+  stillWidth?: ('capped' | 'inset') | null;
   /**
    * Leave off when the still already has a play button in the artwork, which is the case on the home page. Turn it on for a still that does not.
    */
@@ -5716,6 +6253,10 @@ export interface FormationVideoBlock {
     background: 'light' | 'dark' | 'inverse';
     paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
     paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, MD 40px, LG 50px, XL 75px, 2XL 100px; SECTION 50/75/110 and SECTIONLARGE 70/140 follow the source Section margin responsively.
+     */
+    gap?: ('inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'section' | 'sectionLarge') | null;
   };
   id?: string | null;
   blockName?: string | null;
@@ -5925,7 +6466,7 @@ export interface TitleBannerBlock {
   /**
    * Fills the full-width band either side of the image above 1170px.
    */
-  backdrop?: ('none' | 'dark' | 'mist' | 'pale') | null;
+  backdrop?: ('none' | 'dark' | 'mist' | 'pale' | 'grey') | null;
   /**
    * Unticked the band is cropped to 260px tall.
    */
@@ -5941,6 +6482,32 @@ export interface TitleBannerBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'titleBanner';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewCentreIntroBlock".
+ */
+export interface ReviewCentreIntroBlock {
+  /**
+   * Fills the band behind the text, cropped to centre. Its alt text comes from the media item.
+   */
+  image: string | Media;
+  title: string;
+  /**
+   * Untick when something above already carries the H1.
+   */
+  isPageTitle?: boolean | null;
+  /**
+   * Sits under the title. Line breaks are preserved.
+   */
+  subtitle?: string | null;
+  /**
+   * Runs at 85% of the content width so it wraps ahead of the title. Line breaks are preserved.
+   */
+  body?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'reviewCentreIntro';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6048,9 +6615,9 @@ export interface ReviewHighlightRowsBlock {
     };
     id?: string | null;
   }[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'reviewHighlightRows';
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
   sectionLayout: {
     background: 'light' | 'dark' | 'inverse';
     paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
@@ -6060,6 +6627,47 @@ export interface ReviewHighlightRowsBlock {
      */
     gap?: ('inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'section' | 'sectionLarge') | null;
   };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'reviewHighlightRows';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewCentreTabsBlock".
+ */
+export interface ReviewCentreTabsBlock {
+  /**
+   * Rendered left to right, first tab selected by default. Each label becomes its own URL fragment, so /customer-reviews#trustpilot opens that tab.
+   */
+  tabs: {
+    label: string;
+    panel: 'ratings' | 'provider';
+    heading?: string | null;
+    /**
+     * Matches a platform in the Review Stats global and the Provider on each review, e.g. "Trustpilot". Spelling must match Review Stats; case does not matter.
+     */
+    provider?: string | null;
+    id?: string | null;
+  }[];
+  /**
+   * Sits above the review cards on every provider tab.
+   */
+  reviewsHeading?: string | null;
+  /**
+   * Newest first, taken from the Reviews collection.
+   */
+  reviewsPerProvider?: number | null;
+  /**
+   * The white button in the coloured banner.
+   */
+  readAllLabel?: string | null;
+  /**
+   * The coloured tile that closes the card grid.
+   */
+  readAllTileLabel?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'reviewCentreTabs';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6120,6 +6728,149 @@ export interface NameCheckPackagesBlock {
   blockType: 'nameCheckPackages';
 }
 /**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BusinessBankingTableBlock".
+ */
+export interface BusinessBankingTableBlock {
+  heading: string;
+  /**
+   * Sits between the heading and the table.
+   */
+  intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * The table always has these six columns. Rename them here; the order is fixed by the row fields below.
+   */
+  columnHeadings: {
+    bank: string;
+    type: string;
+    freeBankingPeriod: string;
+    overdraft: string;
+    accountingIntegration: string;
+    keyFeatures: string;
+  };
+  /**
+   * One row each, in this order.
+   */
+  rows?:
+    | {
+        /**
+         * Builds the logo alt text, e.g. "Barclays logo".
+         */
+        bankName: string;
+        /**
+         * Optional superscript after the logo, e.g. "1", tying it to a footnote.
+         */
+        footnoteMarker?: string | null;
+        /**
+         * Rendered at its natural size, capped at 75px wide.
+         */
+        logo: string | Media;
+        type: string;
+        /**
+         * Ticked shows a green check, unticked a grey cross.
+         */
+        overdraft?: boolean | null;
+        /**
+         * Line breaks are preserved.
+         */
+        freeBankingPeriod?: string | null;
+        /**
+         * Line breaks are preserved.
+         */
+        accountingIntegration?: string | null;
+        /**
+         * Line breaks are preserved.
+         */
+        keyFeatures?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Sits under the table — caveats and the numbered footnotes.
+   */
+  footnotes?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, MD 40px, LG 50px, XL 75px, 2XL 100px; SECTION 50/75/110 and SECTIONLARGE 70/140 follow the source Section margin responsively.
+     */
+    gap?: ('inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'section' | 'sectionLarge') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'businessBankingTable';
+}
+/**
+ * People shown by the Meet The Team block. Each card opens a dialog with the photo, the job title and the facts listed below it.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "staff".
+ */
+export interface Staff {
+  id: string;
+  /**
+   * Shown on the card and as the dialog heading.
+   */
+  fullName: string;
+  jobTitle: string;
+  /**
+   * Cut-out portrait on the pale panel. The source set is 370x320; anything wider than it is tall keeps the row heights even.
+   */
+  photo: string | Media;
+  /**
+   * One line each in the dialog, rendered as "Label: value". Leave empty and the dialog shows the photo, name and job title alone.
+   */
+  facts?:
+    | {
+        /**
+         * e.g. "Favourite Drink". Rendered in bold.
+         */
+        label: string;
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Lowest wins. Members without a number sort after those with one.
+   */
+  displayOrder?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Vimeo videos shown by the Video Library block, grouped by category. Thumbnails are derived from the Vimeo ID, so no image upload is needed.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6148,6 +6899,38 @@ export interface Video {
    * Lowest wins when ordering the category sections. Videos sharing a category should share this number.
    */
   categoryOrder?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Individual customer reviews shown by the Review Centre Tabs block. Provider must match a platform name in the Review Stats global, e.g. "Trustpilot".
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "reviews".
+ */
+export interface Review {
+  id: string;
+  /**
+   * Their initials fill the avatar circle.
+   */
+  authorName: string;
+  /**
+   * Names a platform in Review Stats, e.g. "Trustpilot" or "Google". Case does not matter — it is saved using the spelling Review Stats uses. A name matching no platform is not shown on any tab.
+   */
+  provider: string;
+  /**
+   * Out of 5.
+   */
+  score: number;
+  /**
+   * Shown as a relative age, e.g. "4 months ago". Newest render first.
+   */
+  reviewDate: string;
+  providerKey?: string | null;
+  /**
+   * Truncated to the first 20 words behind a Read More toggle.
+   */
+  body: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -6378,8 +7161,16 @@ export interface PayloadLockedDocument {
         value: string | BuyService;
       } | null)
     | ({
+        relationTo: 'staff';
+        value: string | Staff;
+      } | null)
+    | ({
         relationTo: 'videos';
         value: string | Video;
+      } | null)
+    | ({
+        relationTo: 'reviews';
+        value: string | Review;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -6487,8 +7278,11 @@ export interface PagesSelect<T extends boolean = true> {
         support?: T | SupportBlockSelect<T>;
         onlineAdminPortal?: T | OnlineAdminPortalBlockSelect<T>;
         testimonials?: T | TestimonialsBlockSelect<T>;
+        staffReviews?: T | StaffReviewsBlockSelect<T>;
+        meetTheTeam?: T | MeetTheTeamBlockSelect<T>;
         testimonialQuote?: T | TestimonialQuoteBlockSelect<T>;
         orderSteps?: T | OrderStepsBlockSelect<T>;
+        magicNumbers?: T | MagicNumbersBlockSelect<T>;
         ourOffices?: T | OurOfficesBlockSelect<T>;
         fourSteps?: T | FourStepsBlockSelect<T>;
         adBanner?: T | AdBannerBlockSelect<T>;
@@ -6511,11 +7305,14 @@ export interface PagesSelect<T extends boolean = true> {
         comparePackageTable?: T | ComparePackageTableBlockSelect<T>;
         comparePackagesHero?: T | ComparePackagesHeroBlockSelect<T>;
         buyService?: T | BuyServiceBlockSelect<T>;
+        scholarshipProgramme?: T | ScholarshipProgrammeBlockSelect<T>;
         serviceContent?: T | ServiceContentBlockSelect<T>;
         servicesBenefits?: T | ServicesBenefitsBlockSelect<T>;
         servicePriceBanner?: T | ServicePriceBannerBlockSelect<T>;
         videoLibrary?: T | VideoLibraryBlockSelect<T>;
         ourAddress?: T | OurAddressBlockSelect<T>;
+        aboutUsContent?: T | AboutUsContentBlockSelect<T>;
+        aboutUsTabs?: T | AboutUsTabsBlockSelect<T>;
         callOutCTA?: T | CallOutCTABlockSelect<T>;
         trustpilotBanner?: T | TrustPilotBannerBlockSelect<T>;
         packagesHero?: T | PackagesHeroBlockSelect<T>;
@@ -6557,6 +7354,7 @@ export interface PagesSelect<T extends boolean = true> {
         serviceCards?: T | ServiceCardsBlockSelect<T>;
         serviceInclusionsGrid?: T | ServiceInclusionsGridBlockSelect<T>;
         serviceExplainer?: T | ServiceExplainerBlockSelect<T>;
+        companyAddressGuideTable?: T | CompanyAddressGuideTableBlockSelect<T>;
         howItWorksList?: T | HowItWorksListBlockSelect<T>;
         serviceText?: T | ServiceTextBlockSelect<T>;
         note?: T | NoteBlockSelect<T>;
@@ -6570,11 +7368,14 @@ export interface PagesSelect<T extends boolean = true> {
         pageTitle?: T | PageTitleBlockSelect<T>;
         textContent?: T | TextContentBlockSelect<T>;
         titleBanner?: T | TitleBannerBlockSelect<T>;
+        reviewCentreIntro?: T | ReviewCentreIntroBlockSelect<T>;
         faqTopic?: T | FaqTopicBlockSelect<T>;
         reviewRatings?: T | ReviewRatingsBlockSelect<T>;
         reviewHighlightRows?: T | ReviewHighlightRowsBlockSelect<T>;
+        reviewCentreTabs?: T | ReviewCentreTabsBlockSelect<T>;
         closingCTA?: T | ClosingCTABlockSelect<T>;
         nameCheckPackages?: T | NameCheckPackagesBlockSelect<T>;
+        businessBankingTable?: T | BusinessBankingTableBlockSelect<T>;
       };
   meta?:
     | T
@@ -7012,6 +7813,47 @@ export interface TestimonialsBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StaffReviewsBlock_select".
+ */
+export interface StaffReviewsBlockSelect<T extends boolean = true> {
+  title?: T;
+  quotes?:
+    | T
+    | {
+        quote?: T;
+        person?: T;
+        role?: T;
+        id?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+        gap?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MeetTheTeamBlock_select".
+ */
+export interface MeetTheTeamBlockSelect<T extends boolean = true> {
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+        gap?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TestimonialQuoteBlock_select".
  */
 export interface TestimonialQuoteBlockSelect<T extends boolean = true> {
@@ -7031,6 +7873,49 @@ export interface TestimonialQuoteBlockSelect<T extends boolean = true> {
  */
 export interface OrderStepsBlockSelect<T extends boolean = true> {
   currentStep?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+        gap?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MagicNumbersBlock_select".
+ */
+export interface MagicNumbersBlockSelect<T extends boolean = true> {
+  heading?: T;
+  subheading?: T;
+  numbers?:
+    | T
+    | {
+        icon?: T;
+        colour?: T;
+        heading?: T;
+        body?: T;
+        placement?:
+          | T
+          | {
+              left?: T;
+              top?: T;
+              bottom?: T;
+            };
+        connector?:
+          | T
+          | {
+              width?: T;
+              side?: T;
+              inset?: T;
+              top?: T;
+              height?: T;
+            };
+        id?: T;
+      };
   sectionLayout?:
     | T
     | {
@@ -7686,6 +8571,68 @@ export interface BuyServiceBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ScholarshipProgrammeBlock_select".
+ */
+export interface ScholarshipProgrammeBlockSelect<T extends boolean = true> {
+  title?: T;
+  isPageTitle?: T;
+  intro?: T;
+  applyCta?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
+  winnersHeading?: T;
+  winners?:
+    | T
+    | {
+        year?: T;
+        name?: T;
+        courseName?: T;
+        university?: T;
+        id?: T;
+      };
+  sidebarPartners?:
+    | T
+    | {
+        heading?: T;
+        universities?:
+          | T
+          | {
+              name?: T;
+              logo?: T;
+              id?: T;
+            };
+      };
+  inlinePartners?:
+    | T
+    | {
+        heading?: T;
+        universities?:
+          | T
+          | {
+              name?: T;
+              logo?: T;
+              id?: T;
+            };
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+        gap?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ServiceContentBlock_select".
  */
 export interface ServiceContentBlockSelect<T extends boolean = true> {
@@ -7699,6 +8646,9 @@ export interface ServiceContentBlockSelect<T extends boolean = true> {
         icon?: T;
         iconColour?: T;
         content?: T;
+        videoUrl?: T;
+        videoStill?: T;
+        videoTitle?: T;
         id?: T;
       };
   formPanel?:
@@ -7805,6 +8755,109 @@ export interface OurAddressBlockSelect<T extends boolean = true> {
   address?: T;
   priceSlug?: T;
   postText?: T;
+  cta?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutUsContentBlock_select".
+ */
+export interface AboutUsContentBlockSelect<T extends boolean = true> {
+  variant?: T;
+  items?:
+    | T
+    | {
+        width?: T;
+        panel?: T;
+        title?: T;
+        image?: T;
+        body?: T;
+        panelGroups?:
+          | T
+          | {
+              icon?: T;
+              heading?: T;
+              body?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+        gap?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutUsTabsBlock_select".
+ */
+export interface AboutUsTabsBlockSelect<T extends boolean = true> {
+  tabs?:
+    | T
+    | {
+        label?: T;
+        title?: T;
+        isPageTitle?: T;
+        content?:
+          | T
+          | {
+              aboutUsContent?: T | AboutUsContentBlockSelect<T>;
+              magicNumbers?: T | MagicNumbersBlockSelect<T>;
+              ourOffices?: T | OurOfficesBlockSelect<T>;
+              registerCtaPanel?: T | RegisterCtaPanelBlockSelect<T>;
+            };
+        id?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+        gap?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RegisterCtaPanelBlock_select".
+ */
+export interface RegisterCtaPanelBlockSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  descriptionSuffix?: T;
+  phone?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
   cta?:
     | T
     | {
@@ -9093,6 +10146,45 @@ export interface ServiceExplainerBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CompanyAddressGuideTableBlock_select".
+ */
+export interface CompanyAddressGuideTableBlockSelect<T extends boolean = true> {
+  tables?:
+    | T
+    | {
+        heading?: T;
+        columnHeadings?:
+          | T
+          | {
+              registeredOffice?: T;
+              serviceAddress?: T;
+              businessAddress?: T;
+            };
+        rows?:
+          | T
+          | {
+              question?: T;
+              registeredOffice?: T;
+              serviceAddress?: T;
+              businessAddress?: T;
+              id?: T;
+            };
+        footnote?: T;
+        id?: T;
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+        gap?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "HowItWorksListBlock_select".
  */
 export interface HowItWorksListBlockSelect<T extends boolean = true> {
@@ -9152,42 +10244,6 @@ export interface NoteBlockSelect<T extends boolean = true> {
   heading?: T;
   headingLevel?: T;
   body?: T;
-  sectionLayout?:
-    | T
-    | {
-        background?: T;
-        paddingTop?: T;
-        paddingBottom?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "RegisterCtaPanelBlock_select".
- */
-export interface RegisterCtaPanelBlockSelect<T extends boolean = true> {
-  heading?: T;
-  description?: T;
-  descriptionSuffix?: T;
-  phone?:
-    | T
-    | {
-        type?: T;
-        newTab?: T;
-        reference?: T;
-        url?: T;
-        label?: T;
-      };
-  cta?:
-    | T
-    | {
-        type?: T;
-        newTab?: T;
-        reference?: T;
-        url?: T;
-        label?: T;
-      };
   sectionLayout?:
     | T
     | {
@@ -9314,8 +10370,10 @@ export interface CaseStudyMosaicBlockSelect<T extends boolean = true> {
 export interface FormationVideoBlockSelect<T extends boolean = true> {
   heading?: T;
   subheading?: T;
+  videoTitle?: T;
   image?: T;
   videoUrl?: T;
+  stillWidth?: T;
   showPlayIcon?: T;
   sectionLayout?:
     | T
@@ -9323,6 +10381,7 @@ export interface FormationVideoBlockSelect<T extends boolean = true> {
         background?: T;
         paddingTop?: T;
         paddingBottom?: T;
+        gap?: T;
       };
   id?: T;
   blockName?: T;
@@ -9440,6 +10499,19 @@ export interface TitleBannerBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewCentreIntroBlock_select".
+ */
+export interface ReviewCentreIntroBlockSelect<T extends boolean = true> {
+  image?: T;
+  title?: T;
+  isPageTitle?: T;
+  subtitle?: T;
+  body?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "FaqTopicBlock_select".
  */
 export interface FaqTopicBlockSelect<T extends boolean = true> {
@@ -9505,8 +10577,6 @@ export interface ReviewHighlightRowsBlockSelect<T extends boolean = true> {
             };
         id?: T;
       };
-  id?: T;
-  blockName?: T;
   sectionLayout?:
     | T
     | {
@@ -9515,6 +10585,29 @@ export interface ReviewHighlightRowsBlockSelect<T extends boolean = true> {
         paddingBottom?: T;
         gap?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewCentreTabsBlock_select".
+ */
+export interface ReviewCentreTabsBlockSelect<T extends boolean = true> {
+  tabs?:
+    | T
+    | {
+        label?: T;
+        panel?: T;
+        heading?: T;
+        provider?: T;
+        id?: T;
+      };
+  reviewsHeading?: T;
+  reviewsPerProvider?: T;
+  readAllLabel?: T;
+  readAllTileLabel?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -9550,6 +10643,48 @@ export interface NameCheckPackagesBlockSelect<T extends boolean = true> {
   packageName?: T;
   checkoutPath?: T;
   searchPlaceholder?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BusinessBankingTableBlock_select".
+ */
+export interface BusinessBankingTableBlockSelect<T extends boolean = true> {
+  heading?: T;
+  intro?: T;
+  columnHeadings?:
+    | T
+    | {
+        bank?: T;
+        type?: T;
+        freeBankingPeriod?: T;
+        overdraft?: T;
+        accountingIntegration?: T;
+        keyFeatures?: T;
+      };
+  rows?:
+    | T
+    | {
+        bankName?: T;
+        footnoteMarker?: T;
+        logo?: T;
+        type?: T;
+        overdraft?: T;
+        freeBankingPeriod?: T;
+        accountingIntegration?: T;
+        keyFeatures?: T;
+        id?: T;
+      };
+  footnotes?: T;
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+        gap?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -9833,6 +10968,25 @@ export interface BuyServicesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "staff_select".
+ */
+export interface StaffSelect<T extends boolean = true> {
+  fullName?: T;
+  jobTitle?: T;
+  photo?: T;
+  facts?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        id?: T;
+      };
+  displayOrder?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "videos_select".
  */
 export interface VideosSelect<T extends boolean = true> {
@@ -9842,6 +10996,20 @@ export interface VideosSelect<T extends boolean = true> {
   duration?: T;
   publishedDate?: T;
   categoryOrder?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "reviews_select".
+ */
+export interface ReviewsSelect<T extends boolean = true> {
+  authorName?: T;
+  provider?: T;
+  score?: T;
+  reviewDate?: T;
+  providerKey?: T;
+  body?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -10512,6 +11680,44 @@ export interface BusinessBankAccount {
   createdAt?: string | null;
 }
 /**
+ * Every template in the Business Document Template Library, listed by the [[documents-list]] shortcode. Sections and groups render in the order held here.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "document-library".
+ */
+export interface DocumentLibrary {
+  id: string;
+  /**
+   * Top-level headings, e.g. "Finance and Accounting".
+   */
+  sections?:
+    | {
+        title: string;
+        /**
+         * Sub-headings within the section, e.g. "Purchasing".
+         */
+        groups?:
+          | {
+              title: string;
+              /**
+               * One row per template, named as it appears in the library.
+               */
+              documents?:
+                | {
+                    name: string;
+                    id?: string | null;
+                  }[]
+                | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * Countries whose residents can register a UK company with us, listed by the [[eligiblecountries]] shortcode. Changing the list updates every page that offers it.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -10915,6 +12121,33 @@ export interface BusinessBankAccountsSelect<T extends boolean = true> {
         reference?: T;
         url?: T;
         label?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "document-library_select".
+ */
+export interface DocumentLibrarySelect<T extends boolean = true> {
+  sections?:
+    | T
+    | {
+        title?: T;
+        groups?:
+          | T
+          | {
+              title?: T;
+              documents?:
+                | T
+                | {
+                    name?: T;
+                    id?: T;
+                  };
+              id?: T;
+            };
+        id?: T;
       };
   updatedAt?: T;
   createdAt?: T;

@@ -15,9 +15,12 @@ import { Users } from './collections/Users'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { ServiceAdsCollection } from './collections/ServiceAds'
+import { StaffCollection } from './collections/Staff'
 import { BuyServicesCollection } from './collections/BuyServices'
 import { VideosCollection } from './collections/Videos'
+import { ReviewsCollection } from './collections/Reviews'
 import { BusinessBankAccountsGlobal } from './globals/BusinessBankAccounts/config'
+import { DocumentLibraryGlobal } from './globals/DocumentLibrary/config'
 import { EligibleCountriesGlobal } from './globals/EligibleCountries/config'
 import { FaqTopicsGlobal } from './globals/FaqTopics/config'
 import { LegalSidenavGlobal } from './globals/LegalSidenavItemsOrder/config'
@@ -93,7 +96,9 @@ export default buildConfig({
     Products,
     ServiceAdsCollection,
     BuyServicesCollection,
+    StaffCollection,
     VideosCollection,
+    ReviewsCollection,
   ],
   cors: [getServerSideURL()].filter(Boolean),
   plugins: [
@@ -110,6 +115,7 @@ export default buildConfig({
     Header,
     Footer,
     BusinessBankAccountsGlobal,
+    DocumentLibraryGlobal,
     EligibleCountriesGlobal,
     FaqTopicsGlobal,
     LegalSidenavGlobal,

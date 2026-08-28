@@ -627,3 +627,25 @@ Each entry has four parts:
   # Two different treatments across pages is EXPECTED, not a defect.
   ```
 - **Fix:** Verify the property the ticket is actually about (e.g. the heading *tag* for a semantic fix) and prove **no change** to the typography that is present, by diffing the same page before and after your fix. Do not chase live's value onto a page that never had it. State the gap explicitly in the PR so a reviewer is not left wondering.
+
+## Swapping a `{shortcode}` (→`<em>`) for a raw `<a>` in a `Text`/sanitizeHtml field drops the `[&_em]` styling
+
+- **When it bites:** A block colours inline emphasis with a descendant rule scoped to `<em>` (e.g. PackageGrid `contactNote`: `[&_em]:not-italic [&_em]:text-[var(--surface-brand-cyan)]`). CMS copy uses the `{...}` shortcode, which `Text.decorateText()` rewrites to `<em>`, so the phrase inherits that colour. When you turn the phrase into a real link by editing the CMS content to `<a href=... class=...>` (e.g. to wire up a live-chat trigger), the `<a>` is not an `<em>` — it misses the rule and falls back to the inherited body colour. It renders and is clickable, but the wrong colour: a silent visual regression the code diff never shows, because only CMS content changed, not the styles file. Real incident: CORE-6967 / PR #141 — "live chat" went from cyan `rgb(0,177,227)` to body-grey `rgb(54,54,54)`.
+- **Detect:**
+  ```bash
+  # Block styles that colour <em> — each must also colour <a> if that field's content can hold a link:
+  grep -rn "\[&_em\]:text" src/blocks --include=*.styles.ts
+  ```
+- **Fix:** When a `Text`/sanitizeHtml field's content can contain an `<a>`, mirror the `[&_em]` treatment with a matching `[&_a]` rule (plus an `[&_a]:hover:` state, since it is now a real link). Verify the anchor's computed colour live — don't assume the `<em>` rule covers it.
+
+## Backslash-escaped Tailwind arbitrary values silently emit a rule nothing matches
+
+- **When it bites:** A styles file needs a literal underscore inside an arbitrary value — Tailwind reads a bare `_` as a space, so you escape it: `after:content-['\_\_\_\_\_']`. Written in a normal JS/TS string that has to be `'\\_'`, because a lone `\_` is not a valid escape and JS drops the backslash. Now the two consumers disagree: **Tailwind's scanner reads the raw file text** (`\\_`) and emits `.after\:content-\[\'\\\\_…\']:after { --tw-content: "_____" }`, while the **runtime class attribute** carries `\_` (single). The selector never matches. Everything looks healthy — the utility is in the compiled CSS, the class is on the element, no console error — but the pseudo-element's `content` stays `""`, so it collapses to zero height. Sibling utilities on the same pseudo (`after:block`, `after:mb-[15px]`) *do* apply, which makes it read as a spacing bug rather than a missing rule. Real incident: PR #153's ScholarshipWinners divider — all 37 winners lost their `_____` separator and the page ran ~594px shorter than the source.
+- **Detect:**
+  ```bash
+  # Any escaped arbitrary value in a styles file is suspect:
+  grep -rn '\\\\' --include='*.styles.ts' src/
+  # Then confirm the pseudo-element actually resolves, in the browser (not from the CSS file):
+  #   getComputedStyle(el, '::after').content   // must not be '""' when a value was intended
+  ```
+- **Fix:** Use `String.raw` for the whole class string so the file text and the runtime value are identical: ``String.raw`… after:content-['\_\_\_\_\_']` ``. Grepping the compiled CSS is **not** a check — the correct declaration is present there either way; the mismatch is in the selector. Always verify with `getComputedStyle(el, '::after').content` on the rendered page.

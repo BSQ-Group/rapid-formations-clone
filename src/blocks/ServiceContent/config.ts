@@ -114,6 +114,39 @@ export const ServiceContent: Block = {
           label: 'Content',
           required: true,
         },
+        {
+          name: 'videoUrl',
+          type: 'text',
+          label: 'Video URL',
+          admin: {
+            description:
+              'Optional. Player embed URL (Vimeo/YouTube) or a direct .mp4 file URL, shown under this section’s copy. Needs a still to render — without one, nothing appears.',
+          },
+          validate: (value: string | null | undefined) => {
+            if (!value) return true
+            if (/^https?:\/\/\S+$/.test(value)) return true
+            return 'Enter a full URL starting with https:// — a bare file name or video ID will not play.'
+          },
+        },
+        {
+          name: 'videoStill',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Video still',
+          admin: {
+            description:
+              'Landscape. It is the whole clickable target, so set the alt text on the media item — that is what a screen reader announces.',
+          },
+        },
+        {
+          name: 'videoTitle',
+          type: 'text',
+          label: 'Video title',
+          admin: {
+            description:
+              'Names the video to screen readers and in the player frame. Falls back to the section’s first heading when blank.',
+          },
+        },
       ],
     },
     {

@@ -54,6 +54,7 @@ export type TextProps = {
     | 'display-sm'
     | 'button'
   href?: string
+  id?: string
   ref?: React.Ref<any>
   variant?: any
   className?: any | any[]
