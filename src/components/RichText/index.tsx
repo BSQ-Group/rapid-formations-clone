@@ -21,9 +21,12 @@ import {
   DOCUMENT_LIBRARY_HREF,
   ELIGIBLE_COUNTRIES_HREF,
   LIVE_CHAT_HREF,
+  TELEPHONE_HREF,
   type DocumentList,
   type EligibleCountries,
 } from '@/utilities/shortcodes'
+import { faPhoneFlip } from '@fortawesome/pro-solid-svg-icons/faPhoneFlip'
+import { FaIcon } from '@/components/shared/FaIcon'
 
 import type {
   BannerBlock as BannerBlockProps,
@@ -75,6 +78,23 @@ const sentinelLinks: Record<string, (label: string, payload?: unknown) => React.
   },
 }
 
+// The source styles a telephone that stands alone in its paragraph as a
+// call-to-action — phone icon, 28px, cyan — while one sitting inside a sentence
+// stays an ordinary inline link. The distinction is structural, not authored, so
+// it is derived here rather than needing a second shortcode.
+const telephoneLead = 'flex items-center text-[28px] leading-none text-[var(--text-brand-cyan)]'
+const telephoneLeadIcon = 'mr-2 h-[21px] w-[21px] shrink-0'
+
+const isLoneTelephone = (node: { children?: unknown[] }) => {
+  const meaningful = (node.children ?? []).filter((child) => {
+    const item = child as { type?: string; text?: string }
+    return item.type !== 'text' || Boolean(item.text?.trim())
+  })
+  if (meaningful.length !== 1) return false
+  const only = meaningful[0] as SerializedLinkNode
+  return only?.type === 'link' && only.fields?.url === TELEPHONE_HREF
+}
+
 const INDENT_STEP_PX = 16
 
 const indentStyle = (node: { indent?: number }) => {
@@ -116,6 +136,14 @@ const buildConverters =
     },
     paragraph: ({ node, nodesToJSX }) => {
       const children = nodesToJSX({ nodes: node.children })
+      if (isLoneTelephone(node)) {
+        return (
+          <p style={indentStyle(node)} className={telephoneLead}>
+            <FaIcon icon={faPhoneFlip} className={telephoneLeadIcon} />
+            {children}
+          </p>
+        )
+      }
       return <p style={indentStyle(node)}>{children?.length ? children : <br />}</p>
     },
     list: (args) => {

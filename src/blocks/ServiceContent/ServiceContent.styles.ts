@@ -14,6 +14,10 @@ export const serviceContentStyles = {
   item: 'mb-[30px] min-[1023px]:last:mb-0',
 
   videoWrap: 'mt-8',
+
+  // Leads the column, so it takes the heading's top margin instead of adding to it.
+  videoWrapLead: 'mt-0 mb-8',
+
   stillPicture: 'block w-full',
   still: 'block h-auto w-full rounded-lg object-cover',
   stillSizes: '(min-width: 1023px) 50vw, 100vw',
