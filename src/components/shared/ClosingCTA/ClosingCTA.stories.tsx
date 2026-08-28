@@ -39,6 +39,17 @@ export const CompanyRegistration: Story = {
   },
 }
 
+export const Panel: Story = {
+  name: 'Panel variant (Review Centre)',
+  args: {
+    blockType: 'closingCTA',
+    heading: 'Are you ready to\nregister your company today?',
+    description: 'Order online or if you have any questions, please call 020 7871 9990.',
+    cta: { ...cta, label: 'Register Now' },
+    variant: 'panel',
+  },
+}
+
 export const HeadingOnly: Story = {
   name: 'No description',
   args: { blockType: 'closingCTA', heading: 'Register your company today', cta },

@@ -664,3 +664,27 @@ Each entry has four parts:
   # prerender answers 200 for a page that is no longer published.
   ```
 - **Fix:** Never echo a draft read's `_status` back on write. Either send `_status: 'published'` explicitly for pages that were published before you started (snapshot that first, from a read **without** `draft=true`), or omit `_status` from the PATCH body entirely and publish as a separate deliberate step. Before republishing a page you demoted, diff the last published version against the current draft (`/api/pages/versions?where[parent][equals]=<id>&sort=-updatedAt`) so you know exactly what the publish would release — an unrelated pending autosave must not ride along.
+
+## A page whose text diffs clean can still render an entirely different component
+
+- **When it bites:** Port QA compares `innerText` (or a `curl | grep`) between the clone and the source, sees the copy match, and calls the page done. Copy is the one thing a port gets right by construction — it was transcribed from the source — so a text diff mostly re-tests the transcription, not the build. The design can be completely different underneath and the diff still comes back clean, because the *words* are the same. Real incident: `/customer-reviews`. Text diff showed only `Trustpilot | 4.8 | out of 5.0` vs `Rated 4.8 out of 5.0` — a wording nit. The section behind it was a different component: the source is a full-bleed cyan banner with 26px provider names, **70px** scores and a vertical divider; the clone was rendering the generic white ratings track with brand logos and star rows. Same story in the closing CTA — same sentence, but 32px bold cyan `h3` + `Get Started` where the source has a 36px regular `h2` on two lines, a 24px standfirst with a `tel:` link, and a larger `Register Now` button.
+- **Detect:** diff *computed style and geometry* at the section level, not text. For each landmark heading, compare the band it sits in and its own type ramp:
+  ```js
+  // in page.evaluate(), on both the clone and the source
+  const marks = ['how we are rated', 'are you ready']   // landmark headings
+  marks.map((t) => {
+    const h = [...document.querySelectorAll('h1,h2,h3,h4')]
+      .find((e) => e.innerText.trim().toLowerCase().startsWith(t))
+    if (!h) return { t, missing: true }
+    const c = getComputedStyle(h)
+    let band = h                                        // nearest full-width ancestor
+    while (band.parentElement && band.getBoundingClientRect().width < innerWidth - 1) {
+      band = band.parentElement
+    }
+    const b = band.getBoundingClientRect()
+    return { t, tag: h.tagName, fs: c.fontSize, fw: c.fontWeight, color: c.color,
+             bandBg: getComputedStyle(band).backgroundColor, bandH: Math.round(b.height) }
+  })
+  ```
+  A differing `bandBg` (`rgb(0, 177, 227)` vs `rgba(0, 0, 0, 0)`) or a `fontSize` that is off by more than rounding means a different component, however well the text matches. Follow with the landmark **step delta** (`y[n] - y[n-1]` on both sides): every step matching except one localises the gap to a single section instead of chasing a whole-page height total.
+- **Fix:** Build the page-specific treatment rather than bending the shared block, and check *before* editing how widely that block is used — `GET /api/pages?depth=0&limit=200` and count pages carrying the `blockType`. `closingCTA` sits on 61 pages and was correct on 60 of them; only the Review Centre uses the panel treatment, so it became a `variant` on the block, not a change to its defaults. Verify the untouched pages still render the old way afterwards.

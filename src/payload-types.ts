@@ -6705,6 +6705,9 @@ export interface ReviewCentreTabsBlock {
  * via the `definition` "ClosingCTABlock".
  */
 export interface ClosingCTABlock {
+  /**
+   * Line breaks are preserved, matching the source layout.
+   */
   heading: string;
   /**
    * Line breaks are preserved, matching the source layout.
@@ -6725,6 +6728,10 @@ export interface ClosingCTABlock {
     url?: string | null;
     label: string;
   };
+  /**
+   * Standard is the closing CTA the rest of the site uses. Panel is the wider, quieter treatment the Review Centre closes on.
+   */
+  variant?: ('standard' | 'panel') | null;
   /**
    * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
    */
@@ -10664,6 +10671,7 @@ export interface ClosingCTABlockSelect<T extends boolean = true> {
         url?: T;
         label?: T;
       };
+  variant?: T;
   sectionLayout?:
     | T
     | {

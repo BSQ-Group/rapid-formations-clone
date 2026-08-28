@@ -29,8 +29,27 @@ export const reviewCentreTabsStyles = {
   itemActive:
     'bg-[var(--surface-brand-cyan)] text-[rgb(var(--white))] md:bg-[var(--surface-brand-cyan)]',
 
+  ratingsBanner: 'block w-full bg-[var(--surface-brand-cyan)] py-[25px] text-[rgb(var(--white))]',
+
   ratingsHeading:
-    'mt-[45px] mb-8 block text-center text-[36px] leading-[1.235] font-normal text-[var(--text-on-light-base)]',
+    'mb-[30px] block text-center text-[36px] leading-[44.46px] font-normal text-[rgb(var(--white))]',
+
+  // The source sizes every pane at a fifth of the track and centres the group, so two
+  // platforms sit either side of the middle and a fuller set still fits one row. Below
+  // md that fifth is only 54px and the provider names overlap each other, so the panes
+  // stack instead.
+  ratingsTrack:
+    'mx-auto flex flex-col items-center md:w-[calc(100%-90px)] md:flex-row md:justify-center',
+
+  pane: 'block w-full text-[rgb(var(--white))] no-underline hover:no-underline md:w-1/5 md:border-r md:border-solid md:border-[color:rgb(var(--white))] md:last:border-r-0',
+
+  paneProvider: 'block text-center text-[26px] leading-[39px] font-normal',
+
+  paneScore: 'block text-center text-[104px] leading-none font-normal md:text-[70px]',
+
+  paneMaxScore: 'block text-center text-lg leading-[27px]',
+
+  paneTotal: 'mt-[15px] mb-[30px] block text-center text-lg leading-[27px]',
 
   banner: 'block w-full bg-[var(--surface-brand-cyan)] text-[rgb(var(--white))] md:py-[15px]',
 
