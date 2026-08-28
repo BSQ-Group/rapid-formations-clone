@@ -55,13 +55,17 @@ export const ReviewHighlightRowsBlockComponent: React.FC<ReviewHighlightRowsBloc
                     }}
                   >
                     <div className={s.avatar} style={{ backgroundColor: quote.accentColour }}>
-                      <span className={s.avatarText}>{initialsOf(quote.authorName)}</span>
+                      <Text
+                        textStyle="span"
+                        text={initialsOf(quote.authorName)}
+                        className={s.avatarText}
+                      />
                     </div>
                     <div>
                       <RatingStars score={5} size="sm" className={s.quoteStars} />
                       <Text as="p" textStyle="span" text={quote.text} className={s.quoteText} />
-                      <div className={s.user}>
-                        <span style={{ color: quote.accentColour }}>{quote.authorName}</span>
+                      <div className={s.user} style={{ color: quote.accentColour }}>
+                        <Text textStyle="span" text={quote.authorName} />
                       </div>
                     </div>
                   </div>

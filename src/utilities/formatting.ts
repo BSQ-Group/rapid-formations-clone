@@ -48,8 +48,12 @@ export const formatOfficerName = (
   return [name.title, name.firstname, name.middlename, name.surname].filter(Boolean).join(' ')
 }
 
-export const initialsOf = (name: string) =>
-  name
+/**
+ * Autosave writes drafts with skipValidation, so a required field can still be
+ * absent at render time — accept that rather than throwing on .split.
+ */
+export const initialsOf = (name?: string | null) =>
+  (name ?? '')
     .split(/\s+/)
     .filter(Boolean)
     .slice(0, 2)
