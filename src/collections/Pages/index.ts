@@ -39,6 +39,7 @@ import { StepsItems } from '../../blocks/StepsItems/config'
 import { ComparePackageTable } from '@/blocks/ComparePackageTable/config'
 import { ComparePackagesHero } from '@/components/shared/ComparePackagesHero/config'
 import { BuyService } from '../../blocks/BuyService/config'
+import { ScholarshipProgramme } from '../../blocks/ScholarshipProgramme/config'
 import { ServiceContent } from '../../blocks/ServiceContent/config'
 import { ServicesBenefits } from '../../blocks/ServicesBenefits/config'
 import { ServicePriceBanner } from '../../blocks/ServicePriceBanner/config'
@@ -213,6 +214,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 ComparePackageTable,
                 ComparePackagesHero,
                 BuyService,
+                ScholarshipProgramme,
                 ServiceContent,
                 ServicesBenefits,
                 ServicePriceBanner,
