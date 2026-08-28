@@ -5,12 +5,32 @@ const bulletLists = `${bulletListsBase} [&_ol>li]:list-[lower-latin]`
 
 export const textContentStyles = {
   section: 'font-legacy-condensed w-full bg-[var(--surface-canvas)]',
+
+  // The icon replaces the marker, so the list loses its disc and inset and each
+  // item becomes a two-column grid — the same shape ServiceContent uses.
+  // Only the marker changes — the variant keeps control of the list's inset, which
+  // the source preserves when it swaps a bullet for an icon.
+  iconList:
+    '[&_ul]:list-none [&_ul>li]:!pl-0 [&_ul>li]:grid [&_ul>li]:grid-cols-[20px_1fr] [&_ul>li]:gap-2',
+
+  icon: 'mt-1.5 h-4 w-4',
+  iconInherit: 'text-[var(--text-on-light-muted)]',
+  iconGreen: 'text-[var(--icon-list-check)]',
+  iconSuccess: 'text-[var(--surface-cta-success)]',
+  iconSubtle: 'text-[var(--text-on-light-subtle)]',
+
+  inlineImage: 'mb-4 max-w-full',
+  inlineImageImg: 'block h-auto w-full',
 } as const
 
 export const richTextShell = {
   text: 'block text-xl leading-[30px] text-[var(--text-on-light-muted)]',
 
-  paragraphs: '[&_p]:!mb-2 [&>*:last-child]:!mb-0',
+  paragraphs: '[&_p]:!mb-2',
+
+  // Kept separate so a block rendered in two passes can leave the first pass's
+  // trailing margin intact — it is a mid-block boundary, not the end of the copy.
+  flushLast: '[&>*:last-child]:!mb-0',
 
   headings:
     '[&_h2]:!mt-0 [&_h2]:!mb-4 [&_h2]:text-[28.8px] [&_h2]:font-normal [&_h2]:leading-[43.2px] [&_h2]:text-[var(--text-on-light-base)] [&_h3]:!mt-4 [&_h3]:!mb-3 [&_h3]:text-[20.8px] [&_h3]:font-normal [&_h3]:leading-[31.2px] [&_h3]:text-[var(--text-on-light-base)]',
@@ -20,6 +40,16 @@ export const richTextShell = {
 
 const standard = {
   lists: bulletLists,
+}
+
+// The source scopes this page's headings and list inset to the banking template
+// rather than the site baseline: 23px H2 with a 20px gap, and a 15px list inset.
+const bankingSections = {
+  headings: '[&_h2]:!mb-5 [&_h2]:text-[23px] [&_h2]:leading-[1.235]',
+
+  spacing: '[&_p]:!mb-4',
+
+  lists: `${bulletListsBase} [&_ul]:!pl-[15px] [&_ol>li]:list-decimal`,
 }
 
 const pageSections = {
@@ -120,6 +150,7 @@ const cookies = {
 export const variantStyles = {
   standard,
   pageSections,
+  bankingSections,
   packageCopy,
   policy,
   numbered,

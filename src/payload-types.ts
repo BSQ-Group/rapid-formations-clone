@@ -6423,9 +6423,24 @@ export interface TextContentBlock {
     [k: string]: unknown;
   };
   /**
+   * Replaces the bullet on every unordered list item in this block.
+   */
+  icon?: ('none' | 'chevron' | 'check') | null;
+  iconColour?: ('inherit' | 'green' | 'success' | 'subtle') | null;
+  /**
+   * Optional. A logo or badge sitting under this block’s first heading, the way the source places a partner mark above the copy. Set the alt text on the media item.
+   */
+  inlineImage?: (string | null) | Media;
+  /**
+   * Rendered width. The source uses 150px.
+   */
+  inlineImageWidth?: number | null;
+  /**
    * Standard matches the default long-form body. Page sections carries the site baseline heading sizes the renewals page uses. Policy carries the page-scoped overrides the Environmental Policy page uses. Numbered clauses renders the multi-level counter numbering the Whistleblowing policy uses. Cookies policy narrows the measure and boxes the paragraphs that name a cookie.
    */
-  variant?: ('standard' | 'pageSections' | 'packageCopy' | 'policy' | 'numbered' | 'terms' | 'cookies') | null;
+  variant?:
+    | ('standard' | 'pageSections' | 'bankingSections' | 'packageCopy' | 'policy' | 'numbered' | 'terms' | 'cookies')
+    | null;
   /**
    * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
    */
@@ -10473,6 +10488,10 @@ export interface PageTitleBlockSelect<T extends boolean = true> {
  */
 export interface TextContentBlockSelect<T extends boolean = true> {
   body?: T;
+  icon?: T;
+  iconColour?: T;
+  inlineImage?: T;
+  inlineImageWidth?: T;
   variant?: T;
   sectionLayout?:
     | T
