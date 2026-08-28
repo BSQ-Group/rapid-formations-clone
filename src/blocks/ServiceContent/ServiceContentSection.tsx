@@ -55,8 +55,26 @@ export const ServiceContentSection: React.FC<{ section: Section; lead?: boolean 
   ) : null
   const videoLabel = section.videoTitle?.trim() || firstHeading(section.content)
 
+  const video = still && (
+    <div className={cn(s.videoWrap, section.videoPosition === 'above' && s.videoWrapLead)}>
+      {section.videoUrl ? (
+        <VideoModal
+          videoUrl={section.videoUrl}
+          title={videoLabel}
+          triggerLabel={`Play video: ${videoLabel}`}
+          playIconClassName={s.playIcon}
+        >
+          {still}
+        </VideoModal>
+      ) : (
+        still
+      )}
+    </div>
+  )
+
   return (
     <div className={s.item}>
+      {section.videoPosition === 'above' && video}
       <RichText
         data={section.content}
         enableGutter={false}
@@ -71,22 +89,7 @@ export const ServiceContentSection: React.FC<{ section: Section; lead?: boolean 
           ) : undefined
         }
       />
-      {still && (
-        <div className={s.videoWrap}>
-          {section.videoUrl ? (
-            <VideoModal
-              videoUrl={section.videoUrl}
-              title={videoLabel}
-              triggerLabel={`Play video: ${videoLabel}`}
-              playIconClassName={s.playIcon}
-            >
-              {still}
-            </VideoModal>
-          ) : (
-            still
-          )}
-        </div>
-      )}
+      {section.videoPosition !== 'above' && video}
     </div>
   )
 }

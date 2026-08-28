@@ -139,6 +139,20 @@ export const ServiceContent: Block = {
           },
         },
         {
+          name: 'videoPosition',
+          type: 'select',
+          label: 'Video position',
+          defaultValue: 'below',
+          options: [
+            { label: 'Below the copy', value: 'below' },
+            { label: 'Above the copy', value: 'above' },
+          ],
+          admin: {
+            description:
+              'Above puts the still at the top of the column, with this section’s copy under it — the source layout for a column that opens on a video.',
+          },
+        },
+        {
           name: 'videoTitle',
           type: 'text',
           label: 'Video title',

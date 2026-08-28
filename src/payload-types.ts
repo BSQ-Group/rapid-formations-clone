@@ -3321,6 +3321,10 @@ export interface ServiceContentBlock {
          */
         videoStill?: (string | null) | Media;
         /**
+         * Above puts the still at the top of the column, with this section’s copy under it — the source layout for a column that opens on a video.
+         */
+        videoPosition?: ('below' | 'above') | null;
+        /**
          * Names the video to screen readers and in the player frame. Falls back to the section’s first heading when blank.
          */
         videoTitle?: string | null;
@@ -8648,6 +8652,7 @@ export interface ServiceContentBlockSelect<T extends boolean = true> {
         content?: T;
         videoUrl?: T;
         videoStill?: T;
+        videoPosition?: T;
         videoTitle?: T;
         id?: T;
       };
