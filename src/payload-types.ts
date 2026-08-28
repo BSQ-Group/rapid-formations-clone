@@ -3397,6 +3397,18 @@ export interface ServicesBenefitsBlock {
    */
   image?: (string | null) | Media;
   /**
+   * Optional. Player embed URL (Vimeo/YouTube) or a direct .mp4 file URL, shown centred under the benefits. Needs a still to render — without one, nothing appears.
+   */
+  videoUrl?: string | null;
+  /**
+   * Landscape. It is the whole clickable target, so set the alt text on the media item — that is what a screen reader announces.
+   */
+  videoStill?: (string | null) | Media;
+  /**
+   * Names the video to screen readers and in the player frame. Falls back to the heading when blank.
+   */
+  videoTitle?: string | null;
+  /**
    * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
    */
   sectionLayout: {
@@ -8705,6 +8717,9 @@ export interface ServicesBenefitsBlockSelect<T extends boolean = true> {
         id?: T;
       };
   image?: T;
+  videoUrl?: T;
+  videoStill?: T;
+  videoTitle?: T;
   sectionLayout?:
     | T
     | {
