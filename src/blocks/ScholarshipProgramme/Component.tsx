@@ -16,6 +16,7 @@ import { scholarshipProgrammeStyles as s } from './ScholarshipProgramme.styles'
 
 export const ScholarshipProgrammeBlock: React.FC<ScholarshipProgrammeBlockProps> = ({
   title,
+  isPageTitle,
   intro,
   applyCta,
   winnersHeading,
@@ -31,11 +32,17 @@ export const ScholarshipProgrammeBlock: React.FC<ScholarshipProgrammeBlockProps>
       <Container className={s.wrapperPad}>
         <div className={s.grid}>
           <div>
-            <Text as="h1" textStyle="span" text={title} className={s.title} />
+            <Text
+              as={isPageTitle === false ? 'h2' : 'h1'}
+              textStyle="span"
+              text={title}
+              className={s.title}
+            />
             {intro && (
               <RichText
                 data={intro}
                 enableGutter={false}
+                enableProse={false}
                 className={cn(
                   richTextShell.text,
                   richTextShell.paragraphs,

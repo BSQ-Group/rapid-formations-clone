@@ -1,8 +1,9 @@
 import React from 'react'
+import Image from 'next/image'
 
 import type { Media as MediaDoc } from '@/payload-types'
 
-import { Media } from '@/components/Media'
+import { getMediaUrl } from '@/utilities/getMediaUrl'
 import Text from '@/components/shared/Text'
 import { cn } from '@/utilities/ui'
 import { universityPartnersStyles as s } from './UniversityPartners.styles'
@@ -20,10 +21,10 @@ export type UniversityPartnersProps = {
   className?: string
 }
 
-type PartnerWithLogo = UniversityPartner & { logo: MediaDoc }
+type PartnerWithLogo = UniversityPartner & { logo: MediaDoc & { url: string } }
 
 const hasLogo = (partner: UniversityPartner): partner is PartnerWithLogo =>
-  typeof partner.logo === 'object' && partner.logo !== null
+  typeof partner.logo === 'object' && partner.logo !== null && Boolean(partner.logo.url)
 
 export const UniversityPartners: React.FC<UniversityPartnersProps> = ({
   heading,
@@ -41,12 +42,13 @@ export const UniversityPartners: React.FC<UniversityPartnersProps> = ({
       <div className={s[layout]}>
         {shown.map(({ id, name, logo }, index) => (
           <div key={id ?? `${name}-${index}`} className={s.partner}>
-            <Media
-              resource={logo}
-              htmlElement={null}
-              pictureClassName={s.picture}
-              imgClassName={s.logo}
-              size={s.logoSizes}
+            <Image
+              src={getMediaUrl(logo.url)}
+              alt={`${name} logo`}
+              width={logo.width || 160}
+              height={logo.height || 40}
+              className={s.logo}
+              sizes={s.logoSizes}
               loading="lazy"
             />
           </div>

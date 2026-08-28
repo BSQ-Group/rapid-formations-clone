@@ -10,8 +10,6 @@ export const universityPartnersStyles = {
 
   partner: 'mb-[42px]',
 
-  picture: 'block',
-
   logo: 'block h-auto max-w-[160px]',
 
   logoSizes: '160px',

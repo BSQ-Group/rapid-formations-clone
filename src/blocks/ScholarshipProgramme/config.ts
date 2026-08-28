@@ -14,8 +14,17 @@ export const ScholarshipProgramme: Block = {
       type: 'textarea',
       required: true,
       admin: {
+        description: 'Page heading. Wraps on its own — line breaks typed here are not preserved.',
+      },
+    },
+    {
+      name: 'isPageTitle',
+      type: 'checkbox',
+      label: 'Render as the page H1',
+      defaultValue: true,
+      admin: {
         description:
-          'Page heading, rendered as the h1. Wraps on its own — line breaks typed here are not preserved.',
+          'Untick when a banner above already carries the H1 — the heading then renders as an H2.',
       },
     },
     {

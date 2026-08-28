@@ -7,14 +7,15 @@ export const scholarshipWinnersStyles = {
 
   grid: 'grid grid-cols-1 md:grid-cols-2',
 
-  year:
-    'mb-2 block text-[26px] leading-[32.11px] font-normal text-[var(--text-on-light-base)] md:text-[28px] md:leading-[34.58px]',
+  year: 'mb-2 block text-[26px] leading-[32.11px] font-normal text-[var(--text-on-light-base)] md:text-[28px] md:leading-[34.58px]',
 
-  winner: 'mb-4',
+  // The source draws the divider with :after { content: "_____" } rather than an element,
+  // so it stays out of the DOM and the accessibility tree. Underscores are escaped because
+  // Tailwind reads a bare _ in an arbitrary value as a space.
+  winner:
+    "mb-4 after:mb-[15px] after:block after:text-lg after:leading-[27px] after:text-[var(--text-on-light-base)] after:content-['\\_\\_\\_\\_\\_']",
 
   name: 'mb-2 block text-2xl leading-[32.4px] font-normal tracking-normal text-[var(--text-on-light-base)]',
 
   detail: 'block text-lg leading-[27px] font-normal text-[var(--text-on-light-base)]',
-
-  rule: 'mb-[15px] block text-lg leading-[27px] text-[var(--text-on-light-base)]',
 } as const

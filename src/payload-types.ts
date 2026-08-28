@@ -3006,9 +3006,13 @@ export interface BuyService {
  */
 export interface ScholarshipProgrammeBlock {
   /**
-   * Page heading, rendered as the h1. Wraps on its own — line breaks typed here are not preserved.
+   * Page heading. Wraps on its own — line breaks typed here are not preserved.
    */
   title: string;
+  /**
+   * Untick when a banner above already carries the H1 — the heading then renders as an H2.
+   */
+  isPageTitle?: boolean | null;
   /**
    * Body copy above the winners card. Headings, lists and links.
    */
@@ -7741,6 +7745,7 @@ export interface BuyServiceBlockSelect<T extends boolean = true> {
  */
 export interface ScholarshipProgrammeBlockSelect<T extends boolean = true> {
   title?: T;
+  isPageTitle?: T;
   intro?: T;
   applyCta?:
     | T

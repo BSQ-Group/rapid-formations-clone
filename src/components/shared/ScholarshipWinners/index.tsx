@@ -18,6 +18,23 @@ export type ScholarshipWinnersProps = {
   className?: string
 }
 
+/**
+ * The course line. courseName and university are independently optional, so render
+ * whichever the editor filled in rather than dropping the line unless both are set.
+ */
+const courseLine = ({ courseName, university }: ScholarshipWinner): React.ReactNode => {
+  if (courseName && university)
+    return (
+      <>
+        {courseName} student at
+        <br />
+        {university}
+      </>
+    )
+  if (courseName) return `${courseName} student`
+  return university
+}
+
 const byYearDescending = (winners: ScholarshipWinner[]) => {
   const years = winners.reduce((acc, winner) => {
     const year = winner.year.trim()
@@ -48,17 +65,12 @@ export const ScholarshipWinners: React.FC<ScholarshipWinnersProps> = ({
             <Text as="h3" textStyle="span" text={year} className={s.year} />
             {entries.map((winner, index) => (
               <div key={winner.id ?? `${year}-${index}`} className={s.winner}>
-                <Text as="h4" textStyle="span" text={winner.name} className={s.name} />
-                {winner.courseName && winner.university && (
-                  <span className={s.detail}>
-                    {winner.courseName} student at
-                    <br />
-                    {winner.university}
-                  </span>
+                <Text textStyle="span" text={winner.name} className={s.name} />
+                {(winner.courseName || winner.university) && (
+                  <Text asChild className={s.detail}>
+                    <span>{courseLine(winner)}</span>
+                  </Text>
                 )}
-                <span aria-hidden="true" className={s.rule}>
-                  _____
-                </span>
               </div>
             ))}
           </div>
