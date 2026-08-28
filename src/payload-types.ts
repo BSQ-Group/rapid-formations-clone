@@ -6462,7 +6462,7 @@ export interface TitleBannerBlock {
   /**
    * Fills the full-width band either side of the image above 1170px.
    */
-  backdrop?: ('none' | 'dark' | 'mist' | 'pale') | null;
+  backdrop?: ('none' | 'dark' | 'mist' | 'pale' | 'grey') | null;
   /**
    * Unticked the band is cropped to 260px tall.
    */

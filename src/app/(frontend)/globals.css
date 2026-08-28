@@ -348,6 +348,7 @@
     --surface-banner-backdrop: rgb(38 50 56);
     --surface-banner-backdrop-mist: rgb(229 231 235);
     --surface-banner-backdrop-pale: rgb(242 242 242);
+    --surface-banner-backdrop-grey: rgb(190 190 190);
     --tooltip-surface: rgb(255 255 255);
     --tooltip-text-title: var(--text-on-light-base);
     --tooltip-text-body: var(--text-on-light-muted);

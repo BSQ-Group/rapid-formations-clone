@@ -48,6 +48,7 @@ export const ScholarshipProgrammeBlock: React.FC<ScholarshipProgrammeBlockProps>
                   richTextShell.paragraphs,
                   richTextShell.headings,
                   richTextShell.links,
+                  s.intro,
                 )}
               />
             )}
