@@ -637,3 +637,15 @@ Each entry has four parts:
   grep -rn "\[&_em\]:text" src/blocks --include=*.styles.ts
   ```
 - **Fix:** When a `Text`/sanitizeHtml field's content can contain an `<a>`, mirror the `[&_em]` treatment with a matching `[&_a]` rule (plus an `[&_a]:hover:` state, since it is now a real link). Verify the anchor's computed colour live — don't assume the `<em>` rule covers it.
+
+## Backslash-escaped Tailwind arbitrary values silently emit a rule nothing matches
+
+- **When it bites:** A styles file needs a literal underscore inside an arbitrary value — Tailwind reads a bare `_` as a space, so you escape it: `after:content-['\_\_\_\_\_']`. Written in a normal JS/TS string that has to be `'\\_'`, because a lone `\_` is not a valid escape and JS drops the backslash. Now the two consumers disagree: **Tailwind's scanner reads the raw file text** (`\\_`) and emits `.after\:content-\[\'\\\\_…\']:after { --tw-content: "_____" }`, while the **runtime class attribute** carries `\_` (single). The selector never matches. Everything looks healthy — the utility is in the compiled CSS, the class is on the element, no console error — but the pseudo-element's `content` stays `""`, so it collapses to zero height. Sibling utilities on the same pseudo (`after:block`, `after:mb-[15px]`) *do* apply, which makes it read as a spacing bug rather than a missing rule. Real incident: PR #153's ScholarshipWinners divider — all 37 winners lost their `_____` separator and the page ran ~594px shorter than the source.
+- **Detect:**
+  ```bash
+  # Any escaped arbitrary value in a styles file is suspect:
+  grep -rn '\\\\' --include='*.styles.ts' src/
+  # Then confirm the pseudo-element actually resolves, in the browser (not from the CSS file):
+  #   getComputedStyle(el, '::after').content   // must not be '""' when a value was intended
+  ```
+- **Fix:** Use `String.raw` for the whole class string so the file text and the runtime value are identical: ``String.raw`… after:content-['\_\_\_\_\_']` ``. Grepping the compiled CSS is **not** a check — the correct declaration is present there either way; the mismatch is in the selector. Always verify with `getComputedStyle(el, '::after').content` on the rendered page.

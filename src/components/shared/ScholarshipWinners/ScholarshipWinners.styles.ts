@@ -13,7 +13,10 @@ export const scholarshipWinnersStyles = {
   // so it stays out of the DOM and the accessibility tree. Underscores are escaped because
   // Tailwind reads a bare _ in an arbitrary value as a space.
   winner:
-    "mb-4 after:mb-[15px] after:block after:text-lg after:leading-[27px] after:text-[var(--text-on-light-base)] after:content-['\\_\\_\\_\\_\\_']",
+    // String.raw so the file text and the runtime class agree: Tailwind scans the
+    // raw source, and a normal literal's "\\_" would emit a rule for a class the DOM
+    // never carries, leaving the divider's content empty.
+    String.raw`mb-4 after:mb-[15px] after:block after:text-lg after:leading-[27px] after:text-[var(--text-on-light-base)] after:content-['\_\_\_\_\_']`,
 
   name: 'mb-2 block text-2xl leading-[32.4px] font-normal tracking-normal text-[var(--text-on-light-base)]',
 

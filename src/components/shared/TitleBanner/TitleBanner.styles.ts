@@ -29,6 +29,7 @@ export const titleBannerStyles = {
     dark: 'bg-[var(--surface-banner-backdrop)]',
     mist: 'bg-[var(--surface-banner-backdrop-mist)]',
     pale: 'bg-[var(--surface-banner-backdrop-pale)]',
+    grey: 'bg-[var(--surface-banner-backdrop-grey)]',
   },
 
   imageFrame: 'mx-auto w-full',
