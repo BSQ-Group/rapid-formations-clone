@@ -1,7 +1,11 @@
+// VERCEL_PROJECT_PRODUCTION_URL is a bare hostname, so it needs the scheme added.
+// A <loc> or Sitemap: line without one is invalid and crawlers reject it.
+// Mirrors getServerSideURL() in src/utilities/getURL.ts, which this file cannot import.
 const SITE_URL =
   process.env.NEXT_PUBLIC_SERVER_URL ||
-  process.env.VERCEL_PROJECT_PRODUCTION_URL ||
-  'https://example.com'
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : 'http://localhost:3000')
 
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {

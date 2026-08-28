@@ -649,3 +649,18 @@ Each entry has four parts:
   #   getComputedStyle(el, '::after').content   // must not be '""' when a value was intended
   ```
 - **Fix:** Use `String.raw` for the whole class string so the file text and the runtime value are identical: ``String.raw`… after:content-['\_\_\_\_\_']` ``. Grepping the compiled CSS is **not** a check — the correct declaration is present there either way; the mismatch is in the selector. Always verify with `getComputedStyle(el, '::after').content` on the rendered page.
+
+## Reading a page with `draft=true` and echoing its `_status` back on PATCH silently unpublishes it
+
+- **When it bites:** A bulk CMS edit reads each page with `?draft=true` (so it sees the newest content), then PATCHes with `{layout, _status: doc._status}` to "preserve" the status. For any page carrying an unpublished draft version — including one created by a stray admin autosave nobody finished — the read returns `_status: "draft"`, so the PATCH writes `draft` back to the **main** document and the page drops out of the published set. The frontend queries `where: { _status: { equals: 'published' } }`, so the page now 404s. **Production keeps serving it from the build-time prerender, so nothing looks wrong** — the 404 only appears on the next deploy, long after the change that caused it. A same-session before/after status diff catches it; eyeballing the live site does not. Real incident: PR "fix/broken-links-and-sitemap" — a blog-link rewrite demoted `/compare-packages`, a top-level commercial page, while prod still answered 200.
+- **Detect:**
+  ```bash
+  # Snapshot published status BEFORE any write (no draft param — this is the published view):
+  curl -sk -H "Authorization: JWT $TOKEN" \
+    'https://localhost:3000/api/pages?depth=0&limit=300&select%5Bslug%5D=true&select%5B_status%5D=true' > before.json
+  # ...run the writes, re-fetch as after.json, then diff:
+  #   demoted = [s for s in before if before[s]=='published' and after[s]!='published']
+  # `demoted` must be empty. Do NOT substitute a curl of the live site: the stale
+  # prerender answers 200 for a page that is no longer published.
+  ```
+- **Fix:** Never echo a draft read's `_status` back on write. Either send `_status: 'published'` explicitly for pages that were published before you started (snapshot that first, from a read **without** `draft=true`), or omit `_status` from the PATCH body entirely and publish as a separate deliberate step. Before republishing a page you demoted, diff the last published version against the current draft (`/api/pages/versions?where[parent][equals]=<id>&sort=-updatedAt`) so you know exactly what the publish would release — an unrelated pending autosave must not ride along.
