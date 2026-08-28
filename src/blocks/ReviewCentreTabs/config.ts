@@ -1,5 +1,7 @@
 import type { Block } from 'payload'
 
+import { ReviewHighlightRows } from '@/blocks/ReviewHighlightRows/config'
+
 export const ReviewCentreTabs: Block = {
   slug: 'reviewCentreTabs',
   interfaceName: 'ReviewCentreTabsBlock',
@@ -45,6 +47,18 @@ export const ReviewCentreTabs: Block = {
           defaultValue: 'How we are rated',
           admin: {
             condition: (_, siblingData) => siblingData?.panel === 'ratings',
+          },
+        },
+        {
+          name: 'content',
+          type: 'blocks',
+          label: 'Panel content',
+          blocks: [ReviewHighlightRows],
+          admin: {
+            initCollapsed: true,
+            condition: (_, siblingData) => siblingData?.panel === 'ratings',
+            description:
+              'Rendered under the ratings banner, inside this tab. The source keeps the review highlight rows here rather than on the page, so they show on the overview and go away when a provider tab is open.',
           },
         },
         {

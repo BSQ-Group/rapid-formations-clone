@@ -6675,6 +6675,10 @@ export interface ReviewCentreTabsBlock {
     panel: 'ratings' | 'provider';
     heading?: string | null;
     /**
+     * Rendered under the ratings banner, inside this tab. The source keeps the review highlight rows here rather than on the page, so they show on the overview and go away when a provider tab is open.
+     */
+    content?: ReviewHighlightRowsBlock[] | null;
+    /**
      * Matches a platform in the Review Stats global and the Provider on each review, e.g. "Trustpilot". Spelling must match Review Stats; case does not matter.
      */
     provider?: string | null;
@@ -10645,6 +10649,11 @@ export interface ReviewCentreTabsBlockSelect<T extends boolean = true> {
         label?: T;
         panel?: T;
         heading?: T;
+        content?:
+          | T
+          | {
+              reviewHighlightRows?: T | ReviewHighlightRowsBlockSelect<T>;
+            };
         provider?: T;
         id?: T;
       };

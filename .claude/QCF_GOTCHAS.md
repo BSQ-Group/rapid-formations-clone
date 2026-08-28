@@ -688,3 +688,21 @@ Each entry has four parts:
   ```
   A differing `bandBg` (`rgb(0, 177, 227)` vs `rgba(0, 0, 0, 0)`) or a `fontSize` that is off by more than rounding means a different component, however well the text matches. Follow with the landmark **step delta** (`y[n] - y[n-1]` on both sides): every step matching except one localises the gap to a single section instead of chasing a whole-page height total.
 - **Fix:** Build the page-specific treatment rather than bending the shared block, and check *before* editing how widely that block is used — `GET /api/pages?depth=0&limit=200` and count pages carrying the `blockType`. `closingCTA` sits on 61 pages and was correct on 60 of them; only the Review Centre uses the panel treatment, so it became a `variant` on the block, not a change to its defaults. Verify the untouched pages still render the old way afterwards.
+
+## Only the default tab/accordion state was verified — the other states were never opened
+
+- **When it bites:** A page with tabs, an accordion, or any toggled panel is compared against the source in whatever state it loads in, and signed off. Every other state is unverified, and those states can differ *structurally*, not just cosmetically. Real incident: `/customer-reviews`. The Overview tab matched to 1px across four breakpoints. Clicking **Trustpilot** or **Google** on the source drops the four review-highlight rows — they live inside the Overview panel, not on the page — while the clone kept them visible below the reviews, leaving the page ~2,600px longer than the source on those tabs. Nothing about the default view hinted at it.
+- **Detect:** drive every tab and diff what is *visible* in each, not just the panel that happens to be open:
+  ```js
+  // per tab, after clicking it:
+  const vis = (e) => { const b = e.getBoundingClientRect(); return b.width > 0 && b.height > 0 && e.offsetParent !== null }
+  const has = (t) => {
+    const e = [...document.querySelectorAll('h1,h2,h3,h4')]
+      .find((x) => x.innerText.trim().toLowerCase().startsWith(t))
+    return e ? (vis(e) ? 'VISIBLE' : 'hidden') : 'absent'
+  }
+  // report has(...) for every landmark heading on the page, plus scrollHeight
+  ```
+  A landmark that is `VISIBLE` on one side and `absent` on the other is a section scoped to a panel on one side and not the other. Watch the total `scrollHeight` per tab too — it moves by thousands of pixels when a whole section is in the wrong place, which no single-state check catches.
+- **Gotchas driving the tabs themselves:** the mobile control is often **not** a `<button>` — on this site it is a `div` reading "More", so `button:has-text("More")` silently matches nothing and every "tab switch" measures the *default* tab three times, producing three identical rows that look like a clean pass. Assert the active tab actually changed before trusting any per-tab measurement. Note the source leaves that mobile list **expanded** after a selection (pushing the panel ~202px down) where the clone collapses it — a deliberate divergence, not a gap.
+- **Fix:** when the source scopes a section to a panel, nest it rather than leaving it a page-level sibling. `ReviewCentreTabs` follows `AboutUsTabs`: a `content` field of `type: 'blocks'` on the tab, rendered with `<RenderBlocks blocks={tab.content} />`. Moving the block in the CMS is then a layout edit — pull it out of `page.layout`, drop it into `tabs[n].content`, and **strip its `id`** so Payload mints a fresh one instead of colliding with the row you removed.
