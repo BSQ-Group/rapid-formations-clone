@@ -276,6 +276,7 @@ export interface Page {
         | ComparePackageTableBlock
         | ComparePackagesHeroBlock
         | BuyServiceBlock
+        | ScholarshipProgrammeBlock
         | ServiceContentBlock
         | ServicesBenefitsBlock
         | ServicePriceBannerBlock
@@ -3147,6 +3148,122 @@ export interface BuyService {
   };
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ScholarshipProgrammeBlock".
+ */
+export interface ScholarshipProgrammeBlock {
+  /**
+   * Page heading. Wraps on its own — line breaks typed here are not preserved.
+   */
+  title: string;
+  /**
+   * Untick when a banner above already carries the H1 — the heading then renders as an H2.
+   */
+  isPageTitle?: boolean | null;
+  /**
+   * Body copy above the winners card. Headings, lists and links.
+   */
+  intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Sits between the copy and the winners card, e.g. a mailto: link.
+   */
+  applyCta: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+  };
+  winnersHeading?: string | null;
+  /**
+   * Grouped by year automatically, newest first. Adding a new year needs no code change.
+   */
+  winners?:
+    | {
+        year: string;
+        name: string;
+        courseName?: string | null;
+        university?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * The narrow right-hand rail. A two-column grid below 768px, then a single stacked column.
+   */
+  sidebarPartners?: {
+    heading?: string | null;
+    universities?:
+      | {
+          /**
+           * Used to build the logo alt text, e.g. "University of Leeds logo".
+           */
+          name: string;
+          /**
+           * Rendered at its natural size, capped at 160px wide.
+           */
+          logo: string | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  /**
+   * Sits under the winners card in the main column. Two columns, three from 470px, five from 1023px.
+   */
+  inlinePartners?: {
+    heading?: string | null;
+    universities?:
+      | {
+          /**
+           * Used to build the logo alt text, e.g. "University of Leeds logo".
+           */
+          name: string;
+          /**
+           * Rendered at its natural size, capped at 160px wide.
+           */
+          logo: string | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  /**
+   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
+   */
+  sectionLayout: {
+    background: 'light' | 'dark' | 'inverse';
+    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, MD 40px, LG 50px, XL 75px, 2XL 100px; SECTION 50/75/110 and SECTIONLARGE 70/140 follow the source Section margin responsively.
+     */
+    gap?: ('inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'section' | 'sectionLarge') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'scholarshipProgramme';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -7046,6 +7163,7 @@ export interface PagesSelect<T extends boolean = true> {
         comparePackageTable?: T | ComparePackageTableBlockSelect<T>;
         comparePackagesHero?: T | ComparePackagesHeroBlockSelect<T>;
         buyService?: T | BuyServiceBlockSelect<T>;
+        scholarshipProgramme?: T | ScholarshipProgrammeBlockSelect<T>;
         serviceContent?: T | ServiceContentBlockSelect<T>;
         servicesBenefits?: T | ServicesBenefitsBlockSelect<T>;
         servicePriceBanner?: T | ServicePriceBannerBlockSelect<T>;
@@ -8303,6 +8421,68 @@ export interface BuyServiceBlockSelect<T extends boolean = true> {
         background?: T;
         paddingTop?: T;
         paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ScholarshipProgrammeBlock_select".
+ */
+export interface ScholarshipProgrammeBlockSelect<T extends boolean = true> {
+  title?: T;
+  isPageTitle?: T;
+  intro?: T;
+  applyCta?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
+  winnersHeading?: T;
+  winners?:
+    | T
+    | {
+        year?: T;
+        name?: T;
+        courseName?: T;
+        university?: T;
+        id?: T;
+      };
+  sidebarPartners?:
+    | T
+    | {
+        heading?: T;
+        universities?:
+          | T
+          | {
+              name?: T;
+              logo?: T;
+              id?: T;
+            };
+      };
+  inlinePartners?:
+    | T
+    | {
+        heading?: T;
+        universities?:
+          | T
+          | {
+              name?: T;
+              logo?: T;
+              id?: T;
+            };
+      };
+  sectionLayout?:
+    | T
+    | {
+        background?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+        gap?: T;
       };
   id?: T;
   blockName?: T;
