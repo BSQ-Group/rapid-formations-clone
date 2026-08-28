@@ -19,6 +19,7 @@ import { StaffCollection } from './collections/Staff'
 import { BuyServicesCollection } from './collections/BuyServices'
 import { VideosCollection } from './collections/Videos'
 import { BusinessBankAccountsGlobal } from './globals/BusinessBankAccounts/config'
+import { DocumentLibraryGlobal } from './globals/DocumentLibrary/config'
 import { EligibleCountriesGlobal } from './globals/EligibleCountries/config'
 import { FaqTopicsGlobal } from './globals/FaqTopics/config'
 import { LegalSidenavGlobal } from './globals/LegalSidenavItemsOrder/config'
@@ -112,6 +113,7 @@ export default buildConfig({
     Header,
     Footer,
     BusinessBankAccountsGlobal,
+    DocumentLibraryGlobal,
     EligibleCountriesGlobal,
     FaqTopicsGlobal,
     LegalSidenavGlobal,

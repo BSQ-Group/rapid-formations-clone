@@ -15,6 +15,7 @@ import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { Header } from '@/Header/Component'
 import { TrustPilotBannerBlock } from '@/blocks/TrustPilotBanner/Component'
 import type {
+  DocumentLibrary,
   EligibleCountry,
   Price,
   TrustPilotBannerBlock as TrustPilotBannerBlockType,
@@ -64,15 +65,39 @@ export default async function Page({ params: paramsPromise }: Args) {
 
   const { hero, layout, isHeaderOnDark, title } = page
 
-  const [prices, eligible] = await Promise.all([
+  const [prices, eligible, documents] = await Promise.all([
     getCachedGlobal('prices', 0)() as Promise<Price>,
     getCachedGlobal('eligible-countries', 0)() as Promise<EligibleCountry>,
+    getCachedGlobal('document-library', 0)() as Promise<DocumentLibrary>,
   ])
   const blocks = resolveShortcodes(layout ?? [], {
     prices: toPriceMap(prices?.items),
     eligibleCountries: {
       lastUpdated: eligible?.lastUpdated,
       countries: (eligible?.countries ?? []).flatMap((entry) => (entry.name ? [entry.name] : [])),
+    },
+    documentLibrary: {
+      sections: (documents?.sections ?? []).flatMap((section) =>
+        section.title
+          ? [
+              {
+                title: section.title,
+                groups: (section.groups ?? []).flatMap((group) =>
+                  group.title
+                    ? [
+                        {
+                          title: group.title,
+                          documents: (group.documents ?? []).flatMap((entry) =>
+                            entry.name ? [entry.name] : [],
+                          ),
+                        },
+                      ]
+                    : [],
+                ),
+              },
+            ]
+          : [],
+      ),
     },
   })
   const firstBlock = blocks[0]

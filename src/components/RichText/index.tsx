@@ -14,11 +14,14 @@ import {
 } from '@payloadcms/richtext-lexical/react'
 
 import { CodeBlock, CodeBlockProps } from '@/blocks/Code/Component'
+import { DocumentsListDialog } from '@/components/shared/DocumentsListDialog'
 import { EligibleCountriesDialog } from '@/components/shared/EligibleCountriesDialog'
 import { LiveChatButton } from '@/blocks/ContactUs/LiveChatButton'
 import {
+  DOCUMENT_LIBRARY_HREF,
   ELIGIBLE_COUNTRIES_HREF,
   LIVE_CHAT_HREF,
+  type DocumentList,
   type EligibleCountries,
 } from '@/utilities/shortcodes'
 
@@ -65,6 +68,10 @@ const sentinelLinks: Record<string, (label: string, payload?: unknown) => React.
         className={inlineTrigger}
       />
     )
+  },
+  [DOCUMENT_LIBRARY_HREF]: (label, payload) => {
+    const { sections } = (payload ?? { sections: [] }) as DocumentList
+    return <DocumentsListDialog label={label} sections={sections} className={inlineTrigger} />
   },
 }
 
