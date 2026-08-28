@@ -90,6 +90,15 @@ export const VideoLibraryView: React.FC<{ categories: LibraryCategory[] }> = ({ 
               </option>
             ))}
           </select>
+          <svg className={s.dropdownChevron} viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path
+              d="m6 8 4 4 4-4"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={1.5}
+            />
+          </svg>
         </div>
         <div className={s.navDesktop}>
           <div className={s.buttonGrid}>
