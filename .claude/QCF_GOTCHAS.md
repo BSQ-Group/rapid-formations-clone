@@ -706,3 +706,24 @@ Each entry has four parts:
   A landmark that is `VISIBLE` on one side and `absent` on the other is a section scoped to a panel on one side and not the other. Watch the total `scrollHeight` per tab too — it moves by thousands of pixels when a whole section is in the wrong place, which no single-state check catches.
 - **Gotchas driving the tabs themselves:** the mobile control is often **not** a `<button>` — on this site it is a `div` reading "More", so `button:has-text("More")` silently matches nothing and every "tab switch" measures the *default* tab three times, producing three identical rows that look like a clean pass. Assert the active tab actually changed before trusting any per-tab measurement. Note the source leaves that mobile list **expanded** after a selection (pushing the panel ~202px down) where the clone collapses it — a deliberate divergence, not a gap.
 - **Fix:** when the source scopes a section to a panel, nest it rather than leaving it a page-level sibling. `ReviewCentreTabs` follows `AboutUsTabs`: a `content` field of `type: 'blocks'` on the tab, rendered with `<RenderBlocks blocks={tab.content} />`. Moving the block in the CMS is then a layout edit — pull it out of `page.layout`, drop it into `tabs[n].content`, and **strip its `id`** so Payload mints a fresh one instead of colliding with the row you removed.
+
+## A bulk link rewrite replaced the link's visible TEXT as well as its href
+
+- **When it bites:** A sweep converts legacy-domain links to internal ones by walking the Lexical tree and setting `fields.url`. Where the link's **visible text was the URL itself**, the same pass rewrote the child text node too, so the anchor's label became the new href. Nothing 404s and no check fails — the link still works — but the sentence around it is now wrong. Real incident: the Terms and Conditions definitions table read **"Website means / and all associated web pages"** where the source reads "Website means https://www.rapidformations.co.uk/ and all associated web pages". The site's own address had been deleted from a legal definition and sat published for weeks; a link-health sweep (every href resolving 200) passes this cleanly, because the *href* was fine.
+- **Detect:** a URL used as link text is the signal. Scan every page's Lexical body for a link whose visible text is a bare path, or equal to its own internal href:
+  ```python
+  # curl '<host>/api/pages?depth=0&limit=300' first
+  def walk(node, slug):
+      if isinstance(node, list):
+          for x in node: walk(x, slug)
+          return
+      if not isinstance(node, dict): return
+      if node.get('type') == 'link':
+          url = (node.get('fields') or {}).get('url') or ''
+          txt = ''.join(c.get('text','') for c in (node.get('children') or []) if isinstance(c, dict))
+          if txt.strip().startswith('/') or (txt.strip() == url.strip() and url.startswith('/')):
+              print(slug, repr(url), repr(txt))       # visible text is a path — damaged
+      for v in node.values(): walk(v, slug)
+  ```
+  Run it after **any** bulk content rewrite, not just link sweeps.
+- **Fix:** rewrite `fields.url` only; never touch a link's children. Where the source shows a full URL as the label, that URL is part of the sentence — restore the text verbatim and leave the href internal (`text: 'https://www.rapidformations.co.uk/'`, `url: '/'`). More generally, a sweep that edits structure must leave visible text alone unless changing it is the explicit point of the sweep — and a legal page is the worst place to learn otherwise, because nothing about it renders as broken.
