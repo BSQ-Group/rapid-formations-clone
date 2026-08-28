@@ -3,9 +3,12 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 
 import type {
+  Page,
   ReviewCentreTabsBlock as ReviewCentreTabsBlockProps,
   ReviewStat,
 } from '@/payload-types'
+
+import { RenderBlocks } from '@/blocks/RenderBlocks'
 
 import { initialsOf, relativeAge } from '@/utilities/formatting'
 import { toKebabCase } from '@/utilities/toKebabCase'
@@ -104,7 +107,12 @@ export const ReviewCentreTabsBlockComponent: React.FC<ReviewCentreTabsBlockProps
         {
           id: uniqueId(tab.label),
           label: tab.label,
-          content: <RatingsBanner heading={tab.heading ?? 'How we are rated'} platforms={shown} />,
+          content: (
+            <>
+              <RatingsBanner heading={tab.heading ?? 'How we are rated'} platforms={shown} />
+              <RenderBlocks blocks={(tab.content ?? []) as NonNullable<Page['layout']>} />
+            </>
+          ),
         },
       ]
     }
