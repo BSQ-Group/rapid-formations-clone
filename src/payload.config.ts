@@ -20,7 +20,6 @@ import { VideosCollection } from './collections/Videos'
 import { ReviewsCollection } from './collections/Reviews'
 import { ScholarshipWinnersCollection } from './collections/ScholarshipWinners'
 import { BusinessBankAccountsGlobal } from './globals/BusinessBankAccounts/config'
-import { DocumentLibraryGlobal } from './globals/DocumentLibrary/config'
 import { EligibleCountriesGlobal } from './globals/EligibleCountries/config'
 import { ReviewStatsGlobal } from './globals/ReviewStats/config'
 import { TestimonialsGlobal } from './globals/Testimonials/config'
@@ -111,7 +110,6 @@ export default buildConfig({
     Header,
     Footer,
     BusinessBankAccountsGlobal,
-    DocumentLibraryGlobal,
     EligibleCountriesGlobal,
     ReviewStatsGlobal,
     TestimonialsGlobal,

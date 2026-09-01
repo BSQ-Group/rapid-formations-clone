@@ -1,24 +1,24 @@
-import type { GlobalConfig } from 'payload'
+import type { Block } from 'payload'
 
-export const DocumentLibraryGlobal: GlobalConfig = {
-  slug: 'document-library',
-  label: 'Document Library',
-  access: {
-    read: () => true,
+export const DocumentLibrary: Block = {
+  slug: 'documentLibrary',
+  interfaceName: 'DocumentLibraryBlock',
+  labels: {
+    singular: 'Document Library',
+    plural: 'Document Library',
   },
   admin: {
     group: 'Content',
-    description:
-      'Every template in the Business Document Template Library, listed by the [[documents-list]] shortcode. Sections and groups render in the order held here.',
   },
   fields: [
     {
       name: 'sections',
       type: 'array',
       label: 'Sections',
-      labels: { singular: 'Section', plural: 'Sections' },
+      labels: { singular: 'Section', plural: 'Section' },
       admin: {
         initCollapsed: true,
+        components: { RowLabel: '@/blocks/DocumentLibrary/RowLabel#default' },
         description: 'Top-level headings, e.g. "Finance and Accounting".',
       },
       fields: [
@@ -30,6 +30,7 @@ export const DocumentLibraryGlobal: GlobalConfig = {
           labels: { singular: 'Group', plural: 'Groups' },
           admin: {
             initCollapsed: true,
+            components: { RowLabel: '@/blocks/DocumentLibrary/RowLabel#default' },
             description: 'Sub-headings within the section, e.g. "Purchasing".',
           },
           fields: [
@@ -41,6 +42,7 @@ export const DocumentLibraryGlobal: GlobalConfig = {
               labels: { singular: 'Document', plural: 'Documents' },
               admin: {
                 initCollapsed: true,
+                components: { RowLabel: '@/blocks/DocumentLibrary/RowLabel#default' },
                 description: 'One row per template, named as it appears in the library.',
               },
               fields: [{ name: 'name', type: 'text', label: 'Document', required: true }],
