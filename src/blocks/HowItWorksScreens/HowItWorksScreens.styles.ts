@@ -1,8 +1,10 @@
 export const howItWorksScreensStyles = {
   section: 'font-legacy-condensed w-full bg-[var(--surface-canvas)]',
 
+  // The source sets the section title in its own block and stands the screens 32px
+  // clear of it, on top of the 8px the heading itself carries.
   heading:
-    'mb-2 block break-words whitespace-pre-line text-center text-[36px] leading-[44.46px] font-normal tracking-normal text-[var(--text-on-light-base)]',
+    'mb-10 block break-words whitespace-pre-line text-center text-[36px] leading-[44.46px] font-normal tracking-normal text-[var(--text-on-light-base)]',
 
   grid: 'flex flex-col gap-8 md:grid md:[grid-template-columns:repeat(var(--screen-count),1fr)]',
 

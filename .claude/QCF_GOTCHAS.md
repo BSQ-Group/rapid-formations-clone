@@ -727,3 +727,15 @@ Each entry has four parts:
   ```
   Run it after **any** bulk content rewrite, not just link sweeps.
 - **Fix:** rewrite `fields.url` only; never touch a link's children. Where the source shows a full URL as the label, that URL is part of the sentence — restore the text verbatim and leave the href internal (`text: 'https://www.rapidformations.co.uk/'`, `url: '/'`). More generally, a sweep that edits structure must leave visible text alone unless changing it is the explicit point of the sweep — and a legal page is the worst place to learn otherwise, because nothing about it renders as broken.
+
+## A shrink-to-fit trigger sizes an image by whatever variant the optimiser served
+
+- **When it bites:** A still that is meant to fill its column is wrapped in a `<button>` to open a video modal. A `<button>` is `inline-block`, so it shrinks to its content — and its content is a `w-full` `<picture>`, which is 100% of a width nothing has set. The width then resolves from the image's **natural** size, which for a `next/image` is whichever srcset candidate the browser happened to pick. The symptom is a video that is the right size at some viewports and arbitrarily narrow at others, with no pattern: on `/business-templates` it came out 594px at 768, 533px at 900, 606px at 1022 and 570px at 1440 against the source's 728 / 860 / 982 / 570. Three of those matched by luck, because the natural width was larger than the column and `max-width: 100%` clamped it — which is why a desktop-only check passes.
+- **Detect:** compare the still's box against the source across the **whole** breakpoint range, not at the usual three widths, and reload at each one — resizing an already-loaded page leaves the previously-chosen srcset candidate in place and produces different numbers than a fresh load at the same width. Then read `naturalWidth` against the rendered width:
+  ```js
+  const img = /* the still */
+  const b = img.getBoundingClientRect()
+  console.log(img.naturalWidth, Math.round(b.width), getComputedStyle(img.closest('button')).display)
+  ```
+  Rendered width equal to `naturalWidth`, on an `inline-block` ancestor, is this bug. A width that varies non-monotonically with the viewport is the same signal from the outside.
+- **Fix:** the trigger has to be `block w-full` so it takes the column's width and the still fills it. Put it on the shared trigger rather than the call site — every other `VideoModal` caller in this repo already sets `block w-full` in its own class string, which is what hid the bug: only the one caller that passed no `className` was left inline. When a base component needs the same override at every call site but one, the override belongs in the base.
