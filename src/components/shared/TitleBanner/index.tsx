@@ -40,13 +40,11 @@ export const TitleBanner: React.FC<TitleBannerProps> = ({
 
     return (
       <section
-        className={cn(
-          s.imageSection,
-          variant === 'imageContained' && s.imageSectionContained,
-          s.backdrop[backdrop ?? 'none'] ?? s.backdrop.none,
-        )}
+        className={cn(s.imageSection, variant === 'imageContained' && s.imageSectionContained)}
       >
-        {variant === 'imageBleed' ? media : <Container>{media}</Container>}
+        <div className={s.backdrop[backdrop ?? 'none'] ?? s.backdrop.none}>
+          {variant === 'imageBleed' ? media : <Container>{media}</Container>}
+        </div>
       </section>
     )
   }
