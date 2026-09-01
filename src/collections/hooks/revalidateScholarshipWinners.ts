@@ -16,11 +16,6 @@ const pagePath = (page: Page): string => {
   return (page.breadcrumbs as Breadcrumb[] | undefined)?.at(-1)?.url ?? `/${page.slug}`
 }
 
-/**
- * The winners have no page of their own — a block reads them — so editing one has to
- * refresh whichever pages render that block rather than a path of its own. Looking
- * the pages up keeps a second placement working without touching this hook.
- */
 const revalidateHostPages = async (payload: Payload, context: RequestContext) => {
   if (context.disableRevalidate) return
 

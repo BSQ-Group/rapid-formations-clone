@@ -7,8 +7,6 @@ import type { ScholarshipProgrammeBlock as ScholarshipProgrammeBlockProps } from
 import { byNumberMissingLast } from '@/utilities/sorting'
 import { ScholarshipProgrammeView } from './ScholarshipProgrammeView'
 
-// Winners are their own collection rather than page content, so the same list can
-// be read from anywhere; the block supplies the heading and the copy around it.
 export const ScholarshipProgrammeBlock: React.FC<ScholarshipProgrammeBlockProps> = async (
   props,
 ) => {

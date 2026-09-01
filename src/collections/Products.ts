@@ -58,8 +58,7 @@ export const Products: CollectionConfig = {
       editor: defaultLexical,
       label: 'Tooltip (info popup)',
       admin: {
-        description:
-          'The info-circle popup shown next to this product in the grid. Leave blank for no tooltip.',
+        description: 'The info-circle popup shown next to this product in the grid. Leave blank for no tooltip.',
       },
     },
     {
