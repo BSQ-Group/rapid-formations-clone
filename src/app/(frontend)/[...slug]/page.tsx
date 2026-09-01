@@ -7,6 +7,7 @@ import { draftMode } from 'next/headers'
 import { cache } from 'react'
 
 import { RenderBlocks } from '@/blocks/RenderBlocks'
+import { JsonLd, buildPageJsonLd } from '@/components/StructuredData'
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import { resolveShortcodes, toPriceMap } from '@/utilities/shortcodes'
 import { RenderHero } from '@/heros/RenderHero'
@@ -104,8 +105,13 @@ export default async function Page({ params: paramsPromise }: Args) {
   const hasBanner = firstBlock?.blockType === 'trustpilotBanner'
   const remainingBlocks = hasBanner ? blocks.slice(1) : blocks
 
+  // JSON-LD structured data, built from the shortcode-resolved blocks so FAQ/HowTo
+  // reflect the rendered content (real prices, not [[price]] shortcodes).
+  const jsonLd = buildPageJsonLd({ ...page, layout: blocks })
+
   return (
     <>
+      <JsonLd items={jsonLd} />
       {isHeaderOnDark && (
         <style>{`:root{--header-logo-fill:rgb(var(--white));--header-link-color:var(--text-inverse-muted);--header-link-hover-color:var(--text-inverse)}`}</style>
       )}

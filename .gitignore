@@ -56,3 +56,6 @@ content.json
 # Port working notes -- the per-decision record and the section map. Local only.
 .port-source-facts.json
 .port-site-map.json
+
+# Regenerable SEO parity harvest (produced by scripts/seo-audit/extract-seo.ts).
+reports/seo-audit/seo-data.json

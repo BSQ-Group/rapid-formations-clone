@@ -4,6 +4,7 @@ import type { Media, Page, Post, Config } from '../payload-types'
 
 import { mergeOpenGraph } from './mergeOpenGraph'
 import { getServerSideURL } from './getURL'
+import { getPagePath } from './getPagePath'
 import { getBrand, getDomainConfig } from '@/lib/brand'
 
 const getImageURL = (image?: Media | Config['db']['defaultIDType'] | null) => {
@@ -27,31 +28,38 @@ export const generateMeta = async (args: {
 
   const ogImage = getImageURL(doc?.meta?.image)
 
-  const { siteName } = getDomainConfig(getBrand())
-  const noindex = doc?.meta && 'noindex' in doc.meta ? Boolean(doc.meta.noindex) : false
-  const metaTitle = doc?.meta?.title || doc?.title
-  const title = metaTitle ? `${metaTitle} | ${siteName}` : siteName
+  const { siteName, twitterHandle } = getDomainConfig(getBrand())
   const slug = Array.isArray(doc?.slug) ? doc?.slug.join('/') : doc?.slug
-  const path = !slug || slug === 'home' ? '/' : `/${slug}`
+  const metaNoindex = doc?.meta && 'noindex' in doc.meta ? Boolean(doc.meta.noindex) : false
+  // `port-preview-*` are internal dev/port pages with no legacy source — always noindex
+  // them (and they're excluded from the sitemap) so they can't be indexed.
+  const noindex = metaNoindex || Boolean(slug?.startsWith('port-preview-'))
+  // Verbatim title — the legacy <title> (seeded into meta.title) already carries any
+  // brand suffix where the original uses one, so we must NOT auto-append it here.
+  const title = doc?.meta?.title || doc?.title || siteName
+  const description = doc?.meta?.description || undefined
+  // Canonical/og:url from the nested fullPath (matches the legacy URL structure), not the flat slug.
+  const path = getPagePath(doc)
 
   return {
-    description: doc?.meta?.description,
+    description,
     metadataBase: new URL(getServerSideURL()),
     alternates: { canonical: path },
     robots: noindex ? { index: false, follow: false } : { index: true, follow: true },
     openGraph: mergeOpenGraph({
-      description: doc?.meta?.description || '',
-      images: ogImage
-        ? [
-            {
-              url: ogImage,
-            },
-          ]
-        : undefined,
+      description: description || '',
+      images: ogImage ? [{ url: ogImage }] : undefined,
       siteName,
       title,
       url: path,
     }),
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ogImage ? [ogImage] : undefined,
+      ...(twitterHandle ? { site: twitterHandle, creator: twitterHandle } : {}),
+    },
     title,
   }
 }

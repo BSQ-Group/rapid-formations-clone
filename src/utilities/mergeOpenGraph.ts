@@ -6,6 +6,7 @@ const brand = getDomainConfig(getBrand())
 
 const defaultOpenGraph: Metadata['openGraph'] = {
   type: 'website',
+  ...(brand.locale ? { locale: brand.locale } : {}),
   images: [
     {
       url: `${getServerSideURL()}${brand.logoPath}`,

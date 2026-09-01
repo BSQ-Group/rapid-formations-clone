@@ -43,6 +43,10 @@ const nextConfig: NextConfig = {
     return webpackConfig
   },
   reactStrictMode: true,
+  // Legacy rapidformations.co.uk serves/canonicalises every URL with a trailing slash;
+  // matching it keeps served URL == canonical == sitemap entry so crawlers don't flag
+  // pages as "canonicalised elsewhere".
+  trailingSlash: true,
   redirects,
   async rewrites() {
     return [
