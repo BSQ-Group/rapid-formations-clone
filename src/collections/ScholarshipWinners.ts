@@ -2,6 +2,10 @@ import type { CollectionConfig } from 'payload'
 
 import { anyone } from '../access/anyone'
 import { authenticated } from '../access/authenticated'
+import {
+  revalidateScholarshipWinner,
+  revalidateScholarshipWinnerDelete,
+} from './hooks/revalidateScholarshipWinners'
 
 export const ScholarshipWinnersCollection: CollectionConfig = {
   slug: 'scholarship-winners',
@@ -61,4 +65,8 @@ export const ScholarshipWinnersCollection: CollectionConfig = {
       },
     },
   ],
+  hooks: {
+    afterChange: [revalidateScholarshipWinner],
+    afterDelete: [revalidateScholarshipWinnerDelete],
+  },
 }

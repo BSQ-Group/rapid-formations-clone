@@ -67,7 +67,8 @@ export const Packages: CollectionConfig = {
           defaultValue: 0,
           admin: {
             width: '50%',
-            description: 'Low to high, within a company type. Also sets left-to-right column order in the grid.',
+            description:
+              'Low to high, within a company type. Also sets left-to-right column order in the grid.',
           },
         },
       ],
@@ -91,7 +92,8 @@ export const Packages: CollectionConfig = {
           label: 'Price note',
           admin: {
             width: '33%',
-            description: 'The line under the price, e.g. "+ £100 Companies House Fee". Leave blank if none.',
+            description:
+              'The line under the price, e.g. "+ £100 Companies House Fee". Leave blank if none.',
           },
         },
         {
@@ -100,7 +102,8 @@ export const Packages: CollectionConfig = {
           label: 'Ribbon text',
           admin: {
             width: '33%',
-            description: 'Optional ribbon/badge on the column, e.g. "Most Popular". Leave blank for none.',
+            description:
+              'Optional ribbon/badge on the column, e.g. "Most Popular". Leave blank for none.',
           },
         },
       ],
