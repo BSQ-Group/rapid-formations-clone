@@ -46,33 +46,10 @@ export const ScholarshipProgramme: Block = {
       type: 'text',
       label: 'Winners heading',
       defaultValue: 'Scholarship Winners',
-    },
-    {
-      name: 'winners',
-      type: 'array',
-      label: 'Scholarship winners',
-      labels: { singular: 'Winner', plural: 'Winners' },
       admin: {
-        initCollapsed: true,
         description:
-          'Grouped by year automatically, newest first. Adding a new year needs no code change.',
+          'The winners themselves live in Content -> Scholarship winners, so they can be reused and edited without opening this page.',
       },
-      fields: [
-        {
-          type: 'row',
-          fields: [
-            { name: 'year', type: 'text', required: true, admin: { width: '25%' } },
-            { name: 'name', type: 'text', required: true, admin: { width: '75%' } },
-          ],
-        },
-        {
-          type: 'row',
-          fields: [
-            { name: 'courseName', type: 'text', label: 'Course', admin: { width: '50%' } },
-            { name: 'university', type: 'text', admin: { width: '50%' } },
-          ],
-        },
-      ],
     },
     {
       name: 'sidebarPartners',

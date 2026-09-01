@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import type {
-  Media,
-  ScholarshipProgrammeBlock as ScholarshipProgrammeBlockProps,
-} from '@/payload-types'
-import { ScholarshipProgrammeBlock } from './Component'
+import type { Media } from '@/payload-types'
+import {
+  ScholarshipProgrammeView,
+  type ScholarshipProgrammeViewProps,
+} from './ScholarshipProgrammeView'
 
 const logo = (seed: string, width: number, height: number): Media => ({
   id: seed,
@@ -86,7 +86,7 @@ const winner = (year: string, name: string, courseName: string, university: stri
   university,
 })
 
-const defaultArgs: ScholarshipProgrammeBlockProps = {
+const defaultArgs: ScholarshipProgrammeViewProps = {
   blockType: 'scholarshipProgramme',
   title: 'Rapid Formations Entrepreneur Scholarship Programme',
   intro: LONG_INTRO,
@@ -120,9 +120,9 @@ const defaultArgs: ScholarshipProgrammeBlockProps = {
   sectionLayout: { background: 'light', paddingTop: 'none', paddingBottom: 'none', gap: 'section' },
 }
 
-const meta: Meta<typeof ScholarshipProgrammeBlock> = {
+const meta: Meta<typeof ScholarshipProgrammeView> = {
   title: 'Blocks/ScholarshipProgramme',
-  component: ScholarshipProgrammeBlock,
+  component: ScholarshipProgrammeView,
   parameters: { layout: 'fullscreen' },
   decorators: [
     (Story) => (
@@ -134,7 +134,7 @@ const meta: Meta<typeof ScholarshipProgrammeBlock> = {
 }
 
 export default meta
-type Story = StoryObj<typeof ScholarshipProgrammeBlock>
+type Story = StoryObj<typeof ScholarshipProgrammeView>
 
 export const Default: Story = { args: defaultArgs }
 

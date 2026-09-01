@@ -19,6 +19,7 @@ import { StaffCollection } from './collections/Staff'
 import { BuyServicesCollection } from './collections/BuyServices'
 import { VideosCollection } from './collections/Videos'
 import { ReviewsCollection } from './collections/Reviews'
+import { ScholarshipWinnersCollection } from './collections/ScholarshipWinners'
 import { BusinessBankAccountsGlobal } from './globals/BusinessBankAccounts/config'
 import { DocumentLibraryGlobal } from './globals/DocumentLibrary/config'
 import { EligibleCountriesGlobal } from './globals/EligibleCountries/config'
@@ -99,6 +100,7 @@ export default buildConfig({
     StaffCollection,
     VideosCollection,
     ReviewsCollection,
+    ScholarshipWinnersCollection,
   ],
   cors: [getServerSideURL()].filter(Boolean),
   plugins: [
