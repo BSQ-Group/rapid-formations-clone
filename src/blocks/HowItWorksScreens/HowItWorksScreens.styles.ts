@@ -2,7 +2,7 @@ export const howItWorksScreensStyles = {
   section: 'font-legacy-condensed w-full bg-[var(--surface-canvas)]',
 
   heading:
-    'mb-2 block break-words whitespace-pre-line text-center text-[36px] leading-[44.46px] font-normal tracking-normal text-[var(--text-on-light-base)]',
+    'mb-10 block break-words whitespace-pre-line text-center text-[36px] leading-[44.46px] font-normal tracking-normal text-[var(--text-on-light-base)]',
 
   grid: 'flex flex-col gap-8 md:grid md:[grid-template-columns:repeat(var(--screen-count),1fr)]',
 
