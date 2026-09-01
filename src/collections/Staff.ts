@@ -7,7 +7,7 @@ export const StaffCollection: CollectionConfig = {
   slug: 'staff',
   labels: {
     singular: 'Team member',
-    plural: 'Team members',
+    plural: 'Our People',
   },
   access: {
     create: authenticated,
