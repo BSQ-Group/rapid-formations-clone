@@ -1,12 +1,22 @@
 import React from 'react'
 
-import type { BuyService } from '@/payload-types'
-
 import { getLinkHref, type LinkData } from '@/utilities/links'
-import { BuyServiceCard } from './BuyServiceCard'
+import { BuyServiceCard, type BuyServiceCardProps } from './BuyServiceCard'
+
+export type BuyServiceCardData = {
+  id?: string | null
+  title?: string | null
+  mobileTitle?: string | null
+  price?: string | null
+  postText?: string | null
+  showVat?: boolean | null
+  content?: BuyServiceCardProps['content']
+  hideBodyOnMobile?: boolean | null
+  cta?: LinkData | null
+}
 
 export type BuyServiceCardsProps = {
-  services?: (number | string | BuyService)[] | null
+  services?: BuyServiceCardData[] | null
   className?: string
   cardClassName?: string
 }
@@ -16,20 +26,14 @@ export const BuyServiceCards: React.FC<BuyServiceCardsProps> = ({
   className,
   cardClassName,
 }) => {
-  const resolved = (services ?? []).filter(
-    (service): service is BuyService => typeof service === 'object' && service !== null,
-  )
-
-  if (!resolved.length) return null
-
-  const cards = resolved
+  const cards = (services ?? [])
     .map((service) => {
       const price = service.price
-      if (!price) return null
-      const cta = service.cta as LinkData | undefined
+      if (!service.title || !price) return null
+      const cta = (service.cta ?? undefined) as LinkData | undefined
       return (
         <BuyServiceCard
-          key={service.id}
+          key={service.id ?? service.title}
           title={service.title}
           mobileTitle={service.mobileTitle}
           price={price}

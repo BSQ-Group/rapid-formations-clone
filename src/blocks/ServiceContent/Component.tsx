@@ -17,11 +17,11 @@ export const ServiceContentBlock: React.FC<ServiceContentBlockProps> = ({
   rightColumnLeadGap,
   sections,
   formPanel,
-  buyServices,
+  buyCards,
   sectionLayout,
 }) => {
   const all = sections ?? []
-  const hasCards = Boolean(buyServices?.length)
+  const hasCards = Boolean(buyCards?.length)
   const panelForm = typeof formPanel?.form === 'object' ? formPanel.form : undefined
 
   if (!all.length && !hasCards && !panelForm) return null
@@ -33,7 +33,7 @@ export const ServiceContentBlock: React.FC<ServiceContentBlockProps> = ({
   const desktopCard = cardSpacing === 'compact' ? s.cardCompact : s.card
 
   const cards = (className: string, cardClassName: string) => (
-    <BuyServiceCards services={buyServices} className={className} cardClassName={cardClassName} />
+    <BuyServiceCards services={buyCards} className={className} cardClassName={cardClassName} />
   )
 
   const panel = panelForm ? (

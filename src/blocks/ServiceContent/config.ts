@@ -1,6 +1,7 @@
 import type { Block } from 'payload'
 
 import { defaultLexical } from '@/fields/defaultLexical'
+import { link } from '@/fields/link'
 import { sectionLayoutField } from '@/fields/sectionLayout'
 
 export const ServiceContent: Block = {
@@ -188,15 +189,72 @@ export const ServiceContent: Block = {
       ],
     },
     {
-      name: 'buyServices',
-      type: 'relationship',
-      relationTo: 'buyServices',
-      hasMany: true,
+      name: 'buyCards',
+      type: 'array',
       label: 'Buy cards',
       admin: {
+        initCollapsed: true,
         description:
           'Priced cards rendered inside the content. Two columns puts them at the top of the right column, above everything on mobile; one column puts them after the copy.',
       },
+      fields: [
+        {
+          name: 'title',
+          type: 'text',
+          label: 'Title',
+          required: true,
+        },
+        {
+          name: 'mobileTitle',
+          type: 'text',
+          label: 'Mobile title',
+          admin: {
+            description: 'Shown instead of the title below 1024px. Leave empty to use the title.',
+          },
+        },
+        {
+          name: 'price',
+          type: 'text',
+          label: 'Price',
+          required: true,
+          admin: {
+            description: 'Shown after a £, e.g. "89.99".',
+          },
+        },
+        {
+          name: 'postText',
+          type: 'text',
+          label: 'Price caption',
+          admin: {
+            description: 'Small text after the price (e.g. "per year").',
+          },
+        },
+        {
+          name: 'showVat',
+          type: 'checkbox',
+          label: 'Show "+VAT"',
+          defaultValue: false,
+        },
+        {
+          name: 'content',
+          type: 'richText',
+          editor: defaultLexical,
+          label: 'Body',
+        },
+        {
+          name: 'hideBodyOnMobile',
+          type: 'checkbox',
+          label: 'Hide body below 1024px',
+          defaultValue: false,
+        },
+        link({
+          appearances: false,
+          overrides: {
+            name: 'cta',
+            label: 'Button',
+          },
+        }),
+      ],
     },
     sectionLayoutField({
       gap: true,
