@@ -1,7 +1,4 @@
 export const videoModalStyles = {
-  // The trigger wraps a still that is meant to fill its column. Left inline, the
-  // button shrinks to the still's natural width instead, so the video renders at
-  // whatever size the optimiser happened to serve rather than at the column's.
   trigger: 'group relative block w-full cursor-pointer',
 
   playIcon:
