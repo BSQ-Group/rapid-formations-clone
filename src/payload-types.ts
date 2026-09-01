@@ -2297,6 +2297,10 @@ export interface BCorpCertificationBlock {
  */
 export interface BankingPartnersBlock {
   /**
+   * The source carries this link on the home page but not on a package page, where the section closes on the logos.
+   */
+  showCta?: boolean | null;
+  /**
    * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
    */
   sectionLayout: {
@@ -6312,6 +6316,10 @@ export interface PageTitleBlock {
    */
   title?: string | null;
   /**
+   * Only matters where the price column runs taller than the heading, as on a package page — the source drops the title onto its baseline there instead of centring it.
+   */
+  titleAlign?: ('centre' | 'bottom') | null;
+  /**
    * Untick when a banner above already carries the H1 — the heading then renders as an H2 subtitle at the source line height.
    */
   isPageTitle?: boolean | null;
@@ -8286,6 +8294,7 @@ export interface BCorpCertificationBlockSelect<T extends boolean = true> {
  * via the `definition` "BankingPartnersBlock_select".
  */
 export interface BankingPartnersBlockSelect<T extends boolean = true> {
+  showCta?: T;
   sectionLayout?:
     | T
     | {
@@ -10445,6 +10454,7 @@ export interface WhyUseAgentBlockSelect<T extends boolean = true> {
  */
 export interface PageTitleBlockSelect<T extends boolean = true> {
   title?: T;
+  titleAlign?: T;
   isPageTitle?: T;
   showFaqQuickNav?: T;
   buyNow?:

@@ -13,6 +13,7 @@ export type PageTitleProps = {
   isPageTitle?: boolean | null
   sectionLayout?: SectionLayoutValue | null
   className?: string
+  titleAlign?: 'centre' | 'bottom' | null
   aside?: React.ReactNode
 }
 
@@ -21,6 +22,7 @@ export const PageTitle: React.FC<PageTitleProps> = ({
   isPageTitle,
   sectionLayout,
   className,
+  titleAlign,
   aside,
 }) => {
   const heading = title?.trim()
@@ -30,7 +32,7 @@ export const PageTitle: React.FC<PageTitleProps> = ({
   return (
     <SectionWrapper {...sectionLayout} className={s.section}>
       <Container>
-        <div className={s.wrapper}>
+        <div className={cn(s.wrapper, titleAlign === 'bottom' && s.wrapperBottom)}>
           <div className={s.left}>
             <Text
               as={isPageTitle === false ? 'h2' : 'h1'}

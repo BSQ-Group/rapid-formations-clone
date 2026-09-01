@@ -4,6 +4,8 @@ export const pageTitleStyles = {
   wrapper:
     'flex w-full flex-col items-start justify-between mb-10 md:mt-6 md:mb-[45px] md:flex-row md:flex-wrap md:items-center',
 
+  wrapperBottom: 'md:items-end',
+
   left: 'flex-auto basis-0',
 
   right:

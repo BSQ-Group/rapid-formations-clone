@@ -10,6 +10,7 @@ import { BankingPartnersView } from './BankingPartnersView'
 // as the BusinessBankAccounts card block); the block only supplies section layout.
 export const BankingPartnersBlock: React.FC<BankingPartnersBlockProps> = async ({
   sectionLayout,
+  showCta,
 }) => {
   const payload = await getPayload({ config: configPromise })
   const { heading, subheading, backgroundPattern, banks, cta } = await payload.findGlobal({
@@ -24,7 +25,7 @@ export const BankingPartnersBlock: React.FC<BankingPartnersBlockProps> = async (
       subheading={subheading}
       backgroundPattern={backgroundPattern}
       banks={banks}
-      cta={cta}
+      cta={showCta === false ? undefined : cta}
       sectionLayout={sectionLayout}
     />
   )

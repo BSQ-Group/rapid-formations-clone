@@ -268,6 +268,7 @@ export const RenderBlocks: React.FC<{
                 key={index}
                 title={block.title?.trim() || pageTitle?.trim()}
                 isPageTitle={block.isPageTitle}
+                titleAlign={block.titleAlign}
                 sectionLayout={block.sectionLayout}
                 aside={
                   block.showFaqQuickNav || block.buyNow ? (

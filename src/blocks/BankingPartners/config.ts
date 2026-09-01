@@ -14,6 +14,16 @@ export const BankingPartners: Block = {
     plural: 'Banking Partners',
   },
   fields: [
+    {
+      name: 'showCta',
+      type: 'checkbox',
+      label: 'Show the link out to business banking',
+      defaultValue: true,
+      admin: {
+        description:
+          'The source carries this link on the home page but not on a package page, where the section closes on the logos.',
+      },
+    },
     sectionLayoutField({
       gap: true,
       defaults: { background: 'inverse', paddingTop: 'none', paddingBottom: 'none', gap: 'sectionLarge' },
