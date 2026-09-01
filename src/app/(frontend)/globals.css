@@ -822,12 +822,16 @@ button {
     }
 
     > li.nestedListItem {
-      @apply pl-6 mb-0;
+      @apply pl-6 mb-3;
       counter-increment: none;
 
       &::before {
         content: none;
       }
+    }
+
+    > li.nestedListItem > ul {
+      @apply pl-10;
     }
 
     ol {
@@ -844,7 +848,7 @@ button {
       }
 
       > li.nestedListItem {
-        @apply pl-0;
+        @apply pl-9;
         counter-increment: none;
 
         &::before {
@@ -869,16 +873,24 @@ button {
       ul {
         @apply pl-5 mt-3;
       }
+
+      > li.nestedListItem > ul {
+        @apply pl-5;
+      }
     }
 
     ul {
       @apply list-[lower-alpha] list-outside;
 
       li {
-        @apply pl-2;
+        @apply pl-2 mb-3;
 
         &::before {
           content: none;
+        }
+
+        &:last-child {
+          @apply mb-0;
         }
       }
     }
