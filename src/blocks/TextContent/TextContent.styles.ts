@@ -94,15 +94,22 @@ const packageCopy = {
 }
 
 const policy = {
-  lists: bulletLists,
+  // The source nests a definition list inside the clause that introduces it and runs
+  // its entries flush against each other, so the wrapper Lexical splits out keeps the
+  // clause's inset, the nested list takes the same lead-in as a top-level one, and the
+  // entries carry no gap of their own.
+  lists: `${listsCore} ${nestedListInset} [&_ol>li]:list-[lower-latin] [&_li_ol]:!pl-[15px] [&_li_ol>li]:!my-0`,
 
   spacing: '[&_p]:!mb-4 [&_p+h3]:!mt-6 [&_p+h4]:!mt-6',
 
+  // A numbered section stands 8px clear of whatever closed the one above it, list or
+  // paragraph alike. The source opens some sections on a wider gap, but that comes
+  // from it splitting the policy across containers rather than from the heading.
   headings:
-    '[&_h3]:!leading-[25.688px] [&_h4]:!mt-4 [&_h4]:!mb-2 [&_h4]:text-xl [&_h4]:font-normal [&_h4]:leading-[27px] [&_h4]:text-[var(--text-on-light-base)]',
+    '[&_h3]:!leading-[25.688px] [&_h4]:!mt-4 [&_h4]:!mb-2 [&_h4]:text-xl [&_h4]:font-normal [&_h4]:leading-[27px] [&_h4]:text-[var(--text-on-light-base)] [&_ol+h2]:!mt-2 [&_ul+h2]:!mt-2 [&_p:has(+h2)]:!mb-2',
 
   letteredLists:
-    '[&_ul]:!mb-6 [&_ul]:list-[lower-alpha] [&_li]:!my-2.5 [&_li]:!pl-2 [&_li:first-child]:!mt-0',
+    '[&_ul]:!mb-6 [&_ul]:list-[lower-alpha] [&_li]:!my-2.5 [&_li]:!pl-2.5 [&_li:first-child]:!mt-0',
 
   table:
     '[&.payload-richtext_table]:!table-auto [&.payload-richtext_table]:!border-collapse [&.payload-richtext_table]:!border [&.payload-richtext_table]:!border-solid [&.payload-richtext_table]:!border-[color:var(--border-on-light)] [&.payload-richtext_table]:!my-6',

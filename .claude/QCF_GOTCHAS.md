@@ -745,3 +745,20 @@ Each entry has four parts:
   ```
   Any `d >= 2` row whose `x` differs from the source is this bug. Two more signals in the same dump: a depth-1 `li` with `list-style: none` and no text of its own is the wrapper, and a **last** `li` with a non-zero `mb` is an unclosed list — the source almost always ends a list flush and lets the list's own margin do the spacing.
 - **Fix:** treat the wrapper as the second half of one source item, not as a list item of its own. It keeps the text item's inset (`[&_li:has(>ol)]:!pl-2.5`, so nested markers step in from the clause rather than lining up under its bullet) and closes on the gap the source item would have carried (`!mb-2.5`), while opening on the list's shorter lead-in rather than a second item gap (`!-mt-0.5`). Pair it with `[&_ul>li:last-child]:!mb-0 [&_ol>li:last-child]:!mb-0` so no list ends on a trailing item gap. Scope all of it to the **variant** the affected page uses, never to the shared list base — `bulletListsBase` is shared by five variants across every long-form page in the site, and this shape is only correct where the source nests lists inside clauses. Verify the other pages on that variant before and after, ours-vs-ours: a page that already diverges from the source for unrelated reasons (`/complaints-procedure` runs 429px long on different copy) will swamp a live comparison and hide whether you regressed it.
+
+## A list that is inset wrong is a content bug as often as a CSS one — check `x` before writing CSS
+
+- **When it bites:** Chasing list geometry on a ported page and reaching for CSS every time. Some of it is CSS (see the nested-`<li>` gotcha above), but the same symptom — items sitting at the wrong `x` — is produced by the *content* being shaped differently from the source, and no stylesheet change fixes that without breaking the pages that are shaped correctly. Two real cases on the same sweep: on `/privacy-policy` the source nests a table and a bullet list **inside a list item** (`li > table`, `li > ul`) while ours has them at the top level of the rich text, so they start 25px to the left and no `[&_table]` rule can put them back without moving every other table; on `/terms-and-conditions` 108 items sit exactly 16px too deep because our Lexical nodes carry **one indent level too many** — the source reaches x=231 through four levels of 16px list padding, ours reaches x=247 through a single top-level `<ul>` with `padding-left: 112px`.
+- **Detect:** walk the ancestor chain of one misplaced item on both sides and compare the *shape*, not just the numbers:
+  ```js
+  // paste per side; prints the list nesting that produces the item's x
+  let e = [...document.querySelectorAll('li')].filter(l => (l.textContent||'').trim().startsWith('<anchor>')).pop()
+  const out = []
+  while (e && e.tagName !== 'BODY') {
+    const b = e.getBoundingClientRect(), c = getComputedStyle(e)
+    out.push(`<${e.tagName.toLowerCase()}> x${Math.round(b.x)} pl=${c.paddingLeft} ls=${c.listStyleType}`)
+    e = e.parentElement
+  }
+  ```
+  If the two chains have a **different number of list levels**, or the source reaches its inset through several small paddings where ours uses one large one, it is content. If the chains match level for level and only the padding values differ, it is CSS. A single large `padding-left` on a top-level list (`pl=112px`) is the signature of a flattened-and-indented Lexical list.
+- **Fix:** for the content cases, fix the content — re-nest the block inside its list item, or drop the extra indent level on the Lexical nodes — and leave the stylesheet alone. Do not compensate in CSS: the compensation is page-specific but the variant is not, so it silently moves every other page on that variant. Say so explicitly when reporting the page as done, rather than quietly leaving a residual and calling it a rounding difference.

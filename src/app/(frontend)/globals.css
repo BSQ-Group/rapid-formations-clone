@@ -821,13 +821,22 @@ button {
       }
     }
 
+    /* The wrapper carries the rest of the clause Lexical split it away from, so the
+       clause closes on its usual gap here rather than on the wrapper's first line —
+       whether it ends on a sub-clause or on a lettered list that closes flush. */
     > li.nestedListItem {
-      @apply pl-6 mb-0;
+      @apply pl-6 mb-3;
       counter-increment: none;
 
       &::before {
         content: none;
       }
+    }
+
+    /* A lettered list hanging off a clause title clears the numbering column; one
+       hanging off a sub-clause (below) steps in from the sub-clause instead. */
+    > li.nestedListItem > ul {
+      @apply pl-10;
     }
 
     ol {
@@ -843,8 +852,11 @@ button {
         }
       }
 
+      /* The source keeps a sub-list inside the clause it belongs to, so the wrapper
+         Lexical splits it into has to carry that clause's inset — otherwise the
+         sub-list hangs off the margin instead of off its clause. */
       > li.nestedListItem {
-        @apply pl-0;
+        @apply pl-9;
         counter-increment: none;
 
         &::before {
@@ -869,16 +881,28 @@ button {
       ul {
         @apply pl-5 mt-3;
       }
+
+      /* Beats the clause-title rule above, which would otherwise clear the numbering
+         column a second time and push this list out past its own sub-clause. */
+      > li.nestedListItem > ul {
+        @apply pl-5;
+      }
     }
 
     ul {
       @apply list-[lower-alpha] list-outside;
 
       li {
-        @apply pl-2;
+        /* Lettered sub-points stand as far apart as the clauses around them, and the
+           last closes flush so the space below comes from the list. */
+        @apply pl-2 mb-3;
 
         &::before {
           content: none;
+        }
+
+        &:last-child {
+          @apply mb-0;
         }
       }
     }
