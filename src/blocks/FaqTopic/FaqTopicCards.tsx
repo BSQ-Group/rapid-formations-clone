@@ -1,13 +1,13 @@
 import React from 'react'
 import Link from 'next/link'
 
-import type { FaqTopic } from '@/payload-types'
+import type { FaqTopicBlock } from '@/payload-types'
 
 import { Media } from '@/components/Media'
 import Text from '@/components/shared/Text'
 import { faqTopicStyles as s } from './FaqTopic.styles'
 
-type Topic = NonNullable<FaqTopic['topics']>[number]
+type Topic = NonNullable<FaqTopicBlock['topics']>[number]
 
 export const FaqTopicCards: React.FC<{ topics: Topic[] }> = ({ topics }) => (
   <div className={s.grid}>

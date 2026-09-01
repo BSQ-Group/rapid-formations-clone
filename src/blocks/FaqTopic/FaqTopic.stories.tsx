@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import type { FaqTopic } from '@/payload-types'
+import type { FaqTopicBlock } from '@/payload-types'
 
 import { FaqTopicCards } from './FaqTopicCards'
 
@@ -18,7 +18,7 @@ const image = (seed: string) =>
     updatedAt: '',
   }) as any
 
-const topic = (title: string, url: string): NonNullable<FaqTopic['topics']>[number] => ({
+const topic = (title: string, url: string): NonNullable<FaqTopicBlock['topics']>[number] => ({
   id: url,
   title,
   image: image(title.replace(/\n/g, ' ')),

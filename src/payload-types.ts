@@ -75,7 +75,6 @@ export interface Config {
     packages: Package;
     products: Product;
     serviceAds: ServiceAd;
-    buyServices: BuyService;
     staff: Staff;
     videos: Video;
     reviews: Review;
@@ -108,7 +107,6 @@ export interface Config {
     packages: PackagesSelect<false> | PackagesSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
     serviceAds: ServiceAdsSelect<false> | ServiceAdsSelect<true>;
-    buyServices: BuyServicesSelect<false> | BuyServicesSelect<true>;
     staff: StaffSelect<false> | StaffSelect<true>;
     videos: VideosSelect<false> | VideosSelect<true>;
     reviews: ReviewsSelect<false> | ReviewsSelect<true>;
@@ -134,7 +132,6 @@ export interface Config {
     businessBankAccounts: BusinessBankAccount;
     'document-library': DocumentLibrary;
     'eligible-countries': EligibleCountry;
-    faqTopics: FaqTopic;
     reviewStats: ReviewStat;
     testimonialPool: TestimonialPool;
   };
@@ -144,7 +141,6 @@ export interface Config {
     businessBankAccounts: BusinessBankAccountsSelect<false> | BusinessBankAccountsSelect<true>;
     'document-library': DocumentLibrarySelect<false> | DocumentLibrarySelect<true>;
     'eligible-countries': EligibleCountriesSelect<false> | EligibleCountriesSelect<true>;
-    faqTopics: FaqTopicsSelect<false> | FaqTopicsSelect<true>;
     reviewStats: ReviewStatsSelect<false> | ReviewStatsSelect<true>;
     testimonialPool: TestimonialPoolSelect<false> | TestimonialPoolSelect<true>;
   };
@@ -273,7 +269,6 @@ export interface Page {
         | StepsItemsBlock
         | ComparePackageTableBlock
         | ComparePackagesHeroBlock
-        | BuyServiceBlock
         | ScholarshipProgrammeBlock
         | ServiceContentBlock
         | ServicesBenefitsBlock
@@ -3070,90 +3065,6 @@ export interface ComparePackagesHeroBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "BuyServiceBlock".
- */
-export interface BuyServiceBlock {
-  /**
-   * Rendered in the order listed here.
-   */
-  services: (string | BuyService)[];
-  /**
-   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
-   */
-  sectionLayout: {
-    background: 'light' | 'dark' | 'inverse';
-    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
-    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'buyService';
-}
-/**
- * Priced service cards. Each card holds its own price, set on the record.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "buyServices".
- */
-export interface BuyService {
-  id: string;
-  /**
-   * Admin-only label used in lists and pickers. Never rendered.
-   */
-  name: string;
-  title: string;
-  /**
-   * Shown instead of the title below 1024px. Leave empty to use the title.
-   */
-  mobileTitle?: string | null;
-  /**
-   * Shown after a £, e.g. "89.99".
-   */
-  price: string;
-  /**
-   * Small text after the price (e.g. "per year").
-   */
-  postText?: string | null;
-  showVat?: boolean | null;
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  /**
-   * Matches the source, which hides the body on a fixed set of service pages.
-   */
-  hideBodyOnMobile?: boolean | null;
-  cta: {
-    type?: ('reference' | 'custom') | null;
-    newTab?: boolean | null;
-    reference?:
-      | ({
-          relationTo: 'pages';
-          value: string | Page;
-        } | null)
-      | ({
-          relationTo: 'posts';
-          value: string | Post;
-        } | null);
-    url?: string | null;
-    label: string;
-  };
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ScholarshipProgrammeBlock".
  */
 export interface ScholarshipProgrammeBlock {
@@ -3337,7 +3248,56 @@ export interface ServiceContentBlock {
   /**
    * Priced cards rendered inside the content. Two columns puts them at the top of the right column, above everything on mobile; one column puts them after the copy.
    */
-  buyServices?: (string | BuyService)[] | null;
+  buyCards?:
+    | {
+        title: string;
+        /**
+         * Shown instead of the title below 1024px. Leave empty to use the title.
+         */
+        mobileTitle?: string | null;
+        /**
+         * Shown after a £, e.g. "89.99".
+         */
+        price: string;
+        /**
+         * Small text after the price (e.g. "per year").
+         */
+        postText?: string | null;
+        showVat?: boolean | null;
+        content?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        hideBodyOnMobile?: boolean | null;
+        cta: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
   /**
    * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
    */
@@ -6523,6 +6483,23 @@ export interface ReviewCentreIntroBlock {
  */
 export interface FaqTopicBlock {
   /**
+   * Order here is the order the cards render in, and drives the topic quick-nav.
+   */
+  topics?:
+    | {
+        /**
+         * Line breaks are preserved, matching the source layout.
+         */
+        title: string;
+        image: string | Media;
+        /**
+         * e.g. /faqs/basics
+         */
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
    * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
    */
   sectionLayout: {
@@ -7201,10 +7178,6 @@ export interface PayloadLockedDocument {
         value: string | ServiceAd;
       } | null)
     | ({
-        relationTo: 'buyServices';
-        value: string | BuyService;
-      } | null)
-    | ({
         relationTo: 'staff';
         value: string | Staff;
       } | null)
@@ -7352,7 +7325,6 @@ export interface PagesSelect<T extends boolean = true> {
         stepsItems?: T | StepsItemsBlockSelect<T>;
         comparePackageTable?: T | ComparePackageTableBlockSelect<T>;
         comparePackagesHero?: T | ComparePackagesHeroBlockSelect<T>;
-        buyService?: T | BuyServiceBlockSelect<T>;
         scholarshipProgramme?: T | ScholarshipProgrammeBlockSelect<T>;
         serviceContent?: T | ServiceContentBlockSelect<T>;
         servicesBenefits?: T | ServicesBenefitsBlockSelect<T>;
@@ -8603,22 +8575,6 @@ export interface ComparePackagesHeroBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "BuyServiceBlock_select".
- */
-export interface BuyServiceBlockSelect<T extends boolean = true> {
-  services?: T;
-  sectionLayout?:
-    | T
-    | {
-        background?: T;
-        paddingTop?: T;
-        paddingBottom?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ScholarshipProgrammeBlock_select".
  */
 export interface ScholarshipProgrammeBlockSelect<T extends boolean = true> {
@@ -8697,7 +8653,27 @@ export interface ServiceContentBlockSelect<T extends boolean = true> {
         heading?: T;
         form?: T;
       };
-  buyServices?: T;
+  buyCards?:
+    | T
+    | {
+        title?: T;
+        mobileTitle?: T;
+        price?: T;
+        postText?: T;
+        showVat?: T;
+        content?: T;
+        hideBodyOnMobile?: T;
+        cta?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
   sectionLayout?:
     | T
     | {
@@ -10548,6 +10524,14 @@ export interface ReviewCentreIntroBlockSelect<T extends boolean = true> {
  * via the `definition` "FaqTopicBlock_select".
  */
 export interface FaqTopicBlockSelect<T extends boolean = true> {
+  topics?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        url?: T;
+        id?: T;
+      };
   sectionLayout?:
     | T
     | {
@@ -10976,31 +10960,6 @@ export interface ServiceAdsSelect<T extends boolean = true> {
         prefix?: T;
         suffix?: T;
         postPrice?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "buyServices_select".
- */
-export interface BuyServicesSelect<T extends boolean = true> {
-  name?: T;
-  title?: T;
-  mobileTitle?: T;
-  price?: T;
-  postText?: T;
-  showVat?: T;
-  content?: T;
-  hideBodyOnMobile?: T;
-  cta?:
-    | T
-    | {
-        type?: T;
-        newTab?: T;
-        reference?: T;
-        url?: T;
-        label?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -11794,34 +11753,6 @@ export interface EligibleCountry {
   createdAt?: string | null;
 }
 /**
- * The FAQ subject list. Drives the card grid on /faqs and the quick-navigation dropdown on each topic page.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "faqTopics".
- */
-export interface FaqTopic {
-  id: string;
-  /**
-   * Order here is the order the cards render in.
-   */
-  topics?:
-    | {
-        /**
-         * Line breaks are preserved, matching the source layout.
-         */
-        title: string;
-        image: string | Media;
-        /**
-         * e.g. /faqs/basics
-         */
-        url: string;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
  * Ratings shown by the "How we are rated" block. The same figures appear on every page carrying that block.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -12133,23 +12064,6 @@ export interface EligibleCountriesSelect<T extends boolean = true> {
     | T
     | {
         name?: T;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "faqTopics_select".
- */
-export interface FaqTopicsSelect<T extends boolean = true> {
-  topics?:
-    | T
-    | {
-        title?: T;
-        image?: T;
-        url?: T;
         id?: T;
       };
   updatedAt?: T;

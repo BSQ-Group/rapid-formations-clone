@@ -16,14 +16,12 @@ import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { ServiceAdsCollection } from './collections/ServiceAds'
 import { StaffCollection } from './collections/Staff'
-import { BuyServicesCollection } from './collections/BuyServices'
 import { VideosCollection } from './collections/Videos'
 import { ReviewsCollection } from './collections/Reviews'
 import { ScholarshipWinnersCollection } from './collections/ScholarshipWinners'
 import { BusinessBankAccountsGlobal } from './globals/BusinessBankAccounts/config'
 import { DocumentLibraryGlobal } from './globals/DocumentLibrary/config'
 import { EligibleCountriesGlobal } from './globals/EligibleCountries/config'
-import { FaqTopicsGlobal } from './globals/FaqTopics/config'
 import { ReviewStatsGlobal } from './globals/ReviewStats/config'
 import { TestimonialsGlobal } from './globals/Testimonials/config'
 import { plugins } from './plugins'
@@ -93,7 +91,6 @@ export default buildConfig({
     Packages,
     Products,
     ServiceAdsCollection,
-    BuyServicesCollection,
     StaffCollection,
     VideosCollection,
     ReviewsCollection,
@@ -116,7 +113,6 @@ export default buildConfig({
     BusinessBankAccountsGlobal,
     DocumentLibraryGlobal,
     EligibleCountriesGlobal,
-    FaqTopicsGlobal,
     ReviewStatsGlobal,
     TestimonialsGlobal,
   ],

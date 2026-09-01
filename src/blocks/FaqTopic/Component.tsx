@@ -1,6 +1,4 @@
 import React from 'react'
-import configPromise from '@payload-config'
-import { getPayload } from 'payload'
 
 import type { FaqTopicBlock as FaqTopicBlockProps } from '@/payload-types'
 
@@ -9,10 +7,7 @@ import { SectionWrapper } from '@/components/shared/SectionWrapper/SectionWrappe
 import { FaqTopicCards } from './FaqTopicCards'
 import { faqTopicStyles as s } from './FaqTopic.styles'
 
-export const FaqTopicBlock: React.FC<FaqTopicBlockProps> = async ({ sectionLayout }) => {
-  const payload = await getPayload({ config: configPromise })
-  const { topics } = await payload.findGlobal({ slug: 'faqTopics' })
-
+export const FaqTopicBlock: React.FC<FaqTopicBlockProps> = ({ topics, sectionLayout }) => {
   if (!topics?.length) return null
 
   return (
