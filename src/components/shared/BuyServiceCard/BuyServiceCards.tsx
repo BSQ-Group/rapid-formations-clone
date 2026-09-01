@@ -2,7 +2,6 @@ import React from 'react'
 
 import type { BuyService } from '@/payload-types'
 
-import { getCachedPrices } from '@/utilities/getPrices'
 import { getLinkHref, type LinkData } from '@/utilities/links'
 import { BuyServiceCard } from './BuyServiceCard'
 
@@ -12,7 +11,7 @@ export type BuyServiceCardsProps = {
   cardClassName?: string
 }
 
-export const BuyServiceCards: React.FC<BuyServiceCardsProps> = async ({
+export const BuyServiceCards: React.FC<BuyServiceCardsProps> = ({
   services,
   className,
   cardClassName,
@@ -23,12 +22,9 @@ export const BuyServiceCards: React.FC<BuyServiceCardsProps> = async ({
 
   if (!resolved.length) return null
 
-  const items = await getCachedPrices()()
-  const priceBySlug = new Map(items.map((item) => [item.slug, item.value]))
-
   const cards = resolved
     .map((service) => {
-      const price = priceBySlug.get(service.priceSlug)
+      const price = service.price
       if (!price) return null
       const cta = service.cta as LinkData | undefined
       return (

@@ -73,7 +73,6 @@ export interface Config {
     categories: Category;
     users: User;
     packages: Package;
-    prices: Price;
     products: Product;
     serviceAds: ServiceAd;
     buyServices: BuyService;
@@ -106,7 +105,6 @@ export interface Config {
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     packages: PackagesSelect<false> | PackagesSelect<true>;
-    prices: PricesSelect<false> | PricesSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
     serviceAds: ServiceAdsSelect<false> | ServiceAdsSelect<true>;
     buyServices: BuyServicesSelect<false> | BuyServicesSelect<true>;
@@ -3086,7 +3084,7 @@ export interface BuyServiceBlock {
   blockType: 'buyService';
 }
 /**
- * Priced service cards. The price itself lives in the Prices collection — this references it by slug so a change there updates every card.
+ * Priced service cards. Each card holds its own price, set on the record.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "buyServices".
@@ -3103,9 +3101,9 @@ export interface BuyService {
    */
   mobileTitle?: string | null;
   /**
-   * Looked up in the Prices collection — the same slug the [[price]] shortcode uses.
+   * Shown after a £, e.g. "89.99".
    */
-  priceSlug: string;
+  price: string;
   /**
    * Small text after the price (e.g. "per year").
    */
@@ -3526,9 +3524,9 @@ export interface OurAddressBlock {
    */
   address: string;
   /**
-   * Matches a slug in the Prices collection, e.g. "london-service-address".
+   * Shown after a £, e.g. "26.00".
    */
-  priceSlug: string;
+  price: string;
   postText?: string | null;
   cta: {
     type?: ('reference' | 'custom') | null;
@@ -3995,9 +3993,9 @@ export interface RenewalItemsBlock {
   items: {
     title: string;
     /**
-     * Matches a slug in the Prices collection, e.g. "london-registered-office".
+     * Shown after a £, e.g. "39.00".
      */
-    priceSlug: string;
+    price: string;
     body: {
       root: {
         type: string;
@@ -6337,9 +6335,9 @@ export interface PageTitleBlock {
      */
     priceSuffix?: string | null;
     /**
-     * Matches a slug in the Prices collection, e.g. "ico-registration". Leave empty to show buttons without a price.
+     * Shown after a £, e.g. "89.99". Leave empty to show buttons without a price.
      */
-    priceSlug?: string | null;
+    price?: string | null;
     /**
      * The green Buy Now button. Leave the label empty to omit it.
      */
@@ -6854,25 +6852,6 @@ export interface BusinessBankingTableBlock {
   blockType: 'businessBankingTable';
 }
 /**
- * Prices quoted inside page copy via the [[price slug="..."]] shortcode, and read by the priced service cards, renewal and address blocks. Changing a value here updates every place that quotes it. Package-tier prices live on the Packages collection instead.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "prices".
- */
-export interface Price {
-  id: string;
-  /**
-   * What the shortcode / price slug references, e.g. "vat-registration".
-   */
-  slug: string;
-  /**
-   * Without the £, trailing zeros kept — e.g. 100.00. Rendered after a £ sign.
-   */
-  value: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
  * People shown by the Meet The Team block. Each card opens a dialog with the photo, the job title and the facts listed below it.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -7186,10 +7165,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'packages';
         value: string | Package;
-      } | null)
-    | ({
-        relationTo: 'prices';
-        value: string | Price;
       } | null)
     | ({
         relationTo: 'products';
@@ -8799,7 +8774,7 @@ export interface OurAddressBlockSelect<T extends boolean = true> {
   label?: T;
   image?: T;
   address?: T;
-  priceSlug?: T;
+  price?: T;
   postText?: T;
   cta?:
     | T
@@ -9080,7 +9055,7 @@ export interface RenewalItemsBlockSelect<T extends boolean = true> {
     | T
     | {
         title?: T;
-        priceSlug?: T;
+        price?: T;
         body?: T;
         cta?:
           | T
@@ -10463,7 +10438,7 @@ export interface PageTitleBlockSelect<T extends boolean = true> {
     | T
     | {
         priceSuffix?: T;
-        priceSlug?: T;
+        price?: T;
         cta?:
           | T
           | {
@@ -10941,16 +10916,6 @@ export interface PackagesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "prices_select".
- */
-export interface PricesSelect<T extends boolean = true> {
-  slug?: T;
-  value?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "products_select".
  */
 export interface ProductsSelect<T extends boolean = true> {
@@ -11000,7 +10965,7 @@ export interface BuyServicesSelect<T extends boolean = true> {
   name?: T;
   title?: T;
   mobileTitle?: T;
-  priceSlug?: T;
+  price?: T;
   postText?: T;
   showVat?: T;
   content?: T;

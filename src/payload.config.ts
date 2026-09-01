@@ -8,7 +8,6 @@ import { fileURLToPath } from 'url'
 import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
 import { Packages } from './collections/Packages'
-import { Prices } from './collections/Prices'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
 import { Products } from './collections/Products'
@@ -91,7 +90,6 @@ export default buildConfig({
     Categories,
     Users,
     Packages,
-    Prices,
     Products,
     ServiceAdsCollection,
     BuyServicesCollection,

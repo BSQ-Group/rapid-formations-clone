@@ -64,13 +64,13 @@ export const OurAddress: Block = {
       type: 'row',
       fields: [
         {
-          name: 'priceSlug',
+          name: 'price',
           type: 'text',
-          label: 'Price slug',
+          label: 'Price',
           required: true,
           admin: {
             width: '50%',
-            description: 'Matches a slug in the Prices collection, e.g. "london-service-address".',
+            description: 'Shown after a £, e.g. "26.00".',
           },
         },
         {

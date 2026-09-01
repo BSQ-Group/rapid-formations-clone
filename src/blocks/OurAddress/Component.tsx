@@ -8,7 +8,6 @@ import { Media } from '@/components/Media'
 import { SectionWrapper } from '@/components/shared/SectionWrapper/SectionWrapper'
 import Text from '@/components/shared/Text'
 import { Button } from '@/components/ui/button'
-import { getCachedPrices } from '@/utilities/getPrices'
 import { getLinkHref, type LinkData } from '@/utilities/links'
 import { ourAddressStyles as s } from './OurAddress.styles'
 
@@ -102,23 +101,18 @@ export const OurAddressSection: React.FC<OurAddressSectionProps> = ({
   )
 }
 
-export const OurAddressBlock: React.FC<OurAddressBlockProps> = async ({
+export const OurAddressBlock: React.FC<OurAddressBlockProps> = ({
   variant,
   heading,
   label,
   image,
   address,
-  priceSlug,
+  price,
   postText,
   cta,
   sectionLayout,
 }) => {
-  if (!image) return null
-
-  const items = await getCachedPrices()()
-  const price = items.find((item) => item.slug === priceSlug)?.value
-
-  if (!price) return null
+  if (!image || !price) return null
 
   const link = cta as LinkData | undefined
 

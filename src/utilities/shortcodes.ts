@@ -52,14 +52,8 @@ export type DocumentSection = { title: string; groups: DocumentGroup[] }
 export type DocumentList = { sections: DocumentSection[] }
 
 export type ShortcodeData = {
-  prices: Map<string, string>
   eligibleCountries: EligibleCountries
   documentLibrary: DocumentList
-}
-
-const priceOf = (attributes: Attributes, { prices }: ShortcodeData) => {
-  const value = prices.get(attributes.slug ?? '')
-  return value === undefined ? null : `£${value}`
 }
 
 type NodeContext = { node: TextNode; attributes: Attributes; data: ShortcodeData }
@@ -72,7 +66,6 @@ type Shortcode = {
 const shortcodes: Record<string, Shortcode> = {
   telephone: { node: ({ node }) => telephoneLink(node), text: () => TELEPHONE_NUMBER },
   space: { node: () => NON_BREAKING_SPACE, text: () => NON_BREAKING_SPACE },
-  price: { node: ({ attributes, data }) => priceOf(attributes, data), text: priceOf },
   'live-chat': {
     node: ({ node, attributes }) =>
       customLink(node, LIVE_CHAT_HREF, attributes.text || 'live chat'),
@@ -149,11 +142,11 @@ const expandString = (text: string, data: ShortcodeData): string =>
   )
 
 /**
- * Replaces [[telephone]], [[price slug="..."]], [[space]], [[live-chat]],
- * [[eligiblecountries]] and [[documents-list]] anywhere in a Payload document
- * with the nodes they stand for, leaving every other shortcode untouched. The
- * last three become links on a sentinel href that RichText swaps for the
- * interactive component.
+ * Replaces [[telephone]], [[space]], [[live-chat]], [[eligiblecountries]] and
+ * [[documents-list]] anywhere in a Payload document with the nodes they stand
+ * for, leaving every other shortcode untouched. The last three become links on
+ * a sentinel href that RichText swaps for the interactive component. (Prices are
+ * authored inline on the block that shows them, so there is no [[price]] token.)
  */
 export const resolveShortcodes = <T>(value: T, data: ShortcodeData): T => {
   if (Array.isArray(value)) {
@@ -178,15 +171,3 @@ export const resolveShortcodes = <T>(value: T, data: ShortcodeData): T => {
 
   return value
 }
-
-export const toPriceMap = (
-  items: { slug?: string | null; value?: string | null }[] | null | undefined,
-): Map<string, string> =>
-  new Map(
-    (items ?? [])
-      .filter(
-        (item): item is { slug: string; value: string } =>
-          Boolean(item?.slug) && Boolean(item?.value),
-      )
-      .map((item) => [item.slug, item.value]),
-  )

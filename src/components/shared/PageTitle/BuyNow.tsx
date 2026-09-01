@@ -5,7 +5,6 @@ import type { PageTitleBlock } from '@/payload-types'
 
 import Text from '@/components/shared/Text'
 import { Button } from '@/components/ui/button'
-import { getCachedPrices } from '@/utilities/getPrices'
 import { getLinkHref, type LinkData } from '@/utilities/links'
 import { pageTitleStyles as s } from './PageTitle.styles'
 
@@ -59,18 +58,11 @@ const toButton = (link: LinkData | undefined, variant: BuyNowButton['variant']) 
     ? { label: link.label, href: getLinkHref(link), newTab: link.newTab, variant }
     : undefined
 
-export const BuyNow: React.FC<{ buyNow?: BuyNowValue | null }> = async ({ buyNow }) => {
-  let price: string | undefined
-
-  if (buyNow?.priceSlug) {
-    const items = await getCachedPrices()()
-    price = items.find((item) => item.slug === buyNow.priceSlug)?.value
-  }
-
+export const BuyNow: React.FC<{ buyNow?: BuyNowValue | null }> = ({ buyNow }) => {
   const buttons = [
     toButton(buyNow?.cta as LinkData | undefined, 'success'),
     toButton(buyNow?.secondaryCta as LinkData | undefined, 'secondary'),
   ].filter(Boolean) as BuyNowButton[]
 
-  return <BuyNowView price={price} priceSuffix={buyNow?.priceSuffix} buttons={buttons} />
+  return <BuyNowView price={buyNow?.price} priceSuffix={buyNow?.priceSuffix} buttons={buttons} />
 }
