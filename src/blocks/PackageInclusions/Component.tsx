@@ -1,9 +1,8 @@
 import React from 'react'
-import configPromise from '@payload-config'
-import { getPayload } from 'payload'
 
 import type { PackageInclusionsBlock as PackageInclusionsBlockProps } from '@/payload-types'
 
+import { getTierPriceMap } from '@/utilities/getPackagePrices'
 import { getLinkHref, type LinkData } from '@/utilities/links'
 import { PackageInclusionsView } from './PackageInclusionsView'
 
@@ -18,9 +17,8 @@ export const PackageInclusionsBlock: React.FC<PackageInclusionsBlockProps> = asy
   let price: string | undefined
 
   if (priceSlug) {
-    const payload = await getPayload({ config: configPromise })
-    const { items: prices } = await payload.findGlobal({ slug: 'prices' })
-    price = (prices ?? []).find((item) => item.slug === priceSlug)?.value
+    const prices = await getTierPriceMap()
+    price = prices.get(priceSlug)
   }
 
   const buyLink = cta as LinkData | undefined

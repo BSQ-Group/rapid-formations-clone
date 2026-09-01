@@ -1,7 +1,5 @@
 import React from 'react'
 import Link from 'next/link'
-import configPromise from '@payload-config'
-import { getPayload } from 'payload'
 
 import type { Media as MediaType, OurAddressBlock as OurAddressBlockProps } from '@/payload-types'
 
@@ -10,6 +8,7 @@ import { Media } from '@/components/Media'
 import { SectionWrapper } from '@/components/shared/SectionWrapper/SectionWrapper'
 import Text from '@/components/shared/Text'
 import { Button } from '@/components/ui/button'
+import { getCachedPrices } from '@/utilities/getPrices'
 import { getLinkHref, type LinkData } from '@/utilities/links'
 import { ourAddressStyles as s } from './OurAddress.styles'
 
@@ -116,9 +115,8 @@ export const OurAddressBlock: React.FC<OurAddressBlockProps> = async ({
 }) => {
   if (!image) return null
 
-  const payload = await getPayload({ config: configPromise })
-  const { items } = await payload.findGlobal({ slug: 'prices' })
-  const price = (items ?? []).find((item) => item.slug === priceSlug)?.value
+  const items = await getCachedPrices()()
+  const price = items.find((item) => item.slug === priceSlug)?.value
 
   if (!price) return null
 

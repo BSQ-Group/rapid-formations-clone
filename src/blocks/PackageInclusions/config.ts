@@ -76,7 +76,7 @@ export const PackageInclusions: Block = {
       label: 'Price slug',
       admin: {
         description:
-          'Matches an entry in the Prices global, e.g. "basic-package". Leave empty to show the button without a price.',
+          'The package whose price to show, by its Packages-collection slug (the "-package" suffix is optional, e.g. "basic" or "basic-package"). Leave empty to show the button without a price.',
       },
     },
     {

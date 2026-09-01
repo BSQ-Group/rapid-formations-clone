@@ -1,9 +1,8 @@
 import React from 'react'
-import configPromise from '@payload-config'
-import { getPayload } from 'payload'
 
 import type { RecommendedPackagesBlock as RecommendedPackagesBlockProps } from '@/payload-types'
 
+import { getTierPriceMap } from '@/utilities/getPackagePrices'
 import { getLinkHref, type LinkData } from '@/utilities/links'
 import { RecommendedPackagesView } from './RecommendedPackagesView'
 
@@ -17,9 +16,7 @@ export const RecommendedPackagesBlock: React.FC<RecommendedPackagesBlockProps> =
 
   if (!rows.length) return null
 
-  const payload = await getPayload({ config: configPromise })
-  const { items } = await payload.findGlobal({ slug: 'prices' })
-  const priceBySlug = new Map((items ?? []).map((item) => [item.slug, item.value]))
+  const priceBySlug = await getTierPriceMap()
 
   const cards = rows.map((card) => ({
     card,

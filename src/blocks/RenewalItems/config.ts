@@ -30,7 +30,7 @@ export const RenewalItems: Block = {
               admin: {
                 width: '50%',
                 description:
-                  'Matches an entry in the Prices global, e.g. "london-registered-office".',
+                  'Matches a slug in the Prices collection, e.g. "london-registered-office".',
               },
             },
           ],

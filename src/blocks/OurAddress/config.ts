@@ -70,7 +70,7 @@ export const OurAddress: Block = {
           required: true,
           admin: {
             width: '50%',
-            description: 'Matches an entry in the Prices global, e.g. "london-service-address".',
+            description: 'Matches a slug in the Prices collection, e.g. "london-service-address".',
           },
         },
         {

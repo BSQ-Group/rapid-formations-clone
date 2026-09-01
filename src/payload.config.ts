@@ -8,6 +8,7 @@ import { fileURLToPath } from 'url'
 import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
 import { Packages } from './collections/Packages'
+import { Prices } from './collections/Prices'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
 import { Products } from './collections/Products'
@@ -23,9 +24,6 @@ import { BusinessBankAccountsGlobal } from './globals/BusinessBankAccounts/confi
 import { DocumentLibraryGlobal } from './globals/DocumentLibrary/config'
 import { EligibleCountriesGlobal } from './globals/EligibleCountries/config'
 import { FaqTopicsGlobal } from './globals/FaqTopics/config'
-import { LegalSidenavGlobal } from './globals/LegalSidenavItemsOrder/config'
-import { PackagesNavGlobal } from './globals/PackagesNavItems/config'
-import { PricesGlobal } from './globals/Prices/config'
 import { ReviewStatsGlobal } from './globals/ReviewStats/config'
 import { TestimonialsGlobal } from './globals/Testimonials/config'
 import { plugins } from './plugins'
@@ -93,6 +91,7 @@ export default buildConfig({
     Categories,
     Users,
     Packages,
+    Prices,
     Products,
     ServiceAdsCollection,
     BuyServicesCollection,
@@ -118,9 +117,6 @@ export default buildConfig({
     DocumentLibraryGlobal,
     EligibleCountriesGlobal,
     FaqTopicsGlobal,
-    LegalSidenavGlobal,
-    PackagesNavGlobal,
-    PricesGlobal,
     ReviewStatsGlobal,
     TestimonialsGlobal,
   ],

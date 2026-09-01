@@ -84,7 +84,6 @@ import { PromoTier3Block } from '@/blocks/PromoTier3/Component'
 import { PromoTier2Block } from '@/blocks/PromoTier2/Component'
 import { WhatIsPrivateLimitedCompanyBlock } from '@/blocks/WhatIsPrivateLimitedCompany/Component'
 import { HeroStepperBlock } from '@/blocks/HeroStepper/Component'
-import { PackagesNavBlock } from '@/blocks/PackagesNav/Component'
 import { ComparePackagesBlock } from '@/blocks/ComparePackages/Component'
 import { PackageCardHeroBlock } from '@/blocks/PackageCardHero/Component'
 import { WhatsIncludedSinglePackageBlock } from '@/blocks/WhatsIncludedSinglePackage/Component'
@@ -199,7 +198,6 @@ const blockComponents = {
   promoTier2: PromoTier2Block,
   whatIsPrivateLimitedCompany: WhatIsPrivateLimitedCompanyBlock,
   heroStepper: HeroStepperBlock,
-  packagesNav: PackagesNavBlock,
   comparePackages: ComparePackagesBlock,
   packageCardHero: PackageCardHeroBlock,
   whatsIncludedSinglePackage: WhatsIncludedSinglePackageBlock,

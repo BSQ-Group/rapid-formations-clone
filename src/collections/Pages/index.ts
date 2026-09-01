@@ -84,7 +84,6 @@ import { PromoTier3 } from '../../blocks/PromoTier3/config'
 import { PromoTier2 } from '../../blocks/PromoTier2/config'
 import { WhatIsPrivateLimitedCompany } from '../../blocks/WhatIsPrivateLimitedCompany/config'
 import { HeroStepper } from '../../blocks/HeroStepper/config'
-import { PackagesNav } from '../../blocks/PackagesNav/config'
 import { ComparePackages } from '../../blocks/ComparePackages/config'
 import { PackageCardHero } from '../../blocks/PackageCardHero/config'
 import { WhatsIncludedSinglePackage } from '../../blocks/WhatsIncludedSinglePackage/config'
@@ -119,7 +118,6 @@ import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
 import { populateFullPath } from './hooks/populateFullPath'
-import { syncLegalSidenavOnChange, syncLegalSidenavOnDelete } from './hooks/syncLegalSidenav'
 
 import {
   MetaDescriptionField,
@@ -264,7 +262,6 @@ export const Pages: CollectionConfig<'pages'> = {
                 PromoTier2,
                 WhatIsPrivateLimitedCompany,
                 HeroStepper,
-                PackagesNav,
                 ComparePackages,
                 PackageCardHero,
                 WhatsIncludedSinglePackage,
@@ -360,7 +357,7 @@ export const Pages: CollectionConfig<'pages'> = {
       admin: {
         position: 'sidebar',
         description:
-          'Marks this page as a legal page. Sidebar contents are managed under Globals → Legal Sidenav.',
+          'Marks this page as a legal page. The legal sidebar lists every published legal page automatically, ordered by title.',
       },
     },
     {
@@ -401,9 +398,9 @@ export const Pages: CollectionConfig<'pages'> = {
     },
   ],
   hooks: {
-    afterChange: [revalidatePage, syncLegalSidenavOnChange],
+    afterChange: [revalidatePage],
     beforeChange: [populatePublishedAt, populateFullPath],
-    afterDelete: [revalidateDelete, syncLegalSidenavOnDelete],
+    afterDelete: [revalidateDelete],
   },
   versions: {
     drafts: {

@@ -22,7 +22,7 @@ export const BuyServicesCollection: CollectionConfig = {
     group: 'Content',
     defaultColumns: ['name', 'title', 'priceSlug'],
     description:
-      'Priced service cards. The price itself lives in the Prices global — this references it by slug so a change there updates every card.',
+      'Priced service cards. The price itself lives in the Prices collection — this references it by slug so a change there updates every card.',
   },
   fields: [
     {
@@ -54,7 +54,8 @@ export const BuyServicesCollection: CollectionConfig = {
       label: 'Price slug',
       required: true,
       admin: {
-        description: 'Looked up in the Prices global — the same slug the [[price]] shortcode uses.',
+        description:
+          'Looked up in the Prices collection — the same slug the [[price]] shortcode uses.',
       },
     },
     {

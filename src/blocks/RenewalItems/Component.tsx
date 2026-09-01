@@ -1,11 +1,10 @@
 import React from 'react'
-import configPromise from '@payload-config'
-import { getPayload } from 'payload'
 
-import type { Price, RenewalItemsBlock as RenewalItemsBlockProps } from '@/payload-types'
+import type { RenewalItemsBlock as RenewalItemsBlockProps } from '@/payload-types'
 
 import { Container } from '@/components/shared/Container/Container'
 import { SectionWrapper } from '@/components/shared/SectionWrapper/SectionWrapper'
+import { getCachedPrices } from '@/utilities/getPrices'
 import { getLinkHref, type LinkData } from '@/utilities/links'
 import { renewalItemsStyles as s } from './RenewalItems.styles'
 import { RenewalItemsView, type RenewalItem } from './RenewalItemsView'
@@ -33,9 +32,8 @@ export const RenewalItemsBlockComponent: React.FC<RenewalItemsBlockProps> = asyn
   items,
   sectionLayout,
 }) => {
-  const payload = await getPayload({ config: configPromise })
-  const { items: priceItems } = (await payload.findGlobal({ slug: 'prices' })) as Price
-  const prices = new Map((priceItems ?? []).map((price) => [price.slug, price.value]))
+  const priceItems = await getCachedPrices()()
+  const prices = new Map(priceItems.map((price) => [price.slug, price.value]))
 
   const rows = (items ?? []).flatMap((item, index) => toItem(item, index, prices))
 

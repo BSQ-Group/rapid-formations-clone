@@ -61,7 +61,7 @@ export const PageTitle: Block = {
           label: 'Price slug',
           admin: {
             description:
-              'Matches an entry in the Prices global, e.g. "ico-registration". Leave empty to show buttons without a price.',
+              'Matches a slug in the Prices collection, e.g. "ico-registration". Leave empty to show buttons without a price.',
           },
         },
         link({

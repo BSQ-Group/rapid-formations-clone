@@ -1,9 +1,8 @@
 import React from 'react'
-import configPromise from '@payload-config'
-import { getPayload } from 'payload'
 
 import type { BuyService } from '@/payload-types'
 
+import { getCachedPrices } from '@/utilities/getPrices'
 import { getLinkHref, type LinkData } from '@/utilities/links'
 import { BuyServiceCard } from './BuyServiceCard'
 
@@ -24,9 +23,8 @@ export const BuyServiceCards: React.FC<BuyServiceCardsProps> = async ({
 
   if (!resolved.length) return null
 
-  const payload = await getPayload({ config: configPromise })
-  const { items } = await payload.findGlobal({ slug: 'prices' })
-  const priceBySlug = new Map((items ?? []).map((item) => [item.slug, item.value]))
+  const items = await getCachedPrices()()
+  const priceBySlug = new Map(items.map((item) => [item.slug, item.value]))
 
   const cards = resolved
     .map((service) => {

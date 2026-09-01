@@ -1,12 +1,11 @@
 import React from 'react'
 import Link from 'next/link'
-import configPromise from '@payload-config'
-import { getPayload } from 'payload'
 
 import type { PageTitleBlock } from '@/payload-types'
 
 import Text from '@/components/shared/Text'
 import { Button } from '@/components/ui/button'
+import { getCachedPrices } from '@/utilities/getPrices'
 import { getLinkHref, type LinkData } from '@/utilities/links'
 import { pageTitleStyles as s } from './PageTitle.styles'
 
@@ -64,9 +63,8 @@ export const BuyNow: React.FC<{ buyNow?: BuyNowValue | null }> = async ({ buyNow
   let price: string | undefined
 
   if (buyNow?.priceSlug) {
-    const payload = await getPayload({ config: configPromise })
-    const { items } = await payload.findGlobal({ slug: 'prices' })
-    price = (items ?? []).find((item) => item.slug === buyNow.priceSlug)?.value
+    const items = await getCachedPrices()()
+    price = items.find((item) => item.slug === buyNow.priceSlug)?.value
   }
 
   const buttons = [
