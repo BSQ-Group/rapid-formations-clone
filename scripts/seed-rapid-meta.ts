@@ -39,9 +39,17 @@ interface Row {
   orig: { status: number; title: string | null; description: string | null }
 }
 
+// Page slug = last path segment (clonePath may be a nested fullPath like
+// /additional-services/business-address/); home → 'home'.
 function slugFor(clonePath: string): string {
-  if (clonePath === '/') return 'home'
-  return clonePath.replace(/^\//, '').replace(/\/$/, '')
+  const parts = clonePath.split('/').filter(Boolean)
+  return parts.length ? parts[parts.length - 1] : 'home'
+}
+
+// Collapse the legacy double brand-suffix typo (a few pages emit
+// "X | Rapid Formations | Rapid Formations") down to a single suffix.
+function normalizeTitle(t: string): string {
+  return t.replace(/(\s*\|\s*Rapid Formations)(?:\s*\|\s*Rapid Formations)+\s*$/i, '$1').trim()
 }
 
 function isValidOriginal(o: Row['orig']): boolean {
@@ -71,7 +79,7 @@ async function dryRun(rows: Row[]) {
       skipped++
       continue
     }
-    const title = row.orig.title!.trim()
+    const title = normalizeTitle(row.orig.title!.trim())
     const description = (row.orig.description || '').trim()
     const cur = await currentMetaViaApi(slug)
     const titleChanged = cur.title.trim() !== title
@@ -115,7 +123,7 @@ async function live(rows: Row[]) {
       skipped++
       continue
     }
-    const title = row.orig.title!.trim()
+    const title = normalizeTitle(row.orig.title!.trim())
     const description = (row.orig.description || '').trim()
 
     const found = await payload.find({
