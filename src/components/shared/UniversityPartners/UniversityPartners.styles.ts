@@ -4,9 +4,9 @@ export const universityPartnersStyles = {
 
   group: 'mb-5',
 
-  rail: 'grid grid-cols-2 gap-5 md:flex md:flex-col',
+  rail: 'grid grid-cols-[repeat(2,minmax(max-content,1fr))] gap-5 md:flex md:flex-col',
 
-  row: 'grid grid-cols-2 gap-5 min-[470px]:grid-cols-3 min-[1023px]:grid-cols-5',
+  row: 'grid grid-cols-[repeat(2,minmax(max-content,1fr))] gap-5 min-[470px]:grid-cols-[repeat(3,minmax(max-content,1fr))] min-[1023px]:grid-cols-[repeat(5,minmax(max-content,1fr))]',
 
   partner: 'mb-[42px]',
 

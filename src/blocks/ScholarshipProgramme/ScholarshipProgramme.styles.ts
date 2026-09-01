@@ -9,7 +9,7 @@ export const scholarshipProgrammeStyles = {
   title:
     'mt-5 mb-11 block text-[38px] leading-[1.15] font-semibold text-[var(--text-on-light-base)] md:mt-5 min-[1023px]:mt-6',
 
-  ctaWrap: 'mt-8 mb-16 w-full md:w-max',
+  ctaWrap: 'mt-8 mb-16 w-full md:mx-auto md:w-max',
 
   // The shared shell sets a tighter rhythm than this page's source, which runs 16px
   // between paragraphs, 24px headings and 8px around list items. Passed last through
