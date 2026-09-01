@@ -1,9 +1,11 @@
 import React from 'react'
+import { faAngleRight } from '@fortawesome/pro-solid-svg-icons/faAngleRight'
 
 import type { ScholarshipProgrammeBlock as ScholarshipProgrammeBlockProps } from '@/payload-types'
 
 import { Container } from '@/components/shared/Container/Container'
 import { CtaLink } from '@/components/shared/CtaLink'
+import { FaIcon } from '@/components/shared/FaIcon'
 import RichText from '@/components/RichText'
 import { ScholarshipWinners } from '@/components/shared/ScholarshipWinners'
 import { SectionWrapper } from '@/components/shared/SectionWrapper/SectionWrapper'
@@ -43,6 +45,7 @@ export const ScholarshipProgrammeBlock: React.FC<ScholarshipProgrammeBlockProps>
                 data={intro}
                 enableGutter={false}
                 enableProse={false}
+                listItemIcon={<FaIcon icon={faAngleRight} className={s.listIcon} />}
                 className={cn(
                   richTextShell.text,
                   richTextShell.paragraphs,
