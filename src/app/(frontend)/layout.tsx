@@ -85,11 +85,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   )
 }
 
+const { twitterHandle } = getDomainConfig(getBrand())
+
 export const metadata: Metadata = {
   metadataBase: new URL(getServerSideURL()),
   openGraph: mergeOpenGraph(),
   twitter: {
     card: 'summary_large_image',
-    creator: '@payloadcms',
+    ...(twitterHandle ? { site: twitterHandle, creator: twitterHandle } : {}),
   },
 }

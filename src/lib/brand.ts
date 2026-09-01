@@ -24,6 +24,10 @@ export interface DomainConfig {
   tenantId: string
   blogUrl?: string
   cookiebotId?: string
+  /** Twitter/X @handle for twitter:site + twitter:creator. Omitted → no handle emitted. */
+  twitterHandle?: string
+  /** og:locale (e.g. en_GB). */
+  locale?: string
 }
 
 export const domainsConfigMap: Record<Brand, DomainConfig> = {
@@ -49,6 +53,8 @@ export const domainsConfigMap: Record<Brand, DomainConfig> = {
     tenantId: 'rapid-90xzd',
     blogUrl: 'https://www.rapidformationsblog.co.uk',
     cookiebotId: '752140c3-4ecf-4ff7-b95d-bb2bcbe83eb0',
+    twitterHandle: '@rapidukofficial',
+    locale: 'en_GB',
   },
 }
 

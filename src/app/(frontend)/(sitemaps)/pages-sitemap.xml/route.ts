@@ -4,6 +4,7 @@ import config from '@payload-config'
 import { unstable_cache } from 'next/cache'
 
 import { getServerSideURL } from '@/utilities/getURL'
+import { getPagePath } from '@/utilities/getPagePath'
 
 const getPagesSitemap = unstable_cache(
   async () => {
@@ -24,6 +25,8 @@ const getPagesSitemap = unstable_cache(
       },
       select: {
         slug: true,
+        fullPath: true,
+        meta: true,
         updatedAt: true,
       },
     })
@@ -32,21 +35,28 @@ const getPagesSitemap = unstable_cache(
 
     const defaultSitemap = [
       {
-        loc: `${SITE_URL}/search`,
+        loc: `${SITE_URL}/search/`,
         lastmod: dateFallback,
       },
       {
-        loc: `${SITE_URL}/posts`,
+        loc: `${SITE_URL}/posts/`,
         lastmod: dateFallback,
       },
     ]
 
     const sitemap = results.docs
       ? results.docs
-          .filter((page) => Boolean(page?.slug))
+          .filter(
+            (page) =>
+              // Exclude the port-preview-* internal dev pages and any noindex funnel page.
+              Boolean(page?.slug) &&
+              !page.slug!.startsWith('port-preview-') &&
+              !page?.meta?.noindex,
+          )
           .map((page) => {
+            // Emit the nested fullPath with a trailing slash (matches canonical + legacy).
             return {
-              loc: page?.slug === 'home' ? `${SITE_URL}/` : `${SITE_URL}/${page?.slug}`,
+              loc: `${SITE_URL}${getPagePath(page)}`,
               lastmod: page.updatedAt || dateFallback,
             }
           })
