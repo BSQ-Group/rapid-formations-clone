@@ -1,6 +1,4 @@
 import React from 'react'
-import configPromise from '@payload-config'
-import { getPayload } from 'payload'
 
 import type { VideoLibraryBlock as VideoLibraryBlockProps } from '@/payload-types'
 
@@ -9,22 +7,17 @@ import { formatDateLongUTC, formatIsoDuration } from '@/utilities/formatting'
 import { VideoLibraryView, type LibraryCategory } from './VideoLibraryView'
 import { videoLibraryStyles as s } from './VideoLibrary.styles'
 
-export const VideoLibraryBlockComponent: React.FC<VideoLibraryBlockProps> = async ({
+type Video = NonNullable<VideoLibraryBlockProps['videos']>[number]
+
+export const VideoLibraryBlockComponent: React.FC<VideoLibraryBlockProps> = ({
+  videos,
   sectionLayout,
 }) => {
-  const payload = await getPayload({ config: configPromise })
-  const { docs } = await payload.find({
-    collection: 'videos',
-    limit: 500,
-    depth: 0,
-    sort: 'id',
-  })
+  if (!videos?.length) return null
 
-  if (!docs.length) return null
+  const byCategory = new Map<string, { order: number; docs: Video[] }>()
 
-  const byCategory = new Map<string, { order: number; docs: typeof docs }>()
-
-  for (const [index, video] of docs.entries()) {
+  for (const [index, video] of videos.entries()) {
     const name = video.category.trim()
     if (!name) continue
 
@@ -46,7 +39,7 @@ export const VideoLibraryBlockComponent: React.FC<VideoLibraryBlockProps> = asyn
       videos: group.docs
         .sort((a, b) => (b.publishedDate ?? '').localeCompare(a.publishedDate ?? ''))
         .map((video) => ({
-          id: video.id,
+          id: video.id ?? video.vimeoId,
           vimeoId: video.vimeoId,
           title: video.title,
           duration: formatIsoDuration(video.duration),

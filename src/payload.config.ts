@@ -16,7 +16,6 @@ import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { ServiceAdsCollection } from './collections/ServiceAds'
 import { StaffCollection } from './collections/Staff'
-import { VideosCollection } from './collections/Videos'
 import { ReviewsCollection } from './collections/Reviews'
 import { ScholarshipWinnersCollection } from './collections/ScholarshipWinners'
 import { BusinessBankAccountsGlobal } from './globals/BusinessBankAccounts/config'
@@ -92,7 +91,6 @@ export default buildConfig({
     Products,
     ServiceAdsCollection,
     StaffCollection,
-    VideosCollection,
     ReviewsCollection,
     ScholarshipWinnersCollection,
   ],
