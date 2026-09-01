@@ -727,3 +727,21 @@ Each entry has four parts:
   ```
   Run it after **any** bulk content rewrite, not just link sweeps.
 - **Fix:** rewrite `fields.url` only; never touch a link's children. Where the source shows a full URL as the label, that URL is part of the sentence — restore the text verbatim and leave the href internal (`text: 'https://www.rapidformations.co.uk/'`, `url: '/'`). More generally, a sweep that edits structure must leave visible text alone unless changing it is the explicit point of the sweep — and a legal page is the worst place to learn otherwise, because nothing about it renders as broken.
+
+## Lexical splits a nested list into two `<li>`s, so the source's spacing lands in the wrong places
+
+- **When it bites:** A source list item that carries a nested list — `<li>Clause 19.2: You may cancel where:<ol>…</ol></li>` — cannot be authored that way in Lexical. Lexical closes the text item and emits a **second, textless `<li>` wrapping the nested list**. One source item becomes two, and every piece of spacing the source hung on that single item now has to be re-split across the pair, or it lands twice, or not at all. The failure is quiet: the copy is identical, the markers are identical, and only the geometry drifts. Real incident — `/refund-cancellation-policy` ran 55px long at 1440 and 56px at 390 with all ten headings present and correct, because four nested groups each contributed a bullet inset 10px too shallow plus an unclosed item gap.
+- **Detect:** compare nested list items against the source by **x as well as y** — the horizontal tell is unambiguous and needs no accumulated-drift reasoning. In a Playwright run against both sides:
+  ```js
+  // per <li>: depth, box x, and the margins that decide the gaps around it
+  [...document.querySelectorAll('li')].map((li) => {
+    const b = li.getBoundingClientRect(), c = getComputedStyle(li)
+    let d = 0, e = li.parentElement
+    while (e) { if (e.tagName === 'UL' || e.tagName === 'OL') d++; e = e.parentElement }
+    return { d, x: Math.round(b.x), h: Math.round(b.height),
+             mt: c.marginTop, mb: c.marginBottom, pl: c.paddingLeft,
+             t: (li.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 40) }
+  })
+  ```
+  Any `d >= 2` row whose `x` differs from the source is this bug. Two more signals in the same dump: a depth-1 `li` with `list-style: none` and no text of its own is the wrapper, and a **last** `li` with a non-zero `mb` is an unclosed list — the source almost always ends a list flush and lets the list's own margin do the spacing.
+- **Fix:** treat the wrapper as the second half of one source item, not as a list item of its own. It keeps the text item's inset (`[&_li:has(>ol)]:!pl-2.5`, so nested markers step in from the clause rather than lining up under its bullet) and closes on the gap the source item would have carried (`!mb-2.5`), while opening on the list's shorter lead-in rather than a second item gap (`!-mt-0.5`). Pair it with `[&_ul>li:last-child]:!mb-0 [&_ol>li:last-child]:!mb-0` so no list ends on a trailing item gap. Scope all of it to the **variant** the affected page uses, never to the shared list base — `bulletListsBase` is shared by five variants across every long-form page in the site, and this shape is only correct where the source nests lists inside clauses. Verify the other pages on that variant before and after, ours-vs-ours: a page that already diverges from the source for unrelated reasons (`/complaints-procedure` runs 429px long on different copy) will swamp a live comparison and hide whether you regressed it.

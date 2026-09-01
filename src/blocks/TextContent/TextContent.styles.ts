@@ -1,5 +1,20 @@
-const bulletListsBase =
-  '[&_ul]:!mt-2 [&_ul]:!mb-2 [&_ul]:!pl-10 [&_ul]:list-disc [&_li]:!mb-2.5 [&_li]:!pl-2.5 [&_li:has(>ol)]:!mb-0 [&_li:has(>ol)]:!pl-0 [&_ol]:!mt-2 [&_ol]:!mb-0 [&_ol]:!pl-[15px] [&_li_ol]:!pl-8 [&_ol>li]:!my-0 [&_li_ol>li]:!my-2.5 [&_ol>li]:!pb-2.5 [&_ol>li:first-child]:!mt-0'
+const listsCore =
+  '[&_ul]:!mt-2 [&_ul]:!mb-2 [&_ul]:!pl-10 [&_ul]:list-disc [&_li]:!mb-2.5 [&_li]:!pl-2.5 [&_ol]:!mt-2 [&_ol]:!mb-0 [&_ol]:!pl-[15px] [&_li_ol]:!pl-8 [&_ol>li]:!my-0 [&_li_ol>li]:!my-2.5 [&_ol>li]:!pb-2.5 [&_ol>li:first-child]:!mt-0'
+
+// Lexical nests a list by wrapping it in an <li> of its own, so the wrapper carries
+// no text — pulling it flush against the left edge leaves the nested list sitting
+// where the list itself would.
+const nestedListFlush = '[&_li:has(>ol)]:!mb-0 [&_li:has(>ol)]:!pl-0'
+
+// The source hangs a nested list off the clause it belongs to instead, so the
+// wrapper keeps a text item's inset and the nested markers step in from the clause
+// above them rather than lining up under its bullet. Splitting one source item in
+// two also splits its spacing: the wrapper closes on the gap the clause would have
+// carried, and opens on the list's shorter lead-in rather than a second item gap.
+const nestedListInset =
+  '[&_li:has(>ol)]:!-mt-0.5 [&_li:has(>ol)]:!mb-2.5 [&_li:has(>ol)]:!pl-2.5'
+
+const bulletListsBase = `${listsCore} ${nestedListFlush}`
 
 const bulletLists = `${bulletListsBase} [&_ol>li]:list-[lower-latin]`
 
@@ -39,7 +54,14 @@ export const richTextShell = {
 } as const
 
 const standard = {
-  lists: bulletLists,
+  // The space under a list belongs to the list, not to its final item, so the last
+  // item in one closes flush — including the last item of a nested list, which
+  // otherwise pushes everything below it down by its own gap.
+  lists: `${listsCore} ${nestedListInset} [&_ol>li]:list-[lower-latin] [&_ul>li:last-child]:!mb-0 [&_ol>li:last-child]:!mb-0`,
+
+  // A heading following a list sits on the list's own bottom margin. Its usual lead-in
+  // applies only where it follows a paragraph.
+  headings: '[&_ul+h3]:!mt-0 [&_ol+h3]:!mt-0',
 }
 
 // The source scopes this page's headings and list inset to the banking template
