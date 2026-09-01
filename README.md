@@ -12,3 +12,11 @@ capture so it does not cover the content.
 - `nested-inset.png` — the first nested clause group, live / before / after. The red rule sits at the
   source's nested-item box edge (x=217).
 - `full-page.png` — the whole page, live / before / after.
+
+## whistleblowing-grievance-mechanism-policy
+
+Same capture method.
+
+- `nested-inset.png` — the "Reporting a Grievance or Complaint" clause, live / before / after.
+  The red rule sits at the source's lettered sub-point box edge (x=215).
+- `full-page.png` — the whole page, live / before / after.
