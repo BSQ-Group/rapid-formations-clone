@@ -76,7 +76,6 @@ export interface Config {
     products: Product;
     serviceAds: ServiceAd;
     staff: Staff;
-    videos: Video;
     reviews: Review;
     'scholarship-winners': ScholarshipWinner;
     redirects: Redirect;
@@ -108,7 +107,6 @@ export interface Config {
     products: ProductsSelect<false> | ProductsSelect<true>;
     serviceAds: ServiceAdsSelect<false> | ServiceAdsSelect<true>;
     staff: StaffSelect<false> | StaffSelect<true>;
-    videos: VideosSelect<false> | VideosSelect<true>;
     reviews: ReviewsSelect<false> | ReviewsSelect<true>;
     'scholarship-winners': ScholarshipWinnersSelect<false> | ScholarshipWinnersSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
@@ -3446,6 +3444,35 @@ export interface ServicePriceBannerBlock {
  * via the `definition` "VideoLibraryBlock".
  */
 export interface VideoLibraryBlock {
+  /**
+   * Vimeo videos grouped by category. Thumbnails are derived from the Vimeo ID, so no image upload is needed.
+   */
+  videos?:
+    | {
+        title: string;
+        /**
+         * Digits only, e.g. 1145232700. Drives both the thumbnail (vumbnail.com) and the player.
+         */
+        vimeoId: string;
+        /**
+         * Videos are grouped under this heading. Reuse the exact wording to add to an existing group.
+         */
+        category: string;
+        /**
+         * ISO-8601, e.g. PT3M12S. Rendered as "3 mins".
+         */
+        duration?: string | null;
+        /**
+         * Newest first within each category.
+         */
+        publishedDate?: string | null;
+        /**
+         * Lowest wins when ordering the category sections. Videos sharing a category should share this number.
+         */
+        categoryOrder?: number | null;
+        id?: string | null;
+      }[]
+    | null;
   /**
    * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
    */
@@ -6867,38 +6894,6 @@ export interface Staff {
   createdAt: string;
 }
 /**
- * Vimeo videos shown by the Video Library block, grouped by category. Thumbnails are derived from the Vimeo ID, so no image upload is needed.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "videos".
- */
-export interface Video {
-  id: string;
-  title: string;
-  /**
-   * Digits only, e.g. 1145232700. Drives both the thumbnail (vumbnail.com) and the player.
-   */
-  vimeoId: string;
-  /**
-   * Videos are grouped under this heading. Reuse the exact wording to add to an existing group.
-   */
-  category: string;
-  /**
-   * ISO-8601, e.g. PT3M12S. Rendered as "3 mins".
-   */
-  duration?: string | null;
-  /**
-   * Newest first within each category.
-   */
-  publishedDate?: string | null;
-  /**
-   * Lowest wins when ordering the category sections. Videos sharing a category should share this number.
-   */
-  categoryOrder?: number | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
  * Individual customer reviews shown by the Review Centre Tabs block. Provider must match a platform name in the Review Stats global, e.g. "Trustpilot".
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -7180,10 +7175,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'staff';
         value: string | Staff;
-      } | null)
-    | ({
-        relationTo: 'videos';
-        value: string | Video;
       } | null)
     | ({
         relationTo: 'reviews';
@@ -8752,6 +8743,17 @@ export interface ServicePriceBannerBlockSelect<T extends boolean = true> {
  * via the `definition` "VideoLibraryBlock_select".
  */
 export interface VideoLibraryBlockSelect<T extends boolean = true> {
+  videos?:
+    | T
+    | {
+        title?: T;
+        vimeoId?: T;
+        category?: T;
+        duration?: T;
+        publishedDate?: T;
+        categoryOrder?: T;
+        id?: T;
+      };
   sectionLayout?:
     | T
     | {
@@ -10980,20 +10982,6 @@ export interface StaffSelect<T extends boolean = true> {
         id?: T;
       };
   displayOrder?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "videos_select".
- */
-export interface VideosSelect<T extends boolean = true> {
-  title?: T;
-  vimeoId?: T;
-  category?: T;
-  duration?: T;
-  publishedDate?: T;
-  categoryOrder?: T;
   updatedAt?: T;
   createdAt?: T;
 }
