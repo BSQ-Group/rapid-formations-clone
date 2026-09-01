@@ -79,6 +79,7 @@ export interface Config {
     staff: Staff;
     videos: Video;
     reviews: Review;
+    'scholarship-winners': ScholarshipWinner;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -111,6 +112,7 @@ export interface Config {
     staff: StaffSelect<false> | StaffSelect<true>;
     videos: VideosSelect<false> | VideosSelect<true>;
     reviews: ReviewsSelect<false> | ReviewsSelect<true>;
+    'scholarship-winners': ScholarshipWinnersSelect<false> | ScholarshipWinnersSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -3202,19 +3204,10 @@ export interface ScholarshipProgrammeBlock {
     url?: string | null;
     label: string;
   };
-  winnersHeading?: string | null;
   /**
-   * Grouped by year automatically, newest first. Adding a new year needs no code change.
+   * The winners themselves live in Content -> Scholarship winners, so they can be reused and edited without opening this page.
    */
-  winners?:
-    | {
-        year: string;
-        name: string;
-        courseName?: string | null;
-        university?: string | null;
-        id?: string | null;
-      }[]
-    | null;
+  winnersHeading?: string | null;
   /**
    * The narrow right-hand rail. A two-column grid below 768px, then a single stacked column.
    */
@@ -6977,6 +6970,31 @@ export interface Review {
   createdAt: string;
 }
 /**
+ * Everyone who has won the Entrepreneur Scholarship. The Scholarship Programme block groups them by year automatically, newest first, so adding a new year needs no code change.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "scholarship-winners".
+ */
+export interface ScholarshipWinner {
+  id: string;
+  /**
+   * The year they won, e.g. 2025. Becomes the group heading.
+   */
+  year: string;
+  name: string;
+  /**
+   * Reads as "<course> student at <university>".
+   */
+  courseName?: string | null;
+  university?: string | null;
+  /**
+   * Order within the year. Lowest wins; winners without a number sort after those with one.
+   */
+  displayOrder?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
@@ -7213,6 +7231,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'reviews';
         value: string | Review;
+      } | null)
+    | ({
+        relationTo: 'scholarship-winners';
+        value: string | ScholarshipWinner;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -8629,15 +8651,6 @@ export interface ScholarshipProgrammeBlockSelect<T extends boolean = true> {
         label?: T;
       };
   winnersHeading?: T;
-  winners?:
-    | T
-    | {
-        year?: T;
-        name?: T;
-        courseName?: T;
-        university?: T;
-        id?: T;
-      };
   sidebarPartners?:
     | T
     | {
@@ -11066,6 +11079,19 @@ export interface ReviewsSelect<T extends boolean = true> {
   reviewDate?: T;
   providerKey?: T;
   body?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "scholarship-winners_select".
+ */
+export interface ScholarshipWinnersSelect<T extends boolean = true> {
+  year?: T;
+  name?: T;
+  courseName?: T;
+  university?: T;
+  displayOrder?: T;
   updatedAt?: T;
   createdAt?: T;
 }
