@@ -141,13 +141,8 @@ const expandString = (text: string, data: ShortcodeData): string =>
       shortcodes[identifier]?.text?.(parseAttributes(rawAttributes ?? ''), data) ?? raw,
   )
 
-/**
- * Replaces [[telephone]], [[space]], [[live-chat]], [[eligiblecountries]] and
- * [[documents-list]] anywhere in a Payload document with the nodes they stand
- * for, leaving every other shortcode untouched. The last three become links on
- * a sentinel href that RichText swaps for the interactive component. (Prices are
- * authored inline on the block that shows them, so there is no [[price]] token.)
- */
+// Expands the [[telephone]]/[[space]]/[[live-chat]]/[[eligiblecountries]]/[[documents-list]]
+// shortcodes in a Payload document; the link-style ones use a sentinel href RichText later swaps out.
 export const resolveShortcodes = <T>(value: T, data: ShortcodeData): T => {
   if (Array.isArray(value)) {
     return value.flatMap((item) =>

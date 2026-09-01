@@ -28,9 +28,7 @@ export async function getPackagePriceEntries(): Promise<PackagePriceEntry[]> {
   return entries
 }
 
-// Lookup used by the tier blocks (PackageInclusions / RecommendedPackages):
-// tier prices are single-sourced from the `packages` collection (the owning
-// record), keyed by package slug and its `-package`-stripped alias.
+// slug→value map for the tier blocks (PackageInclusions / RecommendedPackages).
 export async function getTierPriceMap(): Promise<Map<string, string>> {
   const entries = await getPackagePriceEntries()
   return new Map(entries.map((entry) => [entry.slug, entry.value]))

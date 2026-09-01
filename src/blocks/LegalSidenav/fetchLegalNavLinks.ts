@@ -14,9 +14,8 @@ function linkFromPage(page: Page): LegalNavLink | null {
   return { slug, label }
 }
 
-// The legal sidebar lists every published legal page, ordered by title. (This
-// used to read a manual order/hide list from the `legalSidenav` global; that
-// global was removed and the nav now derives straight from the Pages collection.)
+// Derived from published legal pages, sorted by title — replaces the removed
+// `legalSidenav` global (so no more manual ordering / per-item hide).
 export async function fetchLegalNavLinks(): Promise<LegalNavLink[]> {
   const payload = await getPayload({ config: configPromise })
 
