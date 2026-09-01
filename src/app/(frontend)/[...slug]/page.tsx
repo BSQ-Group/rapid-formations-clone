@@ -118,7 +118,7 @@ export default async function Page({ params: paramsPromise }: Args) {
         <PayloadRedirects disableNotFound url={url} />
         {draft && <LivePreviewListener />}
         <RenderHero {...hero} />
-        <RenderBlocks blocks={remainingBlocks} pageTitle={title} />
+        <RenderBlocks blocks={remainingBlocks} pageTitle={title} slug={segments.at(-1)} />
       </main>
     </>
   )

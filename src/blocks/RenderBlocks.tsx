@@ -232,8 +232,9 @@ const noMarginBlocks: string[] = ['landingHero']
 export const RenderBlocks: React.FC<{
   blocks: NonNullable<Page['layout']>[0][]
   pageTitle?: string | null
+  slug?: string | null
 }> = (props) => {
-  const { blocks, pageTitle } = props
+  const { blocks, pageTitle, slug } = props
 
   const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0
 
@@ -273,7 +274,7 @@ export const RenderBlocks: React.FC<{
                 aside={
                   block.showFaqQuickNav || block.buyNow ? (
                     <>
-                      <BuyNow buyNow={block.buyNow} />
+                      <BuyNow buyNow={block.buyNow} packageSlug={slug} />
                       {block.showFaqQuickNav && <FaqQuickNavServer />}
                     </>
                   ) : undefined
