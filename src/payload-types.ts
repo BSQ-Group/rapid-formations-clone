@@ -135,9 +135,6 @@ export interface Config {
     'document-library': DocumentLibrary;
     'eligible-countries': EligibleCountry;
     faqTopics: FaqTopic;
-    legalSidenav: LegalSidenav;
-    packagesNav: PackagesNav;
-    prices: Price;
     reviewStats: ReviewStat;
     testimonialPool: TestimonialPool;
   };
@@ -148,9 +145,6 @@ export interface Config {
     'document-library': DocumentLibrarySelect<false> | DocumentLibrarySelect<true>;
     'eligible-countries': EligibleCountriesSelect<false> | EligibleCountriesSelect<true>;
     faqTopics: FaqTopicsSelect<false> | FaqTopicsSelect<true>;
-    legalSidenav: LegalSidenavSelect<false> | LegalSidenavSelect<true>;
-    packagesNav: PackagesNavSelect<false> | PackagesNavSelect<true>;
-    prices: PricesSelect<false> | PricesSelect<true>;
     reviewStats: ReviewStatsSelect<false> | ReviewStatsSelect<true>;
     testimonialPool: TestimonialPoolSelect<false> | TestimonialPoolSelect<true>;
   };
@@ -317,7 +311,6 @@ export interface Page {
         | PromoTier2Block
         | WhatIsPrivateLimitedCompanyBlock
         | HeroStepperBlock
-        | PackagesNavBlock
         | ComparePackagesBlock
         | PackageCardHeroBlock
         | WhatsIncludedSinglePackageBlock
@@ -370,7 +363,7 @@ export interface Page {
    */
   navigationLabel?: string | null;
   /**
-   * Marks this page as a legal page. Sidebar contents are managed under Globals → Legal Sidenav.
+   * Marks this page as a legal page. The legal sidebar lists every published legal page automatically, ordered by title.
    */
   isLegalPage?: boolean | null;
   /**
@@ -2054,7 +2047,7 @@ export interface PackageInclusionsBlock {
     id?: string | null;
   }[];
   /**
-   * Matches an entry in the Prices global, e.g. "basic-package". Leave empty to show the button without a price.
+   * The package whose price to show, by its Packages-collection slug (the "-package" suffix is optional, e.g. "basic" or "basic-package"). Leave empty to show the button without a price.
    */
   priceSlug?: string | null;
   /**
@@ -2108,7 +2101,7 @@ export interface RecommendedPackagesBlock {
   packages: {
     name: string;
     /**
-     * Matches an entry in the Prices global, e.g. "all-inclusive".
+     * The package whose price to show, by its Packages-collection slug (the "-package" suffix is optional, e.g. "all-inclusive" or "all-inclusive-package").
      */
     priceSlug?: string | null;
     /**
@@ -3093,7 +3086,7 @@ export interface BuyServiceBlock {
   blockType: 'buyService';
 }
 /**
- * Priced service cards. The price itself lives in the Prices global — this references it by slug so a change there updates every card.
+ * Priced service cards. Each card holds its own price, set on the record.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "buyServices".
@@ -3110,9 +3103,9 @@ export interface BuyService {
    */
   mobileTitle?: string | null;
   /**
-   * Looked up in the Prices global — the same slug the [[price]] shortcode uses.
+   * Shown after a £, e.g. "89.99".
    */
-  priceSlug: string;
+  price: string;
   /**
    * Small text after the price (e.g. "per year").
    */
@@ -3524,9 +3517,9 @@ export interface OurAddressBlock {
    */
   address: string;
   /**
-   * Matches an entry in the Prices global, e.g. "london-service-address".
+   * Shown after a £, e.g. "26.00".
    */
-  priceSlug: string;
+  price: string;
   postText?: string | null;
   cta: {
     type?: ('reference' | 'custom') | null;
@@ -3993,9 +3986,9 @@ export interface RenewalItemsBlock {
   items: {
     title: string;
     /**
-     * Matches an entry in the Prices global, e.g. "london-registered-office".
+     * Shown after a £, e.g. "39.00".
      */
-    priceSlug: string;
+    price: string;
     body: {
       root: {
         type: string;
@@ -5054,23 +5047,6 @@ export interface HeroStepperBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'heroStepper';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PackagesNavBlock".
- */
-export interface PackagesNavBlock {
-  /**
-   * Outer background tone + top/bottom section padding (BSQ Spacing/Section tokens, responsive).
-   */
-  sectionLayout: {
-    background: 'light' | 'dark' | 'inverse';
-    paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
-    paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'packagesNav';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6352,9 +6328,9 @@ export interface PageTitleBlock {
      */
     priceSuffix?: string | null;
     /**
-     * Matches an entry in the Prices global, e.g. "ico-registration". Leave empty to show buttons without a price.
+     * Shown after a £, e.g. "89.99". Leave empty to show buttons without a price.
      */
-    priceSlug?: string | null;
+    price?: string | null;
     /**
      * The green Buy Now button. Leave the label empty to omit it.
      */
@@ -7406,7 +7382,6 @@ export interface PagesSelect<T extends boolean = true> {
         promoTier2?: T | PromoTier2BlockSelect<T>;
         whatIsPrivateLimitedCompany?: T | WhatIsPrivateLimitedCompanyBlockSelect<T>;
         heroStepper?: T | HeroStepperBlockSelect<T>;
-        packagesNav?: T | PackagesNavBlockSelect<T>;
         comparePackages?: T | ComparePackagesBlockSelect<T>;
         packageCardHero?: T | PackageCardHeroBlockSelect<T>;
         whatsIncludedSinglePackage?: T | WhatsIncludedSinglePackageBlockSelect<T>;
@@ -8812,7 +8787,7 @@ export interface OurAddressBlockSelect<T extends boolean = true> {
   label?: T;
   image?: T;
   address?: T;
-  priceSlug?: T;
+  price?: T;
   postText?: T;
   cta?:
     | T
@@ -9093,7 +9068,7 @@ export interface RenewalItemsBlockSelect<T extends boolean = true> {
     | T
     | {
         title?: T;
-        priceSlug?: T;
+        price?: T;
         body?: T;
         cta?:
           | T
@@ -9735,21 +9710,6 @@ export interface HeroStepperBlockSelect<T extends boolean = true> {
         id?: T;
       };
   currentStep?: T;
-  sectionLayout?:
-    | T
-    | {
-        background?: T;
-        paddingTop?: T;
-        paddingBottom?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PackagesNavBlock_select".
- */
-export interface PackagesNavBlockSelect<T extends boolean = true> {
   sectionLayout?:
     | T
     | {
@@ -10491,7 +10451,7 @@ export interface PageTitleBlockSelect<T extends boolean = true> {
     | T
     | {
         priceSuffix?: T;
-        priceSlug?: T;
+        price?: T;
         cta?:
           | T
           | {
@@ -11018,7 +10978,7 @@ export interface BuyServicesSelect<T extends boolean = true> {
   name?: T;
   title?: T;
   mobileTitle?: T;
-  priceSlug?: T;
+  price?: T;
   postText?: T;
   showVat?: T;
   content?: T;
@@ -11852,88 +11812,6 @@ export interface FaqTopic {
   createdAt?: string | null;
 }
 /**
- * Order and visibility of legal pages in the sidebar. Pages are added here automatically when you mark them as a legal page on the Pages collection. Drag to reorder; tick "hidden" to keep a page out of the menu without unmarking it as a legal page.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "legalSidenav".
- */
-export interface LegalSidenav {
-  id: string;
-  /**
-   * Auto-synced from Pages where “Is legal page” is ticked.
-   */
-  items?:
-    | {
-        /**
-         * Set automatically. To remove a page from this list, untick “Is legal page” on the Pages collection.
-         */
-        page: string | Page;
-        /**
-         * Keep the page marked as legal but hide it from this menu.
-         */
-        hidden?: boolean | null;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * Tabs shown in the packages navigation pill across all package pages. Drag to reorder.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "packagesNav".
- */
-export interface PackagesNav {
-  id: string;
-  tabs?:
-    | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: string | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: string | Post;
-              } | null);
-          url?: string | null;
-          label: string;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * Prices quoted inside page copy via the [[price slug="..."]] shortcode. Changing a value here updates every page that quotes it.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "prices".
- */
-export interface Price {
-  id: string;
-  /**
-   * Slug is what the shortcode references. Value is rendered after a £ sign.
-   */
-  items?:
-    | {
-        slug: string;
-        /**
-         * Without the £, trailing zeros kept — e.g. 100.00
-         */
-        value: string;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
  * Ratings shown by the "How we are rated" block. The same figures appear on every page carrying that block.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -12262,61 +12140,6 @@ export interface FaqTopicsSelect<T extends boolean = true> {
         title?: T;
         image?: T;
         url?: T;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "legalSidenav_select".
- */
-export interface LegalSidenavSelect<T extends boolean = true> {
-  items?:
-    | T
-    | {
-        page?: T;
-        hidden?: T;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "packagesNav_select".
- */
-export interface PackagesNavSelect<T extends boolean = true> {
-  tabs?:
-    | T
-    | {
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-            };
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "prices_select".
- */
-export interface PricesSelect<T extends boolean = true> {
-  items?:
-    | T
-    | {
-        slug?: T;
-        value?: T;
         id?: T;
       };
   updatedAt?: T;

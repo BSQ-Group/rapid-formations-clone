@@ -24,13 +24,12 @@ export const RenewalItems: Block = {
           fields: [
             { name: 'title', type: 'text', required: true, admin: { width: '50%' } },
             {
-              name: 'priceSlug',
+              name: 'price',
               type: 'text',
               required: true,
               admin: {
                 width: '50%',
-                description:
-                  'Matches an entry in the Prices global, e.g. "london-registered-office".',
+                description: 'Shown after a £, e.g. "39.00".',
               },
             },
           ],

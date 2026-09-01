@@ -9,7 +9,7 @@ import { cache } from 'react'
 import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { JsonLd, buildPageJsonLd } from '@/components/StructuredData'
 import { getCachedGlobal } from '@/utilities/getGlobals'
-import { resolveShortcodes, toPriceMap } from '@/utilities/shortcodes'
+import { resolveShortcodes } from '@/utilities/shortcodes'
 import { RenderHero } from '@/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
@@ -18,7 +18,6 @@ import { TrustPilotBannerBlock } from '@/blocks/TrustPilotBanner/Component'
 import type {
   DocumentLibrary,
   EligibleCountry,
-  Price,
   TrustPilotBannerBlock as TrustPilotBannerBlockType,
 } from '@/payload-types'
 
@@ -66,13 +65,11 @@ export default async function Page({ params: paramsPromise }: Args) {
 
   const { hero, layout, isHeaderOnDark, title } = page
 
-  const [prices, eligible, documents] = await Promise.all([
-    getCachedGlobal('prices', 0)() as Promise<Price>,
+  const [eligible, documents] = await Promise.all([
     getCachedGlobal('eligible-countries', 0)() as Promise<EligibleCountry>,
     getCachedGlobal('document-library', 0)() as Promise<DocumentLibrary>,
   ])
   const blocks = resolveShortcodes(layout ?? [], {
-    prices: toPriceMap(prices?.items),
     eligibleCountries: {
       lastUpdated: eligible?.lastUpdated,
       countries: (eligible?.countries ?? []).flatMap((entry) => (entry.name ? [entry.name] : [])),

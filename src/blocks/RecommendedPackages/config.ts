@@ -48,7 +48,8 @@ export const RecommendedPackages: Block = {
           type: 'text',
           label: 'Price slug',
           admin: {
-            description: 'Matches an entry in the Prices global, e.g. "all-inclusive".',
+            description:
+              'The package whose price to show, by its Packages-collection slug (the "-package" suffix is optional, e.g. "all-inclusive" or "all-inclusive-package").',
           },
         },
         {

@@ -1,7 +1,5 @@
 import React from 'react'
 import Link from 'next/link'
-import configPromise from '@payload-config'
-import { getPayload } from 'payload'
 
 import type { PageTitleBlock } from '@/payload-types'
 
@@ -60,19 +58,11 @@ const toButton = (link: LinkData | undefined, variant: BuyNowButton['variant']) 
     ? { label: link.label, href: getLinkHref(link), newTab: link.newTab, variant }
     : undefined
 
-export const BuyNow: React.FC<{ buyNow?: BuyNowValue | null }> = async ({ buyNow }) => {
-  let price: string | undefined
-
-  if (buyNow?.priceSlug) {
-    const payload = await getPayload({ config: configPromise })
-    const { items } = await payload.findGlobal({ slug: 'prices' })
-    price = (items ?? []).find((item) => item.slug === buyNow.priceSlug)?.value
-  }
-
+export const BuyNow: React.FC<{ buyNow?: BuyNowValue | null }> = ({ buyNow }) => {
   const buttons = [
     toButton(buyNow?.cta as LinkData | undefined, 'success'),
     toButton(buyNow?.secondaryCta as LinkData | undefined, 'secondary'),
   ].filter(Boolean) as BuyNowButton[]
 
-  return <BuyNowView price={price} priceSuffix={buyNow?.priceSuffix} buttons={buttons} />
+  return <BuyNowView price={buyNow?.price} priceSuffix={buyNow?.priceSuffix} buttons={buttons} />
 }

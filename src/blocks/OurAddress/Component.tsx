@@ -1,7 +1,5 @@
 import React from 'react'
 import Link from 'next/link'
-import configPromise from '@payload-config'
-import { getPayload } from 'payload'
 
 import type { Media as MediaType, OurAddressBlock as OurAddressBlockProps } from '@/payload-types'
 
@@ -103,24 +101,18 @@ export const OurAddressSection: React.FC<OurAddressSectionProps> = ({
   )
 }
 
-export const OurAddressBlock: React.FC<OurAddressBlockProps> = async ({
+export const OurAddressBlock: React.FC<OurAddressBlockProps> = ({
   variant,
   heading,
   label,
   image,
   address,
-  priceSlug,
+  price,
   postText,
   cta,
   sectionLayout,
 }) => {
-  if (!image) return null
-
-  const payload = await getPayload({ config: configPromise })
-  const { items } = await payload.findGlobal({ slug: 'prices' })
-  const price = (items ?? []).find((item) => item.slug === priceSlug)?.value
-
-  if (!price) return null
+  if (!image || !price) return null
 
   const link = cta as LinkData | undefined
 

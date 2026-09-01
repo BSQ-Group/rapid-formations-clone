@@ -56,12 +56,12 @@ export const PageTitle: Block = {
           admin: { description: 'Renders under the price, e.g. "+ £100 Companies House fee".' },
         },
         {
-          name: 'priceSlug',
+          name: 'price',
           type: 'text',
-          label: 'Price slug',
+          label: 'Price',
           admin: {
             description:
-              'Matches an entry in the Prices global, e.g. "ico-registration". Leave empty to show buttons without a price.',
+              'Shown after a £, e.g. "89.99". Leave empty to show buttons without a price.',
           },
         },
         link({

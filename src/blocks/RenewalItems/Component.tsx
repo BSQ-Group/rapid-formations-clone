@@ -1,8 +1,6 @@
 import React from 'react'
-import configPromise from '@payload-config'
-import { getPayload } from 'payload'
 
-import type { Price, RenewalItemsBlock as RenewalItemsBlockProps } from '@/payload-types'
+import type { RenewalItemsBlock as RenewalItemsBlockProps } from '@/payload-types'
 
 import { Container } from '@/components/shared/Container/Container'
 import { SectionWrapper } from '@/components/shared/SectionWrapper/SectionWrapper'
@@ -12,13 +10,13 @@ import { RenewalItemsView, type RenewalItem } from './RenewalItemsView'
 
 type RawItem = NonNullable<RenewalItemsBlockProps['items']>[number]
 
-const toItem = (item: RawItem, index: number, prices: Map<string, string>): RenewalItem[] => {
-  const price = prices.get(item.priceSlug)
+const toItem = (item: RawItem, index: number): RenewalItem[] => {
+  const price = item.price
   const cta = item.cta as LinkData | undefined
   if (!price || !cta?.label) return []
   return [
     {
-      id: item.id ?? `${item.priceSlug}-${index}`,
+      id: item.id ?? `renewal-${index}`,
       title: item.title,
       price,
       body: item.body,
@@ -29,15 +27,11 @@ const toItem = (item: RawItem, index: number, prices: Map<string, string>): Rene
   ]
 }
 
-export const RenewalItemsBlockComponent: React.FC<RenewalItemsBlockProps> = async ({
+export const RenewalItemsBlockComponent: React.FC<RenewalItemsBlockProps> = ({
   items,
   sectionLayout,
 }) => {
-  const payload = await getPayload({ config: configPromise })
-  const { items: priceItems } = (await payload.findGlobal({ slug: 'prices' })) as Price
-  const prices = new Map((priceItems ?? []).map((price) => [price.slug, price.value]))
-
-  const rows = (items ?? []).flatMap((item, index) => toItem(item, index, prices))
+  const rows = (items ?? []).flatMap((item, index) => toItem(item, index))
 
   if (!rows.length) return null
 

@@ -1,6 +1,4 @@
 import React from 'react'
-import configPromise from '@payload-config'
-import { getPayload } from 'payload'
 
 import type { BuyService } from '@/payload-types'
 
@@ -13,7 +11,7 @@ export type BuyServiceCardsProps = {
   cardClassName?: string
 }
 
-export const BuyServiceCards: React.FC<BuyServiceCardsProps> = async ({
+export const BuyServiceCards: React.FC<BuyServiceCardsProps> = ({
   services,
   className,
   cardClassName,
@@ -24,13 +22,9 @@ export const BuyServiceCards: React.FC<BuyServiceCardsProps> = async ({
 
   if (!resolved.length) return null
 
-  const payload = await getPayload({ config: configPromise })
-  const { items } = await payload.findGlobal({ slug: 'prices' })
-  const priceBySlug = new Map((items ?? []).map((item) => [item.slug, item.value]))
-
   const cards = resolved
     .map((service) => {
-      const price = priceBySlug.get(service.priceSlug)
+      const price = service.price
       if (!price) return null
       const cta = service.cta as LinkData | undefined
       return (

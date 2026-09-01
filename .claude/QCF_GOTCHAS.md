@@ -727,3 +727,27 @@ Each entry has four parts:
   ```
   Run it after **any** bulk content rewrite, not just link sweeps.
 - **Fix:** rewrite `fields.url` only; never touch a link's children. Where the source shows a full URL as the label, that URL is part of the sentence — restore the text verbatim and leave the href internal (`text: 'https://www.rapidformations.co.uk/'`, `url: '/'`). More generally, a sweep that edits structure must leave visible text alone unless changing it is the explicit point of the sweep — and a legal page is the worst place to learn otherwise, because nothing about it renders as broken.
+
+## Deleting a global/collection leaves a dangling import in `importMap.js` → build break
+
+- **When it bites:** You remove a global or collection whose config referenced a custom admin component (a `RowLabel`, a `Field`, etc. — e.g. `LegalSidenavItemsOrder/ItemRowLabel`, `PackagesNavItems/ItemRowLabel`). `src/payload.config.ts` and `payload-types.ts` are clean, but the build fails with `Module not found` / a Turbopack resolve error, because `src/app/(payload)/admin/importMap.js` is **generated** and still `import`s the deleted file. The break only shows at `next build`, not at typecheck.
+- **Detect:**
+  ```bash
+  # any importMap entry pointing at a path that no longer exists on disk
+  grep -oE "from '@/[^']+'" "src/app/(payload)/admin/importMap.js" | sed "s/from '@\///;s/'//" \
+    | while read p; do [ -e "src/$p.tsx" ] || [ -e "src/$p.ts" ] || [ -e "src/$p/index.tsx" ] || echo "MISSING: src/$p"; done
+  ```
+- **Fix:** After removing (or renaming) any global/collection, regenerate both artefacts — `bun run generate:importmap` **and** `bun run generate:types` — and commit the updated `importMap.js`. The types alone are not enough; the import map is a separate generated file.
+
+## Removing a `prices`-style global/collection: a shortcode slug can be referenced from prose you can't see in the config
+
+- **When it bites:** You migrate/prune a flat price registry (the `prices` global → `prices` collection) and drop slugs you believe are "unused" — but a slug like `basic` is also quoted inside page body copy via `[[price slug="basic"]]`. Dropping it renders the **raw** `[[price slug="basic"]]` text on the live page. Worse: a naive DB audit that `JSON.stringify(page.layout)` then greps for `slug="` **misses every hit**, because JSON escapes the quote to `slug=\"` — so the audit falsely reports "no shortcode usage."
+- **Detect:** audit the **prerendered HTML**, not the stringified layout — the build output is ground truth for what stayed unresolved:
+  ```bash
+  # after `bun run build`, from .next/server/app:
+  grep -rhoE '\[\[price slug=(&quot;|\\+")[a-z0-9-]+' *.html **/*.html 2>/dev/null \
+    | sed -E 's/.*slug=(&quot;|\\+")//' | sort | uniq -c   # any output = an unresolved shortcode shipped
+  # if you must scan the DB, match the escaped form: slug=\\\" not slug="
+  ```
+- **Fix:** keep the registry a faithful 1:1 copy of the source (don't drop slugs on a "looks unused" hunch). If you additionally single-source some slugs elsewhere (e.g. tier prices from the `packages` collection), let the block read from that source but **leave the slug in the registry** so the `[[price]]` shortcode still resolves. Note: a slug the content references that was *never* in the registry (e.g. `hassle-free-compliance-service` vs the real `hassle-free-compliance`) renders raw on `main` too — that's a pre-existing content typo, not something your migration caused.
+- **When converting shortcodes → inline/literal (deleting the resolver):** shortcodes hide in **collection richtext**, not just page `layout` — real incident: after sweeping `pages.layout` the build still shipped raw `[[price]]` from `products.tooltip` and `buyservices.content` (and their `_*_versions`). Sweep **every** collection's docs, not one field. And the JSON-escape trap bites your *diagnostics* the same way: a "is the DB clean now?" check that stringifies and greps `slug="` will falsely say yes. Walk the parsed object (unescaped strings), or match `slug=\\"`. Ground-truth is always the escaped-aware grep of prerendered HTML.
