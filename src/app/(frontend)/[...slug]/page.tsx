@@ -16,7 +16,7 @@ import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { Header } from '@/Header/Component'
 import { TrustPilotBannerBlock } from '@/blocks/TrustPilotBanner/Component'
 import type {
-  DocumentLibrary,
+  DocumentLibraryBlock,
   EligibleCountry,
   TrustPilotBannerBlock as TrustPilotBannerBlockType,
 } from '@/payload-types'
@@ -65,10 +65,10 @@ export default async function Page({ params: paramsPromise }: Args) {
 
   const { hero, layout, isHeaderOnDark, title } = page
 
-  const [eligible, documents] = await Promise.all([
-    getCachedGlobal('eligible-countries', 0)() as Promise<EligibleCountry>,
-    getCachedGlobal('document-library', 0)() as Promise<DocumentLibrary>,
-  ])
+  const eligible = (await getCachedGlobal('eligible-countries', 0)()) as EligibleCountry
+  const documents = (layout ?? []).find((block) => block.blockType === 'documentLibrary') as
+    | DocumentLibraryBlock
+    | undefined
   const blocks = resolveShortcodes(layout ?? [], {
     eligibleCountries: {
       lastUpdated: eligible?.lastUpdated,

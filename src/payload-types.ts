@@ -128,7 +128,6 @@ export interface Config {
     header: Header;
     footer: Footer;
     businessBankAccounts: BusinessBankAccount;
-    'document-library': DocumentLibrary;
     'eligible-countries': EligibleCountry;
     reviewStats: ReviewStat;
     testimonialPool: TestimonialPool;
@@ -137,7 +136,6 @@ export interface Config {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     businessBankAccounts: BusinessBankAccountsSelect<false> | BusinessBankAccountsSelect<true>;
-    'document-library': DocumentLibrarySelect<false> | DocumentLibrarySelect<true>;
     'eligible-countries': EligibleCountriesSelect<false> | EligibleCountriesSelect<true>;
     reviewStats: ReviewStatsSelect<false> | ReviewStatsSelect<true>;
     testimonialPool: TestimonialPoolSelect<false> | TestimonialPoolSelect<true>;
@@ -297,6 +295,7 @@ export interface Page {
         | HowItWorksScreensBlock
         | LegalSidenavBlock
         | LegalContentBlock
+        | DocumentLibraryBlock
         | ContactUsBlock
         | ComparePackagesHeaderBlock
         | PromoCardBlock
@@ -4718,6 +4717,42 @@ export interface LegalContentBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DocumentLibraryBlock".
+ */
+export interface DocumentLibraryBlock {
+  /**
+   * Top-level headings, e.g. "Finance and Accounting".
+   */
+  sections?:
+    | {
+        title: string;
+        /**
+         * Sub-headings within the section, e.g. "Purchasing".
+         */
+        groups?:
+          | {
+              title: string;
+              /**
+               * One row per template, named as it appears in the library.
+               */
+              documents?:
+                | {
+                    name: string;
+                    id?: string | null;
+                  }[]
+                | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'documentLibrary';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ContactUsBlock".
  */
 export interface ContactUsBlock {
@@ -7346,6 +7381,7 @@ export interface PagesSelect<T extends boolean = true> {
         howItWorksScreens?: T | HowItWorksScreensBlockSelect<T>;
         legalSidenav?: T | LegalSidenavBlockSelect<T>;
         legalContent?: T | LegalContentBlockSelect<T>;
+        documentLibrary?: T | DocumentLibraryBlockSelect<T>;
         contactUs?: T | ContactUsBlockSelect<T>;
         comparePackagesHeader?: T | ComparePackagesHeaderBlockSelect<T>;
         promoCard?: T | PromoCardBlockSelect<T>;
@@ -9503,6 +9539,32 @@ export interface LegalContentBlockSelect<T extends boolean = true> {
         background?: T;
         paddingTop?: T;
         paddingBottom?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DocumentLibraryBlock_select".
+ */
+export interface DocumentLibraryBlockSelect<T extends boolean = true> {
+  sections?:
+    | T
+    | {
+        title?: T;
+        groups?:
+          | T
+          | {
+              title?: T;
+              documents?:
+                | T
+                | {
+                    name?: T;
+                    id?: T;
+                  };
+              id?: T;
+            };
+        id?: T;
       };
   id?: T;
   blockName?: T;
@@ -11679,44 +11741,6 @@ export interface BusinessBankAccount {
   createdAt?: string | null;
 }
 /**
- * Every template in the Business Document Template Library, listed by the [[documents-list]] shortcode. Sections and groups render in the order held here.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "document-library".
- */
-export interface DocumentLibrary {
-  id: string;
-  /**
-   * Top-level headings, e.g. "Finance and Accounting".
-   */
-  sections?:
-    | {
-        title: string;
-        /**
-         * Sub-headings within the section, e.g. "Purchasing".
-         */
-        groups?:
-          | {
-              title: string;
-              /**
-               * One row per template, named as it appears in the library.
-               */
-              documents?:
-                | {
-                    name: string;
-                    id?: string | null;
-                  }[]
-                | null;
-              id?: string | null;
-            }[]
-          | null;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
  * Countries whose residents can register a UK company with us, listed by the [[eligiblecountries]] shortcode. Changing the list updates every page that offers it.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -12010,33 +12034,6 @@ export interface BusinessBankAccountsSelect<T extends boolean = true> {
         reference?: T;
         url?: T;
         label?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "document-library_select".
- */
-export interface DocumentLibrarySelect<T extends boolean = true> {
-  sections?:
-    | T
-    | {
-        title?: T;
-        groups?:
-          | T
-          | {
-              title?: T;
-              documents?:
-                | T
-                | {
-                    name?: T;
-                    id?: T;
-                  };
-              id?: T;
-            };
-        id?: T;
       };
   updatedAt?: T;
   createdAt?: T;
