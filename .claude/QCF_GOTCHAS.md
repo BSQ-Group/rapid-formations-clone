@@ -727,3 +727,30 @@ Each entry has four parts:
   ```
   Run it after **any** bulk content rewrite, not just link sweeps.
 - **Fix:** rewrite `fields.url` only; never touch a link's children. Where the source shows a full URL as the label, that URL is part of the sentence — restore the text verbatim and leave the href internal (`text: 'https://www.rapidformations.co.uk/'`, `url: '/'`). More generally, a sweep that edits structure must leave visible text alone unless changing it is the explicit point of the sweep — and a legal page is the worst place to learn otherwise, because nothing about it renders as broken.
+
+## The source may serve a page at a different path — confirm the URL before believing any comparison
+
+- **When it bites:** Comparing `/<slug>` on the clone against `/<slug>/` on the source, when the source nests it. The source serves the package pages at **`/package/basic-package/`** and the package variants at **`/compare-packages/llp/`**, `/compare-packages/guarantee/`, `/compare-packages/non-residents/` — the flat paths 404. A 404 page still renders, still has an `<h1>`, and still measures, so the comparison returns numbers rather than an error: `sum|dy|=203791`, `worst dy=+4971`, `doc live=1787`. Those look like a catastrophically broken page instead of a bad URL. The tell is that **several unrelated pages report the identical `doc live` height** — that is the 404 template, measured three times. Real incident: `/llp`, `/guarantee` and `/non-residents` were written off as "404 on live, comparison invalid" earlier in the same session on exactly this mistake.
+- **Detect:** resolve the source URL from its sitemap before the first comparison, never from the clone's own slug:
+  ```bash
+  curl -s https://www.rapidformations.co.uk/sitemap.xml            # index
+  curl -s https://www.rapidformations.co.uk/sitemap-pages.xml \
+    | grep -o '<loc>[^<]*</loc>' | sed 's/<[^>]*>//g' | grep -i '<slug>'
+  ```
+  And assert the status before measuring — a comparison script should refuse to run on anything but a 200:
+  ```bash
+  curl -s -o /dev/null -w '%{http_code} %{redirect_url}\n' "$LIVE_URL"
+  ```
+- **Fix:** carry the full source URL through the comparison rather than deriving it from the slug, and fail loudly on a non-200. Where the paths genuinely differ, note it — a slug that lives at a different path on the source is a routing difference worth reporting in its own right, separate from any layout finding.
+
+## A falling aggregate is not proof a fix is right — check the gap you changed
+
+- **When it bites:** Judging a spacing fix by the page's total offset against the source. Errors in opposite directions cancel, so a page can be *more* wrong in two places and *less* wrong in total. Both directions bit in one session: raising `PackageInclusions`' heading margin dropped `sum|dy|` from 1885 to 557 while breaking the heading-to-list gap from a correct 62px to 38px (the source reaches its 62 as an 8px heading margin plus a 24px list margin, not as one 32px margin — the reverted change had been made off a single mis-attributed `margin-bottom` reading); and correcting the `HowItWorksScreens` heading gap to the source's exact 40px *raised* `/hassle-free-compliance` from 1563 to 1929, because a pre-existing +40px difference in the item heights had been masked by the too-small gap.
+- **Detect:** measure the specific boundary on both sides, before and after, and compare those two numbers — not the totals:
+  ```js
+  const a = /* element above */, b = /* element below */
+  const ab = a.getBoundingClientRect(), bb = b.getBoundingClientRect()
+  console.log('gap', Math.round((bb.y + scrollY) - (ab.y + scrollY + ab.height)))
+  ```
+  Then re-run the step-delta report: the step at the boundary you changed should go to zero. A step that merely *moves* to a neighbouring boundary means the error was relocated, not removed.
+- **Fix:** treat the aggregate as a search tool for finding boundaries, never as the acceptance test. Accept a change when the boundary it targets matches the source; if the total rises, say why in the same breath — an exposed pre-existing difference is a finding worth reporting, not a reason to revert a correct fix.

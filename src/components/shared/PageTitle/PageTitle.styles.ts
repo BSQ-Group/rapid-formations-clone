@@ -4,6 +4,10 @@ export const pageTitleStyles = {
   wrapper:
     'flex w-full flex-col items-start justify-between mb-10 md:mt-6 md:mb-[45px] md:flex-row md:flex-wrap md:items-center',
 
+  // Where the price column is taller than the heading, the source sits the title on
+  // its baseline rather than centring it in the row.
+  wrapperBottom: 'md:items-end',
+
   left: 'flex-auto basis-0',
 
   right:

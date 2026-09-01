@@ -21,6 +21,20 @@ export const PageTitle: Block = {
       },
     },
     {
+      name: 'titleAlign',
+      type: 'select',
+      label: 'Title alignment',
+      defaultValue: 'centre',
+      options: [
+        { label: 'Centre — level with the price and button', value: 'centre' },
+        { label: 'Bottom — sitting on the price’s baseline', value: 'bottom' },
+      ],
+      admin: {
+        description:
+          'Only matters where the price column runs taller than the heading, as on a package page — the source drops the title onto its baseline there instead of centring it.',
+      },
+    },
+    {
       name: 'isPageTitle',
       type: 'checkbox',
       label: 'Render as the page H1',
