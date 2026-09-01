@@ -6,6 +6,7 @@ import type { PageTitleBlock } from '@/payload-types'
 import Text from '@/components/shared/Text'
 import { Button } from '@/components/ui/button'
 import { getLinkHref, type LinkData } from '@/utilities/links'
+import { getTierPriceMap } from '@/utilities/getPackagePrices'
 import { pageTitleStyles as s } from './PageTitle.styles'
 
 type BuyNowValue = NonNullable<PageTitleBlock['buyNow']>
@@ -58,11 +59,17 @@ const toButton = (link: LinkData | undefined, variant: BuyNowButton['variant']) 
     ? { label: link.label, href: getLinkHref(link), newTab: link.newTab, variant }
     : undefined
 
-export const BuyNow: React.FC<{ buyNow?: BuyNowValue | null }> = ({ buyNow }) => {
+export const BuyNow: React.FC<{
+  buyNow?: BuyNowValue | null
+  packageSlug?: string | null
+}> = async ({ buyNow, packageSlug }) => {
   const buttons = [
     toButton(buyNow?.cta as LinkData | undefined, 'success'),
     toButton(buyNow?.secondaryCta as LinkData | undefined, 'secondary'),
   ].filter(Boolean) as BuyNowButton[]
 
-  return <BuyNowView price={buyNow?.price} priceSuffix={buyNow?.priceSuffix} buttons={buttons} />
+  const price =
+    buyNow?.price || (packageSlug ? (await getTierPriceMap()).get(packageSlug) : undefined)
+
+  return <BuyNowView price={price} priceSuffix={buyNow?.priceSuffix} buttons={buttons} />
 }
