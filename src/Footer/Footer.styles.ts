@@ -15,7 +15,7 @@ export const footerStyles = {
     'flex flex-col-reverse md:flex-row md:items-center md:justify-between min-[1023px]:mb-[27px] min-[1023px]:grid min-[1023px]:grid-cols-[2fr_1fr] min-[1023px]:gap-5',
 
   cardIcons: 'mb-5 flex flex-row justify-center gap-2.5 md:mb-0 md:justify-start',
-  cardIcon: 'h-[35px] w-[55px] min-w-0 md:h-[45px] md:w-[65px]',
+  cardIcon: 'h-[35px] w-[55px] md:h-[45px] md:w-[65px]',
 
   socialSlot: 'flex justify-center',
   socialIcons: 'mx-auto mb-4 flex flex-row min-[1023px]:ml-auto min-[1023px]:mr-0',
