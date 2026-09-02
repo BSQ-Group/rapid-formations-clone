@@ -606,6 +606,9 @@
 
   body {
     @apply bg-[var(--surface-canvas)] text-[var(--text-strong)] min-h-[100vh] flex flex-col;
+    font-family: 'myriad-pro-semi-condensed', verdana-fallback, Geneva, Tahoma, sans-serif;
+    font-size: 18px;
+    line-height: 1.5;
   }
 
   html {
@@ -653,9 +656,8 @@ html [data-header][data-nav-hovered] {
   .font-legacy-condensed,
   .theme-rapidformations .portal-legacy-condensed {
     @apply antialiased;
-    font-family:
-      'myriad-pro-semi-condensed', var(--font-legacy-condensed), var(--font-inter), sans-serif;
-    font-variation-settings: 'wdth' 75.6;
+    font-family: 'myriad-pro-semi-condensed', verdana-fallback, Geneva, Tahoma, sans-serif;
+    font-variation-settings: normal;
   }
 }
 
