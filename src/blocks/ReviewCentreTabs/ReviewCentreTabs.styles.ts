@@ -12,6 +12,8 @@ export const reviewCentreTabsStyles = {
   mobileToggle:
     'ml-auto block h-[45px] cursor-pointer border-0 bg-[rgb(var(--white))] px-[15px] py-2.5 text-lg leading-[27px] text-[var(--text-info)]',
 
+  mobileToggleLabel: 'text-[var(--text-on-light-strong)]',
+
   mobileToggleIcon: 'ml-1 inline-block h-3 w-3 align-baseline',
 
   list: 'sticky top-[46px] z-[5] bg-[var(--surface-on-light-sunken)] md:top-0',
@@ -21,6 +23,9 @@ export const reviewCentreTabsStyles = {
   listClosed: 'hidden md:flex',
 
   ul: 'm-0 block list-none px-0 pt-2.5 pb-2 md:mx-[5px] md:flex md:w-full md:flex-row md:p-0 min-[1023px]:m-auto min-[1023px]:-mt-11 min-[1023px]:justify-center',
+
+  ulOpening:
+    'animate-in fade-in-0 duration-300 [animation-timing-function:cubic-bezier(0.37,0,0.63,1)] motion-reduce:animate-none',
 
   item: 'mx-[15px] my-2.5 block cursor-pointer border border-solid border-[color:var(--border-on-light)] px-[18px] py-2 text-center text-xl leading-[30px] first:mt-0 md:mx-0.5 md:my-0 md:border-0 min-[1023px]:my-0',
 

@@ -72,7 +72,9 @@ export const ReviewHighlightRowsBlockComponent: React.FC<ReviewHighlightRowsBloc
                         />
                       </div>
                       <div>
-                        <RatingStars score={quote.rating ?? 5} size="sm" className={s.quoteStars} />
+                        <div className={s.quoteStarsRow}>
+                          <RatingStars score={quote.rating ?? 5} size="sm" />
+                        </div>
                         <Text as="p" textStyle="span" text={quote.text} className={s.quoteText} />
                         <div className={s.user} style={{ color: quote.accentColour }}>
                           <Text textStyle="span" text={quote.authorName} />
