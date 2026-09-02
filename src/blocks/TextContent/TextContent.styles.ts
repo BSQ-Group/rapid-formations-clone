@@ -57,7 +57,7 @@ const bankingSections = {
 
   spacing: '[&_p]:!mb-4',
 
-  lists: `${bulletListsBase} [&_ul]:!pl-[15px] [&_ol>li]:list-decimal`,
+  lists: `${bulletListsBase} [&_ul]:!pl-[15px] [&_ul:not(:last-child)]:!mb-4 [&_ol>li]:list-decimal`,
 }
 
 const pageSections = {
