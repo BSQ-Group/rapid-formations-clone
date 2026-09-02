@@ -59,6 +59,8 @@ export const BankingPartnersView: React.FC<BankingPartnersViewProps> = ({
                     alt={(typeof bank.logo === 'object' && bank.logo.alt) || `${bank.name} logo`}
                     className={s.logoTile}
                     imgClassName={s.logo}
+                    width={58}
+                    height={58}
                     loading="lazy"
                   />
                 )}
