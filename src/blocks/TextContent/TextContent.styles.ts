@@ -139,9 +139,12 @@ const terms = {
 }
 
 const cookies = {
-  lists: bulletLists,
+  lists: `${bulletLists} [&_ol]:!mb-2`,
 
   measure: 'max-w-[936px]',
+
+  emphasis:
+    '[&_strong]:!text-[color:var(--text-on-light-muted)] [&_b]:!text-[color:var(--text-on-light-muted)]',
 
   paragraphs:
     '[&_p]:text-[22px] [&_p]:leading-[33px] [&_p:has(+h2)]:!mb-8 [&_p:has(+h3)]:!mb-8 [&_h3+p]:!mb-[1.2rem]',
@@ -150,7 +153,7 @@ const cookies = {
     '[&_p:has(strong)]:!mb-[1.2rem] [&_p:has(strong)]:border [&_p:has(strong)]:border-[color:var(--border-on-light)] [&_p:has(strong)]:px-[1em] [&_p:has(strong)]:py-[0.5em] [&_p:has(strong)+h2]:!mt-8',
 
   headings:
-    '[&_h2]:text-[26px] [&_h2]:leading-[39px] [&_h2]:!mb-3 [&_h2+h3]:!mt-0 [&_h3]:inline-block [&_h3]:border-b-2 [&_h3]:border-current [&_h3]:text-[22px] [&_h3]:leading-[33px] [&_h3]:!mb-2 [&_h2_strong]:!text-[color:var(--text-on-light-muted)] [&_h2_b]:!text-[color:var(--text-on-light-muted)] [&_h3_strong]:!text-[color:var(--text-on-light-muted)] [&_h3_b]:!text-[color:var(--text-on-light-muted)]',
+    '[&_h2]:text-[26px] [&_h2]:leading-[39px] [&_h2]:!mb-3 [&_h2+h3]:!mt-0 [&_h3]:inline-block [&_h3]:border-b-2 [&_h3]:border-current [&_h3]:text-[22px] [&_h3]:leading-[33px] [&_h3]:!mb-2',
 
   code: '[&_code]:[font-family:inherit]',
 }
