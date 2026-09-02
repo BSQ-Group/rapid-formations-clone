@@ -2,7 +2,8 @@ export const landingHeroStyles = {
   section:
     'font-legacy-condensed relative w-full flex flex-col -mt-[var(--header-height)] pt-[var(--header-height)] min-h-[820px] min-[1023px]:min-h-[700px] min-[1200px]:min-h-[1045px] bg-[var(--surface-hero-brand)] overflow-hidden',
 
-  backgroundWrapper: 'hidden md:block absolute inset-0 bg-cover bg-top bg-no-repeat',
+  backgroundWrapper:
+    'hidden md:block absolute inset-0 bg-cover bg-fixed bg-left-top bg-repeat',
 
   overlay: 'absolute inset-0 pointer-events-none bg-[var(--scrim-hero)] md:bg-transparent',
 
