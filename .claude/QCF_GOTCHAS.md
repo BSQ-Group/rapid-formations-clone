@@ -751,3 +751,24 @@ Each entry has four parts:
   ```
 - **Fix:** keep the registry a faithful 1:1 copy of the source (don't drop slugs on a "looks unused" hunch). If you additionally single-source some slugs elsewhere (e.g. tier prices from the `packages` collection), let the block read from that source but **leave the slug in the registry** so the `[[price]]` shortcode still resolves. Note: a slug the content references that was *never* in the registry (e.g. `hassle-free-compliance-service` vs the real `hassle-free-compliance`) renders raw on `main` too — that's a pre-existing content typo, not something your migration caused.
 - **When converting shortcodes → inline/literal (deleting the resolver):** shortcodes hide in **collection richtext**, not just page `layout` — real incident: after sweeping `pages.layout` the build still shipped raw `[[price]]` from `products.tooltip` and `buyservices.content` (and their `_*_versions`). Sweep **every** collection's docs, not one field. And the JSON-escape trap bites your *diagnostics* the same way: a "is the DB clean now?" check that stringifies and greps `slug="` will falsely say yes. Walk the parsed object (unescaped strings), or match `slug=\\"`. Ground-truth is always the escaped-aware grep of prerendered HTML.
+
+## On-light heading/accordion-title text set to `--text-on-light-muted` instead of `--text-on-light-base`
+
+- **When it bites:** A heading or accordion-question title (`<h4><span>…`) renders a lighter grey than live — `#595959` (`rgb(89,89,89)` = `--text-on-light-muted`) where live is `#363636` (`rgb(54,54,54)` = `--text-on-light-base`). `--text-on-light-muted` is for **body / subtitle / metadata** copy; heading and toggle-title text on a light background is `--text-on-light-base`. The size/weight/spacing all look right, so it slips through anything that only checks typography. Real incident: CORE-7202 — the shared `Collapsible` FAQ title used the muted token, so every FAQ question across 11+ pages rendered `#595959` closed (open state was already correct — it swaps to cyan). One shared-component line fixed all pages.
+- **Detect:**
+  ```bash
+  # Smell: a heading/title/question style key that carries the muted on-light token.
+  # (key and value can be on separate lines, so scan a small window around each key.)
+  git diff main...HEAD -- 'src/**/*.styles.ts' \
+    | grep -nE '^\+' \
+    | grep -iE 'heading|title|question|accordion|faq' -A2 \
+    | grep 'text-on-light-muted'   # any hit = confirm the element is a heading, not body copy
+  ```
+  ```js
+  // Runtime assertion against a deploy preview / prod — closed FAQ question text
+  // must be base (#363636), not muted (#595959):
+  ;[...document.querySelectorAll('h4 > button > span:first-child')]
+    .map((s) => getComputedStyle(s).color)
+    .filter((c) => c !== 'rgb(54, 54, 54)') // non-empty = FAQ heading colour regressed
+  ```
+- **Fix:** Use `text-[var(--text-on-light-base)]` for on-light heading / toggle-title text (canonical example: `Collapsible.styles.ts` `title`). Reserve `--text-on-light-muted` for body, subtitles and metadata. When in doubt, measure the same element on `www.rapidformations.co.uk` — live is the source of truth for these colours, not the desktop Figma token name.
