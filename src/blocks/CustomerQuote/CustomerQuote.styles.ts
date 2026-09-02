@@ -26,9 +26,10 @@ export const customerQuoteStyles = {
   image: 'object-cover object-center',
 
   posterButton:
-    'block size-[325px] overflow-hidden rounded-xl border border-transparent focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[var(--surface-brand-cyan)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--surface-brand-cyan-wash)]',
+    'block h-[300px] w-[325px] overflow-hidden rounded-xl border border-transparent focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[var(--surface-brand-cyan)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--surface-brand-cyan-wash)]',
 
-  posterMedia: 'absolute inset-0 transition-opacity duration-150 group-hover:opacity-80',
+  posterMedia:
+    'absolute inset-x-0 top-0 h-[323px] transition-opacity duration-150 group-hover:opacity-80',
 
   playIcon: 'h-[80px] w-[60px] opacity-75',
 } as const
