@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 
 import { cn } from '@/utilities/ui'
 import { Inter, Work_Sans, Encode_Sans } from 'next/font/google'
@@ -94,4 +94,8 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     ...(twitterHandle ? { site: twitterHandle, creator: twitterHandle } : {}),
   },
+}
+
+export const viewport: Viewport = {
+  themeColor: '#00b1e3',
 }
