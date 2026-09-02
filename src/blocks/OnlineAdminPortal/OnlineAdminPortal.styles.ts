@@ -6,7 +6,7 @@ export const onlineAdminPortalStyles = {
 
   full: 'md:col-span-2',
 
-  half: 'mb-[15px] flex flex-col items-center justify-between border border-solid border-[color:var(--border-on-light-tile)] bg-white p-10 shadow-tile-raised transition-shadow duration-200 ease-in-out hover:shadow-tile-raised-hover',
+  half: 'mb-[15px] flex flex-col items-center justify-between border border-solid border-[color:var(--border-on-light-tile)] bg-white p-10 shadow-tile-raised transition-shadow duration-200 ease-in-out',
 
   halfBody: 'md:min-h-[400px]',
 
