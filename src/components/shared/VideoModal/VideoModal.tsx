@@ -3,8 +3,9 @@
 import React, { useCallback, useRef, useState } from 'react'
 
 import { faPlay } from '@fortawesome/pro-solid-svg-icons/faPlay'
+import { faXmark } from '@fortawesome/pro-light-svg-icons/faXmark'
 
-import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
+import { Dialog, DialogClose, DialogContent, DialogTitle } from '@/components/ui/dialog'
 import { FaIcon } from '@/components/shared/FaIcon'
 import { cn } from '@/utilities/ui'
 import { videoModalStyles as s } from './VideoModal.styles'
@@ -28,6 +29,7 @@ export type VideoModalProps = {
   className?: string
   playIconClassName?: string
   contentClassName?: string
+  variant?: 'inline' | 'lightbox'
 }
 
 export const VideoModal: React.FC<VideoModalProps> = ({
@@ -38,11 +40,13 @@ export const VideoModal: React.FC<VideoModalProps> = ({
   className,
   playIconClassName,
   contentClassName,
+  variant = 'inline',
 }) => {
   const [isOpen, setIsOpen] = useState(false)
   const contentRef = useRef<HTMLDivElement>(null)
   const triggerRef = useRef<HTMLButtonElement>(null)
   const mimeType = fileMimeType(videoUrl)
+  const isLightbox = variant === 'lightbox'
 
   const applyInitialVolume = useCallback((node: HTMLVideoElement | null) => {
     if (node) node.volume = 0.5
@@ -64,8 +68,13 @@ export const VideoModal: React.FC<VideoModalProps> = ({
         <DialogContent
           ref={contentRef}
           tabIndex={-1}
-          overlayClassName={s.overlay}
-          className={cn(s.dialogContent, contentClassName)}
+          overlayClassName={isLightbox ? s.overlayLightbox : s.overlay}
+          hideClose={isLightbox}
+          className={cn(
+            s.dialogContent,
+            isLightbox ? s.dialogContentLightbox : s.dialogContentInline,
+            contentClassName,
+          )}
           aria-describedby={undefined}
           onOpenAutoFocus={(event) => {
             event.preventDefault()
@@ -77,7 +86,12 @@ export const VideoModal: React.FC<VideoModalProps> = ({
           }}
         >
           <DialogTitle className={s.dialogTitle}>{title}</DialogTitle>
-          <div className={s.videoFrame}>
+          <div className={cn(s.videoFrame, isLightbox ? s.videoFrameLightbox : s.videoFrameInline)}>
+            {isLightbox && (
+              <DialogClose className={s.close} aria-label="Close video">
+                <FaIcon icon={faXmark} className={s.closeIcon} />
+              </DialogClose>
+            )}
             {mimeType ? (
               <video
                 ref={applyInitialVolume}
