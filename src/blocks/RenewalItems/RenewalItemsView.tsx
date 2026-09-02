@@ -22,7 +22,7 @@ export const RenewalItemsView: React.FC<{ items: RenewalItem[] }> = ({ items }) 
     {items.map((item) => (
       <div key={item.id} className={s.item}>
         <div className={s.header}>
-          <Text as="h3" textStyle="span" text={item.title} className={s.title} />
+          <Text as="h4" textStyle="span" text={item.title} className={s.title} />
           <Text textStyle="span" text={`£${item.price}`} className={s.price} />
         </div>
         <div className={s.body}>
