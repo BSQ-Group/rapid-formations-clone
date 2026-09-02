@@ -109,6 +109,16 @@ export const ServiceContent: Block = {
           ],
         },
         {
+          name: 'introHeading',
+          type: 'checkbox',
+          label: 'Intro section — scale this heading below 1024px',
+          defaultValue: false,
+          admin: {
+            description:
+              'Renders this section’s first heading at 26px (28px from 768px) with an 8px gap below, dropping to the standard 23px/20px from 1024px. Set it on the section the source treats as the column’s intro — usually the first, but not on every page.',
+          },
+        },
+        {
           name: 'content',
           type: 'richText',
           editor: defaultLexical,

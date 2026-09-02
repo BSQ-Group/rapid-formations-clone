@@ -37,10 +37,7 @@ const colours = {
   inherit: s.iconInherit,
 } as const
 
-export const ServiceContentSection: React.FC<{ section: Section; lead?: boolean }> = ({
-  section,
-  lead,
-}) => {
+export const ServiceContentSection: React.FC<{ section: Section }> = ({ section }) => {
   const name = section.icon && section.icon !== 'none' ? section.icon : undefined
   const icon = name ? icons[name] : undefined
 
@@ -79,7 +76,11 @@ export const ServiceContentSection: React.FC<{ section: Section; lead?: boolean 
         data={section.content}
         enableGutter={false}
         enableProse={false}
-        className={cn(s.content, lead && s.leadHeading, icon ? s.iconList : s.bulleted)}
+        className={cn(
+          s.content,
+          section.introHeading && s.introHeading,
+          icon ? s.iconList : s.bulleted,
+        )}
         listItemIcon={
           icon ? (
             <FaIcon

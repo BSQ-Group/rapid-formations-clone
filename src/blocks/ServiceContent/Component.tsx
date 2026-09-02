@@ -56,7 +56,7 @@ export const ServiceContentBlock: React.FC<ServiceContentBlockProps> = ({
           {hasCards && cards(s.cardsLead, s.cardMobile)}
           <div className={cn(s.column, s.columnFlush, !split && hasCards && s.columnDesktopOnly)}>
             {left.map((item, index) => (
-              <ServiceContentSection key={item.id ?? index} section={item} lead={index === 0} />
+              <ServiceContentSection key={item.id ?? index} section={item} />
             ))}
             {hasCards && !split && cards(s.cardsTrail, desktopCard)}
             {!split && panel}
