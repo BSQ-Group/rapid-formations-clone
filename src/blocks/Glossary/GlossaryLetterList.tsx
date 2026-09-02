@@ -23,7 +23,7 @@ export const GlossaryLetterList: React.FC<{ terms: GlossaryTerm[] }> = ({ terms 
     {[...byLetter(terms)].map(([letter, letterTerms]) => (
       <div key={letter} className={s.letterGroup}>
         <div className={s.letterHeading}>
-          <Text as="h3" textStyle="span" text={letter} className={s.letterChip} />
+          <Text as="h4" textStyle="span" text={letter} className={s.letterChip} />
         </div>
         <dl className={s.terms}>
           {letterTerms.map((term, index) => {
