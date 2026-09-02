@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-7202 · [RF] SITEWIDE: h4 span heading text renders #595959 (lighter) vs live's #363636",
+  "body": "Linear: https://linear.app/bsq-group/issue/CORE-7202/rf-sitewide-h4-span-heading-text-renders-595959-lighter-vs-lives\n\n(Reference only — the ticket is the source of truth; fetch the live description at implement time.)",
+  "acceptanceCriteria": [
+    "Resolve CORE-7202 as specified in Linear (fetched live at implement time)."
+  ],
+  "status": "backlog",
+  "track": "linear",
+  "tags": [],
+  "priority": "normal",
+  "effort": null,
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-09-02T10:11:26.469Z",
+  "createdBy": "task-console",
+  "updatedAt": "2026-09-02T10:11:26.469Z",
+  "startedAt": null,
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-09-02T10:11:26.469Z",
+      "by": "task-console"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": null,
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "externalRef": {
+    "source": "linear",
+    "identifier": "CORE-7202",
+    "url": "https://linear.app/bsq-group/issue/CORE-7202/rf-sitewide-h4-span-heading-text-renders-595959-lighter-vs-lives",
+    "id": "754005ed-427b-48a8-82fe-905312ed3e0d",
+    "title": "[RF] SITEWIDE: h4 span heading text renders #595959 (lighter) vs live's #363636",
+    "status": "Todo",
+    "syncedAt": "2026-09-02T10:11:26.469Z"
+  },
+  "id": "T2",
+  "num": 2
+}

@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-7142 · [RF] SITEWIDE: missing theme-color meta — mobile browser chrome not branded",
+  "body": "Linear: https://linear.app/bsq-group/issue/CORE-7142/rf-sitewide-missing-theme-color-meta-mobile-browser-chrome-not-branded\n\n(Reference only — the ticket is the source of truth; fetch the live description at implement time.)",
+  "acceptanceCriteria": [
+    "Resolve CORE-7142 as specified in Linear (fetched live at implement time)."
+  ],
+  "status": "backlog",
+  "track": "linear",
+  "tags": [],
+  "priority": "normal",
+  "effort": null,
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-09-02T10:11:26.469Z",
+  "createdBy": "task-console",
+  "updatedAt": "2026-09-02T10:11:26.469Z",
+  "startedAt": null,
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-09-02T10:11:26.469Z",
+      "by": "task-console"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": null,
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "externalRef": {
+    "source": "linear",
+    "identifier": "CORE-7142",
+    "url": "https://linear.app/bsq-group/issue/CORE-7142/rf-sitewide-missing-theme-color-meta-mobile-browser-chrome-not-branded",
+    "id": "e991bc3f-8d38-4944-b19d-6236991c3c70",
+    "title": "[RF] SITEWIDE: missing theme-color meta — mobile browser chrome not branded",
+    "status": "Todo",
+    "syncedAt": "2026-09-02T10:11:26.469Z"
+  },
+  "id": "T10",
+  "num": 10
+}

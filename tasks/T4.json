@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-7203 · [RF] /company-address-guide/ : comparison-table footnote list text too dark (#363636 vs live #595959)",
+  "body": "Linear: https://linear.app/bsq-group/issue/CORE-7203/rf-company-address-guide-comparison-table-footnote-list-text-too-dark\n\n(Reference only — the ticket is the source of truth; fetch the live description at implement time.)",
+  "acceptanceCriteria": [
+    "Resolve CORE-7203 as specified in Linear (fetched live at implement time)."
+  ],
+  "status": "backlog",
+  "track": "linear",
+  "tags": [],
+  "priority": "normal",
+  "effort": null,
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-09-02T10:11:26.469Z",
+  "createdBy": "task-console",
+  "updatedAt": "2026-09-02T10:11:26.469Z",
+  "startedAt": null,
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-09-02T10:11:26.469Z",
+      "by": "task-console"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": null,
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "externalRef": {
+    "source": "linear",
+    "identifier": "CORE-7203",
+    "url": "https://linear.app/bsq-group/issue/CORE-7203/rf-company-address-guide-comparison-table-footnote-list-text-too-dark",
+    "id": "7540e09c-ade3-4087-b8c3-ec312344a005",
+    "title": "[RF] /company-address-guide/ : comparison-table footnote list text too dark (#363636 vs live #595959)",
+    "status": "Todo",
+    "syncedAt": "2026-09-02T10:11:26.469Z"
+  },
+  "id": "T4",
+  "num": 4
+}

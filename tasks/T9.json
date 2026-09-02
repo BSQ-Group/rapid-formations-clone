@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-6999 · [RF] SHARED: final content-to-footer gap is 20px tighter than Live at 1024/1800",
+  "body": "Linear: https://linear.app/bsq-group/issue/CORE-6999/rf-shared-final-content-to-footer-gap-is-20px-tighter-than-live-at\n\n(Reference only — the ticket is the source of truth; fetch the live description at implement time.)",
+  "acceptanceCriteria": [
+    "Resolve CORE-6999 as specified in Linear (fetched live at implement time)."
+  ],
+  "status": "backlog",
+  "track": "linear",
+  "tags": [],
+  "priority": "normal",
+  "effort": null,
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-09-02T10:11:26.469Z",
+  "createdBy": "task-console",
+  "updatedAt": "2026-09-02T10:11:26.469Z",
+  "startedAt": null,
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-09-02T10:11:26.469Z",
+      "by": "task-console"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": null,
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "externalRef": {
+    "source": "linear",
+    "identifier": "CORE-6999",
+    "url": "https://linear.app/bsq-group/issue/CORE-6999/rf-shared-final-content-to-footer-gap-is-20px-tighter-than-live-at",
+    "id": "2803fb75-3016-4274-85e1-d0f5ea06a7bb",
+    "title": "[RF] SHARED: final content-to-footer gap is 20px tighter than Live at 1024/1800",
+    "status": "Todo",
+    "syncedAt": "2026-09-02T10:11:26.469Z"
+  },
+  "id": "T9",
+  "num": 9
+}

@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-7159 · [RF] SHARED: legal-page content-to-footer gap off at every breakpoint (too loose 360–1200, too tight 1800)",
+  "body": "Linear: https://linear.app/bsq-group/issue/CORE-7159/rf-shared-legal-page-content-to-footer-gap-off-at-every-breakpoint-too\n\n(Reference only — the ticket is the source of truth; fetch the live description at implement time.)",
+  "acceptanceCriteria": [
+    "Resolve CORE-7159 as specified in Linear (fetched live at implement time)."
+  ],
+  "status": "backlog",
+  "track": "linear",
+  "tags": [],
+  "priority": "normal",
+  "effort": null,
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-09-02T10:11:26.469Z",
+  "createdBy": "task-console",
+  "updatedAt": "2026-09-02T10:11:26.469Z",
+  "startedAt": null,
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-09-02T10:11:26.469Z",
+      "by": "task-console"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": null,
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "externalRef": {
+    "source": "linear",
+    "identifier": "CORE-7159",
+    "url": "https://linear.app/bsq-group/issue/CORE-7159/rf-shared-legal-page-content-to-footer-gap-off-at-every-breakpoint-too",
+    "id": "2f2a9203-0dd3-4987-aace-fd71e27b04ad",
+    "title": "[RF] SHARED: legal-page content-to-footer gap off at every breakpoint (too loose 360–1200, too tight 1800)",
+    "status": "Todo",
+    "syncedAt": "2026-09-02T10:11:26.469Z"
+  },
+  "id": "T11",
+  "num": 11
+}

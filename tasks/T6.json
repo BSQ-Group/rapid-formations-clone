@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-6965 · [RF] SITEWIDE: content images served under-resolution (≤1×) → soft/pixelated on high-DPI (Live serves 2×)",
+  "body": "Linear: https://linear.app/bsq-group/issue/CORE-6965/rf-sitewide-content-images-served-under-resolution-1-softpixelated-on\n\n(Reference only — the ticket is the source of truth; fetch the live description at implement time.)",
+  "acceptanceCriteria": [
+    "Resolve CORE-6965 as specified in Linear (fetched live at implement time)."
+  ],
+  "status": "backlog",
+  "track": "linear",
+  "tags": [],
+  "priority": "normal",
+  "effort": null,
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-09-02T10:11:26.469Z",
+  "createdBy": "task-console",
+  "updatedAt": "2026-09-02T10:11:26.469Z",
+  "startedAt": null,
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-09-02T10:11:26.469Z",
+      "by": "task-console"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": null,
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "externalRef": {
+    "source": "linear",
+    "identifier": "CORE-6965",
+    "url": "https://linear.app/bsq-group/issue/CORE-6965/rf-sitewide-content-images-served-under-resolution-1-softpixelated-on",
+    "id": "2ae35d02-946d-402d-bca9-8b72ebdda115",
+    "title": "[RF] SITEWIDE: content images served under-resolution (≤1×) → soft/pixelated on high-DPI (Live serves 2×)",
+    "status": "Todo",
+    "syncedAt": "2026-09-02T10:11:26.469Z"
+  },
+  "id": "T6",
+  "num": 6
+}

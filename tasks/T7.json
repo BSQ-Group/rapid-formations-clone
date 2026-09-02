@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-7108 · [RF] SITEWIDE: body base font is Inter 16px/24px on clone (live is Myriad 18px/27px)",
+  "body": "Linear: https://linear.app/bsq-group/issue/CORE-7108/rf-sitewide-body-base-font-is-inter-16px24px-on-clone-live-is-myriad\n\n(Reference only — the ticket is the source of truth; fetch the live description at implement time.)",
+  "acceptanceCriteria": [
+    "Resolve CORE-7108 as specified in Linear (fetched live at implement time)."
+  ],
+  "status": "backlog",
+  "track": "linear",
+  "tags": [],
+  "priority": "normal",
+  "effort": null,
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-09-02T10:11:26.469Z",
+  "createdBy": "task-console",
+  "updatedAt": "2026-09-02T10:11:26.469Z",
+  "startedAt": null,
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-09-02T10:11:26.469Z",
+      "by": "task-console"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": null,
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "externalRef": {
+    "source": "linear",
+    "identifier": "CORE-7108",
+    "url": "https://linear.app/bsq-group/issue/CORE-7108/rf-sitewide-body-base-font-is-inter-16px24px-on-clone-live-is-myriad",
+    "id": "b000e21c-4bbc-4bed-b50c-474b7f1debd8",
+    "title": "[RF] SITEWIDE: body base font is Inter 16px/24px on clone (live is Myriad 18px/27px)",
+    "status": "Todo",
+    "syncedAt": "2026-09-02T10:11:26.469Z"
+  },
+  "id": "T7",
+  "num": 7
+}

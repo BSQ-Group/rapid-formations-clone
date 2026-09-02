@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-7193 · [RF] /help-centre/a-z-glossary-of-terms/ : glossary letter dividers render as h3 on clone, h4 on live",
+  "body": "Linear: https://linear.app/bsq-group/issue/CORE-7193/rf-help-centrea-z-glossary-of-terms-glossary-letter-dividers-render-as\n\n(Reference only — the ticket is the source of truth; fetch the live description at implement time.)",
+  "acceptanceCriteria": [
+    "Resolve CORE-7193 as specified in Linear (fetched live at implement time)."
+  ],
+  "status": "backlog",
+  "track": "linear",
+  "tags": [],
+  "priority": "normal",
+  "effort": null,
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-09-02T10:11:26.469Z",
+  "createdBy": "task-console",
+  "updatedAt": "2026-09-02T10:11:26.469Z",
+  "startedAt": null,
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-09-02T10:11:26.469Z",
+      "by": "task-console"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": null,
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "externalRef": {
+    "source": "linear",
+    "identifier": "CORE-7193",
+    "url": "https://linear.app/bsq-group/issue/CORE-7193/rf-help-centrea-z-glossary-of-terms-glossary-letter-dividers-render-as",
+    "id": "10a3d1b6-c5e3-4a9c-ad98-7f3192daad3b",
+    "title": "[RF] /help-centre/a-z-glossary-of-terms/ : glossary letter dividers render as h3 on clone, h4 on live",
+    "status": "Todo",
+    "syncedAt": "2026-09-02T10:11:26.469Z"
+  },
+  "id": "T5",
+  "num": 5
+}
