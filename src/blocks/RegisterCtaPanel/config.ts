@@ -36,7 +36,13 @@ export const RegisterCtaPanel: Block = {
       overrides: { name: 'cta', label: 'Call to action' },
     }),
     sectionLayoutField({
-      defaults: { background: 'inverse', paddingTop: 'none', paddingBottom: 'none' },
+      gap: true,
+      defaults: {
+        background: 'inverse',
+        paddingTop: 'none',
+        paddingBottom: 'none',
+        gap: 'sectionLarge',
+      },
     }),
   ],
 }

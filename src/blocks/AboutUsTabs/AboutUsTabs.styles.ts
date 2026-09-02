@@ -1,10 +1,12 @@
 export const aboutUsTabsStyles = {
   section: 'font-legacy-condensed w-full bg-[var(--surface-canvas)]',
 
-  wrapperPad: 'pt-10 min-[1023px]:py-5',
+  wrapperPad: 'pt-10 min-[1023px]:py-0',
 
   title:
-    'mb-[30px] block text-[38px] leading-[43.7px] font-normal text-[var(--text-on-light-base)]',
+    'mb-[30px] block text-[36px] leading-[44.46px] font-normal text-[var(--text-on-light-base)]',
+
+  titlePageHeading: 'text-[38px] leading-[43.7px]',
 
   list: 'm-0 mb-[50px] grid grid-cols-2 gap-x-0.5 gap-y-[3px] p-0 min-[1023px]:block min-[1023px]:border-b min-[1023px]:border-solid min-[1023px]:border-[color:var(--border-on-light)]',
 

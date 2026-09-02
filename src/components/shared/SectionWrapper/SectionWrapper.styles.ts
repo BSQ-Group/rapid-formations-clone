@@ -22,7 +22,7 @@ const responsiveGap = {
 export const sectionWrapperStyles = {
   base: 'w-full',
   background: {
-    light: 'bg-[var(--surface-primary)]',
+    light: 'bg-[var(--surface-canvas)]',
     dark: 'bg-[var(--surface-canvas)]',
     inverse: 'bg-[var(--surface-canvas-inverse)]',
   } satisfies Record<SectionBackground, string>,

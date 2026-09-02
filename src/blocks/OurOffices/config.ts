@@ -55,6 +55,32 @@ export const OurOffices: Block = {
           required: true,
           admin: { description: 'One line per row. Line breaks are preserved.' },
         },
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'latitude',
+              type: 'number',
+              label: 'Latitude',
+              admin: {
+                width: '50%',
+                description: 'Set both to drop a map under the photo, e.g. 51.5148161.',
+              },
+            },
+            {
+              name: 'longitude',
+              type: 'number',
+              label: 'Longitude',
+              admin: { width: '50%', description: 'e.g. -0.1235229.' },
+            },
+          ],
+        },
+        {
+          name: 'name',
+          type: 'text',
+          label: 'Office name',
+          admin: { description: 'Shown in the map pin popup, e.g. "Rapid Formations London".' },
+        },
         link({
           appearances: false,
           overrides: {

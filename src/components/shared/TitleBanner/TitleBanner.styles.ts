@@ -22,7 +22,7 @@ export const titleBannerStyles = {
 
   imageSection: 'font-legacy-condensed w-full',
 
-  imageSectionContained: 'pb-[15px]',
+  imageSectionContained: 'pb-0 min-[1023px]:pb-5',
 
   backdrop: {
     none: '',
@@ -31,6 +31,8 @@ export const titleBannerStyles = {
     pale: 'bg-[var(--surface-banner-backdrop-pale)]',
     grey: 'bg-[var(--surface-banner-backdrop-grey)]',
   },
+
+  imageContainer: 'px-0 min-[1023px]:px-0',
 
   imageFrame: 'mx-auto w-full',
 

@@ -17,6 +17,7 @@ import { Header } from '@/Header/Component'
 import { TrustPilotBannerBlock } from '@/blocks/TrustPilotBanner/Component'
 import type {
   DocumentLibraryBlock,
+  PartnersBlock,
   EligibleCountry,
   TrustPilotBannerBlock as TrustPilotBannerBlockType,
 } from '@/payload-types'
@@ -69,10 +70,28 @@ export default async function Page({ params: paramsPromise }: Args) {
   const documents = (layout ?? []).find((block) => block.blockType === 'documentLibrary') as
     | DocumentLibraryBlock
     | undefined
+  const partnerBlock = (layout ?? []).find((block) => block.blockType === 'partners') as
+    | PartnersBlock
+    | undefined
   const blocks = resolveShortcodes(layout ?? [], {
     eligibleCountries: {
       lastUpdated: eligible?.lastUpdated,
       countries: (eligible?.countries ?? []).flatMap((entry) => (entry.name ? [entry.name] : [])),
+    },
+    partners: {
+      partners: (partnerBlock?.partners ?? []).flatMap((entry) =>
+        entry.name && typeof entry.logo === 'object' && entry.logo?.url
+          ? [
+              {
+                name: entry.name,
+                url: entry.logo.url,
+                width: entry.logo.width,
+                height: entry.logo.height,
+                tall: entry.tall,
+              },
+            ]
+          : [],
+      ),
     },
     documentLibrary: {
       sections: (documents?.sections ?? []).flatMap((section) =>

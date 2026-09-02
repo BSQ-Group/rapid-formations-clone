@@ -1,5 +1,5 @@
 export const registerCtaPanelStyles = {
-  section: 'font-legacy-condensed w-full pb-[27px] mb-[70px] md:mb-[140px]',
+  section: 'font-legacy-condensed w-full pb-[27px]',
 
   heading:
     'mb-2 block whitespace-pre-line break-words text-center text-[36px] font-normal leading-[44.46px] text-[var(--text-on-light-base)]',

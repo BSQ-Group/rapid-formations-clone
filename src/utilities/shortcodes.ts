@@ -4,6 +4,7 @@ export const TELEPHONE_HREF = 'tel:+442078719990'
 export const LIVE_CHAT_HREF = '#live-chat'
 export const ELIGIBLE_COUNTRIES_HREF = '#eligible-countries'
 export const DOCUMENT_LIBRARY_HREF = '#document-library'
+export const PARTNERS_HREF = '#partners'
 
 const NON_BREAKING_SPACE = '\u00a0'
 
@@ -51,9 +52,19 @@ export type DocumentGroup = { title: string; documents: string[] }
 export type DocumentSection = { title: string; groups: DocumentGroup[] }
 export type DocumentList = { sections: DocumentSection[] }
 
+export type PartnerLogo = {
+  name: string
+  url: string
+  width?: number | null
+  height?: number | null
+  tall?: boolean | null
+}
+export type PartnerList = { partners: PartnerLogo[] }
+
 export type ShortcodeData = {
   eligibleCountries: EligibleCountries
   documentLibrary: DocumentList
+  partners: PartnerList
 }
 
 type NodeContext = { node: TextNode; attributes: Attributes; data: ShortcodeData }
@@ -82,6 +93,9 @@ const shortcodes: Record<string, Shortcode> = {
   'documents-list': {
     node: ({ node, attributes, data }) =>
       customLink(node, DOCUMENT_LIBRARY_HREF, attributes.text || 'here', data.documentLibrary),
+  },
+  partners: {
+    node: ({ node, data }) => customLink(node, PARTNERS_HREF, 'Our partners', data.partners),
   },
 }
 
@@ -141,7 +155,7 @@ const expandString = (text: string, data: ShortcodeData): string =>
       shortcodes[identifier]?.text?.(parseAttributes(rawAttributes ?? ''), data) ?? raw,
   )
 
-// Expands the [[telephone]]/[[space]]/[[live-chat]]/[[eligiblecountries]]/[[documents-list]]
+// Expands the [[telephone]]/[[space]]/[[live-chat]]/[[eligiblecountries]]/[[documents-list]]/[[partners]]
 // shortcodes in a Payload document; the link-style ones use a sentinel href RichText later swaps out.
 export const resolveShortcodes = <T>(value: T, data: ShortcodeData): T => {
   if (Array.isArray(value)) {

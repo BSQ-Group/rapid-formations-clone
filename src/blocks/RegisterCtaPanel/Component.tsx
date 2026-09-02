@@ -24,7 +24,7 @@ export const RegisterCtaPanelBlock: React.FC<RegisterCtaPanelBlockProps> = ({
   return (
     <SectionWrapper {...sectionLayout} className={s.section}>
       <Container>
-        <Text as="h2" textStyle="span" text={heading} className={s.heading} />
+        <Text as="h4" textStyle="span" text={heading} className={s.heading} />
         <p className={s.description}>
           {description}
           {phone?.label && (

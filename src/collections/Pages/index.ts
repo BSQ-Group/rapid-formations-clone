@@ -77,6 +77,7 @@ import { HowItWorksScreens } from '../../blocks/HowItWorksScreens/config'
 import { LegalSidenav } from '../../blocks/LegalSidenav/config'
 import { LegalContent } from '../../blocks/LegalContent/config'
 import { DocumentLibrary } from '../../blocks/DocumentLibrary/config'
+import { Partners } from '../../blocks/Partners/config'
 import { ContactUs } from '@/blocks/ContactUs/config'
 import { ComparePackagesHeader } from '../../blocks/ComparePackagesHeader/config'
 import { PromoCard } from '../../blocks/PromoCard/config'
@@ -255,6 +256,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 LegalSidenav,
                 LegalContent,
                 DocumentLibrary,
+                Partners,
                 ContactUs,
                 ComparePackagesHeader,
                 PromoCard,
