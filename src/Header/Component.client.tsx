@@ -11,7 +11,6 @@ import React, {
   useSyncExternalStore,
 } from 'react'
 import dynamic from 'next/dynamic'
-import { Minus, Plus } from 'lucide-react'
 
 import type { Header } from '@/payload-types'
 import type { Page, Post } from '@/payload-types'
@@ -21,6 +20,8 @@ import { OAuthRedirectHandler } from '@/components/shared/OAuthRedirectHandler'
 import { IdleMount } from '@/components/shared/IdleMount'
 import { faAngleDown } from '@fortawesome/pro-light-svg-icons/faAngleDown'
 import { faChevronRight } from '@fortawesome/pro-light-svg-icons/faChevronRight'
+import { faMinus } from '@fortawesome/pro-light-svg-icons/faMinus'
+import { faPlus } from '@fortawesome/pro-light-svg-icons/faPlus'
 import { faLayerGroup } from '@fortawesome/pro-solid-svg-icons/faLayerGroup'
 import { faLock } from '@fortawesome/pro-solid-svg-icons/faLock'
 import { FaIcon } from '@/components/shared/FaIcon'
@@ -375,11 +376,7 @@ function NavRow({ item, rowKey, isLast, inMainNav, isOpen, onToggle, onNavigate 
           <FaIcon icon={faAngleDown} className={s.dropdownCaret} />
           <span className={s.dropdownToggle}>
             <span className={s.dropdownToggleIcon}>
-              {isOpen ? (
-                <Minus className={s.dropdownToggleGlyph} aria-hidden />
-              ) : (
-                <Plus className={s.dropdownToggleGlyph} aria-hidden />
-              )}
+              <FaIcon icon={isOpen ? faMinus : faPlus} className={s.dropdownToggleGlyph} />
             </span>
           </span>
         </button>
@@ -479,11 +476,7 @@ function AccountRow({ links, isOpen, onToggle, onNavigate }: AccountRowProps) {
           <FaIcon icon={faAngleDown} className={s.dropdownCaret} />
           <span className={s.dropdownToggle}>
             <span className={s.dropdownToggleIcon}>
-              {isOpen ? (
-                <Minus className={s.dropdownToggleGlyph} aria-hidden />
-              ) : (
-                <Plus className={s.dropdownToggleGlyph} aria-hidden />
-              )}
+              <FaIcon icon={isOpen ? faMinus : faPlus} className={s.dropdownToggleGlyph} />
             </span>
           </span>
         </button>
