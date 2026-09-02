@@ -67,7 +67,7 @@ export const reviewCentreTabsStyles = {
   bannerLink:
     'mt-[25px] mb-[15px] block rounded border border-solid border-[color:rgb(var(--white))] bg-[rgb(var(--white))] px-[25px] py-[7px] text-lg leading-[27px] text-[var(--text-brand-cyan)] no-underline md:m-0',
 
-  bannerLinkIcon: 'ml-1 inline-block h-3.5 w-3.5 align-baseline',
+  bannerLinkIcon: 'ml-1 inline-block h-[1em] w-auto align-baseline',
 
   reviews: 'block w-full bg-[var(--surface-on-light-tile)] pb-[30px]',
 
@@ -105,10 +105,12 @@ export const reviewCentreTabsStyles = {
 
   cardDate: 'ml-0 block text-lg leading-[27px] text-[var(--text-on-light-base)] md:ml-2.5',
 
-  cardBody: 'mb-4 block break-words text-xl leading-[30px] text-[var(--text-on-light-muted)]',
+  cardBody: 'block break-words text-xl leading-[30px] text-[var(--text-on-light-muted)]',
+
+  cardBodyGap: 'mb-4',
 
   cardToggle:
-    'block cursor-pointer border-0 bg-transparent p-0 text-left text-lg leading-[27px] text-[var(--text-brand-cyan)]',
+    'mb-4 block cursor-pointer border-0 bg-transparent p-0 text-left text-lg leading-[27px] text-[var(--text-brand-cyan)]',
 
   readAll:
     'block h-full min-h-[238px] w-full rounded-[5px] border border-solid border-[color:var(--border-on-light-tile)] bg-[var(--surface-brand-cyan)] p-5 text-[22px] leading-[33px] text-[rgb(var(--white))] no-underline shadow-tile-raised transition-shadow duration-200 ease-in-out hover:no-underline',
