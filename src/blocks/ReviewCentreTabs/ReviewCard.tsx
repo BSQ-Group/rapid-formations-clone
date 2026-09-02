@@ -28,7 +28,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({
   score,
   age,
   body,
-  tone,
+  tone = 'gold',
   provider,
   readMoreLabel = '... Read More',
   readLessLabel = 'Read Less',

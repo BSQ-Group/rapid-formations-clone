@@ -2,6 +2,7 @@ export const RATING_STAR_SIZES = ['xs', 'sm', 'md', 'lg', 'xl'] as const
 export const RATING_STAR_TONES = [
   'default',
   'light',
+  'gold',
   'trustpilot',
   'google',
   'facebook',
@@ -29,6 +30,7 @@ export const ratingStarsStyles = {
   tone: {
     default: 'text-[var(--icon-rating-filled)]',
     light: 'text-[rgb(var(--white))]',
+    gold: 'text-[var(--icon-rating-google)]',
     trustpilot: 'text-[var(--icon-rating-trustpilot)]',
     google: 'text-[var(--icon-rating-google)]',
     facebook: 'text-[var(--icon-rating-facebook)]',
