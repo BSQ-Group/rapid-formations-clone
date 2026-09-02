@@ -39,14 +39,17 @@ export const reviewCentreTabsStyles = {
   ratingsHeading:
     'mb-[30px] block text-center text-[36px] leading-[44.46px] font-normal text-[rgb(var(--white))]',
 
-  // The source sizes every pane at a fifth of the track and centres the group, so two
-  // platforms sit either side of the middle and a fuller set still fits one row. Below
-  // md that fifth is only 54px and the provider names overlap each other, so the panes
-  // stack instead.
-  ratingsTrack:
-    'mx-auto flex flex-col items-center md:w-[calc(100%-90px)] md:flex-row md:justify-center',
+  ratingsCarousel: 'relative mx-2.5 block',
 
-  pane: 'block w-full text-[rgb(var(--white))] no-underline hover:no-underline md:w-1/5 md:border-r md:border-solid md:border-[color:rgb(var(--white))] md:last:border-r-0',
+  ratingsTrack:
+    'mx-[35px] flex snap-x snap-mandatory overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] md:justify-center [&::-webkit-scrollbar]:hidden',
+
+  ratingsSlide:
+    'w-full shrink-0 snap-start md:w-1/5 md:border-r md:border-solid md:border-[color:rgb(var(--white))] md:last:border-r-0',
+
+  ratingsArrows: 'absolute inset-x-0 top-[40%] mt-0 justify-between gap-0 md:hidden',
+
+  pane: 'block w-full text-[rgb(var(--white))] no-underline hover:no-underline',
 
   paneProvider: 'block text-center text-[26px] leading-[39px] font-normal',
 

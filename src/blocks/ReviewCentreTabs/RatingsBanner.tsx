@@ -2,6 +2,7 @@ import React from 'react'
 
 import type { ReviewStat } from '@/payload-types'
 
+import { SnapCarousel } from '@/components/shared/SnapCarousel/SnapCarousel'
 import Text from '@/components/shared/Text'
 import { oneDecimal } from '@/utilities/formatting'
 import { reviewCentreTabsStyles as s } from './ReviewCentreTabs.styles'
@@ -21,36 +22,46 @@ export type RatingsBannerProps = {
 export const RatingsBanner: React.FC<RatingsBannerProps> = ({ heading, platforms }) => (
   <div className={s.ratingsBanner}>
     <Text as="h3" textStyle="span" text={heading} className={s.ratingsHeading} />
-    <div className={s.ratingsTrack}>
-      {platforms.map((platform) => (
-        <a
-          key={platform.id ?? platform.provider}
-          href={platform.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={s.pane}
-        >
-          <Text as="span" textStyle="span" text={platform.provider} className={s.paneProvider} />
-          <Text
-            as="span"
-            textStyle="span"
-            text={oneDecimal(platform.score)}
-            className={s.paneScore}
-          />
-          <Text
-            as="span"
-            textStyle="span"
-            text={`out of ${oneDecimal(platform.maxScore)}`}
-            className={s.paneMaxScore}
-          />
-          <Text
-            as="span"
-            textStyle="span"
-            text={`${platform.totalReviews} reviews`}
-            className={s.paneTotal}
-          />
-        </a>
-      ))}
+    <div className={s.ratingsCarousel}>
+      <SnapCarousel
+        label={heading}
+        className={s.ratingsTrack}
+        slideClassName={s.ratingsSlide}
+        arrowsClassName={s.ratingsArrows}
+        arrows
+        persistentArrows
+        dots={false}
+      >
+        {platforms.map((platform) => (
+          <a
+            key={platform.id ?? platform.provider}
+            href={platform.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={s.pane}
+          >
+            <Text as="span" textStyle="span" text={platform.provider} className={s.paneProvider} />
+            <Text
+              as="span"
+              textStyle="span"
+              text={oneDecimal(platform.score)}
+              className={s.paneScore}
+            />
+            <Text
+              as="span"
+              textStyle="span"
+              text={`out of ${oneDecimal(platform.maxScore)}`}
+              className={s.paneMaxScore}
+            />
+            <Text
+              as="span"
+              textStyle="span"
+              text={`${platform.totalReviews} reviews`}
+              className={s.paneTotal}
+            />
+          </a>
+        ))}
+      </SnapCarousel>
     </div>
   </div>
 )
