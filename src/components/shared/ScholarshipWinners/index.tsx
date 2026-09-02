@@ -65,7 +65,7 @@ export const ScholarshipWinners: React.FC<ScholarshipWinnersProps> = ({
             <Text as="h3" textStyle="span" text={year} className={s.year} />
             {entries.map((winner, index) => (
               <div key={winner.id ?? `${year}-${index}`} className={s.winner}>
-                <Text textStyle="span" text={winner.name} className={s.name} />
+                <Text as="h4" textStyle="span" text={winner.name} className={s.name} />
                 {(winner.courseName || winner.university) && (
                   <Text asChild className={s.detail}>
                     <span>{courseLine(winner)}</span>
