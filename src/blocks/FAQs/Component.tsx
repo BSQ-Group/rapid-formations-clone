@@ -38,7 +38,7 @@ export const FAQsBlock: React.FC<FAQsBlockProps> = ({
         {title && !isPage && (
           <div className={s.header}>
             <Text as="h2" textStyle="span" text={title} className={s.heading} />
-            {subtitle && <Text as="p" textStyle="span" text={subtitle} className={s.subheading} />}
+            {subtitle && <Text as="h4" textStyle="span" text={subtitle} className={s.subheading} />}
           </div>
         )}
         <div className={isPage ? s.pagePanel : s.panel}>
