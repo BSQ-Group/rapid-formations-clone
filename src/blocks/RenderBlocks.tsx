@@ -296,6 +296,17 @@ export const RenderBlocks: React.FC<{
                     ? { mobileCombinedElsewhere: true }
                     : undefined
 
+              if (block.blockType === 'textContent' && index === blocks.length - 1) {
+                const sectionLayout = {
+                  ...block.sectionLayout,
+                  paddingBottom: 'none' as const,
+                  gap: 'section' as const,
+                }
+                return (
+                  <Block {...block} sectionLayout={sectionLayout} {...extraProps} key={index} />
+                )
+              }
+
               return <Block {...block} {...extraProps} key={index} />
             }
           }
