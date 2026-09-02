@@ -1,6 +1,8 @@
 export const serviceExplainerStyles = {
   section: 'font-legacy-condensed w-full bg-[var(--surface-section-navy)] py-[70px] md:py-[110px]',
 
+  container: 'pt-10 min-[1023px]:pt-5 min-[1023px]:pb-5',
+
   header: 'mb-8 flex w-full flex-col text-center',
 
   heading:

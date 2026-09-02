@@ -35,7 +35,7 @@ export const ServiceExplainerBlockComponent: React.FC<ServiceExplainerBlockProps
 
   return (
     <SectionWrapper {...sectionLayout} className={s.section}>
-      <Container>
+      <Container className={s.container}>
         <div className={s.header}>
           <Text as="h2" textStyle="span" text={heading} className={s.heading} />
           {subheading?.trim() && (
