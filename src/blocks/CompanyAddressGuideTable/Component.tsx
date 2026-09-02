@@ -53,7 +53,7 @@ export const CompanyAddressGuideTableBlockComponent: React.FC<
                     </div>
                     {columns.map((heading, index) => (
                       <div key={index} role="columnheader" className={s.cell}>
-                        <Text textStyle="span" text={heading} className={s.columnHeading} />
+                        <Text as="h4" textStyle="span" text={heading} className={s.columnHeading} />
                       </div>
                     ))}
                   </div>
