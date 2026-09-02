@@ -21,5 +21,5 @@ export const companyAddressGuideTableStyles = {
     'block break-words whitespace-pre-line text-2xl leading-[32.4px] font-normal tracking-normal text-[var(--text-on-light-base)] min-[1023px]:mx-auto min-[1023px]:max-w-[75%]',
 
   footnote:
-    'mb-[30px] bg-[var(--surface-on-light-canvas)] p-[15px] text-lg leading-[27px] text-[var(--text-on-light-base)] [&_a]:text-[var(--text-brand-cyan)] [&_a]:no-underline [&_li]:mb-2.5 [&_li:last-child]:mb-0 [&_ol]:!m-0 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:text-xl [&_ol]:leading-[30px] [&_sup]:top-0 [&_sup]:align-super [&_sup]:text-[0.8333em] [&_sup]:leading-[1.5]',
+    'mb-[30px] bg-[var(--surface-on-light-canvas)] p-[15px] text-lg leading-[27px] text-[var(--text-on-light-base)] [&_a]:text-[var(--text-brand-cyan)] [&_a]:no-underline [&_li]:mb-2.5 [&_li:last-child]:mb-0 [&_ol]:!m-0 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:text-xl [&_ol]:leading-[30px] [&_ol]:text-[var(--text-on-light-muted)] [&_sup]:top-0 [&_sup]:align-super [&_sup]:text-[0.8333em] [&_sup]:leading-[1.5]',
 } as const
