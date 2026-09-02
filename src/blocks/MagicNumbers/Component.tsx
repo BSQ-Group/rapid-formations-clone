@@ -41,7 +41,7 @@ export const MagicNumbersBlock: React.FC<MagicNumbersBlockProps> = ({
                 )}
               </span>
               <div className={s.content}>
-                <Text as="h3" textStyle="span" text={item.heading} className={s.itemHeading} />
+                <Text as="h4" textStyle="span" text={item.heading} className={s.itemHeading} />
                 {item.body && (
                   <Text as="p" textStyle="span" text={item.body} className={s.itemBody} />
                 )}
