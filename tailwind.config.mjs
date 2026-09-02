@@ -246,6 +246,7 @@ export default {
             {
               '--tw-prose-body': 'var(--text-strong)',
               '--tw-prose-headings': 'var(--text-strong)',
+              '--tw-prose-invert-bold': 'inherit',
               h1: { fontWeight: 'normal', marginBottom: '0.25em' },
             },
           ],

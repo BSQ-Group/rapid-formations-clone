@@ -1,5 +1,5 @@
 export const staffReviewsStyles = {
-  section: 'font-legacy-condensed w-full bg-[var(--surface-canvas)]',
+  section: 'flex w-full flex-col bg-[var(--surface-canvas)] font-legacy-condensed',
   title:
     'my-[30px] block text-center text-[36px] leading-[44.46px] font-normal text-[var(--text-on-light-base)]',
   quotes: 'grid w-full grid-cols-1 min-[1023px]:grid-cols-3 min-[1023px]:gap-2.5',

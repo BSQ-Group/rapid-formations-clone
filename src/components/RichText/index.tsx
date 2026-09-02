@@ -15,15 +15,18 @@ import {
 
 import { CodeBlock, CodeBlockProps } from '@/blocks/Code/Component'
 import { DocumentsListDialog } from '@/components/shared/DocumentsListDialog'
+import { PartnerLogos } from '@/components/shared/PartnerLogos'
 import { EligibleCountriesDialog } from '@/components/shared/EligibleCountriesDialog'
 import { LiveChatButton } from '@/blocks/ContactUs/LiveChatButton'
 import {
   DOCUMENT_LIBRARY_HREF,
   ELIGIBLE_COUNTRIES_HREF,
   LIVE_CHAT_HREF,
+  PARTNERS_HREF,
   TELEPHONE_HREF,
   type DocumentList,
   type EligibleCountries,
+  type PartnerList,
 } from '@/utilities/shortcodes'
 import { faPhoneFlip } from '@fortawesome/pro-solid-svg-icons/faPhoneFlip'
 import { FaIcon } from '@/components/shared/FaIcon'
@@ -75,6 +78,10 @@ const sentinelLinks: Record<string, (label: string, payload?: unknown) => React.
   [DOCUMENT_LIBRARY_HREF]: (label, payload) => {
     const { sections } = (payload ?? { sections: [] }) as DocumentList
     return <DocumentsListDialog label={label} sections={sections} className={inlineTrigger} />
+  },
+  [PARTNERS_HREF]: (_label, payload) => {
+    const { partners } = (payload ?? { partners: [] }) as PartnerList
+    return <PartnerLogos partners={partners} />
   },
 }
 

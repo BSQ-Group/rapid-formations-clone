@@ -772,3 +772,23 @@ Each entry has four parts:
     .filter((c) => c !== 'rgb(54, 54, 54)') // non-empty = FAQ heading colour regressed
   ```
 - **Fix:** Use `text-[var(--text-on-light-base)]` for on-light heading / toggle-title text (canonical example: `Collapsible.styles.ts` `title`). Reserve `--text-on-light-muted` for body, subtitles and metadata. When in doubt, measure the same element on `www.rapidformations.co.uk` — live is the source of truth for these colours, not the desktop Figma token name.
+
+## maplibre-gl v6 renders an empty map under a bundler — the tile worker never starts
+
+- **When it bites:** A map mounts, paints its style's `background` colour, shows the zoom control, attribution and marker — and never draws a single tile or label. `style.json`, `sprite.json`, `sprite.png` and `tiles.json` all return **200**, so any check based on network status passes while the map is blank. maplibre-gl **v6** moved the tile worker out of the main bundle into a sibling `dist/maplibre-gl-worker.mjs` and derives its URL from `import.meta.url`; every bundler (Next/webpack included) rewrites that to a non-`http(s)` value, so maplibre's `getWorkerUrl()` falls through to `''` and runs `new Worker('', { type: 'module' })`. An empty URL resolves to the **current document**, so the worker tries to parse the page's HTML as an ES module, dies on the first tag, and never answers. Vector tiles and glyphs are fetched *inside* that worker, so nothing loads — and because the failure is inside a worker, the page console stays clean. Real incident: CORE-7220, PR #184 — the Our London Office map shipped blank on `fix/about-us-parity`; the PR claimed the map was verified because style, tiles and sprite requests were all 200.
+- **Detect:**
+  ```bash
+  # Any v6+ range is unsafe unless a worker URL is configured somewhere in src/.
+  node -e "const v=require('./node_modules/maplibre-gl/package.json').version;
+    if (+v.split('.')[0] >= 6) { console.log('maplibre-gl '+v+' needs setWorkerUrl()'); process.exit(1) }"
+  grep -rn "setWorkerUrl\|WORKER_URL" src/ || true
+  ```
+  ```js
+  // Runtime assertion — the only trustworthy one. Network 200s prove nothing.
+  // Blank-map check: a working map has painted features; a dead worker has none.
+  // Run after the map has had ~8s to settle.
+  const m = window.__map // or expose the instance temporarily
+  console.log(m.isStyleLoaded(), m.isSourceLoaded('openmaptiles'), m.queryRenderedFeatures().length)
+  // dead worker => false, false, 0  (and Worker instances show sent>0, received=0)
+  ```
+- **Fix:** Stay on **maplibre-gl v5** (`"maplibre-gl": "^5.24.0"`), which ships one bundle with the worker inlined and needs no configuration under any bundler. Staying on v6 means calling `setWorkerUrl()` with a real same-origin URL **and** serving `maplibre-gl-worker.mjs` *together with its sibling* `maplibre-gl-shared.mjs` — the worker imports `./maplibre-gl-shared.mjs` relatively, so emitting the worker alone (e.g. via webpack's `new URL(..., import.meta.url)` asset handling) 404s the import and fails the same silent way. Whichever route: **verify a map by screenshotting rendered tiles, never by request status codes.**

@@ -3,8 +3,10 @@ import type { ArrayFieldValidation, Block } from 'payload'
 import { sectionLayoutField } from '@/fields/sectionLayout'
 import { AboutUsContent } from '@/blocks/AboutUsContent/config'
 import { MagicNumbers } from '@/blocks/MagicNumbers/config'
+import { MeetTheTeam } from '@/blocks/MeetTheTeam/config'
 import { OurOffices } from '@/blocks/OurOffices/config'
 import { RegisterCtaPanel } from '@/blocks/RegisterCtaPanel/config'
+import { StaffReviews } from '@/blocks/StaffReviews/config'
 
 const atMostOnePageTitle: ArrayFieldValidation = (value) => {
   if (!Array.isArray(value)) return true
@@ -60,11 +62,17 @@ export const AboutUsTabs: Block = {
           name: 'content',
           type: 'blocks',
           label: 'Panel content',
-          blocks: [AboutUsContent, MagicNumbers, OurOffices, RegisterCtaPanel],
+          blocks: [
+            AboutUsContent,
+            MagicNumbers,
+            MeetTheTeam,
+            OurOffices,
+            RegisterCtaPanel,
+            StaffReviews,
+          ],
           admin: {
             initCollapsed: true,
-            description:
-              'Rendered in order inside this tab’s panel. Meet The Team and Staff Reviews join this list once those blocks exist.',
+            description: 'Rendered in order inside this tab’s panel.',
           },
         },
       ],

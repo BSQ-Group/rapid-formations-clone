@@ -13,21 +13,24 @@ export const OurOfficesBlockComponent: React.FC<OurOfficesBlockProps> = ({
   offices,
   sectionLayout,
 }) => {
-  const items = (offices ?? [])
-    .map((office, index): OurOffice | null => {
-      if (!office.image || !office.address) return null
-      const map = office.mapLink as LinkData | undefined
-      return {
+  const items = (offices ?? []).flatMap((office, index): OurOffice[] => {
+    if (!office.image || !office.address) return []
+    const map = office.mapLink as LinkData | undefined
+    return [
+      {
         id: office.id ?? `${index}`,
         image: office.image,
         focalX: office.focalX,
         address: office.address,
+        name: office.name,
+        latitude: office.latitude,
+        longitude: office.longitude,
         mapHref: getLinkHref(map),
         mapLabel: map?.label,
         mapNewTab: map?.newTab,
-      }
-    })
-    .filter((office): office is OurOffice => office !== null)
+      },
+    ]
+  })
 
   if (!heading || !items.length) return null
 

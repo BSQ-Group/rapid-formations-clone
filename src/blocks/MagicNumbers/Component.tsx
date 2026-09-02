@@ -53,7 +53,7 @@ export const MagicNumbersBlock: React.FC<MagicNumbersBlockProps> = ({
               <div
                 key={`connector-${item.id ?? index}`}
                 className={s.divider}
-                style={{ width: `${item.connector?.width ?? 0}%` }}
+                style={{ backgroundColor: item.colour, width: `${item.connector?.width ?? 0}%` }}
               >
                 <span
                   className={s.dividerLine}

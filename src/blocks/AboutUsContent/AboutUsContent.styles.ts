@@ -1,7 +1,7 @@
 export const aboutUsContentStyles = {
   section: 'font-legacy-condensed w-full',
 
-  wrapperPad: 'pt-10 min-[1023px]:py-5',
+  wrapperPad: 'pt-10 min-[1023px]:py-0',
 
   grid: {
     imageRows: 'grid grid-cols-1 gap-[15px] md:gap-[30px]',
@@ -36,7 +36,7 @@ export const aboutUsContentStyles = {
 
   imageSizesFull: '(min-width: 1230px) 1170px, (min-width: 768px) 96vw, 100vw',
 
-  body: 'block text-xl leading-[30px] text-[var(--text-on-light-muted)] [&_a]:!text-[var(--text-on-light-link-hover)] [&_a:hover]:!underline [&_p]:!mb-4 [&>p:last-child]:!mb-0',
+  body: 'block text-xl leading-[30px] text-[var(--text-on-light-muted)] [&_strong]:!font-bold [&_strong]:!text-[var(--text-on-light-strong)] [&_a]:!text-[var(--text-on-light-link-hover)] [&_a:hover]:!underline [&_p]:!mb-4 [&>p:last-child]:!mb-0',
 
   panelGroup: 'mb-5 text-xl leading-[30px] last:mb-0',
 
@@ -46,5 +46,5 @@ export const aboutUsContentStyles = {
     'mb-2 inline align-middle text-[28px] leading-[34.58px] font-normal text-[var(--text-on-light-base)]',
 
   panelBody:
-    'block text-xl leading-[30px] text-[var(--text-on-light-muted)] [&_a]:!text-[var(--text-on-light-link-hover)] [&_a:hover]:!underline [&_p]:!mb-4 [&_ul]:!mb-0 [&_ul]:list-disc [&_ul]:pl-5',
+    'block text-xl leading-[30px] text-[var(--text-on-light-muted)] [&_strong]:!font-bold [&_strong]:!text-[var(--text-on-light-strong)] [&_a]:!text-[var(--text-on-light-link-hover)] [&_a:hover]:!underline [&_p]:!mb-4 [&_ul]:!mb-0 [&_ul]:list-disc [&_ul]:pl-5',
 } as const

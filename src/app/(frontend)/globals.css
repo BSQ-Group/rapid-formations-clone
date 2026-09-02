@@ -354,6 +354,7 @@
     --tooltip-text-body: var(--text-on-light-muted);
     --border-on-light-faint: rgb(0 0 0 / 0.05);
     --surface-on-light-canvas: rgb(245 245 245);
+    --surface-on-light-panel: rgb(247 247 247);
     --surface-on-light-sunken: rgb(240 240 240);
     --surface-on-light-tile: rgb(241 241 241);
     --surface-on-light-hover: rgb(0 0 0 / 0.03);

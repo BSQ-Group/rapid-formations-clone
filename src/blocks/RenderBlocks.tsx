@@ -77,6 +77,7 @@ import { HowItWorksScreensBlockComponent } from '@/blocks/HowItWorksScreens/Comp
 import { LegalSidenavBlock } from '@/blocks/LegalSidenav/Component'
 import { LegalContentBlock } from '@/blocks/LegalContent/Component'
 import { DocumentLibraryBlockComponent } from '@/blocks/DocumentLibrary/Component'
+import { PartnersBlockComponent } from '@/blocks/Partners/Component'
 import { ContactUsBlockComponent } from '@/blocks/ContactUs/Component'
 import { ComparePackagesHeaderBlock } from '@/blocks/ComparePackagesHeader/Component'
 import { PromoCardBlock } from '@/blocks/PromoCard/Component'
@@ -191,6 +192,7 @@ const blockComponents = {
   legalSidenav: LegalSidenavBlock,
   legalContent: LegalContentBlock,
   documentLibrary: DocumentLibraryBlockComponent,
+  partners: PartnersBlockComponent,
   contactUs: ContactUsBlockComponent,
   comparePackagesHeader: ComparePackagesHeaderBlock,
   promoCard: PromoCardBlock,

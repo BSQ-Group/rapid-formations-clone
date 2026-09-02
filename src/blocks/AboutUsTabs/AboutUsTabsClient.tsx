@@ -22,7 +22,6 @@ export const AboutUsTabsClient: React.FC<{ tabs: AboutUsTab[] }> = ({ tabs }) =>
 
   const current = Math.min(selected, tabs.length - 1)
   const active = tabs[current]
-  const ownsPageTitle = tabs.some((tab) => tab.isPageTitle)
 
   return (
     <TabsPrimitive.Root
@@ -31,10 +30,10 @@ export const AboutUsTabsClient: React.FC<{ tabs: AboutUsTab[] }> = ({ tabs }) =>
     >
       <Container>
         <Text
-          as={ownsPageTitle ? 'h1' : 'h2'}
+          as={active.isPageTitle ? 'h1' : 'h2'}
           textStyle="span"
           text={active.title}
-          className={s.title}
+          className={cn(s.title, active.isPageTitle && s.titlePageHeading)}
         />
         <TabsPrimitive.List className={s.list}>
           {tabs.map((tab, index) => (

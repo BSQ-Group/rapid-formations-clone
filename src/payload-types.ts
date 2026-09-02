@@ -296,6 +296,7 @@ export interface Page {
         | LegalSidenavBlock
         | LegalContentBlock
         | DocumentLibraryBlock
+        | PartnersBlock
         | ContactUsBlock
         | ComparePackagesHeaderBlock
         | PromoCardBlock
@@ -1694,6 +1695,18 @@ export interface OurOfficesBlock {
      * One line per row. Line breaks are preserved.
      */
     address: string;
+    /**
+     * Set both to drop a map under the photo, e.g. 51.5148161.
+     */
+    latitude?: number | null;
+    /**
+     * e.g. -0.1235229.
+     */
+    longitude?: number | null;
+    /**
+     * Shown in the map pin popup, e.g. "Rapid Formations London".
+     */
+    name?: string | null;
     mapLink: {
       type?: ('reference' | 'custom') | null;
       newTab?: boolean | null;
@@ -3644,9 +3657,18 @@ export interface AboutUsTabsBlock {
          */
         isPageTitle?: boolean | null;
         /**
-         * Rendered in order inside this tab’s panel. Meet The Team and Staff Reviews join this list once those blocks exist.
+         * Rendered in order inside this tab’s panel.
          */
-        content?: (AboutUsContentBlock | MagicNumbersBlock | OurOfficesBlock | RegisterCtaPanelBlock)[] | null;
+        content?:
+          | (
+              | AboutUsContentBlock
+              | MagicNumbersBlock
+              | MeetTheTeamBlock
+              | OurOfficesBlock
+              | RegisterCtaPanelBlock
+              | StaffReviewsBlock
+            )[]
+          | null;
         id?: string | null;
       }[]
     | null;
@@ -3717,6 +3739,10 @@ export interface RegisterCtaPanelBlock {
     background: 'light' | 'dark' | 'inverse';
     paddingTop: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
     paddingBottom: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+    /**
+     * Space between this section and the next, reproducing the source page wrapper. INHERIT keeps the block's own margin; XS 25px, SM 30px, MD 40px, LG 50px, XL 75px, 2XL 100px; SECTION 50/75/110 and SECTIONLARGE 70/140 follow the source Section margin responsively.
+     */
+    gap?: ('inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'section' | 'sectionLarge') | null;
   };
   id?: string | null;
   blockName?: string | null;
@@ -4750,6 +4776,32 @@ export interface DocumentLibraryBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'documentLibrary';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PartnersBlock".
+ */
+export interface PartnersBlock {
+  /**
+   * Logos listed by the [[partners]] shortcode. Add the block once per page; the shortcode renders whatever is here.
+   */
+  partners?:
+    | {
+        /**
+         * Used for the alt text, e.g. "Barclays".
+         */
+        name: string;
+        logo: string | Media;
+        /**
+         * Logos sit on a 20px row. Tick this for a mark that needs more height without opening up the row, e.g. the Lloyds horse.
+         */
+        tall?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'partners';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -7382,6 +7434,7 @@ export interface PagesSelect<T extends boolean = true> {
         legalSidenav?: T | LegalSidenavBlockSelect<T>;
         legalContent?: T | LegalContentBlockSelect<T>;
         documentLibrary?: T | DocumentLibraryBlockSelect<T>;
+        partners?: T | PartnersBlockSelect<T>;
         contactUs?: T | ContactUsBlockSelect<T>;
         comparePackagesHeader?: T | ComparePackagesHeaderBlockSelect<T>;
         promoCard?: T | PromoCardBlockSelect<T>;
@@ -7985,6 +8038,9 @@ export interface OurOfficesBlockSelect<T extends boolean = true> {
         image?: T;
         focalX?: T;
         address?: T;
+        latitude?: T;
+        longitude?: T;
+        name?: T;
         mapLink?:
           | T
           | {
@@ -8882,8 +8938,10 @@ export interface AboutUsTabsBlockSelect<T extends boolean = true> {
           | {
               aboutUsContent?: T | AboutUsContentBlockSelect<T>;
               magicNumbers?: T | MagicNumbersBlockSelect<T>;
+              meetTheTeam?: T | MeetTheTeamBlockSelect<T>;
               ourOffices?: T | OurOfficesBlockSelect<T>;
               registerCtaPanel?: T | RegisterCtaPanelBlockSelect<T>;
+              staffReviews?: T | StaffReviewsBlockSelect<T>;
             };
         id?: T;
       };
@@ -8930,6 +8988,7 @@ export interface RegisterCtaPanelBlockSelect<T extends boolean = true> {
         background?: T;
         paddingTop?: T;
         paddingBottom?: T;
+        gap?: T;
       };
   id?: T;
   blockName?: T;
@@ -9564,6 +9623,22 @@ export interface DocumentLibraryBlockSelect<T extends boolean = true> {
                   };
               id?: T;
             };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PartnersBlock_select".
+ */
+export interface PartnersBlockSelect<T extends boolean = true> {
+  partners?:
+    | T
+    | {
+        name?: T;
+        logo?: T;
+        tall?: T;
         id?: T;
       };
   id?: T;
