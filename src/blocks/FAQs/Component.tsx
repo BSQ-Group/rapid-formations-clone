@@ -2,7 +2,10 @@ import React from 'react'
 
 import type { FAQsBlock as FAQsBlockProps } from '@/payload-types'
 
+import { faChevronRight } from '@fortawesome/pro-regular-svg-icons/faChevronRight'
+
 import { Collapsible } from '@/components/shared/Collapsible'
+import { FaIcon } from '@/components/shared/FaIcon'
 import { Container } from '@/components/shared/Container/Container'
 import { SectionWrapper } from '@/components/shared/SectionWrapper/SectionWrapper'
 import RichText from '@/components/RichText'
@@ -50,6 +53,7 @@ export const FAQsBlock: React.FC<FAQsBlockProps> = ({
                   data={item.description}
                   enableGutter={false}
                   enableProse={false}
+                  listItemIcon={<FaIcon icon={faChevronRight} className={s.answerListIcon} />}
                   className={cn(
                     s.answerText,
                     !isPage && index === faqs.length - 1 && s.answerTextLast,
