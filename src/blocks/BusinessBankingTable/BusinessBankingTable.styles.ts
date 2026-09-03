@@ -1,9 +1,9 @@
 export const businessBankingTableStyles = {
   section: 'font-legacy-condensed w-full bg-[var(--surface-canvas)]',
 
-  wrapperPad: 'pt-10 min-[1023px]:pt-5',
+  wrapperPad: 'pt-5',
 
-  inner: 'my-8 w-full',
+  inner: 'py-8 w-full',
 
   heading:
     'mb-5 block text-[23px] leading-[28.405px] font-normal text-[var(--text-on-light-base)]',
