@@ -33,7 +33,12 @@ export const ChooseCompanyStructureBlock: React.FC<Props> = ({ heading, cards, s
               <div key={card.id ?? index} className={s.card}>
                 {card.image && typeof card.image === 'object' && (
                   <Link href={href} tabIndex={-1} aria-hidden className={s.imageWrap}>
-                    <Media resource={card.image} alt={card.title} imgClassName={s.image} />
+                    <Media
+                      resource={card.image}
+                      alt={card.title}
+                      imgClassName={s.image}
+                      size="(min-width: 1025px) 33vw, (min-width: 768px) 80vw, 100vw"
+                    />
                   </Link>
                 )}
                 <div className={s.copy}>
