@@ -5,9 +5,11 @@ import * as TooltipPrimitive from '@radix-ui/react-tooltip'
 import * as DialogPrimitive from '@radix-ui/react-dialog'
 import { DialogDescription } from '@/components/ui/dialog'
 import { X } from 'lucide-react'
+import { faChevronRight } from '@fortawesome/pro-solid-svg-icons/faChevronRight'
 import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 
 import { cn } from '@/utilities/ui'
+import { FaIcon } from '@/components/shared/FaIcon'
 import { LucideIcon } from '@/components/shared/LucideIcon'
 import { Tooltip } from '@/components/ui/tooltip'
 import RichText from '@/components/RichText'
@@ -105,7 +107,13 @@ export function InfoTooltip({
   const body = (className: string) => {
     if (content) {
       return (
-        <RichText data={content} enableGutter={false} enableProse={false} className={className} />
+        <RichText
+          data={content}
+          enableGutter={false}
+          enableProse={false}
+          className={className}
+          listItemIcon={<FaIcon icon={faChevronRight} className={s.bodyListIcon} />}
+        />
       )
     }
     if (!text) return null
@@ -145,9 +153,13 @@ export function InfoTooltip({
               {title ?? 'More information'}
             </DialogDescription>
             <div className={cn(s.dialogHeader, isLegacyDialog && s.dialogHeaderLegacy)}>
-              <div className={s.dialogHeaderRow}>
+              <div className={cn(s.dialogHeaderRow, !title && 'justify-end')}>
                 <DialogPrimitive.Title
-                  className={cn(s.dialogTitle, isLegacyDialog && s.dialogTitleLegacy)}
+                  className={cn(
+                    s.dialogTitle,
+                    isLegacyDialog && s.dialogTitleLegacy,
+                    !title && 'sr-only',
+                  )}
                 >
                   {title ?? 'Information'}
                 </DialogPrimitive.Title>

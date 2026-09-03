@@ -1,6 +1,7 @@
 import React from 'react'
 import { faCheck } from '@fortawesome/pro-light-svg-icons/faCheck'
 import { faMinus } from '@fortawesome/pro-light-svg-icons/faMinus'
+import { faCircleInfo } from '@fortawesome/pro-solid-svg-icons/faCircleInfo'
 
 import { FaIcon } from '@/components/shared/FaIcon'
 import { InfoTooltip } from '@/components/shared/InfoTooltip'
@@ -17,7 +18,11 @@ export const ProductRow: React.FC<{
     <div className={s.productName}>
       <Text as="h3" textStyle="span" text={product.name} className={s.productTitle} />
       {product.tooltip && (
-        <InfoTooltip title={product.name} content={product.tooltip} triggerClassName={s.infoIcon} />
+        <InfoTooltip
+          content={product.tooltip}
+          icon={<FaIcon icon={faCircleInfo} className={s.infoIconGlyph} />}
+          triggerClassName={s.infoIcon}
+        />
       )}
     </div>
     {packages.map((pkg) => (
