@@ -101,7 +101,7 @@ export const reviewCentreTabsStyles = {
 
   cardMeta: 'flex flex-col md:flex-row',
 
-  cardStars: 'h-[29px]',
+  cardStars: 'h-[29px] [&_svg]:mt-[4.14px]',
 
   cardDate: 'ml-0 block text-lg leading-[27px] text-[var(--text-on-light-base)] md:ml-2.5',
 
