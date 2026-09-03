@@ -21,7 +21,7 @@ export const pageTitleStyles = {
 
   price: 'block w-full self-start text-[38px] font-semibold leading-[1.15] md:self-baseline',
 
-  priceSuffix: 'block text-lg leading-[27px] text-[var(--text-on-light-muted)]',
+  priceSuffix: '-mt-[3px] block text-lg leading-[27px] text-[var(--text-on-light-muted)]',
 
   buttons:
     'mt-5 flex flex-col gap-2.5 [&_a]:w-full md:mt-0 md:mb-2 md:ml-2 md:flex-row md:flex-wrap md:[&_a]:min-h-[55px] md:[&_a]:w-auto min-[1023px]:mb-0',
