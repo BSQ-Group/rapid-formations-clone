@@ -10,7 +10,7 @@ export const packageInclusionsStyles = {
 
   item: 'relative grid break-inside-avoid grid-cols-[36px_auto] gap-5 pl-[5px] pr-2.5 min-[1023px]:mb-[25px] min-[1023px]:min-h-[125px] min-[1023px]:p-0',
 
-  icon: 'mt-[5.6px] size-8 text-[var(--surface-cta-success)]',
+  icon: 'mt-[5.6px] h-8 w-auto text-[var(--surface-cta-success)]',
 
   title: 'mb-1 block text-[21px] font-bold leading-[1.35] text-[var(--text-on-light-title)]',
 

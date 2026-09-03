@@ -70,6 +70,8 @@ const pageSections = {
 }
 
 const packageCopy = {
+  containTrailingMargin: 'flow-root',
+
   lists:
     '[&_ol]:!mb-0 [&_ol]:!pl-[15px] [&_ol]:list-decimal [&_ol>li]:!mb-[5px] [&_ol>li]:!pl-2 [&_ol>li:last-child]:!mb-0',
 

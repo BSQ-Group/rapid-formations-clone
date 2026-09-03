@@ -15,7 +15,7 @@ export const adBannerStyles = {
 
   right: 'flex-none min-[1023px]:text-right',
 
-  cta: 'w-full gap-2.5 border-4 border-white/40 bg-[var(--button-ad-banner-idle)] px-4 py-2 text-[30px] font-normal leading-normal hover:border-white/55 hover:bg-[var(--button-ad-banner-hover)] [&>span:last-of-type]:relative [&>span:last-of-type]:-top-0.5',
+  cta: 'w-full gap-2.5 border-4 border-white/40 bg-[var(--button-ad-banner-idle)] bg-clip-padding px-4 py-2 text-[30px] font-normal leading-normal hover:border-white/55 hover:bg-[var(--button-ad-banner-hover)] [&>span:last-of-type]:relative [&>span:last-of-type]:-top-0.5',
 
   ctaIcon: 'mr-1 size-[0.875em]',
 } as const
