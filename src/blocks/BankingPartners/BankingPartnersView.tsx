@@ -80,6 +80,7 @@ export const BankingPartnersView: React.FC<BankingPartnersViewProps> = ({
                     triggerClassName={s.tile}
                     triggerStyle={style}
                     side="top"
+                    dialogVariant="legacy"
                   />
                 ) : (
                   <div className={s.tile} style={style}>
