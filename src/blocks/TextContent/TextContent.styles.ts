@@ -82,6 +82,9 @@ const packageCopy = {
 const policy = {
   lists: `${listsCore} ${nestedListInset} [&_ol>li]:list-[lower-latin] [&_li_ol]:!pl-[15px] [&_li_ol>li]:!my-0`,
 
+  // A trailing ordered list keeps live's 8px bottom margin (flushLast zeroes it).
+  trailingList: '[&>ol:last-child]:!mb-2',
+
   spacing: '[&_p]:!mb-4 [&_p+h3]:!mt-6 [&_p+h4]:!mt-6',
 
   headings:

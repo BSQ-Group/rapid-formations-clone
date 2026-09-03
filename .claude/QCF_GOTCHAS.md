@@ -792,3 +792,21 @@ Each entry has four parts:
   // dead worker => false, false, 0  (and Worker instances show sent>0, received=0)
   ```
 - **Fix:** Stay on **maplibre-gl v5** (`"maplibre-gl": "^5.24.0"`), which ships one bundle with the worker inlined and needs no configuration under any bundler. Staying on v6 means calling `setWorkerUrl()` with a real same-origin URL **and** serving `maplibre-gl-worker.mjs` *together with its sibling* `maplibre-gl-shared.mjs` — the worker imports `./maplibre-gl-shared.mjs` relatively, so emitting the worker alone (e.g. via webpack's `new URL(..., import.meta.url)` asset handling) 404s the import and fails the same silent way. Whichever route: **verify a map by screenshotting rendered tiles, never by request status codes.**
+
+## A clone ticket's "identical across every page" spacing target can be wrong — measure live per page
+
+- **When it bites:** A SHARED spacing ticket asserts one target "identical across every page" (e.g. content-to-footer gap = 50/50/95/95/130 everywhere) and the fix normalises every page to it. But live is often **not** uniform: pages whose copy ends in a **list** carry trailing list spacing that live's `display:flex` content Section *contains*, while paragraph-ending pages don't — so live's real gap is larger on the list-ending pages. Two failure modes stack: (1) trusting the ticket's number ships the list-ending pages short of live; (2) reproducing live's Section spacing as a **margin gap** on a plain block section lets the last element's trailing margin collapse *into* that margin and disappear (a block section absorbs it; live's flex Section does not). Real incident: CORE-7159 — the ticket said 95 everywhere, but live terms-and-conditions was ~111 and privacy-policy ~113 (both end in a list). A margin-gap fix passed the paragraph pages and failed terms (−16px) and privacy (−8px); the independent QA-vs-live gate caught it and it took two more rounds to match live per page.
+- **Detect:** Runtime, against a deploy preview vs live — do **not** compare to the ticket's number.
+  ```js
+  // Per affected page, per breakpoint: compare the last-text→footer gap on the preview
+  // to the SAME page on live. |preview - live| must be <= 3 at every breakpoint.
+  const gap = () => { scrollTo(0, document.body.scrollHeight);
+    const f = document.querySelector('footer'); const fTop = f.getBoundingClientRect().top + scrollY;
+    const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT); let best = -1e9;
+    while (w.nextNode()) { const n = w.currentNode; if (!n.textContent.trim() || f.contains(n)) continue;
+      const r = document.createRange(); r.selectNodeContents(n); const rc = r.getBoundingClientRect();
+      if (rc.width && rc.height) { const b = rc.bottom + scrollY; if (b <= fTop + 1 && b > best) best = b; } }
+    return Math.round((fTop - best) * 10) / 10; };
+  // List-ending pages legitimately measure larger than paragraph-ending ones — that is live, match it.
+  ```
+- **Fix:** Measure the live source **per page** — never trust a ticket's "identical across all pages" spacing value. To match a live flex Section that contains trailing margins from a clone block section, apply the spacing as **padding** (contains) rather than a margin gap (collapses/absorbs), and set the last element's own margin to what live does for that element type: live keeps a trailing list's bottom margin, drops a trailing paragraph's.

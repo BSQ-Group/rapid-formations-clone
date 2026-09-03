@@ -296,6 +296,18 @@ export const RenderBlocks: React.FC<{
                     ? { mobileCombinedElsewhere: true }
                     : undefined
 
+              // Final section uses the source's 50/75/110 spacing as padding (not a
+              // margin gap) so it contains the last list's trailing margin like live.
+              if (block.blockType === 'textContent' && index === blocks.length - 1) {
+                const sectionLayout = {
+                  ...block.sectionLayout,
+                  paddingBottom: 'sourceSection',
+                } as unknown as typeof block.sectionLayout
+                return (
+                  <Block {...block} sectionLayout={sectionLayout} {...extraProps} key={index} />
+                )
+              }
+
               return <Block {...block} {...extraProps} key={index} />
             }
           }
