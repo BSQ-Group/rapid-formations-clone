@@ -27,8 +27,7 @@ import { faLock } from '@fortawesome/pro-solid-svg-icons/faLock'
 import { FaIcon } from '@/components/shared/FaIcon'
 import Text from '@/components/shared/Text'
 import { cn } from '@/utilities/ui'
-import { useToken } from '@/state/auth'
-import { firebaseSignOut } from '@/lib/firebase'
+import { ACCOUNT_LINKS, hasEfilingSession, isEfilingLoginHref } from '@/lib/efiling'
 import { getBrand, getDomainConfig, getLogoPath, Brand } from '@/lib/brand'
 import { headerStyles as s } from './Header.styles'
 
@@ -46,6 +45,18 @@ const GoogleOneTapProvider = dynamic(
 )
 
 const DESKTOP_NAV_QUERY = '(min-width: 1200px)'
+
+const ACCOUNT_NAV_ITEM: NavItem = {
+  link: { type: 'custom', label: 'My Account' },
+  icon: 'none',
+  dropdownColumns: [
+    {
+      links: ACCOUNT_LINKS.map(({ label, href }) => ({
+        link: { type: 'custom', url: href, label },
+      })),
+    },
+  ],
+}
 
 const LOGO_INTRINSIC: Record<Brand, { width: number; height: number }> = {
   [Brand.RapidFormations]: { width: 560, height: 56 },
@@ -82,7 +93,6 @@ interface HeaderClientProps {
 export const HeaderClient: React.FC<HeaderClientProps> = ({ data, onDark = false }) => {
   const navItems = data?.navItems || []
   const secondaryNavItems = data?.secondaryNavItems || []
-  const accountLinks = data?.accountLinks || []
   const loginLink = data?.loginLink
   const pathname = usePathname()
 
@@ -105,15 +115,11 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, onDark = false
   const [openKey, setOpenKey] = useState<string | null>(null)
   const navRef = useRef<HTMLDivElement>(null)
 
-  const token = useToken()
-  const hasMounted = useSyncExternalStore(
+  const isLoggedIn = useSyncExternalStore(
     () => () => {},
-    () => true,
+    () => hasEfilingSession(document.cookie),
     () => false,
   )
-  const isLoggedIn = typeof token === 'string'
-  const showLoggedIn = hasMounted && isLoggedIn
-  const showLoggedOut = hasMounted && !isLoggedIn
 
   const headerRef = useRef<HTMLElement>(null)
   useEffect(() => {
@@ -265,14 +271,16 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, onDark = false
                 aria-label="Secondary navigation"
               >
                 <ul className={cn(s.navList, s.userNavListOffset)}>
-                  {secondaryNavItems.map((item, i) =>
-                    renderRow(
-                      item,
+                  {secondaryNavItems.map((item, i) => {
+                    const isLast = i === secondaryNavItems.length - 1
+                    const isAccountRow = isLoggedIn && isEfilingLoginHref(resolveHref(item.link))
+                    return renderRow(
+                      isAccountRow ? ACCOUNT_NAV_ITEM : item,
                       `secondary-${i}`,
-                      i === secondaryNavItems.length - 1 && !showLoggedIn,
-                    ),
-                  )}
-                  {showLoggedOut && loginLink?.label && (
+                      isLast,
+                    )
+                  })}
+                  {!isLoggedIn && loginLink?.label && (
                     <li className={cn(s.navRow, s.navRowPlain, s.navRowLast)}>
                       <button
                         type="button"
@@ -283,30 +291,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, onDark = false
                         <Text text={loginLink.label} textStyle="span" />
                       </button>
                     </li>
-                  )}
-                  {showLoggedIn && (
-                    <>
-                      {accountLinks.length > 0 && (
-                        <AccountRow
-                          links={accountLinks}
-                          isOpen={openKey === 'account'}
-                          onToggle={handleToggle}
-                          onNavigate={closeEverything}
-                        />
-                      )}
-                      <li className={cn(s.navRow, s.navRowPlain, s.navRowLast)}>
-                        <button
-                          type="button"
-                          className={cn(s.navLink, s.navLinkFlushRight)}
-                          onClick={() => {
-                            firebaseSignOut()
-                            closeEverything()
-                          }}
-                        >
-                          <Text text="Log out" textStyle="span" />
-                        </button>
-                      </li>
-                    </>
                   )}
                 </ul>
               </nav>
@@ -452,58 +436,5 @@ function DropdownPanel({ columns, cta, isOpen, onNavigate }: DropdownPanelProps)
       </li>
       {showCta && <li className={s.panelCtaBottom}>{ctaLink}</li>}
     </ul>
-  )
-}
-
-interface AccountRowProps {
-  links: NonNullable<Header['accountLinks']>
-  isOpen: boolean
-  onToggle: (key: string) => void
-  onNavigate: () => void
-}
-
-function AccountRow({ links, isOpen, onToggle, onNavigate }: AccountRowProps) {
-  return (
-    <li className={s.navRow}>
-      <div className={s.dropdown}>
-        <button
-          type="button"
-          className={s.dropdownTrigger}
-          aria-expanded={isOpen}
-          onClick={() => onToggle('account')}
-        >
-          <Text text="My Account" textStyle="span" className={s.dropdownTitle} />
-          <FaIcon icon={faAngleDown} className={s.dropdownCaret} />
-          <span className={s.dropdownToggle}>
-            <span className={s.dropdownToggleIcon}>
-              <FaIcon icon={isOpen ? faMinus : faPlus} className={s.dropdownToggleGlyph} />
-            </span>
-          </span>
-        </button>
-        <ul className={cn(s.panel, isOpen ? 'flex' : 'hidden')}>
-          <li className={s.panelColumns}>
-            <div className={s.panelColumn}>
-              {links.map((entry, i) => {
-                const href = resolveHref(entry.link)
-                if (!href) return null
-                return (
-                  <Text
-                    key={i}
-                    href={href}
-                    text={entry.link?.label || ''}
-                    textStyle="span"
-                    className={s.panelLink}
-                    onClick={onNavigate}
-                    icons={{
-                      iconBefore: <FaIcon icon={faChevronRight} className={s.panelLinkIcon} />,
-                    }}
-                  />
-                )
-              })}
-            </div>
-          </li>
-        </ul>
-      </div>
-    </li>
   )
 }
