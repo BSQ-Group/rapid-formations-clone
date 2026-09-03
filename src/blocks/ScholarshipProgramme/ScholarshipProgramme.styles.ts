@@ -7,7 +7,7 @@ export const scholarshipProgrammeStyles = {
 
   // 44px under the title, matching the source — the shared heading margin leaves 20px.
   title:
-    'mt-5 mb-11 block text-[38px] leading-[1.15] font-semibold text-[var(--text-on-light-base)] md:mt-5 min-[1023px]:mt-6',
+    'mt-5 mb-11 block text-[38px] leading-[1.15] font-semibold text-[var(--text-on-light-base)] md:mt-6 min-[1023px]:mt-6',
 
   ctaWrap: 'mt-8 mb-16 w-full md:mx-auto md:w-max',
 

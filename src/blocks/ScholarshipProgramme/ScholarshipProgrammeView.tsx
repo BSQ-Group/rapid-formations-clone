@@ -1,5 +1,5 @@
 import React from 'react'
-import { faAngleRight } from '@fortawesome/pro-solid-svg-icons/faAngleRight'
+import { faChevronRight } from '@fortawesome/pro-solid-svg-icons/faChevronRight'
 
 import type { ScholarshipProgrammeBlock as ScholarshipProgrammeBlockProps } from '@/payload-types'
 
@@ -49,7 +49,7 @@ export const ScholarshipProgrammeView: React.FC<ScholarshipProgrammeViewProps> =
                 data={intro}
                 enableGutter={false}
                 enableProse={false}
-                listItemIcon={<FaIcon icon={faAngleRight} className={s.listIcon} />}
+                listItemIcon={<FaIcon icon={faChevronRight} className={s.listIcon} />}
                 className={cn(
                   richTextShell.text,
                   richTextShell.paragraphs,
