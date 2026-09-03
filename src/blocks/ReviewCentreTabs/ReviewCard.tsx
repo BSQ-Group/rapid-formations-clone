@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 
 import { RatingStars } from '@/components/shared/RatingStars'
 import Text from '@/components/shared/Text'
+import { cn } from '@/utilities/ui'
 import { reviewCentreTabsStyles as s } from './ReviewCentreTabs.styles'
 
 const EXCERPT_WORDS = 20
@@ -60,7 +61,12 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({
         </div>
         {/* Children, not `text` — that path runs the copy through sanitizeHtml and
             dangerouslySetInnerHTML, which is not where reviewer-authored text belongs. */}
-        <Text as="p" textStyle="span" id={`review-body-${id}`} className={s.cardBody}>
+        <Text
+          as="p"
+          textStyle="span"
+          id={`review-body-${id}`}
+          className={cn(s.cardBody, !truncates && s.cardBodyGap)}
+        >
           {expanded || !truncates ? body : words.slice(0, EXCERPT_WORDS).join(' ')}
         </Text>
         {truncates && (

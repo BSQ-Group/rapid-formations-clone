@@ -20,7 +20,7 @@ export type RatingsBannerProps = {
  */
 export const RatingsBanner: React.FC<RatingsBannerProps> = ({ heading, platforms }) => (
   <div className={s.ratingsBanner}>
-    <Text as="h2" textStyle="span" text={heading} className={s.ratingsHeading} />
+    <Text as="h3" textStyle="span" text={heading} className={s.ratingsHeading} />
     <div className={s.ratingsTrack}>
       {platforms.map((platform) => (
         <a

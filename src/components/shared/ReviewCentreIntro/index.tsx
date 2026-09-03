@@ -36,7 +36,7 @@ export const ReviewCentreIntro: React.FC<ReviewCentreIntroProps> = ({
           className={s.title}
         />
         {subtitle?.trim() && (
-          <Text as="p" textStyle="span" text={subtitle} className={s.subtitle} />
+          <Text as="h2" textStyle="span" text={subtitle} className={s.subtitle} />
         )}
         {body?.trim() && <Text as="p" textStyle="span" text={body} className={s.body} />}
       </Container>

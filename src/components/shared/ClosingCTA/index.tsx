@@ -50,7 +50,11 @@ export const ClosingCTA: React.FC<ClosingCTAProps> = ({
             className={cn(s.heading, styles.heading)}
           />
           {description && (
-            <Text as="p" textStyle="span" className={cn(s.description, styles.description)}>
+            <Text
+              as={isPanel ? 'h4' : 'p'}
+              textStyle="span"
+              className={cn(s.description, styles.description)}
+            >
               {withTelephoneLink(description)}
             </Text>
           )}
