@@ -31,6 +31,7 @@ import Script from 'next/script'
 import { Footer } from '@/Footer/Component'
 import { Providers } from '@/providers'
 import { SmoothHashScroll } from '@/components/shared/SmoothHashScroll'
+import { RouteProgress } from '@/components/shared/RouteProgress'
 import { LiveChatLauncher } from '@/components/LiveChat'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { getBrand, getDomainConfig } from '@/lib/brand'
@@ -73,6 +74,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         )}
       </head>
       <body id="home-top">
+        <RouteProgress />
         <SmoothHashScroll />
         <LiveChatLauncher />
         <Providers>
