@@ -2,7 +2,7 @@ export const snapCarouselStyles = {
   arrows: 'mt-4 flex items-center justify-center gap-4',
 
   arrow:
-    'flex items-center justify-center text-[var(--text-on-light-strong)] opacity-80 transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-focus)] disabled:pointer-events-none disabled:opacity-50',
+    'flex items-center justify-center text-[var(--text-on-light-strong)] opacity-80 transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-focus)] disabled:pointer-events-none disabled:opacity-50 [&_svg]:!h-10 [&_svg]:!w-auto',
 
   arrowIcon: 'h-10 w-auto',
 

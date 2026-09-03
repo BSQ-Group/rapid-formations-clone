@@ -5,6 +5,7 @@ import { faAngleLeft } from '@fortawesome/pro-solid-svg-icons/faAngleLeft'
 import { faAngleRight } from '@fortawesome/pro-solid-svg-icons/faAngleRight'
 
 import { FaIcon } from '@/components/shared/FaIcon'
+import { Button } from '@/components/ui/button'
 import { cn } from '@/utilities/ui'
 import { snapCarouselStyles as s } from './SnapCarousel.styles'
 
@@ -17,6 +18,8 @@ interface SnapCarouselProps {
   as?: 'ol' | 'ul' | 'div'
   arrows?: boolean
   arrowsClassName?: string
+  persistentArrows?: boolean
+  dots?: boolean
 }
 
 const SLIDE_TAG = { ol: 'li', ul: 'li', div: 'div' } as const
@@ -30,6 +33,8 @@ export function SnapCarousel({
   as = 'div',
   arrows = false,
   arrowsClassName,
+  persistentArrows = false,
+  dots = true,
 }: SnapCarouselProps) {
   const trackRef = useRef<HTMLElement>(null)
   const slides = React.Children.toArray(children)
@@ -85,9 +90,11 @@ export function SnapCarousel({
           </Slide>
         ))}
       </Track>
-      {arrows && pages > 1 && (
+      {arrows && (pages > 1 || persistentArrows) && (
         <div className={cn(s.arrows, arrowsClassName)}>
-          <button
+          <Button
+            variant="carousel"
+            size="carousel"
             type="button"
             onClick={() => goTo(active - 1)}
             disabled={active === 0}
@@ -95,19 +102,21 @@ export function SnapCarousel({
             className={s.arrow}
           >
             <FaIcon icon={faAngleLeft} className={s.arrowIcon} />
-          </button>
-          <button
+          </Button>
+          <Button
+            variant="carousel"
+            size="carousel"
             type="button"
             onClick={() => goTo(active + 1)}
-            disabled={active === pages - 1}
+            disabled={active >= pages - 1}
             aria-label={`Next slide, ${label}`}
             className={s.arrow}
           >
             <FaIcon icon={faAngleRight} className={s.arrowIcon} />
-          </button>
+          </Button>
         </div>
       )}
-      {pages > 1 && (
+      {dots && pages > 1 && (
         <div className={cn(s.dots, dotsClassName)}>
           {Array.from({ length: pages }, (_, i) => (
             <button

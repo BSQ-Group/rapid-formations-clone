@@ -27,6 +27,7 @@ const buttonVariants = cva(
         success:
           'bg-[var(--surface-cta-success)] text-[var(--text-strong)] border border-solid border-[var(--surface-cta-success)] hover:bg-[var(--surface-cta-success-hover)] hover:border-[var(--surface-cta-success-hover)] whitespace-normal disabled:opacity-20',
         back: 'bg-[var(--button-tertiary-dark-idle)] text-[var(--text-strong)] hover:bg-[var(--button-tertiary-dark-hover)] rounded-xs text-xs font-bold py-2 px-3.5 h-8 disabled:opacity-20',
+        carousel: 'bg-transparent rounded-none disabled:opacity-50',
       },
       size: {
         sm: 'h-8 px-4 py-2 text-xs font-semibold',
@@ -35,6 +36,7 @@ const buttonVariants = cva(
         icon: 'h-10 w-10 [&_svg]:size-6',
         promo: 'h-auto px-6 py-2 text-[17px] leading-[25.5px] font-semibold',
         form: 'h-[52px] rounded-sm px-[30px] py-2.5 text-xl leading-[30px] font-semibold',
+        carousel: 'h-auto w-auto p-0',
       },
     },
     compoundVariants: [
