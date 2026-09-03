@@ -43,7 +43,10 @@ export const sectionWrapperStyles = {
     l: 'pb-[var(--section-spacing-l)]',
     xl: 'pb-[var(--section-spacing-xl)]',
     xxl: 'pb-[var(--section-spacing-xxl)]',
-  } satisfies Record<SectionSpacing, string>,
+    // Source Section spacing (50/75/110) as padding, so a final section contains
+    // its last child's trailing margin like live's flex Section. Render-only.
+    sourceSection: 'pb-[50px] min-[1023px]:pb-[75px] min-[1590px]:pb-[110px]',
+  } satisfies Record<SectionSpacing | 'sourceSection', string>,
   gap: {
     inherit: '',
     ...flatGap,
