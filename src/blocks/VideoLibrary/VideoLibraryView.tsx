@@ -136,11 +136,12 @@ export const VideoLibraryView: React.FC<{ categories: LibraryCategory[] }> = ({ 
                     triggerLabel={`Play ${video.title}`}
                     className={s.thumbnailTrigger}
                     playIconClassName={s.playIconHidden}
+                    variant="lightbox"
                   >
                     <span className={s.thumbnail}>
                       <img
                         src={`https://vumbnail.com/${video.vimeoId}.jpg`}
-                        alt=""
+                        alt={video.title}
                         loading="lazy"
                         className={s.thumbnailImage}
                       />
