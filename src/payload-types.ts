@@ -3208,6 +3208,10 @@ export interface ServiceContentBlock {
          */
         icon?: ('none' | 'chevron' | 'check') | null;
         iconColour?: ('inherit' | 'green' | 'subtle') | null;
+        /**
+         * Renders this section’s first heading at 26px (28px from 768px) with an 8px gap below, dropping to the standard 23px/20px from 1024px. Set it on the section the source treats as the column’s intro — usually the first, but not on every page.
+         */
+        introHeading?: boolean | null;
         content: {
           root: {
             type: string;
@@ -8723,6 +8727,7 @@ export interface ServiceContentBlockSelect<T extends boolean = true> {
         position?: T;
         icon?: T;
         iconColour?: T;
+        introHeading?: T;
         content?: T;
         videoUrl?: T;
         videoStill?: T;
