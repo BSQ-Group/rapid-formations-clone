@@ -832,3 +832,28 @@ Each entry has four parts:
     .filter((d) => Math.abs(d) > 0.5) // non-empty = layers desynced, stars are ghosting
   ```
 - **Fix:** Never pass `items-*` / `self-*` (or padding meant to shift the glyphs) to `RatingStars` itself. Wrap it in a plain box that carries the line-box height and the centring — `<div className="flex h-[41px] items-center"><RatingStars … /></div>` — so both layers move together as one unit. Where the glyphs genuinely need nudging *inside* the component, target every layer at once with a descendant selector (`[&_svg]:mt-[4.14px]`, as `ReviewCentreTabs`' `cardStars` does), never the wrapper's flex alignment. The same trap applies to any component that overlays an absolutely-positioned duplicate of its own content.
+## Icon "matched" on rendered box size, not on the glyph — two different icons occupy identical boxes
+
+- **When it bites:** A ported icon looks right (same size, same colour, same position, reads as the same concept) but is a different component entirely — most often a `lucide-react` icon standing in for the FontAwesome glyph the source uses. Because both render into the same `1em` box, every box-geometry check passes and a screenshot diff at normal zoom shows almost nothing. The giveaway is only in the SVG itself: lucide is `viewBox="0 0 24 24"` **stroked**, FontAwesome is `viewBox="0 0 512 512"` (or `320 512`) **filled**. Real incident: CORE-7257 — the header's "View all packages" link shipped `lucide-layers` where live uses solid `fa-layer-group`; an earlier separate bug on this project came from the same trap.
+- **Also bites within FontAwesome:** the same icon name exists at several weights with the *same* viewBox, so the viewBox alone does not identify it. `chevron-right` is `320x512` in pro-solid (path bbox 256x448) *and* in pro-regular (bbox 231x430) *and* in pro-light. Identify the weight from the **path data**, never from the name or the box.
+- **Detect:**
+  ```bash
+  # Any lucide icon left in a component that is a port of a FontAwesome-based source.
+  git diff main...HEAD -- 'src/**/*.tsx' | grep -E "^\+.*from 'lucide-react'" || true
+  ```
+  ```js
+  // Live-vs-clone, in the browser: compare viewBox AND the first path's `d`.
+  // Same `d` prefix = same glyph at the same weight. Anything else is a mismatch.
+  ;[...document.querySelectorAll('header svg')].map((s) => ({
+    vb: s.getAttribute('viewBox'),
+    d: (s.querySelector('path')?.getAttribute('d') || '').slice(0, 60),
+  }))
+  ```
+  ```bash
+  # Confirm which installed weight actually matches the `d` captured from live.
+  for w in pro-solid pro-regular pro-light pro-duotone; do
+    node -e "const a=require('@fortawesome/$w-svg-icons/fa<IconName>.js');
+      console.log('$w', a.width+'x'+a.height, a.svgPathData.slice(0,60))" 2>/dev/null
+  done
+  ```
+- **Fix:** Read the glyph off live (`viewBox` + path `d`), match that `d` byte-for-byte against the installed `@fortawesome/pro-*-svg-icons/fa<Name>.js`, and import from the weight that matches. Render it through `@/components/shared/FaIcon`, which takes the `viewBox` from the icon definition. Never conclude two icons match because their rendered boxes are the same size.

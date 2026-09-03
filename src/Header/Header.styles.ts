@@ -62,22 +62,22 @@ export const headerStyles = {
   dropdownToggleGlyph: 'h-[18px] w-[15.75px] shrink-0',
 
   panel:
-    'flex w-full flex-col pb-4 text-[20px] leading-[30px] text-[rgb(var(--white))] group-data-[on-light]:text-[var(--text-on-light-muted)] min-[1200px]:group-data-[on-light]:text-[rgb(var(--white))] min-[1200px]:absolute min-[1200px]:top-[44px] min-[1200px]:z-[9000] min-[1200px]:-ml-px min-[1200px]:w-max min-[1200px]:min-w-[360px] min-[1200px]:border-t-4 min-[1200px]:border-[var(--surface-brand-cyan-light)] min-[1200px]:bg-[rgb(var(--black))] min-[1200px]:px-[35px] min-[1200px]:py-[15px] min-[1200px]:shadow-[0_15px_35px_rgba(50,50,93,0.1),0_5px_15px_rgba(0,0,0,0.07)]',
+    'flex w-full flex-col pb-4 text-[20px] leading-[30px] text-[rgb(var(--white))] group-data-[on-light]:text-[var(--text-on-light-muted)] min-[1200px]:absolute min-[1200px]:top-[44px] min-[1200px]:z-[9000] min-[1200px]:-ml-px min-[1200px]:w-auto min-[1200px]:min-w-[360px] min-[1200px]:border-t-4 min-[1200px]:border-[var(--surface-brand-cyan-light)] min-[1200px]:bg-[rgb(var(--black))] min-[1200px]:px-[35px] min-[1200px]:py-[15px] min-[1200px]:shadow-[0_15px_35px_rgba(50,50,93,0.1),0_5px_15px_rgba(0,0,0,0.07)] min-[1200px]:group-data-[on-light]:border-t min-[1200px]:group-data-[on-light]:border-[var(--border-on-light)] min-[1200px]:group-data-[on-light]:bg-[rgb(var(--white))]',
   panelColumns: 'block',
   panelColumnsTwo: 'md:grid md:grid-cols-[auto_auto] md:gap-x-8',
   panelColumnsThree: 'md:grid md:grid-cols-[auto_auto_auto] md:gap-x-8',
   panelColumn: '',
   panelColumnSpaced: 'mb-4 md:mb-0',
   panelHeading:
-    'mb-2 text-[19.2px] font-semibold leading-[25.92px] text-[rgb(var(--white))] [text-shadow:2px_2px_3px_rgba(0,0,0,0.2)] group-data-[on-light]:text-[var(--text-on-light-strong)] group-data-[on-light]:[text-shadow:none] min-[1200px]:group-data-[on-light]:text-[rgb(var(--white))]',
+    'mb-2 text-[19.2px] font-semibold leading-[25.92px] text-[rgb(var(--white))] [text-shadow:2px_2px_3px_rgba(0,0,0,0.2)] group-data-[on-light]:text-[var(--text-on-light-strong)] group-data-[on-light]:[text-shadow:none] min-[1200px]:group-data-[on-light]:text-[var(--text-on-light-base)]',
   panelLink:
-    'flex flex-row items-baseline justify-start py-[6.4px] text-[rgb(var(--white))] transition-colors duration-100 hover:text-[var(--surface-brand-cyan)] focus:text-[var(--surface-brand-cyan)] group-data-[on-light]:text-[var(--text-on-light-muted)] group-data-[on-light]:hover:text-[var(--surface-brand-cyan)] group-data-[on-light]:focus:text-[var(--surface-brand-cyan)] min-[1200px]:group-data-[on-light]:text-[rgb(var(--white))] md:py-[3.2px] md:text-[17px] md:leading-[25.5px]',
+    'flex flex-row items-baseline justify-start py-[6.4px] text-[rgb(var(--white))] transition-colors duration-100 hover:text-[var(--surface-brand-cyan)] focus:text-[var(--surface-brand-cyan)] group-data-[on-light]:text-[var(--text-on-light-muted)] group-data-[on-light]:hover:text-[var(--surface-brand-cyan)] group-data-[on-light]:focus:text-[var(--surface-brand-cyan)] md:py-[3.2px] md:text-[17px] md:leading-[25.5px]',
   panelLinkIcon:
     'mb-[0.075em] mr-[0.375em] h-[0.75em] w-[0.46875em] shrink-0 md:-ml-[13px] min-[1590px]:ml-0',
 
   panelCtaTop: 'mb-4 flex items-center justify-start min-[1200px]:hidden',
   panelCtaBottom: 'mt-4 hidden justify-center min-[1200px]:flex',
   panelCtaLink:
-    'flex items-center font-semibold uppercase text-[rgb(var(--white))] transition-colors duration-100 hover:text-[var(--surface-brand-cyan)] focus:text-[var(--surface-brand-cyan)] group-data-[on-light]:text-[var(--text-on-light-strong)] min-[1200px]:group-data-[on-light]:text-[rgb(var(--white))] min-[1200px]:text-[24px] min-[1200px]:leading-9 min-[1200px]:tracking-[1px]',
+    'flex items-center font-semibold uppercase text-[rgb(var(--white))] transition-colors duration-100 hover:text-[var(--surface-brand-cyan)] focus:text-[var(--surface-brand-cyan)] group-data-[on-light]:text-[var(--text-on-light-strong)] min-[1200px]:text-[24px] min-[1200px]:leading-9 min-[1200px]:tracking-[1px] min-[1200px]:group-data-[on-light]:text-[var(--surface-brand-cyan)]',
   panelCtaIcon: 'mr-2 size-[1em] shrink-0',
 } as const

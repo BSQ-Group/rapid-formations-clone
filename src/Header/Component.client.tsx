@@ -11,7 +11,7 @@ import React, {
   useSyncExternalStore,
 } from 'react'
 import dynamic from 'next/dynamic'
-import { Layers, Minus, Plus } from 'lucide-react'
+import { Minus, Plus } from 'lucide-react'
 
 import type { Header } from '@/payload-types'
 import type { Page, Post } from '@/payload-types'
@@ -21,6 +21,7 @@ import { OAuthRedirectHandler } from '@/components/shared/OAuthRedirectHandler'
 import { IdleMount } from '@/components/shared/IdleMount'
 import { faAngleDown } from '@fortawesome/pro-light-svg-icons/faAngleDown'
 import { faChevronRight } from '@fortawesome/pro-light-svg-icons/faChevronRight'
+import { faLayerGroup } from '@fortawesome/pro-solid-svg-icons/faLayerGroup'
 import { faLock } from '@fortawesome/pro-solid-svg-icons/faLock'
 import { FaIcon } from '@/components/shared/FaIcon'
 import Text from '@/components/shared/Text'
@@ -101,7 +102,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, onDark = false
 
   const [menuOpen, setMenuOpen] = useState(false)
   const [openKey, setOpenKey] = useState<string | null>(null)
-  const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const navRef = useRef<HTMLDivElement>(null)
 
   const token = useToken()
   const hasMounted = useSyncExternalStore(
@@ -146,18 +147,31 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, onDark = false
     })
   }, [pathname])
 
-  const handleRowEnter = useCallback(() => {
-    if (!isDesktopNav()) return
-    if (closeTimeoutRef.current) {
-      clearTimeout(closeTimeoutRef.current)
-      closeTimeoutRef.current = null
-    }
-  }, [])
+  useEffect(() => {
+    if (!openKey) return
 
-  const handleRowLeave = useCallback(() => {
-    if (!isDesktopNav()) return
-    closeTimeoutRef.current = setTimeout(() => setOpenKey(null), 150)
-  }, [])
+    const handlePointerDown = (event: PointerEvent) => {
+      if (!isDesktopNav()) return
+      if (navRef.current?.contains(event.target as Node)) return
+      setOpenKey(null)
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return
+      const trigger = navRef.current?.querySelector<HTMLButtonElement>(
+        'button[aria-expanded="true"]',
+      )
+      setOpenKey(null)
+      trigger?.focus()
+    }
+
+    document.addEventListener('pointerdown', handlePointerDown)
+    document.addEventListener('keydown', handleKeyDown)
+    return () => {
+      document.removeEventListener('pointerdown', handlePointerDown)
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [openKey])
 
   const handleToggle = useCallback((key: string) => {
     setOpenKey((current) => (current === key ? null : key))
@@ -176,8 +190,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, onDark = false
       isLast={isLast}
       inMainNav={inMainNav}
       isOpen={openKey === key}
-      onEnter={handleRowEnter}
-      onLeave={handleRowLeave}
       onToggle={handleToggle}
       onNavigate={closeEverything}
     />
@@ -237,7 +249,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, onDark = false
               </Button>
             </div>
           </div>
-          <div id="header-nav">
+          <div id="header-nav" ref={navRef}>
             <div className={cn(s.bottomWrap, menuOpen && s.bottomWrapOpen)}>
               <nav
                 className={cn(s.siteNav, menuOpen ? 'flex' : 'hidden')}
@@ -277,8 +289,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, onDark = false
                         <AccountRow
                           links={accountLinks}
                           isOpen={openKey === 'account'}
-                          onEnter={handleRowEnter}
-                          onLeave={handleRowLeave}
                           onToggle={handleToggle}
                           onNavigate={closeEverything}
                         />
@@ -318,23 +328,11 @@ interface NavRowProps {
   isLast: boolean
   inMainNav: boolean
   isOpen: boolean
-  onEnter: () => void
-  onLeave: () => void
   onToggle: (key: string) => void
   onNavigate: () => void
 }
 
-function NavRow({
-  item,
-  rowKey,
-  isLast,
-  inMainNav,
-  isOpen,
-  onEnter,
-  onLeave,
-  onToggle,
-  onNavigate,
-}: NavRowProps) {
+function NavRow({ item, rowKey, isLast, inMainNav, isOpen, onToggle, onNavigate }: NavRowProps) {
   const columns = item.dropdownColumns || []
   const href = resolveHref(item.link)
   const label = item.link?.label || ''
@@ -365,11 +363,7 @@ function NavRow({
   }
 
   return (
-    <li
-      className={cn(s.navRow, isLast && s.navRowLast)}
-      onMouseEnter={onEnter}
-      onMouseLeave={onLeave}
-    >
+    <li className={cn(s.navRow, isLast && s.navRowLast)}>
       <div className={s.dropdown}>
         <button
           type="button"
@@ -419,7 +413,7 @@ function DropdownPanel({ columns, cta, isOpen, onNavigate }: DropdownPanelProps)
       textStyle="span"
       className={s.panelCtaLink}
       onClick={onNavigate}
-      icons={{ iconBefore: <Layers className={s.panelCtaIcon} aria-hidden /> }}
+      icons={{ iconBefore: <FaIcon icon={faLayerGroup} className={s.panelCtaIcon} /> }}
     />
   ) : null
 
@@ -467,15 +461,13 @@ function DropdownPanel({ columns, cta, isOpen, onNavigate }: DropdownPanelProps)
 interface AccountRowProps {
   links: NonNullable<Header['accountLinks']>
   isOpen: boolean
-  onEnter: () => void
-  onLeave: () => void
   onToggle: (key: string) => void
   onNavigate: () => void
 }
 
-function AccountRow({ links, isOpen, onEnter, onLeave, onToggle, onNavigate }: AccountRowProps) {
+function AccountRow({ links, isOpen, onToggle, onNavigate }: AccountRowProps) {
   return (
-    <li className={s.navRow} onMouseEnter={onEnter} onMouseLeave={onLeave}>
+    <li className={s.navRow}>
       <div className={s.dropdown}>
         <button
           type="button"
