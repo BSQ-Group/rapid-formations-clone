@@ -1,5 +1,5 @@
 import React from 'react'
-import { faAngleRight } from '@fortawesome/pro-solid-svg-icons/faAngleRight'
+import { faChevronRight } from '@fortawesome/pro-solid-svg-icons/faChevronRight'
 import { faCheck } from '@fortawesome/pro-solid-svg-icons/faCheck'
 
 import type { TextContentBlock as TextContentBlockProps } from '@/payload-types'
@@ -33,7 +33,7 @@ const splitOnFirstHeading = (body: Body) => {
   }
 }
 
-const icons: Record<string, typeof faCheck> = { check: faCheck, chevron: faAngleRight }
+const icons: Record<string, typeof faCheck> = { check: faCheck, chevron: faChevronRight }
 
 const iconColours: Record<string, string> = {
   inherit: s.iconInherit,
