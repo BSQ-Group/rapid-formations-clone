@@ -232,7 +232,7 @@ export const WithMobileBadge: Story = {
       url: 'https://placehold.co/404x680/ffffff/275ee2?text=B',
       width: 404,
       height: 680,
-      alt: 'Rapid Formations is B-Corp Certified.',
+      alt: 'Rapid Formations certified B Corporation logo.',
     },
   } as any,
 }

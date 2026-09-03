@@ -42,7 +42,7 @@ export const headerStyles = {
   userNavListOffset: 'min-[1200px]:ml-auto',
 
   navRow:
-    'flex w-full border border-[var(--border-on-dark-subtle)] border-x-transparent border-t-transparent text-[18px] leading-[27px] text-[rgb(var(--white))] transition-colors duration-150 hover:text-[var(--surface-brand-cyan-light)] min-[1200px]:h-full min-[1200px]:w-auto min-[1200px]:self-center min-[1200px]:border min-[1200px]:border-b-0 min-[1200px]:border-transparent min-[1200px]:hover:text-[rgb(var(--white)/0.65)] group-data-[on-light]:border-b-[var(--border-on-light)] group-data-[on-light]:text-[var(--text-on-light-muted)] group-data-[on-light]:hover:text-[var(--surface-brand-cyan)] min-[1200px]:group-data-[on-light]:hover:text-[var(--surface-brand-cyan)]',
+    'flex w-full border border-[var(--border-on-dark-subtle)] border-x-transparent border-t-transparent text-[18px] leading-[27px] text-[rgb(var(--white))] transition-colors duration-150 hover:text-[var(--surface-brand-cyan-light)] min-[1200px]:h-full min-[1200px]:w-auto min-[1200px]:self-center min-[1200px]:border min-[1200px]:border-b-0 min-[1200px]:border-transparent min-[1200px]:hover:text-[rgb(var(--white)/0.65)] group-data-[on-light]:text-[var(--text-on-light-muted)] group-data-[on-light]:hover:text-[var(--surface-brand-cyan)] min-[1200px]:group-data-[on-light]:hover:text-[var(--surface-brand-cyan)]',
   navRowLast: 'border-b-0',
   navRowNoBorder: 'border-x-0 border-t-0 min-[1200px]:border-0',
   navRowPlain: 'md:hover:text-[rgb(var(--white)/0.65)]',
