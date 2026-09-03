@@ -11,8 +11,7 @@ export const businessBankingTableStyles = {
   copy:
     'block text-xl leading-[30px] text-[var(--text-on-light-muted)] [&_a]:!text-[var(--text-on-light-link-hover)] [&_a:hover]:!underline [&_p]:!mb-4',
 
-  scrollShell:
-    'relative my-7 w-full after:pointer-events-none after:absolute after:inset-y-0 after:right-0 after:w-5 after:bg-gradient-to-r after:from-transparent after:to-[rgb(var(--white))]/80 min-[1023px]:after:hidden',
+  scrollShell: 'my-7 w-full',
 
   scroller:
     'w-full overflow-x-auto focus-visible:ring-4 focus-visible:ring-[var(--border-focus)] focus-visible:outline-none',
@@ -44,7 +43,7 @@ export const businessBankingTableStyles = {
 
   marker: 'top-0 align-super text-[0.8333em] leading-[1.5]',
 
-  iconYes: 'h-[18px] w-4 text-[var(--surface-cta-success)]',
+  iconYes: 'inline-block h-[18px] w-4 text-[var(--surface-cta-success)]',
 
-  iconNo: 'h-[18px] w-[11px] text-[var(--icon-on-light-faint)]',
+  iconNo: 'inline-block h-[18px] w-[11px] text-[var(--icon-on-light-faint)]',
 } as const
