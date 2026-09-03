@@ -810,3 +810,25 @@ Each entry has four parts:
   // List-ending pages legitimately measure larger than paragraph-ending ones — that is live, match it.
   ```
 - **Fix:** Measure the live source **per page** — never trust a ticket's "identical across all pages" spacing value. To match a live flex Section that contains trailing margins from a clone block section, apply the spacing as **padding** (contains) rather than a margin gap (collapses/absorbs), and set the last element's own margin to what live does for that element type: live keeps a trailing list's bottom margin, drops a trailing paragraph's.
+## Alignment utilities passed into a two-layer overlay component (RatingStars) desync the layers
+
+- **When it bites:** `RatingStars` paints **two stacked rows** — a grey base row that is a flex child of its wrapper, and a filled overlay row inside an `absolute inset-y-0` div clipped to the score. `align-items` on the wrapper reaches **only the base row**; the overlay is out of flow and stays pinned to the top of the box. So a consumer that passes `items-center` (or `items-end`) alongside a fixed height — to centre the glyphs in a taller line box — moves the grey row alone and splits the two rows apart, leaving the grey one visible as a **ghost / double-star artifact** under the coloured one. It reads as a colour or icon bug, so it gets chased in the wrong file, and the shared component is genuinely fine, which is why it renders correctly on every page whose consumer does not override alignment. Real incident: CORE-7200 — `ReviewHighlightRows` passed `h-[41px] items-center`, offsetting the rows by exactly `(41 - 21) / 2 = 10px` in all 4 testimonial cards at all 4 breakpoints, while the homepage's instance of the same component was clean.
+- **Detect:**
+  ```bash
+  # Smell: an alignment utility on the className handed to RatingStars.
+  # Resolve each className={s.key} to its styles entry and check for items-*/self-*.
+  grep -rn -A8 '<RatingStars' src --include='*.tsx' | grep -oE 'className=\{s\.[A-Za-z]+' \
+    | sed 's/.*s\.//' | sort -u \
+    | while read k; do grep -rn "  $k:" src --include='*.styles.ts' | grep -E 'items-|self-'; done
+  ```
+  ```js
+  // Runtime assertion — the only real proof. Both rows of every rating widget must
+  // share a y; a non-zero delta IS the ghost. Run on the deploy preview.
+  ;[...document.querySelectorAll('[role="img"][aria-label*="Rated"]')]
+    .map((w) => {
+      const r = [...w.children].map((c) => c.getBoundingClientRect().y)
+      return +(r[1] - r[0]).toFixed(2)
+    })
+    .filter((d) => Math.abs(d) > 0.5) // non-empty = layers desynced, stars are ghosting
+  ```
+- **Fix:** Never pass `items-*` / `self-*` (or padding meant to shift the glyphs) to `RatingStars` itself. Wrap it in a plain box that carries the line-box height and the centring — `<div className="flex h-[41px] items-center"><RatingStars … /></div>` — so both layers move together as one unit. Where the glyphs genuinely need nudging *inside* the component, target every layer at once with a descendant selector (`[&_svg]:mt-[4.14px]`, as `ReviewCentreTabs`' `cardStars` does), never the wrapper's flex alignment. The same trap applies to any component that overlays an absolutely-positioned duplicate of its own content.

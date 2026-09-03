@@ -27,6 +27,11 @@ const decodeHash = (hash: string) => {
 const indexOfHash = (tabs: TabDefinition[], hash: string) =>
   tabs.findIndex((tab) => tab.id === decodeHash(hash).toLowerCase())
 
+const scrollToTop = () => {
+  const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+  window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' })
+}
+
 export const ReviewCentreTabsClient: React.FC<{ tabs: TabDefinition[] }> = ({ tabs }) => {
   const [active, setActive] = useState(0)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -61,7 +66,7 @@ export const ReviewCentreTabsClient: React.FC<{ tabs: TabDefinition[] }> = ({ ta
     const repeat = index === current || window.location.hash === hash
     if (viaKeyboard || repeat) window.history.replaceState(null, '', hash)
     else window.history.pushState(null, '', hash)
-    if (!viaKeyboard) window.scrollTo({ top: 0 })
+    if (!viaKeyboard) scrollToTop()
   }
 
   // Roving tabindex takes every inactive tab out of the tab order, so without arrow
@@ -86,12 +91,12 @@ export const ReviewCentreTabsClient: React.FC<{ tabs: TabDefinition[] }> = ({ ta
           aria-expanded={menuOpen}
           className={s.mobileToggle}
         >
-          <b>More</b>
+          <b className={s.mobileToggleLabel}>More</b>
           <FaIcon icon={faCaretDown} className={s.mobileToggleIcon} />
         </button>
       </div>
       <div data-open={menuOpen} className={cn(s.list, menuOpen ? s.listOpen : s.listClosed)}>
-        <ul role="tablist" className={s.ul}>
+        <ul role="tablist" className={cn(s.ul, menuOpen && s.ulOpening)}>
           {tabs.map((tab, index) => (
             <li
               key={tab.id}
