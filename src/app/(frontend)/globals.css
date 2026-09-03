@@ -29,6 +29,9 @@
     --header-link-hover-color: var(--text-strong);
     --header-logo-fill: rgb(var(--black));
 
+    /* Route-transition progress bar (top of viewport) */
+    --surface-route-progress: rgb(34 153 221);
+
     /* Informational Colors - Common between themes */
     --white: 255 255 255;
     --black: 0 0 0;
