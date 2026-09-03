@@ -1,5 +1,6 @@
 export const sameDayIncorporationStyles = {
-  section: 'font-legacy-condensed w-full bg-[var(--surface-canvas)] md:hidden',
+  section:
+    'font-legacy-condensed w-full bg-[var(--surface-canvas)] md:flex md:h-0 md:overflow-hidden',
   card: 'relative grid min-h-[100px] grid-cols-[auto_100px] items-start gap-4 overflow-hidden rounded-lg bg-[var(--surface-brand-cyan)] p-4 animate-[same-day-pulse_1.5s_infinite] motion-reduce:animate-none',
   content: 'text-white',
   heading: 'mb-0 block text-[21.6px] font-semibold leading-[1.235] text-white',

@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { faCheck } from '@fortawesome/pro-solid-svg-icons/faCheck'
+import { faCircleInfo } from '@fortawesome/pro-solid-svg-icons/faCircleInfo'
 
 import RichText from '@/components/RichText'
 import { FaIcon } from '@/components/shared/FaIcon'
@@ -65,9 +66,8 @@ export const MobileCarousel: React.FC<{ data: TableData; cardHeight?: string | n
                     <span className={s.mobileProductLabel}>{product.name}</span>
                     {product.tooltip && (
                       <InfoTooltip
-                        title={product.name}
                         content={product.tooltip}
-                        iconSize={15}
+                        icon={<FaIcon icon={faCircleInfo} className={s.mobileInfoIconGlyph} />}
                         triggerClassName={s.mobileInfoIcon}
                       />
                     )}

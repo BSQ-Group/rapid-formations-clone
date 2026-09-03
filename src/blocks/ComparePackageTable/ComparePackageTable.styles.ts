@@ -62,7 +62,8 @@ export const comparePackageTableStyles = {
   productTitle:
     'm-0 block whitespace-pre-line text-[17px] font-normal leading-[1.235] text-[var(--text-on-light-base)] md:text-[18px]',
   infoIcon:
-    'ml-2.5 size-[22px] shrink-0 text-[var(--icon-on-light-faint)] transition-colors duration-300 hover:cursor-pointer',
+    'ml-2.5 flex h-[26px] w-8 shrink-0 items-center justify-center p-0 text-[var(--icon-on-light-faint)] transition-colors duration-300 hover:cursor-pointer',
+  infoIconGlyph: 'size-[22px]',
 
   includedItem:
     'grid min-w-[175px] items-center justify-items-center border-r border-solid border-[var(--border-compare-packages)] bg-white p-2.5 text-center text-[26px] md:min-w-[130px] min-[1023px]:min-h-14 min-[1023px]:min-w-[175px] [&:last-child]:border-r-0',
@@ -103,5 +104,7 @@ export const comparePackageTableStyles = {
   mobileCheck: 'h-[15px] w-auto shrink-0 text-[var(--icon-success)]',
   mobileProductLabel:
     'flex-1 whitespace-pre-line text-[15px] leading-[1.2] text-[var(--text-on-light-muted)]',
-  mobileInfoIcon: 'ml-2.5 size-[15px] shrink-0 text-[15px] text-[var(--icon-on-light-faint)]',
+  mobileInfoIcon:
+    'ml-2.5 flex size-[15px] shrink-0 items-center justify-center p-0 text-[var(--icon-on-light-faint)]',
+  mobileInfoIconGlyph: 'size-[15px]',
 } as const

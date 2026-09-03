@@ -6,7 +6,9 @@ export const infoTooltipStyles = {
   triggerCustom:
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-focus)] focus-visible:ring-offset-2',
 
-  bodyText: 'text-[18px] leading-[21.6px] text-[var(--tooltip-text-body)]',
+  bodyText:
+    'text-[18px] leading-[21.6px] text-[var(--tooltip-text-body)] [&_:is(h1,h2,h3,h4,h5,h6)]:mt-0 [&_:is(h1,h2,h3,h4,h5,h6)]:mb-2 [&_:is(h1,h2,h3,h4,h5,h6)]:text-[21.6px] [&_:is(h1,h2,h3,h4,h5,h6)]:font-semibold [&_:is(h1,h2,h3,h4,h5,h6)]:leading-[21.6px] [&_:is(h1,h2,h3,h4,h5,h6)]:text-[var(--tooltip-text-title)] [&_ul]:!mt-0 [&_ul]:!mb-3 [&_ul]:!list-none [&_ul]:!pl-4 [&_ul>li]:!mb-2.5 [&_ul>li]:grid [&_ul>li]:grid-cols-[18px_1fr] [&_ul>li]:gap-2',
+  bodyListIcon: 'mt-[3px] h-4 w-4',
   paragraph: 'mb-2 whitespace-pre-line [overflow-wrap:anywhere]',
 
   overlay: 'fixed inset-0 z-50 bg-black/60',

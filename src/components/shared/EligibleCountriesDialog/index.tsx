@@ -1,8 +1,16 @@
 'use client'
 
 import React from 'react'
+import { faTimes } from '@fortawesome/pro-light-svg-icons/faTimes'
 
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog'
+import { FaIcon } from '@/components/shared/FaIcon'
 import Text from '@/components/shared/Text'
 import { styles } from './EligibleCountriesDialog.styles'
 
@@ -14,7 +22,13 @@ export const EligibleCountriesDialog: React.FC<{
 }> = ({ label, lastUpdated, countries, className }) => (
   <Dialog>
     <DialogTrigger className={className}>{label}</DialogTrigger>
-    <DialogContent className={styles.content}>
+    <DialogContent className={styles.content} hideClose>
+      <div className={styles.closeWrap}>
+        <DialogClose className={styles.close}>
+          <FaIcon icon={faTimes} className={styles.closeIcon} />
+          <span className="sr-only">Close</span>
+        </DialogClose>
+      </div>
       {lastUpdated && (
         <Text
           textStyle="body-base"
