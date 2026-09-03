@@ -1,5 +1,5 @@
 export const companyAddressGuideTableStyles = {
-  section: 'font-legacy-condensed w-full bg-[var(--surface-canvas)]',
+  section: 'font-legacy-condensed flow-root w-full bg-[var(--surface-canvas)]',
 
   heading:
     'mb-5 block break-words whitespace-pre-line text-[36px] leading-[44.46px] font-normal text-[var(--text-on-light-base)]',
