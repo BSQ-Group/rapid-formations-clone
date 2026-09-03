@@ -9,7 +9,7 @@ export const renewalItemsStyles = {
     'mt-0 block text-left text-[26px] font-semibold leading-[39px] text-[var(--text-on-light-base)]',
   body: 'flex flex-col justify-between min-[470px]:flex-row',
   content:
-    'block flex-none basis-4/5 text-[18px] leading-[27px] text-[var(--text-on-light-base)] [&_p]:!mb-4 [&_p]:text-[20px] [&_p]:leading-[30px] [&_a]:text-[var(--text-brand-cyan)] [&_a]:no-underline [&_a:hover]:underline',
+    'block flex-none basis-4/5 text-[18px] leading-[27px] text-[var(--text-on-light-muted)] [&_p]:!mb-4 [&_p]:text-[20px] [&_p]:leading-[30px] [&_a]:text-[var(--text-brand-cyan)] [&_a]:no-underline [&_a:hover]:underline',
   buttons: 'mt-4 min-[470px]:mt-0',
   cta: '[overflow-wrap:normal]',
 } as const
