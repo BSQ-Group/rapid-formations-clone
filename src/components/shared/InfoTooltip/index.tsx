@@ -40,6 +40,7 @@ interface InfoTooltipProps {
   side?: 'top' | 'right' | 'bottom' | 'left'
   desktopMinWidth?: number
   triggerClassName?: string
+  dialogVariant?: 'default' | 'legacy'
 }
 
 export function InfoTooltip({
@@ -55,6 +56,7 @@ export function InfoTooltip({
   side = 'right',
   desktopMinWidth = 769,
   triggerClassName: triggerClassNameProp,
+  dialogVariant = 'default',
 }: InfoTooltipProps) {
   const [open, setOpen] = useState(false)
   const pointerOverTrigger = useRef(false)
@@ -62,23 +64,33 @@ export function InfoTooltip({
   const [effectiveSide, setEffectiveSide] = useState<InfoTooltipProps['side']>(side)
   const isDesktop = useIsDesktop(desktopMinWidth)
 
-  // CORE-7146: Radix flips left<->right but never switches axis, so a wide
-  // (max 550px) tooltip on a right-hand card in the 769-1023px band clips off
-  // the viewport. Match live's collision fallback: when a horizontal `side`
-  // can fit on neither edge, open above instead.
   const resolveSide = () => {
     const el = triggerButtonRef.current
-    if (!el || (side !== 'left' && side !== 'right')) {
+    if (!el) {
       setEffectiveSide(side)
       return
     }
     const rect = el.getBoundingClientRect()
     const TOOLTIP_MAX_WIDTH = 550
     const GUTTER = 20 // sideOffset + collisionPadding headroom
-    const roomLeft = rect.left - GUTTER
-    const roomRight = window.innerWidth - rect.right - GUTTER
-    const fitsHorizontally = roomLeft >= TOOLTIP_MAX_WIDTH || roomRight >= TOOLTIP_MAX_WIDTH
-    setEffectiveSide(fitsHorizontally ? side : 'top')
+
+    if (side === 'left' || side === 'right') {
+      const roomLeft = rect.left - GUTTER
+      const roomRight = window.innerWidth - rect.right - GUTTER
+      const fitsHorizontally = roomLeft >= TOOLTIP_MAX_WIDTH || roomRight >= TOOLTIP_MAX_WIDTH
+      setEffectiveSide(fitsHorizontally ? side : 'top')
+      return
+    }
+
+    const centre = rect.left + rect.width / 2
+    const halfWidth = TOOLTIP_MAX_WIDTH / 2
+    const overrunsLeft = centre - halfWidth < GUTTER
+    const overrunsRight = centre + halfWidth > window.innerWidth - GUTTER
+    if (overrunsLeft === overrunsRight) {
+      setEffectiveSide(side)
+      return
+    }
+    setEffectiveSide(overrunsLeft ? 'right' : 'left')
   }
 
   if (!title && !content && !text) return null
@@ -113,6 +125,7 @@ export function InfoTooltip({
   }
 
   if (!isDesktop) {
+    const isLegacyDialog = dialogVariant === 'legacy'
     return (
       <DialogPrimitive.Root open={open} onOpenChange={setOpen}>
         <DialogPrimitive.Trigger asChild>
@@ -127,13 +140,15 @@ export function InfoTooltip({
         </DialogPrimitive.Trigger>
         <DialogPrimitive.Portal>
           <DialogPrimitive.Overlay className={s.overlay} />
-          <DialogPrimitive.Content className={s.dialog}>
+          <DialogPrimitive.Content className={cn(s.dialog, isLegacyDialog && s.dialogLegacy)}>
             <DialogDescription className={s.dialogSrDescription}>
               {title ?? 'More information'}
             </DialogDescription>
-            <div className={s.dialogHeader}>
+            <div className={cn(s.dialogHeader, isLegacyDialog && s.dialogHeaderLegacy)}>
               <div className={s.dialogHeaderRow}>
-                <DialogPrimitive.Title className={s.dialogTitle}>
+                <DialogPrimitive.Title
+                  className={cn(s.dialogTitle, isLegacyDialog && s.dialogTitleLegacy)}
+                >
                   {title ?? 'Information'}
                 </DialogPrimitive.Title>
                 <DialogPrimitive.Close aria-label="Close" className={s.dialogClose}>
@@ -141,7 +156,11 @@ export function InfoTooltip({
                 </DialogPrimitive.Close>
               </div>
             </div>
-            {(content || text) && <div className={s.dialogBody}>{body(s.bodyText)}</div>}
+            {(content || text) && (
+              <div className={cn(s.dialogBody, isLegacyDialog && s.dialogBodyLegacy)}>
+                {body(cn(s.bodyText, isLegacyDialog && s.dialogBodyTextLegacy))}
+              </div>
+            )}
           </DialogPrimitive.Content>
         </DialogPrimitive.Portal>
       </DialogPrimitive.Root>

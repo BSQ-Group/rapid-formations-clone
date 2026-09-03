@@ -17,9 +17,15 @@ export const infoTooltipStyles = {
   dialogHeaderRow: 'flex items-start gap-3',
   dialogTitle:
     'min-w-0 flex-1 text-[21.6px] font-semibold leading-[21.6px] text-[var(--tooltip-text-title)] [overflow-wrap:anywhere]',
-  dialogClose:
-    'flex-shrink-0 text-[var(--icon-map-marker)] hover:opacity-80',
+  dialogClose: 'flex-shrink-0 text-[var(--icon-map-marker)] hover:opacity-80',
   dialogBody: 'overflow-y-auto px-6 pb-6',
+
+  dialogLegacy:
+    'w-[calc(100%-30px)] max-w-none rounded-none border-[5px] border-[var(--border-on-light-strong)] md:w-[calc(75%-22.5px)]',
+  dialogHeaderLegacy: 'px-[30px] pb-2 pt-[30px]',
+  dialogTitleLegacy: 'text-[26px] font-normal leading-[1.235] md:text-[28px]',
+  dialogBodyLegacy: 'px-[30px] pb-[30px]',
+  dialogBodyTextLegacy: 'text-[20px] leading-[30px]',
 
   tooltipContent:
     'portal-legacy-condensed group relative z-50 max-w-[550px] rounded-none border-[5px] border-[var(--border-on-light-strong)] p-4 text-left bg-[var(--tooltip-surface)] animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=right]:slide-in-from-left-2 data-[side=left]:slide-in-from-right-2 data-[side=top]:slide-in-from-bottom-2 data-[side=bottom]:slide-in-from-top-2',
