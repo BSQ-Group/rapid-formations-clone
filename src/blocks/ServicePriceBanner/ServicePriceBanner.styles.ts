@@ -1,5 +1,6 @@
 export const servicePriceBannerStyles = {
-  section: 'font-legacy-condensed flex min-h-[400px] w-full items-center',
+  section:
+    'font-legacy-condensed flex min-h-[400px] w-full items-center mb-[70px] min-[1023px]:mb-[50px] min-[1590px]:mb-[50px]',
 
   background: {
     navy: 'bg-[var(--surface-banner-navy)]',
