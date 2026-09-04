@@ -25,7 +25,7 @@ export const RegisterCtaPanelBlock: React.FC<RegisterCtaPanelBlockProps> = ({
     <SectionWrapper {...sectionLayout} className={s.section}>
       <Container>
         <Text as="h2" textStyle="span" text={heading} className={s.heading} />
-        <p className={s.description}>
+        <Text as="h4" textStyle="span" className={s.description}>
           {description}
           {phone?.label && (
             <>
@@ -36,7 +36,7 @@ export const RegisterCtaPanelBlock: React.FC<RegisterCtaPanelBlockProps> = ({
             </>
           )}
           {descriptionSuffix}
-        </p>
+        </Text>
         {cta?.label && (
           <div className={s.ctaRow}>
             <CtaLink
