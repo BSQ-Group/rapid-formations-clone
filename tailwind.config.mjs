@@ -230,6 +230,12 @@ export default {
       transitionDuration: {
         350: '350ms',
       },
+      transitionTimingFunction: {
+        legacy: 'ease',
+      },
+      rotate: {
+        540: '540deg',
+      },
       screens: {
         xs: '480px',
         sm: '640px',
