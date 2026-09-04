@@ -10,7 +10,7 @@
     "Make NO code change — PR #202 already shipped the code half; re-measure rather than re-fix.",
     "Do not widen scope to the 62 images that are byte-for-byte identically soft on live, nor to the no-vw sizes byte-waste (that is CORE-7133)."
   ],
-  "status": "backlog",
+  "status": "void",
   "track": "linear",
   "tags": [
     "bug"
@@ -26,14 +26,36 @@
   "supersededBy": null,
   "createdAt": "2026-09-02T10:11:26.469Z",
   "createdBy": "task-console",
-  "updatedAt": "2026-09-04T09:13:07.167Z",
-  "startedAt": null,
+  "updatedAt": "2026-09-04T11:26:34.722Z",
+  "startedAt": "2026-09-04T10:16:31.150Z",
   "completedAt": null,
   "statusHistory": [
     {
       "status": "backlog",
       "at": "2026-09-02T10:11:26.469Z",
       "by": "task-console"
+    },
+    {
+      "status": "running",
+      "at": "2026-09-04T09:35:42.305Z",
+      "by": "mode-x"
+    },
+    {
+      "status": "backlog",
+      "at": "2026-09-04T10:00:37.320Z",
+      "by": "control-mode-x",
+      "note": "restart from scratch: lane SIGTERM-killed (exit 143) by sibling lane's unscoped pkill; branch work committed+pushed; re-dispatch"
+    },
+    {
+      "status": "running",
+      "at": "2026-09-04T10:16:31.150Z",
+      "by": "mode-x"
+    },
+    {
+      "status": "void",
+      "at": "2026-09-04T11:26:34.722Z",
+      "by": "control-mode-x",
+      "note": "cancelled: COMPLETE, NO PR (USER call 2026-09-04). AC#4 mandates no code change; the fix was a Payload media data update (not git-tracked), already applied. Verified: 8 bank logos 116x116, john-warbuton 800x800; re-measured byte-accurate DPR >=1.9x on all 10 instances @768/1440 dsf2. PR #225 closed empty; CORE-6965 closed with evidence. Report at task-state reports/T6-1.md."
     }
   ],
   "qa": null,
@@ -57,5 +79,6 @@
     "syncedAt": "2026-09-02T10:11:26.469Z"
   },
   "id": "T6",
-  "num": 6
+  "num": 6,
+  "runSkills": []
 }

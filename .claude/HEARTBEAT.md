@@ -79,3 +79,17 @@
 11:59:02 | T13 | ❓DECISION coord gate FAIL waiver evidence-based
 11:59:08 | T26 | awaiting-user set, waiver recorded, PR226 ready, stopping
 11:59:44 | CONTROL | T28 | VOID — not reproducing; CORE-7358 closed Done with evidence; report-only branch retained
+11:59:44 | T6 | report committed pushed
+12:00:10 | T6 | qa gate agent running blocking
+12:01:46 | T6 | qa gate attempt1 inconclusive relaunching
+12:03:15 | CONTROL | T13 | RULING: waiver NOT granted; require coord-live BASELINE vs main to prove Dh=-5px family is pre-existing (likely T14/T15/T16)
+12:03:42 | T13 | verify start baseline main coord-live
+12:06:22 | CONTROL | T21 | PARKED — USER capped concurrency at 3; requeued to backlog, no work lost
+12:06:43 | T6 | qa gate approved x2 independent runs
+12:07:35 | T6 | coord-live gate start banking section
+12:09:05 | T13 | verify end baseline confirms fix improves not regresses
+12:15:01 | T6 | coord-live banking timed out 5min retrying 10min
+12:17:29 | CONTROL | T13 | RULING PARTIAL: net improvement accepted (findings 583->273) but 12 elements regressed incl 4x dh 0->30px; fix then re-compare
+12:21:44 | T6 | coord-live banking anchor missed, retry warbuton anchor + cache
+12:24:02 | T13 | fix start round3 strip stale paragraph indent
+12:26:34 | CONTROL | T6 | CLOSED — data-only fix verified; PR #225 closed empty; CORE-6965 closed with evidence
