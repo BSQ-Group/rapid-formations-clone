@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { Loader2 } from 'lucide-react'
 
@@ -10,6 +10,7 @@ import Text from '@/components/shared/Text'
 import { Button } from '@/components/ui/button'
 import { useCustomToast } from '@/components/shared/CustomToast/useCustomToast'
 import { cn } from '@/utilities/ui'
+import { NAME_CHECK_RESET_EVENT } from './reset'
 import { nameCheckStyles as s } from './NameCheck.styles'
 
 export const ACCOUNT_URL = 'https://client.rapidformations.co.uk'
@@ -96,6 +97,12 @@ export const NameCheck: React.FC<NameCheckProps> = ({
     setResult({ status: 'idle' })
     setTimeout(() => inputRef.current?.focus(), 0)
   }
+
+  useEffect(() => {
+    const onReset = () => setResult({ status: 'idle' })
+    window.addEventListener(NAME_CHECK_RESET_EVENT, onReset)
+    return () => window.removeEventListener(NAME_CHECK_RESET_EVENT, onReset)
+  }, [])
 
   const renderForm = (isRetry: boolean) => (
     <div className={cn(s.form, onLight && s.formPackage, isRetry && s.formRetry)}>

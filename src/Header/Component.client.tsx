@@ -29,6 +29,7 @@ import Text from '@/components/shared/Text'
 import { cn } from '@/utilities/ui'
 import { ACCOUNT_LINKS, hasEfilingSession, isEfilingLoginHref } from '@/lib/efiling'
 import { getBrand, getDomainConfig, getLogoPath, Brand } from '@/lib/brand'
+import { requestNameCheckReset } from '@/components/shared/NameCheck/reset'
 import { headerStyles as s } from './Header.styles'
 
 const LoginModal = dynamic(
@@ -189,6 +190,13 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, onDark = false
     setOpenKey(null)
   }, [setMenuOpen])
 
+  const handleLogoClick = useCallback(() => {
+    closeEverything()
+    if (pathname !== '/') return
+    requestNameCheckReset()
+    window.scrollTo(0, 0)
+  }, [closeEverything, pathname])
+
   const renderRow = (item: NavItem, key: string, isLast: boolean, inMainNav = false) => (
     <NavRow
       key={key}
@@ -212,7 +220,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, onDark = false
         <div className={cn(s.container, onDark && s.containerScrolled)}>
           <div className={s.topRow}>
             <div className={s.logoCell}>
-              <Link href="/" className={s.logoLink} onClick={closeEverything}>
+              <Link href="/" className={s.logoLink} onClick={handleLogoClick}>
                 <img
                   src={getLogoPath(domain, onDark)}
                   alt={domain.alt}
