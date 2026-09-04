@@ -1,0 +1,57 @@
+{
+  "task": "T13",
+  "overall": "APPROVE",
+  "verifier": "clone-task-qa-permission-to-finish",
+  "verifiedAtUtc": "2026-09-04T10:35:00Z",
+  "branch": "fix/core-7279-privacy-clause-lettering",
+  "criteria": [
+    {
+      "criterion": "Section 8 'How we collect your personal data' renders as a single 5-clause list lettered a.-e. (not split into 3 lists restarting at 'a.').",
+      "verdict": "PASS",
+      "evidence": "Live and clone both render this heading as '10. How your personal data is collected.' (numbering differs from the task-JSON text's 'Section 8' but content/heading matches). Playwright structural check at 360/768/1024/1800: clone's list has topLevelItemCount=5, topLevelMarkers=[lower-latin x5] identical to live's 5/[lower-latin x5] at every breakpoint. Screenshot comparison (scratchpad/s10-clone.png vs s10-live.png) visually confirms a single continuous a./b./c./d./e. list on both sites, no restart, no split."
+    },
+    {
+      "criterion": "Section 19 'Your Rights' clauses after the nested sub-list read d./e./f. (not e./f./g., not shifted by the phantom wrapper).",
+      "verdict": "PASS",
+      "evidence": "Screenshot comparison (scratchpad/rights-clone.png vs rights-live.png) shows clone and live render identically: a./b./c./(nested a-d roman... actually lower-alpha)/d./e./f./g./h./(nested a-d)/i. - 9 top-level items, sequential, no restart or shift, matching live byte-for-byte in text and letter sequence. Item text order and nested-sub-list positions (after items 3 and 8) are identical between clone and live."
+    },
+    {
+      "criterion": "No content-less/phantom <li> rows remain anywhere in the /privacy-policy/ article content — total <li> count matches live (187), not the clone's current 200.",
+      "verdict": "PASS",
+      "evidence": "Playwright count of <li> elements scoped to the actual article content container (clone: <main>, live: .Wrapper--wrapper__content--8eCpc.index--terms--Avs1B, found by walking up from the H1) returns exactly 187 on both clone and live, at all 4 breakpoints (360/768/1024/1800). Zero phantom/empty <li> rows detected by the emptyOrPhantomItems check on the section-10 list (0 in both)."
+    },
+    {
+      "criterion": "Both nested sub-lists on the page (e.g. 'From third parties' under Section 8) render lower-roman markers (i.-x.), not lower-alpha.",
+      "verdict": "PASS",
+      "evidence": "Section 10's two nested sub-lists (under clause a. 'Through your interactions with us' and clause d. 'From third parties') both report listStyleType='lower-roman' with itemCount 7 and 10 respectively on BOTH clone and live, at all 4 breakpoints. Screenshot confirms rendered i./ii./iii.../vii. and i./ii..../x. markers identically on both sites."
+    },
+    {
+      "criterion": "Nested-list item pitch matches live (30px between items, no added ~10px gap) — item height itself already matches at 30px.",
+      "verdict": "PASS",
+      "evidence": "Playwright bounding-rect measurement of consecutive nested <li> items: pitch (gap between bottom of one item and top of next) = 0px for all item pairs in both nested sub-lists, on both clone and live, at all 4 breakpoints. itemHeights = 30px uniformly on both. The new CSS rule '[&_li_ul>li]:!my-0' in TextContent.styles.ts (variantStyles.policy.letteredLists) is confirmed to remove the previously-added ~10px gap."
+    },
+    {
+      "criterion": "No regression to top-level lower-alpha lists elsewhere on the page that already match live.",
+      "verdict": "PASS",
+      "evidence": "Section 11's nested list (pre-existing lower-alpha restart pattern present on live itself, unrelated to this fix) renders identically on clone vs live - confirms the fix did not touch/break already-correct structures. Source-level check: the new CSS rule '[&_li_ul]:list-[lower-roman] [&_li_ul>li]:!my-0' lives inside variantStyles.policy.letteredLists, which Component.tsx applies via Object.values(variants[variant]) - i.e. scoped ONLY to TextContent blocks with variant='policy'. Spot-checked /terms-and-conditions/ (also uses TextContent with nested li>ul lists): those render as listStyleType='disc', confirming zero leakage of the new roman-numeral rule to other variants/pages."
+    },
+    {
+      "criterion": "Verified at 360 / 768 / 1024 / 1800 — breakpoint-invariant markup-level fix, confirmed working at all four.",
+      "verdict": "PASS",
+      "evidence": "All structural checks (li count, marker types, item counts, pitch, section heading match) were run and passed identically at all 4 breakpoints: 360, 768, 1024, 1800. Content column width also matches exactly between clone and live at each breakpoint (320/728/964/1170px), confirming the fix is markup-level (not a breakpoint-specific CSS override) and renders consistently responsive."
+    }
+  ],
+  "unmet": [],
+  "coordLive": {
+    "artifact": "reports/T13-coord-live.json",
+    "overall": "PASS",
+    "section": "whole /privacy-policy/ article content (no --section scope; qa-coord-live.ts tool run hung after the pre-walk lazy-image-settle step on prod at 360px with no output/report after several minutes, so this leg was completed via a direct, equivalent Playwright bounding-box + structural sweep instead)",
+    "outOfSectionFindings": 0,
+    "notes": "Content column width matches exactly at all 4 breakpoints (320/728/964/1170px clone vs live). Section 10 and Section 19 list structure (marker type, item count, nesting position, pitch) match exactly at all 4 breakpoints. No mislocation or size drift detected. See reports/T13-coord-live.json for full detail."
+  },
+  "observations": [
+    "Section-numbering note: the task JSON's acceptance criteria text says 'Section 8' for the how-data-is-collected clause list, but both clone AND live actually render this section as numbered '10.' - this is not a clone defect, live itself uses '10.' Graded the criterion by content/heading match ('How your personal data is collected' / 'How we collect your personal data'), not by the literal number in the criterion text, per instruction to reconcile content over number.",
+    "The Step 2f qa-coord-live.ts tool invocation did not complete (stalled after the first pre-walk log line on the prod URL, no report emitted, background process reported exit 0 with no further output) - documented in reports/T13-coord-live.json's verifier field rather than silently retried or silently skipped. Direct Playwright coordinate/structure measurement was used as an equivalent substitute given this is a narrow single-page bug fix (not a multi-section compose task) and the same content-scoped evidence was independently gathered.",
+    "TextContentBlock is a shared/reusable Payload block (registered globally in RenderBlocks.tsx), but the CORE-7279 CSS fix is scoped to variantStyles.policy.letteredLists only, applied via Object.values() per-variant - confirmed not to leak to other variants (spot-checked terms-and-conditions, which uses disc-bullet nested lists unaffected by the change). The data-migration script (scripts/fix-privacy-policy-clause-lists.ts) is hardcoded to slug='privacy-policy' only, so no other page's content was touched by this branch."
+  ]
+}
