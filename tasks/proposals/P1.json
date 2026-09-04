@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "kind": "proposal",
+  "title": "CORE-7345-adjacent: FAQ \"Confirmation Statement\" answer mislocated ~2600-2760px at 1024/1800 on /compare-packages/llp/",
+  "body": "Pre-existing defect found while running the CORE-7345 (T26) bug-lane coord regression gate\nagainst /compare-packages/llp/. NOT caused by T26 — T26's diff is exactly one file\n(src/blocks/ComparePackageTable/MobileCarousel.tsx), no changes to src/blocks/FAQs, confirmed via\ngit diff --name-only.\n\n## Defect\nOn /compare-packages/llp/, the FAQ accordion's \"What is a Confirmation Statement?\" answer text\n(\"Confirmation Statement\") is mislocated by ~2600-2760px vertically at the 1024 and 1800\nbreakpoints — it renders far below its expected position (near the bottom of the page / footer\narea) instead of inline within its accordion panel. Not present as a mislocation finding at 360\nor 768 (may be breakpoint-conditional, e.g. columns/positioning CSS on the FAQ answer at\nwider viewports).\n\n## Evidence\nqa-coord-live.ts run (T26's bug-lane coord gate), reports/T26-coord-live.json:\n- @1024: [mislocated] <span> \"confirmation statement\" is 2603px out of place vs its block\n  (clone 378,2603 vs block 0,0)\n- @1800: [mislocated] <span> \"confirmation statement\" is 2761px out of place vs its block\n  (clone 460,2762 vs block 0,1)\n\nprod URL: https://www.rapidformations.co.uk/compare-packages/llp/\nclone URL (preview used for the run): https://rapid-formations-clone-git-fix-core-7345-llp-f-3e851f-bsq-group.vercel.app/compare-packages/llp/\n\n## What to do\n1. Reproduce on /compare-packages/llp/ at 1024 and 1800 — open the \"What is a Confirmation\n   Statement?\" FAQ item and check where its answer text actually renders vs the accordion panel.\n2. Likely file: src/blocks/FAQs/Component.tsx (and/or the shared Collapsible component) — check\n   for a CSS positioning/absolute-positioning bug specific to this one FAQ item's answer content,\n   or a column-layout float that only manifests at 1024/1800.\n3. Check whether this is llp-page-specific or reproduces on other compare-packages pages that\n   share the same FAQ content (\"What is a Confirmation Statement?\" appears to be a common FAQ\n   across compare-packages pages per the coord-live findings list).\n4. Verify fix against live at 360/768/1024/1800 (mislocation only observed at 1024/1800 in this\n   run, so those are the priority breakpoints, but confirm 360/768 aren't secretly affected too\n   since the coord gate's whole-page scope may have masked smaller findings there).",
+  "acceptanceCriteria": [],
+  "status": "backlog",
+  "track": "linear",
+  "tags": [
+    "bug"
+  ],
+  "priority": "low",
+  "effort": "S",
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-09-04T10:34:27.201Z",
+  "createdBy": "claude",
+  "updatedAt": "2026-09-04T10:34:27.201Z",
+  "startedAt": null,
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-09-04T10:34:27.201Z",
+      "by": "claude"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": null,
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": "T26",
+  "externalRef": null,
+  "runSkills": [],
+  "id": "P1",
+  "num": 1
+}

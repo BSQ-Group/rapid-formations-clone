@@ -1,0 +1,34 @@
+{
+  "task": "T26",
+  "overall": "REJECT",
+  "verifier": "clone-task-qa-permission-to-finish",
+  "verifiedAtUtc": "2026-09-04T10:14:39Z",
+  "branch": "fix/core-7345-llp-feature-swap",
+  "criteria": [
+    {
+      "criterion": "At a true 360px viewport, the /compare-packages/llp/ feature-list order matches Live exactly: ... -> Digital (Word) Draft LLP Agreement -> Company Registers with First Entries -> Free Client Portal to Manage Your Companies -> Free Telephone Support -> ... (Company Registers now appears BEFORE Free Client Portal at 360, reversing Clone's current order).",
+      "verdict": "PASS",
+      "evidence": "pw-capture.ts screenshots at 360px, clone vs live, both captured via the gated tool (--label clone / --label live --headed). live-360.png and clone-360.png (cropped to the feature-list region: live-360-crop.png / clone-360-crop.png, /private/tmp/claude-502/-Users-eugeniucozac-bsqgroup-rf-t26/a4335bed-7428-4fc7-9644-fc9b80eb3dfc/scratchpad/T26-shots/) show identical order on both: ... Digital (Word) Draft LLP Agreement -> Company Registers with First Entries -> Free Client Portal to Manage Your Companies -> Free Telephone Support ... Read directly from the rendered images, not the worker's self-report."
+    },
+    {
+      "criterion": "At 768px, 1024px and 1800px, the feature-list order is NOT regressed: Free Client Portal to Manage Your Companies still appears BEFORE Company Registers with First Entries at those breakpoints (Live's own order there, already matching pre-fix).",
+      "verdict": "PASS",
+      "evidence": "pw-capture.ts screenshots at 768/1024/1800px, clone vs live (clone-768.png, live-768.png, clone-1024.png, live-1024.png, clone-1800.png, live-1800.png in the same scratch dir). All three breakpoints show Free Client Portal to Manage Your Companies BEFORE Company Registers with First Entries, identically on clone and live -- no regression at any of the three breakpoints."
+    },
+    {
+      "criterion": "The fix is scoped to /compare-packages/llp/ only - /compare-packages/guarantee/ and any other compare-packages page's feature-list order is untouched (each page manages its own list order independently per the ticket).",
+      "verdict": "PASS",
+      "evidence": "(a) Code inspection: git diff main...fix/core-7345-llp-feature-swap -- src/blocks/ComparePackageTable/MobileCarousel.tsx shows MOBILE_PRODUCT_ORDER_SWAP has exactly one key, 'llp-package'; applyMobileProductOrder() is a no-op for any other slug. (b) Live verification: pw-capture.ts screenshots of /compare-packages/guarantee/ at 360px on both preview (clone-guarantee-360.png) and live (live-guarantee-360.png) show IDENTICAL order between clone and live (Company Registers with First Entries before Free Client Portal to Manage Your Companies on both) -- the guarantee page's own pre-existing order is unaffected by the LLP-scoped fix."
+    }
+  ],
+  "unmet": [
+    "Step 2f leg 1 (whole-block coordinate regression, 360/768/1024/1800): qa-coord-live.ts overall=FAIL at all 4 breakpoints. See coordLive block below -- the FAIL is NOT driven by any finding related to Company Registers / Free Client Portal ordering, duplication, or shift (zero such findings exist in the artifact). It is driven by (1) walker text-node-splitting noise where prod's feature-list items are matched as two separate wrapped-line spans (e.g. 'Company Registers' + 'with First Entries') vs clone's single combined span for the same visible text -- confirmed visually identical content/order in the pw-capture screenshots -- and (2) a 'Confirmation Statement' FAQ-accordion answer mislocated ~2600-2760px vertically at 1024/1800px, which lives in the unrelated FAQs block (src/blocks/FAQs, not touched by this diff -- git log on MobileCarousel.tsx shows this fix is the only recent change to the touched file, and the FAQ block has no commits in this branch at all). Per the skill's own carve-out language ('Any defects it surfaces OUTSIDE the task's section are recorded here and flagged to the owning T##/proposed-tasks.md, but don't block this task'), this reads as pre-existing/out-of-scope noise, not a regression caused by this fix -- but the mechanical gate predicate (coordArtifactSatisfies) requires overall:PASS and the artifact does not read PASS, so per the skill's non-negotiable rule ('A missing breakpoint or a FAIL forces REJECT') this cannot be waived by this QA pass. Two --section anchor attempts ('Compare', 'Company Registers') both resolved to an over-broad block spanning the feature list through the entire FAQ accordion; a third attempt with a tighter anchor ('What's included') was in progress but killed before completion due to time constraints -- it may have produced a cleaner scoped PASS/FAIL, but was not completed and verified."
+  ],
+  "coordLive": {
+    "artifact": "reports/T26-coord-live.json",
+    "overall": "FAIL",
+    "section": "Company Registers",
+    "outOfSectionFindings": 0,
+    "notes": "Step 2f whole-block live coord regression sweep at 360/768/1024/1800 vs https://www.rapidformations.co.uk/compare-packages/llp/. overall:FAIL at all 4 breakpoints. In-scope (gateSection-matched) findings triaged individually: zero reference Company Registers/Free Client Portal order, duplication, or positional shift relative to each other. Findings are (a) missing/extra pairs that are the SAME visible text split across a different number of DOM text nodes between prod and clone (wrapped-line span granularity), confirmed by direct screenshot read to be visually identical content and order at all 4 breakpoints, and (b) a 'confirmation statement' FAQ-answer span mislocated 2603px (1024px bp) / 2761px (1800px bp) -- this is in the FAQs block, not ComparePackageTable/MobileCarousel.tsx, and this branch's diff never touches FAQs code. Recommend flagging the FAQ mislocation to a new proposed-task for the FAQs block on /compare-packages/llp/ (out of T26's scope) and separately revisiting whether qa-coord-live's --section anchor resolution needs a narrower/more reliable anchor for this page's ComparePackageTable block so future coord-live runs on this page don't spuriously pull in the entire FAQ accordion."
+  }
+}

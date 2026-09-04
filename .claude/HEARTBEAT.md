@@ -49,3 +49,19 @@
 11:17:29 | T26 | capture step start: before/after/live 360
 11:18:50 | T26 | pr226 body+screenshots retrofitted per house format, images verified 200
 11:19:12 | T30 | build green, cursor clean, PR ready
+11:22:46 | T13 | qa end APPROVE 7/7 pass
+11:24:16 | T13 | pr start bring #224 to house format
+11:27:20 | T13 | qa REJECT Section11 regression found
+11:28:47 | CONTROL | T26 | RULING: gate-scope issue not code; re-run coord-live with tighter anchor; waiver is control-only; file proposal for FAQ mislocation
+11:28:53 | T26 | rerunning coord-live with tighter section anchor
+11:30:44 | T13 | fix start round2 Section11 regression
+11:31:15 | T6 | resumed cleanup done next.config.ts + scratch removed | model: sonnet
+11:31:18 | T6 | capture screenshots continuing, cropping proof shots
+11:32:28 | T6 | capture screenshots end full-page after+live
+11:32:41 | T13 | fix end round2 zero section mismatches
+11:33:01 | T13 | qa start round2 permission-to-finish
+11:33:41 | T6 | pr step start rewriting body
+11:33:42 | T26 | tighter anchor still whole-page scope, same pre-existing findings, filing proposal
+11:33:48 | T6 | pr step end body+shots verified
+11:34:15 | T6 | pr step end build green cursor not configured
+11:34:15 | T6 | qa gate start foreground
