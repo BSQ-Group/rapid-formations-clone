@@ -12,23 +12,28 @@
  *
  * This walks body.root.children (recursively, in case the pattern recurs inside a
  * nested list) and merges any run of:
- *   list(number) [, paragraph | list(bullet)]* , list(number) [, ...]
- * into a single list(number), folding the paragraph/bullet-list nodes into the
- * children of the last listitem of the list they follow — matching live's nesting
- * exactly. A heading (or anything else) breaks a run.
+ *   list(number) [, paragraph | table | list(bullet)]* , list(number) [, ...]
+ * into a single list(number), folding the paragraph/table/bullet-list nodes into
+ * the children of the last listitem of the list they follow — matching live's
+ * nesting exactly. A heading (or anything else) breaks a run.
  *
- * Two more artifacts of the same import produce PHANTOM `<li>` rows that the merge
- * above doesn't touch, because they don't restart lettering (the browser's
- * `list-style-type: none` + wrapper class already hides that) — they just add a
- * content-less row live never has:
+ * Three more artifacts of the same import produce wrong shapes the merge above
+ * doesn't touch on its own:
  *   1. A "double-wrapped" list: `list > listitem(sole child: list) > list` — an
  *      outer list whose only item exists purely to hold a nested list. Unwrapped to
- *      the real inner list before it's used anywhere.
+ *      the real inner list before it's used anywhere. Produces a PHANTOM `<li>` row
+ *      live never has.
  *   2. A wrapper listitem sitting as a SIBLING inside an existing list's own
  *      children (not a root-level list) — a listitem whose children are entirely
  *      `list` nodes, no text of its own. Live nests that sub-list directly inside
  *      the PRECEDING clause's `<li>` instead of giving it a row of its own, so this
- *      folds it there too.
+ *      folds it there too. Also a phantom `<li>` row.
+ *   3. A listitem carrying Lexical's legacy `indent` flag (indent > 0) while still
+ *      sitting FLAT alongside its indent-0 siblings in the same list, instead of
+ *      actually nested inside one of them (e.g. Section 11's "Legitimate interest /
+ *      Legal obligation / Consent" siblings, which belong inside the "Performance
+ *      of a contract" nested list two items above them). Doesn't add or remove a
+ *      row, but promotes clauses live nests one level deeper to the top level.
  *
  * MODES:
  *   bun scripts/fix-privacy-policy-clause-lists.ts          # DRY RUN (default).
@@ -55,7 +60,7 @@ type LexicalNode = {
 
 const isNumberList = (n: LexicalNode) => n.type === 'list' && n.listType === 'number'
 const isBulletList = (n: LexicalNode) => n.type === 'list' && n.listType === 'bullet'
-const isFoldable = (n: LexicalNode) => n.type === 'paragraph' || isBulletList(n)
+const isFoldable = (n: LexicalNode) => n.type === 'paragraph' || n.type === 'table' || isBulletList(n)
 
 const isWrapperListItem = (n: LexicalNode): boolean =>
   n.type === 'listitem' &&
@@ -93,6 +98,33 @@ const foldWrapperSiblings = (items: LexicalNode[]): LexicalNode[] => {
   return out
 }
 
+const firstNestedList = (n: LexicalNode): LexicalNode | undefined =>
+  (n.children as LexicalNode[] | undefined)?.find((c) => c.type === 'list')
+
+/** A listitem carrying Lexical's legacy `indent` flag (indent > 0) while still
+ * sitting FLAT in the same array as its indent-0 siblings — rather than actually
+ * nested inside one of them — belongs inside the nested list already sitting in
+ * the nearest preceding item at one shallower indent. Genuinely-nested items (the
+ * common case) are unaffected: they live in their own list's children array, which
+ * never has a preceding indent-0 sibling in the same array to fold into. */
+const foldIndentedSiblings = (items: LexicalNode[]): LexicalNode[] => {
+  const out: LexicalNode[] = []
+  const owners: LexicalNode[] = []
+  for (const item of items) {
+    const indent = Number(item.indent) || 0
+    const parent = indent > 0 ? owners[indent - 1] : undefined
+    const nested = parent && firstNestedList(parent)
+    if (parent && nested) {
+      nested.children = [...(nested.children ?? []), { ...item, indent: 0 }]
+    } else {
+      out.push(item)
+    }
+    owners[indent] = item
+    owners.length = indent + 1
+  }
+  return out
+}
+
 /** Merge a run of `list(number)` siblings (interrupted only by paragraphs/bullet
  * lists that belong nested inside the preceding clause) into one continuous list. */
 const mergeListRuns = (nodes: LexicalNode[]): LexicalNode[] => {
@@ -107,7 +139,8 @@ const mergeListRuns = (nodes: LexicalNode[]): LexicalNode[] => {
     if (recursed.type === 'list') {
       recursed = unwrapDoubleList(recursed)
       if (recursed.children) {
-        recursed = { ...recursed, children: foldWrapperSiblings(recursed.children) }
+        const withFoldedWrappers = foldWrapperSiblings(recursed.children)
+        recursed = { ...recursed, children: foldIndentedSiblings(withFoldedWrappers) }
       }
     }
 

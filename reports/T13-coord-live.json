@@ -1,0 +1,73 @@
+{
+  "task": "T13",
+  "verifier": "independent-qa (clone-task-qa-permission-to-finish, attempt 2)",
+  "tool": "qa-coord-live.ts",
+  "verifiedAtUtc": "2026-09-04T10:33:00Z",
+  "prodUrl": "https://www.rapidformations.co.uk/privacy-policy/",
+  "cloneUrl": "https://localhost:3002/privacy-policy/",
+  "invocation": "bun ~/.claude/skills/clone-live-page-to-payload/scripts/qa-coord-live.ts --prod-url https://www.rapidformations.co.uk/privacy-policy/ --clone-url https://localhost:3002/privacy-policy/ --clone-dev --viewports 360,768,1024,1800 --out reports/T13-coord-live.json",
+  "notes": "Run WITHOUT --waivers (no .claude/qa-bg-waivers.json exists in this repo). Run WITHOUT --section: this is a single content-region legal-page bug fix, not a composed multi-section page, so the whole-page gate (default, no --section) is the correct scope to catch the whole clause-list content region plus any collateral shift. The tool did NOT hang in this run (it completed with real per-breakpoint output) - a prior attempt-1 QA artifact (now removed, see below) incorrectly claimed the tool hangs and substituted an unverifiable manual check that also mis-reported PASS for Section 11. The --out file was not found on disk after the run (console output captured instead, saved verbatim to reports/T13-coord-live-raw-output.txt) - likely written after the tail -100 truncation point or the process was killed post-completion before an async write flushed; the console overall/per-breakpoint verdicts below are read directly from the tool's own stdout, not fabricated.",
+  "overall": "FAIL",
+  "breakpoints": [
+    {
+      "bp": 360,
+      "gate": "whole-page",
+      "overall": "FAIL",
+      "coverage": { "checked": 335, "missing": 37, "extra": 37, "skipped": 0 },
+      "mislocated": 3,
+      "size": 39,
+      "worstPx": 148,
+      "sampleFindings": [
+        "[mislocated] <a> \"cookie policy\" is 148px out of place vs its block",
+        "[mislocated] <span> \".\" is 144px out of place vs its block",
+        "[mislocated] <span> \"where we need to perform the contract we\" is 76px out of place vs its block",
+        "[size] <th> Δw=-25px Δh=-42px (x4)",
+        "[size] <a> Δw=162px Δh=30px"
+      ]
+    },
+    {
+      "bp": 768,
+      "gate": "whole-page",
+      "overall": "FAIL",
+      "coverage": { "checked": 335, "missing": 44, "extra": 37, "skipped": 0 },
+      "mislocated": 0,
+      "size": 139,
+      "worstPx": 42,
+      "sampleFindings": [
+        "[size] <li> Δw=28px Δh=-30px (x3, consistent with an extra/misplaced <li> row shifting layout)",
+        "[size] <p> Δw=8px Δh=-30px",
+        "[size] <a> Δw=46px Δh=-30px"
+      ]
+    },
+    {
+      "bp": 1024,
+      "gate": "whole-page",
+      "overall": "FAIL",
+      "coverage": { "checked": 376, "missing": 44, "extra": 32, "skipped": 0 },
+      "mislocated": 2,
+      "size": 142,
+      "worstPx": 105,
+      "sampleFindings": [
+        "[mislocated] <span> \".\" is 105px out of place vs its block",
+        "[mislocated] <a> \"cookie policy\" is 104px out of place vs its block",
+        "[size] <li> Δw=12px/27px Δh=-30px (multiple)"
+      ]
+    },
+    {
+      "bp": 1800,
+      "gate": "whole-page",
+      "overall": "FAIL",
+      "coverage": { "checked": 383, "missing": 44, "extra": 36, "skipped": 0 },
+      "mislocated": 1,
+      "size": 142,
+      "worstPx": 91,
+      "sampleFindings": [
+        "[mislocated] <span> \".\" is 91px out of place vs its block",
+        "[size] <li> Δw=27px Δh=-30px",
+        "[size] <a> Δw=-1025px Δh=-30px"
+      ]
+    }
+  ],
+  "correlationWithManualFinding": "The recurring <li>/<p> Δh=-30px size deltas across all 4 breakpoints are consistent with the Section 11 defect found independently via DOM inspection: clone wrongly promotes 'Legitimate interest'/'Legal obligation'/'Consent' from nested sub-items to top-level <li> siblings and splits the list into two OLs around the table, which shifts every element below that point in the article by roughly one extra list-item's worth of height/position relative to prod. The 'missing'/'extra' node counts (37-44 each way) and the 'cookie policy' link mislocation are also consistent with structural drift cascading from that split rather than a single isolated diff.",
+  "rawOutputFile": "reports/T13-coord-live-raw-output.txt"
+}

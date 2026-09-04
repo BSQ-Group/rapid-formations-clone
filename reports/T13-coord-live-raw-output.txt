@@ -1,0 +1,100 @@
+[walk]   matched 826/990
+[walk]   matched 876/990
+[walk]   matched 926/990
+[walk]   matched 976/990
+[walk]   matched 990/990
+[walk]   done — 990 nodes annotated with matched rules
+[walk] navigating to https://localhost:3002/privacy-policy/?_cb=1788517227578 at 1800px (clone mode)
+[walk] pre-walk: full-page lazy-image settle (T340)
+[walk]   settle: scrolled 16634px, forced 16 img(s), 17 img(s) loaded
+[walk] phase 1: structural walk against body
+[walk]   captured 788 elements (877 section + 0 grafted)
+[walk]   normalized 17 absolute href(s) to source-origin-relative paths
+[walk] phase 2: per-node CDP getMatchedStylesForNode
+[walk]   matched 1/877
+[walk]   matched 26/877
+[walk]   matched 51/877
+[walk]   matched 76/877
+[walk]   matched 101/877
+[walk]   matched 126/877
+[walk]   matched 176/877
+[walk]   matched 201/877
+[walk]   matched 226/877
+[walk]   matched 251/877
+[walk]   matched 276/877
+[walk]   matched 301/877
+[walk]   matched 326/877
+[walk]   matched 351/877
+[walk]   matched 401/877
+[walk]   matched 426/877
+[walk]   matched 476/877
+[walk]   matched 501/877
+[walk]   matched 551/877
+[walk]   matched 576/877
+[walk]   matched 601/877
+[walk]   matched 651/877
+[walk]   matched 676/877
+[walk]   matched 701/877
+[walk]   matched 726/877
+[walk]   matched 751/877
+[walk]   matched 776/877
+[walk]   matched 801/877
+[walk]   matched 826/877
+[walk]   matched 851/877
+[walk]   matched 876/877
+[walk]   matched 877/877
+[walk]   done — 877 nodes annotated with matched rules
+
+coord-live FAIL  https://localhost:3002/privacy-policy/
+  @360: FAIL (gate=whole-page)  coverage[checked=335 missing=37 extra=37 skipped=0]  mislocated=3 size=39 worst=148px
+     [mislocated] <a> visible <a> "cookie policy" is 148px out of place vs its block (clone -97,-38 vs block -10,110)
+     [mislocated] <span> visible <span> "." is 144px out of place vs its block (clone -154,-8 vs block -10,110)
+     [mislocated] <span> visible <span> "where we need to perform the contract we" is 76px out of place vs its block (clone -25,34 vs block -10,110)
+     [size] <th> size differs Δw=-25px Δh=-42px
+     [size] <th> size differs Δw=-25px Δh=-42px
+     [size] <th> size differs Δw=-25px Δh=-42px
+     [size] <th> size differs Δw=-25px Δh=-42px
+     [size] <span> size differs Δw=29px Δh=35px
+     [size] <span> size differs Δw=29px Δh=35px
+     [size] <em> size differs Δw=4px Δh=35px
+     [size] <a> size differs Δw=162px Δh=30px
+     [size] <span> size differs Δw=11px Δh=15px
+  @768: FAIL (gate=whole-page)  coverage[checked=335 missing=44 extra=37 skipped=0]  mislocated=0 size=139 worst=42px
+     [size] <th> size differs Δw=-18px Δh=-42px
+     [size] <th> size differs Δw=3px Δh=-42px
+     [size] <p> size differs Δw=8px Δh=-30px
+     [size] <li> size differs Δw=12px Δh=-30px
+     [size] <p> size differs Δw=8px Δh=-30px
+     [size] <a> size differs Δw=46px Δh=-30px
+     [size] <p> size differs Δw=-10px Δh=30px
+     [size] <li> size differs Δw=28px Δh=-30px
+     [size] <p> size differs Δw=-10px Δh=30px
+     [size] <li> size differs Δw=28px Δh=-30px
+     [size] <li> size differs Δw=28px Δh=-30px
+     [size] <p> size differs Δw=7px Δh=-30px
+  @1024: FAIL (gate=whole-page)  coverage[checked=376 missing=44 extra=32 skipped=0]  mislocated=2 size=142 worst=105px
+     [mislocated] <span> visible <span> "." is 105px out of place vs its block (clone 95,-38 vs block -10,12)
+     [mislocated] <a> visible <a> "cookie policy" is 104px out of place vs its block (clone 94,-38 vs block -10,12)
+     [size] <li> size differs Δw=12px Δh=-30px
+     [size] <p> size differs Δw=-9px Δh=30px
+     [size] <p> size differs Δw=-9px Δh=30px
+     [size] <li> size differs Δw=27px Δh=-30px
+     [size] <li> size differs Δw=27px Δh=-30px
+     [size] <span> size differs Δw=655px Δh=15px
+     [size] <span> size differs Δw=16px Δh=15px
+     [size] <span> size differs Δw=327px Δh=15px
+     [size] <span> size differs Δw=348px Δh=15px
+     [size] <th> size differs Δw=-17px Δh=-12px
+  @1800: FAIL (gate=whole-page)  coverage[checked=383 missing=44 extra=36 skipped=0]  mislocated=1 size=142 worst=91px
+     [mislocated] <span> visible <span> "." is 91px out of place vs its block (clone 73,-37 vs block -18,25)
+     [size] <span> size differs Δw=26px Δh=35px
+     [size] <a> size differs Δw=-1025px Δh=-30px
+     [size] <p> size differs Δw=9px Δh=-30px
+     [size] <p> size differs Δw=-8px Δh=30px
+     [size] <a> size differs Δw=99px Δh=-30px
+     [size] <li> size differs Δw=27px Δh=-30px
+     [size] <span> size differs Δw=861px Δh=15px
+     [size] <span> size differs Δw=137px Δh=15px
+     [size] <span> size differs Δw=533px Δh=15px
+     [size] <span> size differs Δw=554px Δh=15px
+     [size] <th> size differs Δw=-16px Δh=-12px
