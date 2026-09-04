@@ -18,10 +18,6 @@ const DESCRIPTION_MIN_HEIGHT: Record<string, string> = {
   taller: s.mobileDescriptionTaller,
 }
 
-// Live renders "Company Registers with First Entries" before "Free Client Portal
-// to Manage Your Companies" on the LLP package below md, but in the opposite
-// order at md+ — the desktop grid already matches that md+ order via the shared
-// `data.products` array, so only the mobile-only order needs the swap (CORE-7345).
 const MOBILE_PRODUCT_ORDER_SWAP: Record<string, [before: string, after: string]> = {
   'llp-package': ['6a8c21de554f4d9a40c07ad2', '6a8c21e2554f4d9a40c07af1'],
 }
