@@ -21,8 +21,8 @@
   "owner": null,
   "supersededBy": null,
   "createdAt": "2026-09-04T09:15:21.288Z",
-  "createdBy": "",
-  "updatedAt": "2026-09-04T09:15:21.288Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-09-04T09:24:16.441Z",
   "startedAt": null,
   "completedAt": null,
   "statusHistory": [
@@ -43,7 +43,15 @@
   "rejections": [],
   "proposalSource": null,
   "parent": null,
-  "externalRef": null,
+  "externalRef": {
+    "source": "linear",
+    "identifier": "CORE-7259",
+    "url": "https://linear.app/bsq-group/issue/CORE-7259/rf-sitewide-burger-sub-menu-items-below-the-fold-are-unreachable-fix",
+    "id": "4541093c-c5af-463d-969d-d7702d01a48b",
+    "title": "[RF] SITEWIDE: burger sub-menu items below the fold are unreachable (fix beyond Live parity)",
+    "status": "Todo",
+    "syncedAt": "2026-09-04T09:24:16.441Z"
+  },
   "runSkills": [],
   "id": "T12",
   "num": 12

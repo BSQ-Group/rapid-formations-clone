@@ -21,8 +21,8 @@
   "owner": null,
   "supersededBy": null,
   "createdAt": "2026-09-04T09:15:21.289Z",
-  "createdBy": "",
-  "updatedAt": "2026-09-04T09:15:21.289Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-09-04T09:24:16.441Z",
   "startedAt": null,
   "completedAt": null,
   "statusHistory": [
@@ -43,7 +43,15 @@
   "rejections": [],
   "proposalSource": null,
   "parent": null,
-  "externalRef": null,
+  "externalRef": {
+    "source": "linear",
+    "identifier": "CORE-7287",
+    "url": "https://linear.app/bsq-group/issue/CORE-7287/rf-privacy-policy-italic-notes-wrapped-in-a-paragraph-instead-of",
+    "id": "0738c2eb-cb60-4580-9b9f-a3f9feb00535",
+    "title": "[RF] /privacy-policy/ — italic notes wrapped in a paragraph instead of rendering inline in the list item",
+    "status": "Todo",
+    "syncedAt": "2026-09-04T09:24:16.441Z"
+  },
   "runSkills": [],
   "id": "T15",
   "num": 15

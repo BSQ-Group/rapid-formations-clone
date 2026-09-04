@@ -21,8 +21,8 @@
   "owner": null,
   "supersededBy": null,
   "createdAt": "2026-09-04T09:15:21.290Z",
-  "createdBy": "",
-  "updatedAt": "2026-09-04T09:15:21.290Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-09-04T09:24:16.441Z",
   "startedAt": null,
   "completedAt": null,
   "statusHistory": [
@@ -43,7 +43,15 @@
   "rejections": [],
   "proposalSource": null,
   "parent": null,
-  "externalRef": null,
+  "externalRef": {
+    "source": "linear",
+    "identifier": "CORE-7288",
+    "url": "https://linear.app/bsq-group/issue/CORE-7288/rf-privacy-policy-gap-above-9-of-23-section-headings-is-30px-tighter",
+    "id": "5fc796e3-3f21-44a1-910f-0fda36c2abe5",
+    "title": "[RF] /privacy-policy/ — gap above 9 of 23 section headings is 30px tighter than live",
+    "status": "Todo",
+    "syncedAt": "2026-09-04T09:24:16.441Z"
+  },
   "runSkills": [],
   "id": "T16",
   "num": 16

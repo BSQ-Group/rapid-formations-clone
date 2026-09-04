@@ -21,8 +21,8 @@
   "owner": null,
   "supersededBy": null,
   "createdAt": "2026-09-04T09:15:21.290Z",
-  "createdBy": "",
-  "updatedAt": "2026-09-04T09:15:21.290Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-09-04T09:24:16.441Z",
   "startedAt": null,
   "completedAt": null,
   "statusHistory": [
@@ -43,7 +43,15 @@
   "rejections": [],
   "proposalSource": null,
   "parent": null,
-  "externalRef": null,
+  "externalRef": {
+    "source": "linear",
+    "identifier": "CORE-7332",
+    "url": "https://linear.app/bsq-group/issue/CORE-7332/rf-compare-packagesguarantee-gap-above-testimonial-block-differs-from",
+    "id": "52632285-3cce-41c0-b277-db71de833299",
+    "title": "[RF] /compare-packages/guarantee/ — Gap above testimonial block differs from Live (page-specific values)",
+    "status": "Todo",
+    "syncedAt": "2026-09-04T09:24:16.441Z"
+  },
   "runSkills": [],
   "id": "T21",
   "num": 21

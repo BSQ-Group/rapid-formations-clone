@@ -21,8 +21,8 @@
   "owner": null,
   "supersededBy": null,
   "createdAt": "2026-09-04T09:15:21.289Z",
-  "createdBy": "",
-  "updatedAt": "2026-09-04T09:15:21.289Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-09-04T09:24:16.441Z",
   "startedAt": null,
   "completedAt": null,
   "statusHistory": [
@@ -43,7 +43,15 @@
   "rejections": [],
   "proposalSource": null,
   "parent": null,
-  "externalRef": null,
+  "externalRef": {
+    "source": "linear",
+    "identifier": "CORE-7282",
+    "url": "https://linear.app/bsq-group/issue/CORE-7282/rf-privacy-policy-h3-sub-heading-line-height-undersized-vs-live",
+    "id": "1290b594-6187-43c6-bbff-02b9874d9e56",
+    "title": "[RF] /privacy-policy/ — H3 sub-heading line-height undersized vs live",
+    "status": "Todo",
+    "syncedAt": "2026-09-04T09:24:16.441Z"
+  },
   "runSkills": [],
   "id": "T14",
   "num": 14

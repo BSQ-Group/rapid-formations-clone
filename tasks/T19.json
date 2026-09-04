@@ -21,8 +21,8 @@
   "owner": null,
   "supersededBy": null,
   "createdAt": "2026-09-04T09:15:21.290Z",
-  "createdBy": "",
-  "updatedAt": "2026-09-04T09:15:21.290Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-09-04T09:24:16.441Z",
   "startedAt": null,
   "completedAt": null,
   "statusHistory": [
@@ -43,7 +43,15 @@
   "rejections": [],
   "proposalSource": null,
   "parent": null,
-  "externalRef": null,
+  "externalRef": {
+    "source": "linear",
+    "identifier": "CORE-7321",
+    "url": "https://linear.app/bsq-group/issue/CORE-7321/rf-shared-gap-above-package-selection-heading-16px-tighter-at-768",
+    "id": "6b12ef00-36b2-46a5-8891-d56f647fcd8e",
+    "title": "[RF] SHARED: Gap above package-selection heading 16px tighter at 768",
+    "status": "Todo",
+    "syncedAt": "2026-09-04T09:24:16.441Z"
+  },
   "runSkills": [],
   "id": "T19",
   "num": 19

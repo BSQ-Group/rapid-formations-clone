@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-7347 · [RF] 404 page missing styled content, needs header/footer confirmed",
+  "body": "Linear: https://linear.app/bsq-group/issue/CORE-7347/rf-404-page-missing-styled-content-needs-headerfooter-confirmed\n\n(Reference only — the ticket is the source of truth; fetch the live description at implement time.)\n\nImported by Planning 2026-09-04 (board↔Linear sync, second pass — this ticket was newly assigned at Todo and had no board row).",
+  "acceptanceCriteria": [
+    "Resolve CORE-7347 as specified in Linear (fetched live at implement time)."
+  ],
+  "status": "backlog",
+  "track": "linear",
+  "tags": [
+    "bug"
+  ],
+  "priority": "normal",
+  "effort": "S",
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-09-04T09:24:28.946Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-09-04T09:24:28.946Z",
+  "startedAt": null,
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-09-04T09:24:28.946Z",
+      "by": "planning"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": null,
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "externalRef": {
+    "source": "linear",
+    "identifier": "CORE-7347",
+    "url": "https://linear.app/bsq-group/issue/CORE-7347/rf-404-page-missing-styled-content-needs-headerfooter-confirmed",
+    "id": "2b377dc1-7147-40ce-a10d-a4c12dcb5441",
+    "title": "[RF] 404 page missing styled content, needs header/footer confirmed",
+    "status": "Todo",
+    "syncedAt": "2026-09-04T09:24:28.946Z"
+  },
+  "runSkills": [],
+  "id": "T30",
+  "num": 30
+}

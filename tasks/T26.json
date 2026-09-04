@@ -21,8 +21,8 @@
   "owner": null,
   "supersededBy": null,
   "createdAt": "2026-09-04T09:15:21.292Z",
-  "createdBy": "",
-  "updatedAt": "2026-09-04T09:15:21.292Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-09-04T09:24:16.441Z",
   "startedAt": null,
   "completedAt": null,
   "statusHistory": [
@@ -43,7 +43,15 @@
   "rejections": [],
   "proposalSource": null,
   "parent": null,
-  "externalRef": null,
+  "externalRef": {
+    "source": "linear",
+    "identifier": "CORE-7345",
+    "url": "https://linear.app/bsq-group/issue/CORE-7345/rf-compare-packagesllp-free-client-portal-and-company-registers",
+    "id": "b2c820bc-f687-4b4f-a9ec-44e712496798",
+    "title": "[RF] /compare-packages/llp/ — \"Free Client Portal\" and \"Company Registers\" feature-list items swapped vs Live",
+    "status": "Todo",
+    "syncedAt": "2026-09-04T09:24:16.441Z"
+  },
   "runSkills": [],
   "id": "T26",
   "num": 26

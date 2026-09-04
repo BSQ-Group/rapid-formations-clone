@@ -21,8 +21,8 @@
   "owner": null,
   "supersededBy": null,
   "createdAt": "2026-09-04T09:15:21.290Z",
-  "createdBy": "",
-  "updatedAt": "2026-09-04T09:15:21.290Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-09-04T09:24:16.441Z",
   "startedAt": null,
   "completedAt": null,
   "statusHistory": [
@@ -43,7 +43,15 @@
   "rejections": [],
   "proposalSource": null,
   "parent": null,
-  "externalRef": null,
+  "externalRef": {
+    "source": "linear",
+    "identifier": "CORE-7322",
+    "url": "https://linear.app/bsq-group/issue/CORE-7322/rf-compare-packages-comparison-grid-not-included-minus-icon-wrong-size",
+    "id": "aad227ff-d06c-4305-9440-a3ef27f29a35",
+    "title": "[RF] /compare-packages/ — Comparison-grid \"not included\" minus icon wrong size and colour",
+    "status": "Todo",
+    "syncedAt": "2026-09-04T09:24:16.441Z"
+  },
   "runSkills": [],
   "id": "T20",
   "num": 20

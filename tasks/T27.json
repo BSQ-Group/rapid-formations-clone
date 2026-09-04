@@ -22,8 +22,8 @@
   "owner": null,
   "supersededBy": null,
   "createdAt": "2026-09-04T09:15:38.488Z",
-  "createdBy": "",
-  "updatedAt": "2026-09-04T09:15:38.488Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-09-04T09:24:16.441Z",
   "startedAt": null,
   "completedAt": null,
   "statusHistory": [
@@ -44,7 +44,15 @@
   "rejections": [],
   "proposalSource": null,
   "parent": null,
-  "externalRef": null,
+  "externalRef": {
+    "source": "linear",
+    "identifier": "CORE-7340",
+    "url": "https://linear.app/bsq-group/issue/CORE-7340/rf-compare-packagesllp-final-content-to-footer-gap-looser-than-live-at",
+    "id": "73ee0598-db9d-443f-ae02-a5cebd523cf6",
+    "title": "[RF] /compare-packages/llp/ — final-content-to-footer gap looser than Live at 1024/1800 (opposite of CORE-6999)",
+    "status": "Todo",
+    "syncedAt": "2026-09-04T09:24:16.441Z"
+  },
   "runSkills": [],
   "id": "T27",
   "num": 27

@@ -21,8 +21,8 @@
   "owner": null,
   "supersededBy": null,
   "createdAt": "2026-09-04T09:15:21.289Z",
-  "createdBy": "",
-  "updatedAt": "2026-09-04T09:15:21.289Z",
+  "createdBy": "planning",
+  "updatedAt": "2026-09-04T09:24:16.441Z",
   "startedAt": null,
   "completedAt": null,
   "statusHistory": [
@@ -43,7 +43,15 @@
   "rejections": [],
   "proposalSource": null,
   "parent": null,
-  "externalRef": null,
+  "externalRef": {
+    "source": "linear",
+    "identifier": "CORE-7279",
+    "url": "https://linear.app/bsq-group/issue/CORE-7279/rf-privacy-policy-clause-lettering-broken-throughout-numbered-content",
+    "id": "ac627511-c006-400c-b8ac-aaf064358c94",
+    "title": "[RF] /privacy-policy/ — clause lettering broken throughout numbered content (phantom wrapper rows; nested marker type & spacing)",
+    "status": "Todo",
+    "syncedAt": "2026-09-04T09:24:16.441Z"
+  },
   "runSkills": [],
   "id": "T13",
   "num": 13
