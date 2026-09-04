@@ -19,8 +19,7 @@ export const collapsibleStyles = {
     'rotate-540 text-[var(--surface-brand-cyan)] group-hover/collapsible:text-[var(--surface-brand-cyan)]',
   icon: 'h-[17px] w-auto',
 
-  panel: 'grid overflow-hidden',
-  panelOpen: 'grid-rows-[1fr] transition-[grid-template-rows] duration-500 ease-in',
-  panelClosed: 'grid-rows-[0fr] transition-[grid-template-rows] duration-350 ease-out',
-  panelInner: 'min-h-0',
+  panel: 'overflow-hidden',
+  panelOpen: 'max-h-[2000px] transition-[max-height] duration-500 ease-in',
+  panelClosed: 'max-h-0 transition-[max-height] duration-350 ease-out',
 } as const
