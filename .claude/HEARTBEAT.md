@@ -36,3 +36,12 @@
 11:00:37 | CONTROL | T30 | WATCHDOG-KILLED — session exit 143 (SIGTERM) from sibling unscoped pkill; work rescued+pushed, re-queued
 11:00:41 | T26 | ack pkill safety rule: only lsof -ti tcp:<port> | xargs kill going forward, never machine-wide
 11:06:44 | T26 | ack PR format requirement (prose + before/after/live grid per PR#223), will follow post-QA
+11:16:52 | T13 | qa gate running, resumed nested agent
+11:16:53 | T26 | analyzing coord-gate FAIL, findings unrelated blocks
+11:16:58 | T30 | resumed, re-verified fix, QA gate ran
+11:16:58 | T30 | QA APPROVE all 5 criteria + coord-live PASS
+11:16:58 | T30 | PR227 opened, retrofit house format
+11:16:58 | T30 | shots pushed qa/pr-shots, PR body updated
+11:16:58 | T30 | build green, cursor not reporting
+11:16:58 | T30 | set awaiting-user, report committed
+11:16:58 | T30 | waiting on vercel redeploy report commit
