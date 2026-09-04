@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "kind": "proposal",
+  "title": "img.naturalWidth is density-corrected for x-descriptor srcset — breaks any 'naturalWidth/cssWidth' DPR/resolution QA formula",
+  "body": "Found while re-verifying CORE-6965 (T6): the task's prescribed re-measurement formula\n(\"effective DPR = naturalWidth / rendered CSS width\", at deviceScaleFactor 2) produced a false\nnegative on images that were ALREADY correctly fixed.\n\n## Root cause\nPer the HTML/WHATWG spec, `HTMLImageElement.naturalWidth`/`naturalHeight` for an image selected\nvia an `x` density descriptor in `srcset` (e.g. `foo.png 1x, foo-2x.png 2x`) report the\n**density-corrected** intrinsic size — i.e. the real decoded pixel width DIVIDED by the selected\ndensity — not the raw byte dimensions of the file that was actually downloaded and rendered.\n\nThis matters directly for this codebase: `src/components/Media/ImageMedia/index.tsx` sets\n`sizes = sizeFromProps ?? (widthFromProps ? undefined : '100vw')` — i.e. any `<Media>` /\n`next/image` usage that passes a fixed `width`/`height` and no explicit `sizes` (the common\npattern for fixed-size logos/icons, e.g. `src/blocks/BankingPartners/BankingPartnersView.tsx`)\ngets Next's `x`-descriptor srcset form (`?w=64 1x, ?w=128 2x`), not the `w`-descriptor/`sizes`\nform.\n\nConcretely, for the CORE-6965 bank-partner logos (58px CSS box, 116px 2x master): after the CMS\nfix landed, `img.naturalWidth` read exactly `58` (== cssWidth == cssWidth), which by the naive\nformula computes `effectiveDPR = 58/58 = 1.0` — i.e. LOOKS exactly like the pre-fix, broken\nstate, even though the browser genuinely fetched and decoded the full 116×116 byte master. This\nwas reproduced and confirmed via independent fetch+decode: `fetch(img.currentSrc)` →\n`await blob()` → `await createImageBitmap(blob)` gave `bitmap.width === 116` for the exact same\nresource the `<img>` element reported `naturalWidth: 58` for, on multiple assets, consistently.\n\n## Why it matters beyond T6\nAny future QA/measurement task (this one plus, notably, **CORE-7133**, the no-`vw` `sizes`\nbyte-waste ticket already flagged as adjacent) that measures \"is this image served at N×\nresolution\" via `naturalWidth / cssWidth` on a fixed-width `next/image` (x-descriptor srcset,\nthe common case sitewide per `ImageMedia`'s `sizes` fallback logic above) will get a **false\nnegative** — it will report a correctly-2x-served image as still 1×, and a worker/agent could\nchase a phantom regression or, worse, \"fix\" something that isn't broken.\n\n## What to do\nWhen a future task's AC prescribes measuring served-image resolution via `naturalWidth`, replace\nthe formula with a byte-accurate measurement:\n```js\nconst currentSrc = img.currentSrc || img.src\nconst resp = await fetch(currentSrc)\nconst blob = await resp.blob()\nconst bitmap = await createImageBitmap(blob)\nconst effectiveDPR = bitmap.width / img.getBoundingClientRect().width\n```\nThis reads the TRUE decoded pixel width of the exact response the browser is displaying,\nunaffected by density-descriptor correction. Worth adding as a documented helper/snippet\n(maybe in `clone-qa-tools`) so it isn't re-derived from scratch each time a resolution-QA task\ncomes up — this took real diagnostic time on T6 (fetch+decode cross-check, network-response\nlogging, multiple repro scripts) before the spec behavior was identified as the cause rather\nthan a real regression.\n\n## Evidence\nSee T6's report (reports/T6-1.md, field 4 and field 10) for the full diagnostic trail: repeated\nmeasurements on the Vercel preview for `fix/core-6965-image-resolution`, `_next/image` request\nlogging showing only ONE network request per asset (ruling out a stale-cache explanation), and\nthe fetch+decode cross-check proving the served bytes were correct while `naturalWidth` reported\nhalf that value.\n\nprod/clone URLs used: https://rapid-formations-clone-git-fix-core-6965-image-315b4b-bsq-group.vercel.app/\n(home page, BankingPartners + CustomerQuote/testimonial sections).",
+  "acceptanceCriteria": [],
+  "status": "backlog",
+  "track": "linear",
+  "tags": [
+    "tooling"
+  ],
+  "priority": "low",
+  "effort": "S",
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-09-04T12:25:00.000Z",
+  "createdBy": "claude",
+  "updatedAt": "2026-09-04T12:25:00.000Z",
+  "startedAt": null,
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-09-04T12:25:00.000Z",
+      "by": "claude"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": null,
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": "T6",
+  "externalRef": "CORE-7133",
+  "runSkills": [],
+  "id": "P3",
+  "num": 3
+}
