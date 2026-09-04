@@ -3,6 +3,7 @@ import { slugField } from 'payload'
 
 import { defaultLexical } from '@/fields/defaultLexical'
 import { link } from '@/fields/link'
+import { revalidatePackage, revalidatePackageDelete } from './hooks/revalidatePackages'
 import { anyone } from '../access/anyone'
 import { authenticated } from '../access/authenticated'
 
@@ -29,6 +30,10 @@ export const Packages: CollectionConfig = {
       'Company formation packages. A price, name or feature list lives here once and every compare-packages page that shows it reads from this record.',
   },
   defaultSort: 'order',
+  hooks: {
+    afterChange: [revalidatePackage],
+    afterDelete: [revalidatePackageDelete],
+  },
   fields: [
     {
       name: 'name',
@@ -144,6 +149,16 @@ export const Packages: CollectionConfig = {
           },
         },
       ],
+    },
+    {
+      name: 'checkoutPath',
+      type: 'text',
+      label: 'Checkout path',
+      required: true,
+      admin: {
+        description:
+          'Path on client.rapidformations.co.uk, leading and trailing slash included — e.g. /buy/basic-package/. Two of these do not follow the package slug: Limited by Guarantee is /buy/limited-by-guarantee/ and LLP is /buy/limited-liability-partnership/.',
+      },
     },
     link({ appearances: false, overrides: { name: 'buyLink' } }),
     link({ appearances: false, optional: true, overrides: { name: 'readMoreLink' } }),

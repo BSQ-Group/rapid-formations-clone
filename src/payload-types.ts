@@ -335,7 +335,6 @@ export interface Page {
         | ReviewHighlightRowsBlock
         | ReviewCentreTabsBlock
         | ClosingCTABlock
-        | NameCheckPackagesBlock
         | BusinessBankingTableBlock
       )[]
     | null;
@@ -2943,6 +2942,10 @@ export interface Package {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Path on client.rapidformations.co.uk, leading and trailing slash included — e.g. /buy/basic-package/. Two of these do not follow the package slug: Limited by Guarantee is /buy/limited-by-guarantee/ and LLP is /buy/limited-liability-partnership/.
+   */
+  checkoutPath: string;
   buyLink: {
     type?: ('reference' | 'custom') | null;
     newTab?: boolean | null;
@@ -6822,27 +6825,6 @@ export interface ClosingCTABlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "NameCheckPackagesBlock".
- */
-export interface NameCheckPackagesBlock {
-  /**
-   * Without the word "Package" — "Basic" renders as "You have chosen the BASIC PACKAGE."
-   */
-  packageName: string;
-  /**
-   * Path on client.rapidformations.co.uk, leading and trailing slash included — e.g. /buy/basic-package/. Two of these do not follow the package slug: Limited by Guarantee is /buy/limited-by-guarantee/ and LLP is /buy/limited-liability-partnership/.
-   */
-  checkoutPath: string;
-  /**
-   * Defaults to "Find your perfect company name".
-   */
-  searchPlaceholder?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'nameCheckPackages';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "BusinessBankingTableBlock".
  */
 export interface BusinessBankingTableBlock {
@@ -7477,7 +7459,6 @@ export interface PagesSelect<T extends boolean = true> {
         reviewHighlightRows?: T | ReviewHighlightRowsBlockSelect<T>;
         reviewCentreTabs?: T | ReviewCentreTabsBlockSelect<T>;
         closingCTA?: T | ClosingCTABlockSelect<T>;
-        nameCheckPackages?: T | NameCheckPackagesBlockSelect<T>;
         businessBankingTable?: T | BusinessBankingTableBlockSelect<T>;
       };
   meta?:
@@ -10804,17 +10785,6 @@ export interface ClosingCTABlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "NameCheckPackagesBlock_select".
- */
-export interface NameCheckPackagesBlockSelect<T extends boolean = true> {
-  packageName?: T;
-  checkoutPath?: T;
-  searchPlaceholder?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "BusinessBankingTableBlock_select".
  */
 export interface BusinessBankingTableBlockSelect<T extends boolean = true> {
@@ -11042,6 +11012,7 @@ export interface PackagesSelect<T extends boolean = true> {
         product?: T;
         id?: T;
       };
+  checkoutPath?: T;
   buyLink?:
     | T
     | {
