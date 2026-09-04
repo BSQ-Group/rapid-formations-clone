@@ -22,7 +22,7 @@ export const EligibleCountriesDialog: React.FC<{
 }> = ({ label, lastUpdated, countries, className }) => (
   <Dialog>
     <DialogTrigger className={className}>{label}</DialogTrigger>
-    <DialogContent className={styles.content} hideClose>
+    <DialogContent className={styles.content} overlayClassName={styles.overlay} hideClose>
       <div className={styles.closeWrap}>
         <DialogClose className={styles.close}>
           <FaIcon icon={faTimes} className={styles.closeIcon} />
