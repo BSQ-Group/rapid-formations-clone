@@ -4,9 +4,15 @@
   "title": "CORE-7279 · [RF] /privacy-policy/ — clause lettering broken throughout numbered content (phantom wrapper rows; nested marker type & spacing)",
   "body": "Linear: https://linear.app/bsq-group/issue/CORE-7279/rf-privacy-policy-clause-lettering-broken-throughout-numbered-content\n\n(Reference only — the ticket is the source of truth; fetch the live description at implement time.)\n\nImported by Planning 2026-09-04 as part of the board↔Linear sync: this ticket was open and assigned at Todo in Linear but had no row on the board.",
   "acceptanceCriteria": [
-    "Resolve CORE-7279 as specified in Linear (fetched live at implement time)."
+    "Section 8 'How we collect your personal data' renders as a single 5-clause list lettered a.-e. (not split into 3 lists restarting at 'a.').",
+    "Section 19 'Your Rights' clauses after the nested sub-list read d./e./f. (not e./f./g., not shifted by the phantom wrapper).",
+    "No content-less/phantom <li> rows remain anywhere in the /privacy-policy/ article content — total <li> count matches live (187), not the clone's current 200.",
+    "Both nested sub-lists on the page (e.g. 'From third parties' under Section 8) render lower-roman markers (i.-x.), not lower-alpha.",
+    "Nested-list item pitch matches live (30px between items, no added ~10px gap) — item height itself already matches at 30px.",
+    "No regression to top-level lower-alpha lists elsewhere on the page that already match live.",
+    "Verified at 360 / 768 / 1024 / 1800 — breakpoint-invariant markup-level fix, confirmed working at all four."
   ],
-  "status": "backlog",
+  "status": "running",
   "track": "linear",
   "tags": [
     "bug"
@@ -18,18 +24,28 @@
   "blocks": [],
   "deps": [],
   "multiBlockApproved": false,
-  "owner": null,
+  "owner": {
+    "sessionId": "pending",
+    "mode": "W",
+    "branch": "fix/core-7279-privacy-clause-lettering",
+    "worktree": null
+  },
   "supersededBy": null,
   "createdAt": "2026-09-04T09:15:21.289Z",
   "createdBy": "planning",
-  "updatedAt": "2026-09-04T09:24:16.441Z",
-  "startedAt": null,
+  "updatedAt": "2026-09-04T09:35:50.569Z",
+  "startedAt": "2026-09-04T09:35:50.569Z",
   "completedAt": null,
   "statusHistory": [
     {
       "status": "backlog",
       "at": "2026-09-04T09:15:21.289Z",
       "by": "unknown"
+    },
+    {
+      "status": "running",
+      "at": "2026-09-04T09:35:50.569Z",
+      "by": "mode-x"
     }
   ],
   "qa": null,
