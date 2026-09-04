@@ -145,6 +145,16 @@ export const Packages: CollectionConfig = {
         },
       ],
     },
+    {
+      name: 'checkoutPath',
+      type: 'text',
+      label: 'Checkout path',
+      required: true,
+      admin: {
+        description:
+          'Path on client.rapidformations.co.uk, leading and trailing slash included — e.g. /buy/basic-package/. Two of these do not follow the package slug: Limited by Guarantee is /buy/limited-by-guarantee/ and LLP is /buy/limited-liability-partnership/.',
+      },
+    },
     link({ appearances: false, overrides: { name: 'buyLink' } }),
     link({ appearances: false, optional: true, overrides: { name: 'readMoreLink' } }),
     slugField({ useAsSlug: 'name' }),

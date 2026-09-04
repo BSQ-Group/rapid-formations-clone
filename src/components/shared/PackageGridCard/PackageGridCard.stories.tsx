@@ -83,7 +83,7 @@ const meta: Meta<typeof PackageGridCard> = {
     description: 'Simple company formation to get started with no extras.',
     highlightsTitle: 'Highlights',
     highlights: highlights(),
-    buyHref: '/name-check-basic-package',
+    buyHref: '/name-check/?pkg=basic-package',
     buyLabel: 'Buy Now',
     readMoreHref: '/package/basic-package',
     readMoreLabel: 'Read More',

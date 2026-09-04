@@ -108,7 +108,6 @@ import { BuyNow } from '@/components/shared/PageTitle/BuyNow'
 import { TitleBanner } from '@/components/shared/TitleBanner'
 import { ReviewCentreIntro } from '@/components/shared/ReviewCentreIntro'
 import { ClosingCTA } from '@/components/shared/ClosingCTA'
-import { NameCheckPackagesBlock } from '@/blocks/NameCheckPackages/Component'
 import { TextContentBlock } from '@/blocks/TextContent/Component'
 import { FaqTopicBlock } from '@/blocks/FaqTopic/Component'
 import { ReviewRatingsBlock } from '@/blocks/ReviewRatings/Component'
@@ -224,7 +223,6 @@ const blockComponents = {
   reviewHighlightRows: ReviewHighlightRowsBlockComponent,
   reviewCentreTabs: ReviewCentreTabsBlockComponent,
   closingCTA: ClosingCTA,
-  nameCheckPackages: NameCheckPackagesBlock,
 }
 
 const noMarginBlocks: string[] = ['landingHero']

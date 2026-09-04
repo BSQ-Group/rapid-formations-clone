@@ -101,7 +101,6 @@ import { ReviewRatings } from '../../blocks/ReviewRatings/config'
 import { ReviewHighlightRows } from '../../blocks/ReviewHighlightRows/config'
 import { ReviewCentreTabs } from '../../blocks/ReviewCentreTabs/config'
 import { ClosingCTA } from '../../components/shared/ClosingCTA/config'
-import { NameCheckPackages } from '@/blocks/NameCheckPackages/config'
 import { ContentWithPricingCard } from '../../blocks/ContentWithPricingCard/config'
 import { ContentWithExtendedPricingCard } from '../../blocks/ContentWithExtendedPricingCard/config'
 import { HeroServicesBanner } from '../../blocks/HeroServicesBanner/config'
@@ -293,7 +292,6 @@ export const Pages: CollectionConfig<'pages'> = {
                 ReviewHighlightRows,
                 ReviewCentreTabs,
                 ClosingCTA,
-                NameCheckPackages,
                 BusinessBankingTable,
               ],
               admin: {

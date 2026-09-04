@@ -1,4 +1,4 @@
-export const nameCheckPackagesStyles = {
+export const nameCheckPanelStyles = {
   section: 'font-legacy-condensed w-full bg-[var(--surface-canvas)]',
   stack: 'flex flex-col pt-10 min-[1023px]:pt-5',
   container: 'my-[50px]',
