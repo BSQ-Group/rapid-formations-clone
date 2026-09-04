@@ -10,7 +10,7 @@
     "Navigating to a non-existent URL returns HTTP 404 status (not 200) while rendering the styled content.",
     "No new console errors introduced (e.g. next/image localPatterns violations) on the 404 page."
   ],
-  "status": "running",
+  "status": "awaiting-user",
   "track": "linear",
   "tags": [
     "bug"
@@ -31,7 +31,7 @@
   "supersededBy": null,
   "createdAt": "2026-09-04T09:24:28.946Z",
   "createdBy": "planning",
-  "updatedAt": "2026-09-04T10:01:13.712Z",
+  "updatedAt": "2026-09-04T10:15:11.012Z",
   "startedAt": "2026-09-04T10:01:13.712Z",
   "completedAt": null,
   "statusHistory": [
@@ -55,6 +55,11 @@
       "status": "running",
       "at": "2026-09-04T10:01:13.712Z",
       "by": "mode-x"
+    },
+    {
+      "status": "awaiting-user",
+      "at": "2026-09-04T10:15:11.012Z",
+      "by": "mode-x"
     }
   ],
   "qa": null,
@@ -63,7 +68,11 @@
   "needsManual": null,
   "userVerified": null,
   "report": null,
-  "pr": null,
+  "pr": {
+    "url": "https://github.com/BSQ-Group/rapid-formations-clone/pull/227",
+    "number": 227,
+    "state": "OPEN"
+  },
   "merge": null,
   "rejections": [],
   "proposalSource": null,
