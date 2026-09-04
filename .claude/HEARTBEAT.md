@@ -61,3 +61,11 @@ This file is the ground-truth timing source for measured task size.
 00:57:24 | T4 | regressions confirmed — ico-reg/business-tel/cookies-policy headings unaffected
 00:57:24 | T4 | verify done — all 6 pages + FAQ answerText confirmed #313131
 00:57:36 | T4 | coord-live start @360
+10:37:23 | CONTROL | ALL | Mode X dispatch — T6/T13/T30 as Console W workers (sonnet), 3 lanes
+10:38:47 | T30 | starting ac fetch | model: sonnet
+10:38:46 | T13 | fetched Linear ticket AC | model: sonnet
+09:38:53 | T6 | model: sonnet | starting CMS media check
+10:40:00 | T13 | AC written repro starting
+10:50:00 | T13 | dev server up local root fix
+10:42:48 | T30 | ac fetched, building fix | model: sonnet
+10:43:13 | T30 | build/restarting dev server | model: sonnet
