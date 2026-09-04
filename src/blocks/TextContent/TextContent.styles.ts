@@ -82,7 +82,7 @@ const packageCopy = {
 }
 
 const policy = {
-  lists: `${listsCore} ${nestedListInset} [&_ol>li]:list-[lower-latin] [&_li_ol]:!pl-[15px] [&_li_ol>li]:!my-0`,
+  lists: `${listsCore} ${nestedListInset} [&_ol>li]:list-[lower-latin] [&_li_ol]:!pl-[15px] [&_li_ol>li]:!my-0 [&_li:has(>.lexical-table-container)]:!pl-0 [&_.lexical-table-container]:!-ml-[15px] [&_.lexical-table-container]:!w-[calc(100%+15px)]`,
 
   // A trailing ordered list keeps live's 8px bottom margin (flushLast zeroes it).
   trailingList: '[&>ol:last-child]:!mb-2',
@@ -93,7 +93,7 @@ const policy = {
     '[&_h3]:!leading-[25.688px] [&_h4]:!mt-4 [&_h4]:!mb-2 [&_h4]:text-xl [&_h4]:font-normal [&_h4]:leading-[27px] [&_h4]:text-[var(--text-on-light-base)] [&_ol+h2]:!mt-2 [&_ul+h2]:!mt-2 [&_p:has(+h2)]:!mb-2',
 
   letteredLists:
-    '[&_ul]:!mb-6 [&_ul]:list-[lower-alpha] [&_li]:!my-2.5 [&_li]:!pl-2.5 [&_li:first-child]:!mt-0',
+    '[&_ul]:!mb-6 [&_ul]:list-[lower-alpha] [&_li]:!my-2.5 [&_li]:!pl-2.5 [&_li:first-child]:!mt-0 [&_li_ul]:list-[lower-roman] [&_li_ul>li]:!my-0',
 
   table:
     '[&.payload-richtext_table]:!table-auto [&.payload-richtext_table]:!border-collapse [&.payload-richtext_table]:!border [&.payload-richtext_table]:!border-solid [&.payload-richtext_table]:!border-[color:var(--border-on-light)] [&.payload-richtext_table]:!my-6',
