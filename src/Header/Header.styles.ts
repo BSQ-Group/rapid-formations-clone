@@ -29,7 +29,7 @@ export const headerStyles = {
   burgerBarBottomOpen: 'translate-y-[10px] -rotate-45',
 
   bottomWrap:
-    'absolute left-0 top-[90px] z-[99999] flex w-full flex-col px-5 min-[1200px]:relative min-[1200px]:top-auto min-[1200px]:z-auto min-[1200px]:h-[46px] min-[1200px]:flex-row min-[1200px]:items-stretch min-[1200px]:justify-between min-[1200px]:bg-transparent min-[1200px]:p-0 min-[1200px]:shadow-none',
+    'absolute left-0 top-[90px] z-[99999] flex max-h-[calc(100dvh-var(--nav-height,90px))] w-full flex-col overflow-y-auto overscroll-contain px-5 min-[1200px]:relative min-[1200px]:top-auto min-[1200px]:z-auto min-[1200px]:h-[46px] min-[1200px]:max-h-none min-[1200px]:flex-row min-[1200px]:items-stretch min-[1200px]:justify-between min-[1200px]:overflow-visible min-[1200px]:bg-transparent min-[1200px]:p-0 min-[1200px]:shadow-none',
   bottomWrapOpen:
     'bg-[rgb(var(--black))] shadow-[0_50px_40px_-5px_rgba(50,50,93,0.25),0_8px_16px_-8px_rgba(0,0,0,0.1),0_-6px_16px_-6px_rgba(0,0,0,0.01),0_0_20px_rgba(0,0,0,0.01)] group-data-[on-light]:bg-[rgb(var(--white))] min-[1200px]:group-data-[on-light]:bg-transparent',
 

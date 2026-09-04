@@ -155,6 +155,39 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, onDark = false
   }, [pathname])
 
   useEffect(() => {
+    if (!menuOpen) return
+
+    const query = window.matchMedia(DESKTOP_NAV_QUERY)
+    if (query.matches) return
+
+    const closeOnDesktop = (event: MediaQueryListEvent) => {
+      if (event.matches) setMenuOpen(false)
+    }
+    query.addEventListener('change', closeOnDesktop)
+
+    const { body } = document
+    const previousOverflow = body.style.overflow
+    const previousTop = body.style.top
+    const previousPosition = body.style.position
+    const previousWidth = body.style.width
+    const scrollY = window.scrollY
+
+    body.style.overflow = 'hidden'
+    body.style.position = 'fixed'
+    body.style.top = `-${scrollY}px`
+    body.style.width = '100%'
+
+    return () => {
+      query.removeEventListener('change', closeOnDesktop)
+      body.style.overflow = previousOverflow
+      body.style.position = previousPosition
+      body.style.top = previousTop
+      body.style.width = previousWidth
+      window.scrollTo(0, scrollY)
+    }
+  }, [menuOpen, setMenuOpen])
+
+  useEffect(() => {
     if (!openKey) return
 
     const handlePointerDown = (event: PointerEvent) => {
