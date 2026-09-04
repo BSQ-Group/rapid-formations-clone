@@ -43,7 +43,7 @@ export const MemberCard: React.FC<MemberCardProps> = ({ fullName, jobTitle, phot
           ) : null}
         </span>
         <span className={s.body}>
-          <Text textStyle="span" text={fullName} className={s.name} />
+          <Text as="h3" textStyle="span" text={fullName} className={s.name} />
           <Text textStyle="span" text={jobTitle} className={s.jobTitle} />
         </span>
       </DialogTrigger>
