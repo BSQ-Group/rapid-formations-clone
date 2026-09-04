@@ -4,9 +4,13 @@
   "title": "CORE-7322 · [RF] /compare-packages/ — Comparison-grid \"not included\" minus icon wrong size and colour",
   "body": "Linear: https://linear.app/bsq-group/issue/CORE-7322/rf-compare-packages-comparison-grid-not-included-minus-icon-wrong-size\n\n(Reference only — the ticket is the source of truth; fetch the live description at implement time.)\n\nImported by Planning 2026-09-04 as part of the board↔Linear sync: this ticket was open and assigned at Todo in Linear but had no row on the board.",
   "acceptanceCriteria": [
-    "Resolve CORE-7322 as specified in Linear (fetched live at implement time)."
+    "On /compare-packages/ desktop comparison grid, the 'not included' minus icon renders at 28.4×32.5px (matching Live) at 768, 1024 and 1800 breakpoints — not the current ~13.1×15px.",
+    "The 'not included' minus icon colour is rgb(199,199,199) (light grey, matching Live) at 768, 1024 and 1800 — not the current rgb(54,54,54) dark grey.",
+    "The 'included' green checkmark icon (28.4×32.5px, rgb(46,204,113)) is unchanged/not regressed at all breakpoints.",
+    "At 360px, the icon remains not rendered on the clone (matches Live's behaviour at that width — not a regression to introduce rendering where Live has none).",
+    "Fix is scoped to the desktop grid (ComparePackageTable, excluding MobileCarousel.tsx) and does not touch /compare-packages/guarantee/."
   ],
-  "status": "backlog",
+  "status": "running",
   "track": "linear",
   "tags": [
     "bug"
@@ -18,18 +22,28 @@
   "blocks": [],
   "deps": [],
   "multiBlockApproved": false,
-  "owner": null,
+  "owner": {
+    "sessionId": "pending",
+    "mode": "W",
+    "branch": "fix/core-7322-minus-icon",
+    "worktree": null
+  },
   "supersededBy": null,
   "createdAt": "2026-09-04T09:15:21.290Z",
   "createdBy": "planning",
-  "updatedAt": "2026-09-04T09:24:16.441Z",
-  "startedAt": null,
+  "updatedAt": "2026-09-04T11:05:26.987Z",
+  "startedAt": "2026-09-04T11:05:26.987Z",
   "completedAt": null,
   "statusHistory": [
     {
       "status": "backlog",
       "at": "2026-09-04T09:15:21.290Z",
       "by": "unknown"
+    },
+    {
+      "status": "running",
+      "at": "2026-09-04T11:05:26.987Z",
+      "by": "mode-x"
     }
   ],
   "qa": null,

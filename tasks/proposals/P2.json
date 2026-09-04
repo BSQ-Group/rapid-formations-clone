@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "kind": "proposal",
+  "title": "/privacy-policy/ pre-existing fidelity gaps: table <th> sizing + \"cookie policy\" link mislocation vs live",
+  "body": "Found while running the CORE-7279 (T13) bug-lane whole-page coord regression gate against\n/privacy-policy/. NOT caused by T13 — confirmed by comparing the coord-live run BEFORE the T13\ncontent/CSS fix landed against the run AFTER: these specific findings are byte-identical (same\npx deltas) in both runs, so they predate T13's list-lettering fix and are unrelated to it.\n\n## Defect 1 — table <th> sizing\nMultiple table header cells (<th>) on /privacy-policy/ render at a different size on clone vs\nlive, consistently Δw=-25px Δh=-42px (and Δh=-12px at some breakpoints), repeating 3-6 times per\nbreakpoint. Likely a shared table-header style (font-size/line-height/padding) diverging from\nlive's table CSS — affects the \"Purpose/Activity\" table in Section 11 and the sharing-partners\ntable in Section 13 at minimum.\n\n## Defect 2 — \"cookie policy\" link mislocation\nThe inline \"Cookie Policy\" link (Section 10, \"Using automated technology\" clause) renders\nmislocated by 90-230px vertically vs its live position, present at all four breakpoints\n(360/768/1024/1800) in both the pre-fix and post-fix coord runs.\n\n## Evidence\nqa-coord-live.ts runs, reports/T13-coord-live.json (T13's coord gate, both attempts) and\nreports/T13-coord-live-raw-output.txt:\n- @360 (pre-fix): [size] <th> Δw=-25px Δh=-42px (x4); [mislocated] <a> \"cookie policy\" 148px out of place\n- @360 (post-fix, same magnitude): [size] <th> Δw=-25px Δh=-42px (x4); [mislocated] <a> \"cookie policy\" 230px out of place\n- @1024 (both runs): [mislocated] <a> \"cookie policy\" ~104-127px out of place; <th> Δw=-25px Δh=-12px\n- @1800 (both runs): <th> Δw=-25px Δh=-12px (x2)\n\nprod URL: https://www.rapidformations.co.uk/privacy-policy/\nclone URL (dev, used for the runs): https://localhost:3002/privacy-policy/\n\n## What to do\n1. Reproduce on /privacy-policy/ Section 11 \"Purpose/Activity\" table and Section 13's\n   third-party-sharing table at 360/768/1024/1800 — measure actual <th> font-size/line-height/\n   padding on clone vs live and diff against the table styling in TextContent.styles.ts's\n   `policy.headerCell` rule (or wherever this page's table CSS lives).\n2. Reproduce the \"Cookie Policy\" link mislocation in Section 10 (\"Using automated technology\"\n   clause) — check whether it's a text-wrap/line-height issue on that specific inline link vs\n   surrounding text, or a coord-tool matching artifact (verify by direct screenshot/DOM\n   getBoundingClientRect measurement, not just the heuristic tool).\n3. This is a fidelity gap (engine-first applies) — NOT a functional/behavioral bug, so route\n   through the normal clone-fidelity pipeline rather than a Mode X bug lane.",
+  "acceptanceCriteria": [],
+  "status": "backlog",
+  "track": "linear",
+  "tags": [
+    "bug"
+  ],
+  "priority": "low",
+  "effort": "S",
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-09-04T10:56:00.000Z",
+  "createdBy": "claude",
+  "updatedAt": "2026-09-04T10:56:00.000Z",
+  "startedAt": null,
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-09-04T10:56:00.000Z",
+      "by": "claude"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": null,
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": "T13",
+  "externalRef": null,
+  "runSkills": [],
+  "id": "P2",
+  "num": 2
+}
