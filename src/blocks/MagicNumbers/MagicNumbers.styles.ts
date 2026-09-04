@@ -4,7 +4,7 @@ export const magicNumbersStyles = {
   wrapperPad: 'pt-10 min-[1023px]:py-5',
 
   heading:
-    'mb-2 block text-center text-[36px] leading-[44.46px] font-normal text-[var(--text-on-light-base)]',
+    'mb-10 block text-center text-[36px] leading-[44.46px] font-normal text-[var(--text-on-light-base)]',
 
   subheading:
     'mb-2 block text-center text-xl leading-[30px] font-normal text-[var(--text-on-light-muted)]',
