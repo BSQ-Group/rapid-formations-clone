@@ -2,19 +2,18 @@
   "schemaVersion": 1,
   "kind": "task",
   "title": "FAQ banner block missing entirely on /faqs/limited-by-guarantee/ and /faqs/limited-by-shares/ — NEEDS A LINEAR TICKET",
-  "body": "**Migrated by Planning 2026-09-04 from the retired pre-cutover task set (was proposal P2, surfaced by legacy task T9 / CORE-7013 verification on 2026-08-24). It has NO Linear ticket and was on no board — it would have been lost when the legacy set was retired.**\n\nSurfaced while verifying CORE-7013, and a **different defect from that ticket**. CORE-7013 is about banner *resolution*. While sweeping all 23 FAQ topic pages to verify it, two pages turned out to have **no banner at all** on the clone, while live renders one.\n\n| Page | Live | Clone |\n|---|---|---|\n| `/faqs/limited-by-guarantee/` | banner, 800px master shown at 1170×252 | **no banner element** |\n| `/faqs/limited-by-shares/` | banner, 800px master shown at 1170×252 | **no banner element** |\n\nMeasured at viewport 1800 on both sites: on the clone neither page has any `<img>` wider than 400px above y=700 (16 images present, widest is a 275×28 logo at y=1093). The other **21 FAQ topic pages all render the banner correctly**.\n\nMost likely the banner block was never added to these two pages in the CMS (a **seeding gap**) rather than a code defect — the shared template works on the other 21. **Confirm in Payload before treating it as code.**\n\nNot fixed under CORE-7013: that ticket is scoped to resolution, its acceptance criteria say the crop and block must otherwise stay as-is, and a missing block is a separate class of defect.",
+  "body": "**Linear:** [CORE-7358](https://linear.app/bsq-group/issue/CORE-7358/rf-faqslimited-by-guarantee-and-faqslimited-by-shares-faq-banner-block) · raised 2026-09-04 by control (Mode X) at USER request, satisfying AC#1.\n\n**Migrated by Planning 2026-09-04 from the retired pre-cutover task set (was proposal P2, surfaced by legacy task T9 / CORE-7013 verification on 2026-08-24). It has NO Linear ticket and was on no board — it would have been lost when the legacy set was retired.**\n\nSurfaced while verifying CORE-7013, and a **different defect from that ticket**. CORE-7013 is about banner *resolution*. While sweeping all 23 FAQ topic pages to verify it, two pages turned out to have **no banner at all** on the clone, while live renders one.\n\n| Page | Live | Clone |\n|---|---|---|\n| `/faqs/limited-by-guarantee/` | banner, 800px master shown at 1170×252 | **no banner element** |\n| `/faqs/limited-by-shares/` | banner, 800px master shown at 1170×252 | **no banner element** |\n\nMeasured at viewport 1800 on both sites: on the clone neither page has any `<img>` wider than 400px above y=700 (16 images present, widest is a 275×28 logo at y=1093). The other **21 FAQ topic pages all render the banner correctly**.\n\nMost likely the banner block was never added to these two pages in the CMS (a **seeding gap**) rather than a code defect — the shared template works on the other 21. **Confirm in Payload before treating it as code.**\n\nNot fixed under CORE-7013: that ticket is scoped to resolution, its acceptance criteria say the crop and block must otherwise stay as-is, and a missing block is a separate class of defect.",
   "acceptanceCriteria": [
-    "Raise a Linear ticket for this (it has none) and link it here — it is a real prod defect that no ticket currently covers.",
+    "✅ DONE (control, 2026-09-04): Linear ticket raised and linked — CORE-7358 (Platform Experience · Defect · P4 · milestone [RF] Website Cloning 2nd pass · parent CORE-4236). Reference it in the PR title/body as `CORE-7358`.",
     "Confirm in Payload first whether the banner block is simply absent from these two page documents (seeding gap) rather than a code defect — the other 21 FAQ topic pages render correctly from the shared template.",
     "`/faqs/limited-by-guarantee/` and `/faqs/limited-by-shares/` render the FAQ banner, matching live in position, crop and size (1170×250 at desktop).",
     "The banner image is served at ≥ its displayed size, consistent with the other 21 FAQ topic pages (1170×250 master).",
     "No change to the other 21 FAQ topic pages, which already render correctly. Verified at 360 / 768 / 1024 / 1800 against live."
   ],
-  "status": "backlog",
+  "status": "running",
   "track": "clone",
   "tags": [
-    "bug",
-    "needs-linear-ticket"
+    "bug"
   ],
   "priority": "normal",
   "effort": "S",
@@ -23,18 +22,28 @@
   "blocks": [],
   "deps": [],
   "multiBlockApproved": false,
-  "owner": null,
+  "owner": {
+    "sessionId": "pending",
+    "mode": "W",
+    "branch": "fix/t28-faq-banner-missing",
+    "worktree": null
+  },
   "supersededBy": null,
   "createdAt": "2026-09-04T09:16:08.555Z",
   "createdBy": "",
-  "updatedAt": "2026-09-04T09:16:08.555Z",
-  "startedAt": null,
+  "updatedAt": "2026-09-04T10:41:10.814Z",
+  "startedAt": "2026-09-04T10:16:31.231Z",
   "completedAt": null,
   "statusHistory": [
     {
       "status": "backlog",
       "at": "2026-09-04T09:16:08.555Z",
       "by": "unknown"
+    },
+    {
+      "status": "running",
+      "at": "2026-09-04T10:16:31.231Z",
+      "by": "mode-x"
     }
   ],
   "qa": null,
@@ -48,7 +57,7 @@
   "rejections": [],
   "proposalSource": null,
   "parent": null,
-  "externalRef": null,
+  "externalRef": "CORE-7358",
   "runSkills": [],
   "id": "T28",
   "num": 28
