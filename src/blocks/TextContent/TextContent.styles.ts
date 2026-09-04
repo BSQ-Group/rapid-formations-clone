@@ -126,7 +126,8 @@ const terms = {
   headings:
     '[&_h2]:!my-8 [&_h2]:text-[36px] [&_h2]:leading-[44.46px] [&_h3]:!mt-0 [&_h3]:!mb-6 [&_h3]:text-[28px] [&_h3]:leading-[34.58px]',
 
-  lists: '[&_ul]:!my-0 [&_ul]:list-disc [&_ol]:!my-0 [&_ol]:list-decimal [&_li]:!mb-4',
+  lists:
+    '[&_ul]:!my-0 [&_ul]:list-disc [&_ol]:!my-0 [&_ol]:list-decimal [&_li]:!mb-4 [&_ol>li]:!pl-4',
 
   table:
     '[&.payload-richtext_table]:!table-auto [&.payload-richtext_table]:!border-collapse [&.payload-richtext_table]:!my-0',
