@@ -68,7 +68,7 @@ export const comparePackageTableStyles = {
   includedItem:
     'grid min-w-[175px] items-center justify-items-center border-r border-solid border-[var(--border-compare-packages)] bg-white p-2.5 text-center text-[26px] md:min-w-[130px] min-[1023px]:min-h-14 min-[1023px]:min-w-[175px] [&:last-child]:border-r-0',
   check: 'h-[1.25em] w-auto text-[var(--icon-success)]',
-  minus: 'h-[15px] w-auto text-[var(--text-on-light-base)]',
+  minus: 'h-[1.25em] w-auto text-[var(--icon-on-light-faint)]',
 
   footer: 'grid grid-cols-1 border-t border-solid border-[var(--border-compare-packages)]',
   footerThree: 'text-center md:grid-cols-[1.5fr_1fr_1fr_1fr]',
