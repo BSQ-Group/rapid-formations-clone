@@ -32,8 +32,6 @@ export const titleBannerStyles = {
     grey: 'bg-[var(--surface-banner-backdrop-grey)]',
   },
 
-  imageContainer: 'px-0 min-[1023px]:px-0',
-
   imageFrame: 'mx-auto w-full',
 
   bannerImage: 'block h-auto w-full object-cover',
