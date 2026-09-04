@@ -101,6 +101,38 @@ const foldWrapperSiblings = (items: LexicalNode[]): LexicalNode[] => {
 const firstNestedList = (n: LexicalNode): LexicalNode | undefined =>
   (n.children as LexicalNode[] | undefined)?.find((c) => c.type === 'list')
 
+/** A folded paragraph's `indent` was measured relative to its ORIGINAL position in
+ * the document flow (e.g. as a top-level clause's own description). Once it's
+ * folded as a continuation of a clause label inside an `<li>`, live never adds
+ * extra inset for it — the surrounding li/ol nesting already supplies it, so a
+ * stale `indent` only adds spurious `padding-inline-start` that narrows the text
+ * column and wraps it onto extra lines live doesn't have. */
+const stripFoldedParagraphIndent = (n: LexicalNode): LexicalNode =>
+  n.type === 'paragraph' && n.indent ? { ...n, indent: 0 } : n
+
+/** Final tree-wide pass: a paragraph that is a listitem's OWN direct child is
+ * always a folded clause-continuation (real standalone body paragraphs sit at
+ * root/document level, never as a listitem's child) — strip its indent wherever
+ * it lives, including content already folded and persisted by an earlier run of
+ * this script (fold-time stripping alone can't reach already-folded data). */
+const stripListItemParagraphIndents = (nodes: LexicalNode[]): LexicalNode[] =>
+  nodes.map((n) => {
+    if (n.type === 'listitem' && n.children) {
+      const children = (n.children as LexicalNode[]).map((c) =>
+        c.type === 'paragraph'
+          ? stripFoldedParagraphIndent(c)
+          : c.children
+            ? { ...c, children: stripListItemParagraphIndents(c.children as LexicalNode[]) }
+            : c,
+      )
+      return { ...n, children }
+    }
+    if (n.children) {
+      return { ...n, children: stripListItemParagraphIndents(n.children as LexicalNode[]) }
+    }
+    return n
+  })
+
 /** A listitem carrying Lexical's legacy `indent` flag (indent > 0) while still
  * sitting FLAT in the same array as its indent-0 siblings — rather than actually
  * nested inside one of them — belongs inside the nested list already sitting in
@@ -115,7 +147,12 @@ const foldIndentedSiblings = (items: LexicalNode[]): LexicalNode[] => {
     const parent = indent > 0 ? owners[indent - 1] : undefined
     const nested = parent && firstNestedList(parent)
     if (parent && nested) {
-      nested.children = [...(nested.children ?? []), { ...item, indent: 0 }]
+      const relocated: LexicalNode = {
+        ...item,
+        indent: 0,
+        children: (item.children as LexicalNode[] | undefined)?.map(stripFoldedParagraphIndent),
+      }
+      nested.children = [...(nested.children ?? []), relocated]
     } else {
       out.push(item)
     }
@@ -158,7 +195,7 @@ const mergeListRuns = (nodes: LexicalNode[]): LexicalNode[] => {
       const items = openList.children ?? []
       const last = items[items.length - 1]
       if (last) {
-        last.children = [...(last.children ?? []), recursed]
+        last.children = [...(last.children ?? []), stripFoldedParagraphIndent(recursed)]
         continue
       }
     }
@@ -210,7 +247,7 @@ async function main() {
 
   const block = layout[blockIndex] as { body: { root: LexicalNode } }
   const before = block.body.root.children ?? []
-  const after = mergeListRuns(before)
+  const after = stripListItemParagraphIndents(mergeListRuns(before))
 
   console.log(`slug: ${SLUG}`)
   console.log(`top-level list nodes: ${countListNodes(before)} -> ${countListNodes(after)}`)
