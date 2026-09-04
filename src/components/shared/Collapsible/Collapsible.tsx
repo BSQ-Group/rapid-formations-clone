@@ -66,7 +66,7 @@ export function Collapsible({
               inert={!isOpen}
               className={cn(s.panel, isOpen ? s.panelOpen : s.panelClosed)}
             >
-              <div className={s.panelInner}>{item.content}</div>
+              <div>{item.content}</div>
             </div>
           </li>
         )
