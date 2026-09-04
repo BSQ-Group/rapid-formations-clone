@@ -11,11 +11,35 @@ import { cn } from '@/utilities/ui'
 import { BuyNowLink } from './BuyNowLink'
 import { comparePackageTableStyles as s } from './ComparePackageTable.styles'
 import { PriceStack } from './PriceStack'
-import type { TableData } from './types'
+import type { TableData, TableProduct } from './types'
 
 const DESCRIPTION_MIN_HEIGHT: Record<string, string> = {
   tall: s.mobileDescriptionTall,
   taller: s.mobileDescriptionTaller,
+}
+
+const MOBILE_PRODUCT_ORDER: Record<string, readonly string[]> = {
+  'llp-package': ['6a8c21de554f4d9a40c07ad2', '6a8c21e2554f4d9a40c07af1'],
+}
+
+const applyMobileProductOrder = (
+  packageSlug: string,
+  included: readonly TableProduct[],
+): TableProduct[] => {
+  const pinnedOrder = MOBILE_PRODUCT_ORDER[packageSlug]
+  if (!pinnedOrder) return [...included]
+
+  const productsById = new Map(included.map((product) => [product.id, product]))
+  const pinnedProducts = pinnedOrder.flatMap((id) => productsById.get(id) ?? [])
+  const pinnedSlots = included.flatMap((product, index) =>
+    pinnedProducts.includes(product) ? [index] : [],
+  )
+
+  const reordered = [...included]
+  pinnedSlots.forEach((slot, index) => {
+    reordered[slot] = pinnedProducts[index]
+  })
+  return reordered
 }
 
 export const MobileCarousel: React.FC<{ data: TableData; cardHeight?: string | null }> = ({
@@ -26,7 +50,10 @@ export const MobileCarousel: React.FC<{ data: TableData; cardHeight?: string | n
   const descriptionModifier = DESCRIPTION_MIN_HEIGHT[cardHeight ?? '']
   const cards = data.packages.map((pkg) => ({
     pkg,
-    included: data.products.filter((product) => product.includedIn.includes(pkg.slug)),
+    included: applyMobileProductOrder(
+      pkg.slug,
+      data.products.filter((product) => product.includedIn.includes(pkg.slug)),
+    ),
   }))
   const rowCount = Math.max(0, ...cards.map((card) => card.included.length))
 
