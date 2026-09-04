@@ -54,6 +54,7 @@ export const ComparePackageTableBlockComponent: React.FC<ComparePackageTableBloc
         shortDescription: pkg.shortDescription,
         buyHref: buy ? getLinkHref(buy) : '#',
         buyNewTab: buy?.newTab,
+        checkoutPath: pkg.checkoutPath,
         readMoreHref: hasReadMore ? getLinkHref(readMore as LinkData) : null,
         readMoreLabel: readMore?.label,
       },

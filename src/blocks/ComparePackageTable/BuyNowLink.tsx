@@ -1,17 +1,18 @@
 import React from 'react'
-import Link from 'next/link'
+import { OrderLink } from '@/components/shared/OrderLink'
 
 import { comparePackageTableStyles as s } from './ComparePackageTable.styles'
 import type { TablePackage } from './types'
 
 export const BuyNowLink: React.FC<{ pkg: TablePackage }> = ({ pkg }) => (
-  <Link
+  <OrderLink
     href={pkg.buyHref}
+    checkoutPath={pkg.checkoutPath}
     target={pkg.buyNewTab ? '_blank' : undefined}
     rel={pkg.buyNewTab ? 'noopener noreferrer' : undefined}
     aria-label={`Buy our ${pkg.name} package now.`}
     className={s.buyButton}
   >
     Buy Now
-  </Link>
+  </OrderLink>
 )

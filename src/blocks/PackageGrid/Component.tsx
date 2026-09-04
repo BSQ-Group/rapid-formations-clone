@@ -7,6 +7,7 @@ import Text from '@/components/shared/Text'
 import { getLinkHref, type LinkData } from '@/utilities/links'
 import { Container } from '@/components/shared/Container/Container'
 import { PackageGridCard } from '@/components/shared/PackageGridCard'
+import { checkoutPathFor } from '@/lib/nameCheck/checkoutPaths'
 import { packageGridStyles as s } from './PackageGrid.styles'
 
 function href(link: unknown): string | null {
@@ -15,15 +16,17 @@ function href(link: unknown): string | null {
   return resolved && resolved !== '#' ? resolved : null
 }
 
-export const PackageGridBlock: React.FC<PackageGridBlockProps> = ({
+export const PackageGridBlock = async ({
   heading,
   subheading,
   packages,
   compareLink,
   contactNote,
   footerNote,
-}) => {
+}: PackageGridBlockProps) => {
   if (!packages?.length) return null
+
+  const checkoutPaths = await Promise.all(packages.map((pkg) => checkoutPathFor(href(pkg.buyLink))))
 
   const compareHref = href(compareLink)
 
@@ -51,6 +54,7 @@ export const PackageGridBlock: React.FC<PackageGridBlockProps> = ({
               highlights={pkg.highlights}
               buyHref={href(pkg.buyLink)}
               buyLabel={pkg.buyLink?.label}
+              buyCheckoutPath={checkoutPaths[index]}
               readMoreHref={href(pkg.readMoreLink)}
               readMoreLabel={pkg.readMoreLink?.label}
             />

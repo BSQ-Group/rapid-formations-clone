@@ -11,6 +11,7 @@ export type TablePackage = {
   shortDescription?: DefaultTypedEditorState | null
   buyHref: string
   buyNewTab?: boolean | null
+  checkoutPath?: string | null
   readMoreHref?: string | null
   readMoreLabel?: string | null
 }

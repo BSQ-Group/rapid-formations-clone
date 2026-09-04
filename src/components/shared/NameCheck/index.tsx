@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { Loader2 } from 'lucide-react'
 
 import { checkCompany } from '@/api/checkCompany'
+import { notifyCompanyNameChanged } from '@/hooks/useCompanyName'
 import { EMPTY_DESCRIPTION, ERROR_DESCRIPTION, ERROR_NAME } from '@/lib/nameCheck/verdict'
 import Text from '@/components/shared/Text'
 import { Button } from '@/components/ui/button'
@@ -46,6 +47,7 @@ const writeCompanyNameCookie = (name: string) => {
     parts.push('domain=rapidformations.co.uk', 'Secure')
   }
   document.cookie = parts.join('; ')
+  notifyCompanyNameChanged()
 }
 
 export const buildCheckoutUrl = (checkoutPath: string, name: string) =>
