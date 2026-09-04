@@ -133,7 +133,7 @@ const terms = {
     '[&.payload-richtext_table]:!table-auto [&.payload-richtext_table]:!border-collapse [&.payload-richtext_table]:!my-0',
 
   headerCell:
-    '[&.payload-richtext_th]:!p-px [&.payload-richtext_th]:!w-auto [&.payload-richtext_th]:!rounded-none [&.payload-richtext_th]:!border-r [&.payload-richtext_th]:!border-solid [&.payload-richtext_th]:!border-black [&.payload-richtext_th:last-child]:!border-r-0 [&.payload-richtext_th]:!font-bold [&.payload-richtext_th]:!text-center [&.payload-richtext_th]:align-middle [&.payload-richtext_th]:text-lg [&.payload-richtext_th]:leading-[27px]',
+    '[&.payload-richtext_th]:!p-px [&.payload-richtext_th]:!w-auto [&.payload-richtext_th]:!rounded-none [&.payload-richtext_th]:!border-r [&.payload-richtext_th]:!border-solid [&.payload-richtext_th]:!border-black [&.payload-richtext_th:last-child]:!border-r-0 [&.payload-richtext_th]:!font-bold [&.payload-richtext_th]:!text-[color:var(--text-on-light-base)] [&.payload-richtext_th]:!text-center [&.payload-richtext_th]:align-middle [&.payload-richtext_th]:text-lg [&.payload-richtext_th]:leading-[27px]',
 
   dataCell:
     '[&.payload-richtext_td]:!px-3 [&.payload-richtext_td]:!py-4 [&.payload-richtext_td]:!w-auto [&.payload-richtext_td]:!rounded-none [&.payload-richtext_td]:align-middle [&.payload-richtext_td]:text-lg [&.payload-richtext_td]:leading-[27px] max-md:[&.payload-richtext_td]:!min-w-0 max-md:[&.payload-richtext_th]:!min-w-0',
