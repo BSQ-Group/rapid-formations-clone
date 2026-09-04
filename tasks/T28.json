@@ -10,7 +10,7 @@
     "The banner image is served at ≥ its displayed size, consistent with the other 21 FAQ topic pages (1170×250 master).",
     "No change to the other 21 FAQ topic pages, which already render correctly. Verified at 360 / 768 / 1024 / 1800 against live."
   ],
-  "status": "running",
+  "status": "void",
   "track": "clone",
   "tags": [
     "bug"
@@ -22,16 +22,11 @@
   "blocks": [],
   "deps": [],
   "multiBlockApproved": false,
-  "owner": {
-    "sessionId": "pending",
-    "mode": "W",
-    "branch": "fix/t28-faq-banner-missing",
-    "worktree": null
-  },
+  "owner": null,
   "supersededBy": null,
   "createdAt": "2026-09-04T09:16:08.555Z",
   "createdBy": "",
-  "updatedAt": "2026-09-04T10:41:10.814Z",
+  "updatedAt": "2026-09-04T10:59:44.025Z",
   "startedAt": "2026-09-04T10:16:31.231Z",
   "completedAt": null,
   "statusHistory": [
@@ -44,6 +39,12 @@
       "status": "running",
       "at": "2026-09-04T10:16:31.231Z",
       "by": "mode-x"
+    },
+    {
+      "status": "void",
+      "at": "2026-09-04T10:59:44.025Z",
+      "by": "control-mode-x",
+      "note": "cancelled: VERIFIED NOT REPRODUCING (USER-approved close-out 2026-09-04). Payload page docs for limited-by-guarantee/limited-by-shares already carry the titleBanner block (updatedAt 2026-09-01, a data-only fix predating pickup); clone prod serves a real <img width=1170 height=250> on both. No code change - diff is report-only (reports/T28-1.md on fix/t28-faq-banner-missing). CORE-7358 closed Done with evidence."
     }
   ],
   "qa": null,

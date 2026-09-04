@@ -65,3 +65,17 @@
 11:33:48 | T6 | pr step end body+shots verified
 11:34:15 | T6 | pr step end build green cursor not configured
 11:34:15 | T6 | qa gate start foreground
+11:38:23 | T26 | filed P1 proposal, artifacts pushed, awaiting control waiver decision
+11:41:30 | CONTROL | T28 | UNBLOCKED — CORE-7358 raised at USER request, AC#1 satisfied, lane resumed
+11:43:27 | T13 | qa end round2 APPROVE 7/7 pass
+11:43:56 | T13 | pr start capture final screenshots
+11:47:34 | T13 | pr images pushed retitling body
+11:48:17 | T13 | pr end formatted with images retitled
+11:51:16 | T13 | pr checks complete cursor not configured
+11:51:41 | T13 | verify start fresh coord-live run
+11:58:32 | T26 | waiver granted, finalizing pr and setting awaiting-user
+11:58:39 | T6 | status check reply — pr225 ready body verified qa pending
+11:59:02 | T13 | qa-coord FAIL pre-existing unrelated diffs
+11:59:02 | T13 | ❓DECISION coord gate FAIL waiver evidence-based
+11:59:08 | T26 | awaiting-user set, waiver recorded, PR226 ready, stopping
+11:59:44 | CONTROL | T28 | VOID — not reproducing; CORE-7358 closed Done with evidence; report-only branch retained
