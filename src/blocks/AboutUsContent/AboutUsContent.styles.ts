@@ -46,5 +46,7 @@ export const aboutUsContentStyles = {
     'mb-2 inline align-middle text-[28px] leading-[34.58px] font-normal text-[var(--text-on-light-base)]',
 
   panelBody:
-    'block text-xl leading-[30px] text-[var(--text-on-light-muted)] [&_strong]:!font-bold [&_strong]:!text-[var(--text-on-light-strong)] [&_a]:!text-[var(--text-on-light-link-hover)] [&_a:hover]:!underline [&_p]:!mb-4 [&_ul]:!mb-0 [&_ul]:list-disc [&_ul]:pl-5',
+    'block text-xl leading-[30px] text-[var(--text-on-light-muted)] [&_strong]:!font-bold [&_strong]:!text-[var(--text-on-light-strong)] [&_a]:!text-[var(--text-on-light-link-hover)] [&_a:hover]:!underline [&_p]:!mb-4 [&_ul]:!mb-0 [&_ul]:list-none [&_ul]:pl-0 [&_ul>li]:grid [&_ul>li]:grid-cols-[20px_1fr] [&_ul>li]:gap-2',
+
+  panelListIcon: 'mt-1.5 h-4 w-4 text-[var(--text-on-light-muted)]',
 } as const
