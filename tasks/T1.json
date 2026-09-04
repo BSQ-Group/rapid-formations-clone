@@ -10,7 +10,7 @@
   "track": "linear",
   "tags": [],
   "priority": "normal",
-  "effort": null,
+  "effort": "S",
   "machine": "LOCAL",
   "slug": null,
   "blocks": [],
@@ -20,7 +20,7 @@
   "supersededBy": null,
   "createdAt": "2026-09-01T13:50:58.980Z",
   "createdBy": "task-console",
-  "updatedAt": "2026-09-01T13:50:58.980Z",
+  "updatedAt": "2026-09-04T09:25:04.458Z",
   "startedAt": null,
   "completedAt": null,
   "statusHistory": [
@@ -51,5 +51,6 @@
     "syncedAt": "2026-09-01T13:50:58.980Z"
   },
   "id": "T1",
-  "num": 1
+  "num": 1,
+  "runSkills": []
 }
