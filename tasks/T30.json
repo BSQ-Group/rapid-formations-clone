@@ -4,9 +4,13 @@
   "title": "CORE-7347 · [RF] 404 page missing styled content, needs header/footer confirmed",
   "body": "Linear: https://linear.app/bsq-group/issue/CORE-7347/rf-404-page-missing-styled-content-needs-headerfooter-confirmed\n\n(Reference only — the ticket is the source of truth; fetch the live description at implement time.)\n\nImported by Planning 2026-09-04 (board↔Linear sync, second pass — this ticket was newly assigned at Todo and had no board row).",
   "acceptanceCriteria": [
-    "Resolve CORE-7347 as specified in Linear (fetched live at implement time)."
+    "The clone's 404 page body renders Live's styled 404 content between header and footer: \"Error 404\" heading, \"Page not available\" subheading, the explanatory paragraph (\"Sorry! It looks like this page is no longer available...\"), a \"Go back to homepage.\" link with a left-chevron icon pointing to \"/\", and the three-staff illustration image.",
+    "Header and footer render correctly on the 404 page with no regression (already confirmed present/matching per the ticket — verify still true after the content fix).",
+    "Visually matches Live's 404 page layout (two-column content+illustration on desktop, stacked on mobile) at all 4 breakpoints: 360 / 768 / 1024 / 1800.",
+    "Navigating to a non-existent URL returns HTTP 404 status (not 200) while rendering the styled content.",
+    "No new console errors introduced (e.g. next/image localPatterns violations) on the 404 page."
   ],
-  "status": "backlog",
+  "status": "running",
   "track": "linear",
   "tags": [
     "bug"
@@ -18,18 +22,28 @@
   "blocks": [],
   "deps": [],
   "multiBlockApproved": false,
-  "owner": null,
+  "owner": {
+    "sessionId": "pending",
+    "mode": "W",
+    "branch": "fix/core-7347-404-page",
+    "worktree": null
+  },
   "supersededBy": null,
   "createdAt": "2026-09-04T09:24:28.946Z",
   "createdBy": "planning",
-  "updatedAt": "2026-09-04T09:24:28.946Z",
-  "startedAt": null,
+  "updatedAt": "2026-09-04T09:35:50.607Z",
+  "startedAt": "2026-09-04T09:35:50.607Z",
   "completedAt": null,
   "statusHistory": [
     {
       "status": "backlog",
       "at": "2026-09-04T09:24:28.946Z",
       "by": "planning"
+    },
+    {
+      "status": "running",
+      "at": "2026-09-04T09:35:50.607Z",
+      "by": "mode-x"
     }
   ],
   "qa": null,
