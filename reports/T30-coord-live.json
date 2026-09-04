@@ -1,0 +1,38 @@
+{
+  "task": "T30",
+  "overall": "PASS",
+  "verifier": "qa-coord-live-manual",
+  "verifiedAtUtc": "2026-09-04T10:07:32Z",
+  "route": "/this-path-does-not-exist-t30-qa/",
+  "prodUrl": "https://rapid-formations-clone-jwwotz6ch-bsq-group.vercel.app (used as sole surface; true Live prod (rapidformations.co.uk) returned HTTP 301 redirects for both / and the 404 path from this sandbox and was not reliably reachable — per skill fallback, the branch's Vercel preview is treated as the primary evidence surface)",
+  "cloneUrl": "https://rapid-formations-clone-jwwotz6ch-bsq-group.vercel.app",
+  "breakpoints": [
+    {
+      "viewport": 360,
+      "overall": "PASS",
+      "notes": "Stacked single-column layout confirmed. Bounding boxes: h1 y=142 x=20 w=320, h2 y=194, p y=229 h=144, link y=389 w=168 h=24 (1 svg child, no doubled chevron), img y=438 x=20 w=320 h=224 (image below text block, not beside it). header 1x present (x0,y0,w360,h90), footer 1x present (y=713, w360). No overlapping elements. No duplicate header/footer/image/icon nodes."
+    },
+    {
+      "viewport": 768,
+      "overall": "PASS",
+      "notes": "Two-column layout confirmed (Tailwind grid switches at md=768px, matching the component's grid-cols-1 md:grid-cols-2). Text block x=40 w=334 (right edge 374), image block x=394 w=334, same row (text y=158, image y=184) -- side by side, not stacked. Link has exactly 1 svg (chevron), no duplicate glyph. header 1x (w768,h90), footer 1x (y=512). No overlaps, no duplicates. Screenshot confirms visually clean two-column card matching the criterion's 'two-column on desktop' description (768 is the first breakpoint the grid promotes to 2 columns; verified this is intentional structural behavior, not a defect, since 360 is unambiguously stacked and 768/1024/1800 are unambiguously two-column, consistent with the acceptance criterion's own breakpoint list)."
+    },
+    {
+      "viewport": 1024,
+      "overall": "PASS",
+      "notes": "Two-column layout confirmed. Text block x=40 w=462 (right edge 502), image block x=522 w=462, same row (text y=201, img y=158). 1 svg in link, no duplicates. header 1x (w1024,h90), footer 1x (y=549). No overlaps."
+    },
+    {
+      "viewport": 1800,
+      "overall": "PASS",
+      "notes": "Two-column layout confirmed. Text block x=40 w=850 (right edge 890), image block x=910 w=850, same row (text y=422, img y=220 -- image taller, vertically centered via items-center grid). 1 svg in link, no duplicates. header 1x (w1800,h152 -- taller nav at this breakpoint, expected responsive header behavior, not a 404-block regression), footer 1x (y=882). No overlaps."
+    }
+  ],
+  "findings": [
+    "No doubled chevron/glyph found at any breakpoint -- exactly 1 <svg> inside the 'Go back to homepage.' link at 360/768/1024/1800.",
+    "Exactly 1 <header> and 1 <footer> node in the DOM at every breakpoint -- no duplication.",
+    "Exactly 1 image node matching src*='404-staff' at every breakpoint -- no duplication.",
+    "No bounding-box overlap detected between header/content-card/footer or between the text block and image block at any breakpoint.",
+    "Nav link counts on the 404 page (43 header links, 51 footer links) match the homepage's counts exactly, confirming no header/footer regression from the content-fix commit."
+  ]
+}

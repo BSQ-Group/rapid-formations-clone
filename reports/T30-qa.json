@@ -1,0 +1,42 @@
+{
+  "task": "T30",
+  "overall": "APPROVE",
+  "verifier": "clone-task-qa-permission-to-finish",
+  "verifiedAtUtc": "2026-09-04T10:07:32Z",
+  "branch": "fix/core-7347-404-page",
+  "criteria": [
+    {
+      "criterion": "The clone's 404 page body renders Live's styled 404 content between header and footer: \"Error 404\" heading, \"Page not available\" subheading, the explanatory paragraph (\"Sorry! It looks like this page is no longer available...\"), a \"Go back to homepage.\" link with a left-chevron icon pointing to \"/\", and the three-staff illustration image.",
+      "verdict": "PASS",
+      "evidence": "Live navigation to https://rapid-formations-clone-jwwotz6ch-bsq-group.vercel.app/this-path-does-not-exist-t30-qa/ via Playwright. DOM body text excerpt: 'Error 404\\nPage not available\\n\\nSorry! It looks like this page is no longer available. It may have been removed because the information was outdated. Alternatively, it may have disappeared because our website is experiencing an unusually high volume of traffic. Please return to our homepage and try again.\\n\\nGo back to homepage.' Link element: href='/', text='Go back to homepage.', contains exactly 1 <svg> (CircleChevronLeft icon). Image element: src='/images/errors/404-staff-illustration.png', alt='Three members of staff holding their hands over their face.', naturalWidth=561 naturalHeight=392 (loads 200 OK). Screenshot: /Users/eugeniucozac/bsqgroup/rf-t30/reports/shots/clone-full-desktop.png. All content sits inside <main> between <header> and <footer> per source diff of src/app/(frontend)/not-found.tsx."
+    },
+    {
+      "criterion": "Header and footer render correctly on the 404 page with no regression (already confirmed present/matching per the ticket — verify still true after the content fix).",
+      "verdict": "PASS",
+      "evidence": "DOM query confirms exactly 1 <header> and 1 <footer> element present on the 404 page. Header nav link count = 43, footer link count = 51 -- identical to the homepage (/) baseline captured in the same session (navLinksHome=43, footerLinksHome=51). No missing/duplicated nav items."
+    },
+    {
+      "criterion": "Visually matches Live's 404 page layout (two-column content+illustration on desktop, stacked on mobile) at all 4 breakpoints: 360 / 768 / 1024 / 1800.",
+      "verdict": "PASS",
+      "evidence": "Bounding-box measurements + full-page screenshots at each breakpoint. 360: text block x=20 w=320 (right edge 340), image block x=20 y=438 (below text, same x-origin) => stacked. 768: text right-edge=374, image x=394, same row (y within 30px of each other) => two-column. 1024: text right-edge=502, image x=522, same row => two-column. 1800: text right-edge=890, image x=910, same row (vertically centered) => two-column. Screenshots saved at /Users/eugeniucozac/bsqgroup/rf-t30/reports/shots/clone-360.png, clone-768.png, clone-1024.png, clone-1800.png -- visually confirms card grid switches from 1-col to 2-col exactly as described (CSS: grid-cols-1 md:grid-cols-2, md=768px in this project's Tailwind config). True Live prod (rapidformations.co.uk) returned HTTP 301 on both / and the 404 path from this sandbox and was not independently reachable for a pixel comparison; per the skill's stated fallback, the Vercel preview was treated as the primary/sole evidence surface, and the clone's own structural behavior (unambiguous stacked-vs-two-column split exactly at the criterion's mobile/desktop boundary) satisfies the criterion's literal description."
+    },
+    {
+      "criterion": "Navigating to a non-existent URL returns HTTP 404 status (not 200) while rendering the styled content.",
+      "verdict": "PASS",
+      "evidence": "Playwright response.status() = 404 for GET https://rapid-formations-clone-jwwotz6ch-bsq-group.vercel.app/this-path-does-not-exist-t30-qa/. Cross-checked with curl -skI: 'HTTP/2 404'. Styled content (Error 404 heading, subheading, paragraph, link, image) confirmed rendered in the same response per criterion 1 evidence."
+    },
+    {
+      "criterion": "No new console errors introduced (e.g. next/image localPatterns violations) on the 404 page.",
+      "verdict": "PASS",
+      "evidence": "Only one browser console message captured across all 5 page loads (1 desktop + 4 breakpoints): 'Failed to load resource: the server responded with a status of 404 ()' -- this is the browser's own network log for the top-level navigation request to the intentionally-nonexistent test path itself (expected on any 404 page test, confirmed via curl -skI returning HTTP/2 404 for the same URL), not a resource/image/hydration error. No next/image warnings, no localPatterns violations, no React hydration errors, no other console.error or pageerror events. The 404 illustration image itself returned 200 OK on GET (verified via curl) and the source uses the `unoptimized` prop on next/image (confirmed by reading src/components/shared/NotFoundContent/NotFoundContent.tsx line 36), which sidesteps the Next.js image-optimizer localPatterns check entirely."
+    }
+  ],
+  "unmet": [],
+  "coordLive": {
+    "artifact": "reports/T30-coord-live.json",
+    "overall": "PASS",
+    "section": "NotFoundContent 404 block",
+    "outOfSectionFindings": 0,
+    "notes": "whole-block coordinate regression sweep at 360/768/1024/1800 per bug-lane Step 2f. Confirmed exactly 1 header, 1 footer, 1 chevron icon (no doubled glyph), 1 image node at every breakpoint; no overlapping elements; header/footer nav link counts identical to homepage baseline (43/51). Full-block + header + footer screenshots captured at all four breakpoints."
+  }
+}

@@ -31,8 +31,8 @@
   "supersededBy": null,
   "createdAt": "2026-09-04T09:24:28.946Z",
   "createdBy": "planning",
-  "updatedAt": "2026-09-04T09:35:50.607Z",
-  "startedAt": "2026-09-04T09:35:50.607Z",
+  "updatedAt": "2026-09-04T10:01:13.712Z",
+  "startedAt": "2026-09-04T10:01:13.712Z",
   "completedAt": null,
   "statusHistory": [
     {
@@ -43,6 +43,17 @@
     {
       "status": "running",
       "at": "2026-09-04T09:35:50.607Z",
+      "by": "mode-x"
+    },
+    {
+      "status": "backlog",
+      "at": "2026-09-04T10:00:37.428Z",
+      "by": "control-mode-x",
+      "note": "restart from scratch: lane SIGTERM-killed (exit 143) by sibling lane's unscoped pkill; branch work committed+pushed; re-dispatch"
+    },
+    {
+      "status": "running",
+      "at": "2026-09-04T10:01:13.712Z",
       "by": "mode-x"
     }
   ],
