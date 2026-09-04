@@ -10,7 +10,7 @@ export const aboutUsTabsStyles = {
 
   list: 'm-0 mb-[50px] grid grid-cols-2 gap-x-0.5 gap-y-[3px] p-0 min-[1023px]:block min-[1023px]:border-b min-[1023px]:border-solid min-[1023px]:border-[color:var(--border-on-light)]',
 
-  tab: 'cursor-pointer px-5 py-2 text-center text-[17px] leading-[25.5px] focus-visible:ring-4 focus-visible:ring-[var(--border-focus)] focus-visible:outline-none md:mr-0.5 md:rounded-t md:text-lg md:leading-[27px] min-[1023px]:inline-block min-[1023px]:text-left',
+  tab: 'cursor-pointer px-5 py-2 text-left text-[17px] leading-[25.5px] focus-visible:ring-4 focus-visible:ring-[var(--border-focus)] focus-visible:outline-none md:mr-0.5 md:rounded-t md:text-lg md:leading-[27px] min-[1023px]:inline-block',
 
   tabIdle: 'border-0 bg-[var(--surface-brand-cyan)] font-normal text-[rgb(var(--white))]',
 
