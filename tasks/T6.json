@@ -2,15 +2,21 @@
   "schemaVersion": 1,
   "kind": "task",
   "title": "CORE-6965 · [RF] SITEWIDE: content images served under-resolution (≤1×) → soft/pixelated on high-DPI (Live serves 2×)",
-  "body": "Linear: https://linear.app/bsq-group/issue/CORE-6965/rf-sitewide-content-images-served-under-resolution-1-softpixelated-on\n\n(Reference only — the ticket is the source of truth; fetch the live description at implement time.)",
+  "body": "Linear: https://linear.app/bsq-group/issue/CORE-6965/rf-sitewide-content-images-served-under-resolution-1-softpixelated-on\n\n(Reference only — the ticket is the source of truth; fetch the live description at implement time.)\n\n---\n\n## ⛔ PLANNING RECONCILIATION — 2026-09-04\n\n**The code half of this ticket is ALREADY SHIPPED. Only the CMS-media half remains — do not redo the code.**\n\nDelivered by another dev via **PR #202** (`6706680 CORE-6965 fix(images): serve 2x density for fixed-size content images (code half)`).\n\nA prior full investigation (legacy task T31, now retired) measured **223 raster images across 11 pages at deviceScaleFactor 2**, live vs a local production build, metric = effective DPR (`naturalWidth / rendered CSS width`). Findings that scope this task:\n\n- **0 of 86 under-resolution images were next/image under-requesting.** Every one was already served at its full master width. There is no component/`sizes` bucket anywhere on the site.\n- **\"SITEWIDE\" is not accurate.** 137/223 images are already ≥1.9×. Of the 86 below, **62 are byte-for-byte identically soft on live** (same file, same box). Live is not a uniformly-2× site either — 49 of its 203 images are under 1.5×.\n- **Only 17 instances / 9 unique assets are genuine regressions, and all are CMS media, not code:**\n  - **8 bank logos** — clone master 64×64, live **116×116** (the clone imported the wrong variant at seed).\n  - **`john-warbuton.webp`** — clone **400×400**, live **800×800**. (An earlier CORE-6993 note recorded 300×300; it is 400×400, already partially bumped, but still half-res.)\n- **Ruled out:** the `no-vw sizes` mechanism is **refuted as a resolution cause** — next/image clamps candidates to master width and never upscales, and a `w`-descriptor srcset's fallback `src` is the *largest* candidate. Measured: `sizes=\"200px\"` resolves to `&w=640` and returns the full 200×50 master. It makes the browser request **more**, never less — a byte-waste defect belonging to CORE-7133, which would not change one delivered pixel.\n- **Compression ruled out:** clone serves AVIF where live serves WebP/JPEG at a comparable mean byte ratio.\n\nSo the remaining work is a **CMS media re-upload of 9 assets**, plus confirming it has not already been done.",
   "acceptanceCriteria": [
-    "Resolve CORE-6965 as specified in Linear (fetched live at implement time)."
+    "Confirm first whether the 9 CMS assets have already been re-uploaded since PR #202 — if they have, close CORE-6965 with the evidence and make no changes.",
+    "If not: replace the 8 bank-logo masters (64×64 → 116×116) and john-warbuton.webp (400×400 → 800×800) in CMS media, matching live.",
+    "Re-measure effective DPR (naturalWidth / rendered CSS width) at deviceScaleFactor 2 on the affected pages and show the 17 instances now ≥1.9×.",
+    "Make NO code change — PR #202 already shipped the code half; re-measure rather than re-fix.",
+    "Do not widen scope to the 62 images that are byte-for-byte identically soft on live, nor to the no-vw sizes byte-waste (that is CORE-7133)."
   ],
   "status": "backlog",
   "track": "linear",
-  "tags": [],
+  "tags": [
+    "bug"
+  ],
   "priority": "normal",
-  "effort": null,
+  "effort": "S",
   "machine": "LOCAL",
   "slug": null,
   "blocks": [],
@@ -20,7 +26,7 @@
   "supersededBy": null,
   "createdAt": "2026-09-02T10:11:26.469Z",
   "createdBy": "task-console",
-  "updatedAt": "2026-09-02T10:11:26.469Z",
+  "updatedAt": "2026-09-04T09:13:07.167Z",
   "startedAt": null,
   "completedAt": null,
   "statusHistory": [

@@ -6,7 +6,7 @@
   "acceptanceCriteria": [
     "Resolve CORE-7203 as specified in Linear (fetched live at implement time)."
   ],
-  "status": "backlog",
+  "status": "void",
   "track": "linear",
   "tags": [],
   "priority": "normal",
@@ -20,7 +20,7 @@
   "supersededBy": null,
   "createdAt": "2026-09-02T10:11:26.469Z",
   "createdBy": "task-console",
-  "updatedAt": "2026-09-02T10:11:26.469Z",
+  "updatedAt": "2026-09-04T09:14:41.009Z",
   "startedAt": null,
   "completedAt": null,
   "statusHistory": [
@@ -28,6 +28,12 @@
       "status": "backlog",
       "at": "2026-09-02T10:11:26.469Z",
       "by": "task-console"
+    },
+    {
+      "status": "void",
+      "at": "2026-09-04T09:14:41.009Z",
+      "by": "planning",
+      "note": "cancelled: ALREADY SHIPPED — do not work. CORE-7203 landed via PR #187 (37eb0ef \"fix(company-address-guide): lighten comparison-table footnote list to #595959\", merge 7902519). Ready for QA in Linear, awaiting human QA only. Verified against git log on main 2026-09-04."
     }
   ],
   "qa": null,
@@ -51,5 +57,6 @@
     "syncedAt": "2026-09-02T10:11:26.469Z"
   },
   "id": "T4",
-  "num": 4
+  "num": 4,
+  "runSkills": []
 }

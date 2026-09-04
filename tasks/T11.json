@@ -2,15 +2,20 @@
   "schemaVersion": 1,
   "kind": "task",
   "title": "CORE-7159 · [RF] SHARED: legal-page content-to-footer gap off at every breakpoint (too loose 360–1200, too tight 1800)",
-  "body": "Linear: https://linear.app/bsq-group/issue/CORE-7159/rf-shared-legal-page-content-to-footer-gap-off-at-every-breakpoint-too\n\n(Reference only — the ticket is the source of truth; fetch the live description at implement time.)",
+  "body": "Linear: https://linear.app/bsq-group/issue/CORE-7159/rf-shared-legal-page-content-to-footer-gap-off-at-every-breakpoint-too\n\n(Reference only — the ticket is the source of truth; fetch the live description at implement time.)\n\n---\n\n## ⛔ PLANNING RECONCILIATION — 2026-09-04\n\n**ALREADY SHIPPED — voided, do not work.** CORE-7159 landed via **PR #201** (merge 78385e2, `justinassimutis/core-7159-rf-shared-legal-page-content-to-footer-gap-off-at-every`) and is at **Ready for QA** in Linear, awaiting human QA only. Verified against git log on main 2026-09-04.\n\nMeasurements retained for whoever picks up the related rows (from retired legacy task T25, report `reports/T25-CORE-6999-verification.md`): the defect was confined to **8 legal/policy pages out of 92** (8 control pages measured 48/48 cells at 0px difference); the clone was **looser** below 1440 and tighter above; the 1590–1799 band measured **-30px**; and the target value `pb-0 mb-[50px] min-[1023px]:mb-[75px] min-[1590px]:mb-[110px]` gave **48/48 exact matches** to live. On those 8 pages the spacing is stored in **CMS data** (`{\"paddingBottom\":\"l\",\"gap\":\"inherit\"}`), so a code-only change may not have moved them — which is exactly what **T9 (CORE-6999)** must now re-measure.\n\nRelated still-open row: **T9 · CORE-6999**, and in Linear **CORE-7340** (same metric, opposite sign, `/compare-packages/llp/`).",
   "acceptanceCriteria": [
-    "Resolve CORE-7159 as specified in Linear (fetched live at implement time)."
+    "Legal-page final-content → footer gap matches live at 360 / 768 / 1024 / 1440 / 1590 / 1800 (the 1590–1799 band is a distinct step on live and must be covered, not interpolated).",
+    "Verified on the affected legal/policy pages AND on control pages that already match, showing no regression on the latter.",
+    "State explicitly whether the 8 pages carrying `{\"paddingBottom\":\"l\",\"gap\":\"inherit\"}` in CMS data are fixed by this change or still need a data edit — that determines whether T9/CORE-6999 can close.",
+    "Measured on the deployed clone, with the per-breakpoint table in the report."
   ],
-  "status": "backlog",
+  "status": "void",
   "track": "linear",
-  "tags": [],
+  "tags": [
+    "bug"
+  ],
   "priority": "normal",
-  "effort": null,
+  "effort": "M",
   "machine": "LOCAL",
   "slug": null,
   "blocks": [],
@@ -20,7 +25,7 @@
   "supersededBy": null,
   "createdAt": "2026-09-02T10:11:26.469Z",
   "createdBy": "task-console",
-  "updatedAt": "2026-09-02T10:11:26.469Z",
+  "updatedAt": "2026-09-04T09:14:41.074Z",
   "startedAt": null,
   "completedAt": null,
   "statusHistory": [
@@ -28,6 +33,12 @@
       "status": "backlog",
       "at": "2026-09-02T10:11:26.469Z",
       "by": "task-console"
+    },
+    {
+      "status": "void",
+      "at": "2026-09-04T09:14:41.074Z",
+      "by": "planning",
+      "note": "cancelled: ALREADY SHIPPED — do not work. CORE-7159 landed via PR #201 (merge 78385e2). Ready for QA in Linear, awaiting human QA only. Verified against git log on main 2026-09-04. Its measurements are retained in the task body for T9 (CORE-6999), which must now re-measure against the deployed build."
     }
   ],
   "qa": null,
@@ -51,5 +62,6 @@
     "syncedAt": "2026-09-02T10:11:26.469Z"
   },
   "id": "T11",
-  "num": 11
+  "num": 11,
+  "runSkills": []
 }

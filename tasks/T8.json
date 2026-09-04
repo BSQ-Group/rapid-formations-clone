@@ -2,15 +2,21 @@
   "schemaVersion": 1,
   "kind": "task",
   "title": "CORE-7135 · [RF] SITEWIDE: FAQ accordion opens ~2-5x slower than live",
-  "body": "Linear: https://linear.app/bsq-group/issue/CORE-7135/rf-sitewide-faq-accordion-opens-2-5x-slower-than-live\n\n(Reference only — the ticket is the source of truth; fetch the live description at implement time.)",
+  "body": "Linear: https://linear.app/bsq-group/issue/CORE-7135/rf-sitewide-faq-accordion-opens-2-5x-slower-than-live\n\n(Reference only — the ticket is the source of truth; fetch the live description at implement time.)\n\n---\n\n## ⛔ PLANNING RECONCILIATION — 2026-09-04\n\n**⚠️ QA FAILED 2026-09-01 — moved back to Todo. This is a rework round.**\n\n**The QA FAIL comment (Erin Bolas, verbatim):**\n\n> FAIL — fix does not appear to be deployed. Re-tested accordion open timing on 3 of the pages in \"Confirmed on\" (`/vat-registration/`, `/company-dissolution/`, `/`) plus `/company-address-guide/`: clone still opens in **~465-470ms (46-47 frames)** on all 4, matching this ticket's original pre-fix numbers almost exactly. Live is consistently **~100-120ms** on the same pages. Moving back to Todo.\n\n### What that tells you\n\n- The gap is **~4×**, unchanged from the original report — this reads as \"the change never reached the deployed build\", the same failure signature as CORE-7108's round.\n- SITEWIDE: the shared `CollapsibleList--collapsibleList__content` component (declared `grid-template-rows` 0.15s `cubic-bezier(0,0,0.2,1)`) is behind every FAQ-style accordion on the site, so a fix must be verified on **every named instance**, not one page.\n- Note the arithmetic: a declared 0.15s transition cannot itself account for 465ms. Establish where the remaining time actually goes before changing a duration value.",
   "acceptanceCriteria": [
-    "Resolve CORE-7135 as specified in Linear (fetched live at implement time)."
+    "Accordion open completes within live’s ~100-120ms envelope, measured by frame count, on all 4 pages named in the QA FAIL comment (`/vat-registration/`, `/company-dissolution/`, `/`, `/company-address-guide/`) plus at least one further page using the component.",
+    "Measured on the DEPLOYED clone and the report states explicitly where — the prior round failed on \"does not appear to be deployed\".",
+    "The report identifies what actually consumed the ~465ms, since the declared 0.15s transition alone cannot explain it.",
+    "Close/collapse timing, and single-open vs multi-open behaviour, do not regress on the pages tested."
   ],
   "status": "backlog",
   "track": "linear",
-  "tags": [],
+  "tags": [
+    "bug",
+    "qa-fail"
+  ],
   "priority": "normal",
-  "effort": null,
+  "effort": "M",
   "machine": "LOCAL",
   "slug": null,
   "blocks": [],
@@ -20,7 +26,7 @@
   "supersededBy": null,
   "createdAt": "2026-09-02T10:11:26.469Z",
   "createdBy": "task-console",
-  "updatedAt": "2026-09-02T10:11:26.469Z",
+  "updatedAt": "2026-09-04T09:13:07.167Z",
   "startedAt": null,
   "completedAt": null,
   "statusHistory": [

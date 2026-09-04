@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "Hero → first content section gap is 45px looser than live (17 pages) — NEEDS A LINEAR TICKET",
+  "body": "**Migrated by Planning 2026-09-04 from the retired pre-cutover task set (was legacy task T34, surfaced by the CORE-7130 sweep). It has NO Linear ticket and was on no board — it would have been lost when the legacy set was retired.**\n\nSurfaced by the CORE-7130 sweep, **unrelated to that ticket and in the opposite direction**.\n\n**17 pages.** Hero (`PageTitle`) → first content section:\n\n- clone gap is **+45px looser** (+40px at 360)\n- clone hero box is **22px shorter** (2px at 768, 40.7px at 360)\n\n**Cause:** the clone moves the hero's bottom spacing from *inside* the section to a *margin below* it. Net downward drift approximately **+23px desktop, +43px at 768, ~0 at 360**.\n\n**Why nothing has caught it:** it reads as correct on casual inspection because the shift is uniform — every downstream gap still measures right, so it never presents as a gap defect. That is also why no existing ticket covers it.\n\n⚠️ **Needs investigation before any fix** — this is deliberately sized `L`. Confirm the 17 pages, decide whether the spacing belongs inside the hero section (matching live) or below it, and establish whether the hero height difference is the same root cause or a second defect. Do not change a spacing value before that is settled: the drift is uniform, so a naive fix will move every downstream section.",
+  "acceptanceCriteria": [
+    "Raise a Linear ticket for this (it has none) and link it here.",
+    "Confirm and list the 17 affected pages, measured live vs the deployed clone at 360 / 768 / 1024 / 1440 / 1800.",
+    "Decide and record whether the hero bottom spacing moves back INSIDE the hero section (matching live) or stays as a margin below it.",
+    "Establish whether the 22px desktop / 40.7px-at-360 hero height difference shares this root cause or is a second defect — if second, split it into its own row rather than fixing both here.",
+    "After any fix, verify every downstream section gap on the affected pages is unchanged — the current drift is uniform, so a naive fix shifts the whole page."
+  ],
+  "status": "backlog",
+  "track": "clone",
+  "tags": [
+    "bug",
+    "needs-linear-ticket"
+  ],
+  "priority": "normal",
+  "effort": "L",
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-09-04T09:16:08.556Z",
+  "createdBy": "",
+  "updatedAt": "2026-09-04T09:16:08.556Z",
+  "startedAt": null,
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-09-04T09:16:08.556Z",
+      "by": "unknown"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": null,
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "externalRef": null,
+  "runSkills": [],
+  "id": "T29",
+  "num": 29
+}

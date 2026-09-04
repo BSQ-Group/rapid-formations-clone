@@ -2,15 +2,22 @@
   "schemaVersion": 1,
   "kind": "task",
   "title": "CORE-7108 · [RF] SITEWIDE: body base font is Inter 16px/24px on clone (live is Myriad 18px/27px)",
-  "body": "Linear: https://linear.app/bsq-group/issue/CORE-7108/rf-sitewide-body-base-font-is-inter-16px24px-on-clone-live-is-myriad\n\n(Reference only — the ticket is the source of truth; fetch the live description at implement time.)",
+  "body": "Linear: https://linear.app/bsq-group/issue/CORE-7108/rf-sitewide-body-base-font-is-inter-16px24px-on-clone-live-is-myriad\n\n(Reference only — the ticket is the source of truth; fetch the live description at implement time.)\n\n---\n\n## ⛔ PLANNING RECONCILIATION — 2026-09-04\n\n**⚠️ QA FAILED 2026-09-01 — this is a rework round, and it carries a trap. Read all of this before touching anything.**\n\n**The QA FAIL comment (Erin Bolas, verbatim):**\n\n> **QA Result: FAIL**\n>\n> **Design QA:** Re-tested the `body` font fix (headless, 1800px, `getComputedStyle` post-`document.fonts.ready`) on all pages listed in this ticket's confirmation history, plus `/help-centre/online-admin-portal/`. All 12 pages still compute `Inter, \"Inter Fallback\"` / 16px / 24px — none show the DoD target (`myriad-pro-semi-condensed` / 18px / 27px).\n>\n> Tested: `/faqs`, `/faqs/company-secretary`, `/faqs/self-assessment`, `/faqs/the-formation-process`, `/faqs/vat`, `/id-requirements`, `/additional-services/business-address`, `/additional-services/london-registered-office`, `/additional-services/service-address`, `/contact-us`, `/environmental-policy`, `/help-centre/online-admin-portal`.\n>\n> **Remaining Issues:** Fix not observed on any tested page — not a partial rollout, uniform failure across the full confirmation list. No PR is attached to this ticket, unlike comparable Ready for QA tickets.\n>\n> **Validation:** 12/12 pages fail.\n\n### ⛔ THE TRAP — this fix is expected to move ZERO visible pixels\n\nA prior full investigation (legacy task T35, now retired; report `reports/T35-CORE-7108-verification.md`) proved the premise is **true at the `<body>` element but that nothing inherits it**:\n\n| | live | clone |\n|---|---|---|\n| `<body>` font-family | `myriad-pro-semi-condensed, verdana-fallback, Geneva, Tahoma, sans-serif` | `Inter, \"Inter Fallback\"` |\n| `<body>` size / line-height | **18px / 27px** | **16px / 24px** |\n\nBut every visible text-bearing element outside header/footer/nav resolves to **Myriad at 100% on BOTH sites** — measured across live `/` and clone `/` at 1440 and 360, plus `/privacy-policy`, `/id-requirements`, `/site-map` and `/a-z-glossary-of-terms` (rich-text-heavy pages chosen deliberately as the likeliest place for a missed opt-in — there is none). Size distributions match, and the two shared homepage headings are identical on both sites (36px/44.46px w400 at 1440 and 360). Face resolution was proved by canvas fingerprinting against 11 candidate families: live `<body>` renders 468.79px for a fixed sample and `myriad-pro-semi-condensed` measures **468.79px exactly**; every other candidate is 22–214px away.\n\n**So: satisfy the literal DoD on `<body>`, and do NOT restyle rendered text to manufacture a visible difference.** There is no visible defect to chase. A change that moves rendered text is a regression, not a fix.\n\n### Not a licensing matter\n\nMyriad is already licensed and wired: `layout.tsx` injects the Adobe Typekit kit gated on `NEXT_PUBLIC_ADOBE_FONT_PROJECT_ID` (`wrj3hpa` in `.env`), and the local build emits the Typekit `<link>`. Since QA measured 12/12 failing on the **deployed** clone while local emits the link, suspect the deployed build/env before the source.",
   "acceptanceCriteria": [
-    "Resolve CORE-7108 as specified in Linear (fetched live at implement time)."
+    "`<body>` computes `myriad-pro-semi-condensed` / 18px / 27px on all 12 pages named in the QA FAIL comment.",
+    "Measured on the DEPLOYED clone (not a local build) and the report states explicitly where — the prior round failed because the change was never observable in the deployed build, and no PR is attached to the ticket at all.",
+    "ZERO change to rendered text: every visible text-bearing element outside header/footer/nav still resolves to Myriad at the same size/line-height as before, on at least `/`, `/privacy-policy` and `/a-z-glossary-of-terms` at 1440 and 360. A visible diff here is a regression.",
+    "Assert the Adobe Typekit `<link>` (gated on `NEXT_PUBLIC_ADOBE_FONT_PROJECT_ID=wrj3hpa`) is present in the DEPLOYED HTML — ideally as a CI assertion, since local emits it but the deployed pages failed 12/12.",
+    "Open a PR and attach it to CORE-7108."
   ],
   "status": "backlog",
   "track": "linear",
-  "tags": [],
+  "tags": [
+    "bug",
+    "qa-fail"
+  ],
   "priority": "normal",
-  "effort": null,
+  "effort": "M",
   "machine": "LOCAL",
   "slug": null,
   "blocks": [],
@@ -20,7 +27,7 @@
   "supersededBy": null,
   "createdAt": "2026-09-02T10:11:26.469Z",
   "createdBy": "task-console",
-  "updatedAt": "2026-09-02T10:11:26.469Z",
+  "updatedAt": "2026-09-04T09:13:07.167Z",
   "startedAt": null,
   "completedAt": null,
   "statusHistory": [

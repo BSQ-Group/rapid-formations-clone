@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-7259 · [RF] SITEWIDE: burger sub-menu items below the fold are unreachable (fix beyond Live parity)",
+  "body": "Linear: https://linear.app/bsq-group/issue/CORE-7259/rf-sitewide-burger-sub-menu-items-below-the-fold-are-unreachable-fix\n\n(Reference only — the ticket is the source of truth; fetch the live description at implement time.)\n\nImported by Planning 2026-09-04 as part of the board↔Linear sync: this ticket was open and assigned at Todo in Linear but had no row on the board.",
+  "acceptanceCriteria": [
+    "Resolve CORE-7259 as specified in Linear (fetched live at implement time)."
+  ],
+  "status": "backlog",
+  "track": "linear",
+  "tags": [
+    "improvement"
+  ],
+  "priority": "normal",
+  "effort": "M",
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-09-04T09:15:21.288Z",
+  "createdBy": "",
+  "updatedAt": "2026-09-04T09:15:21.288Z",
+  "startedAt": null,
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-09-04T09:15:21.288Z",
+      "by": "unknown"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": null,
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "externalRef": null,
+  "runSkills": [],
+  "id": "T12",
+  "num": 12
+}

@@ -2,15 +2,21 @@
   "schemaVersion": 1,
   "kind": "task",
   "title": "CORE-6999 · [RF] SHARED: final content-to-footer gap is 20px tighter than Live at 1024/1800",
-  "body": "Linear: https://linear.app/bsq-group/issue/CORE-6999/rf-shared-final-content-to-footer-gap-is-20px-tighter-than-live-at\n\n(Reference only — the ticket is the source of truth; fetch the live description at implement time.)",
+  "body": "Linear: https://linear.app/bsq-group/issue/CORE-6999/rf-shared-final-content-to-footer-gap-is-20px-tighter-than-live-at\n\n(Reference only — the ticket is the source of truth; fetch the live description at implement time.)\n\n---\n\n## ⛔ PLANNING RECONCILIATION — 2026-09-04\n\n**⛔ CORE-7159 IS ALREADY SHIPPED AND MAY HAVE FIXED THIS. RE-MEASURE FIRST — do not write code before you do.**\n\nCORE-7159 (\"SHARED: legal-page content-to-footer gap off at every breakpoint\") targets the same metric on the same page family and landed via **PR #201** (merge 78385e2), so it is already in the deployed build. This ticket (CORE-6999) is still **Todo**. The likely outcome is that CORE-6999 now closes as fixed-by-CORE-7159 — confirm by measurement against the deployed clone before doing anything else.\n\nAlso related and still open: **CORE-7340** (`/compare-packages/llp/` — final-content-to-footer gap *looser* than Live at 1024/1800, explicitly noted in Linear as \"opposite of CORE-6999\"). Same metric, opposite sign. Check whether one root cause explains both before fixing either.\n\n### Prior investigation — the ticket's stated premise is materially WRONG\n\nA full verification (legacy task T31/T25, now retired; report `reports/T25-CORE-6999-verification.md`) measured last section's *content-box* bottom → `footer.top`, live vs a local production build:\n\n| 1800 | 1590 | 1440 | 1024 | 768 | 360 |\n|---|---|---|---|---|---|\n| 130/116 = **-14** | 130/100 = **-30** | 95/100 = **+5** | 95/100 = **+5** | 50/64 = **+14** | 50/56 = **+6** |\n\n- **Not 20px, not tighter at most widths, and NOT SHARED.** It affects **8 legal/policy pages out of 92**. 8 control pages measured 48/48 cells at **0px difference**.\n- **Below 1440 the clone is LOOSER, not tighter.** The headline \"~20px\" reproduces on exactly one page (`/privacy-policy` @1800), and 8 of those 22px come from a separate `<ol>` margin defect.\n- **Worse than reported in one band:** 1590–1799 is **-30px**, not -14 — confirmed at 1590, 1600, 1680 and 1728 (the default logical width of a 16\" MacBook Pro). The clone's `--section-spacing-l` steps at 1800 while live's rhythm steps at 1023 and 1590.\n\n### The correct value is proved, but is NOT reachable from code\n\nSwapping the trailing section's `pb-[var(--section-spacing-l)]` for `responsiveGap.section` (`pb-0 mb-[50px] min-[1023px]:mb-[75px] min-[1590px]:mb-[110px]`) at runtime gives **48/48 exact matches** to live. But that value lives entirely in **CMS data**: all 8 documents explicitly store `{\"paddingBottom\":\"l\",\"gap\":\"inherit\"}`. Editing `TextContent/config.ts` moves zero pixels — Payload applies a config default only at document creation. There is no git-tracked data route either (no `src/migrations/`, no `payload migrate` in CI, and the `/next/seed` route no longer exists). Every code path that *would* move pixels regresses a shared component.\n\n**So if this still reproduces after T11, the fix is a CMS edit on 8 page documents, not a code change** — and the ticket needs re-scoping in Linear off SHARED onto those 8 pages.",
   "acceptanceCriteria": [
-    "Resolve CORE-6999 as specified in Linear (fetched live at implement time)."
+    "Re-measure last-section content-box bottom → footer.top on the 8 legal/policy pages at 360/768/1024/1440/1590/1800, live vs the DEPLOYED clone (which already contains CORE-7159 / PR #201).",
+    "If CORE-7159 resolved it: close CORE-6999 as fixed-by-CORE-7159 with the measurement table as evidence, and make no further change.",
+    "Cross-check CORE-7340 (same metric, opposite sign, on /compare-packages/llp/) and state whether one root cause explains both.",
+    "If it still reproduces: re-scope CORE-6999 in Linear off SHARED onto the 8 legal/policy pages, then apply the CMS edit (last textContent block: paddingBottom L→None, gap Inherit→Section) on those 8 documents only.",
+    "Mid-page textContent instances left untouched — verified no regression on the 8 control pages that measured 48/48 at 0px. Do NOT attempt a code fix: the value is CMS data, and every code path that moves these pixels regresses a shared component."
   ],
   "status": "backlog",
   "track": "linear",
-  "tags": [],
+  "tags": [
+    "bug"
+  ],
   "priority": "normal",
-  "effort": null,
+  "effort": "M",
   "machine": "LOCAL",
   "slug": null,
   "blocks": [],
@@ -20,7 +26,7 @@
   "supersededBy": null,
   "createdAt": "2026-09-02T10:11:26.469Z",
   "createdBy": "task-console",
-  "updatedAt": "2026-09-02T10:11:26.469Z",
+  "updatedAt": "2026-09-04T09:14:30.314Z",
   "startedAt": null,
   "completedAt": null,
   "statusHistory": [

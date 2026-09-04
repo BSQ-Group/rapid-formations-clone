@@ -6,7 +6,7 @@
   "acceptanceCriteria": [
     "Resolve CORE-7142 as specified in Linear (fetched live at implement time)."
   ],
-  "status": "backlog",
+  "status": "void",
   "track": "linear",
   "tags": [],
   "priority": "normal",
@@ -20,7 +20,7 @@
   "supersededBy": null,
   "createdAt": "2026-09-02T10:11:26.469Z",
   "createdBy": "task-console",
-  "updatedAt": "2026-09-02T10:11:26.469Z",
+  "updatedAt": "2026-09-04T09:11:37.460Z",
   "startedAt": null,
   "completedAt": null,
   "statusHistory": [
@@ -28,6 +28,12 @@
       "status": "backlog",
       "at": "2026-09-02T10:11:26.469Z",
       "by": "task-console"
+    },
+    {
+      "status": "void",
+      "at": "2026-09-04T09:11:37.459Z",
+      "by": "planning",
+      "note": "cancelled: ALREADY SHIPPED — do not work. CORE-7142 was delivered by another dev via PR #194 (commits 43bc5d4 \"CORE-7142: add theme-color meta sitewide\", 7828176 \"Set the theme-color meta from the brand config\"), merged as 4f5b98a. The ticket is at Ready for QA in Linear, awaiting human QA only. Verified against git log on main 2026-09-04. Reopen only if QA rejects it (it would then re-enter as a QA Fail)."
     }
   ],
   "qa": null,
@@ -51,5 +57,6 @@
     "syncedAt": "2026-09-02T10:11:26.469Z"
   },
   "id": "T10",
-  "num": 10
+  "num": 10,
+  "runSkills": []
 }

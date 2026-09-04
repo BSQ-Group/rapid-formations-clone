@@ -6,7 +6,7 @@
   "acceptanceCriteria": [
     "Resolve CORE-7202 as specified in Linear (fetched live at implement time)."
   ],
-  "status": "backlog",
+  "status": "void",
   "track": "linear",
   "tags": [],
   "priority": "normal",
@@ -20,7 +20,7 @@
   "supersededBy": null,
   "createdAt": "2026-09-02T10:11:26.469Z",
   "createdBy": "task-console",
-  "updatedAt": "2026-09-02T10:11:26.469Z",
+  "updatedAt": "2026-09-04T09:14:40.941Z",
   "startedAt": null,
   "completedAt": null,
   "statusHistory": [
@@ -28,6 +28,12 @@
       "status": "backlog",
       "at": "2026-09-02T10:11:26.469Z",
       "by": "task-console"
+    },
+    {
+      "status": "void",
+      "at": "2026-09-04T09:14:40.941Z",
+      "by": "planning",
+      "note": "cancelled: ALREADY SHIPPED — do not work. CORE-7202 landed via PR #186 (justinassimutis/core-7202-rf-sitewide-h4-span-heading-text-renders-595959-lighter-vs, merge f0186d8). Ready for QA in Linear, awaiting human QA only. Verified against git log on main 2026-09-04. Reopen only if QA rejects it (it would re-enter as a QA Fail)."
     }
   ],
   "qa": null,
@@ -51,5 +57,6 @@
     "syncedAt": "2026-09-02T10:11:26.469Z"
   },
   "id": "T2",
-  "num": 2
+  "num": 2,
+  "runSkills": []
 }

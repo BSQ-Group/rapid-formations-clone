@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "kind": "task",
+  "title": "CORE-7340 · [RF] /compare-packages/llp/ — final-content-to-footer gap looser than Live at 1024/1800 (opposite of CORE-6999)",
+  "body": "Linear: https://linear.app/bsq-group/issue/CORE-7340/rf-compare-packagesllp-final-content-to-footer-gap-looser-than-live-at\n\n(Reference only — the ticket is the source of truth; fetch the live description at implement time.)\n\nImported by Planning 2026-09-04 as part of the board↔Linear sync.\n\n**Related — check before fixing:** Linear titles this \"opposite of CORE-6999\". CORE-6999 is board row **T9** (final content-to-footer gap, 8 legal/policy pages) and CORE-7159 (the same metric, SHARED) already shipped via PR #201. Same metric, opposite sign. Establish whether one root cause explains both before changing any spacing value.",
+  "acceptanceCriteria": [
+    "Resolve CORE-7340 as specified in Linear (fetched live at implement time).",
+    "State whether the root cause is shared with CORE-6999 (board T9) / CORE-7159, since Linear describes this as the opposite sign of the same metric."
+  ],
+  "status": "backlog",
+  "track": "linear",
+  "tags": [
+    "bug"
+  ],
+  "priority": "normal",
+  "effort": "S",
+  "machine": "LOCAL",
+  "slug": null,
+  "blocks": [],
+  "deps": [],
+  "multiBlockApproved": false,
+  "owner": null,
+  "supersededBy": null,
+  "createdAt": "2026-09-04T09:15:38.488Z",
+  "createdBy": "",
+  "updatedAt": "2026-09-04T09:15:38.488Z",
+  "startedAt": null,
+  "completedAt": null,
+  "statusHistory": [
+    {
+      "status": "backlog",
+      "at": "2026-09-04T09:15:38.488Z",
+      "by": "unknown"
+    }
+  ],
+  "qa": null,
+  "ready": null,
+  "livecheck": null,
+  "needsManual": null,
+  "userVerified": null,
+  "report": null,
+  "pr": null,
+  "merge": null,
+  "rejections": [],
+  "proposalSource": null,
+  "parent": null,
+  "externalRef": null,
+  "runSkills": [],
+  "id": "T27",
+  "num": 27
+}
