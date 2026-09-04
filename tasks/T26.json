@@ -4,9 +4,11 @@
   "title": "CORE-7345 · [RF] /compare-packages/llp/ — \"Free Client Portal\" and \"Company Registers\" feature-list items swapped vs Live",
   "body": "Linear: https://linear.app/bsq-group/issue/CORE-7345/rf-compare-packagesllp-free-client-portal-and-company-registers\n\n(Reference only — the ticket is the source of truth; fetch the live description at implement time.)\n\nImported by Planning 2026-09-04 as part of the board↔Linear sync: this ticket was open and assigned at Todo in Linear but had no row on the board.",
   "acceptanceCriteria": [
-    "Resolve CORE-7345 as specified in Linear (fetched live at implement time)."
+    "At a true 360px viewport, the /compare-packages/llp/ feature-list order matches Live exactly: ... → Digital (Word) Draft LLP Agreement → Company Registers with First Entries → Free Client Portal to Manage Your Companies → Free Telephone Support → ... (Company Registers now appears BEFORE Free Client Portal at 360, reversing Clone's current order).",
+    "At 768px, 1024px and 1800px, the feature-list order is NOT regressed: Free Client Portal to Manage Your Companies still appears BEFORE Company Registers with First Entries at those breakpoints (Live's own order there, already matching pre-fix).",
+    "The fix is scoped to /compare-packages/llp/ only — /compare-packages/guarantee/ and any other compare-packages page's feature-list order is untouched (each page manages its own list order independently per the ticket)."
   ],
-  "status": "backlog",
+  "status": "running",
   "track": "linear",
   "tags": [
     "bug"
@@ -18,18 +20,28 @@
   "blocks": [],
   "deps": [],
   "multiBlockApproved": false,
-  "owner": null,
+  "owner": {
+    "sessionId": "pending",
+    "mode": "W",
+    "branch": "fix/core-7345-llp-feature-swap",
+    "worktree": null
+  },
   "supersededBy": null,
   "createdAt": "2026-09-04T09:15:21.292Z",
   "createdBy": "planning",
-  "updatedAt": "2026-09-04T09:24:16.441Z",
-  "startedAt": null,
+  "updatedAt": "2026-09-04T09:45:07.456Z",
+  "startedAt": "2026-09-04T09:45:07.456Z",
   "completedAt": null,
   "statusHistory": [
     {
       "status": "backlog",
       "at": "2026-09-04T09:15:21.292Z",
       "by": "unknown"
+    },
+    {
+      "status": "running",
+      "at": "2026-09-04T09:45:07.456Z",
+      "by": "mode-x"
     }
   ],
   "qa": null,
