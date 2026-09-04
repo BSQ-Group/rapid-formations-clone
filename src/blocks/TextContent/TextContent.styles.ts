@@ -82,7 +82,7 @@ const packageCopy = {
 }
 
 const policy = {
-  lists: `${listsCore} ${nestedListInset} [&_ol>li]:list-[lower-latin] [&_li_ol]:!pl-[15px] [&_li_ol>li]:!my-0 [&_li:has(>.lexical-table-container)]:!pl-0`,
+  lists: `${listsCore} ${nestedListInset} [&_ol>li]:list-[lower-latin] [&_li_ol]:!pl-[15px] [&_li_ol>li]:!my-0 [&_li:has(>.lexical-table-container)]:!pl-0 [&_.lexical-table-container]:!-ml-[15px] [&_.lexical-table-container]:!w-[calc(100%+15px)]`,
 
   // A trailing ordered list keeps live's 8px bottom margin (flushLast zeroes it).
   trailingList: '[&>ol:last-child]:!mb-2',
