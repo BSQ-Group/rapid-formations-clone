@@ -11,11 +11,31 @@ import { cn } from '@/utilities/ui'
 import { BuyNowLink } from './BuyNowLink'
 import { comparePackageTableStyles as s } from './ComparePackageTable.styles'
 import { PriceStack } from './PriceStack'
-import type { TableData } from './types'
+import type { TableData, TableProduct } from './types'
 
 const DESCRIPTION_MIN_HEIGHT: Record<string, string> = {
   tall: s.mobileDescriptionTall,
   taller: s.mobileDescriptionTaller,
+}
+
+// Live renders "Company Registers with First Entries" before "Free Client Portal
+// to Manage Your Companies" on the LLP package below md, but in the opposite
+// order at md+ — the desktop grid already matches that md+ order via the shared
+// `data.products` array, so only the mobile-only order needs the swap (CORE-7345).
+const MOBILE_PRODUCT_ORDER_SWAP: Record<string, [before: string, after: string]> = {
+  'llp-package': ['6a8c21de554f4d9a40c07ad2', '6a8c21e2554f4d9a40c07af1'],
+}
+
+function applyMobileProductOrder(packageSlug: string, included: TableProduct[]): TableProduct[] {
+  const swap = MOBILE_PRODUCT_ORDER_SWAP[packageSlug]
+  if (!swap) return included
+  const [beforeId, afterId] = swap
+  const beforeIndex = included.findIndex((product) => product.id === beforeId)
+  const afterIndex = included.findIndex((product) => product.id === afterId)
+  if (beforeIndex === -1 || afterIndex === -1 || beforeIndex < afterIndex) return included
+  const reordered = [...included]
+  ;[reordered[afterIndex], reordered[beforeIndex]] = [reordered[beforeIndex], reordered[afterIndex]]
+  return reordered
 }
 
 export const MobileCarousel: React.FC<{ data: TableData; cardHeight?: string | null }> = ({
@@ -26,7 +46,10 @@ export const MobileCarousel: React.FC<{ data: TableData; cardHeight?: string | n
   const descriptionModifier = DESCRIPTION_MIN_HEIGHT[cardHeight ?? '']
   const cards = data.packages.map((pkg) => ({
     pkg,
-    included: data.products.filter((product) => product.includedIn.includes(pkg.slug)),
+    included: applyMobileProductOrder(
+      pkg.slug,
+      data.products.filter((product) => product.includedIn.includes(pkg.slug)),
+    ),
   }))
   const rowCount = Math.max(0, ...cards.map((card) => card.included.length))
 
