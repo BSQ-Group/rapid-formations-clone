@@ -1,0 +1,318 @@
+[walk] navigating to https://www.rapidformations.co.uk/privacy-policy/ at 360px
+[walk] pre-walk: full-page lazy-image settle (T340)
+[walk]   settle: scrolled 27000px, forced 18 img(s), 29 img(s) loaded (timed out waiting for some)
+[walk] phase 1: structural walk against body
+[walk]   captured 755 elements (858 section + 0 grafted)
+[walk]   normalized 5 absolute href(s) to source-origin-relative paths
+[walk] phase 2: per-node CDP getMatchedStylesForNode
+[walk]   matched 1/858
+[walk]   matched 26/858
+[walk]   matched 76/858
+[walk]   matched 126/858
+[walk]   matched 226/858
+[walk]   matched 276/858
+[walk]   matched 326/858
+[walk]   matched 426/858
+[walk]   matched 476/858
+[walk]   matched 526/858
+[walk]   matched 576/858
+[walk]   matched 626/858
+[walk]   matched 701/858
+[walk]   matched 751/858
+[walk]   matched 801/858
+[walk]   matched 858/858
+[walk]   done — 858 nodes annotated with matched rules
+[walk] navigating to https://rapid-formations-clone.vercel.app/privacy-policy/?_cb=1788519826423 at 360px
+[walk] pre-walk: full-page lazy-image settle (T340)
+[walk]   settle: scrolled 27000px, forced 32 img(s), 17 img(s) loaded
+[walk] phase 1: structural walk against body
+[walk]   captured 720 elements (788 section + 0 grafted)
+[walk]   normalized 17 absolute href(s) to source-origin-relative paths
+[walk] phase 2: per-node CDP getMatchedStylesForNode
+[walk]   matched 1/788
+[walk]   matched 26/788
+[walk]   matched 51/788
+[walk]   matched 76/788
+[walk]   matched 101/788
+[walk]   matched 126/788
+[walk]   matched 151/788
+[walk]   matched 176/788
+[walk]   matched 201/788
+[walk]   matched 226/788
+[walk]   matched 251/788
+[walk]   matched 276/788
+[walk]   matched 301/788
+[walk]   matched 326/788
+[walk]   matched 351/788
+[walk]   matched 401/788
+[walk]   matched 426/788
+[walk]   matched 476/788
+[walk]   matched 501/788
+[walk]   matched 526/788
+[walk]   matched 551/788
+[walk]   matched 576/788
+[walk]   matched 601/788
+[walk]   matched 626/788
+[walk]   matched 651/788
+[walk]   matched 676/788
+[walk]   matched 701/788
+[walk]   matched 726/788
+[walk]   matched 776/788
+[walk]   matched 788/788
+[walk]   done — 788 nodes annotated with matched rules
+[walk] navigating to https://www.rapidformations.co.uk/privacy-policy/ at 768px
+[walk] pre-walk: full-page lazy-image settle (T340)
+[walk]   settle: scrolled 22281px, forced 16 img(s), 36 img(s) loaded (timed out waiting for some)
+[walk] phase 1: structural walk against body
+[walk]   captured 776 elements (879 section + 0 grafted)
+[walk]   normalized 12 absolute href(s) to source-origin-relative paths
+[walk] phase 2: per-node CDP getMatchedStylesForNode
+[walk]   matched 1/879
+[walk]   matched 51/879
+[walk]   matched 101/879
+[walk]   matched 151/879
+[walk]   matched 226/879
+[walk]   matched 276/879
+[walk]   matched 326/879
+[walk]   matched 426/879
+[walk]   matched 476/879
+[walk]   matched 501/879
+[walk]   matched 551/879
+[walk]   matched 601/879
+[walk]   matched 651/879
+[walk]   matched 726/879
+[walk]   matched 776/879
+[walk]   matched 826/879
+[walk]   matched 876/879
+[walk]   matched 879/879
+[walk]   done — 879 nodes annotated with matched rules
+[walk] navigating to https://rapid-formations-clone.vercel.app/privacy-policy/?_cb=1788519826423 at 768px
+[walk] pre-walk: full-page lazy-image settle (T340)
+[walk]   settle: scrolled 22314px, forced 16 img(s), 17 img(s) loaded
+[walk] phase 1: structural walk against body
+[walk]   captured 720 elements (788 section + 0 grafted)
+[walk]   normalized 17 absolute href(s) to source-origin-relative paths
+[walk] phase 2: per-node CDP getMatchedStylesForNode
+[walk]   matched 1/788
+[walk]   matched 26/788
+[walk]   matched 51/788
+[walk]   matched 76/788
+[walk]   matched 101/788
+[walk]   matched 126/788
+[walk]   matched 151/788
+[walk]   matched 176/788
+[walk]   matched 201/788
+[walk]   matched 226/788
+[walk]   matched 251/788
+[walk]   matched 276/788
+[walk]   matched 301/788
+[walk]   matched 326/788
+[walk]   matched 351/788
+[walk]   matched 401/788
+[walk]   matched 426/788
+[walk]   matched 476/788
+[walk]   matched 501/788
+[walk]   matched 526/788
+[walk]   matched 551/788
+[walk]   matched 576/788
+[walk]   matched 601/788
+[walk]   matched 626/788
+[walk]   matched 651/788
+[walk]   matched 676/788
+[walk]   matched 701/788
+[walk]   matched 726/788
+[walk]   matched 776/788
+[walk]   matched 788/788
+[walk]   done — 788 nodes annotated with matched rules
+[walk] navigating to https://www.rapidformations.co.uk/privacy-policy/ at 1024px
+[walk] pre-walk: full-page lazy-image settle (T340)
+[walk]   settle: scrolled 18726px, forced 16 img(s), 36 img(s) loaded (timed out waiting for some)
+[walk] phase 1: structural walk against body
+[walk]   captured 848 elements (951 section + 0 grafted)
+[walk]   normalized 12 absolute href(s) to source-origin-relative paths
+[walk] phase 2: per-node CDP getMatchedStylesForNode
+[walk]   matched 1/951
+[walk]   matched 51/951
+[walk]   matched 101/951
+[walk]   matched 151/951
+[walk]   matched 226/951
+[walk]   matched 276/951
+[walk]   matched 301/951
+[walk]   matched 326/951
+[walk]   matched 426/951
+[walk]   matched 476/951
+[walk]   matched 526/951
+[walk]   matched 576/951
+[walk]   matched 626/951
+[walk]   matched 701/951
+[walk]   matched 751/951
+[walk]   matched 801/951
+[walk]   matched 851/951
+[walk]   matched 901/951
+[walk]   matched 951/951
+[walk]   done — 951 nodes annotated with matched rules
+[walk] navigating to https://rapid-formations-clone.vercel.app/privacy-policy/?_cb=1788519826423 at 1024px
+[walk] pre-walk: full-page lazy-image settle (T340)
+[walk]   settle: scrolled 18939px, forced 16 img(s), 17 img(s) loaded
+[walk] phase 1: structural walk against body
+[walk]   captured 792 elements (860 section + 0 grafted)
+[walk]   normalized 17 absolute href(s) to source-origin-relative paths
+[walk] phase 2: per-node CDP getMatchedStylesForNode
+[walk]   matched 1/860
+[walk]   matched 26/860
+[walk]   matched 51/860
+[walk]   matched 76/860
+[walk]   matched 101/860
+[walk]   matched 126/860
+[walk]   matched 151/860
+[walk]   matched 176/860
+[walk]   matched 201/860
+[walk]   matched 226/860
+[walk]   matched 251/860
+[walk]   matched 276/860
+[walk]   matched 301/860
+[walk]   matched 326/860
+[walk]   matched 351/860
+[walk]   matched 401/860
+[walk]   matched 426/860
+[walk]   matched 476/860
+[walk]   matched 501/860
+[walk]   matched 526/860
+[walk]   matched 551/860
+[walk]   matched 576/860
+[walk]   matched 601/860
+[walk]   matched 626/860
+[walk]   matched 651/860
+[walk]   matched 676/860
+[walk]   matched 701/860
+[walk]   matched 726/860
+[walk]   matched 751/860
+[walk]   matched 776/860
+[walk]   matched 801/860
+[walk]   matched 826/860
+[walk]   matched 851/860
+[walk]   matched 860/860
+[walk]   done — 860 nodes annotated with matched rules
+[walk] navigating to https://www.rapidformations.co.uk/privacy-policy/ at 1800px
+[walk] pre-walk: full-page lazy-image settle (T340)
+[walk]   settle: scrolled 16664px, forced 16 img(s), 36 img(s) loaded (timed out waiting for some)
+[walk] phase 1: structural walk against body
+[walk]   captured 882 elements (990 section + 0 grafted)
+[walk]   normalized 12 absolute href(s) to source-origin-relative paths
+[walk] phase 2: per-node CDP getMatchedStylesForNode
+[walk]   matched 1/990
+[walk]   matched 51/990
+[walk]   matched 101/990
+[walk]   matched 151/990
+[walk]   matched 226/990
+[walk]   matched 276/990
+[walk]   matched 326/990
+[walk]   matched 351/990
+[walk]   matched 401/990
+[walk]   matched 451/990
+[walk]   matched 526/990
+[walk]   matched 576/990
+[walk]   matched 626/990
+[walk]   matched 701/990
+[walk]   matched 751/990
+[walk]   matched 801/990
+[walk]   matched 851/990
+[walk]   matched 901/990
+[walk]   matched 951/990
+[walk]   matched 990/990
+[walk]   done — 990 nodes annotated with matched rules
+[walk] navigating to https://rapid-formations-clone.vercel.app/privacy-policy/?_cb=1788519826423 at 1800px
+[walk] pre-walk: full-page lazy-image settle (T340)
+[walk]   settle: scrolled 16878px, forced 16 img(s), 17 img(s) loaded
+[walk] phase 1: structural walk against body
+[walk]   captured 820 elements (889 section + 0 grafted)
+[walk]   normalized 17 absolute href(s) to source-origin-relative paths
+[walk] phase 2: per-node CDP getMatchedStylesForNode
+[walk]   matched 1/889
+[walk]   matched 26/889
+[walk]   matched 51/889
+[walk]   matched 76/889
+[walk]   matched 101/889
+[walk]   matched 126/889
+[walk]   matched 176/889
+[walk]   matched 201/889
+[walk]   matched 226/889
+[walk]   matched 251/889
+[walk]   matched 276/889
+[walk]   matched 301/889
+[walk]   matched 326/889
+[walk]   matched 351/889
+[walk]   matched 401/889
+[walk]   matched 426/889
+[walk]   matched 476/889
+[walk]   matched 501/889
+[walk]   matched 526/889
+[walk]   matched 551/889
+[walk]   matched 576/889
+[walk]   matched 601/889
+[walk]   matched 626/889
+[walk]   matched 651/889
+[walk]   matched 676/889
+[walk]   matched 701/889
+[walk]   matched 726/889
+[walk]   matched 751/889
+[walk]   matched 776/889
+[walk]   matched 801/889
+[walk]   matched 826/889
+[walk]   matched 876/889
+[walk]   matched 889/889
+[walk]   done — 889 nodes annotated with matched rules
+
+coord-live FAIL  https://rapid-formations-clone.vercel.app/privacy-policy/
+  @360: FAIL (gate=whole-page)  coverage[checked=335 missing=37 extra=37 skipped=0]  mislocated=14 size=71 worst=256px
+     [mislocated] <li> visible <li> "give us feedback or contact us." is 256px out of place vs its block (clone 25,58 vs block -10,314)
+     [mislocated] <a> visible <a> "cookie policy" is 232px out of place vs its block (clone -122,82 vs block -10,314)
+     [mislocated] <span> visible <span> "." is 202px out of place vs its block (clone -179,112 vs block -10,314)
+     [mislocated] <li> visible <li> "another member of our corporate group." is 178px out of place vs its block (clone 25,136 vs block -10,314)
+     [mislocated] <li> visible <li> "analytics providers e.g. google" is 158px out of place vs its block (clone 25,156 vs block -10,314)
+     [mislocated] <li> visible <li> "partners who refer you to us" is 118px out of place vs its block (clone 25,196 vs block -10,314)
+     [mislocated] <li> visible <li> "search information providers" is 108px out of place vs its block (clone 25,206 vs block -10,314)
+     [mislocated] <li> visible <li> "payment providers e.g. stripe" is 68px out of place vs its block (clone 25,246 vs block -10,314)
+     [mislocated] <li> visible <li> "other third party service providers that" is 45px out of place vs its block (clone 35,348 vs block -10,314)
+     [mislocated] <span> visible <span> "where we need to perform the contract we" is 44px out of place vs its block (clone -50,358 vs block -10,314)
+     [size] <th> size differs Δw=-25px Δh=-42px
+     [size] <th> size differs Δw=-25px Δh=-42px
+  @768: FAIL (gate=whole-page)  coverage[checked=335 missing=44 extra=37 skipped=0]  mislocated=8 size=171 worst=575px
+     [mislocated] <a> visible <a> "cookie policy" is 575px out of place vs its block (clone 565,52 vs block -10,216)
+     [mislocated] <span> visible <span> "." is 574px out of place vs its block (clone 564,52 vs block -10,216)
+     [mislocated] <em> visible <em> "note, however, that we may not always be" is 68px out of place vs its block (clone -50,148 vs block -10,216)
+     [mislocated] <li> visible <li> "other third party service providers that" is 48px out of place vs its block (clone 35,168 vs block -10,216)
+     [size] <th> size differs Δw=-18px Δh=-42px
+     [size] <th> size differs Δw=3px Δh=-42px
+     [mislocated] <span> visible <span> "where we need to perform the contract we" is 40px out of place vs its block (clone -50,178 vs block -10,216)
+     [mislocated] <span> visible <span> "we may use your personal data where it i" is 40px out of place vs its block (clone -50,204 vs block -10,216)
+     [mislocated] <span> visible <span> "we may use your personal data where it i" is 40px out of place vs its block (clone -50,230 vs block -10,216)
+     [mislocated] <span> visible <span> "we rely on consent where we have obtaine" is 40px out of place vs its block (clone -50,256 vs block -10,216)
+     [size] <p> size differs Δw=8px Δh=-30px
+     [size] <li> size differs Δw=12px Δh=-30px
+  @1024: FAIL (gate=whole-page)  coverage[checked=376 missing=44 extra=32 skipped=0]  mislocated=10 size=172 worst=182px
+     [mislocated] <li> visible <li> "give us feedback or contact us." is 182px out of place vs its block (clone 25,58 vs block -10,240)
+     [mislocated] <a> visible <a> "cookie policy" is 158px out of place vs its block (clone -71,82 vs block -10,240)
+     [mislocated] <span> visible <span> "." is 158px out of place vs its block (clone -70,82 vs block -10,240)
+     [mislocated] <li> visible <li> "another member of our corporate group." is 134px out of place vs its block (clone 25,106 vs block -10,240)
+     [mislocated] <span> visible <span> "we rely on consent where we have obtaine" is 46px out of place vs its block (clone -50,286 vs block -10,240)
+     [mislocated] <li> visible <li> "other third party service providers that" is 45px out of place vs its block (clone 35,198 vs block -10,240)
+     [mislocated] <span> visible <span> "where we need to perform the contract we" is 40px out of place vs its block (clone -50,208 vs block -10,240)
+     [mislocated] <span> visible <span> "we may use your personal data where it i" is 40px out of place vs its block (clone -50,234 vs block -10,240)
+     [mislocated] <span> visible <span> "we may use your personal data where it i" is 40px out of place vs its block (clone -50,260 vs block -10,240)
+     [mislocated] <em> visible <em> "note, however, that we may not always be" is 40px out of place vs its block (clone -50,238 vs block -10,240)
+     [size] <li> size differs Δw=12px Δh=-30px
+     [size] <p> size differs Δw=-9px Δh=30px
+  @1800: FAIL (gate=whole-page)  coverage[checked=383 missing=44 extra=36 skipped=0]  mislocated=8 size=169 worst=182px
+     [mislocated] <li> visible <li> "give us feedback or contact us." is 182px out of place vs its block (clone 25,59 vs block -10,241)
+     [mislocated] <li> visible <li> "another member of our corporate group." is 134px out of place vs its block (clone 25,107 vs block -10,241)
+     [mislocated] <span> visible <span> "we rely on consent where we have obtaine" is 46px out of place vs its block (clone -50,287 vs block -10,241)
+     [mislocated] <li> visible <li> "other third party service providers that" is 45px out of place vs its block (clone 35,199 vs block -10,241)
+     [mislocated] <span> visible <span> "where we need to perform the contract we" is 40px out of place vs its block (clone -50,209 vs block -10,241)
+     [mislocated] <span> visible <span> "we may use your personal data where it i" is 40px out of place vs its block (clone -50,235 vs block -10,241)
+     [mislocated] <span> visible <span> "we may use your personal data where it i" is 40px out of place vs its block (clone -50,261 vs block -10,241)
+     [mislocated] <em> visible <em> "note, however, that we may not always be" is 40px out of place vs its block (clone -50,209 vs block -10,241)
+     [size] <p> size differs Δw=9px Δh=-30px
+     [size] <p> size differs Δw=-8px Δh=30px
+     [size] <a> size differs Δw=99px Δh=-30px
+     [size] <li> size differs Δw=27px Δh=-30px

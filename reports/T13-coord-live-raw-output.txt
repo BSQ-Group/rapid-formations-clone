@@ -1,0 +1,316 @@
+[walk] navigating to https://www.rapidformations.co.uk/privacy-policy/ at 360px
+[walk] pre-walk: full-page lazy-image settle (T340)
+[walk]   settle: scrolled 27000px, forced 18 img(s), 29 img(s) loaded (timed out waiting for some)
+[walk] phase 1: structural walk against body
+[walk]   captured 755 elements (858 section + 0 grafted)
+[walk]   normalized 5 absolute href(s) to source-origin-relative paths
+[walk] phase 2: per-node CDP getMatchedStylesForNode
+[walk]   matched 1/858
+[walk]   matched 76/858
+[walk]   matched 126/858
+[walk]   matched 226/858
+[walk]   matched 276/858
+[walk]   matched 326/858
+[walk]   matched 426/858
+[walk]   matched 476/858
+[walk]   matched 526/858
+[walk]   matched 576/858
+[walk]   matched 626/858
+[walk]   matched 701/858
+[walk]   matched 751/858
+[walk]   matched 801/858
+[walk]   matched 858/858
+[walk]   done — 858 nodes annotated with matched rules
+[walk] navigating to https://localhost:3002/privacy-policy/?_cb=1788519107213 at 360px (clone mode)
+[walk] pre-walk: full-page lazy-image settle (T340)
+[walk]   settle: scrolled 27000px, forced 32 img(s), 17 img(s) loaded
+[walk] phase 1: structural walk against body
+[walk]   captured 686 elements (778 section + 0 grafted)
+[walk]   normalized 17 absolute href(s) to source-origin-relative paths
+[walk] phase 2: per-node CDP getMatchedStylesForNode
+[walk]   matched 1/778
+[walk]   matched 26/778
+[walk]   matched 51/778
+[walk]   matched 76/778
+[walk]   matched 101/778
+[walk]   matched 126/778
+[walk]   matched 151/778
+[walk]   matched 176/778
+[walk]   matched 201/778
+[walk]   matched 226/778
+[walk]   matched 251/778
+[walk]   matched 276/778
+[walk]   matched 301/778
+[walk]   matched 326/778
+[walk]   matched 351/778
+[walk]   matched 376/778
+[walk]   matched 426/778
+[walk]   matched 451/778
+[walk]   matched 476/778
+[walk]   matched 526/778
+[walk]   matched 551/778
+[walk]   matched 576/778
+[walk]   matched 601/778
+[walk]   matched 626/778
+[walk]   matched 651/778
+[walk]   matched 676/778
+[walk]   matched 701/778
+[walk]   matched 726/778
+[walk]   matched 751/778
+[walk]   matched 778/778
+[walk]   done — 778 nodes annotated with matched rules
+[walk] navigating to https://www.rapidformations.co.uk/privacy-policy/ at 768px
+[walk] pre-walk: full-page lazy-image settle (T340)
+[walk]   settle: scrolled 22281px, forced 16 img(s), 36 img(s) loaded (timed out waiting for some)
+[walk] phase 1: structural walk against body
+[walk]   captured 776 elements (879 section + 0 grafted)
+[walk]   normalized 12 absolute href(s) to source-origin-relative paths
+[walk] phase 2: per-node CDP getMatchedStylesForNode
+[walk]   matched 1/879
+[walk]   matched 51/879
+[walk]   matched 101/879
+[walk]   matched 151/879
+[walk]   matched 226/879
+[walk]   matched 276/879
+[walk]   matched 326/879
+[walk]   matched 426/879
+[walk]   matched 476/879
+[walk]   matched 526/879
+[walk]   matched 576/879
+[walk]   matched 626/879
+[walk]   matched 701/879
+[walk]   matched 751/879
+[walk]   matched 801/879
+[walk]   matched 851/879
+[walk]   matched 879/879
+[walk]   done — 879 nodes annotated with matched rules
+[walk] navigating to https://localhost:3002/privacy-policy/?_cb=1788519107213 at 768px (clone mode)
+[walk] pre-walk: full-page lazy-image settle (T340)
+[walk]   settle: scrolled 22250px, forced 16 img(s), 17 img(s) loaded
+[walk] phase 1: structural walk against body
+[walk]   captured 686 elements (778 section + 0 grafted)
+[walk]   normalized 17 absolute href(s) to source-origin-relative paths
+[walk] phase 2: per-node CDP getMatchedStylesForNode
+[walk]   matched 1/778
+[walk]   matched 26/778
+[walk]   matched 51/778
+[walk]   matched 76/778
+[walk]   matched 101/778
+[walk]   matched 126/778
+[walk]   matched 151/778
+[walk]   matched 176/778
+[walk]   matched 201/778
+[walk]   matched 226/778
+[walk]   matched 251/778
+[walk]   matched 276/778
+[walk]   matched 301/778
+[walk]   matched 326/778
+[walk]   matched 351/778
+[walk]   matched 376/778
+[walk]   matched 426/778
+[walk]   matched 451/778
+[walk]   matched 476/778
+[walk]   matched 526/778
+[walk]   matched 551/778
+[walk]   matched 576/778
+[walk]   matched 601/778
+[walk]   matched 626/778
+[walk]   matched 651/778
+[walk]   matched 676/778
+[walk]   matched 701/778
+[walk]   matched 726/778
+[walk]   matched 751/778
+[walk]   matched 778/778
+[walk]   done — 778 nodes annotated with matched rules
+[walk] navigating to https://www.rapidformations.co.uk/privacy-policy/ at 1024px
+[walk] pre-walk: full-page lazy-image settle (T340)
+[walk]   settle: scrolled 18726px, forced 16 img(s), 36 img(s) loaded (timed out waiting for some)
+[walk] phase 1: structural walk against body
+[walk]   captured 848 elements (951 section + 0 grafted)
+[walk]   normalized 12 absolute href(s) to source-origin-relative paths
+[walk] phase 2: per-node CDP getMatchedStylesForNode
+[walk]   matched 1/951
+[walk]   matched 51/951
+[walk]   matched 101/951
+[walk]   matched 151/951
+[walk]   matched 226/951
+[walk]   matched 276/951
+[walk]   matched 326/951
+[walk]   matched 426/951
+[walk]   matched 476/951
+[walk]   matched 526/951
+[walk]   matched 576/951
+[walk]   matched 626/951
+[walk]   matched 701/951
+[walk]   matched 751/951
+[walk]   matched 801/951
+[walk]   matched 851/951
+[walk]   matched 901/951
+[walk]   matched 951/951
+[walk]   done — 951 nodes annotated with matched rules
+[walk] navigating to https://localhost:3002/privacy-policy/?_cb=1788519107213 at 1024px (clone mode)
+[walk] pre-walk: full-page lazy-image settle (T340)
+[walk]   settle: scrolled 18755px, forced 16 img(s), 17 img(s) loaded
+[walk] phase 1: structural walk against body
+[walk]   captured 758 elements (850 section + 0 grafted)
+[walk]   normalized 17 absolute href(s) to source-origin-relative paths
+[walk] phase 2: per-node CDP getMatchedStylesForNode
+[walk]   matched 1/850
+[walk]   matched 26/850
+[walk]   matched 51/850
+[walk]   matched 76/850
+[walk]   matched 101/850
+[walk]   matched 126/850
+[walk]   matched 151/850
+[walk]   matched 176/850
+[walk]   matched 201/850
+[walk]   matched 226/850
+[walk]   matched 251/850
+[walk]   matched 276/850
+[walk]   matched 301/850
+[walk]   matched 326/850
+[walk]   matched 351/850
+[walk]   matched 376/850
+[walk]   matched 426/850
+[walk]   matched 451/850
+[walk]   matched 476/850
+[walk]   matched 526/850
+[walk]   matched 551/850
+[walk]   matched 576/850
+[walk]   matched 601/850
+[walk]   matched 626/850
+[walk]   matched 651/850
+[walk]   matched 676/850
+[walk]   matched 701/850
+[walk]   matched 726/850
+[walk]   matched 751/850
+[walk]   matched 776/850
+[walk]   matched 801/850
+[walk]   matched 826/850
+[walk]   matched 850/850
+[walk]   done — 850 nodes annotated with matched rules
+[walk] navigating to https://www.rapidformations.co.uk/privacy-policy/ at 1800px
+[walk] pre-walk: full-page lazy-image settle (T340)
+[walk]   settle: scrolled 16664px, forced 16 img(s), 36 img(s) loaded (timed out waiting for some)
+[walk] phase 1: structural walk against body
+[walk]   captured 882 elements (990 section + 0 grafted)
+[walk]   normalized 12 absolute href(s) to source-origin-relative paths
+[walk] phase 2: per-node CDP getMatchedStylesForNode
+[walk]   matched 1/990
+[walk]   matched 51/990
+[walk]   matched 101/990
+[walk]   matched 151/990
+[walk]   matched 226/990
+[walk]   matched 276/990
+[walk]   matched 326/990
+[walk]   matched 376/990
+[walk]   matched 451/990
+[walk]   matched 526/990
+[walk]   matched 576/990
+[walk]   matched 626/990
+[walk]   matched 701/990
+[walk]   matched 776/990
+[walk]   matched 826/990
+[walk]   matched 876/990
+[walk]   matched 926/990
+[walk]   matched 976/990
+[walk]   matched 990/990
+[walk]   done — 990 nodes annotated with matched rules
+[walk] navigating to https://localhost:3002/privacy-policy/?_cb=1788519107213 at 1800px (clone mode)
+[walk] pre-walk: full-page lazy-image settle (T340)
+[walk]   settle: scrolled 16664px, forced 16 img(s), 17 img(s) loaded
+[walk] phase 1: structural walk against body
+[walk]   captured 786 elements (879 section + 0 grafted)
+[walk]   normalized 17 absolute href(s) to source-origin-relative paths
+[walk] phase 2: per-node CDP getMatchedStylesForNode
+[walk]   matched 1/879
+[walk]   matched 26/879
+[walk]   matched 51/879
+[walk]   matched 76/879
+[walk]   matched 101/879
+[walk]   matched 126/879
+[walk]   matched 176/879
+[walk]   matched 201/879
+[walk]   matched 226/879
+[walk]   matched 251/879
+[walk]   matched 276/879
+[walk]   matched 301/879
+[walk]   matched 326/879
+[walk]   matched 351/879
+[walk]   matched 376/879
+[walk]   matched 401/879
+[walk]   matched 426/879
+[walk]   matched 451/879
+[walk]   matched 476/879
+[walk]   matched 501/879
+[walk]   matched 526/879
+[walk]   matched 551/879
+[walk]   matched 576/879
+[walk]   matched 601/879
+[walk]   matched 626/879
+[walk]   matched 651/879
+[walk]   matched 676/879
+[walk]   matched 701/879
+[walk]   matched 726/879
+[walk]   matched 751/879
+[walk]   matched 776/879
+[walk]   matched 801/879
+[walk]   matched 826/879
+[walk]   matched 851/879
+[walk]   matched 876/879
+[walk]   matched 879/879
+[walk]   done — 879 nodes annotated with matched rules
+
+coord-live FAIL  https://localhost:3002/privacy-policy/
+  @360: FAIL (gate=whole-page)  coverage[checked=335 missing=37 extra=37 skipped=0]  mislocated=4 size=34 worst=230px
+     [mislocated] <a> visible <a> "cookie policy" is 230px out of place vs its block (clone -97,-38 vs block 0,192)
+     [mislocated] <span> visible <span> "." is 200px out of place vs its block (clone -154,-8 vs block 0,192)
+     [mislocated] <span> visible <span> "we may use your personal data where it i" is 122px out of place vs its block (clone 0,70 vs block 0,192)
+     [mislocated] <span> visible <span> "legitimate interest" is 120px out of place vs its block (clone 0,72 vs block 0,192)
+     [size] <span> size differs Δw=4px Δh=95px
+     [size] <th> size differs Δw=-25px Δh=-42px
+     [size] <th> size differs Δw=-25px Δh=-42px
+     [size] <th> size differs Δw=-25px Δh=-42px
+     [size] <th> size differs Δw=-25px Δh=-42px
+     [size] <span> size differs Δw=4px Δh=35px
+     [size] <span> size differs Δw=4px Δh=35px
+     [size] <em> size differs Δw=4px Δh=35px
+  @768: FAIL (gate=whole-page)  coverage[checked=335 missing=44 extra=37 skipped=0]  mislocated=1 size=76 worst=48px
+     [mislocated] <p> visible <p> "those whom we may seek to acquire or mer" is 48px out of place vs its block (clone 3,104 vs block 0,56)
+     [size] <th> size differs Δw=-22px Δh=-42px
+     [size] <th> size differs Δw=-13px Δh=-42px
+     [size] <p> size differs Δw=-15px Δh=30px
+     [size] <p> size differs Δw=-15px Δh=30px
+     [size] <p> size differs Δw=-15px Δh=30px
+     [size] <p> size differs Δw=-15px Δh=30px
+     [size] <p> size differs Δw=-15px Δh=30px
+     [size] <li> size differs Δw=12px Δh=-30px
+     [size] <p> size differs Δw=3px Δh=-30px
+     [size] <p> size differs Δw=-15px Δh=30px
+     [size] <p> size differs Δw=-15px Δh=30px
+  @1024: FAIL (gate=whole-page)  coverage[checked=376 missing=44 extra=32 skipped=0]  mislocated=2 size=81 worst=127px
+     [mislocated] <a> visible <a> "cookie policy" is 127px out of place vs its block (clone 94,-38 vs block 0,89)
+     [mislocated] <span> visible <span> "." is 127px out of place vs its block (clone 95,-38 vs block 0,89)
+     [size] <span> size differs Δw=12px Δh=35px
+     [size] <p> size differs Δw=-14px Δh=30px
+     [size] <p> size differs Δw=-14px Δh=30px
+     [size] <li> size differs Δw=11px Δh=-30px
+     [size] <p> size differs Δw=-14px Δh=30px
+     [size] <th> size differs Δw=-25px Δh=-12px
+     [size] <th> size differs Δw=-25px Δh=-12px
+     [size] <th> size differs Δw=-25px Δh=-12px
+     [size] <th> size differs Δw=-22px Δh=-12px
+     [size] <th> size differs Δw=-39px Δh=-12px
+  @1800: FAIL (gate=whole-page)  coverage[checked=383 missing=44 extra=36 skipped=0]  mislocated=1 size=82 worst=94px
+     [mislocated] <span> visible <span> "." is 94px out of place vs its block (clone 73,-37 vs block 0,57)
+     [size] <span> size differs Δw=1px Δh=35px
+     [size] <a> size differs Δw=-1025px Δh=-30px
+     [size] <p> size differs Δw=-13px Δh=30px
+     [size] <a> size differs Δw=99px Δh=-30px
+     [size] <th> size differs Δw=-25px Δh=-12px
+     [size] <th> size differs Δw=-25px Δh=-12px
+     [size] <th> size differs Δw=-25px Δh=-12px
+     [size] <th> size differs Δw=-22px Δh=-12px
+     [size] <th> size differs Δw=-38px Δh=-12px
+     [size] <th> size differs Δw=-14px Δh=-12px
+     [size] <li> size differs Δw=0px Δh=10px
