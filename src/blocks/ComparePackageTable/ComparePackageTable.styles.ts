@@ -94,7 +94,7 @@ export const comparePackageTableStyles = {
   mobileHeader: 'rounded-lg bg-[var(--surface-compare-packages-card)] p-6',
   mobileName: 'mb-[5px] mt-0 block text-[24px] font-bold leading-9 text-[var(--text-brand-cyan)]',
   mobileDescription:
-    'mb-4 flow-root text-left text-base text-[var(--text-on-light-muted)] [&_h4]:!mb-0 [&_h4]:text-base [&_h4]:leading-[1.35] [&_h4]:text-[var(--text-on-light-base)] [&_strong]:text-[var(--text-on-light-strong)] [&_p]:!mb-2 [&_p]:text-base [&_ul]:!mb-4 [&_ul]:pl-4 [&_ul]:text-base [&_li]:!mb-2 [&_li]:text-base [&_li]:leading-[1.25] [&_li::marker]:text-xs [&_a]:text-[var(--text-brand-cyan)] [&_a]:no-underline [&_a:hover]:underline',
+    'mb-4 flow-root text-left text-base text-[var(--text-on-light-muted)] [&_h4]:!mb-0 [&_h4]:text-base [&_h4]:leading-[1.35] [&_h4]:text-[var(--text-on-light-base)] [&_strong]:text-[var(--text-on-light-strong)] [&_p]:!mb-2 [&_p]:text-base [&_ul]:!mb-4 [&_ul]:pl-4 [&_ul]:text-base [&_li]:!mb-2 [&_li]:text-base [&_li]:leading-[1.25] [&_li::marker]:text-base [&_a]:text-[var(--text-brand-cyan)] [&_a]:no-underline [&_a:hover]:underline',
   mobileDescriptionTall: 'min-h-[255px] min-[470px]:min-h-[220px]',
   mobileDescriptionTaller: 'min-h-[315px] min-[470px]:min-h-[270px]',
   mobileProducts: 'mt-4 mb-0 block list-none p-0',
