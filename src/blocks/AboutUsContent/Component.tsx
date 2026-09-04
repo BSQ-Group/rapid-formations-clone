@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { faCheck } from '@fortawesome/pro-solid-svg-icons/faCheck'
 import { faHeart } from '@fortawesome/pro-solid-svg-icons/faHeart'
 import { faUser } from '@fortawesome/pro-solid-svg-icons/faUser'
 
@@ -24,7 +25,14 @@ const PanelGroup: React.FC<{ group: Group }> = ({ group }) => (
   <div className={s.panelGroup}>
     <FaIcon icon={icons[group.icon ?? 'user'] ?? icons.user} className={s.panelIcon} />
     <Text as="h3" textStyle="span" text={group.heading} className={s.panelHeading} />
-    {group.body && <RichText data={group.body} enableGutter={false} className={s.panelBody} />}
+    {group.body && (
+      <RichText
+        data={group.body}
+        enableGutter={false}
+        listItemIcon={<FaIcon icon={faCheck} className={s.panelListIcon} />}
+        className={s.panelBody}
+      />
+    )}
   </div>
 )
 
