@@ -75,9 +75,9 @@ export const comparePackageTableStyles = {
   footerTwo: 'text-center md:grid-cols-[2.5fr_2fr_2fr]',
 
   ribbon:
-    'absolute -top-[21px] -right-[21px] block size-[150px] overflow-hidden md:hidden min-[1023px]:-right-[0.3rem] min-[1023px]:-top-[6px] min-[1023px]:block min-[1023px]:size-[8.7rem] min-[1200px]:right-0 min-[1200px]:-top-[2px] min-[1200px]:size-[150px]',
+    'absolute top-0 right-0 block size-[150px] overflow-hidden md:hidden min-[1023px]:-right-[0.3rem] min-[1023px]:-top-[6px] min-[1023px]:block min-[1023px]:w-[8.7rem] min-[1200px]:right-0 min-[1200px]:-top-[2px] min-[1200px]:size-[150px]',
   ribbonLabel:
-    'absolute -left-[0.5rem] top-8 block w-[225px] rotate-45 bg-[var(--surface-brand-cyan)] px-2.5 py-[7px] text-center text-[18px] uppercase leading-[1.5] text-white shadow-[0_5px_10px_rgb(0_0_0/0.1)] [text-shadow:0_1px_1px_rgb(0_0_0/0.2)] min-[1023px]:left-8 min-[1023px]:top-4 min-[1023px]:w-40 min-[1023px]:p-0 min-[1023px]:text-[0.8rem] min-[1200px]:left-[2.4rem] min-[1200px]:top-[1.2rem] min-[1200px]:text-base',
+    'absolute -left-[0.5rem] top-8 block w-[225px] rotate-45 bg-[var(--surface-brand-cyan)] px-2.5 py-[7px] text-center text-[18px] uppercase leading-[1.5] text-white shadow-[0_5px_10px_rgb(0_0_0/0.1)] [text-shadow:0_1px_1px_rgb(0_0_0/0.2)] min-[1023px]:left-8 min-[1023px]:top-4 min-[1023px]:w-40 min-[1200px]:p-0 min-[1023px]:text-[0.8rem] min-[1200px]:left-[2.4rem] min-[1200px]:top-[1.2rem] min-[1200px]:text-base',
 
   footnote: 'mt-6 border-t-0 bg-white text-left md:mt-8',
   footnoteBody:
