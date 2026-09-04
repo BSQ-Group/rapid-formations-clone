@@ -11,9 +11,11 @@ const ROW_SPAN: Record<'header' | 'footer', Partial<Record<number, string>>> = {
   footer: { 2: s.footerTwo, 3: s.footerThree },
 }
 
+export const linksPackageName = (count: number) => count === 3
+
 const COLUMN_PROPS: Partial<Record<number, Partial<PackageColumnProps>>> = {
   2: { centered: true },
-  3: { showReadMore: true, linkName: true, tallPrices: true, fullWidthButtons: true },
+  3: { showReadMore: true, tallPrices: true, fullWidthButtons: true },
 }
 
 export const PackageRow: React.FC<{ data: TableData; variant: 'header' | 'footer' }> = ({
@@ -30,7 +32,13 @@ export const PackageRow: React.FC<{ data: TableData; variant: 'header' | 'footer
     <div className={cn(isFooter ? s.footer : s.header, ROW_SPAN[variant][count])}>
       {showIntro ? <Intro data={data} /> : <div className={s.column} />}
       {data.packages.map((pkg) => (
-        <PackageColumn key={pkg.id} pkg={pkg} showWhosItFor={showIntro} {...COLUMN_PROPS[count]} />
+        <PackageColumn
+          key={pkg.id}
+          pkg={pkg}
+          showWhosItFor={showIntro}
+          {...COLUMN_PROPS[count]}
+          linkName={linksPackageName(count)}
+        />
       ))}
     </div>
   )

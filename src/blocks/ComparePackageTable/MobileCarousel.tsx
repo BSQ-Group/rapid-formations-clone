@@ -10,6 +10,7 @@ import Text from '@/components/shared/Text'
 import { cn } from '@/utilities/ui'
 import { BuyNowLink } from './BuyNowLink'
 import { comparePackageTableStyles as s } from './ComparePackageTable.styles'
+import { linksPackageName } from './PackageRow'
 import { PriceStack } from './PriceStack'
 import type { TableData, TableProduct } from './types'
 
@@ -47,6 +48,7 @@ export const MobileCarousel: React.FC<{ data: TableData; cardHeight?: string | n
   cardHeight,
 }) => {
   const isMulti = data.packages.length > 1
+  const linkName = linksPackageName(data.packages.length)
   const descriptionModifier = DESCRIPTION_MIN_HEIGHT[cardHeight ?? '']
   const cards = data.packages.map((pkg) => ({
     pkg,
@@ -65,7 +67,7 @@ export const MobileCarousel: React.FC<{ data: TableData; cardHeight?: string | n
             <div className={s.mobilePackage}>
               <div className={s.mobileHeader}>
                 <Text as="h3" textStyle="span" className={s.mobileName}>
-                  {pkg.readMoreHref ? (
+                  {linkName && pkg.readMoreHref ? (
                     <Link href={pkg.readMoreHref} className={s.packageNameLink}>
                       {pkg.name}
                     </Link>
