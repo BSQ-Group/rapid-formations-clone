@@ -81,7 +81,7 @@ export const comparePackageTableStyles = {
 
   footnote: 'mt-6 border-t-0 bg-white text-left md:mt-8',
   footnoteBody:
-    'block text-[var(--text-on-light-muted)] [&_h3]:!mt-0 [&_h3]:!mb-2 [&_h3]:text-[26px] [&_h3]:font-normal [&_h3]:leading-[1.235] md:[&_h3]:text-[28px] [&_h3]:text-[var(--text-on-light-base)] [&_p]:!mb-4 [&_p]:text-[20px] [&_p]:leading-normal [&_ol]:list-decimal [&_ol]:pl-[15px] [&_ol_li]:pl-2 [&_ul]:list-disc [&_ul]:pl-5 [&_li]:!mb-0 [&_li]:text-[20px] [&_li]:leading-normal [&_strong]:text-[var(--text-on-light-strong)] [&_a]:text-[var(--text-brand-cyan)] [&_a]:no-underline [&_a:hover]:underline',
+    'flow-root text-[var(--text-on-light-muted)] [&_h3]:!mt-0 [&_h3]:!mb-2 [&_h3]:text-[26px] [&_h3]:font-normal [&_h3]:leading-[1.235] md:[&_h3]:text-[28px] [&_h3]:text-[var(--text-on-light-base)] [&_p]:!mb-4 [&_p]:text-[20px] [&_p]:leading-normal [&_ol]:!mb-4 [&_ol]:list-decimal [&_ol]:pl-[15px] [&_ol_li]:pl-2 [&_ul]:list-disc [&_ul]:pl-5 [&_li]:!mb-0 [&_li]:text-[20px] [&_li]:leading-normal [&_strong]:text-[var(--text-on-light-strong)] [&_a]:text-[var(--text-brand-cyan)] [&_a]:no-underline [&_a:hover]:underline',
 
   mobile: 'block md:hidden',
   carousel:
