@@ -18,19 +18,27 @@ const DESCRIPTION_MIN_HEIGHT: Record<string, string> = {
   taller: s.mobileDescriptionTaller,
 }
 
-const MOBILE_PRODUCT_ORDER_SWAP: Record<string, [before: string, after: string]> = {
+const MOBILE_PRODUCT_ORDER: Record<string, readonly string[]> = {
   'llp-package': ['6a8c21de554f4d9a40c07ad2', '6a8c21e2554f4d9a40c07af1'],
 }
 
-function applyMobileProductOrder(packageSlug: string, included: TableProduct[]): TableProduct[] {
-  const swap = MOBILE_PRODUCT_ORDER_SWAP[packageSlug]
-  if (!swap) return included
-  const [beforeId, afterId] = swap
-  const beforeIndex = included.findIndex((product) => product.id === beforeId)
-  const afterIndex = included.findIndex((product) => product.id === afterId)
-  if (beforeIndex === -1 || afterIndex === -1 || beforeIndex < afterIndex) return included
+const applyMobileProductOrder = (
+  packageSlug: string,
+  included: readonly TableProduct[],
+): TableProduct[] => {
+  const pinnedOrder = MOBILE_PRODUCT_ORDER[packageSlug]
+  if (!pinnedOrder) return [...included]
+
+  const productsById = new Map(included.map((product) => [product.id, product]))
+  const pinnedProducts = pinnedOrder.flatMap((id) => productsById.get(id) ?? [])
+  const pinnedSlots = included.flatMap((product, index) =>
+    pinnedProducts.includes(product) ? [index] : [],
+  )
+
   const reordered = [...included]
-  ;[reordered[afterIndex], reordered[beforeIndex]] = [reordered[beforeIndex], reordered[afterIndex]]
+  pinnedSlots.forEach((slot, index) => {
+    reordered[slot] = pinnedProducts[index]
+  })
   return reordered
 }
 
