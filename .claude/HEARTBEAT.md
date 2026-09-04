@@ -45,3 +45,7 @@
 11:16:58 | T30 | build green, cursor not reporting
 11:16:58 | T30 | set awaiting-user, report committed
 11:16:58 | T30 | waiting on vercel redeploy report commit
+11:17:25 | T26 | qDECISION: coord-gate FAIL on unrelated content, see details
+11:17:29 | T26 | capture step start: before/after/live 360
+11:18:50 | T26 | pr226 body+screenshots retrofitted per house format, images verified 200
+11:19:12 | T30 | build green, cursor clean, PR ready
