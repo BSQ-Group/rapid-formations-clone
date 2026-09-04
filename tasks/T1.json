@@ -4,9 +4,13 @@
   "title": "CORE-6963 · [RF] / — FAQ caret icon doesn't rotate/animate on open (Key questions accordion)",
   "body": "Linear: https://linear.app/bsq-group/issue/CORE-6963/rf-faq-caret-icon-doesnt-rotateanimate-on-open-key-questions-accordion\n\n(Reference only — the ticket is the source of truth; fetch the live description at implement time.)",
   "acceptanceCriteria": [
-    "Resolve CORE-6963 as specified in Linear (fetched live at implement time)."
+    "On the homepage \"Key questions about forming a company\" FAQ accordion, clicking a closed question opens it AND the caret/chevron icon visibly rotates with a smooth CSS transition (not an instant snap) — matching Live's `transition: all 0.35s ease` timing.",
+    "Clicking an open question closes it AND the caret rotates back with the same smooth transition (not instant).",
+    "The caret element itself has a non-zero, non-'none' `transition`/`transform` computed style difference between the collapsed and expanded (aria-expanded=true) states — i.e. it is not `transition-duration: 0s` / `transform: none` in both states as on the buggy clone.",
+    "Behaviour verified with a REAL click (not a CSS/DOM read) at all four breakpoints: 360 / 768 / 1024 / 1800 — collapsed screenshot AND open screenshot captured at each, showing the rotated indicator.",
+    "No visual regressions to the FAQ accordion block's layout/spacing/position (whole-block coordinate check passes at 360/768/1024/1800)."
   ],
-  "status": "backlog",
+  "status": "running",
   "track": "linear",
   "tags": [],
   "priority": "normal",
@@ -16,18 +20,28 @@
   "blocks": [],
   "deps": [],
   "multiBlockApproved": false,
-  "owner": null,
+  "owner": {
+    "sessionId": "pending",
+    "mode": "W",
+    "branch": "fix/core-6963-faq-caret-animation",
+    "worktree": null
+  },
   "supersededBy": null,
   "createdAt": "2026-09-01T13:50:58.980Z",
   "createdBy": "task-console",
-  "updatedAt": "2026-09-04T09:25:04.458Z",
-  "startedAt": null,
+  "updatedAt": "2026-09-04T12:20:25.621Z",
+  "startedAt": "2026-09-04T12:20:25.621Z",
   "completedAt": null,
   "statusHistory": [
     {
       "status": "backlog",
       "at": "2026-09-01T13:50:58.980Z",
       "by": "task-console"
+    },
+    {
+      "status": "running",
+      "at": "2026-09-04T12:20:25.621Z",
+      "by": "mode-x"
     }
   ],
   "qa": null,
