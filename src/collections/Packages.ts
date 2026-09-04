@@ -3,6 +3,7 @@ import { slugField } from 'payload'
 
 import { defaultLexical } from '@/fields/defaultLexical'
 import { link } from '@/fields/link'
+import { revalidatePackage, revalidatePackageDelete } from './hooks/revalidatePackages'
 import { anyone } from '../access/anyone'
 import { authenticated } from '../access/authenticated'
 
@@ -29,6 +30,10 @@ export const Packages: CollectionConfig = {
       'Company formation packages. A price, name or feature list lives here once and every compare-packages page that shows it reads from this record.',
   },
   defaultSort: 'order',
+  hooks: {
+    afterChange: [revalidatePackage],
+    afterDelete: [revalidatePackageDelete],
+  },
   fields: [
     {
       name: 'name',

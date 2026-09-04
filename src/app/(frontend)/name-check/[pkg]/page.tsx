@@ -11,7 +11,7 @@ import { getBrand, getDomainConfig } from '@/lib/brand'
 const PACKAGE_INDEX_HREF = '/compare-packages/'
 
 type Args = {
-  searchParams: Promise<{ pkg?: string }>
+  params: Promise<{ pkg: string }>
 }
 
 const queryPackageBySlug = cache(async (slug: string) => {
@@ -27,9 +27,21 @@ const queryPackageBySlug = cache(async (slug: string) => {
   return result.docs?.[0] ?? null
 })
 
-export default async function NameCheckPage({ searchParams }: Args) {
-  const { pkg } = await searchParams
-  const selected = pkg ? await queryPackageBySlug(pkg) : null
+export async function generateStaticParams() {
+  const payload = await getPayload({ config: configPromise })
+  const packages = await payload.find({
+    collection: 'packages',
+    limit: 100,
+    pagination: false,
+    select: { slug: true },
+  })
+
+  return packages.docs.flatMap((doc) => (doc.slug ? [{ pkg: doc.slug }] : []))
+}
+
+export default async function NameCheckPage({ params }: Args) {
+  const { pkg } = await params
+  const selected = await queryPackageBySlug(pkg)
 
   // Never default to a package: that sells Basic to someone who clicked Privacy.
   if (!selected?.name || !selected.checkoutPath) {
@@ -46,9 +58,9 @@ export default async function NameCheckPage({ searchParams }: Args) {
   )
 }
 
-export async function generateMetadata({ searchParams }: Args): Promise<Metadata> {
-  const { pkg } = await searchParams
-  const selected = pkg ? await queryPackageBySlug(pkg) : null
+export async function generateMetadata({ params }: Args): Promise<Metadata> {
+  const { pkg } = await params
+  const selected = await queryPackageBySlug(pkg)
   const { siteName } = getDomainConfig(getBrand())
 
   return {

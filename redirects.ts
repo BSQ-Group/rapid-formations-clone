@@ -20,15 +20,27 @@ export const redirects: NextConfig['redirects'] = async () => {
   // Must precede the catch-all — the only package whose URL slug isn't its package slug.
   const nameCheckLbgRedirect = {
     source: '/name-check-lbg-package',
-    destination: '/name-check/?pkg=limited-by-guarantee-package',
+    destination: '/name-check/limited-by-guarantee-package/',
     statusCode: 301,
   }
 
   const nameCheckRedirect = {
     source: '/name-check-:pkg([a-z0-9-]+-package)',
-    destination: '/name-check/?pkg=:pkg',
+    destination: '/name-check/:pkg/',
     statusCode: 301,
   }
 
-  return [internetExplorerRedirect, nameCheckLbgRedirect, nameCheckRedirect]
+  // Bare /name-check/ has no package to sell against; the [pkg] route can't answer it.
+  const nameCheckIndexRedirect = {
+    source: '/name-check',
+    destination: '/compare-packages/',
+    statusCode: 301,
+  }
+
+  return [
+    internetExplorerRedirect,
+    nameCheckLbgRedirect,
+    nameCheckRedirect,
+    nameCheckIndexRedirect,
+  ]
 }
