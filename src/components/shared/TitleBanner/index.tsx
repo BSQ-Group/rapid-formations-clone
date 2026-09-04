@@ -46,7 +46,7 @@ export const TitleBanner: React.FC<TitleBannerProps> = ({
           {variant === 'imageBleed' ? (
             media
           ) : (
-            <Container className={s.imageContainer}>{media}</Container>
+            <Container>{media}</Container>
           )}
         </div>
       </section>
