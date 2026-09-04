@@ -17,6 +17,19 @@
  * children of the last listitem of the list they follow — matching live's nesting
  * exactly. A heading (or anything else) breaks a run.
  *
+ * Two more artifacts of the same import produce PHANTOM `<li>` rows that the merge
+ * above doesn't touch, because they don't restart lettering (the browser's
+ * `list-style-type: none` + wrapper class already hides that) — they just add a
+ * content-less row live never has:
+ *   1. A "double-wrapped" list: `list > listitem(sole child: list) > list` — an
+ *      outer list whose only item exists purely to hold a nested list. Unwrapped to
+ *      the real inner list before it's used anywhere.
+ *   2. A wrapper listitem sitting as a SIBLING inside an existing list's own
+ *      children (not a root-level list) — a listitem whose children are entirely
+ *      `list` nodes, no text of its own. Live nests that sub-list directly inside
+ *      the PRECEDING clause's `<li>` instead of giving it a row of its own, so this
+ *      folds it there too.
+ *
  * MODES:
  *   bun scripts/fix-privacy-policy-clause-lists.ts          # DRY RUN (default).
  *                                                            #   Reads via the Payload
@@ -44,6 +57,42 @@ const isNumberList = (n: LexicalNode) => n.type === 'list' && n.listType === 'nu
 const isBulletList = (n: LexicalNode) => n.type === 'list' && n.listType === 'bullet'
 const isFoldable = (n: LexicalNode) => n.type === 'paragraph' || isBulletList(n)
 
+const isWrapperListItem = (n: LexicalNode): boolean =>
+  n.type === 'listitem' &&
+  (n.children?.length ?? 0) > 0 &&
+  (n.children as LexicalNode[]).every((c) => c.type === 'list')
+
+/** `list > listitem(sole child: list) > list` is a redundant double-wrap — unwrap
+ * to the real inner list (looping in case it's stacked more than once). */
+const unwrapDoubleList = (node: LexicalNode): LexicalNode => {
+  let n = node
+  while (
+    n.type === 'list' &&
+    n.children?.length === 1 &&
+    isWrapperListItem(n.children[0]) &&
+    n.children[0].children?.length === 1
+  ) {
+    n = (n.children[0].children as LexicalNode[])[0]
+  }
+  return n
+}
+
+/** Within one list's own children, a wrapper listitem (no text, only a nested
+ * list) folds into the PRECEDING sibling listitem instead of keeping its own row —
+ * matching live, which nests the sub-list inside the clause `<li>` it belongs to. */
+const foldWrapperSiblings = (items: LexicalNode[]): LexicalNode[] => {
+  const out: LexicalNode[] = []
+  for (const item of items) {
+    if (isWrapperListItem(item) && out.length > 0) {
+      const prev = out[out.length - 1]
+      prev.children = [...(prev.children ?? []), ...(item.children ?? [])]
+      continue
+    }
+    out.push(item)
+  }
+  return out
+}
+
 /** Merge a run of `list(number)` siblings (interrupted only by paragraphs/bullet
  * lists that belong nested inside the preceding clause) into one continuous list. */
 const mergeListRuns = (nodes: LexicalNode[]): LexicalNode[] => {
@@ -51,9 +100,16 @@ const mergeListRuns = (nodes: LexicalNode[]): LexicalNode[] => {
   let openList: LexicalNode | null = null
 
   for (const node of nodes) {
-    const recursed: LexicalNode = node.children
+    let recursed: LexicalNode = node.children
       ? { ...node, children: mergeListRuns(node.children) }
       : node
+
+    if (recursed.type === 'list') {
+      recursed = unwrapDoubleList(recursed)
+      if (recursed.children) {
+        recursed = { ...recursed, children: foldWrapperSiblings(recursed.children) }
+      }
+    }
 
     if (isNumberList(recursed)) {
       if (openList) {
@@ -143,6 +199,7 @@ async function main() {
     id: page.id,
     depth: 0,
     data: { layout: newLayout },
+    context: { disableRevalidate: true },
   })
 
   console.log('\nSaved.')

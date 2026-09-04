@@ -82,12 +82,7 @@ const packageCopy = {
 }
 
 const policy = {
-  // A nestedListItem wrapper hides its own marker via inline `list-style-type: none`,
-  // but that alone doesn't stop the browser's native lower-latin/lower-alpha counter
-  // from still claiming a letter for it — every clause after a nested sub-list drifts
-  // by one. `counter-increment: list-item 0` keeps the wrapper's slot from advancing
-  // the count, so real clauses keep the letters live gives them (CORE-7279).
-  lists: `${listsCore} ${nestedListInset} [&_ol>li]:list-[lower-latin] [&_li_ol]:!pl-[15px] [&_li_ol>li]:!my-0 [&_.nestedListItem]:[counter-increment:list-item_0]`,
+  lists: `${listsCore} ${nestedListInset} [&_ol>li]:list-[lower-latin] [&_li_ol]:!pl-[15px] [&_li_ol>li]:!my-0`,
 
   // A trailing ordered list keeps live's 8px bottom margin (flushLast zeroes it).
   trailingList: '[&>ol:last-child]:!mb-2',
@@ -98,11 +93,11 @@ const policy = {
     '[&_h3]:!leading-[25.688px] [&_h4]:!mt-4 [&_h4]:!mb-2 [&_h4]:text-xl [&_h4]:font-normal [&_h4]:leading-[27px] [&_h4]:text-[var(--text-on-light-base)] [&_ol+h2]:!mt-2 [&_ul+h2]:!mt-2 [&_p:has(+h2)]:!mb-2',
 
   // The source letters a clause's own bullet points (lower-alpha) but switches to
-  // roman numerals one level deeper — a bullet list nested inside a nestedListItem
-  // wrapper. It also packs those deeper items with no item-to-item gap, where the
-  // generic `[&_li]` rule below adds one (CORE-7279).
+  // roman numerals one level deeper — any `ul` nested inside a clause `<li>`. It
+  // also packs those deeper items with no item-to-item gap, where the generic
+  // `[&_li]` rule below adds one (CORE-7279).
   letteredLists:
-    '[&_ul]:!mb-6 [&_ul]:list-[lower-alpha] [&_li]:!my-2.5 [&_li]:!pl-2.5 [&_li:first-child]:!mt-0 [&_.nestedListItem_ul]:list-[lower-roman] [&_.nestedListItem_li]:!my-0',
+    '[&_ul]:!mb-6 [&_ul]:list-[lower-alpha] [&_li]:!my-2.5 [&_li]:!pl-2.5 [&_li:first-child]:!mt-0 [&_li_ul]:list-[lower-roman] [&_li_ul>li]:!my-0',
 
   table:
     '[&.payload-richtext_table]:!table-auto [&.payload-richtext_table]:!border-collapse [&.payload-richtext_table]:!border [&.payload-richtext_table]:!border-solid [&.payload-richtext_table]:!border-[color:var(--border-on-light)] [&.payload-richtext_table]:!my-6',
