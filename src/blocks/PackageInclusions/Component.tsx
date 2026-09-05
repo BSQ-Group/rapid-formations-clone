@@ -4,6 +4,7 @@ import type { PackageInclusionsBlock as PackageInclusionsBlockProps } from '@/pa
 
 import { getTierPriceMap } from '@/utilities/getPackagePrices'
 import { getLinkHref, type LinkData } from '@/utilities/links'
+import { checkoutPathFor } from '@/lib/nameCheck/checkoutPaths'
 import { PackageInclusionsView } from './PackageInclusionsView'
 
 export const PackageInclusionsBlock: React.FC<PackageInclusionsBlockProps> = async ({
@@ -22,6 +23,7 @@ export const PackageInclusionsBlock: React.FC<PackageInclusionsBlockProps> = asy
   }
 
   const buyLink = cta as LinkData | undefined
+  const ctaHref = getLinkHref(buyLink)
 
   return (
     <PackageInclusionsView
@@ -30,7 +32,8 @@ export const PackageInclusionsBlock: React.FC<PackageInclusionsBlockProps> = asy
       price={price}
       priceNote={priceNote}
       ctaLabel={buyLink?.label}
-      ctaHref={getLinkHref(buyLink)}
+      ctaHref={ctaHref}
+      ctaCheckoutPath={await checkoutPathFor(ctaHref)}
       ctaNewTab={buyLink?.newTab}
       sectionLayout={sectionLayout}
     />

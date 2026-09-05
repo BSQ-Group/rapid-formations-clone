@@ -1,5 +1,6 @@
 import React from 'react'
-import Link from 'next/link'
+
+import { OrderLink } from '@/components/shared/OrderLink'
 import { faBadgeCheck } from '@fortawesome/pro-solid-svg-icons/faBadgeCheck'
 import { faCashRegister } from '@fortawesome/pro-solid-svg-icons/faCashRegister'
 import { faDesktop } from '@fortawesome/pro-solid-svg-icons/faDesktop'
@@ -66,6 +67,7 @@ export type PackageInclusionsViewProps = {
   priceNote?: string | null
   ctaLabel?: string | null
   ctaHref?: string
+  ctaCheckoutPath?: string | null
   ctaNewTab?: boolean | null
   sectionLayout?: PackageInclusionsBlock['sectionLayout']
 }
@@ -77,6 +79,7 @@ export const PackageInclusionsView: React.FC<PackageInclusionsViewProps> = ({
   priceNote,
   ctaLabel,
   ctaHref,
+  ctaCheckoutPath,
   ctaNewTab,
   sectionLayout,
 }) => {
@@ -107,13 +110,14 @@ export const PackageInclusionsView: React.FC<PackageInclusionsViewProps> = ({
               {ctaLabel && ctaHref && (
                 <div className={s.buttons}>
                   <Button variant="success" size="promo" asChild>
-                    <Link
+                    <OrderLink
                       href={ctaHref}
+                      checkoutPath={ctaCheckoutPath}
                       target={ctaNewTab ? '_blank' : undefined}
                       rel={ctaNewTab ? 'noopener noreferrer' : undefined}
                     >
                       {ctaLabel}
-                    </Link>
+                    </OrderLink>
                   </Button>
                 </div>
               )}

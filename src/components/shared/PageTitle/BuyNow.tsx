@@ -1,5 +1,6 @@
 import React from 'react'
-import Link from 'next/link'
+
+import { OrderLink } from '@/components/shared/OrderLink'
 
 import type { PageTitleBlock } from '@/payload-types'
 
@@ -7,6 +8,7 @@ import Text from '@/components/shared/Text'
 import { Button } from '@/components/ui/button'
 import { getLinkHref, type LinkData } from '@/utilities/links'
 import { getTierPriceMap } from '@/utilities/getPackagePrices'
+import { getCheckoutPaths, nameCheckSlug } from '@/lib/nameCheck/checkoutPaths'
 import { pageTitleStyles as s } from './PageTitle.styles'
 
 type BuyNowValue = NonNullable<PageTitleBlock['buyNow']>
@@ -16,6 +18,8 @@ export type BuyNowButton = {
   href: string
   newTab?: boolean | null
   variant: 'success' | 'secondary'
+  /** Set only for a name-check href, so Buy Now can skip that step. */
+  checkoutPath?: string | null
 }
 
 export const BuyNowView: React.FC<{
@@ -37,15 +41,16 @@ export const BuyNowView: React.FC<{
       )}
       {buttons.length > 0 && (
         <div className={s.buttons}>
-          {buttons.map(({ label, href, newTab, variant }) => (
+          {buttons.map(({ label, href, newTab, variant, checkoutPath }) => (
             <Button key={label} variant={variant} size="promo" asChild>
-              <Link
+              <OrderLink
                 href={href}
+                checkoutPath={checkoutPath}
                 target={newTab ? '_blank' : undefined}
                 rel={newTab ? 'noopener noreferrer' : undefined}
               >
                 {label}
-              </Link>
+              </OrderLink>
             </Button>
           ))}
         </div>
@@ -68,8 +73,13 @@ export const BuyNow: React.FC<{
     toButton(buyNow?.secondaryCta as LinkData | undefined, 'secondary'),
   ].filter(Boolean) as BuyNowButton[]
 
+  // Only pay for the lookup when a button actually points at the name-check step.
+  const slugs = buttons.map((b) => nameCheckSlug(b.href))
+  const checkoutPaths = slugs.some(Boolean) ? await getCheckoutPaths() : {}
+  const withCheckout = buttons.map((b, i) => ({ ...b, checkoutPath: checkoutPaths[slugs[i] ?? ''] }))
+
   const price =
     buyNow?.price || (packageSlug ? (await getTierPriceMap()).get(packageSlug) : undefined)
 
-  return <BuyNowView price={price} priceSuffix={buyNow?.priceSuffix} buttons={buttons} />
+  return <BuyNowView price={price} priceSuffix={buyNow?.priceSuffix} buttons={withCheckout} />
 }

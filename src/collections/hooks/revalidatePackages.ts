@@ -1,6 +1,6 @@
 import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'payload'
 
-import { revalidatePath } from 'next/cache'
+import { revalidatePath, revalidateTag } from 'next/cache'
 
 import type { Package } from '../../payload-types'
 
@@ -14,6 +14,9 @@ export const revalidatePackage: CollectionAfterChangeHook<Package> = ({
   req: { payload, context },
 }) => {
   if (context.disableRevalidate) return doc
+
+  // Order buttons resolve checkoutPath through this tag.
+  revalidateTag('packages', 'max')
 
   for (const path of new Set([nameCheckPath(doc.slug), nameCheckPath(previousDoc?.slug)])) {
     if (!path) continue
@@ -29,6 +32,7 @@ export const revalidatePackageDelete: CollectionAfterDeleteHook<Package> = ({
   req: { context },
 }) => {
   if (!context.disableRevalidate) {
+    revalidateTag('packages', 'max')
     const path = nameCheckPath(doc?.slug)
     if (path) revalidatePath(path)
   }

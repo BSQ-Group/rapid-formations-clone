@@ -6,6 +6,7 @@ import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 import Text from '@/components/shared/Text'
 import { FaIcon } from '@/components/shared/FaIcon'
 import { InfoTooltip } from '@/components/shared/InfoTooltip'
+import { OrderLink } from '@/components/shared/OrderLink'
 import { cn } from '@/utilities/ui'
 import { packageGridCardStyles as s } from './PackageGridCard.styles'
 
@@ -28,6 +29,8 @@ export interface PackageGridCardProps {
   highlights?: PackageGridCardHighlight[] | null
   buyHref?: string | null
   buyLabel?: string | null
+  /** Lets Buy Now skip the name-check step once a name has been checked. */
+  buyCheckoutPath?: string | null
   readMoreHref?: string | null
   readMoreLabel?: string | null
   className?: string
@@ -44,6 +47,7 @@ export const PackageGridCard: React.FC<PackageGridCardProps> = ({
   highlights,
   buyHref,
   buyLabel,
+  buyCheckoutPath,
   readMoreHref,
   readMoreLabel,
   className,
@@ -71,9 +75,9 @@ export const PackageGridCard: React.FC<PackageGridCardProps> = ({
       {description && <Text as="p" textStyle="span" text={description} className={s.description} />}
       {buyHref && buyLabel && (
         <div className={s.buyGroup}>
-          <Link href={buyHref} className={s.buyButton}>
+          <OrderLink href={buyHref} checkoutPath={buyCheckoutPath} className={s.buyButton}>
             {buyLabel}
-          </Link>
+          </OrderLink>
         </div>
       )}
       {highlights && highlights.length > 0 && (
