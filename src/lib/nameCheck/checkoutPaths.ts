@@ -1,3 +1,4 @@
+import { cache } from 'react'
 import { unstable_cache } from 'next/cache'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
@@ -13,23 +14,29 @@ export function nameCheckSlug(href?: string | null): string | null {
 /**
  * slug → checkoutPath for every package. Cannot be derived from the slug: Limited by
  * Guarantee and LLP check out at paths that don't match theirs.
+ *
+ * `cache` dedupes concurrent callers within one render, `unstable_cache` across
+ * them. Without the outer wrap, N calls started in the same tick all miss the cold
+ * cache and each runs its own query.
  */
-export const getCheckoutPaths = unstable_cache(
-  async (): Promise<Record<string, string>> => {
-    const payload = await getPayload({ config: configPromise })
-    const { docs } = await payload.find({
-      collection: 'packages',
-      limit: 100,
-      pagination: false,
-      select: { slug: true, checkoutPath: true },
-    })
+export const getCheckoutPaths = cache(
+  unstable_cache(
+    async (): Promise<Record<string, string>> => {
+      const payload = await getPayload({ config: configPromise })
+      const { docs } = await payload.find({
+        collection: 'packages',
+        limit: 100,
+        pagination: false,
+        select: { slug: true, checkoutPath: true },
+      })
 
-    return Object.fromEntries(
-      docs.flatMap((doc) => (doc.slug && doc.checkoutPath ? [[doc.slug, doc.checkoutPath]] : [])),
-    )
-  },
-  ['name-check-checkout-paths'],
-  { tags: ['packages'] },
+      return Object.fromEntries(
+        docs.flatMap((doc) => (doc.slug && doc.checkoutPath ? [[doc.slug, doc.checkoutPath]] : [])),
+      )
+    },
+    ['name-check-checkout-paths'],
+    { tags: ['packages'] },
+  ),
 )
 
 /** The checkoutPath a name-check href leads to, or null if it isn't one. */
