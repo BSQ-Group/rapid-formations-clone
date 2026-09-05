@@ -12,12 +12,8 @@ export function nameCheckSlug(href?: string | null): string | null {
 }
 
 /**
- * slug → checkoutPath for every package. Cannot be derived from the slug: Limited by
- * Guarantee and LLP check out at paths that don't match theirs.
- *
- * `cache` dedupes concurrent callers within one render, `unstable_cache` across
- * them. Without the outer wrap, N calls started in the same tick all miss the cold
- * cache and each runs its own query.
+ * slug → checkoutPath; not derivable, LBG and LLP diverge. `cache` dedupes
+ * concurrent callers in one render, which `unstable_cache` alone cannot.
  */
 export const getCheckoutPaths = cache(
   unstable_cache(

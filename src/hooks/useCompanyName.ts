@@ -42,8 +42,8 @@ export function notifyCompanyNameChanged() {
 }
 
 /**
- * The company name saved by a successful name check, or null. Server render and
- * first paint both see null, so a static page stays static and hydration matches.
+ * The name saved by a successful check, or null. Server and first paint both see
+ * null, so static pages stay static and hydration matches.
  */
 export function useCompanyName(): string | null {
   return useSyncExternalStore(subscribe, getSnapshot, () => null)

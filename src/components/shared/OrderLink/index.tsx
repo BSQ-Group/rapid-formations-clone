@@ -14,9 +14,8 @@ export type OrderLinkProps = Omit<React.ComponentProps<typeof Link>, 'href'> & {
 }
 
 /**
- * A Buy/Order link that skips the name-check step once a name has been checked and
- * found available, carrying that name into checkout — matching legacy, which re-aims
- * these hrefs from the `company-name` cookie on every page.
+ * Skips the name-check step once a name is saved available, as legacy does by
+ * re-aiming these hrefs from the `company-name` cookie.
  */
 export const OrderLink: React.FC<OrderLinkProps> = ({
   href,
