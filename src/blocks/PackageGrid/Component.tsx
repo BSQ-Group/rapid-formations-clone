@@ -7,7 +7,7 @@ import Text from '@/components/shared/Text'
 import { getLinkHref, type LinkData } from '@/utilities/links'
 import { Container } from '@/components/shared/Container/Container'
 import { PackageGridCard } from '@/components/shared/PackageGridCard'
-import { checkoutPathFor } from '@/lib/nameCheck/checkoutPaths'
+import { getCheckoutPaths, nameCheckSlug } from '@/lib/nameCheck/checkoutPaths'
 import { packageGridStyles as s } from './PackageGrid.styles'
 
 function href(link: unknown): string | null {
@@ -26,7 +26,9 @@ export const PackageGridBlock = async ({
 }: PackageGridBlockProps) => {
   if (!packages?.length) return null
 
-  const checkoutPaths = await Promise.all(packages.map((pkg) => checkoutPathFor(href(pkg.buyLink))))
+  // Only pay for the lookup when a Buy button actually points at the name-check step.
+  const slugs = packages.map((pkg) => nameCheckSlug(href(pkg.buyLink)))
+  const checkoutPaths = slugs.some(Boolean) ? await getCheckoutPaths() : {}
 
   const compareHref = href(compareLink)
 
@@ -54,7 +56,7 @@ export const PackageGridBlock = async ({
               highlights={pkg.highlights}
               buyHref={href(pkg.buyLink)}
               buyLabel={pkg.buyLink?.label}
-              buyCheckoutPath={checkoutPaths[index]}
+              buyCheckoutPath={checkoutPaths[slugs[index] ?? '']}
               readMoreHref={href(pkg.readMoreLink)}
               readMoreLabel={pkg.readMoreLink?.label}
             />

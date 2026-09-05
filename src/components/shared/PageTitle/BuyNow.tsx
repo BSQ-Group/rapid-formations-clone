@@ -8,7 +8,7 @@ import Text from '@/components/shared/Text'
 import { Button } from '@/components/ui/button'
 import { getLinkHref, type LinkData } from '@/utilities/links'
 import { getTierPriceMap } from '@/utilities/getPackagePrices'
-import { checkoutPathFor } from '@/lib/nameCheck/checkoutPaths'
+import { getCheckoutPaths, nameCheckSlug } from '@/lib/nameCheck/checkoutPaths'
 import { pageTitleStyles as s } from './PageTitle.styles'
 
 type BuyNowValue = NonNullable<PageTitleBlock['buyNow']>
@@ -73,9 +73,10 @@ export const BuyNow: React.FC<{
     toButton(buyNow?.secondaryCta as LinkData | undefined, 'secondary'),
   ].filter(Boolean) as BuyNowButton[]
 
-  const withCheckout = await Promise.all(
-    buttons.map(async (b) => ({ ...b, checkoutPath: await checkoutPathFor(b.href) })),
-  )
+  // Only pay for the lookup when a button actually points at the name-check step.
+  const slugs = buttons.map((b) => nameCheckSlug(b.href))
+  const checkoutPaths = slugs.some(Boolean) ? await getCheckoutPaths() : {}
+  const withCheckout = buttons.map((b, i) => ({ ...b, checkoutPath: checkoutPaths[slugs[i] ?? ''] }))
 
   const price =
     buyNow?.price || (packageSlug ? (await getTierPriceMap()).get(packageSlug) : undefined)
